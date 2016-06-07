@@ -1,0 +1,65 @@
+<?php
+$this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+
+$this->headScript()->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/planejamento/acao/add.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center" >
+    <div class="row">
+        <div class="portlet portlet-marron span13">
+            <div class="title">Cadastrar Ação</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span12">
+                            <div class="row">
+                                <div class="span6">
+                                    <?php echo $this->form->nomacao; ?>
+                                </div>
+                                <div class="span2">
+                                    <?php echo $this->form->flaativo; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span12">
+                            <div class="row">
+                                <div class="span6">
+                                    <?php echo $this->form->idobjetivo; ?>
+                                </div>
+                                <div class="span2">
+                                    <?php echo $this->form->idescritorio; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span12">
+                            <div class="row">
+                                <div class="span2">
+                                    <?php echo $this->form->desacao; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span5">
+                                <?php echo $this->form->idacao; ?>
+                                <?php echo $this->form->submit; ?>
+                                <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

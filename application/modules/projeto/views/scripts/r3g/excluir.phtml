@@ -1,0 +1,71 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <div class="content">
+            <input type="hidden" id="idr3g" name="idr3g" value="<?php echo $this->r3g->idr3g; ?>"/>
+            <div class="row">
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Data Detecção</div>
+                    <div class="content"><?php echo $this->r3g->datdeteccao->toString('d/m/Y'); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Tipo</div>
+                    <div class="content"><?php echo $this->r3g->domtipo; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Prazo Projeto</div>
+                    <div class="content"><?php echo $this->r3g->domcorprazoprojeto; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Planejado</div>
+                    <div class="content"><?php echo $this->r3g->desplanejado; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Realizado</div>
+                    <div class="content"><?php echo $this->r3g->desrealizado; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Consequência</div>
+                    <div class="content"><?php echo $this->r3g->desconsequencia; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Causa</div>
+                    <div class="content"><?php echo $this->r3g->descausa;?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <div class="title">Contramedida</div>
+                    <div class="content"><?php echo $this->r3g->descontramedida;?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Prazo</div>
+                    <div class="content"><?php echo $this->r3g->datprazocontramedida->toString('d/m/Y'); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Tendência/Real</div>
+                    <div class="content"><?php echo $this->r3g->datprazocontramedidaatraso->toString('d/m/Y'); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Responsável</div>
+                    <div class="content"><?php echo $this->r3g->desresponsavel; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Status Contramedida</div>
+                    <div class="content"><?php echo $this->r3g->domstatuscontramedida; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Efetiva?</div>
+                    <div class="content"><?php echo $this->r3g->flacontramedidaefetiva; ?></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

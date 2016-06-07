@@ -1,0 +1,114 @@
+<?php
+$this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ;
+
+$this->headScript()->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    //->appendFile($this->baseUrl('/js/app/_partial/grid-pessoa.js'), 'text/javascript')
+
+    ->appendFile($this->baseUrl('/js/app/processo/index/add.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center" >
+    <div class="row">
+        <div class="portlet portlet-marron span13">
+            <div class="title">Cadastrar Processo</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idprocessopai; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->nomprocesso; ?>
+                        </div>
+                    </div>
+                    <div class="row container-pessoa">
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomdono->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->nomdono->renderViewHelper(); ?>
+                                    <?php echo $this->form->iddono; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomgestor->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->idgestor; ?>
+                                    <?php echo $this->form->nomgestor->renderViewHelper(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomexecutor->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->idexecutor; ?>
+                                    <?php echo $this->form->nomexecutor->renderViewHelper(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomconsultor->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->idconsultor; ?>
+                                    <?php echo $this->form->nomconsultor->renderViewHelper(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;">
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomcodigo; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idsetor; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->numvalidade; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span2">
+                            <?php echo $this->form->desprocesso; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->idprocesso; ?>
+                            <?php echo $this->form->submit; ?>
+                            <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Doughnut</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+    {region: "Asia", val: 4119626293},
+    {region: "Africa", val: 1012956064},
+    {region: "Northern America", val: 344124520},
+    {region: "Latin America and the Caribbean", val: 590946440},
+    {region: "Europe", val: 727082222},
+    {region: "Oceania", val: 35104756}
+];
+
+$("#chartContainer").dxPieChart({
+    dataSource: dataSource,
+    title: "The Population of Continents and Regions",
+	tooltip: {
+		enabled: true,
+		format:"millions",
+		percentPrecision: 2,
+		customizeText: function() { 
+			return this.valueText + " - " + this.percentText;
+		}
+	},
+	legend: {
+		horizontalAlignment: "right",
+		verticalAlignment: "top",
+		margin: 0
+	},
+	series: [{
+		type: "doughnut",
+		argumentField: "region",
+		label: {
+			visible: true,
+			format: "millions",
+			connector: {
+				visible: true
+			}
+		}
+	}]
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Pie</h1>&nbsp;&nbsp;&nbsp;<h2>Simple</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

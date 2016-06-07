@@ -1,0 +1,59 @@
+
+<div class="row">
+    
+    
+    <div class="portlet portlet-azul span9">
+        <h3>Nome Evento</h3>
+        <div class="content">
+            <?php echo $this->evento->nomevento; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data In&iacute;cio</h3>
+        <div class="content">
+            <?php echo $this->dateBr($this->evento->datinicio); ?>
+        </div>
+    </div>
+   <div class="portlet portlet-cinza span2">
+        <h3>Data Fim</h3>
+        <div class="content">
+            <?php echo $this->dateBr($this->evento->datfim); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1">
+        <h3>UF</h3>
+        <div class="content">
+            <?php echo $this->evento->uf; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <h3>Respons&aacute;vel</h3>
+        <div class="content">
+            <?php echo $this->evento->nomresponsavel; ?>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="portlet portlet-cinza span9">
+        <h3>Descri&ccedil;&atilde;o do Evento</h3>
+        <div class="content"> 
+            <?php echo $this->evento->desevento; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span9">
+        <h3>Observa&ccedil;&atilde;o</h3>
+        <div class="content"> 
+            <?php echo $this->evento->desobs; ?>
+        </div>
+    </div>
+</div>   
+
+
+
+           
+
+
+
+
+

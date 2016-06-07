@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->headTitle('GEPNET 2'); ?>
+        <?php
+        // Framework CSS
+        $this->headLink()
+            ->prependStylesheet($this->baseUrl('/js/library/bootstrap/css/bootstrap-responsive.min.css'), 'screen, projection')
+            ->prependStylesheet($this->baseUrl('/js/library/bootstrap/css/bootstrap.min.css'), 'screen, projection')
+            ->appendStylesheet($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/css/custom-theme/jquery-ui-1.8.24.custom.css', 'screen, projection'))
+            ->appendStylesheet($this->baseUrl('/js/library/jquery.layout-default.css'))
+            ->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.default.css'))
+            ->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/icons/jquery.pnotify.default.icons.css'))
+            ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+            ->appendStylesheet($this->baseUrl('/js/library/kendoui.web/styles/kendo.common.min.css'))
+            ->appendStylesheet($this->baseUrl('/js/library/kendoui.web/styles/kendo.bootstrap.min.css'))
+            ->appendStylesheet($this->baseUrl('/css/layout.css'), 'screen, projection')
+        ;
+        // Library JS
+        //echo $this->minifyHeadScript()
+        /*
+          $this->jquery()
+          ;
+         */
+        $this->headScript()
+            //->prependFile($this->baseUrl('/js/library/jquery-migrate-1.1.0.js'))
+            // ->prependFile($this->baseUrl('/js/library/kendoui.web/js/jquery.min.js'))
+            
+            ->prependFile($this->baseUrl('/js/library/kendoui.web/js/kendo.menu.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/kendoui.web/js/kendo.popup.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/kendoui.web/js/kendo.core.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/layout.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/bootstrap/js/bootstrap.min.js'))
+            ->prependFile($this->baseUrl('/js/library/jquery.layout.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/js/jquery-ui-1.8.24.custom.min.js'), 'text/javascript')
+            ->prependFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/js/jquery-1.8.2.min.js'), 'text/javascript')
+
+        ;
+        ?>
+        <?php echo $this->headLink(); ?>
+        <?php //echo $this->jquery(); ?>
+        <?php echo $this->headScript(); ?>
+        <?php echo $this->inlineScript(); ?>
+    </head>
+    <body>
+        <div class="ui-layout-north" style="overflow:visible;">
+            <div id="portal-header">
+                <div id="info-site" class="span12">
+                    <div id="info-site-orgao">
+                    Informe aqui seu orgão		
+                </div>
+                <div id="info-site-gestor">
+                    Informe aqui seu orgão e/ou divisão
+                </div>
+                <div id="info-site-sistema">
+                    GEPNET - Gestor de Escritórios de Projetos
+                </div>
+                <div id="info-site-versao">
+                    Versão 2.1.1 - Portal SPB		
+                </div>
+                </div>
+                <?php echo $this->usuario(); ?>
+            </div>
+            <div class="navbar" style="overflow:visible;">
+                <?= $this->navigation()->menu(); ?>
+            </div>
+            <div class=" content-breadcrumb">
+
+            <?= $this->navigation()
+                    ->breadcrumbs()->setRenderInvisible(true)
+                    ->setPartial('navigation_twitter_bread.phtml')->render();
+
+                //->setMinDepth(0)
+                //->setMaxDepth(10)
+            ?>
+            </div>
+        </div>
+
+        <div class="ui-layout-center" style="overflow:visible;">
+            <h2><?php echo $this->escape($this->title); ?></h2>
+            <?php echo $this->layout()->content; ?>
+
+            <?php
+            //echo $this->partial('_partials/novos-recursos.phtml', array('dados' => $this->dados));
+            ?>
+
+        </div>
+
+
+        <div class="ui-layout-south">
+            <div id="rodape">
+                <div id="rodape_copy">
+                    <div class="rodape_content">
+                        &copy; 2010-2016 Polícia Federal – Registro INPI BR 51 2014 000773-1 - Distribuido sob a Licença GPL 2.0
+                    </div>
+                </div>
+            </div><!--rodape-->
+        </div>
+        <div id="ajax-indicator" style="display: none;"><img src="<?= $this->baseUrl('/img/ajax-loader.gif'); ?>" /></div>
+        
+<!--        <div id="dialog-perfil" style="display: none;">
+            <?php
+            //echo $this->action('mudar-perfil', 'index', 'default');
+            ?>
+        </div>-->
+        <!-- jquery layout -->
+    </body>
+</html>

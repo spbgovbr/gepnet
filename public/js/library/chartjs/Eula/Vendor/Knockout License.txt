@@ -1,0 +1,6 @@
+The following open source libraries are used and included within this DEVELOPER EXPRESS INC SOFTWARE COMPONENT PRODUCT(S):
+
+Knockout JavaScript Library (Open Source - MIT License) 
+Copyright © Knockoutjs.com
+http://knockoutjs.com/
+http://opensource.org/licenses/mit-license.php

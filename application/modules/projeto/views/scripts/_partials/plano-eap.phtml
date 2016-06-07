@@ -1,0 +1,20 @@
+<div align="left" class="span4" style="margin-top: 60px">
+    <h5>1. DECLARA&Ccedil;&Atilde;O DO ESCOPO/QUALIDADE</h5>
+</div>
+<div align="left" class="span4">
+    <h5>1.1 ESTRUTURA ANAL&Iacute;TICA DO PROJETO - EAP </h5>
+</div>
+<div style="margin-top: 20px">
+    <?php foreach ($this->projetos->grupos as $grupo): ?>
+        <div  style="margin-left: 10px;width: 150px;float:left;">
+            <div style="height: 55px;text-align: center;line-height:55px;border:0.1mm solid #220044; background-color: #f0f2ff;">
+                <b><?= $grupo->nomatividadecronograma; ?></b>
+            </div>
+            <?php foreach ($grupo->entregas as $entrega): ?>
+                <div align="center">
+                    <b><?= $entrega->nomatividadecronograma; ?></b>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>

@@ -1,0 +1,110 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        
+        ->appendFile($this->baseUrl('/js/app/projeto/r3g/add.js'), 'text/javascript')
+;
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <div class="portlet portlet-marron span12">
+        <!--<h3>R3g - Imprevistos e Contramedidas</h3>-->
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <fieldset>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->datdeteccao; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->domtipo; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->domcorprazoprojeto; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->desplanejado; ?>
+                        </div>
+                        <div class="span5">
+                            <?php echo $this->form->desrealizado; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->desconsequencia; ?>
+                        </div>
+                        <div class="span5">
+                            <?php echo $this->form->descausa; ?>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Contramedida R3G</legend>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo $this->form->descontramedida; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span2">
+                            <?php echo $this->form->datprazocontramedida; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datprazocontramedidaatraso; ?>
+                        </div>
+                        <div class="row container-pessoa">
+                            <div class="span3">
+                                <div class="control-group">
+                                    <?php echo $this->form->desresponsavel->renderLabel(); ?>
+                                    <div class="input-prepend ">
+                                        <?php echo $this->form->pessoabutton; ?>
+                                        <?php echo $this->form->desresponsavel->renderViewHelper(); ?>
+                                        <?php echo $this->form->idresponsavel; ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <?php echo $this->form->domstatuscontramedida; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->flacontramedidaefetiva; ?>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;"></div>
+                    <div class="row">
+                        <div class="span5">
+                            <input type="hidden" id="idprojeto" name="idprojeto" value="<?php echo $this->idprojeto;?>">
+                            <?php echo $this->form->submit; ?>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

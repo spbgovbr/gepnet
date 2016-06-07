@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Simplest Chart</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   $("#chartContainer").dxChart({
+    dataSource: [
+        {day: "Monday", oranges: 3},
+        {day: "Tuesday", oranges: 2},
+        {day: "Wednesday", oranges: 3},
+        {day: "Thursday", oranges: 4},
+        {day: "Friday", oranges: 6},
+        {day: "Saturday", oranges: 11},
+        {day: "Sunday", oranges: 4} ],
+ 
+    series: {
+        argumentField: "day",
+        valueField: "oranges",
+        name: "My oranges",
+        type: "bar",
+        color: "orange"
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Bar Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits"></div>
+			</div>
+		</div>
+	</body>
+</html>

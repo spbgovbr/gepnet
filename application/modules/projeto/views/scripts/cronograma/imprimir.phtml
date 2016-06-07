@@ -1,0 +1,247 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/cronograma.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/grupo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/entrega.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/atividade.js'), 'text/javascript')
+;
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'eap', 'idprojeto' => $this->idprojeto));
+    ?>
+</div>
+
+<div class="region-center">  
+    
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>">
+    
+    <div id="dados-projeto"></div>
+    <div class="row" data-spy="affix" data-offset-top="200">
+        <div class="toolbar-cronograma">
+            <div class="btn-toolbar">
+                <a class="btn btn-imprimir-cronograma-pdf" title="Imprimir Cronograma PDF" href="<?php echo $this->baseUrl('/projeto/cronograma/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>" target="_blank"><i class="icon-download-alt"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <table id="cronograma-titulos" class="table table-hover table-striped table-condensed">
+        <tr>
+             <td>
+                <div class="row">
+                    <div class="cron-radio" style="margin-left: 25px !important">#</div>
+                    <div class="nome-grupo" style="width: 280px !important;">Grupo/Entrega/Atividade</div>
+                    <div class="cron-perdecessoras" style="padding-left: 20px;">(<abbr title="Predecessoras">P</abbr>)</div>
+                    <div class="cron-datas"style="margin-left: -30px;">Baseline(Planejado)</div>
+                    <div class="cron-dias">(<abbr title="Quantidade de dias da base line">D/P</abbr> )</div>
+                    <div class="cron-custo">Custo</div>
+                    <div class="cron-datas-reais">In&iacute;cio/Fim(Realizado)</div>
+                    <div class="cron-datas" style="width: 40px !important; margin-left : 0px; padding-left: 10px;">(<abbr title="Quantidade de dias realizados">D/R</abbr> )</div>
+                    <div class="cron-percentual" style="width: 40px !important; padding-left: 40px;"><abbr title="Percentual de conclusão">%</abbr></div>
+                    <div class="cron-responsavel" style="margin-left: 4px;">Respons&aacute;vel</div>
+                    <div class="cron-info" style="margin-left: 42px;">Farol</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="container-grupo"  style="height: 100%; overflow-y: scroll;">
+        
+    </div>
+</div>
+<div class="region-east">
+    
+</div>
+<script id="tpl-atividade" type="text/x-handlebars-template">
+    <div class="atividade" id="at{{idatividadecronograma}}" data-date="{{datiniciobaseline}}">
+        <div class="item-cronograma {{retornaDescricaoConclusao}}">
+            {{#compare domtipoatividade "eq" "3"}}
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-atividade" value="{{idatividadecronograma}}" data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+                </div>
+                <div class="nome-atividade" style="width: 280px !important;">
+                    <div class="container-atividade" style="width: 250px !important;">
+                        <i class="icon-list-alt"></i> {{nomatividadecronograma}}
+                    </div>
+                </div>
+            {{else}}
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma item-marco" data-group=".btn-group-atividade" value="{{idatividadecronograma}}" data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+                </div>
+                <div class="nome-atividade" style="width: 280px !important;">
+                    <div class="container-atividade" style="width: 280px !important;">
+                        <i class="icon-flag"></i> {{nomatividadecronograma}}
+                    </div>
+                </div>
+            {{/compare}}
+            <div class="cron-perdecessoras">
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -50px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} à {{datfim}}
+            </div>
+            <div class="cron-percentual">
+                {{numdiasrealizados}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{prazo}}">{{prazo}}</span>
+            </div>
+        </div>
+          {{#if predecessoras.length}}
+            {{#each predecessoras}}
+                <div class="item-cronograma {{retornaDescricaoConclusao}}">
+                <div class="cron-radio">
+                </div>
+                    <div class="nome-predecessora">
+                        <div class="container-atividade">
+                            (<abbr title="Predecessoras">P</abbr>)
+                            {{nomatividadecronograma}} 
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        {{/if}}
+    </div>
+</script>
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    {{#each grupos}}
+        <div class="row grupo" id="gr{{idatividadecronograma}}">
+            <div class="item-cronograma">
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-grupo" value="{{idatividadecronograma}}">
+                </div>
+                <div class="nome-grupo" style="width: 280px !important;">
+                    <i class="icon-folder-open"></i> {{nomatividadecronograma}}
+                </div>
+                <div class="cron-perdecessoras">
+                    
+                </div>
+                <div class="cron-datas" style="width: 140px !important; margin-left :-10px;">
+                    {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+                </div>
+                <div class="cron-dias">
+                    {{diasbaseline}}
+                </div>
+                <div class="cron-custo">
+                    {{vlratividade}}
+                </div>
+                <div class="cron-datas-reais">
+                    {{datinicio}} &agrave; {{datfim}}
+                </div>
+                <div class="cron-percentual">
+                {{diasreal}}
+                </div>
+                <div class="cron-percentual">
+                    {{numpercentualconcluido}}%
+                </div>
+                <div class="cron-responsavel">
+                    
+                </div>
+                <div class="cron-info">
+                </div>
+            </div>
+            <div class="container-entrega">
+                {{#each entregas}}
+                    {{> helperEntrega}}
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+    <div class="rodape-cronograma row span7 affix-bottom"> {{contGrupo}} grupo(s), {{contEntrega}} entrega(s) e {{contAtividade}} atividade(s) </div>
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+    <div class="entrega" id="en{{idatividadecronograma}}">
+        <div class="item-cronograma">
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-entrega" value="{{idatividadecronograma}}">
+            </div>
+            <div class="nome-entrega">
+                <i class="icon-tag"></i> {{nomatividadecronograma}}
+            </div>
+            <div class="cron-perdecessoras">
+                
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -80px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} &agrave; {{datfim}}
+            </div>
+            <div class="cron-percentual">
+               {{diasreal}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+            </div>
+        </div>
+        <div class="container-atividade" style="display: block; width: 100%; clear: both;">
+            {{#each atividades}}
+                {{> helperAtividade}}
+            {{/each}}
+        </div>
+    </div>
+</script>
+<script id="tpl-predecessora" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}" data-idatividadepredecessora="{{idatividadepredecessora}}">
+        </td>
+        <td>{{datinicio}} a {{datfim}} - {{nomatividadecronograma}}</td>
+    </tr>
+</script>
+<script id="tpl-predecessora-editar" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}">
+        </td>
+        <td>{{nomatividadecronograma}}</td>
+    </tr>
+</script>

@@ -1,0 +1,32 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
+?>
+<form id="ac-entrega-excluir"
+      name="ac-entrega-excluir"
+      action="<?php echo $this->baseUrl(); ?>/projeto/cronograma/excluir-entrega/format/json"
+      method="post">
+    <div class="alert alert-block" style="font-size: 14px !important;">
+        <h4>Aten&ccedil;&atilde;o!</h4>
+            Deseja realmente excluir a entrega 
+            <strong><?php echo $this->entrega['nomatividadecronograma']; ?></strong> ?<br /><br />
+           <?php if(count($this->entrega->atividades)  > 0): ?>
+                    As seguintes atividades, e as suas predecessoras, tamb&eacute;m ser&atilde;o exclu&iacute;das: 
+                    <ul> <?php foreach ($this->entrega->atividades as $at): ?>
+                            <li> <?php echo $at['nomatividadecronograma'] .' - '. $at['numpercentualconcluido']; ?>% </li>
+                         <?php endforeach; ?>
+                    </ul> 
+            <?php endif; ?> 
+            <br/>
+            <p>Depois de exclu&iacute;da, a a&ccedil;&atilde;o <strong> n&atilde;o </strong> poder&aacute; ser desfeita.</p>      
+    </div>
+    <div class="row">
+        <div class="span5">
+            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->entrega['idprojeto']; ?>" />
+            <input type="hidden" name="idatividadecronograma" id="idprojeto" value="<?php echo $this->entrega['idatividadecronograma']; ?>" />
+            <input type="hidden" name="domtipoatividade" id="idprojeto" value="<?php echo $this->entrega['domtipoatividade']; ?>" />
+        </div>
+    </div>
+</form>

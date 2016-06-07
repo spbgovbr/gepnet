@@ -1,0 +1,55 @@
+div.portlet{
+    margin-bottom:15px;
+    display:block;
+    overflow: hidden;
+    color:#000
+}
+div.portlet h3,
+div.portlet .title {
+    font:bold 11px Verdana,Arial,Helvetica,sans-serif;
+    margin:0;
+    padding:10px;
+    text-align:left;
+    background:transparent;
+    color:#000;
+    text-transform:none;
+    /*width:100%;*/
+    display:block
+}
+div.portlet .title span.ico {
+    display: inline-block;
+    padding: 10px;
+    margin: -10px 10px -10px -10px;
+    border-right: 1px solid #d6d6d6;
+}
+div.portlet .title i {
+    margin-top: 0;
+}
+div.portlet .content{padding:10px}
+div.portlet-azul-escuro{border:1px solid #36495a; box-shadow: 0 1px 3px rgba(100,100,100,0.1)}
+div.portlet-azul-escuro .content{background:#f7f7f7;color:#000}
+div.portlet-azul-escuro h3, div.portlet-azul-escuro .title {background:#36495a;color:#fff;border-bottom: 1px solid #36495a;}
+div.portlet-azul{border:1px solid #bdd9e1;box-shadow: 0 1px 3px rgba(100,100,100,0.1);}
+div.portlet-azul h3, div.portlet-azul .title{color:#313f59;background:#ddebf8;border-bottom: 1px solid #bdd9e1;}
+div.portlet-cinza{border:1px solid #d6d6d6;box-shadow: 0 1px 3px rgba(100,100,100,0.1);}
+div.portlet-cinza h3, div.portlet-cinza .title{color:#000;background:#f8f8f8; border-bottom: 1px solid #d6d6d6;}
+div.portlet-verde{background:#fff;border:1px solid #cad2b7; box-shadow: 0 1px 3px rgba(100,100,100,0.1)}
+div.portlet-verde h3, div.portlet-verde .title{color:#343434;background:#e7f0d1;border-bottom: 1px solid #cad2b7;}
+div.portlet-laranja{background:#fff;border:1px solid #ffe473; box-shadow: 0 1px 3px rgba(100,100,100,0.1)}
+div.portlet-laranja h3, div.portlet-laranja .title{color:#000;background:#ffe473;border-bottom: 1px solid #ffe473;}
+div.portlet-marron{background:#fff;border:1px solid #EEE1BE; box-shadow: 0 1px 3px rgba(100,100,100,0.1)}
+div.portlet-marron h3, div.portlet-marron .title{
+    color:#000;
+    background:#E7D9A8;
+    border-bottom: 1px solid #E7D9A8;
+    background-image: -moz-linear-gradient(top, #FFFFFF, #E7D9A8);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFFFFF), to(#E7D9A8));
+    background-image: -webkit-linear-gradient(top, #FFFFFF, #E7D9A8);
+    background-image: -o-linear-gradient(top, #FFFFFF, #E7D9A8);
+    background-image: linear-gradient(to bottom, #FFFFFF, #E7D9A8);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFF', endColorstr='#E7D9A8', GradientType=0);
+
+}
+.nopadding{padding: 0;}
+

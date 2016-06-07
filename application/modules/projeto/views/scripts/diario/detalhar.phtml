@@ -1,0 +1,31 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <div class="content">            
+            <div class="row">              
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Referência</div>
+                    <div class="content"><?php 
+                    echo $this->diario['domreferencia']; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Data do Diário</div>
+                    <div class="content"><?php echo $this->diario['datdiariobordo']; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Status</div>
+                    <div class="content"><?php echo $this->diario['domsemafarodecode']; ?></div>
+                </div>                
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Usu&aacute;rio</div>
+                    <div class="content"><?php echo $this->nompessoa; ?></div>
+                </div>                
+            </div>
+            <div class="row">              
+                <div class="portlet portlet-cinza span9">
+                    <div class="title">Descri&ccedil;&atilde;o</div>
+                    <div class="content"><?php echo $this->diario['desdiariobordo']; ?></div>
+                </div>
+            </div>                        
+        </div>
+    </div>
+</div>

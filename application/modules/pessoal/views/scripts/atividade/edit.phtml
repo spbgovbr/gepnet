@@ -1,0 +1,78 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'));
+        
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="content">
+    <form id="<?php echo $frmAttr['id']; ?>"
+          name="<?php echo $frmAttr['id']; ?>"
+          action="<?php echo $this->form->getAction(); ?>"
+          method="<?php echo $frmAttr['method']; ?>">
+        <div class="row">
+            <div class="span2">
+                <?php echo $this->form->datinicio; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->flacontinua; ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->form->datfimmeta; ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->form->datfimreal; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span4">
+                <?php echo $this->form->nomatividade; ?>
+            </div>
+            <div class="container-pessoa">
+                <div class="span3">
+                    <div class="control-group">
+                        <?php echo $this->form->nomcadastrador->renderLabel(); ?>
+                        <div class="input-prepend ">
+                            <?php echo $this->form->nomcadastrador->renderViewHelper(); ?>
+                            <?php echo $this->form->idcadastrador; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="span3">
+                    <div class="control-group">
+                        <?php echo $this->form->nomresponsavel->renderLabel(); ?>
+                        <div class="input-prepend ">
+                            <?php echo $this->form->pessoabutton; ?>
+                            <?php echo $this->form->idresponsavel; ?>
+                            <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row grid-append" style="display: none;">
+        </div>
+        <div class="row">
+           <div class="span2">
+                <?php echo $this->form->flacancelada; ?>
+           </div>
+           <div class="span2">
+                <?php echo $this->form->numpercentualconcluido; ?>
+           </div>
+           <div class="span3">
+                <?php echo $this->form->nomescritorio; ?>
+           </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <?php echo $this->form->desatividade; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span5">
+                <?php echo $this->form->idatividade; ?>
+                <?php echo $this->form->idescritorio; ?>
+               
+            </div>
+        </div>
+    </form>
+</div>

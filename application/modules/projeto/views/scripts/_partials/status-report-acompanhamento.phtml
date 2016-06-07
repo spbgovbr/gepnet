@@ -1,0 +1,133 @@
+<?php
+$this->headScript()
+//        ->appendFile($this->baseUrl('/js/app/library/chartjs/Lib/js/jquery-1.9.1.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js'), 'text/javascript')
+;
+?>
+    <div class="row">
+        <div class="portlet portlet-cinza span6">
+            <div class="title">% Concluído ( Planejado x Realizado)</div>
+            <div class="content">
+                <div id="chartcontainer-planejado-realizado" style="max-width:580px;height: 160px;"></div>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <div class="title">Evolução Atraso</div>
+            <div class="content">
+                <div id="chartcontainer-atraso" style="max-width:500px;height: 160px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-cinza span4">
+            <div class="title">Prazo</div>
+            <div class="content">
+                <div id="chartcontainer-criteriofarol-atraso" style="max-width:330px;height: 190px;"></div>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span4">
+            <div class="title">Risco</div>
+            <div class="content">
+                <div id="chartcontainer-criteriofarol-risco" style="max-width:330px;height: 190px;"></div>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span4">
+            <div class="title">Marco</div>
+            <div class="content">
+                <div id="chartcontainer-criteriofarol-marco" style="max-width:330px;height: 190px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-azul span6">
+            <h3>Projeto</h3>
+            <div class="content">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>Data Acompanhamento:</td>
+                        <td><?= $this->dateBr($this->acompanhamento->datacompanhamento); ?></td>
+                    </tr>
+                    <tr>
+                        <td>Previsto:</td>
+                        <td><?= $this->acompanhamento->numpercentualprevisto; ?>%</td>
+                    </tr>
+                    <tr>
+                        <td>Concluído:</td>
+                        <td><?= $this->acompanhamento->numpercentualconcluido; ?>%</td>
+                    </tr>
+                    <tr>
+                        <td>Tendência Término:</td>
+                        <td><?= $this->dateBr($this->acompanhamento->datfimprojetotendencia); ?></td>
+                    </tr>
+                    <tr>
+                        <td>Cronograma:</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <h3>Próximo Marco</h3>
+            <div class="content">
+                 <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>Próximo Marco:</td>
+                        <td><?= $this->esc($this->proximoMarco->nomatividadecronograma); ?></td>
+                    </tr>
+                    <tr>
+                        <td>Planejado:</td>
+                        <td><?= $this->dateBr($this->proximoMarco->datfimbaseline, ''); ?></td>
+                    </tr>
+                    <tr>
+                        <td>Previsão:</td>
+                        <td><?= $this->dateBr($this->proximoMarco->datfim); ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-cinza span6">
+            <h3>Atividades Concluídas no Período</h3>
+            <div class="content">
+                <?= $this->acompanhamento->desatividadeconcluida ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <h3>Atividades em Andamento no Período</h3>
+            <div class="content">
+                <?= $this->acompanhamento->desatividadeandamento ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-cinza span6">
+            <h3>Motivo do Atraso</h3>
+            <div class="content">
+                <?= $this->acompanhamento->desmotivoatraso ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <h3>Contramedida (R3G)</h3>
+            <div class="content">
+                <?= $this->acompanhamento->descontramedida ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-cinza span6">
+            <h3>Irregularidades</h3>
+            <div class="content">
+                <?= $this->acompanhamento->desirregularidade ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <h3>Riscos</h3>
+            <div class="content">
+                <?= $this->acompanhamento->desrisco ?>
+            </div>
+        </div>
+    </div>

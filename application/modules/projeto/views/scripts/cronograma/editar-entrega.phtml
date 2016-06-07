@@ -1,0 +1,39 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->idgrupo; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->nomatividadecronograma; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->idparteinteressada; ?>
+        </div>
+        <div class="span4 hidden container-nomresponsavel">
+            <?php echo $this->form->nomresponsavel; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->desobs; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->descriterioaceitacao; ?>
+            <?php echo $this->form->idprojeto; ?>
+            <?php echo $this->form->idatividadecronograma; ?>
+            <?php echo $this->form->domtipoatividade; ?>
+        </div>
+    </div>
+
+</form>

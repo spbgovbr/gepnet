@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Processo</h3>
+        <div class="content">
+            <?= $this->processo->nomacao; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Ativo</h3>
+        <div class="content">
+            <?= $this->processo->flaativo; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Escritorio</h3>
+        <div class="content">
+            <?= $this->processo->idescritorio; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Cadastro</h3>
+        <div class="content">
+            <?= $this->processo->datcadastro->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>Cadastrador</h3>
+        <div class="content">
+            <?= $this->processo->idcadastrador; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span8">
+        <h3>Descriçao</h3>
+        <div class="content">
+            <?= $this->processo->desacao; ?>
+        </div>
+    </div>
+</div>

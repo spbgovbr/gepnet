@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Area</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+        { country: "China", y014: 320866959, y1564: 853191410, y65: 87774113 },
+        { country: "India", y014: 340419115, y1564: 626520945, y65: 47063757 },
+        { country: "United States", y014: 58554755, y1564: 182172625, y65: 34835293 },
+        { country: "Indonesia", y014: 68715705, y1564: 146014815, y65: 10053690 },
+        { country: "Brazil", y014: 50278034, y1564: 113391494, y65: 9190842 },
+        { country: "Russia", y014: 26465156, y1564: 101123777, y65: 18412243 }
+];
+
+$("#chartContainer").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        type: "area",
+        argumentField: "country"
+    },
+    series: [
+        { valueField: "y1564", name: "15-64 years" },
+        { valueField: "y014", name: "0-14 years" },
+        { valueField: "y65", name: "65 years and older" }
+    ],
+    title: "Population: Age Structure (2000)",
+    argumentAxis:{
+        valueMarginsEnabled: false
+    },
+	valueAxis:{
+		label: {
+			format: "millions"
+		}
+	},
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Area Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

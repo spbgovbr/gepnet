@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Nome</h3>
+        <div class="content">
+            <?= $this->pessoa->nompessoa; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Matr&iacute;cula</h3>
+        <div class="content">
+            <?= $this->pessoa->nummatricula; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>CPF</h3>
+        <div class="content">
+            <?= $this->pessoa->numcpf; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Agenda Escrit&oacute;rio</h3>
+        <div class="content">
+            <?= $this->pessoa->getDescricaoFlaagenda(); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Cargo</h3>
+        <div class="content">
+            <?= $this->pessoa->getDescricaoDomcargo(); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <h3>Unidade</h3>
+        <div class="content">
+            <?= $this->pessoa->unidade->sigla; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>E-mail</h3>
+        <div class="content">
+            <?= $this->pessoa->desemail; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Telefone</h3>
+        <div class="content">
+            <?= $this->pessoa->numfone; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Celular</h3>
+        <div class="content">
+            <?= $this->pessoa->numcelular; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Fun&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->pessoa->desfuncao; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span8">
+        <h3>Observa&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->pessoa->desobs; ?>
+        </div>
+    </div>
+</div>

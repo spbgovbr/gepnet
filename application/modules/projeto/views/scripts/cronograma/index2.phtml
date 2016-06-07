@@ -1,0 +1,188 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/angular.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index2.js'), 'text/javascript')
+;
+?>
+<div class="region-center" ng-app id="ng-app" ng-controller="ProjetoCtrl">
+    <div class="accordion" id="accordion2">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                    {{projeto.nomcodigo}} - {{projeto.nomprojeto}}
+                </a>
+            </div>
+            <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <table class="table table-striped table-bordered table-price">
+                        <colgroup>
+                            <col style="width: 50px;">
+                            <col style="width: 300px;">
+                            <col style="width: 50px;">
+                            <col style="width: 200px;">
+                            <col style="width: 50px;">
+                            <col style="width: 50px;">
+                            <col style="width: 100px;">
+                            <col style="width: 50px;">
+                            <col style="width: 50px;">
+                        </colgroup>
+                        <tr>
+                            <th>Patroci.:</th>
+                            <td>{{projeto.patrocinador}}</td>
+                            <th>Meta:</th>
+                            <td>{{projeto.meta}}</td>
+                            <th>Previsto:</th>
+                            <td>{{projeto.previsto}}%</td>
+                            <th>Ult.Foto:</th>
+                            <td>{{projeto.ultimaFoto}}</td>
+                            <th>Prazo:</th>
+                            <td><span class="badge badge-<?php //echo $this->projeto->retornaDescricaoPrazo(); ?>"><?php //echo $this->projeto->retornaPrazoEmDias(); ?> dias</span></td>
+                        </tr>
+                        <tr>
+                            <th>Gerente:</th>
+                            <td>{{projeto.gerente}}</td>
+                            <th>Tendência:</th>
+                            <td>{{projeto.tendencia}}</td>
+                            <th>Concluído:</th>
+                            <td>{{projeto.concluido}}%</td>
+                            <th>Status:</th>
+                            <td>{{projeto.status}}</td>
+                            <th>Risco:</th>
+                            <td><span class="badge badge-<?php //echo $this->projeto->retornaDescricaoRisco(); ?>">Risco</span></td>
+                        </tr>
+                        <tr>
+                            <th>Adjunto:</th>
+                            <td>{{projeto.adjunto}}</td>
+                            <th>Alinhamento Estratégico:</th>
+                            <td colspan="3">{{projeto.objetivo}} <br /> {{projeto.acao}}</td>
+                            <th>Natureza:</th>
+                            <td colspan="{{flacopa}}">{{projeto.natureza}}</td>
+                            <td ng-if="{{showCopa == true}}"><span class="label label-info">Projeto da Copa de 2014</span></td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" data-spy="affix" data-offset-top="200">
+        <div class="span12">
+            <div class="btn-toolbar">
+                <a class="btn btn-cadastrar-grupo" title="Novo Grupo" href="<?php //echo $this->baseUrl('/projeto/cronograma/cadastrar-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-folder-open"></i></a>
+                <div class="btn-group btn-group-atividade" style="display: none;">
+                    <a class="btn btn-editar-atividade" title="Editar" href="<?php //echo $this->baseUrl('/projeto/cronograma/editar-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-atividade" title="Excluir" href="<?php //echo $this->baseUrl('/projeto/cronograma/excluir-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Novo Marco" href="<?php //echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-flag"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Atualizar Base Line" href="<?php //echo $this->baseUrl('/projeto/cronograma/atualizar-base-line/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-calendar"></i></a>
+                </div>
+                <div class="btn-group btn-group-entrega" style="display: none;">
+                    <a class="btn btn-editar-entrega" title="Editar" href="<?php //echo $this->baseUrl('/projeto/cronograma/editar-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-entrega" title="Excluir" href="<?php //echo $this->baseUrl('/projeto/cronograma/excluir-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-atividade" title="Nova Atividade" href="<?php //echo $this->baseUrl('/projeto/cronograma/cadastrar-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-list-alt"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Novo Marco" href="<?php //echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-flag"></i></a>
+                </div>
+                <div class="btn-group btn-group-grupo" style="display: none;">
+                    <a class="btn btn-editar-grupo" title="Editar" href="<?php //echo $this->baseUrl('/projeto/cronograma/editar-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-grupo" title="Excluir" href="<?php //echo $this->baseUrl('/projeto/cronograma/excluir-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-entrega" title="Nova Entrega" href="<?php //echo $this->baseUrl('/projeto/cronograma/cadastrar-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-tag"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-condensed">
+        <tr>
+            <th>
+        <div class="row">
+            <div class="span1" style="width: 30px !important">#</div>
+            <div class="span4" style="margin-left: 0">Grupo/Entrega/Atividade</div>
+            <div class="span2">(P) Base Line</div>
+            <div class="span1">Custo</div>
+            <div class="span1">Início</div>
+            <div class="span1">Fim</div>
+            <div class="span1">%</div>
+            <div class="span1">Responsável</div>
+        </div>
+        </th>
+        </tr>
+    </table>
+    <div class="grupos" style="height: 100%; overflow-y: scroll;">
+        <div class="table table-hover table-striped table-condensed">
+            <div ng-repeat="grupo in projeto.grupos" class="linha-grupo" id="grup{{grupo.idatividadecronograma}}">
+                <div class="row">
+                    <div class="span1" style="width: 30px !important">
+                        <input ng-click="showButtons()" type="radio" name="item_cronograma" ng-model="grupo[$index]" value="{{grupo.idatividadecronograma}}" class="item-cronograma" data-group=".btn-group-grupo">
+                    </div>
+                    <div class="span4" style="margin-left: 0">
+                        <i class="icon-folder-open"></i>{{grupo.nomatividadecronograma}}
+                    </div>
+                    <div class="span2">
+                        <?php //echo $this->grupo->retornaDataInicioBaseLineGrupo(); ?> à
+                        <?php //echo $this->grupo->retornaDataFimBaseLineGrupo(); ?>
+                    </div>
+                    <div class="span2">
+                        <?php //echo $this->grupo->getCustoGrupo(); ?>
+                    </div>
+                </div>
+                <div ng-repeat="entrega in grupo.entregas" class="linha-entrega" id="entr{{entrega.idatividadecronograma}}">
+                    <div class="row">
+                        <div class="span1" style="width: 30px !important">
+                            <input ng-click="showButtons()" type="radio" name="item_cronograma" ng-model="entrega[$index]" value="{{entrega.idatividadecronograma}}" class="item-cronograma" data-group=".btn-group-grupo">
+                        </div>
+                        <div class="span4" style="margin-left: 0">
+                            <i class="icon-tag"></i>{{entrega.nomatividadecronograma}}
+                        </div>
+                        <div class="span2">
+                            <?php //echo $this->grupo->retornaDataInicioBaseLineGrupo(); ?> à
+                            <?php //echo $this->grupo->retornaDataFimBaseLineGrupo(); ?>
+                        </div>
+                        <div class="span2">
+                            <?php //echo $this->grupo->getCustoGrupo(); ?>
+                        </div>
+                    </div>
+                    <div ng-repeat="atividade in entrega.atividades" class="linha-atividade" id="ativ{{atividade.idatividadecronograma}}">
+                        <div class="row">
+                            <div class="span1" style="width: 30px !important">
+                                <input ng-click="showButtons()" type="radio" name="item_cronograma" ng-model="atividade[$index]" value="{{atividade.idatividadecronograma}}" class="item-cronograma" data-group=".btn-group-grupo">
+                            </div>
+                            <div class="span4" style="margin-left: 0">
+                                <i class="icon-list-alt"></i>{{atividade.nomatividadecronograma}}
+                            </div>
+                            <div class="span2">
+                                <?php //echo $this->grupo->retornaDataInicioBaseLineGrupo(); ?> à
+                                <?php //echo $this->grupo->retornaDataFimBaseLineGrupo(); ?>
+                            </div>
+                            <div class="span2">
+                                <?php //echo $this->grupo->getCustoGrupo(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php //echo $this->projeto->idprojeto;                                    ?>" />
+    -->
+    <?php //var_dump($this->projeto->grupo->nomatividadecronograma);  ?>
+    <div id="dialog-grupo" style="display: none">
+        <?php echo $this->partial('_partials/cron-form-grupo.phtml', array('form' => $this->formGrupo)); ?>
+    </div>
+    <div id="dialog-entrega" style="display: none">
+        <?php //echo $this->partial('_partials/form-entrega.phtml', array('form' => $this->formEntrega)); ?>
+    </div>
+    <div id="dialog-atividade" style="display: none">
+        <?php //echo $this->partial('_partials/cron-form-atividade.phtml', array('form' => $this->formAtividade)); ?>
+    </div>
+    <div id="dialog-marco" style="display: none">
+        <?php echo $this->partial('_partials/cron-form-atividade-marco.phtml', array('form' => $this->formMarco)); ?>
+    </div>
+</div>

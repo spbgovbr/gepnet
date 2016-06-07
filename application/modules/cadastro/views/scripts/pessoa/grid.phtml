@@ -1,0 +1,105 @@
+<?php
+//$this->headScript()->appendFile($this->baseUrl('/js/app/_partial/grid-pessoa.js'), 'text/javascript');
+$agenda = $this->agenda ? '/agenda/'.$this->agenda : null;
+?>
+<script type="text/javascript">
+
+$(function() {
+
+    var
+            grid = null,
+            lastsel = null,
+            gridEnd = null,
+            colModel = null,
+            colNames = null,
+            btnSubmit = $("button#btn-grid-pessoa"),
+            btnCloseGridPessoa = $("#btn-close-grid-pessoa");
+
+    //idpessoa, nompessoa, numcpf, desunidade, nummatricula, desfuncao
+    colNames = ['Nome', 'Operações'];
+    colModel = [{
+            name: 'nompessoa',
+            index: 'nompessoa',
+            width: 200,
+            hidden: false,
+            search: false
+        }, {
+            name: 'idpessoa',
+            index: 'idpessoa',
+            width: 50,
+            search: false,
+            hidden: true,
+            sortable: false
+        }];
+
+    grid = jQuery("#list-grid-pessoa").jqGrid({
+        //caption: "Documentos",
+        url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade<?php echo $agenda ?>",
+        datatype: "json",
+        mtype: 'post',
+        width: '645',
+        height: '200px',
+        colNames: colNames,
+        colModel: colModel,
+        rownumbers: true,
+        rowNum: 20,
+        rowList: [20, 50, 100],
+        pager: '#pager-grid-pessoa',
+        sortname: 'nompessoa',
+        viewrecords: true,
+        sortorder: "asc",
+        gridComplete: function() {
+            // console.log('teste');
+            //$("a.actionfrm").tooltip();
+        },
+        onSelectRow: function(id) {
+            if(window.selectRow){
+                var row = grid.getRowData(id);
+                selectRow(row);
+            } else {
+                alert('Função [selectRow] não está definida');
+            }
+
+        }
+    });
+
+    //grid.jqGrid('filterToolbar');
+    grid.jqGrid('navGrid', '#pager-grid-pessoa', {
+        search: false,
+        edit: false,
+        add: false,
+        del: false,
+        view: false
+    });
+
+    grid.jqGrid('setLabel', 'rn', 'Ord');
+
+    btnSubmit.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        grid.setGridParam({
+            url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade?gridpessoa=" + $("#gridpessoa").val(),
+            page: 1
+        }).trigger("reloadGrid");
+        //$("a.actionfrm").tooltip();
+        return false;
+    });
+    
+    btnCloseGridPessoa.on('click',function(){
+        $(".grid-append").slideUp('slow');
+        $('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+    });
+
+});
+</script>
+
+<div class="control-group">
+    <div class="input-append">
+        <input type="text" class="span5" value="" placeholder="Nome" id="gridpessoa" name="gridpessoa">
+        <button id="btn-grid-pessoa" class="btn" type="button"><i class="icon-filter"></i> Pesquisar</button>
+        <button id="btn-close-grid-pessoa" class="btn" type="button"><i class="icon-arrow-up"></i> Fechar</button>
+    </div>
+</div>
+<table id="list-grid-pessoa"></table>
+<div id="toolbar-grid-pessoa"></div>
+<div id="pager-grid-pessoa"></div>

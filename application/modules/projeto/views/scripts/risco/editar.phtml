@@ -1,0 +1,137 @@
+<script>
+    
+    $(function(){
+        $.pnotify.defaults.history = false;
+    
+        $('.mask-date').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR',
+                changeMonth: true,
+                changeYear: true
+        });
+        
+        $('.mask-date').mask('99/99/9999');
+    
+        $('#domcorimpacto, #domcorprobabilidade').change(function(){
+            alteraRisco();
+        });
+        
+        alteraRisco();
+    });
+    
+    function alteraRisco() {
+            var probabilidade   = $('#domcorprobabilidade').val();
+            var impacto         = $('#domcorimpacto').val();
+            var opcao           = null;
+            
+            if (impacto == '1' && probabilidade == '1') {
+                opcao = '1';
+            }
+            else if (impacto == '3' || probabilidade == '3') {
+                opcao = '3';
+            } else {
+                opcao = '2';
+            }
+            switch (opcao) {
+                case '1':
+                    $('div#risco-badge.badge').attr('class', 'badge badge-important');                    
+                    break;
+                case '2':
+                    $('div#risco-badge.badge').attr('class', 'badge badge-warning');
+                    break;
+                case '3':
+                    $('div#risco-badge.badge').attr('class', 'badge badge-success');
+                    break;
+                default:
+                    $('div#risco-badge.badge').attr('class', 'badge');
+                    break;
+            }            
+            $('#domcorrisco').val(opcao);
+            return;
+    }
+    
+    function resetFormAta()
+    {
+        $("input, select, textarea").not('input#idprojeto, #form-risco-pesquisar :input').val('');
+    }
+    
+   
+</script>
+
+<?php $frmAttr = $this->form->getAttribs(); ?>
+
+<div class="region-center">
+    <div class="portlet">
+        <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                        name="<?php echo $frmAttr['id']; ?>"
+                        action="<?php echo $this->form->getAction(); ?>"
+                        method="<?php echo $frmAttr['method']; ?>">    
+                    <div class="row">                                                                       
+                        <?php echo $this->form->idrisco ?>
+                        <?php echo $this->form->idprojeto ?>
+                        <?php echo $this->form->domcorrisco ?>
+                        <div class="span3">
+                            <?php echo $this->form->norisco ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datdeteccao ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->idorigemrisco ?>                
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idetapa ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idtiporisco ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->domcorprobabilidade ?>
+                        </div>               
+                        <div class="span2">
+                            <?php echo $this->form->domcorimpacto ?>
+                        </div>
+                        <div class="span1">
+                            <div class="control-group">
+                                <label class="control-label">&nbsp</label>
+                                <div id="risco-badge" class="badge" >Risco</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo $this->form->desrisco ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->descausa ?>
+                        </div>
+                        <div class="span5">
+                            <?php echo $this->form->desconsequencia ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span">
+                            <?php echo $this->form->domtratamento ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->flariscoativo ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datencerramentorisco ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->flaaprovado ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datinatividade ?>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

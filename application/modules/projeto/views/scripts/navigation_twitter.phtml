@@ -1,0 +1,65 @@
+<?php
+$html = array('<ul class="nav">');
+foreach ($this->container as $page) {
+    // visibility of the page
+    if (!$page->isVisible() || ($this->navigation()->getUseAcl() && !$this->navigation()->accept($page))) {
+        continue;
+    }
+
+    // dropdown
+    $dropdown = !empty($page->pages);
+
+    // header
+    $html[] = '<li' . ($dropdown ? ' class="dropdown"' : '') . '>';
+
+    if (!$dropdown) {
+        $html[] = '<a href="' . $page->getHref() . '">';
+    } else {
+        $html[] = '<a href="#" class="dropdown-toggle" data-toggle="dropdown">';
+    }
+
+    $html[] = $page->getLabel();
+
+    if ($dropdown) {
+        $html[] = '<b class="caret"></b>';
+    }
+
+    $html[] = '</a>';
+
+    if (!$dropdown) {
+        $html[] = '</li>';
+        continue;
+    }
+
+    $html[] = '<ul class="dropdown-menu">';
+
+    foreach ($page->pages as $subpage) {
+        /*
+        var_dump($this->navigation()->accept($subpage, true));
+        var_dump($page->getResource());
+        var_dump($page->getPrivilege());
+        */
+        // visibility of the sub-page
+        if (!$subpage->isVisible() || ($this->navigation()->getUseAcl() && !$this->navigation()->accept($subpage))) {
+            continue;
+        }
+
+        $html[] = '<li' . ($subpage->isActive() ? ' class="active"' : '') . '>';
+        $html[] = '<a href="' . $subpage->getHref() . '">';
+
+        if ($subpage->get('icon')) {
+            $html[] = '<i class="icon-' . $subpage->get('icon') . '"></i>';
+        }
+
+        $html[] = $subpage->getLabel();
+        $html[] = "</a>";
+        $html[] = "</li>";
+    }
+
+    $html[] = "</ul>";
+    $html[] = "</li>";
+}
+
+$html[] = '</ul>';
+
+echo join(PHP_EOL, $html);

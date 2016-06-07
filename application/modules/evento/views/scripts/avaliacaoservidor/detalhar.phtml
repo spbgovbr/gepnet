@@ -1,0 +1,97 @@
+<div class="row">
+    <div class="portlet portlet-azul span3">
+        <h3>Avaliado</h3>
+        <div class="content">
+            <?php echo $this->avaliacao->nomavaliado; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>Data Avalia&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?php echo $this->dateBr($this->avaliacao->datcadastro); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>Avalia&ccedil;&atilde;o T&eacute;cnica</h3>
+        <div class="content">
+            <?php echo number_format($this->avaliacao->nummedia, 2); ?> (<?php echo $this->avaliacao->numtotalavaliado; ?>)
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>Avalia&ccedil;&atilde;o Pessoal</h3>
+        <div class="content">
+            <?php echo number_format($this->avaliacao->numnotaavaliador, 2); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>M&eacute;dia Final</h3>
+        <div class="content">
+            <?php echo number_format($this->avaliacao->nummediafinal, 2); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span3">
+        <h3> Avaliador </h3>
+        <div class="content">
+            <?php echo $this->avaliacao->nomavaliador; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span3">
+        <h3> Evento </h3>
+        <div class="content">
+            <?php echo $this->avaliacao->nomevento; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span3">
+        <h3> Tipo da Avalia&ccedil;&atilde;o </h3>
+        <div class="content">
+            <?php echo $this->avaliacao->noavaliacao; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="span10">
+        <table class="table table-hover table-striped table-condensed" style="padding: 5px; margin: 15px 0px;">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Sempre</th>
+                <th>Frequentemente</th>
+                <th>Raramente</th>
+                <th>Nunca</th>
+                <th style="color: #ff0000;">*Prejudicado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($this->perguntas as $key => $pergunta): ?>
+                <tr>
+                    <td style="padding: 0px 15px;"> <?php echo $pergunta; ?> </td>
+                    <td style="text-align: center;"> <?php echo ($this->avaliacao[$key] == '10')? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '8')? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '2')? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '0')? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '-1')? "<i class='icon-check'></i>" : ""; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="6" style="color: #ff0000;"> * Não foi poss&iacute;vel avaliar </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span6">
+        <h3> O servidor destacou-se positivamente no cumprimento de alguma tarefa/miss&atilde;o? Em caso positivo, qual? </h3>
+        <div class="content">
+            <?php echo $this->avaliacao->desdestaqueservidor; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3> Observa&ccedil;&otilde;es </h3>
+        <div class="content">
+            <?php echo $this->avaliacao->desobs; ?>
+        </div>
+    </div>
+</div>

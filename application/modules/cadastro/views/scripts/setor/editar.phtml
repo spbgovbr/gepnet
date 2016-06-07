@@ -1,0 +1,32 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="row">
+    <div class="portlet portlet-marron span10">
+        <div class="content">
+            <form id="form-setor-editar" 
+                  name="form-setor-editar"  
+                  action="" 
+                  method="<?php echo $frmAttr['method']; ?>">
+                <?php echo $this->form->idsetor; ?>
+                <div class="row">
+                    <div class="span10">
+
+                        <div class="row">
+                            <div class="span8">
+                                <?php echo $this->form->nomsetor; ?>
+                            </div>
+
+                            <div class="span">
+                                <?php echo $this->form->flaativo; ?>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+</div>
+
+

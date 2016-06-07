@@ -1,0 +1,116 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+ //   ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/eap/eap.css'))
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')    
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/eap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/index.js'), 'text/javascript')
+;
+
+?>
+
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'eap', 'idprojeto' => $this->idprojeto));
+    ?>
+</div>
+
+
+<div class="region-center">
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto ;?>" />
+    
+    <div id="dados-projeto"></div>
+    <div class="row" data-spy="affix" data-offset-top="200" style="">
+        <div class="toolbar-cronograma " style="border: 1px solid blue; margin-left: 30px;">
+                <div class="btn-toolbar" style="border: 0px solid yellow;">
+                    <a class="btn btn-imprimir-eap-pdf" title="Imprimir EAP PDF" href="<?php echo $this->baseUrl('/projeto/eap/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>" target="_blank"><i class="icon-download-alt"></i></a>
+                </div>
+           </div>
+     </div>
+    
+     <div class="row">
+        <div class="container-grupo"  style="height: 100%;"> 
+         </div>
+     </div>
+    
+    <div id="dialog-grupo" style="display: none"></div>
+    <div id="dialog-entrega" style="display: none"></div>
+    <div id="dialog-excluir-grupo" style="display: none"></div>
+    <div id="dialog-excluir-entrega" style="display: none"></div>
+</div>
+
+
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    <a class="estrutura-analitica" href="#"> <h5 style="margin-left: 30px;"> ESTRUTURA ANALÍTICA DO PROJETO - EAP </h5> </a>
+    <div class="grupos-eap">
+        {{#each grupos}}
+                <div class="span2 box-grupo" id="{{idatividadecronograma}}">
+                    <div class="box-nome-grupo">
+                        <span style="margin: 0; padding-top: 5px;  ">{{nomatividadecronograma}}</span>
+                    </div>
+                    <div class="box-entrega">
+                        <ul class="" style="list-style-type: none; margin: 0;padding: 0;">
+                            {{#each entregas}}
+                                {{> helperEntrega}}
+                            {{/each}}
+                        </ul>
+                    </div>
+                </div>
+        {{/each}}
+    </div>
+    
+    <div class="row span8" style="width: 1270px; ">
+        <a class="dicionario-eap" href="#"> <h5>DICIONÁRIO DA EAP E CRITÉRIO DE ACEITAÇÃO (QUALIDADE) </h5> </a>
+        <div class="quadro-dicionario-eap">
+            <table class="table table-hover table-striped table-condensed portlet portlet-marron" style="height: 100%;">
+                    <tr style="font-weight: bold;">
+                        <td>Identificação EAP</td>
+                        <td>Descrição</td>
+                        <td>Critério de Aceitação/Desvio Aceitável (Qualidade)</td>
+                        <td>Responsável</td>
+                    </tr>
+               <tbody>
+                    {{#each grupos}}
+                        <tr>
+                            <td colspan="4" style="font-weight: bold;">{{nomatividadecronograma}}</td>
+                        </tr>
+                        {{#each entregas}}
+                            {{> helperQuadroEntrega}}
+                        {{/each}}
+                    {{/each}}
+               </tbody> 
+            </table>
+        </div>
+    </div>
+    
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+        <li class="span2 box-item-entrega" style="" id="{{idatividadecronograma}}"> 
+           <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+           <span> {{numpercentualconcluido}}%  {{nomatividadecronograma}}  </span>
+        </li>
+</script>
+
+<script id="tpl-quadro-entrega" type="text/x-handlebars-template">
+      <tr>
+          <td> {{nomatividadecronograma}} </td>
+          <td> {{desobs}} </td>
+          <td> {{descriterioaceitacao}} </td>
+          <td> {{nomparteinteressada}} </td>
+      </tr> 
+</script>
+
+

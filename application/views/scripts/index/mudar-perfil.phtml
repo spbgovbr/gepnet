@@ -1,0 +1,14 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="span3">
+        <?php echo $this->form->idperfil; ?>
+    </div>
+    <div class="span2 actions-pesquisar">
+        <?php echo $this->form->submit; ?>
+    </div>
+</form>

@@ -1,0 +1,14 @@
+<div style="margin-top: 20px">
+    <?php foreach ($this->projeto->grupos as $grupo): ?>
+        <div  style="margin-left: 10px;width: 150px;float:left;">
+            <div style="height: 55px;text-align: center;line-height:55px;border:0.1mm solid #220044; background-color: #f0f2ff;">
+                <b><?= $grupo->nomatividadecronograma; ?></b>
+            </div>
+            <?php foreach ($grupo->entregas as $entrega): ?>
+                <div align="center">
+                    <b><?= $entrega->nomatividadecronograma; ?></b>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>

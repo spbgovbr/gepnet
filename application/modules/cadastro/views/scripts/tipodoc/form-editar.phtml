@@ -1,0 +1,20 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<form id="<?php echo $frmAttr['id']; ?>" 
+      name="<?php echo $frmAttr['id']; ?>" 
+      action="<?php echo $this->form->getAction(); ?>" 
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row">
+        <div class="span5">
+            <?php echo $this->form->ds_tp_doc; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->st_ativo; ?>
+        </div>
+    </div>
+    <div class="span4">
+        <?php echo $this->form->cd_tp_doc; ?>
+        <?php echo $this->form->submit; ?>
+    </div>
+</form>

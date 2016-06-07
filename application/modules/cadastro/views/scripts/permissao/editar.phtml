@@ -1,0 +1,55 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+;
+/*
+  $this->headScript()
+  ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+  ->appendFile($this->baseUrl('/js/app/cadastro/pessoa/edit.js'), 'text/javascript')
+  ;
+ */
+$frmAttr = $this->form->getAttribs();
+//var_dump($this->permissao);
+?>
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Recurso</h3>
+        <div class="content">
+            <?php echo $this->permissao['ds_recurso']; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Nome da Permissão</h3>
+        <div class="content">
+            <?php echo $this->permissao['no_permissao']; ?>
+        </div>
+    </div>
+</div>
+<form id="<?php echo $frmAttr['id']; ?>" 
+      name="<?php echo $frmAttr['id']; ?>" 
+      action="<?php echo $this->form->getAction(); ?>" 
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row formulario">
+        <div class="span8">
+            <fieldset>
+                <legend>Dados Pessoais</legend>
+                <div class="row">
+                    <div class="span6">
+                        <?php echo $this->form->ds_permissao; ?>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row formulario">
+        <div class="span8">
+            <?php echo $this->form->idpermissao; ?>
+        </div>
+    </div>
+</form>
+

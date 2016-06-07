@@ -1,0 +1,20 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'));
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="content">
+    <form id="form-entidadeexterna-editar"
+          name="form-entidadeexterna-editar"
+          action=""
+          method="<?php echo $frmAttr['method']; ?>">
+        <div class="row">
+            <div class="span10">
+                <?php echo $this->form->nomentidadeexterna; ?>
+            </div>
+        </div>
+
+        <?php echo $this->form->identidadeexterna; ?>
+    </form>
+</div>

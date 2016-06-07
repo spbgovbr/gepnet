@@ -1,0 +1,64 @@
+<?php
+$container = $this->navigation()->getContainer();
+
+$found = $container->findById($this->id); // returns Page 2
+$html  = array('<ul class="menu-lateral">');
+foreach ( $found as $page )
+{
+    // dropdown
+    $dropdown = !empty($page->pages);
+
+    // header
+    //$html[] = '<li>';
+    $html[] = '<li' . ($page->isActive() ? ' class="k-state-selected"' : '') . '>';
+
+    if ( !$dropdown ) {
+        $html[] = '<a href="' . $page->getHref() . '">';
+    } else {
+        $html[] = '<a href="#">';
+    }
+
+    $html[] = $page->getLabel();
+    $html[] = '</a>';
+
+    if ( !$dropdown ) {
+        $html[] = '</li>';
+        continue;
+    }
+
+    $html[] = '<ul>';
+
+    foreach ( $page->pages as $subpage )
+    {
+        // visibility of the sub-page
+        if ( !$subpage->isVisible() ) {
+            continue;
+        }
+
+        $html[] = '<li' . ($subpage->isActive() ? ' class="k-state-selected"' : '') . '>';
+        $html[] = '<a href="' . $subpage->getHref() . '">';
+        $html[] = $subpage->getLabel();
+        $html[] = "</a>";
+        $html[] = "</li>";
+    }
+
+    $html[] = "</ul>";
+    $html[] = "</li>";
+}
+
+$html[] = '</ul>';
+
+echo join(PHP_EOL, $html);
+?>
+<!--
+<div style="width: 160px; float: left; display: block;">
+    <ul class="menu-lateral">
+        <li><a href="<?php //echo $this->url(array('module' => 'cadastro', 'controller' => 'permissao', 'action' => 'index' ));  ?>">Permissões</a></li>
+        <li><a href="<?php //echo $this->url(array('module' => 'cadastro', 'controller' => 'recurso', 'action' => 'index' ));  ?>">Novos Recursos</a></li>
+        <li><a href="<?php //echo $this->url(array('module' => 'cadastro', 'controller' => 'recurso', 'action' => 'gerenciar' ));  ?>">Gerênciar Recursos</a></li>
+        <li><a href="<?php //echo $this->url(array('module' => 'cadastro', 'controller' => 'pessoa', 'action' => 'index' ))  ?>">Gerênciar Pessoa</a></li>
+        <li><a href="#">Atribuir Perfil</a></li>
+        <li><a href="#">Gerênciar Perfis</a></li>
+    </ul>
+</div>
+-->

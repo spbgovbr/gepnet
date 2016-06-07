@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Use Range Selection for Filtering</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var employees = [
+    { LastName: "Davolio", FirstName: "Nancy", BirthYear: 1948, City: "Seattle", Title: "Sales Representative" },
+    { LastName: "Fuller", FirstName: "Andrew", BirthYear: 1952, City: "Tacoma", Title: "Vice President, Sales" },
+    { LastName: "Leverling", FirstName: "Janet", BirthYear: 1963, City: "Kirkland", Title: "Sales Representative" },
+    { LastName: "Peacock", FirstName: "Margaret", BirthYear: 1937, City: "Redmond", Title: "Sales Representative" },
+    { LastName: "Buchanan", FirstName: "Steven", BirthYear: 1955, City: "London", Title: "Sales Manager" },
+    { LastName: "Suyama", FirstName: "Michael", BirthYear: 1963, City: "London", Title: "Sales Representative" },
+    { LastName: "King", FirstName: "Robert", BirthYear: 1960, City: "London", Title: "Sales Representative" },
+    { LastName: "Callahan", FirstName: "Laura", BirthYear: 1958, City: "Seattle", Title: "Inside Sales Coordinator" },
+    { LastName: "Dodsworth", FirstName: "Anne", BirthYear: 1966, City: "London", Title: "Sales Representative" }
+];
+
+var showEmployees = function(employees) {
+        var employee,
+            tableHtml;
+
+        if ($('#selectedEmployees').length === 0) {
+            $('#chartContainer').append("<br /><br /><center><h2>Selected Employees</h2> <div id='selectedEmployees' /></center>");
+        }
+        $('#selectedEmployees').empty();
+        tableHtml = '<table width="100%"><tr>';
+        $.each(['First Name', 'Last Name', 'Birth Year', 'City', 'Title'], function () {
+            tableHtml += '<td width="20%"><b>' + this + '</b></td>';
+        });
+        tableHtml += '</tr>';
+        $.each(employees, function () {
+            tableHtml += '<tr><td>' + this.FirstName + '</td><td>' + this.LastName + '</td><td>' + this.BirthYear + '</td><td>' + this.City + '</td><td>' + this.Title + '</td></tr>';
+        });
+        tableHtml += '</table>';
+        $('#selectedEmployees').html(tableHtml);
+}
+
+$("#chartContainer").dxRangeSelector({
+    margin: {
+        top: 20
+    },
+    size: {
+        height: 140
+    },
+    dataSource: employees,
+    dataSourceField: "BirthYear",
+    behavior: {
+        callSelectedRangeChanged: "onMoving"
+    },
+    selectedRangeChanged: function (e) {
+        var selectedEmployees = $.grep(employees, function(employee) {
+            return employee.BirthYear >= e.startValue && employee.BirthYear <= e.endValue;
+        });
+        showEmployees(selectedEmployees);
+    }
+});
+
+showEmployees(employees);
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>RangeSelector</h1>&nbsp;&nbsp;&nbsp;<h2>Behavior</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3>Filter Employee List by Birth Year</h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits"></div>
+			</div>
+		</div>
+	</body>
+</html>

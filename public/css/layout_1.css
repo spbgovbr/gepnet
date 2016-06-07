@@ -1,0 +1,113 @@
+/**
+            *
+            * @author Rogerio A Lino Filho <http://rogeriolino.com>
+*/
+
+html, body {
+    height: 100%;
+    background: #fff;
+}
+
+body {  background:#fff url(../imagens/fundo2.png) repeat-x; font-size:11px; font-family:Verdana, Geneva, sans-serif; color:#6a6a6a; line-height:1.5;   }
+
+#geral {
+    min-height: 100%;
+    position: relative;
+   
+}
+
+/*xxxxxxxxxxxxxxxxxxxxxxx  topo xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+#topo { width:960px; margin:0 auto; padding:0; height:50px; /*background:#162e41 url(fundo.png) repeat-x;*/ overflow:hidden;}
+
+#topo h1 { padding:12px; text-indent:180px; color:#f6f9fd;  background:url(../imagens/logo.png) no-repeat; font:bold 14px Helvetica; float:left;}
+
+#tools { width:400px; padding: 0; font-size:10px; color:#ccc; overflow:hidden; float:right; }
+
+#tools a:link { color:#ccc; text-decoration:none;}
+
+#tools a:hover { text-decoration:underline;}
+
+/*#user { float:left;}*/
+
+#username { padding:15px 0 0 0; float:none;}
+
+#userperfil, #sair, #ajuda { margin:4px 0 0 0; padding: 0 4px 0 0;float:left;}
+
+#sair, #ajuda { padding:0 4px 0 4px; border-left:1px solid #506371;}
+
+
+a.icoAdminlink { width:20px; height:15px; margin:5px 0 0 5px; background:url(../imagens/tool20.png) no-repeat center; padding:10px; display:block; float:right; }
+
+a.icoAdminlink:hover { background: url(../imagens/tool20Over.png) no-repeat center; }
+a.icoAdminlink_click {
+    width:20px;
+    height:15px;
+    margin:5px 0 0 5px;
+    padding:10px;
+    display:block;
+    float:right;
+    background: #ffffff url(../imagens/tool20.png) no-repeat center;
+    z-index: 1002;
+    border: 1px solid #C3D9FF;
+    border-bottom: none;
+    position: absolute;
+    right: 148px;
+    top: 0;
+}
+a.icoAdminlink_click:hover { background-color: #ffffff; }
+
+/*xxxxxxxxxxxxxxxxxxxxxxx  menu xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+/*
+#menu {
+    height:30px;
+    width:960px;
+    margin:0 auto;
+    clear: both;
+}
+*/
+/*xxxxxxxxxxxxxxxxxxxxxxx  container xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+#container {
+    width:960px;
+    margin:0 auto;
+    overflow:hidden;
+    clear: both;
+    text-align: left;
+    padding: 30px 20px;
+    border: 1px solid red;
+    display: block;
+    
+}
+/*
+#menuEsquerdo { width:160px; height:100%; padding:10px; background:#fff; float:left;}
+
+#conteudo { width:auto;  padding:10px; background:#fff;}
+
+#filtro { width:160px; height:100%; padding:10px; background:#fff; float:left;}
+
+.conteudo1Coluna { width:760px;}
+
+.conteudo2Coluna { width:580px;}
+
+*/
+
+#rodape {
+    width: 100%;
+    bottom: 0;
+    padding: 15px 0px;
+    position: absolute;
+    background: #f1f1f1;
+}
+
+#rodape p {
+    color: #bbbbbb;
+    text-align: center;
+}
+
+h2 { font-size:14px; font-weight: bold; color:#172e40; }
+
+h3 { font-size:12px; font-weight: bold; color:#172e40; }
+
+h4 { font-size:10px; font-weight: bold; color:#172e40; }
+
+h5 { font-size:8px; font-weight: bold; color:#172e40; }

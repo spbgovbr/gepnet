@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="portlet portlet-azul span8">
+        <h3>Atividade</h3>
+        <div class="content">
+            <?= $this->atividade->nomatividade; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data In&iacute;cio</h3>
+        <div class="content">
+            <?= $this->atividade->datinicio->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Fim Meta</h3>
+        <div class="content">
+            <?= $this->dateBr($this->atividade->datfimmeta); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Fim Real</h3>
+        <div class="content">
+            <?= $this->dateBr($this->atividade->datfimreal); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Atualiza&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->dateBr($this->atividade->datatualizacao); ?>
+                
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span3">
+        <h3>Demandante</h3>
+        <div class="content">
+            <?= $this->atividade->nomcadastrador; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span3">
+        <h3>Respons&aacute;vel</h3>
+        <div class="content">
+            <?= $this->atividade->nomresponsavel; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span3">
+        <h3>Escrit&oacute;rio de Projetos</h3>
+        <div class="content">
+            <?= $this->atividade->nomescritorio; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>Cont&iacute;nua?</h3>
+        <div class="content">
+            <?= $this->atividade->flacontinua; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span1_5">
+        <h3>Cancelada?</h3>
+        <div class="content">
+            <?= $this->atividade->flacancelada; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span0_5">
+        <h3>Percentual %</h3>
+        <div class="content">
+            <?= $this->atividade->numpercentualconcluido; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span8">
+        <h3>Descri&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->atividade->desatividade; ?>
+        </div>
+    </div>
+</div>

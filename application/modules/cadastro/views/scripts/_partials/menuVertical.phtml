@@ -1,0 +1,43 @@
+<?php
+/**
+* @author Kanstantsin A Kamkou (2ka.by)
+*/
+
+$html = array('<ul class="nav nav-list">');
+
+foreach ($this->container as $page) {
+    // show only the current branch and the visible item
+    if (!$page->isVisible()
+        || ($this->menu()->getOnlyActiveBranch() && !$page->isActive(true))) {
+        continue;
+    }
+
+    // header
+    $html[] = '<li class="nav-header">';
+    $html[] = $page->getLabel();
+    $html[] = "</li>";
+
+    if (!empty($page->pages)) {
+        foreach ($page->pages as $subpage) {
+            // visibility of the sub-page
+            if (!$subpage->isVisible()) {
+                continue;
+            }
+
+            $html[] = '<li' . ($subpage->isActive() ? ' class="active"' : '') . '>';
+            $html[] = '<a href="' . $subpage->getHref() . '">';
+
+            if ($subpage->get('icon')) {
+                $html[] = '<i class="icon-' . $subpage->get('icon') . '"></i>';
+            }
+
+            $html[] = $subpage->getLabel();
+            $html[] = "</a>";
+            $html[] = "</li>";
+        }
+    }
+}
+
+$html[] = '</ul>';
+
+echo join(PHP_EOL, $html);

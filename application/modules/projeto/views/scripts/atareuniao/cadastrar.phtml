@@ -1,0 +1,75 @@
+<script>
+    
+    $(function(){
+        $.pnotify.defaults.history = false;
+    
+        $('.mask-date').datepicker({
+                changeMonth: true,
+                changeYear: true
+        });
+        $('.mask-date').mask('99/99/9999');
+        $('.mask-hora').mask('99:99:99');
+    });
+    
+    function resetFormAta()
+    {
+        $("input, select, textarea").not('input#idprojeto, #form-ata-pesquisar :input').val('');
+    }
+   
+</script>
+
+<?php $frmAttr = $this->form->getAttribs(); ?>
+
+<div class="region-center">
+    <div class="portlet portlet-marron">
+        <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                        name="<?php echo $frmAttr['id']; ?>"
+                        action="<?php echo $this->form->getAction(); ?>"
+                        method="<?php echo $frmAttr['method']; ?>">    
+                    <div class="row">                                                                       
+                        <?php echo $this->form->idprojeto ?>
+                        <div class="span3">
+                            <?php echo $this->form->deslocal ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datata ?>                
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->hrreuniao ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->desassunto ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo  $this->form->desparticipante?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo  $this->form->despontodiscutido?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo  $this->form->desdecisao?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo  $this->form->despontoatencao?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo  $this->form->desproximopasso?>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>

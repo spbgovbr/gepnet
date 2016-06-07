@@ -1,0 +1,15 @@
+<div class="row grupo" id="grup<?php echo $this->grupo->idatividadecronograma; ?>">
+    <div class="span1" style="width: 30px !important">
+        <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-grupo">
+    </div>
+    <div class="span4" style="margin-left: 0">
+        <i class="icon-folder-open"></i> <?php echo ($this->grupo->nomatividadecronograma); ?>
+    </div>
+    <div class="span2">
+        <?php echo $this->grupo->retornaDataInicioBaseLineGrupo(); ?> à
+        <?php echo $this->grupo->retornaDataFimBaseLineGrupo(); ?>
+    </div>
+    <div class="span2">
+        <?php echo $this->grupo->getCustoGrupo(); ?>
+    </div>
+</div>

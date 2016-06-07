@@ -1,0 +1,229 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index.js'), 'text/javascript')
+;
+?>
+<div class="region-center">
+    <?php /* var_dump($this->projeto); */echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto)); ?>
+    <div class="row" data-spy="affix" data-offset-top="200">
+        <div class="span12">
+            <div class="btn-toolbar">
+                <a class="btn btn-cadastrar-grupo" title="Novo Grupo" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-folder-open"></i></a>
+                <div class="btn-group btn-group-atividade" style="display: none;">
+                    <a class="btn btn-editar-atividade" title="Editar" href="<?php echo $this->baseUrl('/projeto/cronograma/editar-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-atividade" title="Excluir" href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Novo Marco" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-flag"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Atualizar Base Line" href="<?php echo $this->baseUrl('/projeto/cronograma/atualizar-base-line/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-calendar"></i></a>
+                </div>
+                <div class="btn-group btn-group-entrega" style="display: none;">
+                    <a class="btn btn-editar-entrega" title="Editar" href="<?php echo $this->baseUrl('/projeto/cronograma/editar-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-entrega" title="Excluir" href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-atividade" title="Nova Atividade" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-atividade/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-list-alt"></i></a>
+                    <a class="btn btn-cadastrar-marco" title="Novo Marco" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-flag"></i></a>
+                </div>
+                <div class="btn-group btn-group-grupo" style="display: none;">
+                    <a class="btn btn-editar-grupo" title="Editar" href="<?php echo $this->baseUrl('/projeto/cronograma/editar-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-grupo" title="Excluir" href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-grupo/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-entrega" title="Nova Entrega" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-entrega/idprojeto/' . $this->projeto->idprojeto); ?>"><i class="icon-tag"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-hover table-striped table-condensed">
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="span1" style="width: 30px !important">#</div>
+                    <div class="span4" style="margin-left: 0">Grupo/Entrega/Atividade</div>
+                    <div class="span2">(P) Base Line</div>
+                    <div class="span1">Custo</div>
+                    <div class="span1">Início</div>
+                    <div class="span1">Fim</div>
+                    <div class="span1">%</div>
+                    <div class="span1">Responsável</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="grupos" style="height: 100%; overflow-y: scroll;">
+        <div class="table table-hover table-striped table-condensed">
+            <?php
+            foreach ( $this->projeto->grupo as $grupo ): ?>
+                <div class="row grupo" id="grup<?php echo $this->grupo->idatividadecronograma; ?>">
+                    <div class="span1" style="width: 30px !important">
+                        <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-grupo">
+                    </div>
+                    <div class="span4" style="margin-left: 0">
+                        <i class="icon-folder-open"></i> <?php echo ($this->grupo->nomatividadecronograma); ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->grupo->retornaDataInicioBaseLineGrupo(); ?> à
+                        <?php echo $this->grupo->retornaDataFimBaseLineGrupo(); ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->grupo->getCustoGrupo(); ?>
+                    </div>
+                </div>
+                ?>
+                <div class="container-grupo" id="grupo<?php echo $grupo->idatividadecronograma; ?>">
+                    <?php
+                    echo $this->partial('_partials/cron-list-entrega.phtml', array('projeto' => $this->projeto, 'entrega' => $entrega));
+                    foreach ( $grupo->entrega as $entrega ):
+                    ?>
+                    <div class="container-entrega" id="entrega<?php echo $entrega->idatividadecronograma; ?>">
+                        <?php
+                        foreach ( $entrega->atividade as $atividade ):
+                            echo $this->partial('_partials/cron-list-atividade.phtml', array('projeto'   => $this->projeto, 'atividade' => $atividade));
+                        endforeach;
+                        ?>
+                    </div>
+                    <?php 
+                    endforeach;
+                    ?>
+                </div>
+            <?php 
+            endforeach;
+            ?>
+        </div>
+    </div>
+    <!--
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php //echo $this->projeto->idprojeto;                                   ?>" />
+    -->
+    <?php //var_dump($this->projeto->grupo->nomatividadecronograma);  ?>
+    <div id="dialog-grupo" style="display: none">
+        <?php echo $this->partial('_partials/cron-form-grupo.phtml', array('form' => $this->formGrupo)); ?>
+    </div>
+    <div id="dialog-entrega" style="display: none">
+        <?php //echo $this->partial('_partials/form-entrega.phtml', array('form' => $this->formEntrega)); ?>
+    </div>
+    <div id="dialog-atividade" style="display: none">
+        <?php //echo $this->partial('_partials/cron-form-atividade.phtml', array('form' => $this->formAtividade)); ?>
+    </div>
+    <div id="dialog-marco" style="display: none">
+        <?php echo $this->partial('_partials/cron-form-atividade-marco.phtml', array('form' => $this->formMarco)); ?>
+    </div>
+</div>
+<script id="tpl-atividade" type="text/x-handlebars-template">
+    {{log datiniciobaseline}}
+    <tr class="linha-atividade success atividade{{idcronogramaatividade}}" id="ativ{{idatividadecronograma}}" data-date="{{inverterData datiniciobaseline}}">
+        <td>
+            <div class="row">
+                <div class="span1" style="width: 30px !important">
+                    <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-atividade" value="{{idatividadecronograma}}">
+                </div>
+                <div class="span4" style="margin-left: 0">
+                    <div class="container-atividade" style="padding-left: 40px;">
+                        <i class="icon-list-alt"></i>{{nomatividadecronograma}}
+                    </div>
+                </div>
+                <div class="span2">
+                    {{datiniciobaseline}} à {{datfimbaseline}}
+                </div>
+                <div class="span1">
+                    {{vlratividade}}
+                </div>
+                <div class="span1">
+                    {{datinicio}}
+                </div>
+                <div class="span1">
+                    {{datfim}}
+                </div>
+                <div class="span1">
+                    {{numpercentualconcluido}}%
+                </div>
+                <div class="span2">
+                    wilton.wbsj
+                </div>
+                <div class="span1">
+                    <span class="badge badge-{{info}}" title="{{dias}}">P</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    <tr class="linha-grupo success grupo{{idcronogramaatividade}}" id="grup{{idatividadecronograma}}" data-date="{{dataInicioBaseLine}}">
+        <td>
+            <div class="row">
+                <div class="span1" style="width: 30px !important">
+                    <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-grupo" value="{{idatividadecronograma}}">
+                </div>
+                <div class="span4" style="margin-left: 0">
+                    <i class="icon-folder-open"></i> {{nomatividadecronograma}}
+                </div>
+                <div class="span2">
+                    {{datiniciobaseline}} à {{datfimbaseline}}
+                </div>
+                <div class="span1">
+                    {{vlratividade}}
+                </div>
+                <div class="span1">
+                    {{datinicio}}
+                </div>
+                <div class="span1">
+                    {{datfim}}
+                </div>
+                <div class="span1">
+                    {{numpercentualconcluido}}%
+                </div>
+                <div class="span2">
+                    wilton.wbsj
+                </div>
+                <div class="span1">
+                    <span class="badge badge-{{info}}" title="{{dias}}">P</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+    <tr class="linha-entrega success entrega{{idcronogramaatividade}}" id="entrega{{idatividadecronograma}}" data-date="{{inverterdata datiniciobaseline}}">
+        <td>
+            <div class="row">
+                <div class="span1" style="width: 30px !important">
+                    <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-grupo" value="{{idatividadecronograma}}">
+                </div>
+                <div class="span4" style="margin-left: 0">
+                    <div class="container-entrega" style="padding-left: 20px;">
+                        <i class="icon-tag"></i> {{nomatividadecronograma}}
+                    </div>
+                </div>
+                <div class="span2">
+                    {{datiniciobaseline}} à {{datfimbaseline}}
+                </div>
+                <div class="span1">
+                    {{vlratividade}}
+                </div>
+                <div class="span1">
+                    {{datinicio}}
+                </div>
+                <div class="span1">
+                    {{datfim}}
+                </div>
+                <div class="span1">
+                    {{numpercentualconcluido}}%
+                </div>
+                <div class="span2">
+                    wilton.wbsj
+                </div>
+                <div class="span1">
+                    <span class="badge badge-{{info}}" title="{{dias}}">P</span>
+                </div>
+            </div>
+        </td>
+    </tr>
+</script>

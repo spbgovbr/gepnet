@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Multiple Point Selection</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+  { country: "USA", gold: 36, silver: 38, bronze: 36 },
+  { country: "China", gold: 51, silver: 21, bronze: 28 },
+  { country: "Russia", gold: 23, silver: 21, bronze: 28 },
+  { country: "Britain", gold: 19, silver: 13, bronze: 15 },
+  { country: "Australia", gold: 14, silver: 15, bronze: 17 },
+  { country: "Germany", gold: 16, silver: 10, bronze: 15 }
+];
+
+$("#chartContainer").dxChart({
+    rotated: true,
+    pointSelectionMode: "multiple",
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        argumentField: "country",
+        type: "stackedbar",
+        selectionStyle: {
+            hatching: "left"
+        }
+    },
+    series: [
+      { valueField: "gold", name: "Gold Medals", color: "gold" },
+      { valueField: "silver", name: "Silver Medals", color: "silver" },
+      { valueField: "bronze", name: "Bronze Medals", color: "orangered" }
+    ],
+    title: {
+        text: "Olympic Medals in 2008"
+    },
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    pointClick: function(point) {
+        point.fullState & 2 ? point.clearSelection() : point.select();
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Advanced features</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.nytimes.com</div>
+			</div>
+		</div>
+	</body>
+</html>

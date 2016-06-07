@@ -1,0 +1,9 @@
+<?php
+class %class% extends %extendsClass%
+{
+    /**
+     * @return void
+     */
+    public function indexAction()
+    {}
+}

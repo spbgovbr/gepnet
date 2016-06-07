@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <?php echo $this->headTitle('Coger Doc'); ?>
+        <?php
+        // Framework CSS
+        $this->headLink()
+                //->prependStylesheet($this->baseUrl('/css/blueprint/ie.css'), 'screen, projection', 'IE lt 8')
+                //->prependStylesheet($this->baseUrl('/css/blueprint/screen.css'), 'screen, projection')
+                // ->appendStylesheet($this->baseUrl('/css/choppdobrado.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/css/layout.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/js/library/jquery-ui-bootstrap/css/custom-theme/jquery.ui.1.10.0.ie.css'), 'screen, projection', 'IE 7')
+                ->prependStylesheet($this->baseUrl('/js/library/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.0.custom.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/js/library/bootstrap/css/bootstrap-responsive.min.css'), 'screen, projection')
+                //->prependStylesheet($this->baseUrl('/js/library/jquery-ui-bootstrap/assets/css/bootstrap.min.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/js/library/bootstrap-dpf1/css/bootstrap.min.css'), 'screen, projection')
+
+
+
+
+        //->appendStylesheet($this->baseUrl('/css/form.css'), 'screen, projection')
+        ;
+        // Library JS
+        //echo $this->minifyHeadScript()
+        $this->jquery()
+                ->setLocalPath($this->baseUrl('/js/library/jquery-ui-bootstrap/js/jquery-1.9.0.min.js'))
+                ->setUiLocalPath($this->baseUrl('/js/library/jquery-ui-bootstrap/js/jquery-ui-1.10.1.custom.min.js'))
+        //->addStylesheet($this->baseUrl('/js/library/jquery-ui-1.8.19.custom/css/Aristo/jquery-ui-1.8.19.custom.css', 'screen, projection'))
+        ;
+        $this->headScript()
+                //->prependFile($this->baseUrl('/js/library/jquery-ui-1.8.19.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'))
+                ->prependFile($this->baseUrl('/js/library/bootstrap/js/bootstrap.min.js'))
+        ;
+        ?> 
+        <?php echo $this->headLink(); ?>
+        <?php echo $this->jquery(); ?>
+        <?php echo $this->headScript(); ?>
+        <?php echo $this->inlineScript(); ?>
+    </head>
+    <body>
+        <div id="portal-header">
+            <div id="info-site" class="span12">
+                <div id="info-site-orgao">
+                    MJ - Departamento de Pol&iacute;cia Federal		
+                </div>
+                <div id="info-site-gestor">
+                    CGTI - Coordena&ccedil;&atilde;o-Geral de Tecnologia da Informa&ccedil;&atilde;o
+                </div>
+                <div id="info-site-sistema">
+                    SISEG - Sistema de Seguran&ccedil;a		
+                </div>
+                <div id="info-site-versao">
+                    Vers&atilde;o 2.0		
+                </div>
+            </div>
+        </div>
+        <div id="geral">
+            <div id="conteudo" class="container-fluid ">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="container">
+
+                            <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </a>
+
+                            <!-- Be sure to leave the brand out there if you want it shown -->
+                            <!--<a class="brand" href="#">Coger doc</a>-->
+
+                            <!-- Everything you want hidden at 940px or less, place within here -->
+                            <div class="nav-collapse collapse">
+                                <!-- .nav, .navbar-search, .navbar-form, etc -->
+                                <?= $this->navigation()->menu()->setPartial('navigation_twitter.phtml')->render(); ?>
+                                <?php echo $this->usuario(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class=" content-breadcrumb">
+                    <?=
+                            $this->navigation()
+                            ->breadcrumbs()
+                            ->setRenderInvisible(true)
+
+                            //->setMinDepth(0)
+                            //->setMaxDepth(10)
+                            ->setPartial('navigation_twitter_bread.phtml');
+                    ?>
+                </div>
+                    
+                <h2><?php echo $this->escape($this->title); ?></h2>
+                <?php echo $this->flashMessages(); ?>
+
+                <div class="content-body">
+                    <?php echo $this->layout()->content; ?>
+                </div>
+            </div>
+        </div><!-- geral -->
+        <div id="rodape">
+            <div id="rodape_copy">
+                <div class="rodape_content">
+                    &copy; Copyright  Polícia Federal - PF, Coordenação-Geral de Tecnologia da Informação - CGTI
+                </div>
+            </div>
+        </div><!--rodape-->
+        <div id="ajax-indicator" style="display: none;"><img src="<?= $this->baseUrl('/img/ajax-loader.gif'); ?>" /></div>
+    </body>
+</html>

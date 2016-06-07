@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Date-Time Scale from String Data</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+    { date: "03/01/2013", dayT: 7, nightT: 2 },
+    { date: "03/02/2013", dayT: 4, nightT: -1 },
+    { date: "03/03/2013", dayT: 4, nightT: -2 },
+    { date: "03/04/2013", dayT: 6, nightT: -3 },
+    { date: "03/05/2013", dayT: 9, nightT: -1 },
+    { date: "03/06/2013", dayT: 6, nightT: 3 },
+    { date: "03/07/2013", dayT: 3, nightT: 1 },
+    { date: "03/08/2013", dayT: 6, nightT: -1 },
+    { date: "03/09/2013", dayT: 13, nightT: 2 },
+    { date: "03/10/2013", dayT: 10, nightT: 2 },
+    { date: "03/11/2013", dayT: 12, nightT: 4 },
+    { date: "03/12/2013", dayT: 14, nightT: 6 },
+    { date: "03/13/2013", dayT: 11, nightT: 3 },
+    { date: "03/14/2013", dayT: 5, nightT: -2 },
+    { date: "03/15/2013", dayT: 8, nightT: -1 },
+    { date: "03/16/2013", dayT: 5, nightT: 0 },
+    { date: "03/17/2013", dayT: 3, nightT: -2 },
+    { date: "03/18/2013", dayT: 2, nightT: -2 },
+    { date: "03/19/2013", dayT: 6, nightT: 1 },
+    { date: "03/20/2013", dayT: 7, nightT: 0 },
+    { date: "03/21/2013", dayT: 4, nightT: -1 },
+    { date: "03/22/2013", dayT: 5, nightT: -2 },
+    { date: "03/23/2013", dayT: 8, nightT: 0 },
+    { date: "03/24/2013", dayT: 8, nightT: 1 },
+    { date: "03/25/2013", dayT: 4, nightT: 2 },
+    { date: "03/26/2013", dayT: 12, nightT: 3 },
+    { date: "03/27/2013", dayT: 12, nightT: 2 },
+    { date: "03/28/2013", dayT: 11, nightT: 3 },
+    { date: "03/29/2013", dayT: 13, nightT: 4 },
+    { date: "03/30/2013", dayT: 15, nightT: 4 },
+    { date: "03/31/2013", dayT: 12, nightT: 7 }
+];
+
+$("#chartContainer").dxRangeSelector({
+    dataSource: dataSource,
+    margin: {
+        top: 50
+    },
+    size: {
+        height: 400
+    },
+    chart: {
+        commonSeriesSettings: {
+            type: "steparea",
+            argumentField: "date"
+        },
+        series: [
+          { valueField: "dayT", color: "yellow" },
+          { valueField: "nightT" }
+        ]
+    },
+    scale: {
+        valueType: "datetime"
+    },
+    sliderMarker: {
+        format: "day"
+    },
+    selectedRange: {
+        startValue: "03/01/2013",
+        endValue: "03/07/2013"
+    }
+});
+
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>RangeSelector</h1>&nbsp;&nbsp;&nbsp;<h2>Scales</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3>Select a Month Period</h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits"></div>
+			</div>
+		</div>
+	</body>
+</html>

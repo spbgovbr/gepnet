@@ -1,0 +1,50 @@
+<?php
+//echo $this->form;
+$frmAttr = $this->form->getAttribs();
+?>
+<form id="<?php echo $frmAttr['id']; ?>" 
+      name="<?php echo $frmAttr['id']; ?>"
+      enctype="<?php echo $frmAttr['enctype']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row">
+        <div class="span3">
+            <?php echo $this->form->nomprograma; ?>
+        </div>
+        <div class="span3">
+            <div class="control-group">
+                <?php echo $this->form->nomresponsavel->renderLabel(); ?>
+                <div class="input-prepend ">
+                    <?php echo $this->form->pessoabutton; ?>
+                    <?php echo $this->form->idresponsavel; ?>
+                    <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->idsimpr; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->flaativo; ?>
+        </div>
+    </div>
+    <div class="row grid-append" style="display: none;">
+    </div>
+    <div class="row">
+        <div class="span3">
+            <?php echo $this->form->idsimpreixo; ?>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->idsimprareatematica; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span5">
+            <?php echo $this->form->desprograma; ?>
+        </div>
+        <div class="span">
+            <?php echo $this->form->idprograma; ?>
+        </div>
+    </div>
+</form>
+

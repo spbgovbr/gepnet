@@ -1,0 +1,89 @@
+<?php
+$this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ;
+
+$this->headScript()->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/app/processo/projeto/add.js'), 'text/javascript')
+    ;
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center" >
+    <div class="row">
+        <div class="portlet portlet-marron span13">
+            <div class="title">Cadastrar Projeto de Processo</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idprocesso; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->numano; ?>
+                        </div>
+                        <div class="span4">
+                            <div class="control-group">
+                                <?php echo $this->form->nomresponsavel->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->idresponsavel; ?>
+                                    <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->vlrorcamento; ?>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;">
+
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->domsituacao; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datsituacao; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datinicioprevisto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datterminoprevisto; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                            <?php echo $this->form->desprojetoprocesso; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span12">
+                            <?php echo $this->form->idprojetoprocesso; ?>
+                            <?php echo $this->form->submit; ?>
+                            <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

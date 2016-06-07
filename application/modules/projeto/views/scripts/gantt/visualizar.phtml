@@ -1,0 +1,64 @@
+<?php
+
+$this->headLink()
+        ->prependStylesheet($this->baseUrl('/css/app/projeto/gantt/gantti.css'))
+         ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/app/projeto/gantt/visualizar.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs(); 
+
+?>
+ <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+ 
+ <div class="region-west">
+    <?php echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'gantt', 'idprojeto' => $this->idprojeto)) ?>
+</div>
+ 
+<div class="region-center">
+    <?php echo $this->action('resumo', 'gerencia', 'projeto', array('idprojeto' => $this->idprojeto)) ?>
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+        </div>
+    </div>
+    <div id="gantt">
+        <?php echo $this->htmlGantt ?>
+    </div>
+</div>
+ 
+ <div class="region-east" style="overflow-y: scroll;">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Gantt - Filtrar</div>
+            <div class="content">
+                
+                <form id="<?php echo $frmAttr['id']; ?>"
+                        name="<?php echo $frmAttr['id']; ?>"
+                        action="<?php echo $this->form->getAction(); ?>"
+                        method="<?php echo $frmAttr['method']; ?>">      
+                    <div class="row"> 
+                        <div class="span3">
+                         <?php echo $this->form->idprojeto ?>
+                         <?php echo $this->form->tipoexibicao ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->form->btnpesquisar ?>
+                                <?php echo $this->form->reset ?>
+                                <?php echo $this->form->close ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div>
+    <div align="left" class="span4" style="margin-top: 60px">
+        <h5>2. CRONOGRAMA</h5>
+    </div>
+    <table class="table table-striped table-hover table-condensed"> 
+        <thead>
+            <tr>
+                <th>Grupo/Evento/Atividade</th>
+                <th>Baseline(Planejado)</th>
+                <th>(D/P)</th>
+                <th>Custo</th>
+                <th>In&iacute;cio/Fim(Realizado)</th>
+                <th>(D/R)</th>
+                <th>%</th>
+                <th>Respons&aacute;vel</th>
+                <th>Farol</th>
+            </tr>
+        </thead>
+        <tbody>
+        <colgroup>
+            <col style="width: 350px; border: 1px solid red;">
+            <col style="width: 150px; text-align: center;border: 1px solid red;">
+            <col style="width: 60px; text-align: center;border: 1px solid red;">
+            <col style="text-align: center;">
+            <col style="width: 150px;">
+            <col style="">
+            <col style="">
+            <col style="width: 45px;">
+        </colgroup>
+            <?php foreach($this->projeto['grupos'] as $gr): ?>
+            <tr style="border-bottom: thick solid #ccc;">
+                <td class="titulo-grupo" style="font-weight: bold; font-size: 10px;"><?php echo $gr['nomatividadecronograma']?></td>
+                <td>
+                    <?php echo isset($gr['datiniciobaseline'])? $gr['datiniciobaseline']: ""; ?> &agrave; 
+                    <?php echo isset($gr['datfimbaseline'])? $gr['datfimbaseline'] : ""; ?>
+                </td>
+                <td><?php echo $gr['diasbaseline']?></td>
+                <td><?php echo $gr['vlratividade']?></td>
+                <td>
+                    <?php echo isset($gr['datinicio'])? $gr['datinicio'] : ""; ?> &agrave; 
+                    <?php echo isset($gr['datfim'])? $gr['datfim']: ""; ?>
+                </td>
+                <td><?php $valorGrupo = ($gr['datfim'] - $gr['datinicio']);
+                                echo $valorGrupo;
+                          ?> </td>
+                <td><?php echo $gr['numpercentualconcluido']?>%</td>
+                <td></td>
+                <td></td>
+            </tr>
+                <?php if(isset($gr['entregas'])):
+                        foreach($gr['entregas'] as $en): ?>
+                        <tr>
+                            <td style="padding-left: 15px;"><?php echo $en['nomatividadecronograma']?></td>
+                            <td>
+                                <?php echo isset($en['datiniciobaseline'])? $en['datiniciobaseline']: "";?> &agrave; 
+                                <?php echo isset($en['datfimbaseline'])? $en['datfimbaseline'] : ""; ?>
+                            </td>
+                            <td><?php echo $en['diasbaseline']?></td>
+                            <td><?php echo $en['vlratividade']?></td>
+                            <td>
+                                <?php echo isset($en['datinicio'])? $en['datinicio'] : ""; ?> &agrave; 
+                                <?php echo isset($en['datfim'])? $en['datfim']: ""; ?>
+                            </td>
+                            <td><?php
+                               $valorEntrega = ($en['datfim'] - $en['datinicio']);
+                                echo $valorEntrega; 
+                            ?></td>
+                            <td><?php echo $en['numpercentualconcluido']?>%</td>
+                            <td><?php echo $en['desemail']?></td>
+                            <td class="badge badge-<?php echo $this->projeto['info'] ?>"> <?php echo isset($en['prazo'])? $en['prazo'] : "" ?> </td>
+                        </tr>
+                        <?php if(isset($en['atividades']) ): 
+                                foreach($en['atividades'] as $at): ?>
+                                    <tr>
+                                        <td style="padding-left: 30px; font-style: italic;"> <?php echo $at['nomatividadecronograma']?></td>
+                                        <td><?php echo $at['datiniciobaseline'] ?> &agrave; <?php echo $at['datfimbaseline'] ?></td>
+                                        <td><?php echo $at['diasbaseline']?></td>
+                                        <td><?php echo $at['vlratividade']?></td>
+                                        <td><?php echo $at['datinicio']?> &agrave; <?php echo $at['datfim']?></td>
+                                        <td><?php echo $at['numdiasrealizados']?></td>
+                                        <td><?php echo $at['numpercentualconcluido']?>%</td>
+                                        <td><?php echo $at['desemail']?></td>
+                                        <td class="badge badge-<?php echo $at['descricaoprazo'] ?>"> <?php echo $at['prazo'] ?> </td>
+                                    </tr>
+                                    <?php if( count($at['predecessoras']) > 0): 
+                                            foreach($at['predecessoras'] as $pr): ?>
+                                            <tr>
+                                                <td style="padding-left: 40px;" colspan="8"> (P) <?php echo $pr['nomatividadecronograma']?></td>
+                                            </tr>
+                                    <?php   endforeach;
+                                           endif; ?>
+                        <?php endforeach; 
+                             endif; ?>
+                <?php endforeach;
+                    endif;?>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr> <td colspan="8"><?php echo $this->projeto['contGrupo'] ?> grupo(s), <?php echo $this->projeto['contEntrega'] ?> entrega(s) e <?php echo $this->projeto['contAtividade'] ?> atividade(s) </td></tr>
+        </tfoot>
+    </table>
+</div>
+
+

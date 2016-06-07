@@ -1,0 +1,72 @@
+#container-graficos {
+    width: 1500px;
+}
+
+.objetivos-porfolio {
+     margin: 0 0 15px 5px;
+}
+
+.container-objetivos {
+    width: 1300px;
+    font-size: 12px;
+    /*border: 1px solid red;*/ 
+}    
+
+.box-objetivo {
+    padding-top: 5px;
+/*    height: 500px;*/
+    width: 125px;
+    /*border: 1px solid red;*/
+    margin-left: 5px;
+}
+
+.box-nome-objetivo {
+    font-size: 12px;
+    padding: 3px;
+    text-align: center;
+    border: 2px double #DAA520;
+    background: #e7d9a8;
+    color: #000;
+}
+
+.box-nome-objetivo a{
+     color: #000;
+}
+
+.box-nome-objetivo a:hover{
+     color: #808080;
+     text-decoration: none;
+}
+
+.box-acao {
+    margin: 1px 0;
+    width: 125px; 
+}
+
+.box-acao ul {
+    list-style-type: none; 
+    margin: 0;
+    padding: 0;
+    min-height: 150px;
+}
+
+.item-acao {
+    border: 1px solid #ccc; 
+    margin-left: 0px;
+    font-size: 12px;
+    border: 2px solid #808080;
+    background: #DCDCDC;
+    margin-bottom: 2px;
+    text-align: center;
+    color: #000;
+}
+
+.item-acao a {
+    color: #000;
+}
+
+.item-acao a:hover {
+    color: #DAA520;
+    text-decoration: none;
+}
+

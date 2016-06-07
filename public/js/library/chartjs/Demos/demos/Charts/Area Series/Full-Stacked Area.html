@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Full-Stacked Area</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+    { year: "1990", us: 504314, ru: 590045, ca: 108607, ir: 23150, no: 25479, rest: 728785 },
+    { year: "2000", us: 543174, ru: 528507, ca: 182244, ir: 60240, no: 49748, rest: 1048714 },
+    { year: "2008", us: 574436, ru: 601719, ca: 173410, ir: 116300, no: 99245, rest: 1495668 },
+    { year: "2009", us: 593380, ru: 527511, ca: 161390, ir: 131200, no: 103470, rest: 1470011 }
+];
+
+$("#chartContainer").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        argumentField: "year",
+        type: "fullStackedArea",
+        hoverStyle: {
+            hatching: "right"
+        }
+    },
+    series: [
+        { valueField: "us", name: "United States" },
+        { valueField: "ru", name: "Russia" },
+        { valueField: "ca", name: "Canada" },
+        { valueField: "ir", name: "Iran" },
+        { valueField: "no", name: "Norway" },
+        { valueField: "rest", name: "Rest of the World" }
+    ],
+	argumentAxis: {
+		valueMarginsEnabled: false
+	},
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center",
+        itemTextPosition: "bottom"
+    },
+    title: {
+        text: "Natural Gas Production"
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Area Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

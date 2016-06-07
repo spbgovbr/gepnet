@@ -1,0 +1,95 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))       
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        
+        ->appendFile($this->baseUrl('/js/app/projeto/ata/listar.js'), 'text/javascript')
+;
+
+$frmAttr = $this->formPesquisar->getAttribs();
+$linkImprimirTudo = '/projeto/atareuniao/imprimir/idprojeto/'.$this->idprojeto.'/print/all';
+
+?>
+
+<div class="region-west">
+    <?php echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'ata', 'idprojeto' => $this->idprojeto)) ?>
+</div>
+
+<div class="region-center">
+    <?php echo $this->action('resumo', 'gerencia', 'projeto', array('idprojeto' => $this->idprojeto)) ?>
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+            <a data-target="#dialog-inserir" class="btn actionfrm inserir" title="Cadastrar" data-id="<?php echo $this->idprojeto?>" href="<?php echo $this->url(array(
+             'module' => 'projeto', 'controller' => 'atareuniao', 'action' => 'cadastrar' ))?>">
+                Cadastrar
+            </a>
+        </div>
+        <a href="<?php echo $this->baseUrl($linkImprimirTudo)?>" class="btn print" title="Imprimir tudo" style="float: right;"><i class="icon-print"></i>  &nbsp;Imprimir Todas</a>
+    </div> 
+    
+    <table id="list-grid-ata"></table>
+    <div id="toolbar-grid-ata"></div>
+    <div id="pager-grid-ata"></div>
+</div>
+
+<div class="region-east" style="overflow-y: scroll;">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Ata - Pesquisar</div>
+            <div class="content">
+                
+                <form id="<?php echo $frmAttr['id']; ?>"
+                        name="<?php echo $frmAttr['id']; ?>"
+                        action="<?php echo $this->formPesquisar->getAction(); ?>"
+                        method="<?php echo $frmAttr['method']; ?>">    
+                    <div class="row">                                                                       
+                        <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto?>">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->deslocal ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->formPesquisar->datata ?>                
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->formPesquisar->hrreuniao ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->formPesquisar->desassunto ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->formPesquisar->btnpesquisar ?>
+                                <?php echo $this->formPesquisar->reset ?>
+                                <?php echo $this->formPesquisar->close ?>
+                            </div>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="dialog-editar" style="display: none"></div>
+<div id="dialog-excluir" style="display: none"></div>
+<div id="dialog-detalhar" style="display: none"></div>
+<div id="dialog-inserir" style="display: none"></div>

@@ -1,0 +1,319 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/projeto/gerencia/add.js'), 'text/javascript')
+;
+
+
+
+//echo $this->form;
+$frmAttr = $this->form->getAttribs();
+?>
+
+
+
+<div class="portlet portlet-marron span12">
+    <div class="title">Cadastrar Projeto Gerencia</div>
+        <form id="<?php echo $frmAttr['id']; ?>"
+              name="<?php echo $frmAttr['id']; ?>"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+    <div class="content">
+
+
+
+
+            <div id="tabs">
+                <ul>
+                    <li><a href="#tabs-1">Informações Iniciais</a></li>
+                    <li><a href="#tabs-2">Informações Técnicas</a></li>
+                    <li><a href="#tabs-3">Resumo do Projeto</a></li>
+                    <li><a href="#tabs-4">Partes Interessadas</a></li>
+                </ul>
+
+
+
+                <div id="tabs-1">
+                    <p>
+
+
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->codprojeto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->nomprojeto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->nomcodigo; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->idobjetivo; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idnatureza; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->iddemandante; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idsetor; ?>
+                        </div>
+
+                        <div class="span2">
+                            <?php echo $this->form->idpatrocinador; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->idgerenteprojeto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idgerenteadjunto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->vlrorcamentodisponivel; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->datinicio; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datfim; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datinicioplano; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datfimplano; ?>
+                        </div>
+                    </div>
+
+
+
+                    </p>
+                </div>
+                <div id="tabs-2">
+                    <p>
+
+
+
+                    <div class="row">
+                        <div class="span4">
+                            <?php echo $this->form->desjustificativa; ?>
+                        </div>
+                    </div>
+                    <div class="row">                
+                        <div class="span3">
+                            <?php echo $this->form->desprojeto; ?>
+                        </div>
+                    </div> 
+
+                    <div class="row">               
+                        <div class="span3">
+                            <?php echo $this->form->desobjetivo; ?>
+                        </div>
+
+                    </div>
+
+
+                    </p>
+                </div>
+                <div id="tabs-3">
+                    <p>
+
+
+
+
+                    <div class="row">
+                        <div class="span4">
+                            <?php echo $this->form->desescopo; ?>
+                        </div>
+                    </div>
+                    <div class="row">                
+                        <div class="span3">
+                            <?php echo $this->form->desnaoescopo; ?>
+                        </div>
+                    </div> 
+
+                    <div class="row">               
+                        <div class="span3">
+                            <?php echo $this->form->despremissa; ?>
+                        </div>
+
+                    </div>
+                    <div class="row">               
+                        <div class="span3">
+                            <?php echo $this->form->desrestricao; ?>
+                        </div>
+
+                    </div>
+
+                    </p>
+                </div>
+
+                <div id="tabs-4">
+                    <p>
+
+
+
+                    <div class="row">			
+                        <div class="span10.5">
+                            <h1 class="title"> Incluir Partes Interessadas</h1>
+                        </div>			
+                    </div>
+
+
+
+                    <div class="row" style="margin-top: 12px;">
+                        <div class="span2">
+                            <label class="radio">
+                                <input id="origem-interno" class="importar" type="radio" checked="" value="0" name="controle">
+                                Interno
+                            </label>
+                        </div>
+                        <div class="span2">
+                            <label class="radio">
+                                <input id="origem-externo" class="importar" type="radio" value="1" name="controle">
+                                Externo
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row" style="display:block;width:100%;height:110px;overflow:hidden">                
+                        <div  id="generate"  style="margin-top: 12px;  width:1067px; overflow:auto;" >   		   
+                            <div class="span10.5">
+                                <div class="span">
+                                    <label class="control-label optional" for="inputNomeExterno">Nome - Cargo</label>
+                                    <input id="inputNomeExterno" class="span2" type="text">
+                                </div>
+                                <div class="span">
+                                    <label class="control-label optional" for="inputPosicaoExterno">Posição na Organização</label>
+                                    <input id="inputPosicaoExterno" class="span2" type="text">
+                                </div>
+                                <div class="span">
+                                    <label class="control-label optional" for="inputTelefoneExterno">Telefone</label>
+                                    <input id="inputTelefoneExterno" class="span1" type="text">
+                                </div>
+                                <div class="span">
+                                    <label class="control-label optional" for="inputEmailExterno">Email</label>
+                                    <input id="inputEmailExterno" class="span2" type="text">
+                                </div>
+                                <div class="span">
+                                    <label class="control-label optional" for="selectNivelExterno">Nível de Influência</label>
+                                    <select id="selectNivelExterno" class="span1">
+                                        <option value="Baixo">Baixo</option>
+                                        <option value="Médio">Médio</option>
+                                        <option value="Alto">Alto</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="interno" class="formulario" style="margin-top: 12px;margin-bottom: 20px;">
+                            <!-- pessoa -->
+                                <div class="span10">
+                                    <fieldset>
+                                        <div class="row">
+                                            <div class="span">
+                                                <?php echo $this->form->idinterno; ?>
+                                            </div>
+                                            <div class="span">
+                                                <label class="control-label optional" for="inputPosicao">Posição na organização</label>
+                                                <input type='text' id='inputPosicao' class='span2'> </input>
+                                            </div>
+                                            <div class="span">
+                                                <label class="control-label optional" for="inputSituacao">Situação</label>
+                                                <input type='text' id='inputSituacao' class='span2'> </input>
+                                            </div>
+                                            <div class="span">
+                                                <label class="control-label optional" for="selectNivel">Nível de Influência</label>
+                                                <select id="selectNivel" class="span1">
+                                                    <option value="Baixo">Baixo</option>
+                                                    <option value="Médio">Médio</option>
+                                                    <option value="Alto">Alto</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            <!-- fim pessoa -->
+                        </div>
+                        <div class="span2 actions-pesquisar" >
+                            <button class="btn" type="button" id="btn-adicionar">Adicionar</button>
+                        </div>
+                    </div> 
+                    
+                    
+                    <div id="listagemInteressados" class="row hidden">
+                        
+                    </div>
+                    
+                    <div class="row">
+                        <div class="span10.5">
+                            <h1 class="title"> Demais Informações</h1>
+                        </div>
+                    </div>
+                    
+                    <div class="row">               
+                        <div class="span3">
+                            <?php echo $this->form->domtipoprojeto; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->flacopa; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->numperiodicidadeatualizacao; ?>
+                        </div>
+
+                        <div class="span2">
+                            <?php echo $this->form->numcriteriofarol; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->flapublicado; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->flaaprovado; ?>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                    </p>
+                </div>        
+
+            </div>
+
+
+
+
+
+    </div>
+            <div class="row form">
+                <div class="span4">
+                    <?php echo $this->form->submit; ?>
+                    <?php echo $this->form->reset; ?>
+                </div>
+            </div>
+        </form>
+</div>
+
+
+

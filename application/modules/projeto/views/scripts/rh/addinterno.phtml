@@ -1,0 +1,174 @@
+<script>
+
+$(function() {
+
+    $("#accordion").accordion();
+
+    $.pnotify.defaults.history = false;
+
+    $("#tabs").tabs();
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR'
+    });
+
+    $('.mask-tel').mask("(99) 9999-9999");
+
+
+    $('.origem').click(function() {
+        context = $(this).data('cont');
+        $('.cont').hide().find('input,select').hide().prop('disabled', true);
+        $('.' + context).show().find('select,input:text,input:hidden').fadeIn('slow').prop('disabled', false);
+        $('.origem').removeClass('active');
+        $('.origem-' + context).addClass('active');        
+    });
+
+    $('.origem:first').trigger('click');
+
+
+     $(".pessoa-button").on('click', function(event) {
+        event.preventDefault();
+        $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+        $(this).closest('.control-group').addClass('input-selecionado');
+        if ($("table#list-grid-pessoa").length <= 0) {
+            $.ajax({
+                url: base_url + "/cadastro/pessoa/grid",
+                type: "GET",
+                dataType: "html",
+                success: function(html) {
+                    $(".grid-append").append(html).slideDown('fast');
+                }
+            });
+            $('.pessoa-button')
+                .off('click')
+                .on('click',function() {
+                    var $this = $(this);
+                    $(".grid-append").slideDown('fast', function(){
+                        $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+                        $this.closest('.control-group').addClass('input-selecionado');
+                    });
+                });
+        } 
+    });        
+});
+
+function resetFormPart() {
+    $("input, select").not('input#idprojeto').val('');
+    $("#observacaoexterno").val('');
+}
+
+function selectRow(row) {
+    $('.input-selecionado')
+        .find('input:hidden').val(row.idpessoa).trigger('blur')
+        .end()
+        .find('input:text').val(row.nompessoa).trigger('blur');
+}
+</script>
+<?php
+    $frmAttr = $this->form->getAttribs();
+    $frmAttrExterno = $this->formExterno->getAttribs();
+?>
+<div class="region-center" >
+    <div class="portlet portlet-marron">
+        <div class="content">
+            <div class="row span">
+                <div class="portlet">
+                    <ul class="nav nav-pills">
+                        <li class="origem origem-interno active"  data-cont="interno"><a id="origem-interno-link" class="link" href="#">Interno</a></li>
+                        <li class="origem origem-externo" data-cont="externo"><a id="origem-externo-link" class="link" href="#">Externo</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row span12">
+            <div>
+                <div class="interno formulario cont">
+                    <form id="<?php echo $frmAttr['id']; ?>"
+                          name="<?php echo $frmAttr['id']; ?>"
+                          method="<?php echo $frmAttr['method']; ?>">
+                            <div class="row">                
+                                <div class="span9">
+                                    <div class="row">
+                                        <div class="container-pessoa">
+                                            <div class="span">
+                                                <div class="control-group">
+                                                    <?php echo $this->form->nomparteinteressada->renderLabel(); ?>
+                                                    <div class="controls">
+                                                        <div class="input-prepend ">
+                                                            <?php echo $this->form->pessoabutton; ?>
+                                                            <?php echo $this->form->nomparteinteressada->renderViewHelper(); ?>
+                                                            <?php echo $this->form->idparteinteressada; ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->form->nomfuncao; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->form->domnivelinfluencia; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->form->destelefone; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->form->desemail; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->form->observacao; ?>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input id="idprojeto" type="hidden" value="<?php echo $this->idprojeto; ?>" name="idprojeto">
+                                    </div>
+                                    <div class="row grid-append" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <div class="externo formulario cont" >   		   
+                    <form id="<?php echo $frmAttrExterno['id']; ?>"
+                          name="<?php echo $frmAttrExterno['id']; ?>"
+                          action="<?php echo $this->formExterno->getAction(); ?>"
+                          method="<?php echo $frmAttrExterno['method']; ?>">
+                            <div class="row">                
+                                <div class="span9">
+                                    <div class="row">
+                                        <div class="span">
+                                            <?php echo $this->formExterno->nomparteinteressadaexterno; ?>
+                                        </div>
+                                        <div class="span">                                            
+                                            <?php echo $this->formExterno->nomfuncaoexterno; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->formExterno->domnivelinfluenciaexterno; ?>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="span">
+                                            <?php echo $this->formExterno->destelefoneexterno; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->formExterno->desemailexterno; ?>
+                                        </div>
+                                        <div class="span">
+                                            <?php echo $this->formExterno->observacaoexterno; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
+                        <div>
+                            <input id="idprojeto" type="hidden" value="<?php echo $this->idprojeto; ?>" name="idprojeto">                            
+                        </div>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+

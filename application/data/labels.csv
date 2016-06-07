@@ -1,0 +1,14 @@
+os_id;Id
+usu_id;Usuário
+usu_matricula;Matrícula
+usu_nome;Nome
+usu_setor;Setor
+usu_telefone;Telefone
+os_grupo;Grupo
+os_desc;Descrição
+os_obs;Observação
+os_imagem;Imagem
+os_solucao;Solução
+os_data1;Data inicial
+os_data2;Data final
+A record with the supplied identity could not be found.

@@ -1,0 +1,80 @@
+<?php
+/**
+ * @var $this->processo Processo_Model_Acao
+ */
+?>
+
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Ação</h3>
+        <div class="content">
+            <?= $this->processo->nom_p_acao; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Responsável</h3>
+        <div class="content">
+            <?= $this->processo->nomresponsavel; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Setor Responsável</h3>
+        <div class="content">
+            <?= $this->processo->nomsetorresponsavel; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Início Previsto</h3>
+        <div class="content">
+            <?= $this->processo->datinicioprevisto->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Início Real</h3>
+        <div class="content">
+            <?= $this->processo->datinicioreal->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Término Previsto</h3>
+        <div class="content">
+            <?= $this->processo->datterminoprevisto->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Término Real</h3>
+        <div class="content">
+            <?= $this->processo->datterminoreal->toString('d/m/Y'); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Cancelada?</h3>
+        <div class="content">
+            <?= $this->processo->getDescricaoFlacancelada(); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <h3>Cadastrador</h3>
+        <div class="content">
+            <?= $this->processo->nomcadastrador; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Cadastro</h3>
+        <div class="content">
+            <?= $this->processo->datcadastro->toString('d/m/Y'); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span8">
+        <h3>Descri&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->processo->des_p_acao; ?>
+        </div>
+    </div>
+</div>

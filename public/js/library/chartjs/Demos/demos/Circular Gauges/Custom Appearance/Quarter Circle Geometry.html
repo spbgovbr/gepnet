@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Quarter Circle Geometry</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var model = {
+	settings: {
+		preset: "preset1",
+
+		geometry: {
+			startAngle: 180,
+			endAngle: 90,
+			radius: 250
+		},
+
+		scale: {
+			majorTick: {
+				showCalculatedTicks: false,
+				customTickValues: [0,25,50,100]
+			}
+		},
+
+		rangeContainer: {
+			backgroundColor: "none",
+			ranges: [
+				{
+					startValue: 0,
+					endValue: 25,
+					color: "red"
+				},
+				{
+					startValue: 25,
+					endValue: 50,
+					color: "yellow"
+				},
+				{
+					startValue: 50,
+					endValue: 100,
+					color: "green"
+				}
+			]
+		},
+
+		needles: [{value: 100}]
+	},
+
+	useDevice: function(){
+		var value = this.gauge.needleValue(0);
+		if(value > 0){
+			value -= 10;
+		}
+		this.gauge.needleValue(0, value);
+	},
+
+	recharge: function(){
+		this.gauge.needleValue(0, 100);
+	}
+};
+
+var html = [
+    '<div data-bind="dxCircularGauge: settings" style="height: 75%"></div>',
+    "<div>",
+	'<label data-bind="click: useDevice" style="cursor:pointer;font-size:18px">',
+		"Use Device",
+	"</label>",
+	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+	'<label data-bind="click: recharge" style="cursor:pointer;font-size:18px">',
+		"Recharge",
+	"</label>",
+    "</div>"
+].join("");
+
+$("#chartContainer").append(html);
+ko.applyBindings(model, $("#chartContainer")[0]);
+model.gauge =  $("#chartContainer div").dxCircularGauge("instance");
+
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Circular Gauges</h1>&nbsp;&nbsp;&nbsp;<h2>Custom Appearance</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3>Battery Charge</h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits"></div>
+			</div>
+		</div>
+	</body>
+</html>

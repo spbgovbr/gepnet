@@ -1,0 +1,47 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <div class="content">
+            <input type="hidden" name="idcontramedida" value="<?php echo $this->contramedida['idcontramedida']?>">
+            <div class="row">              
+                <div class="portlet portlet-cinza span5">
+                    <div class="title">Título Contramedida</div>
+                    <div class="content"><?php echo $this->contramedida['nocontramedida']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span9">
+                    <div class="title">Descri&ccedil;&atilde;o</div>
+                    <div class="content"><?php echo $this->contramedida['descontramedida']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Prazo</div>
+                    <div class="content"><?php echo $this->contramedida['datprazocontramedida']; ?>&nbsp;</div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Tend&ecirc;ncia/Real</div>
+                    <div class="content"><?php echo $this->contramedida['datprazocontramedidaatraso']; ?>&nbsp;</div>
+                </div>                                               
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Tipo Contramedida</div>
+                    <div class="content"><?php echo $this->contramedida['notipocontramedida']; ?>&nbsp;</div>
+                </div>                                               
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Status Contramedida</div>
+                    <div class="content"><?php echo $this->contramedida['domstatuscontramedida']; ?>&nbsp;</div>
+                </div>                                               
+            </div>
+            <div class="row"> 
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Contramedida Efetiva?</div>
+                    <div class="content"><?php echo $this->contramedida['flacontramedidaefetiva']; ?>&nbsp;</div>
+                </div> 
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Respons&aacute;vel</div>
+                    <div class="content"><?php echo $this->contramedida['desresponsavel']; ?>&nbsp;</div>
+                </div>
+            </div>                        
+        </div>
+    </div>
+</div>

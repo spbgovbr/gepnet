@@ -1,0 +1,49 @@
+<?php
+$this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/projeto/r3g/index.js'), 'text/javascript')
+;
+
+//$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-west" >
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'r3g', 'idprojeto' => $this->projeto->idprojeto));
+    ?>
+</div>
+<div class="region-center">
+    <?php echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto)); ?>
+
+    <div>
+        <div class="btn-group">
+            <a data-target="#dialog-cadastrar" class="btn cadastrar" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'r3g', 'action' => 'add')); ?>">Cadastrar</a>
+        </div>
+    </div>
+
+    <table id="list2"></table>
+    <div id="toolbar2"></div>
+    <div id="pager2"></div>
+    <input type="hidden" id="id" value="<?php echo $this->projeto->idprojeto; ?>">
+</div>
+
+<div id="dialog-editar" style="display: none"></div>
+<div id="dialog-excluir" style="display: none"></div>
+<div id="dialog-detalhar" style="display: none"></div>
+<div id="dialog-cadastrar" style="display: none"></div>

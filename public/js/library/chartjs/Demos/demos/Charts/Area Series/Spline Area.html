@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Spline Area</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+    { company: "ExxonMobil", y2005: 362.53, y2004: 277.02},
+    { company: "GeneralElectric", y2005: 348.45, y2004: 328.54},
+    { company: "Microsoft", y2005: 279.02, y2004: 297.02},
+    { company: "Citigroup", y2005: 230.93, y2004: 255.3},
+    { company: "Royal Dutch Shell plc", y2005: 203.52, y2004: 173.54},
+    { company: "Procted & Gamble", y2005: 197.12, y2004: 131.89}
+];
+
+$("#chartContainer").dxChart({
+    title: "Corporations with Highest Market Value",
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        type: "splineArea",
+        argumentField: "company"
+    },
+    argumentAxis:{
+        valueMarginsEnabled: false
+    },
+    series: [
+        { valueField: "y2005", name: "2005" },
+        { valueField: "y2004", name: "2004" }
+    ],
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    tooltip:{
+        enabled: true
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Area Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

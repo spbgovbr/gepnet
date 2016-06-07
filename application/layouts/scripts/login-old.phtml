@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <?php echo $this->headTitle('GEPNET 2'); ?>
+        <?php
+        // Framework CSS
+        $this->headLink()
+                ->prependStylesheet($this->baseUrl('/css/index.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/css/layout.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/js/library/bootstrap/css/bootstrap-responsive.min.css'), 'screen, projection')
+                ->prependStylesheet($this->baseUrl('/js/library/bootstrap/css/bootstrap.min.css'), 'screen, projection')
+                ->appendStylesheet($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/css/custom-theme/jquery-ui-1.8.24.custom.css', 'screen, projection'))
+                
+                ->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.default.css'))
+                ->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/icons/jquery.pnotify.default.icons.css'))
+       
+
+        //->appendStylesheet($this->baseUrl('/css/form.css'), 'screen, projection')
+        ;
+        // Library JS
+        //echo $this->minifyHeadScript()
+        /*
+        $this->jquery()
+        ;
+         */
+        $this->headScript()
+                ->prependFile($this->baseUrl('/js/login.js'))
+                ->prependFile($this->baseUrl('/js/index.js'))
+                ->prependFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/js/jquery-ui-1.8.24.custom.min.js'))
+                //->prependFile($this->baseUrl('/js/library/jquery-migrate-1.1.0.js'))
+                ->prependFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/js/jquery-1.8.2.min.js'))
+                ->appendFile($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.min.js'), 'text/javascript')
+                //->prependFile($this->baseUrl('/js/library/wijmo-open/external/jquery-ui-1.8.23.custom.min.js'))
+                //->prependFile($this->baseUrl('/js/library/wijmo-open/external/jquery-1.8.2.min.js'))
+                // ->prependFile($this->baseUrl('/js/library/bootstrap/js/bootstrap.min.js'))
+                ;
+        ?> 
+        <?php echo $this->headLink(); ?>
+        <?php //echo $this->jquery(); ?>
+        <?php echo $this->headScript(); ?>
+        <?php echo $this->inlineScript(); ?>
+    </head>
+    <body>
+        <div id="portal-header">
+            <div id="info-site" class="span12">
+                <div id="info-site-orgao">
+                    Informe aqui seu ministério ou órgão		
+                </div>
+                <div id="info-site-gestor">
+                    Informe aqui seu órgão ou divisão
+                </div>
+                <div id="info-site-sistema">
+                    GEPNET - Gestor de EscritÃ³rios de Projetos
+                </div>
+                <div id="info-site-versao">
+                    VersÃ£o 2.1.1 - Portal SPB		
+                </div>
+            </div>
+            <?php echo $this->usuario(); ?>
+        </div>
+        <div id="geral">
+            <div id="conteudo" class="container-fluid ">
+                <h2><?php echo $this->escape($this->title); ?></h2>
+                <?php echo $this->flashMessages(); ?>
+
+                <div class="content-body">
+                    <?php echo $this->layout()->content; ?>
+                </div>
+                    
+            </div>
+        </div><!-- geral -->
+        <div id="rodape">
+            <div id="rodape_copy">
+                <div class="rodape_content">
+                    Â© 2010-2016 PolÃ­cia Federal â€“ Registro INPI BR 51 2014 000773-1 - Distribuido sob a Licença GPL 2.0
+                </div>
+            </div>
+        </div><!--rodape-->
+        <div id="ajax-indicator" style="display: none;"><img src="<?= $this->baseUrl('/img/ajax-loader.gif'); ?>" /></div>
+    </body>
+</html>

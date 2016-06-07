@@ -1,0 +1,37 @@
+
+<div class="content"> 
+    <form id="form-aceite-editar"
+            name="form-aceite-editar"
+            action="<?php echo $this->form->getAction(); ?>"
+            method="post">
+    <?php  ?>
+        <input type="hidden" name="idprojeto" value="<?php echo $this->idprojeto ?>"/>
+        <input type="hidden" name="idaceiteativcronograma" value="<?php echo $this->idaceiteativcronograma ?>"/>
+     <?php echo $this->form->idaceite; ?> 
+        <div class="row">
+            <div class="span6">
+                <?php echo $this->form->identrega; ?>
+            </div>
+            <div class="span4">
+                <?php echo $this->form->flaaceite; ?>
+            </div>
+        </div>
+        <div class="row dados-entrega">
+            <div class="span6 well well-small">
+                <p class="descricao-entrega"> Descri&ccedil;&atilde;o Entrega: <span> <?php echo $this->aceite->desobs; ?> </span> </p>
+                <p class="criterio-aceitacao"> Crit&eacute;rio de Aceita&ccedil;&atilde;o: <span> <?php echo $this->aceite->descriterioaceitacao; ?> </span> </p>
+                <p class="responsavel">  Respons&aacute;vel: <span> <?php echo $this->aceite->nomresponsavel; ?> </span></p>
+            </div>
+        </div>
+        <div class="row">
+           <div class="span6">
+                <?php echo $this->form->desprodutoservico; ?>
+           </div>
+        </div>
+        <div class="row">
+           <div class="span6">
+                <?php echo $this->form->desparecerfinal; ?>
+           </div>
+        </div>
+  </form>
+</div>

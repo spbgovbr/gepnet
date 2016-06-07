@@ -1,0 +1,215 @@
+<?php
+
+//$this->headScript()
+//    ->appendFile($this->baseUrl('/js/app/acordocooperacao/instrumentocooperacao/add.js'), 'text/javascript')
+//;
+
+$frmAttr = $this->form->getAttribs();
+?>
+<script>
+    $('.mask-cel').mask("(99) 9999-9999?9").focusout(function(){
+        var phone, element;
+        element = $(this);
+        element.unmask();
+        phone = element.val().replace(/\D/g, '');
+        if(phone.length > 10) {
+            element.mask("(99) 99999-999?9");
+        } else {
+            element.mask("(99) 9999-9999?9");
+        }
+    }).trigger('focusout');
+
+    $('.mask-tel').mask("(99) 9999-9999");
+    //    $('.mask-num').mask(" 999");
+
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR'
+    });
+
+    $("body").delegate(".datemask-BR", "focusin", function() {
+        $(this).mask('99/99/9999');
+    });
+</script>
+<div class="content">
+    <form id="<?php echo $frmAttr['id']; ?>"
+          name="<?php echo $frmAttr['id']; ?>"
+          action="<?php echo $this->form->getAction(); ?>"
+          method="<?php echo $frmAttr['method']; ?>">
+
+        <div class="row">
+            <div class="span11">
+                <?php echo $this->form->nomacordo; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <?php echo 'Espécie Instrumento(a criar)'; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->numsiapro; ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->form->idsetor; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->despalavrachave; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <?php echo $this->form->flarescindido; ?>
+            </div>
+            <div class="span7">
+                <?php echo $this->form->idacordopai; ?>
+            </div>
+        </div>
+        <div class="row container-pessoa">
+            <div class="span3">
+                <div class="control-group">
+                    <?php echo $this->form->nomresponsavelinterno->renderLabel(); ?>
+                    <div class="input-prepend ">
+                        <?php echo $this->form->pessoabutton; ?>
+                        <?php echo $this->form->idresponsavelinterno; ?>
+                        <?php echo $this->form->nomresponsavelinterno->renderViewHelper(); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="control-group">
+                    <?php echo $this->form->nomfiscal->renderLabel(); ?>
+                    <div class="input-prepend ">
+                        <?php echo $this->form->pessoabutton; ?>
+                        <?php echo $this->form->idfiscal; ?>
+                        <?php echo $this->form->nomfiscal->renderViewHelper(); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="control-group">
+                    <?php echo $this->form->nomfiscal2->renderLabel(); ?>
+                    <div class="input-prepend ">
+                        <?php echo $this->form->pessoabutton; ?>
+                        <?php echo $this->form->idfiscal2; ?>
+                        <?php echo $this->form->nomfiscal2->renderViewHelper(); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="span3">
+                <div class="control-group">
+                    <?php echo $this->form->nomfiscal3->renderLabel(); ?>
+                    <div class="input-prepend ">
+                        <?php echo $this->form->pessoabutton; ?>
+                        <?php echo $this->form->idfiscal3; ?>
+                        <?php echo $this->form->nomfiscal3->renderViewHelper(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row grid-append" style="display: none;"></div>
+        <div class="row">
+            <div class="span3">
+                <?php echo $this->form->destelefoneresponsavelinterno; ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->form->destelefonefiscal; ?>
+            </div>
+            <div class="span5">
+                <?php echo $this->form->descargofiscal; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span2">
+                <?php echo $this->form->datassinatura; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->datpublicacao; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->datiniciovigencia; ?>
+            </div>
+            <div class="span2">
+                <?php echo $this->form->datfimvigencia; ?>
+            </div>
+            <div class="span1">
+                <?php echo $this->form->numprazovigencia; ?>
+            </div>
+        </div>
+        <div>
+            <div style="float: left;">
+                <div class="row">
+                    <div class="span8">
+                        <?php echo $this->form->descontatoexterno; ?>
+                    </div>
+                    <!--<div class="span3">
+                        <?php /*echo $this->form->identidadeexterna; */?>
+                    </div>
+                    <div class="span1">
+                        <?php /*echo $this->form->adicionar; */?>
+                    </div>-->
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <?php echo $this->form->desobjeto; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span8">
+                        <?php echo $this->form->desobservacao; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <?php echo $this->form->descaminho; ?>
+                    </div>
+                </div>
+            </div>
+            <div style="float: left;margin: 10px;">
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->entidadeexterna; ?>
+                    </div>
+                    <div class="span1">
+                        <?php echo $this->form->adicionar; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="listagemInteressados" class="span4" style="margin-left: 0px;">
+                        <table class="table table-bordered table-hover table-striped span4">
+                            <colgroup>
+                                <col style="width: 5px">
+                                <col style="width: 300px">
+                            </colgroup>
+                            <?php if (count($this->dados) > 0): ?>
+                                <thead>
+                                <th>Nome</th>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($this->dados as $data) : ?>
+                                    <tr>
+                                        <td>
+                                            <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado' data-id="<?php echo $data->identidadeexterna ?>" >
+                                                <i class='icon-trash'></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <?php echo $data->nomentidadeexterna; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            <?php else: ?>
+                                <tbody id="tabela" style="display: none;"></tbody>
+                                <div id="nenhumregistro" class="span4 alert alert-danger">Nenhuma entidade vinculada. </div>
+                            <?php endif; ?>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+

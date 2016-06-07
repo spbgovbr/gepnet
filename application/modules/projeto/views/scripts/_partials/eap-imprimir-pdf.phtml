@@ -1,0 +1,95 @@
+<style type="text/css">
+    
+    .container-grupo {
+        width: 1500px;
+        border: 1px solid red;
+    }    
+    .titulo-tabela { 
+        font-weight: bold;
+    }
+    .box-grupo {
+        padding-top: 5px;
+        float: left;
+        margin-bottom: 20px;
+    }
+    
+    .box-nome-grupo {
+        font-size: 12px;
+        font-weight: bold;
+        padding: 3px;
+        text-align: center;
+        border: 2px solid #555;
+        background: #aaa;
+
+    }
+    
+    .box-entrega {
+        margin: 8px 0;
+    }
+    
+    
+    .box-item-entrega {
+        font-size: 10px;
+        border: 1px solid #fff; 
+        margin: 5px 0;
+        background: #ccc;
+        padding: 3px;
+    }
+   
+</style>
+<a class="estrutura-analitica" href="#"> <h5> ESTRUTURA ANAL&Iacute;TICA DO PROJETO - EAP </h5> </a>
+    <div class="grupos-eap" style="width: 1270px; ">
+        <?php foreach($this->projeto['grupos'] as $gr): ?>
+                <div class="span2 box-grupo">
+                    <div class="box-nome-grupo">
+                        <span style="margin: 0; padding-top: 5px;"><?php echo $gr['nomatividadecronograma']?></span>
+                    </div>
+                    <div class="box-entrega">
+                            <?php if(isset($gr['entregas'])):
+                                     foreach($gr['entregas'] as $en): ?>
+                                        <div class="span2 box-item-entrega "> 
+                                            <span class="badge badge-<?php echo $en['descricaoprazo'] ?>" title=""><?php echo isset($en['prazo'])? $en['prazo'] : "" ?></span>
+                                            <?php echo $en['numpercentualconcluido']?>% <?php echo $en['nomatividadecronograma']?> 
+                                        </div>
+                            <?php   endforeach; 
+                                   endif; ?>
+                        
+                    </div>
+                </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div style="width: 1270px; ">
+        <a class="dicionario-eap" href="#"> <h5>DICION&Aacute;RIO DA EAP E CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O (QUALIDADE) </h5> </a>
+        <div class="quadro-dicionario-eap">
+            <table class="table table-hover table-striped table-condensed" style="height: 100%;">
+                    <tr style="background-color: #ccc;">
+                        <td class="titulo-tabela" >Identifica&ccedil;&atilde;o EAP</td>
+                        <td class="titulo-tabela" >Descri&ccedil;&atilde;o</td>
+                        <td class="titulo-tabela" >Crit&eacute;rio de Aceita&ccedil;&atilde;o/Desvio Aceit&aacute;vel (Qualidade)</td>
+                        <td class="titulo-tabela" >Respons&aacute;vel</td>
+                    </tr>
+               <tbody>
+                    <?php foreach($this->projeto['grupos'] as $gr): ?>
+                        <tr>
+                            <td colspan="4" style="font-weight: bold;"><?php echo $gr['nomatividadecronograma']?></td>
+                        </tr>
+                        <?php if(isset($gr['entregas'])):
+                                  foreach($gr['entregas'] as $en): ?>
+                                    <tr>
+                                        <td> <?php echo $en['nomatividadecronograma'] ?> </td>
+                                        <td> <?php echo $en['desobs'] ?> </td>
+                                        <td> <?php echo $en['descriterioaceitacao']?> </td>
+                                        <td> <?php echo $en['nomparteinteressada']?> </td>
+                                    </tr> 
+                        
+                    <?php         endforeach; 
+                               endif; ?>    
+                    <?php endforeach; ?>
+               </tbody> 
+            </table>
+        </div>
+    </div>
+
+
+

@@ -1,0 +1,117 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<script>
+    $('.datepicker').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR'
+    });
+</script>
+<div class="content">
+    <form id="<?php echo $frmAttr['id']; ?>"
+          name="<?php echo $frmAttr['id']; ?>"
+          action="<?php echo $this->form->getAction(); ?>"
+          method="<?php echo $frmAttr['method']; ?>">
+        <fieldset>
+            <div class="row">
+                <div class="span6">
+                    <?php echo $this->form->idescritorio; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <?php echo $this->form->datagenda; ?>
+                </div>
+                <div class="span1">
+                    <?php echo $this->form->hragendada; ?>
+                </div>
+                <div class="span3">
+                    <?php echo $this->form->deslocal; ?>
+                </div>
+                <div class="span5">
+                    <?php echo $this->form->desassunto; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span9">
+                    <?php echo $this->form->desagenda; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <?php echo $this->form->idobjetivo; ?>
+                </div>
+                <div class="span3">
+                    <?php echo $this->form->idnatureza; ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->idsetor; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <?php echo $this->form->idagenda; ?>
+                    <?php //echo $this->form->submit; ?>
+                    <?php //echo $this->form->reset; ?>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<!-- Participantes -->
+<div id="pi" class="informacoes portlet portlet-marron span12" style="display: none">
+    <?php echo $this->partial('_partials/agenda-menu.phtml', array('dados' => 'partes')); ?>
+    <fieldset>
+        <legend>Participantes</legend>
+        <div class="row">
+            <table class="table table-bordered table-hover table-striped span10">
+                <colgroup>
+                    <col style="width: 100px">
+                    <col style="width: 100px">
+                    <col style="width: 50px">
+                    <col style="width: 50px">
+                    <col style="width: 50px">
+                </colgroup>
+                <thead>
+                <th>Nome</th>
+                <th>Função</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Nível Influência</th>
+                </thead>
+                <tbody>
+                <?php if (count($this->dados) > 0): ?>
+                    <?php foreach ($this->dados as $data) : ?>
+                        <tr>
+                            <td>
+                                <?php echo $data->nomparteinteressada; ?>
+                            </td>
+                            <td>
+                                <?php echo $data->nomfuncao; ?>
+                            </td>
+                            <td>
+                                <?php echo $data->destelefone; ?>
+                            </td>
+                            <td>
+                                <?php echo $data->desemail; ?>
+                            </td>
+                            <td>
+                                <?php echo $data->domnivelinfluencia; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr id="nenhumregistro">
+                        <td  colspan="6">Nenhum registro encontrado</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+</div>
+
+
+

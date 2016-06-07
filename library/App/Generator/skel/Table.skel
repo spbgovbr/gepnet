@@ -1,0 +1,40 @@
+<?php
+class %class% extends %extends%
+{
+    /**
+     * Schema name
+     *
+     * var string
+     */
+    protected $_schema = '%schema%';
+
+    /**
+     * Table name
+     *
+     * var string
+     */
+    protected $_name = '%table%';
+
+    /**
+     * Table primary keys
+     *
+     * var array
+     */
+    protected $_primary = array(%primary%);
+
+    /**
+     * Dependent tables
+     *
+     * var array
+     */
+    protected $_dependentTables = array(%dependentTables%);
+
+    /**
+     * Reference tables
+     *
+     * var array
+     */
+    protected $_referenceMap = array(
+%referenceMap%
+    );
+}

@@ -1,0 +1,59 @@
+<div class="row">
+    <div class="portlet portlet-azul span8">
+        <h3>Nome Portfolio</h3>
+        <div class="content">
+            <?php echo $this->portfolio->noportfolio; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <h3> Portfólio Pai</h3>
+        <div class="content">
+            <?php echo $this->portfolio->noportfoliopai; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3> Situação </h3>
+        <div class="content">
+            <?php echo $this->portfolio->desativo; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3> Tipo </h3>
+        <div class="content">
+            <?php echo $this->portfolio->destipo; ?>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="portlet portlet-cinza span8">
+        <h3> Programa </h3>
+        <div class="content">
+            <?php if(count($this->portfolio->idprograma) > 0 ):
+                foreach($this->portfolio->idprograma as $key => $value ){
+                        echo $value['nomprograma'] . '<br/>';
+                    }
+                endif;
+            ?>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="portlet portlet-cinza span4">
+        <h3> Escritório </h3>
+        <div class="content">
+            <?php echo $this->portfolio->nomescritorio; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <h3> Responsável </h3>
+        <div class="content">
+            <?php echo $this->portfolio->nomresponsavel; ?>
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Series Templates</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+    { year: 1970, country: "Saudi Arabia", oil: 192.2 },
+    { year: 1970, country: "USA", oil: 533.5 },
+    { year: 1970, country: "Iran", oil: 192.6 },
+    { year: 1970, country: "Mexico", oil: 24.2 },
+
+    { year: 1980, country: "Saudi Arabia", oil: 509.8 },
+    { year: 1980, country: "USA", oil: 480.2 },
+    { year: 1980, country: "Iran", oil: 74.3 },
+    { year: 1980, country: "Mexico", oil: 107.2 },
+
+    { year: 1990, country: "Saudi Arabia", oil: 342.6 },
+    { year: 1990, country: "USA", oil: 416.6 },
+    { year: 1990, country: "Iran", oil: 162.8 },
+    { year: 1990, country: "Mexico", oil: 146.3 },
+    { year: 1990, country: "Russia", oil: 515.9 },
+
+    { year: 2000, country: "Saudi Arabia", oil: 456.3 },
+    { year: 2000, country: "USA", oil: 352.6 },
+    { year: 2000, country: "Iran", oil: 191.3 },
+    { year: 2000, country: "Mexico", oil: 171.2 },
+    { year: 2000, country: "Russia", oil: 323.3 },
+
+    { year: 2008, country: "Saudi Arabia", oil: 515.3 },
+    { year: 2008, country: "USA", oil: 304.9 },
+    { year: 2008, country: "Iran", oil: 209.9 },
+    { year: 2008, country: "Mexico", oil: 157.7 },
+    { year: 2008, country: "Russia", oil: 488.5 },
+
+    { year: 2009, country: "Saudi Arabia", oil: 459.5 },
+    { year: 2009, country: "USA", oil: 325.3 },
+    { year: 2009, country: "Iran", oil: 202.4 },
+    { year: 2009, country: "Mexico", oil: 147.5 },
+    { year: 2009, country: "Russia", oil: 494.2 }
+];
+
+$("#chartContainer").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        argumentField: "country",
+        valueField: "oil",
+        type: "bar"
+    },
+    seriesTemplate: {
+        nameField: "year",
+        customizeSeries: function(valueFromNameField) {
+            return valueFromNameField === 2009 ? { type: "line", label: { visible: true }, color: "red" } : {};
+        }
+    },
+    title: {
+        text: "Oil Production (in millions tonnes)"
+    },
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Advanced features</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

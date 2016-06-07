@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Range Area</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+        { date: new Date(2010,0,1), val2010: 1.63, val2011: 2.63 },
+		{ date: new Date(2010,1,1), val2010: 2.11, val2011: 2.14 },
+		{ date: new Date(2010,2,1), val2010: 2.68, val2011: 2.31 },
+		{ date: new Date(2010,3,1), val2010: 3.16, val2011: 2.24 },
+		{ date: new Date(2010,4,1), val2010: 3.57, val2011: 2.02 },
+		{ date: new Date(2010,5,1), val2010: 3.56, val2011: 1.05 },
+		{ date: new Date(2010,6,1), val2010: 3.63, val2011: 1.24 },
+		{ date: new Date(2010,7,1), val2010: 3.77, val2011: 1.15 },
+		{ date: new Date(2010,8,1), val2010: 3.87, val2011: 1.14 },
+		{ date: new Date(2010,9,1), val2010: 3.53, val2011: 1.17 },
+		{ date: new Date(2010,10,1), val2010: 3.39, val2011: 1.14 },
+		{ date: new Date(2010,11,1), val2010: 2.96, val2011: 1.50 }
+];
+
+$("#chartContainer").dxChart({
+    dataSource: dataSource,
+    commonSeriesSettings: {
+        type: "rangeArea",
+        argumentField: "date"
+    },
+    series: { 
+		rangeValue1Field: "val2010", 
+		rangeValue2Field: "val2011", 
+		name: "2010 - 2011" 
+	},
+    title: "Annual Inflation Rate in 2010 and 2011",
+    argumentAxis:{
+        valueMarginsEnabled: false,
+		label: {
+			format: "month"
+		}
+    },
+	valueAxis:{	
+		min: 0.5,
+		max: 4,	
+		label: {
+			format: "fixedPoint",
+			precision: 2,
+			customizeText: function(){
+				return this.valueText + " %";
+			}
+		}
+	},
+	legend: {
+		visible:false
+	}
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Range Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.inflationdata.com</div>
+			</div>
+		</div>
+	</body>
+</html>

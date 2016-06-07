@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Nome do documento</h3>
+        <div class="content">
+            <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array('action' => 'abrir', 'iddocumento' => $this->documento->iddocumento)); ?>">
+                <i class="icon-file"></i> <?= $this->documento->nomdocumento; ?>
+            </a>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data</h3>
+        <div class="content">
+            <?= $this->documento->datdocumento->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Tipo</h3>
+        <div class="content">
+            <?= $this->documento->tipodocumento->nomtipodocumento; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span1">
+        <h3>Ativo?</h3>
+        <div class="content">
+            <?= $this->documento->getDescricaoFlaativo(); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span7">
+        <h3>Observa&ccedil;&atilde;o</h3>
+        <div class="content">
+            <?= $this->documento->desobs; ?>
+        </div>
+    </div>
+    <form method="post" action="" id="form-documento-excluir" name="form-documento-excluir">
+        <input type="hidden" name="iddocumento" id="iddocumento" value="<?php echo $this->documento->iddocumento; ?>" />
+    </form>
+</div>

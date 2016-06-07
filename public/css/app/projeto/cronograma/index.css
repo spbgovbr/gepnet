@@ -1,0 +1,160 @@
+/*SAPS 110567*/
+.ui-layout-pane {
+    overflow: hidden !important;
+}
+.ui-layout-pane-west{
+    overflow: auto !important;
+    width: 42px !important;
+}
+
+
+#accordion2, #cronograma-titulos {
+    margin-bottom: 0 !important;
+}
+
+#cronograma-titulos {
+    font-weight: bold;
+    width: 100%;
+    //overflow-x: hidden;
+}
+
+#cronograma-titulos tbody tr td, .container-grupo {
+    width: 100%;
+    //overflow-x: hidden;
+    display: block;
+}
+
+.item-cancelado * {
+    color: #996699;
+    text-decoration: line-through !important;
+}
+
+.item-concluido {
+    color: #A8A8A8;
+    font-style: italic;
+}
+
+.item-atrasado {
+    color: #FF0000;
+}
+
+.item-em-dia {
+    color: #339900;
+}
+
+.input-toolbar {
+    margin-bottom: 0 !important;
+    margin-left: 8px !important;
+    margin-right: 2px;
+}
+
+input#e_datinicio, input#e_datfim {
+    width: 70px;
+}
+
+.toolbar-cronograma {
+    float: left;
+    margin-left: 30px;
+    min-height: 1px;
+    width: 97.7%;
+}
+
+.item-cronograma {
+    display: table; 
+    width: 100%; 
+    /*overflow: hidden;*/
+}
+
+.cron-responsavel, .cron-percentual, .cron-datas,.cron-datas-reais, .cron-custo, .cron-perdecessoras,
+.cron-dias, .cron-info, .cron-radio, .cron-nome-grupo, .nome-grupo, .nome-entrega, .nome-atividade {
+    float: left;
+    margin-left: 30px;
+    min-height: 1px;
+    /*border: 1px solid red;*/
+}
+
+.cron-nome-grupo{
+    width: 340px !important;
+}
+
+.cron-responsavel {
+    width: 90px !important;
+}
+
+.cron-percentual {
+    width: 50px !important;
+}
+
+.cron-datas {
+    width: 140px !important;
+}
+
+.cron-datas-reais {
+    width: 180px !important;
+}
+
+.cron-custo {
+    width: 60px !important;
+}
+
+.cron-perdecessoras {
+    width: 20px !important;
+}
+
+.cron-dias {
+    width: 20px !important;
+}
+
+.cron-info {
+    width: 40px !important;
+}
+.cron-radio {
+    width: 20px !important;
+}
+
+.nome-grupo {
+    width: 350px !important;
+    margin-left: 0;
+}
+
+.nome-entrega {
+    width: 330px !important;
+    margin-left: 0;
+    padding-left: 20px;
+}
+
+.nome-atividade {
+    width: 310px !important;
+    margin-left: 0;
+    padding-left: 40px;
+}
+
+.nome-predecessora{
+    width: 400px !important;
+    margin-left: 0;
+    padding-left: 115px;
+    /*border: 1px solid red;*/
+}
+
+.grupo {
+    border-bottom: 5px solid #f5f5f5;
+    margin-top: 16px;
+}
+
+.span120px {
+    width: 120px !important;
+}
+
+fieldset.pesquisar {
+    margin-left: 30px;
+}
+
+fieldset.pesquisar legend {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 10px;
+}
+
+fieldset.pesquisar .span120px {
+    margin-left: 0;
+}

@@ -1,0 +1,42 @@
+<script>
+
+    $(function() {
+        $.pnotify.defaults.history = false;
+
+        $('#desobservacao').limit('800', '#maxChars');
+
+    });
+</script>
+
+<?php $frmAttrQuestionario = $this->form->getAttribs(); ?>
+
+<div class="region-center">
+    <div class="portlet">
+    <?php if($this->boolDisponivel): ?>
+        <div class="alert alert-block alert-danger"></i>Este question&aacute;rio econtra-se dispon&iacute;vel para publica&ccedil;&atilde;o, para alter&aacute;-lo &eacute; preciso torn&aacute;-lo indispon&iacute;vel. </div>
+    <?php else:?>    
+        <form id="<?php echo $frmAttrQuestionario['id']; ?>"
+              name="<?php echo $frmAttrQuestionario['id']; ?>"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttrQuestionario['method']; ?>">    
+            <?php echo $this->form->idquestionario ?>
+            <div class="row-fluid">                                                                       
+                <div class="span">
+                    <?php echo $this->form->nomquestionario ?>
+                </div>
+            </div>
+            <div class="row-fluid"> 
+                <div class="span">
+                    <?php echo $this->form->desobservacao ?>
+                    Número caracteres restantes: <span id="maxChars" style="color: red;"></span><br/><br/>
+                </div>
+            </div>
+            <div class="row-fluid"> 
+                <div class="span3">
+                    <?php echo $this->form->tipoquestionario ?>                
+                </div>
+            </div>
+        </form>
+    <?php endif;?>
+    </div>
+</div>

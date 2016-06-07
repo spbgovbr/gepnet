@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Custom Bar Width</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   var dataSource = [
+  { state: "Saudi Arabia", year1970: 192.2, year1980: 509.8, year1990: 342.6, year2000: 456.3, year2008: 515.3, year2009: 459.5 },
+  { state: "USA", year1970: 533.5, year1980: 480.2, year1990: 416.6, year2000: 352.6, year2008: 304.9, year2009: 325.3 },
+  { state: "China", year1970: 30.7, year1980: 106, year1990: 138.3, year2000: 162.6, year2008: 195.1, year2009: 189 },
+  { state: "Canada", year1970: 70.1, year1980: 83.3, year1990: 92.6, year2000: 126.9, year2008: 157.7, year2009: 155.7 },
+  { state: "Mexico", year1970: 24.2, year1980:  107.2, year1990: 146.3, year2000: 171.2, year2008: 157.7, year2009: 147.5}
+];
+
+$("#chartContainer").dxChart({
+    dataSource: dataSource,
+    equalBarWidth: {
+        width: 5
+    },
+    commonSeriesSettings: {
+        argumentField: "state",
+        type: "bar"
+    },
+    series: [
+        { valueField: "year1970", name: "1970" },
+        { valueField: "year1980", name: "1980" },
+        { valueField: "year1990", name: "1990" },
+        { valueField: "year2000", name: "2000" },
+        { valueField: "year2008", name: "2008" },
+        { valueField: "year2009", name: "2009" }
+    ],
+    legend: {
+        verticalAlignment: "bottom",
+        horizontalAlignment: "center"
+    },
+    title: "Oil Production (in millions tonnes)"
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>Charts</h1>&nbsp;&nbsp;&nbsp;<h2>Bar Series</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3></h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits">www.geohive.com</div>
+			</div>
+		</div>
+	</body>
+</html>

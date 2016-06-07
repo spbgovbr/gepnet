@@ -1,0 +1,25 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <input type="hidden" name="idfrase" value="<?php echo $this->pergunta['idfrase']?>">
+        <div class="content">
+            <div class="row-fluid">
+                <div class="portlet portlet-cinza span">
+                    <div class="title">Pergunta</div>
+                    <div class="content"><?php echo $this->pergunta['desfrase']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Tipo de Resposta da Pergunta</div>
+                    <div class="content"><?php echo $this->pergunta['domtipofrase']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Situa&ccedil;&atilde;o</div>
+                    <div class="content"><?php echo $this->pergunta['flaativo']; ?>&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

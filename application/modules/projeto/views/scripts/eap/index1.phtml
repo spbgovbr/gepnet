@@ -1,0 +1,122 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/eap/eap.css'))
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')    
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/eap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/index.js'), 'text/javascript')
+;
+
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'eap', 'idprojeto' => $this->idprojeto));
+    ?>
+</div>
+
+<div class="region-center">
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto ;?>" />
+    
+    <div id="dados-projeto"></div>
+    <div class="row" data-spy="affix" data-offset-top="200" style="">
+        <div class="toolbar-cronograma " style="border: 0px solid blue;">
+                <div class="btn-toolbar" style="border: 0px solid yellow;">
+                    <a class="btn btn-cadastrar-grupo" title="Novo Grupo" href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-grupo/idprojeto/' . $this->idprojeto); ?>"><i class="icon-folder-open"></i></a>
+                    <a class="btn btn-cadastrar-entrega" title="Nova Entrega" href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-entrega/idprojeto/' . $this->idprojeto); ?>"><i class="icon-tag"></i></a>
+                    <a class="btn btn-imprimir" title="Visualizar Impressão" href="<?php echo $this->baseUrl('/projeto/eap/visualizar-impressao/idprojeto/' . $this->idprojeto); ?>"><i class="icon-print"></i></a>
+                    <a class="btn btn-imprimir-eap-pdf" title="Imprimir EAP PDF" href="<?php echo $this->baseUrl('/projeto/eap/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>" target="_blank"><i class="icon-download-alt"></i></a>
+                </div>
+           </div>
+     </div>
+    
+     <div class="row">
+        <div class="container-grupo"  style="height: 100%;"> 
+         </div>
+     </div>
+    
+    <div id="dialog-grupo" style="display: none"></div>
+    <div id="dialog-entrega" style="display: none"></div>
+    <div id="dialog-excluir-grupo" style="display: none"></div>
+    <div id="dialog-excluir-entrega" style="display: none"></div>
+</div>
+
+
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    <a class="estrutura-analitica" href="#"> <span style=""> ESTRUTURA ANALÍTICA DO PROJETO - EAP </span> </a>
+    <div class="grupos-eap">
+        {{#each grupos}}
+                <div class="item-grupo span3 droppable-grupo" id="{{idatividadecronograma}}">
+                    <div class="titulo-grupo">
+                        <span class="span2">{{nomatividadecronograma}}</span>
+                        <span class="span0_5 pull-right"><a class="excluir-grupo pull-right" title="Excluir Grupo" href="<?php echo $this->baseUrl('/projeto/eap/excluir-grupo/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . '{{idatividadecronograma}}' ); ?>"><i class="icon-trash"></i></a></span>
+                    </div>
+                    <ul class="container-entrega">
+                        {{#each entregas}}
+                            {{> helperEntrega}}
+                        {{/each}}
+                    </ul>
+                </div>
+        {{/each}}
+    
+        <div class="row well well-small span4">
+            <i class="icon-folder-open"></i> {{contGrupo}} grupo(s), <i class="icon-tag"></i> {{contEntrega}} entrega(s)
+        </div>
+    </div>
+    <div class="row span8" style="width: 1270px;">
+        <a class="dicionario-eap" href="#"> <span>DICIONÁRIO DA EAP E CRITÉRIO DE ACEITAÇÃO (QUALIDADE) </span> </a>
+        <div class="quadro-dicionario-eap" style="display: none;">
+            <table class="table table-hover table-striped table-condensed portlet portlet-marron" style="height: 100%;">
+                    <tr style="font-weight: bold;">
+                        <td>Identificação EAP</td>
+                        <td>Descrição</td>
+                        <td>Critério de Aceitação/Desvio Aceitável (Qualidade)</td>
+                        <td>Responsável</td>
+                    </tr>
+               <tbody>
+                    {{#each grupos}}
+                        <tr>
+                            <td colspan="4" style="font-weight: bold;">{{nomatividadecronograma}}</td>
+                        </tr>
+                        {{#each entregas}}
+                            {{> helperQuadroEntrega}}
+                        {{/each}}
+                    {{/each}}
+               </tbody> 
+            </table>
+        </div>
+    </div>
+    
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+        <li class="well well-small span2 content draggable-entrega item-entrega" id="{{idatividadecronograma}}"> 
+           <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+           <span> {{numpercentualconcluido}}%  {{nomatividadecronograma}}  </span>
+           <a class="excluir-entrega pull-right" title="Excluir Entrega" href="<?php echo $this->baseUrl('/projeto/eap/excluir-entrega/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . '{{idatividadecronograma}}' ); ?>"><i class="icon-trash"></i></a>
+        </li>
+</script>
+
+
+
+<script id="tpl-quadro-entrega" type="text/x-handlebars-template">
+      <tr>
+          <td> {{nomatividadecronograma}} </td>
+          <td> {{desobs}} </td>
+          <td> {{descriterioaceitacao}} </td>
+          <td> {{nomparteinteressada}} </td>
+      </tr> 
+</script>
+
+

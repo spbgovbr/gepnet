@@ -1,0 +1,130 @@
+<?php 
+ $this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('js/library/select2-3.4.0/select2.css'))
+;
+
+$this->headScript()
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/relatorio/risco/relatorio-risco.js'), 'text/javascript')
+        ;
+
+    $resultados = $this->resultados; 
+    $totalPesquisas = $this->totalPesquisas['total'];
+?>
+<div class="region-center">
+    <h4 class="pagination-centered">Relat&oacute;rio Geral da Pesquisa com Percentual </h4>
+    <br/>
+    <div class="content" style="font-size: 12px;">
+    <div class="row-fluid"> 
+        <div class="span2">            
+            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
+                <strong>Pesquisas respondidas: </strong> <?php echo $this->totalPesquisas['total']; ?> 
+            </div>
+        </div> 
+        <div class="span10">            
+            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
+                <strong>Pesquisa: </strong> <?php echo $resultados[0]['nomquestionario'] ?> 
+            </div>
+        </div> 
+    </div>
+    <?php 
+        $idfrase = null;
+        foreach ($resultados as $resultado):?>
+            <?php if($resultado['idfrasepesquisa'] != $idfrase):?>
+                    <span><br/></span>
+                    <div class="row-fluid">
+                        <div class="alert" style="color: black; margin-bottom: 5px;">
+                        <label>
+                            <span class="badge badge-inverse"><?php echo $resultado['numordempergunta']?></span>&nbsp;&nbsp;<?php echo $resultado['desfrase'];?> 
+                            <?php echo $resultado['obrigatoriedade'] == 'S' ? '<span style="color: red;">(Campo obrigat&oacute;rio)</span>' : ''?>
+                        </label>
+                        <?php $idfrase = $resultado['idfrasepesquisa']; //atribui idfrase corrente
+                              $percentual = $totalPesquisas ? round((($resultado['total_respostas']*100)/$totalPesquisas),2) : 0; //percentual de respostas corrente
+                        ?> 
+                        </div>
+                    </div>
+
+                    <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA || 
+                             $resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA || 
+                             $resultado['domtipofrase'] == Pesquisa_Model_Frase::UF):
+                    ?>
+                            <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA):?>
+                                <div class="row-fluid span" style="min-height: 0;">
+                                    <span class="badge badge-info" style="width: 150px;"> 
+                                        <?php echo $percentual; ?>% - <?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                    </span>
+                                    <?php echo $resultado['desresposta'];?>
+                                </div>
+
+                            <?php elseif($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA):?>
+                                <div class="row-fluid span" style="min-height: 0;">
+                                    <span class="badge badge-info" style="width: 150px;"> 
+                                        <?php echo $percentual; ?>% - <?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                    </span>
+                                    <?php echo $resultado['desresposta'];?>
+                                </div>
+
+                            <?php else:?>
+                                    <div class="row-fluid span" style="min-height: 0;">
+                                            <span class="badge badge-info" style="width: 150px;"> 
+                                                <?php echo $percentual; ?>%  -<?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                            </span>
+                                            <?php echo $resultado['desresposta']; ?><br/>;
+                                    </div>
+                            <?php endif;?>
+                    <?php else: ?>
+                        <div class="row-fluid span">
+                                <span class="badge badge-info" style="width: 150px;"> 
+                                    <?php echo $percentual; ?>%  - <?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                </span>
+                        </div>
+                    <?php endif;?>
+
+            <?php else: ?>
+                        <?php $percentual = $totalPesquisas ? round((($resultado['total_respostas']*100)/$totalPesquisas),2) : 0; //percentual de respostas corrente ?>
+                        <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA):?>
+                                <div class="row-fluid span" style="min-height: 0;">
+                                    <span class="badge badge-info" style="width: 150px;"> 
+                                        <?php echo $percentual; ?>%  - <?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                    </span>
+                                    <?php echo $resultado['desresposta'];?> 
+                                </div>
+
+                        <?php elseif($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA):?>
+                                <div class="row-fluid span" style="min-height: 0;">
+                                    <span class="badge badge-info" style="width: 150px;"> 
+                                        <?php echo $percentual; ?>% - <?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                    </span>
+                                    <?php echo $resultado['desresposta']; ?>
+                                </div>
+
+                        <?php else: ?>
+                                <div class="row-fluid span" style="min-height: 0;">
+                                    <span class="badge badge-info" style="width: 150px;"> 
+                                        <?php echo $percentual; ?>%  -<?php echo $resultado['total_respostas']; ?> Resposta(s) 
+                                    </span>
+                                    <?php echo $resultado['desresposta']; ?><br/>;
+                                </div>
+                         <?php endif;?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>    
+</div>
+<div class="row-fluid">
+    <div class="span">
+    <br/>
+        <div style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
+            <b>DPF - Departamento de Polícia Federal</b> - Gerado em: <?php echo date('d/m/Y - H:i:s')?>
+        </div>
+    
+    </div>
+</div>

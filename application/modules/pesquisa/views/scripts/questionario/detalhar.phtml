@@ -1,0 +1,63 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <div class="title">Informa&ccedil;&otilde;es do Question&aacute;rio</div>
+        <div class="content">
+            <div class="row-fluid">              
+                <div class="portlet portlet-cinza span">
+                    <div class="title">Question&aacute;rio</div>
+                    <div class="content"><?php echo $this->questionario['nomquestionario']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="portlet portlet-cinza span">
+                    <div class="title">Observa&ccedil;&otilde;es</div>
+                    <div class="content"><?php echo $this->questionario['desobservacao']; ?>&nbsp;</div>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Situa&ccedil;&atilde;o</div>
+                    <div class="content"><?php echo $this->questionario['tipoquestionario']; ?>&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if($this->perguntas):?>
+        <div class="portlet portlet-azul">
+            <div class="title">Perguntas</div>
+            <div class="content">
+                <div class="row-fluid">
+                    <div class="portlet portlet-azul span">
+                        <div class="content">
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>Ordem</th>
+                                    <th>Enunciado</th>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($this->perguntas as $pergunta) :?>
+                                        <tr>
+                                            <td><span class="badge"><?php echo $pergunta['numordempergunta']?> </span></td>
+                                            <td><?php echo '('.$pergunta['nomescritorio'].') ' . $pergunta['desfrase']?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php else:?>
+        <div class="portlet portlet-azul">
+            <div class="title">Perguntas</div>
+            <div class="content">
+                <div class="row-fluid">
+                    <div class="portlet portlet-azul span">
+                        <div class="content">Nunhuma pergunta atribuida ao questionário.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif;?>
+</div>

@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Escritório</h3>
+        <div class="content">
+            <?php echo $this->agenda->nomescritorio; ?>
+        </div>
+    </div>    <div class="portlet portlet-azul span2">
+        <h3>Data</h3>
+        <div class="content">
+            <?php echo $this->agenda->datagenda->toString('d/m/Y'); ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Hora</h3>
+        <div class="content">
+            <?php echo $this->agenda->hragendada; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Local</h3>
+        <div class="content">
+            <?php echo $this->agenda->deslocal; ?>
+        </div>
+    </div><div class="portlet portlet-cinza span4">
+        <h3>Participantes</h3>
+        <div class="content">
+            <?php echo $this->agenda->participantes; ?>
+        </div>
+    </div><div class="portlet portlet-cinza span4">
+        <h3>Cadastrador</h3>
+        <div class="content">
+            <?php echo $this->agenda->nomcadastrador; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span8">
+        <h3>Assunto</h3>
+        <div class="content">
+            <?php echo $this->agenda->desassunto; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span8">
+        <h3>Descrição</h3>
+        <div class="content">
+            <?php echo $this->agenda->desagenda; ?>
+        </div>
+    </div>
+    <input type="hidden" id="xidagenda" name="xidagenda" value="<?php echo $this->agenda->idagenda; ?>">
+</div>

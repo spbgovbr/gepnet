@@ -1,0 +1,5 @@
+$(function(){
+  
+    $('.progress').popover();   
+    
+});

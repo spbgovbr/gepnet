@@ -1,0 +1,211 @@
+[class^="glyphicons"],
+[class*=" glyphicons-"] {
+  display: block;
+  width: 38px;
+  height: 31px;
+  line-height: 27px;
+  vertical-align: text-top;
+  background-repeat: no-repeat;
+  background-position: 6px 0;
+}
+
+ul.liabc {
+    padding-left: 0;
+    padding-right: 0;
+    /*border: 1px solid red;*/
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 38px;
+}
+
+ul.liabc li {
+    width: 38px;
+    margin: 0;
+    padding: 0;
+    height: 31px;
+    /*border: 1px solid red;*/
+    display: block;
+}
+
+ul.abertura {
+    border-right: 5px solid #52A552;
+}
+
+ul.cronograma,
+ul.gantt,
+ul.eap,
+ul.rh,
+ul.comunicacao,
+ul.riscos {
+    border-right: 5px solid #0088CC;
+}
+
+ul.ata,
+ul.r3g,
+ul.diario,
+ul.mudancas,
+ul.rud,
+ul.relatorio,
+ul.aceite {
+    border-right: 5px solid #F89911;
+} 
+
+ul.licoes,
+ul.encerramento {
+    border-right: 5px solid #ccc;
+} 
+
+ul.liabc li a {
+    display: block; 
+    width: 38px;
+    overflow: hidden;
+    /*border: 1px solid green;*/
+    /*padding: 2px;*/
+}
+
+
+ul.liabc li a:hover {
+    background-color: #0088CC;
+} 
+
+
+ul.liabc li.mc a:hover,
+ul.ata li.ata a,
+ul.r3g li.r3g a,
+ul.diario li.diario a,
+ul.mudancas li.mudancas a,
+ul.rud li.rud a,
+ul.relatorio li.relatorio a,
+ul.aceite li.aceite a
+{
+    background-color: #F89911 !important;
+} 
+
+ul.liabc li.tap a:hover, 
+ul.abertura li.abertura a {
+    background-color: #52A552 !important;
+} 
+
+ul.liabc li.pgp a:hover,
+ul.cronograma li.cronograma a,
+ul.gantt li.gantt a,
+ul.eap li.eap a,
+ul.rh li.rh a,
+ul.comunicacao li.comunicacao a,
+ul.riscos li.riscos a
+{
+    background-color: #0088CC !important;
+} 
+
+
+ul.liabc li.tep a:hover,
+ul.licoes li.licoes a,
+ul.encerramento li.encerramento a{
+    background-color: #ccc !important;
+} 
+
+
+
+ul.liabc li a span {
+    display: none;
+}
+
+ul.liabc li.tap a {
+    background-color: #DFF0D8;
+} 
+
+ul.liabc li.pgp a {
+    background-color: #D9EDF7;
+} 
+
+ul.liabc li.mc a {
+    background-color: #FCF8E3;
+} 
+
+ul.liabc li.tep a {
+    background-color: #f7f7f7;
+} 
+
+
+/* ICONES */
+
+
+.glyphicons-tap {
+    background-image: url(src/glyphicons_notes_2.png);
+    background-position: 8px 2px;
+}
+
+.glyphicons-cronograma {
+    background-image: url(src/glyphicons_calendar.png);
+    background-position: 8px 3px;
+}
+
+.glyphicons-gantt {
+    background-image: url(src/glyphicons_cardio.png);
+    background-position: 8px 2px;
+}
+
+.glyphicons-eap {
+    background-image: url(src/glyphicons_show_big_thumbnails.png);
+    background-position: 8px 4px;
+}
+
+.glyphicons-rh {
+    background-image: url(src/glyphicons_user.png);
+    background-position: 8px 4px;
+}
+
+.glyphicons-comunicacao {
+    background-image: url(src/glyphicons_microphone.png);
+    background-position: 11px 3px;
+}
+
+.glyphicons-riscos {
+    background-image: url(src/glyphicons_fire.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-ata {
+    background-image: url(src/glyphicons_file.png);
+    background-position: 10px 4px;
+}
+
+.glyphicons-r3g {
+    background-image: url(src/glyphicons_stats.png);
+    background-position: 6px 4px;
+}
+
+.glyphicons-diario {
+    background-image: url(src/glyphicons_table.png);
+    background-position: 7px 4px;
+}
+
+.glyphicons-mudancas {
+    background-image: url(src/glyphicons_retweet_2.png);
+    background-position: 3px 6px;
+}
+
+.glyphicons-rud {
+    background-image: url(src/glyphicons_cargo.png);
+    background-position: 6px 3px;
+}
+
+.glyphicons-relatorio {
+    background-image: url(src/glyphicons_sort.png);
+    background-position: 6px 3px;
+}
+
+.glyphicons-aceite {
+    background-image: url(src/glyphicons_circle_ok.png);
+    background-position: 7px 3px;
+}
+
+.glyphicons-licoes {
+    background-image: url(src/glyphicons_show_lines.png);
+    background-position: 8px 9px;
+}
+
+.glyphicons-tep {
+    background-image: url(src/glyphicons_notes.png);
+    background-position: 9px 3px;
+}

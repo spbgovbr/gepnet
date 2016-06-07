@@ -1,0 +1,42 @@
+<div class="region-center" >
+    <div class="portlet portlet-cinza">
+        <div class="content">
+            <div class="row">              
+                <div class="portlet portlet-cinza span9">
+                    <div class="title">O que será informado?</div>
+                    <div class="content"><?php echo $this->comunicacao->desinformacao; ?></div>
+                </div>
+            </div>
+            <div class="row">              
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Quem será informado?</div>
+                    <div class="content"><?php echo $this->comunicacao->desinformado; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Qual a origem?</div>
+                    <div class="content"><?php echo $this->comunicacao->desorigem; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Qual a frequência?</div>
+                    <div class="content"><?php echo $this->comunicacao->desfrequencia; ?></div>
+                </div>
+            </div>
+            <div class="row">              
+                <div class="portlet portlet-cinza span5">
+                    <div class="title">Como será transmitida?</div>
+                    <div class="content"><?php echo $this->comunicacao->destransmissao; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Onde será armazenada?</div>
+                    <div class="content"><?php echo $this->comunicacao->desarmazenamento; ?></div>
+                </div>
+            </div>           
+            <div class="row">              
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Responsável:</div>
+                    <div class="content"><?php echo $this->comunicacao->nomresponsavel; ?></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

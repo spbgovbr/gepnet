@@ -1,0 +1,80 @@
+<?php 
+    if($this->loop == true){
+        $i = 0;
+        ?>
+
+    <div align="left" class="span8">
+        <h5>Objeto</h5>
+        <div class="span7"><?php echo $this->licao[0]['desprojeto']; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Objetivo</h5>
+        <div class="span7"><?php echo $this->licao[0]['desobjetivo']; ?>  </div>
+    </div>
+
+       <?php  foreach ($this->licao as $licao):
+            $i ++;
+           
+?>
+<div id="content">
+    <div align="left" class="span4" style="margin-top: 40px">
+        <h5> LI&Ccedil;&Otilde;ES APRENDIDAS (<?php echo $i;?>)</h5>
+    </div>
+    <div align="left" class="span8">
+        <h5>Entrega</h5>
+        <div class="span7"><?php echo $licao['nomatividadecronograma']; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Resultados Obtidos</h5>
+        <div class="span7"><?php echo $licao['desresultadosobtidos']; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Pontos Fortes</h5>
+        <div class="span7"><?php echo $licao['despontosfortes']; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Pontos Fracos / Dificuldades Encontradas</h5>
+        <div class="span7"><?php echo $licao['despontosfracos']; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5> Sugest&otilde;es para um projeto semelhante</h5>
+        <div class="span7"><?php echo $licao['dessugestoes']; ?>  </div>
+    </div>
+</div>
+<?php endforeach;} else{?>
+
+
+<div id="content">
+    <div align="left" class="span4" style="margin-top: 40px">
+        <h5> LI&Ccedil;&Otilde;ES APRENDIDAS</h5>
+    </div>
+    <div align="left" class="span8">
+        <h5>Objeto</h5>
+        <div class="span7"><?php echo $this->licao->desprojeto; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Objetivo</h5>
+        <div class="span7"><?php echo $this->licao->desobjetivo; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Entrega</h5>
+        <div class="span7"><?php echo $this->licao->nomatividadecronograma; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Resultados Obtidos</h5>
+        <div class="span7"><?php echo $this->licao->desresultadosobtidos; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Pontos Fortes</h5>
+        <div class="span7"><?php echo $this->licao->despontosfortes; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5>Pontos Fracos / Dificuldades Encontradas</h5>
+        <div class="span7"><?php echo $this->licao->despontosfracos; ?>  </div>
+    </div>
+    <div align="left" class="span8">
+        <h5> Sugest&otilde;es para um projeto semelhante</h5>
+        <div class="span7"><?php echo $this->licao->dessugestoes; ?>  </div>
+    </div>
+</div>
+<?php }?>

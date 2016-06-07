@@ -1,0 +1,49 @@
+<?php // var_dump($this->programa); exit;?>
+<div class="row">
+    <div class="portlet portlet-azul span4">
+        <h3>Nome do Programa</h3>
+        <div class="content">
+            <?= $this->programa->nomprograma; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span">
+        <h3>Responsável</h3>
+        <div class="content">
+            <?= $this->programa->responsavel->nompessoa; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span">
+        <h3>Código do Programa(PROJETO) no SIMPR</h3>
+        <div class="content">
+            <?= $this->programa->idsimpr; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span">
+        <h3>Ativo?</h3>
+        <div class="content">
+             <?= $this->programa->getDescricaoFlaativo(); ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span7">
+        <h3>Código do Eixo no SIMPR</h3>
+        <div class="content">
+            <?= $this->programa->idsimpreixo; ?>
+        </div>
+    </div>
+     <div class="portlet portlet-cinza span7">
+        <h3>Código Área Temática no SIMPR</h3>
+        <div class="content">
+            <?= $this->programa->idsimprareatematica; ?>
+        </div>
+    </div>
+    
+    <div class="portlet portlet-cinza span7">
+        <h3>Descrição</h3>
+        <div class="content">
+            <?= $this->programa->desprograma; ?>
+        </div>
+    </div>
+    
+</div>

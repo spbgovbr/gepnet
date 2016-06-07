@@ -1,0 +1,141 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/relatorioCronograma.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/projeto/cronograma/relatorioCronograma.js'), 'text/javascript')
+            ;
+    $frmAttr = $this->form->getAttribs();
+?>
+
+
+<div class="region-center" >
+    
+    <div class="row">
+        <div class="portlet portlet-marron span12">
+            <div class="title">Relatório de Cronograma</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->baseUrl()?>/projeto/cronograma/resultado-relatorio-cronograma"
+                      method="<?php echo $frmAttr['method']; ?>">
+                   
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idprograma; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->nomprojeto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idescritorio; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->domstatusprojeto; ?>
+                        </div>
+                    </div>
+                    
+                    <div class="row container-pessoa">
+                        
+                        <div class="span3">
+                            <?php echo $this->form->idprojetos; ?>
+                        </div>
+                        
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomresponsavel->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
+                                    <?php echo $this->form->idresponsavel; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idelementodespesa; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->statusatividade; ?>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;">
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <fieldset class="pesquisar span4">
+                            <legend>Período in&iacute;cio da Atividade</legend>
+                            <div class="span2 span120px">
+                                <?php echo $this->form->inicial_dti; ?>
+                            </div>
+                            <div class="span2">
+                                <?php echo $this->form->inicial_dtf; ?>
+                            </div>
+                        </fieldset>
+                        
+                        <fieldset class="pesquisar span4">
+                            <legend>Período fim da Atividade</legend>
+                            <div class="span2 span120px">
+                                <?php echo $this->form->final_dti; ?>
+                            </div>
+                            <div class="span2">
+                                <?php echo $this->form->final_dtf; ?>
+                            </div>
+                        </fieldset>
+                        <fieldset class="pesquisar span5">
+                            <legend>Tipo da Atividade</legend>
+                            <div class="span1 tipo">
+                                <?php echo $this->form->tipogrupo; ?>
+                            </div>
+                            <div class="span1 tipo">
+                                <?php echo $this->form->tipoentrega; ?>
+                            </div>
+                            <div class="span1 tipo">
+                                <?php echo $this->form->tipoatividade; ?>
+                            </div>
+                            <div class="span1 tipo">
+                                <?php echo $this->form->tipomarco; ?>
+                            </div>
+                         </fieldset>
+                        <div class="row span4">
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->form->reset; ?>
+                                <?php echo $this->form->submit; ?>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="nomprograma" value="" />   
+                    <input type="hidden" name="nomescritorio" value="" />   
+                    <input type="hidden" name="statusprojeto" value="" />   
+                    <input type="hidden" name="projetos" value="" />   
+                    <input type="hidden" name="nomstatusatividade" value="" />   
+                    <input type="hidden" name="nomelementodespesa" value="" />   
+                    <input type="hidden" name="nomresponsavel" value="" />   
+                    <input type="hidden" name="marco" value="" />   
+                    <input type="hidden" name="atividade" value="" />   
+                    <input type="hidden" name="entrega" value="" />   
+                    <input type="hidden" name="grupo" value="" />   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

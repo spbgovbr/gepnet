@@ -1,0 +1,79 @@
+<?php
+//echo $this->form;
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="row">
+    <div class="portlet portlet-marron span8">
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>" 
+                  name="<?php echo $frmAttr['id']; ?>" 
+                  enctype="<?php echo $frmAttr['enctype']; ?>" 
+                  action="<?php echo $this->form->getAction(); ?>" 
+                  method="<?php echo $frmAttr['method']; ?>">
+                <div class="row">
+                    <div class="span8">
+
+                        <div class="row">
+                            <div class="span">
+                                <?php echo $this->form->nomescritorio; ?>
+                            </div>
+
+                            <div class="span">
+                                <?php echo $this->form->nomescritorio2; ?>
+                            </div>
+                            <div class="span">
+                                <?php echo $this->form->idescritoriope; ?>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row container-pessoa">
+                    <div class="span3">
+                        <div class="control-group">
+                            <?php echo $this->form->nomresponsavel1->renderLabel(); ?>
+                            <div class="input-prepend ">
+                                <?php echo $this->form->pessoabutton; ?>
+                                <?php echo $this->form->idresponsavel1; ?>
+                                <?php echo $this->form->nomresponsavel1->renderViewHelper(); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            <?php echo $this->form->nomresponsavel2->renderLabel(); ?>
+                            <div class="input-prepend ">
+                                <?php echo $this->form->pessoabutton; ?>
+                                <?php echo $this->form->idresponsavel2; ?>
+                                <?php echo $this->form->nomresponsavel2->renderViewHelper(); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row grid-append" style="display: none;">
+
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->desemail; ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $this->form->numfone; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->flaativo; ?>
+                    </div>
+                    <div class="span">
+                        <?php echo $this->form->idescritorio; ?>
+                    </div>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
+
+

@@ -1,0 +1,142 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+
+    <div class="row">
+        <div class="span2">
+            <?php echo $this->form->idgrupo; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->domtipoatividade; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->nomatividadecronograma; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->numpercentualconcluido; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span2 ">
+            <?php echo $this->form->flacancelada; ?>
+        </div>
+        <div class="span2 ">
+            <?php echo $this->form->flaaquisicao; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->idparteinteressada; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-azul span10">
+            <div class="title">Predecessoras</div>
+            <div class="content" style="height: 150px; overflow-y: scroll;">
+                <div class="row">
+                    <div class="span4">
+                        <div class="row">
+                            <div class="span4">
+                                <?php echo $this->form->predecessora; ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span2">
+                                <?php echo $this->form->numfolga; ?>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="span5">
+                        <div class="row">
+                            <div id="container-predecessoras" class="span5">
+                                <?php if(count($this->atividade['predecessoras']) > 0): ?>
+                                    <table id="table-predecessoras" class="table table-condensed table-striped table-hover">
+                                        <!--<caption>Predecessoras Selecionadas</caption>-->
+                                        <?php foreach ($this->atividade['predecessoras'] as $p): 
+                                            ?>
+                                            <tr>
+                                               <td>
+                                                   <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+                                                   <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="<?php echo $p['idatividade']; ?>" data-idatividadepredecessora="<?php echo $p['idatividadepredecessora']; ?>">
+                                               </td>
+                                               <td><?php echo $p['datinicio']; ?> a <?php echo $p['datfim']; ?> - <?php echo $p['nomatividadecronograma']; ?></td>
+                                           </tr>
+                                        <?php endforeach; ?>
+                                           <input type="hidden" name="maior_valor" id="maior_valor" value="<?php echo $p['datfim'];?>" />
+                                    </table>
+                                <?php else: ?>
+                                    <table id="table-predecessoras" class="table table-condensed table-striped table-hover hidden">
+                                        <caption>Predecessoras Selecionadas</caption>
+                                    </table>
+                                    <div id="alert-predecessora" class="alert alert-info">Nenhuma predecessora selecionada.</div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span4">
+            <?php //echo $this->form->desobs; ?>
+            <?php echo $this->form->idprojeto; ?>
+            <?php echo $this->form->idatividadecronograma; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="portlet portlet-azul span5" style="display:none;">
+            <div class="title">Estimativa</div>
+            <div class="content">
+                <div class="row">
+                    <div class="span1_5">
+                        <?php echo $this->form->datiniciobaseline; ?>
+                    </div>
+                    <div class="span1_5">
+                        <?php echo $this->form->datfimbaseline; ?>
+                    </div>
+                    <div class="span1">
+                        <?php echo $this->form->vlratividadebaseline; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span5">
+            <div class="title">Real</div>
+            <div class="content">
+                <div class="row">
+                    <div class="span1_5">
+                        <?php echo $this->form->datinicio; ?>
+                    </div>
+                    <div class="span1_5">
+                         <?php echo $this->form->numdiasrealizados; ?>
+                    </div>
+                    <div class="span1_5">
+                        <?php echo $this->form->datfim; ?>
+                    </div>
+                    <div class="span1">
+                        <?php echo $this->form->vlratividade; ?>
+                    </div>
+                    <button type="button" id="calcDias" style="margin-left: 230px;">Calcular Qtd dias</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->flainformatica; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->idelementodespesa; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->desobs; ?>
+        </div>
+    </div>
+</form>

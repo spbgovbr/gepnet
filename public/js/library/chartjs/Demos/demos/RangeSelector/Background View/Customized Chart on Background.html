@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>		
+		<title>Customized Chart on Background</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link href="../../../styles.css" rel="stylesheet" />
+		<script src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/knockout-2.2.1.js"></script>
+		<script src="../../../js/globalize.min.js"></script>
+		<script src="../../../js/dx.chartjs.js"></script>
+                                      
+	</head>
+	<body>
+		<script type="text/javascript">
+			$(function ()  
+				{
+   $("#chartContainer").dxRangeSelector({
+    margin: {
+        left: 15,
+        right: 15,
+        top: 50
+    },
+    size: {
+        height: 270
+    },
+    scale: {
+        minorTickInterval: 0.5,
+        majorTickInterval: 1,
+        label: {
+            customizeText: function () {
+                return this.valueText + " s";
+            }
+        }
+    },
+    sliderMarker: {
+        visible: false
+    },
+    background: {
+        color: "grey"
+    },
+    dataSource: [{x: 0, y: 15},
+               {x: 1, y: -1},
+               {x: 2, y: 10},
+               {x: 3, y: -3},
+               {x: 4, y: 16},
+               {x: 5, y: 0},
+               {x: 6, y: 9},
+               {x: 7, y: 3},
+               {x: 8, y: 15},
+               {x: 9, y: -1},
+               {x: 10, y: 10},
+               {x: 11, y: -3},
+               {x: 12, y: 16},
+               {x: 13, y: 0},
+               {x: 14, y: 9},
+               {x: 15, y: 3},
+               {x: 16, y: 13}],
+    chart: {
+        series: {
+            color: "orange",
+            width: 3,
+            type: "line",
+            argumentField: "x",
+            valueField: "y"
+        },
+        topIndent: 0.05,
+        bottomIndent: 0.05
+    },
+    selectedRange: {
+        startValue: 0,
+        endValue: 5
+    }
+});
+}
+
+			);
+		</script>
+		<div class="header">
+			<div class="content">
+				<a class="button" title="Online Demo Gallery" target="_blank" href="http://chartjs.devexpress.com/Demos/VizGallery/">Online Demo Gallery</a>
+	<div class = "logo">
+					<a class="logo" title="ChartJS Gallery" href="../../../index.html"></a>
+				</div>
+			</div>
+		</div>
+		<div class="line"></div>		
+		<div class="title">
+			<h1>RangeSelector</h1>&nbsp;&nbsp;&nbsp;<h2>Background View</h2>
+		</div>
+		<div class="content">
+			<div class="pane">
+				<div class="long-title"><h3>Select a Range in the CPU Usage History</h3></div>
+				<div id="chartContainer" style="width: 100%; height: 440px;"></div>
+				<div class="credits"></div>
+			</div>
+		</div>
+	</body>
+</html>

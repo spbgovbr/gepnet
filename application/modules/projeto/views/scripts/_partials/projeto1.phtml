@@ -1,0 +1,77 @@
+<?php
+/**
+ * @var Projeto_Model_Gerencia $this->projeto
+ */
+?>
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                <?php echo $this->projeto->nomcodigo; ?> - <?php echo $this->projeto->nomprojeto; ?>
+            </a>
+        </div>
+        <div id="collapseOne" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <table class="table table-striped table-bordered table-price">
+                    <colgroup>
+                        <col style="width: 50px;">
+                        <col style="width: 300px;">
+                        <col style="width: 50px;">
+                        <col style="width: 200px;">
+                        <col style="width: 50px;">
+                        <col style="width: 50px;">
+                        <col style="width: 100px;">
+                        <col style="width: 50px;">
+                        <col style="width: 50px;">
+                    </colgroup>
+                    <tr>
+                        <th>Patroci.:</th>
+                        <td><?php echo $this->projeto->patrocinador->nompessoa; ?></td>
+                        <th>Meta:</th>
+                        <td>(<?php echo $this->projeto->retornaMetaEmDias(); ?>.d) <?php echo $this->projeto->datinicio->toString('d/m/Y'); ?> &agrave; <?php echo $this->projeto->datfim->toString('d/m/Y'); ?></td>
+                        <th>Previsto:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->numpercentualprevisto; ?>%</td>
+                        <th>Ult.Foto:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->datacompanhamento; ?></td>
+                        <th>Prazo:</th>
+                        <td><span class="badge badge-<?php echo $this->projeto->retornaDescricaoPrazo(); ?>"><?php echo $this->projeto->retornaPrazoEmDias(); ?> dias</span></td>
+                    </tr>
+                    <tr>
+                        <th>Gerente:</th>
+                        <td><?php echo $this->projeto->gerenteprojeto->nompessoa; ?></td>
+                        <th>Tendência:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->datfimprojetotendencia; ?> (<?php echo $this->projeto->retornaTendenciaEmDias(); ?>.d)</td>
+                        <th>Concluído:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->numpercentualconcluido; ?>%</td>
+                        <th>Status:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->domstatusprojeto; ?></td>
+                        <th>Risco:</th>
+                        <td><span class="badge badge-<?php echo $this->projeto->retornaDescricaoRisco(); ?>">Risco</span></td>
+                    </tr>
+                    <tr>
+                        <th>Adjunto:</th>
+                        <td><?php echo $this->projeto->gerenteadjunto->nompessoa; ?></td>
+                        <th>Alinhamento Estratégico:</th>
+                        <td colspan="3"><?php echo $this->projeto->objetivo->nomobjetivo, ' <br /> ', $this->projeto->acao->nomacao ; ?></td>
+                        <th>Natureza:</th>
+                        <td colspan="<?php echo ($this->projeto->flacopa == 'S') ? 2 : 3; ?>"><?php echo isset($this->projeto->natureza->nomnatureza)? $this->projeto->natureza->nomnatureza : '' ; ?></td>
+                        <?php if($this->projeto->flacopa == 'S'): ?>
+                            <td><span class="label label-info">Projeto dos Grandes Eventos</span></td>
+                        <?php endif; ?>
+                    </tr>
+                </table>
+                
+             
+                <!--
+                : PF_06 - Implantação da Gestão por Competências
+                Patroci.:	LUIZ FERNANDO CORREA 	Meta:(500.d)	01/06/2009 à 14/10/2010 	Previsto:	100% 	Ult.Foto:	17/02/2011 	Prazo:	[207]
+                Gerente:	ANISIO SOARES VIEIRA 	Tendência:	09/05/2011 (707.d) 	Concluído:	92%
+                Em Andamento
+                Risco:
+                Adjunto:	JORGEVAL SILVA COSTA 	Alinhamento Estratégico:	02 - Valorizar o Servidor
+                - 01 - Gestão por Competência 	Natureza:	ESTRUTURAÇÃO ORGANIZACIONAL
+                -->
+            </div>
+        </div>
+    </div>
+</div>
