@@ -117,10 +117,12 @@ class Zend_Gdata_Gbase extends Zend_Gdata
     {
         if ($location === null) {
             $uri = self::GBASE_ITEM_FEED_URI;
-        } else if ($location instanceof Zend_Gdata_Query) {
-            $uri = $location->getQueryUrl();
         } else {
-            $uri = $location;
+            if ($location instanceof Zend_Gdata_Query) {
+                $uri = $location->getQueryUrl();
+            } else {
+                $uri = $location;
+            }
         }
         return parent::getFeed($uri, 'Zend_Gdata_Gbase_ItemFeed');
     }
@@ -136,11 +138,13 @@ class Zend_Gdata_Gbase extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'Location must not be null');
-        } else if ($location instanceof Zend_Gdata_Query) {
-            $uri = $location->getQueryUrl();
+                'Location must not be null');
         } else {
-            $uri = $location;
+            if ($location instanceof Zend_Gdata_Query) {
+                $uri = $location->getQueryUrl();
+            } else {
+                $uri = $location;
+            }
         }
         return parent::getEntry($uri, 'Zend_Gdata_Gbase_ItemEntry');
     }
@@ -199,10 +203,12 @@ class Zend_Gdata_Gbase extends Zend_Gdata
     {
         if ($location === null) {
             $uri = self::GBASE_SNIPPET_FEED_URI;
-        } else if ($location instanceof Zend_Gdata_Query) {
-            $uri = $location->getQueryUrl();
         } else {
-            $uri = $location;
+            if ($location instanceof Zend_Gdata_Query) {
+                $uri = $location->getQueryUrl();
+            } else {
+                $uri = $location;
+            }
         }
         return parent::getFeed($uri, 'Zend_Gdata_Gbase_SnippetFeed');
     }

@@ -2,34 +2,78 @@
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/tap/assinatura.css?' . time()))
     ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
     ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/termoaceite/index.css'));
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/tep/add.js'), 'text/javascript')
-;
-
+    ->appendFile($this->baseUrl('/js/app/projeto/tep/add.js'), 'text/javascript');
 
 
 //echo $this->form;
 $frmAttr = $this->form->getAttribs();
 ?>
-<div class="region-west" >
+<div class="region-west">
     <?php
-    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'encerramento', 'idprojeto' => $this->gerencia->idprojeto));
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'termoenc', 'idprojeto' => $this->gerencia->idprojeto));
     ?>
 </div>
-<div class="region-center" >
+<div class="region-center">
     <?php echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->gerencia)); ?>
 
+    <div class="row">
+        <!-- Imprime ou exporta o termo de ENCERRAMENTO do projeto -->
+        <div class="span8">
+            <div class="row btn-toolbar" style="float: right;">
+                <a data-target="#dialog-assinar" class="btn actionfrm autenticarassinatura"
+                   title="Assinar Termo de Encerramento" href="<?php echo $this->url(
+                    array(
+                        'module' => 'projeto',
+                        'controller' => 'termoencerramento',
+                        'action' => 'autenticarassinatura',
+                        'idprojeto' => $this->gerencia->idprojeto
+                    )); ?>">
+                    <i class="icon-pencil"></i>
+                </a>
+                <a class="btn btn-imprimir-word" title="Exportar TERMO DE ENCERRAMENTO DE PROJETO (TEP)" target="_blank"
+                   href="<?php echo $this->url(
+                       array(
+                           'module' => 'projeto',
+                           'controller' => 'termoencerramento',
+                           'action' => 'imprimir-word',
+                           'idprojeto' => $this->gerencia->idprojeto
+                       )); ?>">
+                    <i class="icon-book"></i>
+                </a>
+                <a class="btn btn-cadastrar-grupo" title="Imprimir TERMO DE ENCERRAMENTO DE PROJETO (TEP)"
+                   target="_blank" href="<?php echo $this->url(
+                    array(
+                        'module' => 'projeto',
+                        'controller' => 'termoencerramento',
+                        'action' => 'imprimir',
+                        'idprojeto' => $this->gerencia->idprojeto,
+                        'tipodoc' => 4
+                    )); ?>">
+                    <i class="icon-print"></i>
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="span3">
             <?php echo $this->form->desprojeto; ?>
@@ -55,9 +99,21 @@ $frmAttr = $this->form->getAttribs();
             <div class="span4">
                 <?php echo $this->form->idprojeto; ?>
                 <?php echo $this->form->submit; ?>
-                <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'termoencerramento', 'action' => 'imprimir','idprojeto' => $this->gerencia->idprojeto )); ?>">Imprimir Termo de Encerramento</a>
+                <a class="btn" target="_blank" href="<?php echo $this->url(
+                    array(
+                        'module' => 'projeto',
+                        'controller' => 'termoencerramento',
+                        'action' => 'imprimir',
+                        'idprojeto' => $this->gerencia->idprojeto,
+                        'tipodoc' => 4
+                    )); ?>">Imprimir Termo de Encerramento</a>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
     </form>
 </div>
+<div id="dialog-assinar" style="display: none"></div>

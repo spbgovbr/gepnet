@@ -12,7 +12,7 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
     protected $_mapper;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -29,26 +29,26 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
         return $this->_getForm('Acordocooperacao_Form_Entidadeexterna');
     }
 
-   /**
+    /**
      * @return Evento_Form_Evento
      */
     public function getFormPesquisar()
     {
         $form = $this->_getForm('Acordocooperacao_Form_Entidadeexterna');
         $form->getElement('nomentidadeexterna')
-                        ->setAttribs(array('class' => 'span3', 'data-rule-required' => false))
-                        ->setRequired(false)
-                        ->removeValidator('NotEmpty');
+            ->setAttribs(array('class' => 'span3', 'data-rule-required' => false))
+            ->setRequired(false)
+            ->removeValidator('NotEmpty');
         return $form;
     }
-   
+
     public function inserir($dados)
     {
         //Zend_Debug::dump($dados); exit;
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-             $model     = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
-             $retorno = $this->_mapper->insert($model);
+        if ($form->isValid($dados)) {
+            $model = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
+            $retorno = $this->_mapper->insert($model);
             return $retorno;
         } else {
             $this->errors = $form->getMessages();
@@ -57,15 +57,15 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
     }
 
     /**
-     * 
+     *
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-            $model   = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -79,14 +79,14 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
     {
         return $this->_mapper->getById($params);
     }
-    
+
     public function getErrors()
     {
         return $this->errors;
     }
 
-   /**
-     * 
+    /**
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Atividade_Service_JqGrid | array
@@ -94,7 +94,7 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
@@ -102,9 +102,10 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
         return $dados;
     }
 
-    public function fetchPairs(){
-       $dados =  $this->_mapper->fetchPairs();
-       $listArray = array('' => 'Selecione');
+    public function fetchPairs()
+    {
+        $dados = $this->_mapper->fetchPairs();
+        $listArray = array('' => 'Selecione');
 
         foreach ($dados as $val => $desc) {
             $listArray[$val] = $desc;
@@ -112,7 +113,8 @@ class Acordocooperacao_Service_Entidadeexterna extends App_Service_ServiceAbstra
         return $listArray;
     }
 
-    public function retornaEntidadesExternas($params){
+    public function retornaEntidadesExternas($params)
+    {
         $resultado = $this->_mapper->retornaEntidadesExternas($params);
 
         $collection = new App_Model_Collection();

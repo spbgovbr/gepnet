@@ -1,20 +1,32 @@
+<?php
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+@header('Content-type: text/html; charset=UTF-8');
+
+$countGrupo = 0;
+$countEntrega = 0;
+$countAtividade = 0;
+
+?>
 <div>
     <div align="left" class="span4" style="margin-top: 60px">
         <h5>2. CRONOGRAMA</h5>
     </div>
-    <table class="table table-striped table-hover table-condensed"> 
+    <table class="table table-striped table-hover table-condensed">
         <thead>
-            <tr>
-                <th>Grupo/Evento/Atividade</th>
-                <th>Baseline(Planejado)</th>
-                <th>(D/P)</th>
-                <th>Custo</th>
-                <th>In&iacute;cio/Fim(Realizado)</th>
-                <th>(D/R)</th>
-                <th>%</th>
-                <th>Respons&aacute;vel</th>
-                <th>Farol</th>
-            </tr>
+        <tr>
+            <th>Grupo/Evento/Atividade</th>
+            <th>(P)</th>
+            <th>Início/Fim(Planejado)</th>
+            <th>(D/P)</th>
+            <th>Custo</th>
+            <th>In&iacute;cio/Fim(Realizado)</th>
+            <th>(D/R)</th>
+            <th>%</th>
+            <th>Respons&aacute;vel</th>
+            <th>Atraso</th>
+        </tr>
         </thead>
         <tbody>
         <colgroup>
@@ -24,81 +36,284 @@
             <col style="text-align: center;">
             <col style="width: 150px;">
             <col style="">
-            <col style="">
-            <col style="width: 45px;">
+            <col style="text-align: left; width: 10%;">
+            <col>
+            <col>
         </colgroup>
-            <?php foreach($this->projeto['grupos'] as $gr): ?>
-            <tr style="border-bottom: thick solid #ccc;">
-                <td class="titulo-grupo" style="font-weight: bold; font-size: 10px;"><?php echo $gr['nomatividadecronograma']?></td>
-                <td>
-                    <?php echo isset($gr['datiniciobaseline'])? $gr['datiniciobaseline']: ""; ?> &agrave; 
-                    <?php echo isset($gr['datfimbaseline'])? $gr['datfimbaseline'] : ""; ?>
-                </td>
-                <td><?php echo $gr['diasbaseline']?></td>
-                <td><?php echo $gr['vlratividade']?></td>
-                <td>
-                    <?php echo isset($gr['datinicio'])? $gr['datinicio'] : ""; ?> &agrave; 
-                    <?php echo isset($gr['datfim'])? $gr['datfim']: ""; ?>
-                </td>
-                <td><?php $valorGrupo = ($gr['datfim'] - $gr['datinicio']);
-                                echo $valorGrupo;
-                          ?> </td>
-                <td><?php echo $gr['numpercentualconcluido']?>%</td>
-                <td></td>
-                <td></td>
-            </tr>
-                <?php if(isset($gr['entregas'])):
-                        foreach($gr['entregas'] as $en): ?>
-                        <tr>
-                            <td style="padding-left: 15px;"><?php echo $en['nomatividadecronograma']?></td>
-                            <td>
-                                <?php echo isset($en['datiniciobaseline'])? $en['datiniciobaseline']: "";?> &agrave; 
-                                <?php echo isset($en['datfimbaseline'])? $en['datfimbaseline'] : ""; ?>
-                            </td>
-                            <td><?php echo $en['diasbaseline']?></td>
-                            <td><?php echo $en['vlratividade']?></td>
-                            <td>
-                                <?php echo isset($en['datinicio'])? $en['datinicio'] : ""; ?> &agrave; 
-                                <?php echo isset($en['datfim'])? $en['datfim']: ""; ?>
-                            </td>
-                            <td><?php
-                               $valorEntrega = ($en['datfim'] - $en['datinicio']);
-                                echo $valorEntrega; 
-                            ?></td>
-                            <td><?php echo $en['numpercentualconcluido']?>%</td>
-                            <td><?php echo $en['desemail']?></td>
-                            <td class="badge badge-<?php echo $this->projeto['info'] ?>"> <?php echo isset($en['prazo'])? $en['prazo'] : "" ?> </td>
-                        </tr>
-                        <?php if(isset($en['atividades']) ): 
-                                foreach($en['atividades'] as $at): ?>
-                                    <tr>
-                                        <td style="padding-left: 30px; font-style: italic;"> <?php echo $at['nomatividadecronograma']?></td>
-                                        <td><?php echo $at['datiniciobaseline'] ?> &agrave; <?php echo $at['datfimbaseline'] ?></td>
-                                        <td><?php echo $at['diasbaseline']?></td>
-                                        <td><?php echo $at['vlratividade']?></td>
-                                        <td><?php echo $at['datinicio']?> &agrave; <?php echo $at['datfim']?></td>
-                                        <td><?php echo $at['numdiasrealizados']?></td>
-                                        <td><?php echo $at['numpercentualconcluido']?>%</td>
-                                        <td><?php echo $at['desemail']?></td>
-                                        <td class="badge badge-<?php echo $at['descricaoprazo'] ?>"> <?php echo $at['prazo'] ?> </td>
-                                    </tr>
-                                    <?php if( count($at['predecessoras']) > 0): 
-                                            foreach($at['predecessoras'] as $pr): ?>
-                                            <tr>
-                                                <td style="padding-left: 40px;" colspan="8"> (P) <?php echo $pr['nomatividadecronograma']?></td>
-                                            </tr>
-                                    <?php   endforeach;
-                                           endif; ?>
-                        <?php endforeach; 
-                             endif; ?>
-                <?php endforeach;
-                    endif;?>
-            <?php endforeach; ?>
+
+        <tr style="border-bottom: thick solid #ccc; background: #b3b3b3">
+            <td style="font-weight: bold; text-align: left">
+                <?php echo '<img src="', $this->baseUrl('/img/icon-folder-close.png'), '" style="float:left;" />&nbsp;&nbsp;'; ?>
+                <?php echo $this->linhaResumoNomProjeto; ?>
+            </td>
+
+            <td></td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoDtPlanejado; ?></td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoDiasBaseLine; ?></td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoCusto; ?></td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoDtRealizado; ?> </td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoDiasRealizados; ?></td>
+            <td style="font-weight: bold; text-align: left"><?php echo $this->linhaResumoPercentual; ?></td>
+            <td></td>
+            <td style="text-align: right; padding-right:5px;"
+                class="badge badge-<?php echo (int)($this->linhaResumoPercentual == 100) ? "" : (!empty($this->linhaCorFarol)) ? $this->linhaCorFarol : ""; ?>">
+                <?php echo isset($this->linhaResumoFarol) ? $this->linhaResumoFarol : ""; ?> dias
+            </td>
+            */?>
+        </tr>
+        ?>
+        <?php foreach ($this->cronograma as $item):
+            $item['descricaoconclusao'] = "";
+            $numDiasReais = 0;
+            $numDiasPlanejada = 0;
+            $countPredecessoras = 0;
+            $item['contPredecessoras'] = 0;
+            $atraso = $item['atraso'];
+
+            $farol = $item['domcoratraso'];
+
+            if (isset($item['predecessoras']) && !empty($item['predecessoras']) && $item['predecessoras'] != "{NULL}") {
+                if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) {
+                    $result = explode("&&&&&", $item['predecessoras']);
+                    $item['contPredecessoras'] = $result;
+                } else {
+                    $item['contPredecessoras'] = 1;
+                }
+            }
+
+            $hoje = new DateTime('now');
+            $item['descricaoconclusao'] = 'item-em-dia';
+
+            if ($item['numpercentualconcluido'] == 100.00) {
+                $item['descricaoconclusao'] = 'item-concluido';
+            } else {
+                if (!empty($item['datfim']) && $item['domtipoatividade'] == 3 ||
+                    (!empty($item['datfim'])) && $item['domtipoatividade'] == 4) {
+                    $dtFim = DateTime::createFromFormat('d/m/Y', $item['datfim']);
+                    if ($dtFim < $hoje) {
+                        $item['descricaoconclusao'] = 'item-atrasado';
+                    }
+                }
+            }
+
+            if ((($item['domtipoatividade'] == 3)
+                    || ($item['domtipoatividade'] == 4)) && $item['flacancelada'] == 'S') {
+                $item['descricaoconclusao'] = 'item-cancelado';
+            }
+
+            switch ($item['nivel']) :
+                case 1: ?>
+                    <tr style="border-bottom: thick solid #ccc;">
+                        <td class="titulo-grupo" style="font-weight: bold; font-size: 10px;">
+                            <?php echo "<img src=\"" . $this->baseUrl('/img/icon-folder-open.png') . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
+                        </td>
+                        <td></td>
+                        <td style="text-align: left">
+                            <?php echo isset($item['datiniciobaseline']) ? $item['datiniciobaseline'] : ""; ?> a
+                            <?php echo isset($item['datfimbaseline']) ? $item['datfimbaseline'] : ""; ?>
+                        </td>
+                        <td style="text-align: left"><?php echo $item['numdiasbaseline'] ?></td>
+                        <td style="text-align: left"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
+                                    0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0, 2); ?></td>
+                        <td style="text-align: left">
+                            <?php echo isset($item['datinicio']) ? $item['datinicio'] : ""; ?> a
+                            <?php echo isset($item['datfim']) ? $item['datfim'] : ""; ?>
+                        </td>
+                        <td style="text-align: left"><?php echo $item['numdiasrealizados']; ?> </td>
+                        <td style="text-align: left"><?php echo number_format($item['numpercentualconcluido'], 0); ?>%
+                        </td>
+                        <td style="text-align: left"><?php echo (isset($item['desemail'])) ? $item['desemail'] : ""; ?></td>
+                        <?php $percent = !empty($item['numpercentualconcluido']) ? $item['numpercentualconcluido'] : '0'; ?>
+                        <td style="text-align: right; padding-right:5px;"
+                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
+                                0)) == 100 ? "default" : $farol; ?>">
+                            <?php echo $atraso; ?> dias
+                        </td>
+                    </tr>
+                    <?php
+                    $countGrupo++;
+                    break;
+                case 2: ?>
+                    <tr>
+                        <td style="padding-left: 15px;">
+                            <?php
+                            echo "<img src=\"" . $this->baseUrl('/img/icon-tag.png') . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?></td>
+                        <td></td>
+                        <td style="text-align: left">
+                            <?php echo isset($item['datiniciobaseline']) ? $item['datiniciobaseline'] : ""; ?> a
+                            <?php echo isset($item['datfimbaseline']) ? $item['datfimbaseline'] : ""; ?>
+                        </td>
+                        <td style="text-align: left"><?php echo $item['numdiasbaseline'] ?></td>
+                        <td style="text-align: left"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
+                                    0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0, 2); ?></td>
+                        <td>
+                            <?php echo isset($item['datinicio']) ? $item['datinicio'] : ""; ?> a
+                            <?php echo isset($item['datfim']) ? $item['datfim'] : ""; ?>
+                        </td>
+                        <td style="text-align: left"><?php echo $item['numdiasrealizados']; ?></td>
+                        <td style="text-align: left"><?php echo number_format($item['numpercentualconcluido'], 0); ?>%
+                        </td>
+                        <td style="text-align: left"><?php echo (!empty($item['desemail'])) ? $item['desemail'] : ""; ?></td>
+                        <td style="text-align: right; padding-right:5px;"
+                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
+                                    0) == 100) ? "default" : $farol; ?>"> <?php echo $atraso; ?> dias
+                        </td>
+                    </tr>
+
+                    <?php
+                    $countEntrega++;
+                    break;
+                case 3:
+                    $hoje = date("Y-m-d");
+
+                    if ($item["flacancelada"] == 'S') {//item-cancelado
+                        $verificaCancelada = 'text-decoration: line-through; color: #996699;';
+                    } elseif ($item["numpercentualconcluido"] == '100.00' && $item["flacancelada"] != 'S') { //item concluido
+                        $verificaCancelada = 'font-style:italic; color:#A8A8A8;';
+                    }
+
+                    $arr_dt = explode("/", $item['datfim']);
+                    $dia = $arr_dt[0];
+                    $mes = $arr_dt[1];
+                    $ano = mb_substr($arr_dt[2], 0, 4);
+                    $data = $ano . '-' . $mes . '-' . $dia;
+
+                    if ($item["numpercentualconcluido"] != '100.00' && $item["flacancelada"] != 'S') {
+                        if (strtotime($data) < strtotime($hoje)) {//item atrasado
+                            $verificaCancelada = 'color:#FF0000;';
+                        }
+                        if (strtotime($data) >= strtotime($hoje)) { //item em dia
+                            $verificaCancelada = 'color:#339900;';
+                        }
+                    }
+
+                    $imagem = $item['domtipoatividade'] == 3 ? '/img/icon-list-alt.png' : '/img/icon-flag.png';
+                    ?>
+                    <tr>
+                        <td style=" padding-left: 30px; <?php echo $verificaCancelada ?>">
+                            <?php echo "<img src=\"" . $this->baseUrl($imagem) . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>/*; font-size: 9px;">
+                            <?php
+                            if (count($item['predecessoras']) > 0):
+                                $result = null;
+                                $predecess = array();
+                                if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
+                                    $result = explode("&&&&&", $item['predecessoras']);
+                                    foreach ($result as $array):
+                                        $arraynumPredecessora = explode("#-#", $array);
+                                        $predecess[] = $arraynumPredecessora[1];
+                                    endforeach;
+                                    echo implode(', ', $predecess);
+                                else :
+                                    $predecess = explode("#-#", $item['predecessoras']);
+                                    echo $predecess[1];
+                                endif;
+                            endif;
+                            ?>
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['datiniciobaseline'] ?>
+                            a <?php echo $item['datfimbaseline'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['numdiasbaseline'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
+                                    0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0, 2); ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['datinicio'] ?>
+                            a <?php echo $item['datfim'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['numdiasrealizados'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo number_format($item['numpercentualconcluido'],
+                                0); ?>%
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo (!empty($item['desemail'])) ? $item['desemail'] : ""; ?></td>
+                        <td style="text-align: right; padding-right:5px;"
+                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
+                                    0) == 100) ? "default" : $farol; ?>"> <?php echo $atraso; ?> dias
+                        </td>
+                    </tr>
+                    <?php
+                    $countAtividade++;
+                    break;//
+                case 4:
+                    $hoje = date("Y-m-d");
+
+                    if ($item["flacancelada"] == 'S') {//item-cancelado
+                        $verificaCancelada = 'text-decoration: line-through; color: #996699;';
+                    } elseif ($item["numpercentualconcluido"] == '100.00' && $item["flacancelada"] != 'S') { //item concluido
+                        $verificaCancelada = 'font-style:italic; color:#A8A8A8;';
+                    }
+
+                    $arr_dt = explode("/", $item['datfim']);
+                    $dia = $arr_dt[0];
+                    $mes = $arr_dt[1];
+                    $ano = mb_substr($arr_dt[2], 0, 4);
+                    $data = $ano . '-' . $mes . '-' . $dia;
+
+                    if ($item["numpercentualconcluido"] != '100.00' && $item["flacancelada"] != 'S') {
+                        if (strtotime($data) < strtotime($hoje)) {//item atrasado
+                            $verificaCancelada = 'color:#FF0000;';
+                        }
+                        if (strtotime($data) >= strtotime($hoje)) { //item em dia
+                            $verificaCancelada = 'color:#339900;';
+                        }
+                    }
+
+                    $imagem = $item['domtipoatividade'] == 3 ? '/img/icon-list-alt.png' : '/img/icon-flag.png';
+                    ?>
+                    <tr>
+                        <td style=" padding-left: 30px; <?php echo $verificaCancelada ?>">
+                            <?php echo "<img src=\"" . $this->baseUrl($imagem) . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>/*; font-size: 9px;">
+                            <?php
+                            if (count($item['predecessoras']) > 0):
+                                $result = null;
+                                $predecess = array();
+                                if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
+                                    $result = explode("&&&&&", $item['predecessoras']);
+                                    foreach ($result as $array):
+                                        $arraynumPredecessora = explode("#-#", $array);
+                                        $predecess[] = $arraynumPredecessora[1];
+                                    endforeach;
+                                    echo implode(', ', $predecess);
+                                else :
+                                    $predecess = explode("#-#", $item['predecessoras']);
+                                    echo $predecess[1];
+                                endif;
+                            endif;
+                            ?>
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['datiniciobaseline'] ?>
+                            a <?php echo $item['datfimbaseline'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['numdiasbaseline'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
+                                    0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0, 2); ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['datinicio'] ?>
+                            a <?php echo $item['datfim'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo $item['numdiasrealizados'] ?></td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo number_format($item['numpercentualconcluido'],
+                                0); ?>%
+                        </td>
+                        <td style="<?php echo $verificaCancelada ?>"><?php echo (!empty($item['desemail'])) ? $item['desemail'] : ""; ?></td>
+                        <td style="text-align: right; padding-right:5px;"
+                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
+                                    0) == 100) ? "default" : $farol; ?>"> <?php echo $atraso; ?> dias
+                        </td>
+                    </tr>
+                    <?php
+                    $countAtividade++;
+                    break;
+            endswitch;
+        endforeach; ?>
         </tbody>
         <tfoot>
-            <tr> <td colspan="8"><?php echo $this->projeto['contGrupo'] ?> grupo(s), <?php echo $this->projeto['contEntrega'] ?> entrega(s) e <?php echo $this->projeto['contAtividade'] ?> atividade(s) </td></tr>
+        <tr>
+            <td colspan="9"><?php echo $countGrupo; ?> grupo(s), <?php echo $countEntrega; ?> entrega(s)
+                e <?php echo $countAtividade; ?> atividade(s)
+            </td>
+        </tr>
         </tfoot>
     </table>
 </div>
-
-

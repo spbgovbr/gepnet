@@ -1,18 +1,17 @@
-.wijmo-checkbox
-{
+.wijmo-checkbox {
     position: relative; /*float: left;*/
     margin: 3px 0;
     line-height: 16px;
     width: 16px;
 }
-.wijmo-checkbox .wijmo-checkbox-inputwrapper
-{
+
+.wijmo-checkbox .wijmo-checkbox-inputwrapper {
     width: 0;
     height: 0;
     overflow: hidden;
 }
-.wijmo-checkbox label
-{
+
+.wijmo-checkbox label {
     display: block;
     position: relative;
     margin: 0;
@@ -23,8 +22,8 @@
     margin: 0 3px;
     width: 8em;
 }
-.wijmo-checkbox .wijmo-checkbox-box
-{
+
+.wijmo-checkbox .wijmo-checkbox-box {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -36,9 +35,8 @@
     margin-right: 3px;
 }
 
-.wijmo-checkbox .wijmo-checkbox-relative
-{
+.wijmo-checkbox .wijmo-checkbox-relative {
     position: relative;
     float: left;
-    margin-right: 3px;    
+    margin-right: 3px;
 }

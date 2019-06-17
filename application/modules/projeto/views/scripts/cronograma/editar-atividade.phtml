@@ -6,7 +6,7 @@ $frmAttr = $this->form->getAttribs();
       name="<?php echo $frmAttr['id']; ?>"
       action="<?php echo $this->form->getAction(); ?>"
       method="<?php echo $frmAttr['method']; ?>">
-
+    <?php echo $this->form->listaPredecessoras; ?>
     <div class="row">
         <div class="span2">
             <?php echo $this->form->idgrupo; ?>
@@ -22,6 +22,45 @@ $frmAttr = $this->form->getAttribs();
         </div>
     </div>
     <div class="row">
+        <div class="accordion span10" id="accordion2">
+            <!--<div class="accordion-group">-->
+            <div class="portlet portlet-azul span10">
+                <div class="accordion-heading" title="Clique para expandir">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" title="Clique para expandir"
+                       data-parent="#accordion2" href="#collapsePredecessora">
+                        <div class="title" title="Clique para expandir">Predecessoras</div>
+                    </a>
+                </div>
+                <div id="collapsePredecessora" class="accordion-body collapse span10">
+                    <div class="accordion-inner content span10" style="height: 230px; overflow-y: scroll;">
+                        <div class="row">
+                            <div class="span4" title="Use o Ctrl ou Shift para m&uacute;ltipla sele&ccedil;&atilde;o">
+                                <?php echo $this->form->predecessora; ?>
+                            </div>
+                            <div class="span1_5" style="margin-top: 27px;">
+                                <a class="btn btn-predecessora-move" id="predecessora-in" title="Adicionar Predecessora"
+                                   href="#"><i class="icon-chevron-right"></i></a><br/>
+                                <a class="btn btn-predecessora-move" id="predecessora-out" title="Remover Predecessora"
+                                   href="#"><i class="icon-chevron-left"></i></a>
+                            </div>
+                            <div class="span4" title="Use o Ctrl ou Shift para m&uacute;ltipla sele&ccedil;&atilde;o">
+                                <?php echo $this->form->predecessorasAtividade; ?>
+                                <input type="hidden" name="maior_valor" id="maior_valor"
+                                       value="<?php echo $this->dataPredecessora; ?>"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span2">
+                                <?php echo $this->form->numfolga; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+    </div>
+    <div class="row">
         <div class="span2 ">
             <?php echo $this->form->flacancelada; ?>
         </div>
@@ -32,60 +71,20 @@ $frmAttr = $this->form->getAttribs();
             <?php echo $this->form->idparteinteressada; ?>
         </div>
     </div>
-    <div class="row">
-        <div class="portlet portlet-azul span10">
-            <div class="title">Predecessoras</div>
-            <div class="content" style="height: 150px; overflow-y: scroll;">
-                <div class="row">
-                    <div class="span4">
-                        <div class="row">
-                            <div class="span4">
-                                <?php echo $this->form->predecessora; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span2">
-                                <?php echo $this->form->numfolga; ?>
-                            </div>
-                        </div>
-                    </div>
-                     <div class="span5">
-                        <div class="row">
-                            <div id="container-predecessoras" class="span5">
-                                <?php if(count($this->atividade['predecessoras']) > 0): ?>
-                                    <table id="table-predecessoras" class="table table-condensed table-striped table-hover">
-                                        <!--<caption>Predecessoras Selecionadas</caption>-->
-                                        <?php foreach ($this->atividade['predecessoras'] as $p): 
-                                            ?>
-                                            <tr>
-                                               <td>
-                                                   <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
-                                                   <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="<?php echo $p['idatividade']; ?>" data-idatividadepredecessora="<?php echo $p['idatividadepredecessora']; ?>">
-                                               </td>
-                                               <td><?php echo $p['datinicio']; ?> a <?php echo $p['datfim']; ?> - <?php echo $p['nomatividadecronograma']; ?></td>
-                                           </tr>
-                                        <?php endforeach; ?>
-                                           <input type="hidden" name="maior_valor" id="maior_valor" value="<?php echo $p['datfim'];?>" />
-                                    </table>
-                                <?php else: ?>
-                                    <table id="table-predecessoras" class="table table-condensed table-striped table-hover hidden">
-                                        <caption>Predecessoras Selecionadas</caption>
-                                    </table>
-                                    <div id="alert-predecessora" class="alert alert-info">Nenhuma predecessora selecionada.</div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
         <div class="span4">
-            <?php //echo $this->form->desobs; ?>
+            <?php echo $this->form->datInicioHidden; ?>
             <?php echo $this->form->idprojeto; ?>
+            <?php echo $this->form->numcriteriofarol; ?>
             <?php echo $this->form->idatividadecronograma; ?>
+        </div>
+    </div>
+    <div class="row" id="infoMarco"
+         style="display:<?php echo($this->atividade['domtipoatividade'] == "4" ? "" : "none"); ?>;">
+        <div class="span10">
+            <b>*A dura&ccedil;&atilde;o de um marco &eacute; sempre igual a zero. Para inserir uma atividade com dura&ccedil;&atilde;o
+                diferente de zero, remova a sele&ccedil;&atilde;o do campo 'Marco'.</b>
         </div>
     </div>
     <div class="row">
@@ -112,16 +111,15 @@ $frmAttr = $this->form->getAttribs();
                     <div class="span1_5">
                         <?php echo $this->form->datinicio; ?>
                     </div>
-                    <div class="span1_5">
-                         <?php echo $this->form->numdiasrealizados; ?>
+                    <div class="span1_5" style="margin-left: 8px;">
+                        <?php echo $this->form->numdiasrealizados; ?>
                     </div>
-                    <div class="span1_5">
+                    <div class="span1_5" style="margin-left: 8px;">
                         <?php echo $this->form->datfim; ?>
                     </div>
-                    <div class="span1">
+                    <div class="span1" style="margin-left: 8px;">
                         <?php echo $this->form->vlratividade; ?>
                     </div>
-                    <button type="button" id="calcDias" style="margin-left: 230px;">Calcular Qtd dias</button>
                 </div>
             </div>
         </div>
@@ -137,6 +135,11 @@ $frmAttr = $this->form->getAttribs();
     <div class="row">
         <div class="span4">
             <?php echo $this->form->desobs; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right;  padding-top: 10px;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
         </div>
     </div>
 </form>

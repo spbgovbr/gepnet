@@ -1,9 +1,9 @@
 <?php
+
 class Projeto_Service_Aceite extends App_Service_ServiceAbstract
 {
 
     protected $_form;
-
     /**
      *
      * @var Projeto_Model_Mapper_Aceite
@@ -28,7 +28,8 @@ class Projeto_Service_Aceite extends App_Service_ServiceAbstract
         $this->_mapper = new Projeto_Model_Mapper_Aceite();
     }
 
-    public function getForm($params){
+    public function getForm($params)
+    {
         $serviceAtivCronograma = new Projeto_Service_AtividadeCronograma();
         $fetchPairEntrega = $serviceAtivCronograma->fetchPairsEntrega($params);
         $arrayEntrega = $this->initCombo($fetchPairEntrega, 'Selecione');
@@ -39,22 +40,24 @@ class Projeto_Service_Aceite extends App_Service_ServiceAbstract
     }
 
 
-    public function retornaAceites($params, $paginator){
+    public function retornaAceites($params, $paginator)
+    {
         $dados = $this->_mapper->retornaPorProjeto($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
-            //var_dump($service);
+
             return $service;
         }
         return $dados;
     }
 
-    public function inserir($dados){
+    public function inserir($dados)
+    {
 
         $form = $this->getForm($dados);
 
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
             $modelAceite = new Projeto_Model_Aceite($form->getValues());
 
             $retorno = $this->_mapper->insert($modelAceite);
@@ -66,32 +69,37 @@ class Projeto_Service_Aceite extends App_Service_ServiceAbstract
         return false;
     }
 
-    public function getById($params){
-       return $this->_mapper->getById($params);
+    public function getById($params)
+    {
+        return $this->_mapper->getById($params);
     }
 
-    public function editar($dados){
+    public function editar($dados)
+    {
 
         $form = $this->getForm(array('idprojeto' => $dados['idprojeto']));
-        if ( $form->isValid($dados) ) {
-            $model   = new Projeto_Model_Aceite($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Projeto_Model_Aceite($form->getValues());
             $retorno = $this->_mapper->update($model);
-            return $retorno;
+            return ($retorno ? true : false);
         } else {
             $this->errors = $form->getMessages();
             return false;
         }
     }
 
-    public function detalhar($params){
+    public function detalhar($params)
+    {
 
     }
 
-    public function excluir($dados){
-       return $this->_mapper->delete($dados);
+    public function excluir($dados)
+    {
+        return $this->_mapper->delete($dados);
     }
 
-    public function initCombo($objeto, $msg) {
+    public function initCombo($objeto, $msg)
+    {
 
         $listArray = array();
         $listArray = array('' => $msg);

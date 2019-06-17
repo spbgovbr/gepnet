@@ -1,133 +1,165 @@
 <?php
-$this->headScript()
-//        ->appendFile($this->baseUrl('/js/app/library/chartjs/Lib/js/jquery-1.9.1.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js'), 'text/javascript')
+//$this->headScript()
+//        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+//        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+//        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
+////        ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js'), 'text/javascript')
 ;
 ?>
-    <div class="row">
-        <div class="portlet portlet-cinza span6">
-            <div class="title">% Concluído ( Planejado x Realizado)</div>
-            <div class="content">
-                <div id="chartcontainer-planejado-realizado" style="max-width:580px;height: 160px;"></div>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span6">
-            <div class="title">Evolução Atraso</div>
-            <div class="content">
-                <div id="chartcontainer-atraso" style="max-width:500px;height: 160px;"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="portlet portlet-cinza span4">
-            <div class="title">Prazo</div>
-            <div class="content">
-                <div id="chartcontainer-criteriofarol-atraso" style="max-width:330px;height: 190px;"></div>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span4">
-            <div class="title">Risco</div>
-            <div class="content">
-                <div id="chartcontainer-criteriofarol-risco" style="max-width:330px;height: 190px;"></div>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span4">
-            <div class="title">Marco</div>
-            <div class="content">
-                <div id="chartcontainer-criteriofarol-marco" style="max-width:330px;height: 190px;"></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="portlet portlet-azul span6">
-            <h3>Projeto</h3>
-            <div class="content">
-                <table class="table table-bordered table-striped">
-                    <tr>
-                        <td>Data Acompanhamento:</td>
-                        <td><?= $this->dateBr($this->acompanhamento->datacompanhamento); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Previsto:</td>
-                        <td><?= $this->acompanhamento->numpercentualprevisto; ?>%</td>
-                    </tr>
-                    <tr>
-                        <td>Concluído:</td>
-                        <td><?= $this->acompanhamento->numpercentualconcluido; ?>%</td>
-                    </tr>
-                    <tr>
-                        <td>Tendência Término:</td>
-                        <td><?= $this->dateBr($this->acompanhamento->datfimprojetotendencia); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Cronograma:</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span6">
-            <h3>Próximo Marco</h3>
-            <div class="content">
-                 <table class="table table-bordered table-striped">
-                    <tr>
-                        <td>Próximo Marco:</td>
-                        <td><?= $this->esc($this->proximoMarco->nomatividadecronograma); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Planejado:</td>
-                        <td><?= $this->dateBr($this->proximoMarco->datfimbaseline, ''); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Previsão:</td>
-                        <td><?= $this->dateBr($this->proximoMarco->datfim); ?></td>
-                    </tr>
-                </table>
-            </div>
+<div class="row">
+    <div class="portlet portlet-azul span6">
+        <h3>1.Projeto</h3>
+        <div class="content">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>Data Acompanhamento:</td>
+                    <td>
+                        <span id="datacompanhamento"> <?php echo $this->dateBr($this->acompanhamento->datacompanhamento); ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Status do Projeto:</td>
+                    <td>
+                        <span id="nomdomstatusprojeto"> <?php echo $this->dateBr($this->acompanhamento->nomdomstatusprojeto); ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>% Concluído Planejado:</td>
+                    <td>
+                            <span id="numpercentualprevisto"> 
+                            <?php
+                            $planejado = $this->acompanhamento->numpercentualprevisto;
+                            if ($planejado == "0.00") {
+                                echo '0';
+                            } else {
+                                echo $planejado . "%";
+                            }
+                            ?>
+                            </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>% Concluído Realizado:</td>
+                    <td>
+                            <span id="numpercentualconcluido">
+                                <?php
+                                $realizado = $this->acompanhamento->numpercentualconcluido;
+                                if ($realizado == "0.00") {
+                                    echo '0';
+                                } else {
+                                    echo $realizado . "%";
+                                }
+                                ?>
+                            </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tendência Término:</td>
+                    <td>
+                        <span id="datfimprojetotendencia"> <?php echo $this->dateBr($this->acompanhamento->datfimprojetotendencia); ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cronograma:</td>
+                    <td><span id="link"><?php echo($this->acompanhamento->getFile(array(
+                                'idprojeto' => $this->acompanhamento->idprojeto,
+                                'idstatusreport' => $this->acompanhamento->idstatusreport
+                            )) ?
+                                $this->acompanhamento->getFile(array(
+                                    'idprojeto' => $this->acompanhamento->idprojeto,
+                                    'idstatusreport' => $this->acompanhamento->idstatusreport
+                                )) :
+                                "Não existe cronograma disponível para esta data."); ?></span></td>
+                </tr>
+            </table>
         </div>
     </div>
-    <div class="row">
-        <div class="portlet portlet-cinza span6">
-            <h3>Atividades Concluídas no Período</h3>
-            <div class="content">
-                <?= $this->acompanhamento->desatividadeconcluida ?>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span6">
-            <h3>Atividades em Andamento no Período</h3>
-            <div class="content">
-                <?= $this->acompanhamento->desatividadeandamento ?>
-            </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>2.Próximo Marco</h3>
+        <div class="content">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td>Próximo Marco:</td>
+                    <td>
+                            <span id="nomatividadecronograma"> 
+                                <?php
+                                $marco = $this->esc($this->proximoMarco->nomatividadecronograma);
+                                if ($marco != null) {
+                                    echo $marco;
+                                } else {
+                                    echo "Não há marco cadastrado.";
+                                }
+                                ?>
+                            </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Planejado:</td>
+                    <td>
+                            <span id="datfimbaseline"> 
+                                <?php
+                                $datafimbaseline = $this->dateBr($this->proximoMarco->datfimbaseline, '');
+                                echo $datafimbaseline = $datafimbaseline ? $datafimbaseline : "";
+                                ?>
+                            </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Previsão:</td>
+                    <td>
+                            <span id="datfimMarco"> 
+                                <?php
+                                $datafim = $this->dateBr($this->proximoMarco->datfim);
+                                echo $datafim = $datafim ? $datafim : "";
+                                ?>
+                            </span>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-    <div class="row">
-        <div class="portlet portlet-cinza span6">
-            <h3>Motivo do Atraso</h3>
-            <div class="content">
-                <?= $this->acompanhamento->desmotivoatraso ?>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span6">
-            <h3>Contramedida (R3G)</h3>
-            <div class="content">
-                <?= $this->acompanhamento->descontramedida ?>
-            </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span6">
+        <!--            <h3>3.Atividades Concluídas no Período: -->
+        <?php //echo $this->periodo['datainiperiodo'] .' a '.$this->periodo['datafinperiodo']; ?><!--</h3>-->
+        <h3>3.Atividades Concluídas até: <?php echo $this->periodo['datafinperiodo']; ?></h3>
+        <div class="content" id="desatividadeconcluida">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->desatividadeconcluida) ?>
         </div>
     </div>
-    <div class="row">
-        <div class="portlet portlet-cinza span6">
-            <h3>Irregularidades</h3>
-            <div class="content">
-                <?= $this->acompanhamento->desirregularidade ?>
-            </div>
-        </div>
-        <div class="portlet portlet-cinza span6">
-            <h3>Riscos</h3>
-            <div class="content">
-                <?= $this->acompanhamento->desrisco ?>
-            </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>4.Atividades em Andamento até: <?php echo $this->periodo['datafinperiodo']; ?></h3>
+        <div class="content" id="desatividadeandamento">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->desatividadeandamento) ?>
         </div>
     </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span6">
+        <h3>5.Motivo do Atraso</h3>
+        <div class="content" id="desmotivoatraso">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->desmotivoatraso) ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>6.Contramedida (R3G)</h3>
+        <div class="content" id="descontramedida">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->descontramedida) ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span6">
+        <h3>7.Irregularidades&nbsp;(Atividades em Atraso)</h3>
+        <div class="content" id="desirregularidade">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->desirregularidade) ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>8.Riscos</h3>
+        <div class="content" id="desrisco">
+            <?php echo @preg_replace("/\r\n|\r|\n/", '<br/>', $this->acompanhamento->desrisco) ?>
+        </div>
+    </div>
+</div>

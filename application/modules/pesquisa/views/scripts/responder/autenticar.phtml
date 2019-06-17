@@ -1,29 +1,28 @@
 <?php
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'))
-        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
 
 $this->headScript()
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-;
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 ?>
 
 <div class="region-center">
     <h4 class="pagination-centered">Formulário - Informações para Adidância da PF em Washington</h4>
-    <?php if($this->message):?>
+    <?php if ($this->message): ?>
         <div class="row-fluid">
             <div class="span alert alert-error">
-                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                 <strong><?php echo $this->message; ?></strong>
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong><?php echo $this->message; ?></strong>
             </div>
         </div>
-    <?php endif;?>
+    <?php endif; ?>
     <br/>
     <div class="row-fluid">
         <div class="span4">&nbsp</div>
@@ -63,7 +62,8 @@ $frmAttr = $this->form->getAttribs();
     </div>
     <div class="row-fluid">
         <div class="span">
-            <ul> Caso tenha problemas ao efetuar login, envie e-mail com os dados abaixo para <a href="mailto:egp.gabdg@dpf.gov.br">egp.gabdg@dpf.gov.br</a>.
+            <ul> Caso tenha problemas ao efetuar login, envie e-mail com os dados abaixo para <a
+                        href="mailto:egp.gabdg@dpf.gov.br">egp.gabdg@dpf.gov.br</a>.
                 <ul>
                     <li>Nome Completo;</li>
                     <li>Matrícula DPF;</li>

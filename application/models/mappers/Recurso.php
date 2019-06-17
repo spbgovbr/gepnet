@@ -38,21 +38,20 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
     {
         try {
             $model->idrecurso = $this->maxVal('idrecurso');
-            $data             = array(
-                "idrecurso"  => $model->idrecurso,
+            $data = array(
+                "idrecurso" => $model->idrecurso,
                 "ds_recurso" => $model->ds_recurso,
             );
-            $idrecurso        = $this->getDbTable()->insert($data);
-            $permissions      = $model->retornaPermissoes();
+            $idrecurso = $this->getDbTable()->insert($data);
+            $permissions = $model->retornaPermissoes();
             //$i = 0;
-            if ( $permissions ) {
+            if ($permissions) {
                 $mapperPermissao = new Default_Model_Mapper_Permissao();
-                foreach ( $permissions as $permissao )
-                {
+                foreach ($permissions as $permissao) {
                     $permissao->idrecurso = $idrecurso;
                     try {
                         $retorno = $mapperPermissao->insert($permissao);
-                    } catch ( Exception $exc ) {
+                    } catch (Exception $exc) {
                         $this->_log->log($exc, Zend_Log::ERR);
                         throw $exc;
                     }
@@ -61,7 +60,7 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
             //Zend_Debug::dump($i); exit;
 
             return $idrecurso;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }
@@ -83,12 +82,12 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
             'ds_recurso' => $params['ds_recurso']
         ));
 
-        if(false == $row){
+        if (false == $row) {
             return false;
         }
-        
-        $recurso             = new Default_Model_Recurso();
-        $recurso->idrecurso  = $row['idrecurso'];
+
+        $recurso = new Default_Model_Recurso();
+        $recurso->idrecurso = $row['idrecurso'];
         $recurso->ds_recurso = substr($row['ds_recurso'], strpos(':', $row['ds_recurso']) - 1);
         $recurso->permissions = new App_Model_Relation(
             $this->_mapperPermissao, 'retornaPorRecurso', array('idrecurso' => $row['idrecurso'])
@@ -102,7 +101,7 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
      */
     public function retornaTodos()
     {
-        $sql  = "select
+        $sql = "select
                     idrecurso,
                     ds_recurso
                from agepnet200.tb_recurso";
@@ -111,13 +110,12 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
         $collection = new App_Model_Collection();
         $collection->setDomainClass('Default_Model_Recurso');
 
-        foreach ( $rows as $row )
-        {
-            $recurso             = new Default_Model_Recurso($row);
+        foreach ($rows as $row) {
+            $recurso = new Default_Model_Recurso($row);
             $recurso->permissions = new App_Model_Relation(
                 $this->_mapperPermissao, 'retornaPorRecurso', array(array('idrecurso' => $row['idrecurso']))
             );
-            $collection[]        = $recurso;
+            $collection[] = $recurso;
         }
 
         return $collection;
@@ -131,9 +129,9 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
      */
     public function pesquisar($params, $paginator = false)
     {
-        // 'Carbo','Nome','Matrícula','CPF','Lotação','Operações'
+        // 'Cargo','Nome','Matrícula','CPF','Lotação','Operações'
 
-        $sql    = "select
+        $sql = "select
                     rec.ds_recurso,
                     per.no_permissao,
                     per.ds_permissao,
@@ -145,35 +143,35 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
                     rec.idrecurso = per.idrecurso
                 and  rec.ds_recurso <> 'default:error' ";
         $params = array_filter($params);
-        if ( isset($params['ds_recurso']) ) {
+        if (isset($params['ds_recurso'])) {
             $ds_recurso = strtoupper($params['ds_recurso']);
             $sql .= " AND lower(rec.ds_recurso) LIKE '%{$ds_recurso}%'";
         }
 
-        if ( isset($params['no_pemissao']) ) {
+        if (isset($params['no_pemissao'])) {
             $sql .= " AND lower.no_permissao =  {$params['no_permissao']}";
         }
 
-        if ( isset($params['ds_permissao']) ) {
+        if (isset($params['ds_permissao'])) {
             $sql .= " AND lower(per.ds_permissao) LIKE  '%{$params['ds_permissao']}%'";
         }
 
-        if ( isset($params['idrecurso']) ) {
+        if (isset($params['idrecurso'])) {
             $sql .= " AND per.idrecurso =  {$params['idrecurso']}";
         }
 
-        if ( isset($params['idpermissao']) ) {
+        if (isset($params['idpermissao'])) {
             $sql .= " AND per.idpermissao =  {$params['idpermissao']}";
         }
 
-        if ( isset($params['sidx']) ) {
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
         //Zend_Debug::dump($sql); exit;
 
-        if ( $paginator ) {
-            $page      = (isset($params['page'])) ? $params['page'] : 1;
-            $limit     = (isset($params['rows'])) ? $params['rows'] : 20;
+        if ($paginator) {
+            $page = (isset($params['page'])) ? $params['page'] : 1;
+            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
@@ -184,6 +182,7 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
         //Zend_Debug::dump($id);exit;
         return $resultado;
     }
+
     /**
      *
      * @param array $params
@@ -192,7 +191,7 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
      */
     public function pesquisarPermissao($params, $paginator = false)
     {
-        $sql    = "select
+        $sql = "select
                     rec.ds_recurso,
                     per.no_permissao,
                     per.ds_permissao,
@@ -205,22 +204,22 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
                     rec.idrecurso = per.idrecurso
                 and  rec.ds_recurso <> 'default:error' ";
         $params = array_filter($params);
-        if ( isset($params['ds_recurso']) ) {
+        if (isset($params['ds_recurso'])) {
             $ds_recurso = strtoupper($params['ds_recurso']);
             $sql .= " AND lower(rec.ds_recurso) LIKE '%{$ds_recurso}%'";
         }
 
-        if ( isset($params['no_pemissao']) ) {
+        if (isset($params['no_pemissao'])) {
             $sql .= " AND lower.no_permissao =  {$params['no_permissao']}";
         }
 
-        if ( isset($params['sidx']) ) {
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
 
-        if ( $paginator ) {
-            $page      = (isset($params['page'])) ? $params['page'] : 1;
-            $limit     = (isset($params['rows'])) ? $params['rows'] : 20;
+        if ($paginator) {
+            $page = (isset($params['page'])) ? $params['page'] : 1;
+            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
@@ -241,10 +240,9 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Recurso $model)
     {
         $data = array(
-            "idrecurso"  => $model->idrecurso,
+            "idrecurso" => $model->idrecurso,
             "ds_recurso" => $model->ds_recurso,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function retornaPermissaoPorPerfil($params)
@@ -260,12 +258,19 @@ class Default_Model_Mapper_Recurso extends App_Model_Mapper_MapperAbstract
 
     public function fetchPairs()
     {
-        $sql  = "select
+        $sql = "select
                     idrecurso,
                     ds_recurso
                from agepnet200.tb_recurso
                order by ds_recurso asc";
         return $this->_db->fetchPairs($sql);
+    }
+
+    public function getDescricao()
+    {
+        $sql = "select idrecurso,  descricao from agepnet200.tb_recurso
+                where descricao is not null";
+        return $this->_db->fetchAll($sql);
     }
 
 }

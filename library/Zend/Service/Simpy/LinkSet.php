@@ -47,7 +47,7 @@ class Zend_Service_Simpy_LinkSet implements IteratorAggregate
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMDocument $doc Parsed response from a GetLinks operation
+     * @param DOMDocument $doc Parsed response from a GetLinks operation
      * @return void
      */
     public function __construct(DOMDocument $doc)

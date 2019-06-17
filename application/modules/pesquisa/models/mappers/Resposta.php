@@ -12,13 +12,13 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
     public function insert(Pesquisa_Model_Resposta $model)
     {
         $data = array(
-            "idresposta"        => $this->maxVal('idresposta'),
-            "numordem"          => $model->numordem,
-            "flaativo"          => $model->flaativo,
-            "flaativo"          => $model->flaativo,
-            "datcadastro"       => new Zend_Db_Expr('now()'),
-            "desresposta"       => $model->desresposta,
-            "idcadastrador"     => $model->idcadastrador,
+            "idresposta" => $this->maxVal('idresposta'),
+            "numordem" => $model->numordem,
+            "flaativo" => $model->flaativo,
+            "flaativo" => $model->flaativo,
+            "datcadastro" => new Zend_Db_Expr('now()'),
+            "desresposta" => $model->desresposta,
+            "idcadastrador" => $model->idcadastrador,
         );
         return $this->getDbTable()->insert($data);
     }
@@ -32,11 +32,11 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
     public function update(Pesquisa_Model_Resposta $model)
     {
         $data = array(
-            "desresposta"       => $model->desresposta,
-            "numordem"          => $model->numordem,
-            "flaativo"          => $model->flaativo,
+            "desresposta" => $model->desresposta,
+            "numordem" => $model->numordem,
+            "flaativo" => $model->flaativo,
         );
-         return $this->getDbTable()->update($data, array("idresposta = ?" => $model->idresposta));
+        return $this->getDbTable()->update($data, array("idresposta = ?" => $model->idresposta));
     }
 
 //    public function delete($params)
@@ -45,12 +45,12 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
 //       $result =  $this->getDbTable()->delete($where);
 //       return $result;
 //    }
-    
+
     public function getForm()
     {
         return $this->_getForm(Pesquisa_Form_Resposta);
     }
-    
+
     public function retornaRespostasToGrid($params)
     {
         $params = array_filter($params);
@@ -64,18 +64,18 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
                     tr.idresposta 
                 FROM agepnet200.tb_resposta tr
                 INNER JOIN agepnet200.tb_respostafrase trf ON trf.idresposta =  tr.idresposta 
-                WHERE trf.idfrase = ".(int)$params['idfrase'];
-                
-        if(isset($params['desresposta']) && $params['desresposta'] != "") {
+                WHERE trf.idfrase = " . (int)$params['idfrase'];
+
+        if (isset($params['desresposta']) && $params['desresposta'] != "") {
             $sql .= " AND tr.desresposta ilike'%{$params['desresposta']}%'";
         }
-        if(isset($params['numordem']) && $params['numordem'] != "") {
+        if (isset($params['numordem']) && $params['numordem'] != "") {
             $sql .= " AND tr.numordem  = {$params['numordem']}";
         }
-        if(isset($params['flaativo']) && $params['flaativo'] != "") {
+        if (isset($params['flaativo']) && $params['flaativo'] != "") {
             $sql .= " AND tr.flaativo  = '{$params['flaativo']}'";
         }
-        
+
         $sql .= 'order by ' . $params['sidx'] . ' ' . $params['sord'];
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;
@@ -84,7 +84,7 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
             return $paginator;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->code());
         }
 
@@ -92,18 +92,18 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
 
     public function getById($params)
     {
-        $sql =  "SELECT 
+        $sql = "SELECT 
                     tr.*,
                     tf.desfrase
                 FROM agepnet200.tb_resposta tr
                 INNER JOIN agepnet200.tb_respostafrase trf ON trf.idresposta =  tr.idresposta
                 INNER JOIN agepnet200.tb_frase tf ON tf.idfrase = trf.idfrase
                 WHERE tr.idresposta =  :idresposta";
-        
+
         return $this->_db->fetchRow($sql, array('idresposta' => (int)$params['idresposta']));
     }
-    
-    
+
+
     public function getByIdDetalhar($params)
     {
         $params = array_filter($params);
@@ -121,7 +121,7 @@ class Pesquisa_Model_Mapper_Resposta extends App_Model_Mapper_MapperAbstract
 
         return $this->_db->fetchRow($sql, array('idresposta' => $params['idresposta']));
     }
-    
+
     public function getByIdPerguntaDetalhar($params)
     {
         $sql = "SELECT

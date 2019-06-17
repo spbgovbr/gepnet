@@ -1,107 +1,113 @@
-<?php       if(is_array($this->imprimir['ata'])):
-       foreach ($this->imprimir['ata'] as $ata): 
-            echo $this->partial('_partials/relatorio-cabecalho.phtml');?>
-<div style="page-break-after: always">
-                <div align="left" style="margin-top: 60px">
-                    <h5>1. ATA DE REUNI&Atilde;O</h5>
-                </div>
-                <div align="left">
-                    <h5>1.1 PROJETO</h5>
-                </div>
-                <div align="center" style="margin-top: 20px;">
-                    <table border="3" width="100%" class="tablepdf">            
-                        <tbody>
+<?php if (is_array($this->imprimir['ata'])):
+    foreach ($this->imprimir['ata'] as $ata):
+        echo $this->partial('_partials/relatorio-cabecalho.phtml'); ?>
+        <div style="page-break-after: always">
+            <div align="left" style="margin-top: 60px">
+                <h5>1. ATA DE REUNI&Atilde;O</h5>
+            </div>
+            <div align="left">
+                <h5>1.1 PROJETO</h5>
+            </div>
+            <div align="center" style="margin-top: 20px;">
+                <table border="3" width="100%" class="tablepdf">
+                    <tbody>
+                    <tr>
+                        <td class="tdlabel">C&Oacute;DIGO DO PROJETO</td>
+                        <td class="tdborder"><?php echo $this->imprimir['projeto']->nomcodigo; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">T&Iacute;TULO DO PROJETO</td>
+                        <td class="tdborder"><?php echo $this->imprimir['projeto']->nomprojeto; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">GERENTE DE PROJETO</td>
+                        <td class="tdborder"><?php echo $this->imprimir['projeto']->nomgerenteprojeto; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">GERENTE ADJUNTO</td>
+                        <td class="tdborder"><?php echo $this->imprimir['projeto']->nomgerenteadjunto; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">PATROCINADOR</td>
+                        <td class="tdborder"><?php echo $this->imprimir['projeto']->nompatrocinador; ?></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div align="left">
+                <h5>1.2 PARTICIPANTES</h5>
+            </div>
+            <div align="center" style="margin-top: 20px">
+                <table border="3" width="100%" class="tablepdf">
+                    <tbody>
+                    <?php $paraticipantes = explode(PHP_EOL, $ata['desparticipante']);
+                    foreach ($paraticipantes as $participante):
+                        if (strlen($participante) > 1):
+                            ?>
                             <tr>
-                                <td class="tdlabel">C&Oacute;DIGO DO PROJETO</td>
-                                <td class="tdborder"><?= $this->imprimir['projeto']->nomcodigo; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">T&Iacute;TULO DO PROJETO</td>
-                                <td class="tdborder"><?= $this->imprimir['projeto']->nomprojeto; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">GERENTE DE PROJETO</td>
-                                <td class="tdborder"><?= $this->imprimir['projeto']->nomgerenteprojeto; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">GERENTE ADJUNTO</td>
-                                <td class="tdborder"><?= $this->imprimir['projeto']->nomgerenteadjunto; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">PATROCINADOR</td>
-                                <td class="tdborder"><?= $this->imprimir['projeto']->nompatrocinador; ?></td>
-                            </tr> 
-                        </tbody>
-                    </table>
-                </div>
-                <div align="left">
-                    <h5>1.2 PARTICIPANTES</h5>
-                </div>
-                <div align="center" style="margin-top: 20px">
-                    <table border="3" width="100%" class="tablepdf">            
-                        <tbody>
-                            <?php $paraticipantes = explode(PHP_EOL, $ata['desparticipante']);
-                                foreach ($paraticipantes as $participante):
-                                    if(strlen($participante) > 1):
-                             ?>
-                            <tr>
-                                <td><?= $participante ?></td>
+                                <td><?php echo $participante ?></td>
                             </tr>
                             <tr>
                                 <td><B>ASSINATURA:</B>_____________________________<br/><br/><br/></td>
                             </tr>
-                            <?php endif;
-                            endforeach;?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div align="left">
-                    <h5>1.3 ATA</h5>
-                </div>
-                <div align="center" style="margin-top: 20px">
-                    <table border="3" width="100%" class="tablepdf">            
-                        <tbody>
-                            <tr>
-                                <td class="tdlabel">DATA DA REUNI&Atilde;O</td>
-                                <td class="tdborder"><?= $ata['datata']." ".$ata['hrreuniao']; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">LOCAL</td>
-                                <td class="tdborder"><?= $ata['deslocal']; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">ASSUNTO</td>
-                                <td class="tdborder"><?= $ata['desassunto']; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">PONTOS DISCUTIDOS</td>
-                                <td class="tdborder"><pre style="font-family: helvetica"><?= $ata['despontodiscutido']; ?></pre></td>
-                            </tr>
-                            <tr>
-                                <td class="tdlabel">DECIS&Otilde;ES</td>
-                                <td class="tdborder"><pre style="font-family: helvetica"><?= $ata['desdecisao']; ?></pre></td>
-                            </tr> 
-                            <tr>
-                                <td class="tdlabel">PONTO&nbsp;DE&nbsp;ATEN&Ccedil;&Atilde;O</td>
-                                <td class="tdborder"><pre style="font-family: helvetica"><?= $ata['despontoatencao']; ?></pre></td>
-                            </tr> 
-                        </tbody>
-                    </table>
-                </div>
-
-                <div align="left">
-                    <h5>1.4 PR&Oacute;XIMOS PASSOS</h5>
-                </div>
-                <div align="center" style="margin-top: 20px" class="tdborder">
-                    <pre style="font-family: helvetica;"><?php 
-                                        if($ata['desproximopasso']){
-                                            echo $ata['desproximopasso']; 
-                                        } else {
-                                            echo "Nenhum registro encontrado.";
-                                        }
-                        ?></pre>
-                </div>
-
+                        <?php endif;
+                    endforeach; ?>
+                    </tbody>
+                </table>
             </div>
-<?php endforeach; endif;?>            
+
+            <div align="left">
+                <h5>1.3 ATA</h5>
+            </div>
+            <div align="center" style="margin-top: 20px">
+                <table border="3" width="100%" class="tablepdf">
+                    <tbody>
+                    <tr>
+                        <td class="tdlabel">DATA DA REUNI&Atilde;O</td>
+                        <td class="tdborder"><?php echo $ata['datata'] . " " . $ata['hrreuniao']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">LOCAL</td>
+                        <td class="tdborder"><?php echo $ata['deslocal']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">ASSUNTO</td>
+                        <td class="tdborder"><?php echo $ata['desassunto']; ?></td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">PONTOS DISCUTIDOS</td>
+                        <td class="tdborder">
+                            <pre style="font-family: helvetica"><?php echo $ata['despontodiscutido']; ?></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">DECIS&Otilde;ES</td>
+                        <td class="tdborder">
+                            <pre style="font-family: helvetica"><?php echo $ata['desdecisao']; ?></pre>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tdlabel">PONTO&nbsp;DE&nbsp;ATEN&Ccedil;&Atilde;O</td>
+                        <td class="tdborder">
+                            <pre style="font-family: helvetica"><?php echo $ata['despontoatencao']; ?></pre>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div align="left">
+                <h5>1.4 PR&Oacute;XIMOS PASSOS</h5>
+            </div>
+            <div align="center" style="margin-top: 20px" class="tdborder">
+                    <pre style="font-family: helvetica;"><?php
+                        if ($ata['desproximopasso']) {
+                            echo $ata['desproximopasso'];
+                        } else {
+                            echo "Nenhum registro encontrado.";
+                        }
+                        ?></pre>
+            </div>
+
+        </div>
+    <?php endforeach; endif; ?>

@@ -84,7 +84,7 @@ class Zend_Tool_Framework_Manifest_Repository
         }
 
         // get the required objects from the framework registry
-        $actionRepository   = $this->_registry->getActionRepository();
+        $actionRepository = $this->_registry->getActionRepository();
         $providerRepository = $this->_registry->getProviderRepository();
 
         // load providers if interface supports that method
@@ -106,7 +106,7 @@ class Zend_Tool_Framework_Manifest_Repository
                     throw new Zend_Tool_Framework_Manifest_Exception(
                         'A provider provided by the ' . get_class($manifest)
                         . ' does not implement Zend_Tool_Framework_Provider_Interface'
-                        );
+                    );
                 }
                 if (!$providerRepository->hasProvider($provider, false)) {
                     $providerRepository->addProvider($provider);
@@ -188,7 +188,7 @@ class Zend_Tool_Framework_Manifest_Repository
                         require_once 'Zend/Tool/Framework/Manifest/Exception.php';
                         throw new Zend_Tool_Framework_Manifest_Exception(
                             'A Zend_Tool_Framework_Metadata_Interface object was not found in manifest ' . get_class($manifest)
-                            );
+                        );
                     }
 
                     $this->addMetadata($metadata);

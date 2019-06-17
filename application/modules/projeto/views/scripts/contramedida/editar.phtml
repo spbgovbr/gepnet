@@ -1,43 +1,42 @@
 <script>
-    
-    $(function(){
+
+    $(function () {
         $.pnotify.defaults.history = false;
-    
+
         $('.mask-date').datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'pt-BR',
-                changeMonth: true,
-                changeYear: true
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR',
+            changeMonth: true,
+            changeYear: true
         });
-        
+
         $('.mask-date').mask('99/99/9999');
-        
-        $('#flacontramedidaefetiva').change(function(){
-           verificaRiscoAtivo();
+
+        $('#flacontramedidaefetiva').change(function () {
+            verificaRiscoAtivo();
         });
     });
 
-function verificaRiscoAtivo() 
-    {
+    function verificaRiscoAtivo() {
         var flariscoativo = '<?php echo $this->risco['flariscoativo']?>';
-           if( $('#flacontramedidaefetiva').val() == '1' && flariscoativo == '1' ) {
-               $('#flacontramedidaefetiva').val('');
-               $( "#dialog-message" ).html('<p>A contramedida não pode ser efetiva se o risco ainda estiver ativo!</p>');
-               $( "#dialog-message" ).dialog({
-                    modal: true,
-                    buttons: {
-                      Ok: function() {
-                        $( this ).dialog( "close" );
-                      }
+        if ($('#flacontramedidaefetiva').val() == '1' && flariscoativo == '1') {
+            $('#flacontramedidaefetiva').val('');
+            $("#dialog-message").html('<p>A contramedida não pode ser efetiva se o risco ainda estiver ativo!</p>');
+            $("#dialog-message").dialog({
+                modal: true,
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
                     }
-                });
-                
-               $('#flacontramedidaefetiva').focus();
-               return false;
-           }
-           return true;
+                }
+            });
+
+            $('#flacontramedidaefetiva').focus();
+            return false;
+        }
+        return true;
     }
-   
+
 </script>
 
 <?php $frmAttrContramedida = $this->formContramedida->getAttribs(); ?>
@@ -49,19 +48,19 @@ function verificaRiscoAtivo()
         <form id="<?php echo $frmAttrContramedida['id']; ?>"
               name="<?php echo $frmAttrContramedida['id']; ?>"
               action="<?php echo $this->formContramedida->getAction(); ?>"
-              method="<?php echo $frmAttrContramedida['method']; ?>">  
+              method="<?php echo $frmAttrContramedida['method']; ?>">
 
             <?php echo $this->formContramedida->idcontramedida ?>
             <?php echo $this->formContramedida->idrisco ?>
             <div class="row">
                 <div class="span5">
                     <?php echo $this->formContramedida->nocontramedida ?>
-                </div>   
+                </div>
             </div>
             <div class="row">
                 <div class="span9">
                     <?php echo $this->formContramedida->descontramedida ?>
-                </div>                        
+                </div>
             </div>
             <div class="row">
                 <div class="span2">
@@ -72,18 +71,24 @@ function verificaRiscoAtivo()
                 </div>
                 <div class="span3">
                     <?php echo $this->formContramedida->idtipocontramedida ?>
-                </div>                        
+                </div>
                 <div class="span3">
                     <?php echo $this->formContramedida->domstatuscontramedida ?>
-                </div>                        
+                </div>
             </div>
             <div class="row">
                 <div class="span2">
                     <?php echo $this->formContramedida->flacontramedidaefetiva ?>
-                </div> 
+                </div>
                 <div class="span3">
                     <?php echo $this->formContramedida->desresponsavel ?>
-                </div>                        
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 75px;">
+                    (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                    obrigatório
+                </div>
             </div>
         </form>
     </div>

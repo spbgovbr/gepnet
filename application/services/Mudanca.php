@@ -16,12 +16,12 @@ class Default_Service_Mudanca extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -35,16 +35,16 @@ class Default_Service_Mudanca extends App_Service_ServiceAbstract
      */
     public function getForm()
     {
-        return $this->_getForm('Default_Form_Mudanca',array('flaativo'));
+        return $this->_getForm('Default_Form_Mudanca', array('flaativo'));
     }
 
-        //put your code here
+    //put your code here
     public function inserir($dados)
     {
         $form = $this->getForm();
 
-        if ( $form->isValid($dados) ) {
-            $model        = new Default_Model_Mudanca($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Default_Model_Mudanca($form->getValues());
             return $this->_mapper->insert($model);
         } else {
             $this->errors = $form->getMessages();
@@ -52,9 +52,9 @@ class Default_Service_Mudanca extends App_Service_ServiceAbstract
         return false;
     }
 
-    
+
     /**
-     * 
+     *
      * @param array $dados
      */
     public function update($dados)
@@ -62,7 +62,7 @@ class Default_Service_Mudanca extends App_Service_ServiceAbstract
         try {
             //$model = new Default_Model_Escritorio($dados);
             return $this->_mapper->update($dados);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -70,6 +70,6 @@ class Default_Service_Mudanca extends App_Service_ServiceAbstract
 
     public function retornaPorProjeto($dados)
     {
-    	return $this->_mapper->retornaPorProjeto($dados);
+        return $this->_mapper->retornaPorProjeto($dados);
     }
 }

@@ -18,11 +18,11 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Perfil $model)
     {
         $data = array(
-            "idperfil"      => $model->idperfil,
-            "nomperfil"     => $model->nomperfil,
-            "flaativo"      => $model->flaativo,
+            "idperfil" => $model->idperfil,
+            "nomperfil" => $model->nomperfil,
+            "flaativo" => $model->flaativo,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -36,13 +36,12 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Perfil $model)
     {
         $data = array(
-            "idperfil"      => $model->idperfil,
-            "nomperfil"     => $model->nomperfil,
-            "flaativo"      => $model->flaativo,
+            "idperfil" => $model->idperfil,
+            "nomperfil" => $model->nomperfil,
+            "flaativo" => $model->flaativo,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
@@ -52,6 +51,7 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
 
     public function retornaPorPessoa($params)
     {
+
         $sql = "select
                     per.idperfil || '-' || esc.idescritorio as ID, 
                     per.nomperfil || ' (' || esc.nomescritorio || ') ' as TEXT
@@ -64,28 +64,47 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
                 order by per.nomperfil";
 
         return $this->_db->fetchPairs($sql, array(
-                'idpessoa' => $params['idpessoa'],
+            'idpessoa' => $params['idpessoa'],
         ));
     }
 
     public function retornaPorIdEPessoa($params)
     {
+        $prefilEEscritorio = explode('-', $params['idperfil']);
 
         $sql = "select
                     per.idperfil, per.nomperfil || ' (' || esc.nomescritorio || ') ' as nomperfil,
-                    esc.idescritorio,
-                    esc.nomescritorio
-                from
-                    agepnet200.tb_perfilpessoa ppe
-                inner join agepnet200.tb_perfil per     on per.idperfil = ppe.idperfil
-                inner join agepnet200.tb_escritorio esc on esc.idescritorio = ppe.idescritorio
-                where ppe.idpessoa = :idpessoa and ppe.idperfil = :idperfil
-                order by per.nomperfil";
+                    esc.idescritorio, esc.nomescritorio as nomescritorio, trim(per.nomperfil) as dsperfil 
+                from agepnet200.tb_perfilpessoa pp   
+                inner join agepnet200.tb_perfil per on pp.idperfil = per.idperfil 
+                inner join agepnet200.tb_escritorio esc on esc.idescritorio = pp.idescritorio 
+                where 1=1 ";
 
-        return $this->_db->fetchRow($sql, array(
-                'idperfil' => $params['idperfil'],
-                'idpessoa' => $params['idpessoa'],
-        ));
+        if (empty($params['idpessoa'])) {
+            $sql .= "and pp.idperfil = :idperfil ";
+            $sql .= "and pp.idescritorio = :idescritorio ";
+            $sql .= "group by per.idperfil,per.nomperfil,esc.idescritorio, esc.nomescritorio ";
+            $sql .= "order by per.nomperfil";
+
+            $resultado = $this->_db->fetchRow($sql, array(
+                'idperfil' => (int)$prefilEEscritorio[0],
+                'idescritorio' => $prefilEEscritorio[1],
+            ));
+        } else {
+            if (!empty($params['idpessoa'])) {
+                $sql .= "and pp.idpessoa = :idpessoa and pp.idperfil = :idperfil ";
+                $sql .= "and pp.idescritorio = :idescritorio ";
+                $sql .= "group by per.idperfil,per.nomperfil,esc.idescritorio, esc.nomescritorio ";
+                $sql .= "order by per.nomperfil";
+                $resultado = $this->_db->fetchRow($sql, array(
+                    'idperfil' => $prefilEEscritorio[0],
+                    'idpessoa' => $params['idpessoa'],
+                    'idescritorio' => $prefilEEscritorio[1],
+                ));
+
+            }
+        }
+        return $resultado;
     }
 
     public function getById($params)
@@ -103,7 +122,7 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
                 order by per.nomperfil";
 
         return $this->_db->fetchRow($sql, array(
-                'idperfil' => $params['idperfil'],
+            'idperfil' => $params['idperfil'],
         ));
     }
 
@@ -122,15 +141,16 @@ class Default_Model_Mapper_Perfil extends App_Model_Mapper_MapperAbstract
 
         return $this->_db->fetchPairs($sql);
     }
+
     public function authfetchPairs($identiti)
     {
         $sql = "select per.idperfil, per.nomperfil
                 from agepnet200.tb_perfil per
                 where per.flaativo = 'S'";
-        
-          if (isset($identiti) && $identiti <> 1) {
-            $sql.= " and per.idperfil <> 1 "
-                    . "order by idperfil asc";  
+
+        if (isset($identiti) && $identiti <> 1) {
+            $sql .= " and per.idperfil <> 1 "
+                . "order by idperfil asc";
         }
         //Zend_Debug::dump($sql);die;
         return $this->_db->fetchPairs($sql);

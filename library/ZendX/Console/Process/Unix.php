@@ -39,7 +39,7 @@ abstract class ZendX_Console_Process_Unix
      * Return method
      */
     const RETURN_METHOD = 'void_method';
-    
+
     /**
      * Unique thread name
      *
@@ -132,9 +132,9 @@ abstract class ZendX_Console_Process_Unix
      * a UMASK for the child process. This also initialize Shared Memory
      * Segments for process communications.
      *
-     * @param  integer $puid
-     * @param  integer $guid
-     * @param  integer $umask
+     * @param integer $puid
+     * @param integer $guid
+     * @param integer $umask
      * @throws ZendX_Console_Process_Exception When running on windows
      * @throws ZendX_Console_Process_Exception When running in web enviroment
      * @throws ZendX_Console_Process_Exception When shmop_* functions don't exist
@@ -146,20 +146,28 @@ abstract class ZendX_Console_Process_Unix
         if (substr(PHP_OS, 0, 3) === 'WIN') {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Cannot run on windows');
-        } else if (!in_array(substr(PHP_SAPI, 0, 3), array('cli', 'cgi'))) {
-            require_once 'ZendX/Console/Process/Exception.php';
-            throw new ZendX_Console_Process_Exception('Can only run on CLI or CGI enviroment');
-        } else if (!function_exists('shmop_open')) {
-            require_once 'ZendX/Console/Process/Exception.php';
-            throw new ZendX_Console_Process_Exception('shmop_* functions are required');
-        } else if (!function_exists('pcntl_fork')) {
-            require_once 'ZendX/Console/Process/Exception.php';
-            throw new ZendX_Console_Process_Exception('pcntl_* functions are required');
-        } else if (!function_exists('posix_kill')) {
-            require_once 'ZendX/Console/Process/Exception.php';
-            throw new ZendX_Console_Process_Exception('posix_* functions are required');
+        } else {
+            if (!in_array(substr(PHP_SAPI, 0, 3), array('cli', 'cgi'))) {
+                require_once 'ZendX/Console/Process/Exception.php';
+                throw new ZendX_Console_Process_Exception('Can only run on CLI or CGI enviroment');
+            } else {
+                if (!function_exists('shmop_open')) {
+                    require_once 'ZendX/Console/Process/Exception.php';
+                    throw new ZendX_Console_Process_Exception('shmop_* functions are required');
+                } else {
+                    if (!function_exists('pcntl_fork')) {
+                        require_once 'ZendX/Console/Process/Exception.php';
+                        throw new ZendX_Console_Process_Exception('pcntl_* functions are required');
+                    } else {
+                        if (!function_exists('posix_kill')) {
+                            require_once 'ZendX/Console/Process/Exception.php';
+                            throw new ZendX_Console_Process_Exception('posix_* functions are required');
+                        }
+                    }
+                }
+            }
         }
-    
+
         $this->_isRunning = false;
 
         $this->_name = md5(uniqid(rand()));
@@ -179,7 +187,7 @@ abstract class ZendX_Console_Process_Unix
             $this->_ipcIsOkay = false;
         }
     }
-    
+
     /**
      * Stop the child on destruction
      */
@@ -189,7 +197,7 @@ abstract class ZendX_Console_Process_Unix
             $this->stop();
         }
     }
-    
+
     /**
      * Causes this pseudo-thread to begin parallel execution.
      *
@@ -199,7 +207,7 @@ abstract class ZendX_Console_Process_Unix
      * two pseudo-threads are running concurrently: the current thread (which
      * returns from the call to the start() method) and the other thread (which
      * executes its run() method).
-     * 
+     *
      * @throws ZendX_Console_Process_Exception When SHM segments can't be created
      * @throws ZendX_Console_Process_Exception When process forking fails
      * @return void
@@ -213,51 +221,53 @@ abstract class ZendX_Console_Process_Unix
 
         // @see http://www.php.net/manual/en/function.pcntl-fork.php#41150
         @ob_end_flush();
-        
+
         pcntl_signal(SIGCHLD, SIG_IGN);
 
         $pid = @pcntl_fork();
         if ($pid === -1) {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Forking process failed');
-        } else if ($pid === 0) {
-            // This is the child
-            $this->_isChild = true;
-           
-            // Sleep a second to avoid problems
-            sleep(1);
-            
-            // Install the signal handler
-            pcntl_signal(SIGUSR1, array($this, '_sigHandler'));
-
-            // If requested, change process identity
-            if ($this->_guid !== null) {
-                posix_setgid($this->_guid);
-            }
-
-            if ($this->_puid !== null) {
-                posix_setuid($this->_puid);
-            }
-
-            // Run the child
-            try {
-                $this->_run();
-            } catch (Exception $e) {
-                // We have to catch any exceptions and clean up the process,
-                // else we will have a memory leak.
-            }
-
-            // Destroy the child after _run() execution. Required to avoid
-            // unuseful child processes after execution
-            exit(0);
         } else {
-            // Else this is the parent
-            $this->_isChild   = false;
-            $this->_isRunning = true;
-            $this->_pid       = $pid;
+            if ($pid === 0) {
+                // This is the child
+                $this->_isChild = true;
+
+                // Sleep a second to avoid problems
+                sleep(1);
+
+                // Install the signal handler
+                pcntl_signal(SIGUSR1, array($this, '_sigHandler'));
+
+                // If requested, change process identity
+                if ($this->_guid !== null) {
+                    posix_setgid($this->_guid);
+                }
+
+                if ($this->_puid !== null) {
+                    posix_setuid($this->_puid);
+                }
+
+                // Run the child
+                try {
+                    $this->_run();
+                } catch (Exception $e) {
+                    // We have to catch any exceptions and clean up the process,
+                    // else we will have a memory leak.
+                }
+
+                // Destroy the child after _run() execution. Required to avoid
+                // unuseful child processes after execution
+                exit(0);
+            } else {
+                // Else this is the parent
+                $this->_isChild = false;
+                $this->_isRunning = true;
+                $this->_pid = $pid;
+            }
         }
     }
-    
+
     /**
      * Causes the current thread to die.
      *
@@ -272,7 +282,7 @@ abstract class ZendX_Console_Process_Unix
 
         if ($this->_pid > 0) {
             $status = 0;
-            
+
             posix_kill($this->_pid, 9);
             pcntl_waitpid($this->_pid, $status, WNOHANG);
             $success = pcntl_wifexited($status);
@@ -288,19 +298,19 @@ abstract class ZendX_Console_Process_Unix
      * @return boolean
      */
     public function isRunning()
-    {       
+    {
         return $this->_isRunning;
     }
 
     /**
      * Set a variable into the shared memory segment, so that it can accessed
-     * both from the parent and from the child process. Variable names 
+     * both from the parent and from the child process. Variable names
      * beginning with underlines are only permitted to interal functions.
      *
-     * @param  string $name
-     * @param  mixed  $value
-     * @throws ZendX_Console_Process_Exception When an invalid variable name is supplied
+     * @param string $name
+     * @param mixed $value
      * @return void
+     * @throws ZendX_Console_Process_Exception When an invalid variable name is supplied
      */
     public function setVariable($name, $value)
     {
@@ -316,7 +326,7 @@ abstract class ZendX_Console_Process_Unix
      * Get a variable from the shared memory segment. Returns NULL if the
      * variable doesn't exist.
      *
-     * @param  string $name
+     * @param string $name
      * @return mixed
      */
     public function getVariable($name)
@@ -356,7 +366,7 @@ abstract class ZendX_Console_Process_Unix
     {
         return $this->_pid;
     }
-    
+
     /**
      * Set a pseudo-thread property that can be read from parent process
      * in order to know the child activity.
@@ -364,22 +374,22 @@ abstract class ZendX_Console_Process_Unix
      * Practical usage requires that child process calls this method at regular
      * time intervals; parent will use the getLastAlive() method to know
      * the elapsed time since the last pseudo-thread life signals...
-     * 
+     *
      * @return void
      */
     protected function _setAlive()
     {
         $this->_writeVariable('_pingTime', time());
     }
-    
+
 
     /**
      * This is called from within the parent; all the communication stuff
      * is done here.
      *
-     * @param  string $methodName
-     * @param  array  $argList
-     * @param  string $type
+     * @param string $methodName
+     * @param array $argList
+     * @param string $type
      * @return mixed
      */
     protected function _callCallbackMethod($methodName, array $argList = array(), $type = self::VOID_METHOD)
@@ -394,7 +404,7 @@ abstract class ZendX_Console_Process_Unix
 
         // These setting are common to both the calling types
         $this->_internalIpcData['_callMethod'] = $methodName;
-        $this->_internalIpcData['_callInput']  = $argList;
+        $this->_internalIpcData['_callInput'] = $argList;
 
         // Write the IPC data to the shared segment
         $this->_writeToIpcSegment();
@@ -427,17 +437,17 @@ abstract class ZendX_Console_Process_Unix
                 return $this->_internalIpcData['_callOutput'];
         }
     }
-    
+
     /**
      * This method actually implements the pseudo-thread logic.
-     * 
+     *
      * @return void
      */
     abstract protected function _run();
-    
+
     /**
      * Sends signal to the child process
-     * 
+     *
      * @return void
      */
     private function _sendSigUsr1()
@@ -446,12 +456,12 @@ abstract class ZendX_Console_Process_Unix
             posix_kill($this->_pid, SIGUSR1);
         }
     }
-    
+
     /**
      * Acutally Write a variable to the shared memory segment
      *
-     * @param  string $name
-     * @param  mixed  $value
+     * @param string $name
+     * @param mixed $value
      * @return void
      */
     private function _writeVariable($name, $value)
@@ -462,7 +472,7 @@ abstract class ZendX_Console_Process_Unix
 
     /**
      * Destroy thread context and free relative resources.
-     * 
+     *
      * @return void
      */
     private function _cleanProcessContext()
@@ -477,14 +487,14 @@ abstract class ZendX_Console_Process_Unix
         @unlink($this->_ipcSemFile);
 
         $this->_isRunning = false;
-        $this->_pid       = null;
+        $this->_pid = null;
     }
 
     /**
      * This is the signal handler that makes the communications between client
      * and server possible.
      *
-     * @param  integer $signo
+     * @param integer $signo
      * @return void
      */
     private function _sigHandler($signo)
@@ -524,7 +534,7 @@ abstract class ZendX_Console_Process_Unix
                     }
                 }
                 break;
-                
+
             default:
                 // Ignore all other singals
                 break;
@@ -533,7 +543,7 @@ abstract class ZendX_Console_Process_Unix
 
     /**
      * Wait for IPC Semaphore
-     * 
+     *
      * @return void
      */
     private function _waitForIpcSemaphore()
@@ -551,15 +561,15 @@ abstract class ZendX_Console_Process_Unix
 
     /**
      * Read data from IPC segment
-     * 
-     * @throws ZendX_Console_Process_Exception When writing of SHM segment fails
+     *
      * @return void
+     * @throws ZendX_Console_Process_Exception When writing of SHM segment fails
      */
     private function _readFromIpcSegment()
     {
         $serializedIpcData = shmop_read($this->_internalIpcKey,
-                                        0,
-                                        shmop_size($this->_internalIpcKey));
+            0,
+            shmop_size($this->_internalIpcKey));
 
         if ($serializedIpcData === false) {
             require_once 'ZendX/Console/Process/Exception.php';
@@ -567,7 +577,7 @@ abstract class ZendX_Console_Process_Unix
         }
 
         $data = @unserialize($serializedIpcData);
-        
+
         if ($data !== false) {
             $this->_internalIpcData = $data;
         }
@@ -575,9 +585,9 @@ abstract class ZendX_Console_Process_Unix
 
     /**
      * Write data to IPC segment
-     * 
-     * @throws ZendX_Console_Process_Exception When writing of SHM segment fails
+     *
      * @return void
+     * @throws ZendX_Console_Process_Exception When writing of SHM segment fails
      */
     private function _writeToIpcSegment()
     {
@@ -592,8 +602,8 @@ abstract class ZendX_Console_Process_Unix
 
         // Set the exchange array (IPC) into the shared segment
         $shmBytesWritten = shmop_write($this->_internalIpcKey,
-                                       $serializedIpcData,
-                                       0);
+            $serializedIpcData,
+            0);
 
         // Check if lenght of SHM segment is enougth to contain data
         if ($shmBytesWritten !== strlen($serializedIpcData)) {

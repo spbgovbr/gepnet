@@ -18,12 +18,12 @@ class Default_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbst
     public function insert(Default_Model_Questionariofrase $model)
     {
         $data = array(
-            "idfrase"          => $model->idfrase,
-            "idquestionario"   => $model->idquestionario,
+            "idfrase" => $model->idfrase,
+            "idquestionario" => $model->idquestionario,
             "numordempergunta" => $model->numordempergunta,
-            "flaativo"         => $model->flaativo,
-            "idcadastrador"    => $model->idcadastrador,
-            "datcadastro"      => $model->datcadastro,
+            "flaativo" => $model->flaativo,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -37,14 +37,13 @@ class Default_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbst
     public function update(Default_Model_Questionariofrase $model)
     {
         $data = array(
-            "idfrase"          => $model->idfrase,
-            "idquestionario"   => $model->idquestionario,
+            "idfrase" => $model->idfrase,
+            "idquestionario" => $model->idquestionario,
             "numordempergunta" => $model->numordempergunta,
-            "flaativo"         => $model->flaativo,
-            "idcadastrador"    => $model->idcadastrador,
-            "datcadastro"      => $model->datcadastro,
+            "flaativo" => $model->flaativo,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

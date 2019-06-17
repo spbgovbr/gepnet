@@ -40,10 +40,9 @@ class Projeto_Service_AtividadePredecessora extends App_Service_ServiceAbstract
 
     public function inserir($dados)
     {
-        
+
         try {
             $model = new Projeto_Model_Atividadepredecessora($dados);
-            //Zend_Debug::dump($model);exit;
             $this->_mapper->insert($model);
             return $model;
         } catch (Exception $exc) {
@@ -54,25 +53,28 @@ class Projeto_Service_AtividadePredecessora extends App_Service_ServiceAbstract
     }
 
     /**
+     * REFACTORING: Funcionalidade de excluir atividade
      *
-     * @param array $dados
+     * @param $dados
+     * @return bool
      */
     public function excluir($dados)
     {
         try {
-            //$model = new Default_Model_Gerencia($dados);
             return $this->_mapper->excluir($dados);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
+            Default_Service_Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc));
             $this->errors[] = $exc->getMessage();
             return false;
         }
     }
-    public function excluirPorProjeto($dados)
+
+
+    public function excluirPorAtividade($dados)
     {
         try {
-            //$model = new Default_Model_Gerencia($dados);
-            return $this->_mapper->excluirPorProjeto($dados);
-        } catch ( Exception $exc ) {
+            return $this->_mapper->excluirPorAtividade($dados);
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -82,20 +84,76 @@ class Projeto_Service_AtividadePredecessora extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-    
+
+    public function retornaAtividadeSucessora($params, $array = true)
+    {
+        return $this->_mapper->retornaAtividadePorPredec($params, $array);
+    }
+
+    public function retornaAtividadeCountPredec($params)
+    {
+        return $this->_mapper->retornaAtividadeCountPredec($params);
+    }
+
+    public function retornaAtividadeCountPredecEntrega($params)
+    {
+        return $this->_mapper->retornaAtividadeCountPredecEntrega($params);
+    }
+
+    public function retornaAtividadeCountPredecGrupo($params)
+    {
+        return $this->_mapper->retornaAtividadeCountPredecGrupo($params);
+    }
+
     public function retornaPorAtividade($params)
     {
         return $this->_mapper->retornaPorAtividade($params);
     }
-    public function retornaTodasPredecessorasPorIdAtividade($params)
-    {
-        return $this->_mapper->retornaTodasPredecessorasPorIdAtividade($params);
-    }
-    public function retornaDataMaiorPredecessora($params)
-    {
-        return $this->_mapper->retornaDataMaiorPredecessora($params);
-    }
-    
-}
-?>
 
+    public function fetchPairsPorAtividade($params)
+    {
+        return $this->_mapper->fetchPairsPorAtividade($params);
+    }
+
+    public function listaPorAtividade($params)
+    {
+        return $this->_mapper->listaPorAtividade($params);
+    }
+
+    public function retornaMaiorDataPredecessoraByIdAtividade($params)
+    {
+        return $this->_mapper->retornaMaiorDataPredecessoraByIdAtividade($params);
+    }
+
+    public function retornaPredecePorIdAtividade($params)
+    {
+        return $this->_mapper->retornaPredecePorIdAtividade($params);
+    }
+
+    public function isPredecessora($params)
+    {
+        $total = $this->_mapper->isPredecessora($params);
+        return ($total > 0) ? true : false;
+    }
+
+    public function pesquisaPredecessoraAtividade($params)
+    {
+        return $this->_mapper->pesquisaPredecessoraAtividade($params);
+    }
+
+    public function addDias($data, $dias)
+    {
+        $dataRetorna = new Zend_Date($data);
+        $dataRetorna->add('' . $dias . '', Zend_Date::DAY);
+        return $dataRetorna->toString('d/m/Y');
+    }
+
+    private function preparaData($data)
+    {
+        $dt = explode("/", $data);
+        $dataFormatada = $dt[2] . "-" . $dt[1] . "-" . $dt[0];
+        $dataRetornada = DateTime::createFromFormat('Y-m-d', $dataFormatada);
+        return $dataRetornada;
+    }
+
+}

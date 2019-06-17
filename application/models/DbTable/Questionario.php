@@ -9,19 +9,19 @@
 class Default_Model_DbTable_Questionario extends Zend_Db_Table_Abstract
 {
 
-    protected $_name    = 'tb_questionario';
+    protected $_name = 'tb_questionario';
     protected $_primary = array('idquestionario');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Escritorio' => array(
             'refTableClass' => 'tb_escritorio',
-            'columns'       => 'codescritorio',
-            'refColumns'    => 'idescritorio'
+            'columns' => 'codescritorio',
+            'refColumns' => 'idescritorio'
         ),
-        'Pessoa'        => array(
+        'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns'       => 'idcadastrador',
-            'refColumns'    => 'idpessoa'
+            'columns' => 'idcadastrador',
+            'refColumns' => 'idpessoa'
         )
     );
 

@@ -27,6 +27,8 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
 
     public function init()
     {
+        $login = App_Service_ServiceAbstract::getService('Default_Service_Login');
+        $this->auth = $login->retornaUsuarioLogado();
         $this->_mapper = new Default_Model_Mapper_Escritorio();
     }
 
@@ -51,7 +53,7 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
      */
     public function getFormEditar()
     {
-        $formEditar     = $this->_getForm('Default_Form_Escritorio', array('submit', 'reset'));
+        $formEditar = $this->_getForm('Default_Form_Escritorio', array('submit', 'reset'));
         $nomescritorio2 = $formEditar->getElement('nomescritorio2');
         $nomescritorio2->setValidators(array(
             'NotEmpty',
@@ -69,7 +71,7 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
     {
         $form = $this->getForm();
 
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
             $model = new Default_Model_Escritorio($form->getValues());
             return $this->_mapper->insert($model);
         } else {
@@ -87,14 +89,14 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
     {
 
         $form = $this->getFormEditar();
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
 
             //Não duplicar nomescritorio2
             $escritorio = $this->getById(array('idescritorio' => $form->getValue('idescritorio')));
 
             //Não alterando nome deixa salvar
-            if ( $escritorio->nome == $form->getValue('nomescritorio2') ) {
-                $model   = new Default_Model_Escritorio($form->getValues());
+            if ($escritorio->nome == $form->getValue('nomescritorio2')) {
+                $model = new Default_Model_Escritorio($form->getValues());
                 $retorno = $this->_mapper->update($model);
                 return $retorno;
             }
@@ -102,12 +104,12 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
             $escritorio2 = $this->getByName(array('nomescritorio2' => $form->getValue('nomescritorio2')));
             //Zend_Debug::dump($escritorio2); exit;
             //sendo igual não permite update
-            if ( count($escritorio2) > 0 ) {
+            if (count($escritorio2) > 0) {
                 $this->errors[] = "Um registro com o nome {$form->getValue('nomescritorio2')} já existe no banco de dados.";
                 return false;
             }
 
-            $model   = new Default_Model_Escritorio($form->getValues());
+            $model = new Default_Model_Escritorio($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
 
@@ -127,7 +129,7 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
         try {
             //$model = new Default_Model_Escritorio($dados);
             return $this->_mapper->excluir($dados);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -137,6 +139,7 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
     {
         return $this->_mapper->getProjetosPorEscritorio($dados);
     }
+
     public function getById($dados)
     {
         return $this->_mapper->getById($dados);
@@ -161,7 +164,7 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);
@@ -173,31 +176,122 @@ class Default_Service_Escritorio extends App_Service_ServiceAbstract
     public function mapaFetchPairs()
     {
         return $this->_mapper->mapaFetchPairs();
-        /*
-          $sql = "SELECT DISTINCT idescritorio,nomescritorio from agepnet200.tb_escritorio";
-          $this->_db->fetchPairs($sql);
-         */
     }
 
     public function nomeUnique()
     {
-
         $nomeUnique = new Zend_Validate_Db_NoRecordExists('tb_escritorio', 'nomescritorio2');
         return $nomeUnique;
     }
-    
-    
+
+
     public function fetchPairs()
     {
-    	return $this->_mapper->fetchPairs();
+        return $this->_mapper->fetchPairs();
     }
+
     public function selecionarTodoEscritorio()
     {
-    	return $this->_mapper->selecionarTodoEscritorio();
+        return $this->_mapper->selecionarTodoEscritorio();
     }
-    
+
+    public function initCombo($objeto, $msg)
+    {
+
+        $listArray = array();
+        $listArray = array('' => $msg);
+
+        foreach ($objeto as $val => $desc) {
+            if ($desc != $msg) {
+                $listArray[$val] = $desc;
+            }
+        }
+        return $listArray;
+    }
+
+    public function initComboByEscritorio($objeto, $msg)
+    {
+
+        $listArray = array();
+        $listArray = array('' => $msg);
 
 
+        $nomeperfilACL = $this->auth->perfilAtivo->nomeperfilACL;
+
+        switch ($nomeperfilACL) {
+            case 'report':
+                $permissao = 'visualizar_projetos_publicos';
+                break;
+            case 'gerente':
+                $permissao = 'alterar_proprio_projeto';
+                break;
+            case 'escritorio':
+                $permissao = 'alterar_proprio_escritorio';
+                break;
+            case 'admin_setorial':
+                $permissao = 'alterar_perfis';
+                break;
+            case 'administrador':
+                $permissao = 'todos';
+                break;
+            default :
+                $permissao = 'visualizar_projetos_publicos';
+        }
+
+
+        foreach ($objeto as $val => $desc) {
+            if ($desc != $msg) {
+                if ($permissao == 'visualizar_projetos_publicos' || $permissao == 'todos') {
+                    $listArray[$valor] = $descricao;
+                } elseif ($permissao == 'gerente') {
+                    $listArray[$val] = $desc;
+                }
+            }
+        }
+        return $listArray;
+    }
+
+    public function getEscritorioAndSubordinado()
+    {
+        $nomeperfilACL = $this->auth->perfilAtivo->nomeperfilACL;
+        $idEscritorioPai = $this->auth->escritorioAtivo;
+        $resultado = null;
+        $resultado = $this->_mapper->fetchPairs();
+        return $resultado;
+    }
+
+    public function getEscritorioTAP()
+    {
+        $nomeperfilACL = $this->auth->perfilAtivo->nomeperfilACL;
+        $idEscritorioPai = $this->auth->escritorioAtivo;
+        $resultado = null;
+
+        switch ($nomeperfilACL) {
+            case 'gerente':
+                $resultado = $this->_mapper->getfetchPairsEscritorio($idEscritorioPai);
+                break;
+            case 'escritorio':
+                $resultado = $this->_mapper->getfetchPairsEscritorio($idEscritorioPai);
+                break;
+            case 'admin_setorial':
+                $resultado = $this->_mapper->getfetchPairsEscritorio($idEscritorioPai);
+                break;
+            default :
+                $resultado = $this->_mapper->fetchPairs();
+                break;
+        }
+        return $resultado;
+    }
+
+    public function initComboEscritorio($objeto, $msg)
+    {
+        $listArray = array(9999 => $msg);
+
+        foreach ($objeto as $valor => $descricao) {
+            if ($descricao != $msg) {
+                $listArray[$valor] = $descricao;
+            }
+        }
+        return $listArray;
+    }
 }
-
-?>

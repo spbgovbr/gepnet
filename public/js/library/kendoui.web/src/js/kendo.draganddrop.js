@@ -15,7 +15,7 @@ kendo_module({
     name: "Drag & drop",
     category: "framework",
     description: "Drag & drop functionality for any DOM element.",
-    depends: [ "core", "userevents" ]
+    depends: ["core", "userevents"]
 });
 
 (function ($, undefined) {
@@ -82,8 +82,8 @@ kendo_module({
             maxY = minY + container.height() - element.outerHeight(true);
 
         return {
-            x: { min: minX, max: maxX },
-            y: { min: minY, max: maxY }
+            x: {min: minX, max: maxX},
+            y: {min: minY, max: maxY}
         };
     }
 
@@ -93,17 +93,17 @@ kendo_module({
             areaLen = areas && areas.length;
 
         while (target && target.parentNode) {
-            for (i = 0; i < targetLen; i ++) {
+            for (i = 0; i < targetLen; i++) {
                 theTarget = targets[i];
                 if (theTarget.element[0] === target) {
-                    return { target: theTarget, targetElement: target };
+                    return {target: theTarget, targetElement: target};
                 }
             }
 
-            for (i = 0; i < areaLen; i ++) {
+            for (i = 0; i < areaLen; i++) {
                 theFilter = areas[i];
                 if (support.matchesSelector.call(target, theFilter.options.filter)) {
-                    return { target: theFilter, targetElement: target };
+                    return {target: theFilter, targetElement: target};
                 }
             }
 
@@ -114,15 +114,15 @@ kendo_module({
     }
 
     var TapCapture = Observable.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 domElement = element[0];
 
             that.capture = false;
-            $.each(kendo.eventMap.down.split(" "), function() {
+            $.each(kendo.eventMap.down.split(" "), function () {
                 domElement.addEventListener(this, proxy(that._press, that), true);
             });
-            $.each(kendo.eventMap.up.split(" "), function() {
+            $.each(kendo.eventMap.up.split(" "), function () {
                 domElement.addEventListener(this, proxy(that._release, that), true);
             });
 
@@ -131,15 +131,15 @@ kendo_module({
             that.bind(["press", "release"], options || {});
         },
 
-        captureNext: function() {
+        captureNext: function () {
             this.capture = true;
         },
 
-        cancelCapture: function() {
+        cancelCapture: function () {
             this.capture = false;
         },
 
-        _press: function(e) {
+        _press: function (e) {
             var that = this;
             that.trigger("press");
             if (that.capture) {
@@ -147,7 +147,7 @@ kendo_module({
             }
         },
 
-        _release: function(e) {
+        _release: function (e) {
             var that = this;
             that.trigger("release");
 
@@ -159,7 +159,7 @@ kendo_module({
     });
 
     var PaneDimension = Observable.extend({
-        init: function(options) {
+        init: function (options) {
             var that = this;
             Observable.fn.init.call(that);
 
@@ -180,7 +180,7 @@ kendo_module({
             }
         },
 
-        makeVirtual: function() {
+        makeVirtual: function () {
             $.extend(this, {
                 virtual: true,
                 forcedEnabled: true,
@@ -189,7 +189,7 @@ kendo_module({
             });
         },
 
-        virtualSize: function(min, max) {
+        virtualSize: function (min, max) {
             if (this._virtualMin !== min || this._virtualMax !== max) {
                 this._virtualMin = min;
                 this._virtualMax = max;
@@ -197,27 +197,27 @@ kendo_module({
             }
         },
 
-        outOfBounds: function(offset) {
-            return  offset > this.max || offset < this.min;
+        outOfBounds: function (offset) {
+            return offset > this.max || offset < this.min;
         },
 
-        forceEnabled: function() {
+        forceEnabled: function () {
             this.forcedEnabled = true;
         },
 
-        getSize: function() {
+        getSize: function () {
             return this.container[0][this.measure];
         },
 
-        getTotal: function() {
+        getTotal: function () {
             return this.element[0][this.scrollSize];
         },
 
-        rescale: function(scale) {
+        rescale: function (scale) {
             this.scale = scale;
         },
 
-        update: function(silent) {
+        update: function (silent) {
             var that = this,
                 total = that.virtual ? that._virtualMax : that.getTotal(),
                 scaledTotal = total * that.scale,
@@ -239,7 +239,7 @@ kendo_module({
     });
 
     var PaneDimensions = Observable.extend({
-        init: function(options) {
+        init: function (options) {
             var that = this,
                 refresh = proxy(that.refresh, that);
 
@@ -254,17 +254,17 @@ kendo_module({
             kendo.onResize(refresh);
         },
 
-        rescale: function(newScale) {
+        rescale: function (newScale) {
             this.x.rescale(newScale);
             this.y.rescale(newScale);
             this.refresh();
         },
 
-        centerCoordinates: function() {
-            return { x: Math.min(0, -this.x.centerOffset), y: Math.min(0, -this.y.centerOffset) };
+        centerCoordinates: function () {
+            return {x: Math.min(0, -this.x.centerOffset), y: Math.min(0, -this.y.centerOffset)};
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this;
             that.x.update();
             that.y.update();
@@ -276,13 +276,13 @@ kendo_module({
     });
 
     var PaneAxis = Observable.extend({
-        init: function(options) {
+        init: function (options) {
             var that = this;
             extend(that, options);
             Observable.fn.init.call(that);
         },
 
-        dragMove: function(delta) {
+        dragMove: function (delta) {
             var that = this,
                 dimension = that.dimension,
                 axis = that.axis,
@@ -304,7 +304,7 @@ kendo_module({
 
     var Pane = Class.extend({
 
-        init: function(options) {
+        init: function (options) {
             var that = this,
                 x,
                 y,
@@ -331,11 +331,11 @@ kendo_module({
             });
 
             that.userEvents.bind(["move", "end", "gesturestart", "gesturechange"], {
-                gesturestart: function(e) {
+                gesturestart: function (e) {
                     that.gesture = e;
                 },
 
-                gesturechange: function(e) {
+                gesturechange: function (e) {
                     var previousGesture = that.gesture,
                         previousCenter = previousGesture.center,
 
@@ -366,7 +366,7 @@ kendo_module({
                     e.preventDefault();
                 },
 
-                move: function(e) {
+                move: function (e) {
                     if (e.event.target.tagName.match(/textarea|input/i)) {
                         return;
                     }
@@ -380,7 +380,7 @@ kendo_module({
                     }
                 },
 
-                end: function(e) {
+                end: function (e) {
                     e.preventDefault();
                 }
             });
@@ -392,17 +392,17 @@ kendo_module({
 
 
     if (support.hasHW3D) {
-        translate = function(x, y, scale) {
-            return "translate3d(" + x + "px," + y +"px,0) scale(" + scale + ")";
+        translate = function (x, y, scale) {
+            return "translate3d(" + x + "px," + y + "px,0) scale(" + scale + ")";
         };
     } else {
-        translate = function(x, y, scale) {
-            return "translate(" + x + "px," + y +"px) scale(" + scale + ")";
+        translate = function (x, y, scale) {
+            return "translate(" + x + "px," + y + "px) scale(" + scale + ")";
         };
     }
 
     var Movable = Observable.extend({
-        init: function(element) {
+        init: function (element) {
             var that = this;
 
             Observable.fn.init.call(that);
@@ -415,38 +415,38 @@ kendo_module({
             that._saveCoordinates(translate(that.x, that.y, that.scale));
         },
 
-        translateAxis: function(axis, by) {
+        translateAxis: function (axis, by) {
             this[axis] += by;
             this.refresh();
         },
 
-        scaleTo: function(scale) {
+        scaleTo: function (scale) {
             this.scale = scale;
             this.refresh();
         },
 
-        scaleWith: function(scaleDelta) {
+        scaleWith: function (scaleDelta) {
             this.scale *= scaleDelta;
             this.refresh();
         },
 
-        translate: function(coordinates) {
+        translate: function (coordinates) {
             this.x += coordinates.x;
             this.y += coordinates.y;
             this.refresh();
         },
 
-        moveAxis: function(axis, value) {
+        moveAxis: function (axis, value) {
             this[axis] = value;
             this.refresh();
         },
 
-        moveTo: function(coordinates) {
+        moveTo: function (coordinates) {
             extend(this, coordinates);
             this.refresh();
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this,
                 newCoordinates = translate(that.x, that.y, that.scale);
 
@@ -457,13 +457,13 @@ kendo_module({
             }
         },
 
-        _saveCoordinates: function(coordinates) {
+        _saveCoordinates: function (coordinates) {
             this.coordinates = coordinates;
         }
     });
 
     var DropTarget = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             Widget.fn.init.call(that, element, options);
@@ -471,9 +471,9 @@ kendo_module({
             var group = that.options.group;
 
             if (!(group in dropTargets)) {
-                dropTargets[group] = [ that ];
+                dropTargets[group] = [that];
             } else {
-                dropTargets[group].push( that );
+                dropTargets[group].push(that);
             }
         },
 
@@ -488,7 +488,7 @@ kendo_module({
             group: "default"
         },
 
-        destroy: function() {
+        destroy: function () {
             var groupName = this.options.group,
                 group = dropTargets[groupName] || dropAreas[groupName],
                 i;
@@ -507,27 +507,27 @@ kendo_module({
             }
         },
 
-        _trigger: function(eventName, e) {
+        _trigger: function (eventName, e) {
             var that = this,
                 draggable = draggables[that.options.group];
 
             if (draggable) {
                 return that.trigger(eventName, extend({}, e.event, {
-                           draggable: draggable,
-                           dropTarget: e.dropTarget
-                       }));
+                    draggable: draggable,
+                    dropTarget: e.dropTarget
+                }));
             }
         },
 
-        _over: function(e) {
+        _over: function (e) {
             this._trigger(DRAGENTER, e);
         },
 
-        _out: function(e) {
+        _out: function (e) {
             this._trigger(DRAGLEAVE, e);
         },
 
-        _drop: function(e) {
+        _drop: function (e) {
             var that = this,
                 draggable = draggables[that.options.group];
 
@@ -537,7 +537,7 @@ kendo_module({
         }
     });
 
-    DropTarget.destroyGroup = function(groupName) {
+    DropTarget.destroyGroup = function (groupName) {
         var group = dropTargets[groupName] || dropAreas[groupName],
             i;
 
@@ -555,7 +555,7 @@ kendo_module({
     DropTarget._cache = dropTargets;
 
     var DropTargetArea = DropTarget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             Widget.fn.init.call(that, element, options);
@@ -563,9 +563,9 @@ kendo_module({
             var group = that.options.group;
 
             if (!(group in dropAreas)) {
-                dropAreas[group] = [ that ];
+                dropAreas[group] = [that];
             } else {
-                dropAreas[group].push( that );
+                dropAreas[group].push(that);
             }
         },
 
@@ -594,7 +594,7 @@ kendo_module({
             });
 
             that._afterEndHandler = proxy(that._afterEnd, that);
-            that.captureEscape = function(e) {
+            that.captureEscape = function (e) {
                 if (e.keyCode === kendo.keys.ESC) {
                     that._trigger(DRAGCANCEL, {event: e});
                     that.userEvents.cancel();
@@ -619,7 +619,7 @@ kendo_module({
             dropped: false
         },
 
-        _updateHint: function(e) {
+        _updateHint: function (e) {
             var that = this,
                 coordinates,
                 options = that.options,
@@ -628,11 +628,11 @@ kendo_module({
                 cursorOffset = that.options.cursorOffset;
 
             if (cursorOffset) {
-               coordinates = { left: e.x.location + cursorOffset.left, top: e.y.location + cursorOffset.top };
+                coordinates = {left: e.x.location + cursorOffset.left, top: e.y.location + cursorOffset.top};
             } else {
-               that.hintOffset.left += e.x.delta;
-               that.hintOffset.top += e.y.delta;
-               coordinates = $.extend({}, that.hintOffset);
+                that.hintOffset.left += e.x.delta;
+                that.hintOffset.top += e.y.delta;
+                coordinates = $.extend({}, that.hintOffset);
             }
 
             if (boundaries) {
@@ -649,7 +649,7 @@ kendo_module({
             that.hint.css(coordinates);
         },
 
-        _start: function(e) {
+        _start: function (e) {
             var that = this,
                 options = that.options,
                 container = options.container,
@@ -668,13 +668,13 @@ kendo_module({
                 var offset = getOffset(that.currentTarget);
                 that.hintOffset = offset;
 
-                that.hint.css( {
+                that.hint.css({
                     position: "absolute",
                     zIndex: 20000, // the Window's z-index is 10000 and can be raised because of z-stacking
                     left: offset.left,
                     top: offset.top
                 })
-                .appendTo(document.body);
+                    .appendTo(document.body);
             }
 
             draggables[options.group] = that;
@@ -693,15 +693,15 @@ kendo_module({
             $(document).on(KEYUP, that.captureEscape);
         },
 
-        _drag: function(e) {
+        _drag: function (e) {
             var that = this;
 
             e.preventDefault();
 
-            that._withDropTarget(e, function(target, targetElement) {
+            that._withDropTarget(e, function (target, targetElement) {
                 if (!target) {
                     if (lastDropTarget) {
-                        lastDropTarget._trigger(DRAGLEAVE, extend(e, { dropTarget: $(lastDropTarget.targetElement) }));
+                        lastDropTarget._trigger(DRAGLEAVE, extend(e, {dropTarget: $(lastDropTarget.targetElement)}));
                         lastDropTarget = null;
                     }
                     return;
@@ -712,11 +712,11 @@ kendo_module({
                         return;
                     }
 
-                    lastDropTarget._trigger(DRAGLEAVE, extend(e, { dropTarget: $(lastDropTarget.targetElement) }));
+                    lastDropTarget._trigger(DRAGLEAVE, extend(e, {dropTarget: $(lastDropTarget.targetElement)}));
                 }
 
-                target._trigger(DRAGENTER, extend(e, { dropTarget: $(targetElement) }));
-                lastDropTarget = extend(target, { targetElement: targetElement });
+                target._trigger(DRAGENTER, extend(e, {dropTarget: $(targetElement)}));
+                lastDropTarget = extend(target, {targetElement: targetElement});
             });
 
             that._trigger(DRAG, e);
@@ -726,12 +726,12 @@ kendo_module({
             }
         },
 
-        _end: function(e) {
+        _end: function (e) {
             var that = this;
 
-            that._withDropTarget(e, function(target, targetElement) {
+            that._withDropTarget(e, function (target, targetElement) {
                 if (target) {
-                    target._drop(extend({}, e, { dropTarget: $(targetElement) }));
+                    target._drop(extend({}, e, {dropTarget: $(targetElement)}));
                     lastDropTarget = null;
                 }
             });
@@ -740,11 +740,11 @@ kendo_module({
             that._cancel(e.event);
         },
 
-        _cancel: function() {
+        _cancel: function () {
             var that = this;
 
             if (that.hint && !that.dropped) {
-                setTimeout(function() {
+                setTimeout(function () {
                     that.hint.stop(true, true).animate(that.currentTargetOffset, "fast", that._afterEndHandler);
                 }, 0);
 
@@ -753,23 +753,23 @@ kendo_module({
             }
         },
 
-        _trigger: function(eventName, e) {
+        _trigger: function (eventName, e) {
             var that = this;
 
             return that.trigger(
                 eventName, extend(
-                {},
-                e.event,
-                {
-                    x: e.x,
-                    y: e.y,
-                    currentTarget: that.currentTarget,
-                    dropTarget: e.dropTarget
-                }
-            ));
+                    {},
+                    e.event,
+                    {
+                        x: e.x,
+                        y: e.y,
+                        currentTarget: that.currentTarget,
+                        dropTarget: e.dropTarget
+                    }
+                ));
         },
 
-        _withDropTarget: function(e, callback) {
+        _withDropTarget: function (e, callback) {
             var that = this,
                 target, result,
                 options = that.options,
@@ -800,7 +800,7 @@ kendo_module({
             }
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -810,7 +810,7 @@ kendo_module({
             that.userEvents.destroy();
         },
 
-        _afterEnd: function() {
+        _afterEnd: function () {
             var that = this;
 
             if (that.hint) {
@@ -836,4 +836,4 @@ kendo_module({
         Movable: Movable
     });
 
- })(window.kendo.jQuery);
+})(window.kendo.jQuery);

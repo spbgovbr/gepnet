@@ -5,23 +5,23 @@
  */
 require_once 'Zend/Auth/Adapter/Interface.php';
 
-class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface 
+class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
 {
     protected $_params = array();
-    
+
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_zendDb = null;
-    
+
     /**
      * $_identity - Identity value
      *
      * @var string
      */
     protected $_identity = null;
-    
+
     /**
      * $_authenticateResultInfo
      *
@@ -41,20 +41,20 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
      *
      * @return void
      */
-    public function __construct($db = null, $params) 
+    public function __construct($db = null, $params)
     {
         $this->_setDbAdapter($db);
         $this->_params = $params;
         $this->setIdentity($params['token']);
         //s$this->_phpbbRoot = $phpbbRootPath;
     }
-    
-     /**
+
+    /**
      * _setDbAdapter() - set the database adapter to be used for quering
      *
      * @param Zend_Db_Adapter_Abstract
-     * @throws Zend_Auth_Adapter_Exception
      * @return Zend_Auth_Adapter_DbTable
+     * @throws Zend_Auth_Adapter_Exception
      */
     protected function _setDbAdapter(Zend_Db_Adapter_Abstract $zendDb = null)
     {
@@ -63,7 +63,7 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
         /**
          * If no adapter is specified, fetch default database adapter.
          */
-        if(null === $this->_zendDb) {
+        if (null === $this->_zendDb) {
             require_once 'Zend/Db/Table/Abstract.php';
             $this->_zendDb = Zend_Db_Table_Abstract::getDefaultAdapter();
             if (null === $this->_zendDb) {
@@ -74,54 +74,54 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
 
         return $this;
     }
-    
+
     protected function validaToken($token)
     {
         $resultadoUsuario = $this->getUsuario();
-        Zend_Debug::dump($resultadoUsuario); exit;
+//        Zend_Debug::dump($resultadoUsuario); exit;
 
-        if(count($resultadoUsuario)<= 0){
+        if (count($resultadoUsuario) <= 0) {
             return $resultadoUsuario;
         }
-        
+
         $sql = "select 1 AS zend_auth_credential_match
                 from 
                     acseg300.tb_sso_login t
                 where t.DS_SSO_GUID = :token";
-        $resultado = $this->_zendDb->fetchAll($sql,array('token' => $token));
+        $resultado = $this->_zendDb->fetchAll($sql, array('token' => $token));
         /*
         Zend_Debug::dump($resultado);
         Zend_Debug::dump($sql);
         Zend_Debug::dump($token);
          */
         return $resultado;
-        
+
     }
 
     /**
      * Performs an authentication attempt
      *
+     * @return Zend_Auth_Result
      * @throws Zend_Auth_Adapter_Exception If authentication cannot
      *                                     be performed
-     * @return Zend_Auth_Result
      */
-    public function authenticate() 
+    public function authenticate()
     {
         $this->_authenticateSetup();
         $token = $this->_params['token'];
         $resultIdentities = $this->validaToken($token);
         $authResult = $this->_authenticateValidateResultset($resultIdentities);
-        if ( $authResult instanceof Zend_Auth_Result) {
+        if ($authResult instanceof Zend_Auth_Result) {
             return $authResult;
         }
         $authResult = $this->_authenticateValidateResult(array_shift($resultIdentities));
         return $authResult;
     }
-    
+
     protected function _authenticateSetup()
     {
         $exception = null;
-        Zend_Debug::dump($this->_params); exit;
+//        Zend_Debug::dump($this->_params); exit;
 
         if ($this->_params['token'] == '') {
             $exception = 'Token inválido';
@@ -129,7 +129,7 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
             $exception = 'Código da pessoa não informado';
         } elseif ($this->_params['nome'] == '') {
             $exception = 'Nome da pessoa não informado';
-        } 
+        }
 
         if (null !== $exception) {
             /**
@@ -140,19 +140,19 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
         }
 
         $this->_authenticateResultInfo = array(
-            'code'     => Zend_Auth_Result::FAILURE,
+            'code' => Zend_Auth_Result::FAILURE,
             'identity' => $this->_identity,
             'messages' => array()
-            );
+        );
 
         return true;
     }
-    
-     /**
+
+    /**
      * getResultRowObject() - Returns the result row as a stdClass object
      *
-     * @param  string|array $returnColumns
-     * @param  string|array $omitColumns
+     * @param string|array $returnColumns
+     * @param string|array $omitColumns
      * @return stdClass|boolean
      */
     public function getResultRowObject($returnColumns = null, $omitColumns = null)
@@ -166,7 +166,7 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
         if (null !== $returnColumns) {
 
             $availableColumns = array_keys($this->_resultRow);
-            foreach ( (array) $returnColumns as $returnColumn) {
+            foreach ((array)$returnColumns as $returnColumn) {
                 if (in_array($returnColumn, $availableColumns)) {
                     $returnObject->{$returnColumn} = $this->_resultRow[$returnColumn];
                 }
@@ -175,7 +175,7 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
 
         } elseif (null !== $omitColumns) {
 
-            $omitColumns = (array) $omitColumns;
+            $omitColumns = (array)$omitColumns;
             foreach ($this->_resultRow as $resultColumn => $resultValue) {
                 if (!in_array($resultColumn, $omitColumns)) {
                     $returnObject->{$resultColumn} = $resultValue;
@@ -192,7 +192,7 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
 
         }
     }
-    
+
     /**
      * _authenticateValidateResultSet() - This method attempts to make certian that only one
      * record was returned in the result set
@@ -251,13 +251,13 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
             $this->_authenticateResultInfo['code'],
             $this->_authenticateResultInfo['identity'],
             $this->_authenticateResultInfo['messages']
-            );
+        );
     }
-    
+
     /**
      * setIdentity() - set the value to be used as the identity
      *
-     * @param  string $value
+     * @param string $value
      * @return Zfb_Auth_Adapter_Doctrine Provides a fluent interface
      */
     public function setIdentity($value)
@@ -265,14 +265,14 @@ class App_Auth_Adapter_Siseg implements Zend_Auth_Adapter_Interface
         $this->_identity = $value;
         return $this;
     }
-    
+
     public function getUsuario()
     {
         $sql = "select 1 as zend_auth_credential_match from agepnet200.tb_pessoa where numcpf=:CPF";
-        
+
         $resultado = $this->_zendDb->fetchRow($sql, array(
-                                    'CPF'       =>  $this->_params['cpf']
-                                ));
+            'CPF' => $this->_params['cpf']
+        ));
         return $resultado;
     }
 

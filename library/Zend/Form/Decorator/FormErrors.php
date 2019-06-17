@@ -43,15 +43,15 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
      * @var array
      */
     protected $_defaults = array(
-        'ignoreSubForms'          => false,
-        'showCustomFormErrors'    => true,
-        'onlyCustomFormErrors'    => false,
-        'markupElementLabelEnd'   => '</b>',
+        'ignoreSubForms' => false,
+        'showCustomFormErrors' => true,
+        'onlyCustomFormErrors' => false,
+        'markupElementLabelEnd' => '</b>',
         'markupElementLabelStart' => '<b>',
-        'markupListEnd'           => '</ul>',
-        'markupListItemEnd'       => '</li>',
-        'markupListItemStart'     => '<li>',
-        'markupListStart'         => '<ul class="form-errors">',
+        'markupListEnd' => '</ul>',
+        'markupListItemEnd' => '</li>',
+        'markupListItemStart' => '<li>',
+        'markupListStart' => '<ul class="form-errors">',
     );
 
     /**#@+
@@ -72,7 +72,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Render errors
      *
-     * @param  string $content
+     * @param string $content
      * @return string
      */
     public function render($content)
@@ -95,8 +95,8 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
         }
 
         $markup = $this->getMarkupListStart()
-                . $markup
-                . $this->getMarkupListEnd();
+            . $markup
+            . $this->getMarkupListEnd();
 
         switch ($this->getPlacement()) {
             case self::APPEND:
@@ -148,7 +148,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupElementLabelStart
      *
-     * @param  string $markupElementLabelStart
+     * @param string $markupElementLabelStart
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupElementLabelStart($markupElementLabelStart)
@@ -179,7 +179,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupElementLabelEnd
      *
-     * @param  string $markupElementLabelEnd
+     * @param string $markupElementLabelEnd
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupElementLabelEnd($markupElementLabelEnd)
@@ -210,7 +210,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupListStart
      *
-     * @param  string $markupListStart
+     * @param string $markupListStart
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupListStart($markupListStart)
@@ -241,7 +241,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupListEnd
      *
-     * @param  string $markupListEnd
+     * @param string $markupListEnd
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupListEnd($markupListEnd)
@@ -272,7 +272,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupListItemStart
      *
-     * @param  string $markupListItemStart
+     * @param string $markupListItemStart
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupListItemStart($markupListItemStart)
@@ -303,7 +303,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set markupListItemEnd
      *
-     * @param  string $markupListItemEnd
+     * @param string $markupListItemEnd
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setMarkupListItemEnd($markupListItemEnd)
@@ -334,12 +334,12 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set ignoreSubForms
      *
-     * @param  bool $ignoreSubForms
+     * @param bool $ignoreSubForms
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setIgnoreSubForms($ignoreSubForms)
     {
-        $this->_ignoreSubForms = (bool) $ignoreSubForms;
+        $this->_ignoreSubForms = (bool)$ignoreSubForms;
         return $this;
     }
 
@@ -351,7 +351,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     public function getShowCustomFormErrors()
     {
         if (null === $this->_showCustomFormErrors) {
-            if (null === ($show =  $this->getOption('showCustomFormErrors'))) {
+            if (null === ($show = $this->getOption('showCustomFormErrors'))) {
                 $this->setShowCustomFormErrors($this->_defaults['showCustomFormErrors']);
             } else {
                 $this->setShowCustomFormErrors($show);
@@ -364,7 +364,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Set showCustomFormErrors
      *
-     * @param  bool $showCustomFormErrors
+     * @param bool $showCustomFormErrors
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setShowCustomFormErrors($showCustomFormErrors)
@@ -381,7 +381,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     public function getOnlyCustomFormErrors()
     {
         if (null === $this->_onlyCustomFormErrors) {
-            if (null === ($show =  $this->getOption('onlyCustomFormErrors'))) {
+            if (null === ($show = $this->getOption('onlyCustomFormErrors'))) {
                 $this->setOnlyCustomFormErrors($this->_defaults['onlyCustomFormErrors']);
             } else {
                 $this->setOnlyCustomFormErrors($show);
@@ -395,7 +395,7 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
      * Set onlyCustomFormErrors, whether to display elements messages
      * in addition to custom form messages.
      *
-     * @param  bool $onlyCustomFormErrors
+     * @param bool $onlyCustomFormErrors
      * @return Zend_Form_Decorator_FormErrors
      */
     public function setOnlyCustomFormErrors($onlyCustomFormErrors)
@@ -407,8 +407,8 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
     /**
      * Render element label
      *
-     * @param  Zend_Form_Element $element
-     * @param  Zend_View_Interface $view
+     * @param Zend_Form_Element $element
+     * @param Zend_View_Interface $view
      * @return string
      */
     public function renderLabel(Zend_Form_Element $element, Zend_View_Interface $view)
@@ -419,15 +419,15 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
         }
 
         return $this->getMarkupElementLabelStart()
-             . $view->escape($label)
-             . $this->getMarkupElementLabelEnd();
+            . $view->escape($label)
+            . $this->getMarkupElementLabelEnd();
     }
 
     /**
      * Recurse through a form object, rendering errors
      *
-     * @param  Zend_Form $form
-     * @param  Zend_View_Interface $view
+     * @param Zend_Form $form
+     * @param Zend_View_Interface $view
      * @return string
      */
     protected function _recurseForm(Zend_Form $form, Zend_View_Interface $view)
@@ -437,8 +437,8 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
         $custom = $form->getCustomMessages();
         if ($this->getShowCustomFormErrors() && count($custom)) {
             $content .= $this->getMarkupListItemStart()
-                     .  $view->formErrors($custom, $this->getOptions())
-                     .  $this->getMarkupListItemEnd();
+                . $view->formErrors($custom, $this->getOptions())
+                . $this->getMarkupListItemEnd();
         }
         foreach ($form->getElementsAndSubFormsOrdered() as $subitem) {
             if ($subitem instanceof Zend_Form_Element && !$this->getOnlyCustomFormErrors()) {
@@ -446,17 +446,19 @@ class Zend_Form_Decorator_FormErrors extends Zend_Form_Decorator_Abstract
                 if (count($messages)) {
                     $subitem->setView($view);
                     $content .= $this->getMarkupListItemStart()
-                             .  $this->renderLabel($subitem, $view)
-                             .  $view->formErrors($messages, $this->getOptions())
-                             .  $this->getMarkupListItemEnd();
+                        . $this->renderLabel($subitem, $view)
+                        . $view->formErrors($messages, $this->getOptions())
+                        . $this->getMarkupListItemEnd();
                 }
-            } else if ($subitem instanceof Zend_Form && !$this->ignoreSubForms()) {
-                $markup = $this->_recurseForm($subitem, $view);
+            } else {
+                if ($subitem instanceof Zend_Form && !$this->ignoreSubForms()) {
+                    $markup = $this->_recurseForm($subitem, $view);
 
-                if (!empty($markup)) {
-                    $content .= $this->getMarkupListStart()
-                              . $markup
-                              . $this->getMarkupListEnd();
+                    if (!empty($markup)) {
+                        $content .= $this->getMarkupListStart()
+                            . $markup
+                            . $this->getMarkupListEnd();
+                    }
                 }
             }
         }

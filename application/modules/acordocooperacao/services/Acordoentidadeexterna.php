@@ -42,7 +42,7 @@ class Acordocooperacao_Service_Acordoentidadeexterna extends App_Service_Service
         return $form;
     }
 
-    public function inserir($dados,$entidades)
+    public function inserir($dados, $entidades)
     {
 //        Zend_Debug::dump($entidades);
 //        Zend_Debug::dump($dados); exit;
@@ -50,9 +50,9 @@ class Acordocooperacao_Service_Acordoentidadeexterna extends App_Service_Service
 //        $model     = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
 //        $retorno = $this->_mapper->insert($model);
 
-        if(empty($entidades) == false){
-            foreach($entidades as $e){
-                $this->_mapper->cadastrar($dados->idacordo,$e);
+        if (empty($entidades) == false) {
+            foreach ($entidades as $e) {
+                $this->_mapper->cadastrar($dados->idacordo, $e);
             }
         }
 
@@ -75,8 +75,8 @@ class Acordocooperacao_Service_Acordoentidadeexterna extends App_Service_Service
     public function update($dados)
     {
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-            $model   = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Acordocooperacao_Model_Entidadeexterna($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -105,7 +105,7 @@ class Acordocooperacao_Service_Acordoentidadeexterna extends App_Service_Service
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;

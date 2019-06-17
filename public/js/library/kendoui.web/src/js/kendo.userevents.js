@@ -14,7 +14,7 @@ kendo_module({
     id: "userevents",
     name: "User Events",
     category: "framework",
-    depends: [ "core" ],
+    depends: ["core"],
     hidden: true
 });
 
@@ -54,11 +54,11 @@ kendo_module({
 
         return {
             center: {
-               x: (x1 + x2) / 2,
-               y: (y1 + y2) / 2
+                x: (x1 + x2) / 2,
+                y: (y1 + y2) / 2
             },
 
-            distance: Math.sqrt(dx*dx + dy*dy)
+            distance: Math.sqrt(dx * dx + dy * dy)
         };
     }
 
@@ -78,10 +78,9 @@ kendo_module({
                 currentTarget: e.target,
                 location: e
             });
-        }
-        else if (e.type.match(/touch/)) {
+        } else if (e.type.match(/touch/)) {
             changedTouches = originalEvent ? originalEvent.changedTouches : [];
-            for (length = changedTouches.length; idx < length; idx ++) {
+            for (length = changedTouches.length; idx < length; idx++) {
                 touch = changedTouches[idx];
                 touches.push({
                     location: touch,
@@ -91,8 +90,7 @@ kendo_module({
                     id: touch.identifier
                 });
             }
-        }
-        else if (support.pointers) {
+        } else if (support.pointers) {
             touches.push({
                 location: originalEvent,
                 event: e,
@@ -114,7 +112,7 @@ kendo_module({
     }
 
     var TouchAxis = Class.extend({
-        init: function(axis, location) {
+        init: function (axis, location) {
             var that = this;
 
             that.axis = axis;
@@ -126,7 +124,7 @@ kendo_module({
             that.timeStamp = now();
         },
 
-        move: function(location) {
+        move: function (location) {
             var that = this,
                 offset = location["page" + that.axis],
                 timeStamp = now(),
@@ -145,7 +143,7 @@ kendo_module({
             that.timeStamp = timeStamp;
         },
 
-        _updateLocationData: function(location) {
+        _updateLocationData: function (location) {
             var that = this, axis = that.axis;
 
             that.location = location["page" + axis];
@@ -155,7 +153,7 @@ kendo_module({
     });
 
     var Touch = Class.extend({
-        init: function(userEvents, target, touchInfo) {
+        init: function (userEvents, target, touchInfo) {
             var that = this;
 
             extend(that, {
@@ -170,15 +168,17 @@ kendo_module({
                 _finished: false
             });
 
-            that.notifyInit = function() {
+            that.notifyInit = function () {
                 that._trigger(PRESS, touchInfo);
             };
         },
 
-        move: function(touchInfo) {
+        move: function (touchInfo) {
             var that = this;
 
-            if (that._finished) { return; }
+            if (that._finished) {
+                return;
+            }
 
             that.x.move(touchInfo.location);
             that.y.move(touchInfo.location);
@@ -201,12 +201,14 @@ kendo_module({
             }
         },
 
-        end: function(touchInfo) {
+        end: function (touchInfo) {
             var that = this;
 
             that.endTime = now();
 
-            if (that._finished) { return; }
+            if (that._finished) {
+                return;
+            }
 
             if (that._moved) {
                 that._trigger(END, touchInfo);
@@ -219,7 +221,7 @@ kendo_module({
             that.dispose();
         },
 
-        dispose: function() {
+        dispose: function () {
             var that = this,
                 userEvents = that.userEvents,
                 activeTouches = userEvents.touches;
@@ -229,25 +231,25 @@ kendo_module({
             activeTouches.splice($.inArray(that, activeTouches), 1);
         },
 
-        skip: function() {
+        skip: function () {
             this.dispose();
         },
 
-        cancel: function() {
+        cancel: function () {
             this.dispose();
         },
 
-        isMoved: function() {
+        isMoved: function () {
             return this._moved;
         },
 
-        _start: function(touchInfo) {
+        _start: function (touchInfo) {
             this.startTime = now();
             this._moved = true;
             this._trigger(START, touchInfo);
         },
 
-        _trigger: function(name, touchInfo) {
+        _trigger: function (name, touchInfo) {
             var that = this,
                 jQueryEvent = touchInfo.event,
                 data = {
@@ -258,12 +260,12 @@ kendo_module({
                     event: jQueryEvent
                 };
 
-            if(that.userEvents.notify(name, data)) {
+            if (that.userEvents.notify(name, data)) {
                 jQueryEvent.preventDefault();
             }
         },
 
-        _withinIgnoreThreshold: function() {
+        _withinIgnoreThreshold: function () {
             var xDelta = this.x.initialDelta,
                 yDelta = this.y.initialDelta;
 
@@ -281,7 +283,7 @@ kendo_module({
             parent = target.parent();
         }
 
-        var fakeEventData = $.extend(true, {}, e, { target: target[0] });
+        var fakeEventData = $.extend(true, {}, e, {target: target[0]});
         parent.trigger($.Event(e.type, fakeEventData));
     }
 
@@ -290,13 +292,13 @@ kendo_module({
             idx = 0,
             length = downEvents.length;
 
-        for(; idx < length; idx ++) {
+        for (; idx < length; idx++) {
             callback(downEvents[idx]);
         }
     }
 
     var UserEvents = Observable.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 filter,
                 ns = kendo.guid();
@@ -334,40 +336,40 @@ kendo_module({
                 element.on(kendo.applyEventMap("dragstart", ns), kendo.preventDefault);
             }
 
-            element.on(kendo.applyEventMap("mousedown selectstart", ns), filter, { root: element }, "_select");
+            element.on(kendo.applyEventMap("mousedown selectstart", ns), filter, {root: element}, "_select");
 
             if (that.captureUpIfMoved && support.eventCapture) {
                 var surfaceElement = that.surface[0],
                     preventIfMovingProxy = $.proxy(that.preventIfMoving, that);
 
-                withEachUpEvent(function(eventName) {
+                withEachUpEvent(function (eventName) {
                     surfaceElement.addEventListener(eventName, preventIfMovingProxy, true);
                 });
             }
 
             that.bind([
-            PRESS,
-            TAP,
-            START,
-            MOVE,
-            END,
-            RELEASE,
-            CANCEL,
-            GESTURESTART,
-            GESTURECHANGE,
-            GESTUREEND,
-            GESTURETAP,
-            SELECT
+                PRESS,
+                TAP,
+                START,
+                MOVE,
+                END,
+                RELEASE,
+                CANCEL,
+                GESTURESTART,
+                GESTURECHANGE,
+                GESTUREEND,
+                GESTURETAP,
+                SELECT
             ], options);
         },
 
-        preventIfMoving: function(e) {
+        preventIfMoving: function (e) {
             if (this._isMoved()) {
                 e.preventDefault();
             }
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             if (that._destroyed) {
@@ -378,7 +380,7 @@ kendo_module({
 
             if (that.captureUpIfMoved && support.eventCapture) {
                 var surfaceElement = that.surface[0];
-                withEachUpEvent(function(eventName) {
+                withEachUpEvent(function (eventName) {
                     surfaceElement.removeEventListener(eventName, that.preventIfMoving);
                 });
             }
@@ -394,21 +396,21 @@ kendo_module({
             delete that.element;
         },
 
-        capture: function() {
+        capture: function () {
             UserEvents.current = this;
         },
 
-        cancel: function() {
+        cancel: function () {
             this._disposeAll();
             this.trigger(CANCEL);
         },
 
-        notify: function(eventName, data) {
+        notify: function (eventName, data) {
             var that = this,
                 touches = that.touches;
 
             if (this._isMultiTouch()) {
-                switch(eventName) {
+                switch (eventName) {
                     case MOVE:
                         eventName = GESTURECHANGE;
                         break;
@@ -427,45 +429,45 @@ kendo_module({
         },
 
         // API
-        press: function(x, y, target) {
+        press: function (x, y, target) {
             this._apiCall("_start", x, y, target);
         },
 
-        move: function(x, y) {
+        move: function (x, y) {
             this._apiCall("_move", x, y);
         },
 
-        end: function(x, y) {
+        end: function (x, y) {
             this._apiCall("_end", x, y);
         },
 
-        _isMultiTouch: function() {
+        _isMultiTouch: function () {
             return this.touches.length > 1;
         },
 
-        _maxTouchesReached: function() {
+        _maxTouchesReached: function () {
             return this.touches.length >= this._maxTouches;
         },
 
-        _disposeAll: function() {
-            $.each(this.touches, function() {
+        _disposeAll: function () {
+            $.each(this.touches, function () {
                 this.dispose();
             });
         },
 
-        _isMoved: function() {
-            return $.grep(this.touches, function(touch) {
+        _isMoved: function () {
+            return $.grep(this.touches, function (touch) {
                 return touch.isMoved();
             }).length;
         },
 
-        _select: function(e) {
-           if (!this.allowSelection || this.trigger(SELECT, { event: e })) {
+        _select: function (e) {
+            if (!this.allowSelection || this.trigger(SELECT, {event: e})) {
                 preventTrigger(e);
-           }
+            }
         },
 
-        _start: function(e) {
+        _start: function (e) {
             var that = this,
                 idx = 0,
                 filter = that.filter,
@@ -486,7 +488,7 @@ kendo_module({
                 e.stopPropagation();
             }
 
-            for (; idx < length; idx ++) {
+            for (; idx < length; idx++) {
                 if (that._maxTouchesReached()) {
                     break;
                 }
@@ -513,15 +515,15 @@ kendo_module({
             }
         },
 
-        _move: function(e) {
+        _move: function (e) {
             this._eachTouch("move", e);
         },
 
-        _end: function(e) {
+        _end: function (e) {
             this._eachTouch("end", e);
         },
 
-        _eachTouch: function(methodName, e) {
+        _eachTouch: function (methodName, e) {
             var that = this,
                 dict = {},
                 touches = getTouches(e),
@@ -531,12 +533,12 @@ kendo_module({
                 touchInfo,
                 matchingTouch;
 
-            for (idx = 0; idx < activeTouches.length; idx ++) {
+            for (idx = 0; idx < activeTouches.length; idx++) {
                 touch = activeTouches[idx];
                 dict[touch.id] = touch;
             }
 
-            for (idx = 0; idx < touches.length; idx ++) {
+            for (idx = 0; idx < touches.length; idx++) {
                 touchInfo = touches[idx];
                 matchingTouch = dict[touchInfo.id];
 
@@ -546,7 +548,7 @@ kendo_module({
             }
         },
 
-        _apiCall: function(type, x, y, target) {
+        _apiCall: function (type, x, y, target) {
             this[type]({
                 api: true,
                 pageX: x,
@@ -561,4 +563,4 @@ kendo_module({
     kendo.getTouches = getTouches;
     kendo.touchDelta = touchDelta;
     kendo.UserEvents = UserEvents;
- })(window.kendo.jQuery);
+})(window.kendo.jQuery);

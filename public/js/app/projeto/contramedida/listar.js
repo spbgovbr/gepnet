@@ -1,104 +1,106 @@
 var altura_ocupada = 120;
 
-$(function() {
-    
+$(function () {
+
     var
-            grid = null,
-            lastsel = null,
-            gridEnd = null,
-            colModel = null,
-            colNames = null,
-    colNames = ['Título Risco','Título Contramedida', 'Prazo', 'Tendência/Real', 'Status Contramedida', 'Contramedida Efetiva?','Tipo Contramedida', 'Responsável' , 'Opera&ccedil;&otilde;es'];
+        msgerror = null,
+        grid = null,
+        lastsel = null,
+        gridEnd = null,
+        colModel = null,
+        colNames = null,
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+    colNames = ['Título Risco', 'Título Contramedida', 'Prazo', 'Tendência/Real', 'Status Contramedida', 'Contramedida Efetiva?', 'Tipo Contramedida', 'Responsável', 'Opera&ccedil;&otilde;es'];
     colModel = [{
-            name: 'norisco',
-            index: 'norisco',
-            width: 15,
-            search: false,
-            hidden: false,
-            sortable: false
-        },{
-            name: 'tc.nocontramedida',
-            index: 'tc.nocontramedida',
-            width: 15,
-            search: false,
-            hidden: false,
-            sortable: true
-        },  {
-            name: 'tc.datprazocontramedida',
-            index: 'tc.datprazocontramedida',
-            width: 8,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.datprazocontramedidaatraso',
-            index: 'tc.datprazocontramedidaatraso',
-            width: 8,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.domstatuscontramedida',
-            index: 'tc.domstatuscontramedida',
-            width: 10,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.flacontramedidaefetiva',
-            index: 'tc.flacontramedidaefetiva',
-            width: 10,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.idtipocontramedida',
-            index: 'tc.idtipocontramedida',
-            width: 10,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.desresponsavel',
-            index: 'tc.desresponsavel',
-            width: 15,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {
-            name: 'tc.idcontramedida',
-            index: 'tc.idcontramedida',
-            width: 15,
-            hidden: false,
-            search: false,
-            sortable: false,
-            formatter: formatadorLink
-        }];
-        actions = {
-            detalhar: {
-                dialog: $('#dialog-detalhar')
-            },
-            detalharrisco: {
-                dialog: $('#dialog-detalhar-risco')
-            },
-            inserir: {
-                url: base_url + '/projeto/contramedida/cadastrar/format/json',
-                dialog: $('#dialog-inserir')
-            },
-            editar: {
-                url: base_url + '/projeto/contramedida/editar/format/json',
-                dialog: $('#dialog-editar')
-            },
-            excluir: {
-                url: base_url + '/projeto/contramedida/excluir/format/json',
-                dialog: $('#dialog-excluir')
-            }
-        };
-    
+        name: 'norisco',
+        index: 'norisco',
+        width: 15,
+        search: false,
+        hidden: false,
+        sortable: false
+    }, {
+        name: 'tc.nocontramedida',
+        index: 'tc.nocontramedida',
+        width: 15,
+        search: false,
+        hidden: false,
+        sortable: true
+    }, {
+        name: 'tc.datprazocontramedida',
+        index: 'tc.datprazocontramedida',
+        width: 8,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.datprazocontramedidaatraso',
+        index: 'tc.datprazocontramedidaatraso',
+        width: 8,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.domstatuscontramedida',
+        index: 'tc.domstatuscontramedida',
+        width: 10,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.flacontramedidaefetiva',
+        index: 'tc.flacontramedidaefetiva',
+        width: 10,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.idtipocontramedida',
+        index: 'tc.idtipocontramedida',
+        width: 10,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.desresponsavel',
+        index: 'tc.desresponsavel',
+        width: 15,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'tc.idcontramedida',
+        index: 'tc.idcontramedida',
+        width: 15,
+        hidden: false,
+        search: false,
+        sortable: false,
+        formatter: formatadorLink
+    }];
+    actions = {
+        detalhar: {
+            dialog: $('#dialog-detalhar')
+        },
+        detalharrisco: {
+            dialog: $('#dialog-detalhar-risco')
+        },
+        inserir: {
+            url: base_url + '/projeto/contramedida/cadastrar/format/json',
+            dialog: $('#dialog-inserir')
+        },
+        editar: {
+            url: base_url + '/projeto/contramedida/editar/format/json',
+            dialog: $('#dialog-editar')
+        },
+        excluir: {
+            url: base_url + '/projeto/contramedida/excluir/format/json',
+            dialog: $('#dialog-excluir')
+        }
+    };
+
 
     grid = jQuery("#list-grid-contramedida").jqGrid({
         //caption: "Documentos",
-        url: base_url + "/projeto/contramedida/pesquisar/idrisco/"+$('#idrisco').val(),
+        url: base_url + "/projeto/contramedida/pesquisar/idrisco/" + $('#idrisco').val(),
         datatype: "json",
         mtype: 'post',
         width: '645',
@@ -112,11 +114,11 @@ $(function() {
         sortname: 'idcontramedida',
         viewrecords: true,
         sortorder: "desc",
-        gridComplete: function() {
-             //console.log('teste');
+        gridComplete: function () {
+            //console.log('teste');
             //$("a.actionfrm").tooltip();
         },
-        onSelectRow: function(id) {
+        onSelectRow: function (id) {
 //            if(window.selectRow){
 //                var row = grid.getRowData(id);
 //                selectRow(row);
@@ -124,9 +126,9 @@ $(function() {
 //                alert('Função [selectRow] não está definida');
 //            }
         },
-        loadError: function() {
+        loadError: function () {
             $.pnotify({
-                text: 'Falha ao enviar a requisição',
+                text: msgerror,
                 type: 'error',
                 hide: false
             });
@@ -150,28 +152,28 @@ $(function() {
         autoOpen: false,
         title: 'Contramedida - Cadastrar',
         width: 1030,
-        height:580,
+        height: 580,
         modal: false,
-        open: function(event, ui) {
-            
+        open: function (event, ui) {
+
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             actions.inserir.dialog.empty();
         },
         buttons: {
-            'Salvar': function() {                   
-                    $('form#form-contramedida').submit();
+            'Salvar': function () {
+                $('form#form-contramedida').submit();
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.inserir", function(event) {
+    $(document.body).on('click', "a.inserir", function (event) {
         event.preventDefault();
         var $this = $(this);
-        
+
         $.ajax({
             url: $this.attr('href'),
             dataType: 'html',
@@ -179,28 +181,28 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 actions.inserir.dialog.html(data).dialog('open');
-                    verificaRiscoAtivo();
-                    var $form = $("form#form-contramedida");
-                    $form.validate({
-                        errorClass: 'error',
-                        validClass: 'success',
-                        submitHandler: function(form) {
-                            if(verificaRiscoAtivo()) {
-                            enviar_ajax("/projeto/contramedida/cadastrar/format/json", "form#form-contramedida", function(data) {
-                                    if (data.success) {
-                                        resetFormContramedida();
-                                        grid.trigger('reloadGrid');
-                                    }
-                                });
-                            }
+                verificaRiscoAtivo();
+                var $form = $("form#form-contramedida");
+                $form.validate({
+                    errorClass: 'error',
+                    validClass: 'success',
+                    submitHandler: function (form) {
+                        if (verificaRiscoAtivo()) {
+                            enviar_ajax("/projeto/contramedida/cadastrar/format/json", "form#form-contramedida", function (data) {
+                                if (data.success) {
+                                    resetFormContramedida();
+                                    grid.trigger('reloadGrid');
+                                }
+                            });
                         }
-                    });                                         
+                    }
+                });
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
@@ -208,30 +210,30 @@ $(function() {
         });
     });
 
-    /*xxxxxxxxxx EDITAR xxxxxxxxxx*/    
+    /*xxxxxxxxxx EDITAR xxxxxxxxxx*/
     actions.editar.dialog.dialog({
         autoOpen: false,
         title: 'Contramedida - Editar',
         width: 1030,
-        height:580,
+        height: 580,
         modal: false,
-        open: function(event, ui) {
-            
+        open: function (event, ui) {
+
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             actions.editar.dialog.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 $('form#form-contramedida').submit();
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.editar", function(event) {
+    $(document.body).on('click', "a.editar", function (event) {
         event.preventDefault();
         var $this = $(this);
 
@@ -242,24 +244,24 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 actions.editar.dialog.html(data).dialog('open');
                 var $form = $("form#form-contramedida");
-                    $form.validate({
-                        errorClass: 'error',
-                        validClass: 'success',
-                        submitHandler: function(form) {
-                            enviar_ajax("/projeto/contramedida/editar/format/json", "form#form-contramedida", function(data) {
-                                if (data.success) {
-                                    grid.trigger('reloadGrid');
-                                }
-                            });
-                        }
-                    }); 
+                $form.validate({
+                    errorClass: 'error',
+                    validClass: 'success',
+                    submitHandler: function (form) {
+                        enviar_ajax("/projeto/contramedida/editar/format/json", "form#form-contramedida", function (data) {
+                            if (data.success) {
+                                grid.trigger('reloadGrid');
+                            }
+                        });
+                    }
+                });
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
@@ -276,23 +278,23 @@ $(function() {
         height: 500,
         modal: false,
         buttons: {
-            'Excluir': function() {
+            'Excluir': function () {
                 var arrParams = {idcontramedida: $("#dialog-excluir").find('input[name="idcontramedida"]').val()};
-                ajax_arrparams("/projeto/contramedida/excluir/format/json", arrParams, function(data) {
+                ajax_arrparams("/projeto/contramedida/excluir/format/json", arrParams, function (data) {
                     if (data.success) {
                         grid.trigger('reloadGrid');
                         actions.excluir.dialog.dialog('close');
                     }
                 });
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
-    
-   $(document.body).on('click', "a.excluir", function(event) {
-       event.preventDefault();
+
+    $(document.body).on('click', "a.excluir", function (event) {
+        event.preventDefault();
         var $this = $(this);
 
         $.ajax({
@@ -302,23 +304,23 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 actions.excluir.dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
             }
         });
-   }); 
-   
-   /*xxxxxxxxxx DETALHAR xxxxxxxxxx*/
-   $(document.body).on('click', "a.detalhar", function(event) {
-       event.preventDefault();
-        var  $this = $(this);
+    });
+
+    /*xxxxxxxxxx DETALHAR xxxxxxxxxx*/
+    $(document.body).on('click', "a.detalhar", function (event) {
+        event.preventDefault();
+        var $this = $(this);
 
         $.ajax({
             url: $this.attr('href'),
@@ -327,36 +329,36 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 actions.detalhar.dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
             }
         });
-   }); 
-   
-   actions.detalhar.dialog.dialog({
+    });
+
+    actions.detalhar.dialog.dialog({
         autoOpen: false,
         title: 'Contramedida - Detalhar',
         width: 945,
         height: 600,
         modal: false,
-        buttons: {            
-            'Fechar': function() {
+        buttons: {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
-    
-   /*xxxxxxxxxx DETALHAR RISCO xxxxxxxxxx*/
-   $(document.body).on('click', "a.risco", function(event) {
-       event.preventDefault();
-        var  $this = $(this);
+
+    /*xxxxxxxxxx DETALHAR RISCO xxxxxxxxxx*/
+    $(document.body).on('click', "a.risco", function (event) {
+        event.preventDefault();
+        var $this = $(this);
 
         $.ajax({
             url: $this.attr('href'),
@@ -365,52 +367,51 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 actions.detalharrisco.dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
             }
         });
-   }); 
-   
-   actions.detalharrisco.dialog.dialog({
+    });
+
+    actions.detalharrisco.dialog.dialog({
         autoOpen: false,
         title: 'Risco - Detalhar',
         width: 945,
         height: 600,
         modal: false,
-        buttons: {            
-            'Fechar': function() {
+        buttons: {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
-                params = '',
-                url = {
-            editar:     base_url + '/projeto/contramedida/editar',
-            excluir:    base_url + '/projeto/contramedida/excluir',
-            detalhar:   base_url + '/projeto/contramedida/detalhar',
-            detalharrisco:   base_url + '/projeto/risco/detalhar',
-        };
-        params = '/idcontramedida/' + r[8]+'/idrisco/'+r[9];
+            params = '',
+            url = {
+                editar: base_url + '/projeto/contramedida/editar',
+                excluir: base_url + '/projeto/contramedida/excluir',
+                detalhar: base_url + '/projeto/contramedida/detalhar',
+                detalharrisco: base_url + '/projeto/risco/detalhar',
+            };
+        params = '/idcontramedida/' + r[8] + '/idrisco/' + r[9];
 //        console.log(rowObject);
         teste = rowObject;
-        
+
         return '<a data-target="#dialog-detalhar" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
-               '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
-               '<a data-target="#dialog-excluir" class="btn actionfrm excluir" title="Excluir" data-id="' + cellvalue + '" href="' + url.excluir + params + '"><i class="icon-trash"></i></a>'+
-               '<a data-target="#dialog-contramedida" class="btn actionfrm risco" title="Visualizar Risco" data-id="' + cellvalue + '" href="' + url.detalharrisco + params + '"><i class="icon-eye-open"></i></a>';
+            '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
+            '<a data-target="#dialog-excluir" class="btn actionfrm excluir" title="Excluir" data-id="' + cellvalue + '" href="' + url.excluir + params + '"><i class="icon-trash"></i></a>' +
+            '<a data-target="#dialog-contramedida" class="btn actionfrm risco" title="Visualizar Risco" data-id="' + cellvalue + '" href="' + url.detalharrisco + params + '"><i class="icon-eye-open"></i></a>';
     }
-    
+
     /**
      * Envia ajax por array de parametros
      */
@@ -420,47 +421,47 @@ $(function() {
             dataType: 'json',
             type: 'POST',
             data: data,
-            success: function(data) {
+            success: function (data) {
                 if (typeof data.msg.text !== 'string') {
                     $.formErrors(data.msg.text);
                     return;
                 }
                 $.pnotify(data.msg);
-                if (callback && typeof(callback) === "function") {
+                if (callback && typeof (callback) === "function") {
                     callback(data);
                 }
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
-                    text: 'Falha ao enviar a requisição',
+                    text: msgerror,
                     type: 'error',
                     hide: false
                 });
             }
         });
     }
-        
-    
+
+
     $("form#form-contramedida-pesquisar").validate();
-    
-    $('#btnpesquisar').click(function(e){
+
+    $('#btnpesquisar').click(function (e) {
         e.preventDefault();
         if ($("form#form-contramedida-pesquisar").valid()) {
             grid.setGridParam({
-                url: base_url + "/projeto/contramedida/pesquisar?"+$("form#form-contramedida-pesquisar").serialize(),
+                url: base_url + "/projeto/contramedida/pesquisar?" + $("form#form-contramedida-pesquisar").serialize(),
                 page: 1
             }).trigger("reloadGrid");
         }
     });
-    
-    
+
+
     $('.mask-date').datepicker({
-         format: 'dd/mm/yyyy',
-         language: 'pt-BR',
-         changeMonth: true,
-         changeYear: true
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR',
+        changeMonth: true,
+        changeYear: true
     });
-    
+
     $('.mask-date').mask('99/99/9999');
-    
+
 });

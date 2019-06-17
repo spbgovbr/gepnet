@@ -19,9 +19,9 @@ class Projeto_Model_Mapper_Tipomudanca extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idtipomudanca" => $model->idtipomudanca,
-            "dsmudanca"     => $model->dsmudanca,
+            "dsmudanca" => $model->dsmudanca,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -36,9 +36,9 @@ class Projeto_Model_Mapper_Tipomudanca extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idtipomudanca" => $model->idtipomudanca,
-            "dsmudanca"     => $model->dsmudanca,
+            "dsmudanca" => $model->dsmudanca,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
@@ -47,8 +47,9 @@ class Projeto_Model_Mapper_Tipomudanca extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Projeto_Model_Tipomudanca);
     }
-    
-    public function fetchPairs(){
+
+    public function fetchPairs()
+    {
         $sql = "SELECT
                     idtipomudanca,
                     dsmudanca

@@ -30,7 +30,8 @@ require_once 'Zend/Paginator/Adapter/Interface.php';
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interface {
+class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interface
+{
 
     /**
      * Array
@@ -52,20 +53,20 @@ class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interfac
      * @param string $sql
      */
     //public function __construct(array $array) {
-    public function __construct($sql) 
+    public function __construct($sql)
     {
-        $this->_db  = Zend_Db_Table::getDefaultAdapter();
+        $this->_db = Zend_Db_Table::getDefaultAdapter();
         $this->_sql = $sql;
     }
 
     /**
      * Returns an array of items for a page.
      *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
+     * @param integer $offset Page offset
+     * @param integer $itemCountPerPage Number of items per page
      * @return array
      */
-    public function getItems($offset, $itemCountPerPage) 
+    public function getItems($offset, $itemCountPerPage)
     {
         //return array_slice($this->_array, $offset, $itemCountPerPage);
         $sql = $this->_sql;
@@ -73,13 +74,13 @@ class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interfac
         if ($offset > 0) {
             $sql .= " OFFSET $offset";
         }
-        
+
         //$stmt = $this->_db->query( $sql, array($itemCountPerPage, $offset) );
-        $stmt = $this->_db->query( $sql);
+        $stmt = $this->_db->query($sql);
         $retorno = $stmt->fetchAll();
 //		Zend_Debug::dump($retorno, ' getItens ');
 
-		return $retorno;
+        return $retorno;
     }
 
     /**
@@ -87,7 +88,7 @@ class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interfac
      *
      * @return integer
      */
-    public function count() 
+    public function count()
     {
         if ($this->_rowCount === null) {
             $this->setRowCount(
@@ -98,19 +99,19 @@ class App_Paginator_Adapter_Sql_Mysql implements Zend_Paginator_Adapter_Interfac
 
         return $this->_rowCount;
     }
-    
+
     public function getCountSelect()
     {
         $sql = "SELECT COUNT(1) AS zend_paginator_row_count FROM ($this->_sql) c";
 //			Zend_Debug::dump($sql, ' sql count ');
         return $sql;
     }
-    
+
     public function setRowCount($sql)
     {
         $rowCount = $this->_db->fetchOne($sql);
         $this->_rowCount = $rowCount;
     }
-	
-	
+
+
 }

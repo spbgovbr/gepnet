@@ -110,8 +110,8 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function __construct($objCount)
     {
-        $this->_objectCount    = (int)$objCount;
-        $this->_factoryId      = self::$_identity++;
+        $this->_objectCount = (int)$objCount;
+        $this->_factoryId = self::$_identity++;
         $this->_removedObjects = new SplObjectStorage();
     }
 
@@ -145,8 +145,8 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function close()
     {
-        $this->_modifiedObjects   = null;
-        $this->_removedObjects    = null;
+        $this->_modifiedObjects = null;
+        $this->_removedObjects = null;
         $this->_attachedFactories = null;
 
         foreach ($this->_registeredObjects as $obj) {
@@ -209,7 +209,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
      */
     public function attach(Zend_Pdf_ElementFactory_Interface $factory)
     {
-        if ( $factory === $this || isset($this->_attachedFactories[$factory->getId()])) {
+        if ($factory === $this || isset($this->_attachedFactories[$factory->getId()])) {
             /**
              * Don't attach factory twice.
              * We do not check recusively because of nature of attach operation
@@ -249,7 +249,7 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
                 $this->_shiftCalculationCache[$factory->_factoryId] = $shift + $subFactoryShift;
                 return $shift + $subFactoryShift;
             } else {
-                $shift += $subFactory->getObjectCount()-1;
+                $shift += $subFactory->getObjectCount() - 1;
             }
         }
 
@@ -377,14 +377,14 @@ class Zend_Pdf_ElementFactory implements Zend_Pdf_ElementFactory_Interface
         require_once 'Zend/Pdf/UpdateInfoContainer.php';
         foreach ($this->_modifiedObjects as $objNum => $obj) {
             if ($this->_removedObjects->contains($obj)) {
-                            $result[$objNum+$shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
-                                                                           $obj->getGenNum()+1,
-                                                                           true);
+                $result[$objNum + $shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
+                    $obj->getGenNum() + 1,
+                    true);
             } else {
-                $result[$objNum+$shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
-                                                                           $obj->getGenNum(),
-                                                                           false,
-                                                                           $obj->dump($rootFactory));
+                $result[$objNum + $shift] = new Zend_Pdf_UpdateInfoContainer($objNum + $shift,
+                    $obj->getGenNum(),
+                    false,
+                    $obj->dump($rootFactory));
             }
         }
 

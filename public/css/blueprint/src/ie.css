@@ -8,8 +8,13 @@
 -------------------------------------------------------------- */
 
 /* Make sure the layout is centered in IE5 */
-body { text-align: center; }
-.container { text-align: left; }
+body {
+    text-align: center;
+}
+
+.container {
+    text-align: left;
+}
 
 /* Fixes IE margin bugs */
 * html .column, * html .span-1, * html .span-2,
@@ -20,60 +25,115 @@ body { text-align: center; }
 * html .span-15, * html .span-16, * html .span-17,
 * html .span-18, * html .span-19, * html .span-20,
 * html .span-21, * html .span-22, * html .span-23,
-* html .span-24 { display:inline; overflow-x: hidden; }
+* html .span-24 {
+    display: inline;
+    overflow-x: hidden;
+}
 
 
 /* Elements
 -------------------------------------------------------------- */
 
 /* Fixes incorrect styling of legend in IE6. */
-* html legend { margin:0px -8px 16px 0; padding:0; }
+* html legend {
+    margin: 0px -8px 16px 0;
+    padding: 0;
+}
 
 /* Fixes wrong line-height on sup/sub in IE. */
-sup { vertical-align:text-top; }
-sub { vertical-align:text-bottom; }
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
 
 /* Fixes IE7 missing wrapping of code elements. */
-html>body p code { *white-space: normal; }
+html > body p code {
+    *white-space: normal;
+}
 
 /* IE 6&7 has problems with setting proper <hr> margins. */
-hr  { margin:-8px auto 11px; }
+hr {
+    margin: -8px auto 11px;
+}
 
 /* Explicitly set interpolation, allowing dynamically resized images to not look horrible */
-img { -ms-interpolation-mode:bicubic; }
+img {
+    -ms-interpolation-mode: bicubic;
+}
 
 /* Clearing
 -------------------------------------------------------------- */
 
 /* Makes clearfix actually work in IE */
-.clearfix, .container { display:inline-block; }
+.clearfix, .container {
+    display: inline-block;
+}
+
 * html .clearfix,
-* html .container { height:1%; }
+* html .container {
+    height: 1%;
+}
 
 
 /* Forms
 -------------------------------------------------------------- */
 
 /* Fixes padding on fieldset */
-fieldset { padding-top:0; }
-legend { margin-top:-0.2em; margin-bottom:1em; margin-left:-0.5em; }
+fieldset {
+    padding-top: 0;
+}
+
+legend {
+    margin-top: -0.2em;
+    margin-bottom: 1em;
+    margin-left: -0.5em;
+}
 
 /* Makes classic textareas in IE 6 resemble other browsers */
-textarea { overflow:auto; }
+textarea {
+    overflow: auto;
+}
 
 /* Makes labels behave correctly in IE 6 and 7 */
-label { vertical-align:middle; position:relative; top:-0.25em; }
+label {
+    vertical-align: middle;
+    position: relative;
+    top: -0.25em;
+}
 
 /* Fixes rule that IE 6 ignores */
-input.text, input.title, textarea { background-color:#fff; border:1px solid #bbb; }
-input.text:focus, input.title:focus { border-color:#666; }
-input.text, input.title, textarea, select { margin:0.5em 0; }
-input.checkbox, input.radio { position:relative; top:.25em; }
+input.text, input.title, textarea {
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+
+input.text:focus, input.title:focus {
+    border-color: #666;
+}
+
+input.text, input.title, textarea, select {
+    margin: 0.5em 0;
+}
+
+input.checkbox, input.radio {
+    position: relative;
+    top: .25em;
+}
 
 /* Fixes alignment of inline form elements */
-form.inline div, form.inline p { vertical-align:middle; }
+form.inline div, form.inline p {
+    vertical-align: middle;
+}
+
 form.inline input.checkbox, form.inline input.radio,
 form.inline input.button, form.inline button {
-  margin:0.5em 0;
+    margin: 0.5em 0;
 }
-button, input.button { position:relative;top:0.25em; }
+
+button, input.button {
+    position: relative;
+    top: 0.25em;
+}

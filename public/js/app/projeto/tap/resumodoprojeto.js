@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
     $.pnotify.defaults.history = false;
 
@@ -7,22 +7,23 @@ $(function() {
         language: 'pt-BR'
     });
 
-    $("#resetbutton").click(function() {
+    $("#resetbutton").click(function () {
         //$('.container-importar').slideToggle();
         $("#importar").select2('data', null);
     });
 
     var
-            $form = $("form#form-gerencia"),
-            url_cadastrar = base_url + "/projeto/tap/resumodoprojeto/format/json";
+        $form = $("form#form-gerencia"),
+        url_cadastrar = base_url + "/projeto/tap/resumodoprojeto/format/json";
 
-    $form.on('submit', function(e) {
+    $form.on('submit', function (e) {
+        $("#submitbutton").prop("disabled", true);
         var $return = false;
         var options = {
             url: url_cadastrar,
             dataType: 'json',
             type: 'POST',
-            success: function(data) {
+            success: function (data) {
                 if (typeof data.msg.text != 'string') {
                     $.formErrors(data.msg.text);
                     $.pnotify({
@@ -32,11 +33,18 @@ $(function() {
                     });
                     return;
                 }
+                if (data.success) {
+                    setTimeout(function () {
+                        $("#submitbutton").prop("disabled", false);
+                    }, 2000);
+                }
                 $.pnotify(data.msg);
 
-
             },
-            error: function(data) {
+            error: function (data) {
+                setTimeout(function () {
+                    $("#submitbutton").prop("disabled", false);
+                }, 2000);
                 $return = false;
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',

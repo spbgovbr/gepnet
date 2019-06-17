@@ -14,11 +14,11 @@ kendo_module({
     id: "data.odata",
     name: "OData",
     category: "framework",
-    depends: [ "core" ],
+    depends: ["core"],
     hidden: true
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         extend = $.extend,
         odataFilters = {
@@ -28,7 +28,7 @@ kendo_module({
             gte: "ge",
             lt: "lt",
             lte: "le",
-            contains : "substringof",
+            contains: "substringof",
             doesnotcontain: "substringof",
             endswith: "endswith",
             startswith: "startswith"
@@ -36,13 +36,13 @@ kendo_module({
         mappers = {
             pageSize: $.noop,
             page: $.noop,
-            filter: function(params, filter) {
+            filter: function (params, filter) {
                 if (filter) {
                     params.$filter = toOdataFilter(filter);
                 }
             },
-            sort: function(params, orderby) {
-                var expr = $.map(orderby, function(value) {
+            sort: function (params, orderby) {
+                var expr = $.map(orderby, function (value) {
                     var order = value.field.replace(/\./g, "/");
 
                     if (value.dir === "desc") {
@@ -56,12 +56,12 @@ kendo_module({
                     params.$orderby = expr;
                 }
             },
-            skip: function(params, skip) {
+            skip: function (params, skip) {
                 if (skip) {
                     params.$skip = skip;
                 }
             },
-            take: function(params, take) {
+            take: function (params, take) {
                 if (take) {
                     params.$top = take;
                 }
@@ -148,7 +148,7 @@ kendo_module({
         schemas: {
             odata: {
                 type: "json",
-                data: function(data) {
+                data: function (data) {
                     return data.d.results || [data.d];
                 },
                 total: "d.__count"
@@ -178,7 +178,7 @@ kendo_module({
                     dataType: "json",
                     type: "DELETE"
                 },
-                parameterMap: function(options, type) {
+                parameterMap: function (options, type) {
                     var params,
                         value,
                         option,

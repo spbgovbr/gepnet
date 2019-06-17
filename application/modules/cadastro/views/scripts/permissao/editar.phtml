@@ -1,21 +1,27 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-;
-/*
-  $this->headScript()
-  ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-  ->appendFile($this->baseUrl('/js/app/cadastro/pessoa/edit.js'), 'text/javascript')
-  ;
- */
+    ->appendStylesheet($this->baseUrl('/css/form.css'));
+
 $frmAttr = $this->form->getAttribs();
-//var_dump($this->permissao);
 ?>
+
+<script>
+    /* trazer as combos de visualizar e tipo quando não estiverem
+     * salvar como valores default visualizar: verdadeiro e tipo:geral
+    */
+    $(document).ready(function () {
+        var valor = $('#visualizar option:selected').val();
+        if (valor == "") {
+            $('#visualizar option[value=1]').attr('selected', 'selected');
+        }
+
+        var valor = $('#tipo option:selected').val();
+        if (valor == "") {
+            $("#tipo option[value='G']").attr('selected', 'selected');
+        }
+    });
+</script>
+
 <div class="row">
     <div class="portlet portlet-azul span4">
         <h3>Recurso</h3>
@@ -30,17 +36,27 @@ $frmAttr = $this->form->getAttribs();
         </div>
     </div>
 </div>
-<form id="<?php echo $frmAttr['id']; ?>" 
-      name="<?php echo $frmAttr['id']; ?>" 
-      action="<?php echo $this->form->getAction(); ?>" 
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
       method="<?php echo $frmAttr['method']; ?>">
     <div class="row formulario">
         <div class="span8">
             <fieldset>
-                <legend>Dados Pessoais</legend>
+                <legend>Dados da Permissão</legend>
                 <div class="row">
                     <div class="span6">
                         <?php echo $this->form->ds_permissao; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <?php echo $this->form->visualizar; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span6">
+                        <?php echo $this->form->tipo; ?>
                     </div>
                 </div>
             </fieldset>
@@ -49,6 +65,11 @@ $frmAttr = $this->form->getAttribs();
     <div class="row formulario">
         <div class="span8">
             <?php echo $this->form->idpermissao; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
         </div>
     </div>
 </form>

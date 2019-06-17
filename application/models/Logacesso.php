@@ -8,9 +8,9 @@
 class Default_Model_Logacesso extends App_Model_ModelAbstract
 {
 
-    public $idmodulo       = null;
+    public $idmodulo = null;
     public $idperfilpessoa = null;
-    public $datacesso      = null;
+    public $datacesso = null;
 
 }
 

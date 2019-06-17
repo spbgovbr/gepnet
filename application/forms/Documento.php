@@ -13,37 +13,43 @@ class Default_Form_Documento extends App_Form_FormAbstract
         $serviceTipoDocumento = App_Service_ServiceAbstract::getService('Default_Service_TipoDocumento');
         $this
             ->setOptions(array(
-                "method"   => "post",
-                "enctype" => Zend_Form::ENCTYPE_MULTIPART ,
-                "id"       => "form-documento",
+                "method" => "post",
+                "enctype" => Zend_Form::ENCTYPE_MULTIPART,
+                "id" => "form-documento",
                 "elements" => array(
                     'iddocumento' => array('hidden', array()),
                     'idescritorio' => array('hidden', array()),
-                    'nomdocumento' => array('text', array(
-                            'label'    => 'Nome',
+                    'nomdocumento' => array(
+                        'text',
+                        array(
+                            'label' => 'Nome',
                             'required' => true,
-                            'filters'  => array('StringTrim', 'StripTags'),
+                            'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty', array('StringLength', false, array(0, 100))),
                             'attribs' => array(
-                                'maxlength'           => 100,
-                                'size'                => 50,
-                                'class'               => 'span6',
-                                'data-rule-required'  => true,
+                                'maxlength' => 100,
+                                'size' => 50,
+                                'class' => 'span6',
+                                'data-rule-required' => true,
                                 'data-rule-maxlength' => 100,
                                 'data-rule-minlength' => 3,
                             ),
-                    )),
-                    'idtipodocumento'     => array('select', array(
-                            'label'        => 'Tipo',
-                            'required'     => true,
+                        )
+                    ),
+                    'idtipodocumento' => array(
+                        'select',
+                        array(
+                            'label' => 'Tipo',
+                            'required' => true,
                             'multiOptions' => $serviceTipoDocumento->fetchPairs(),
-                            'filters'      => array('StringTrim', 'StripTags'),
+                            'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty'),
                             'attribs' => array(
-                                'class'              => 'span4 select2',
+                                'class' => 'span4 select2',
                                 'data-rule-required' => true,
                             ),
-                    )),
+                        )
+                    ),
                     /*
                       'descaminho' => array('file', array(
                       'label'    => 'Arquivo',
@@ -53,10 +59,12 @@ class Default_Form_Documento extends App_Form_FormAbstract
                       'attribs' => array(),
                       )),
                      */
-                    'datdocumento'       => array('text', array(
-                            'label'    => 'Data',
+                    'datdocumento' => array(
+                        'text',
+                        array(
+                            'label' => 'Data',
                             'required' => true,
-                            'filters'  => array('StringTrim', 'StripTags'),
+                            'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty'),
                             'attribs' => array(
                                 'class' => 'span2 datepicker datemask-BR',
@@ -64,77 +72,102 @@ class Default_Form_Documento extends App_Form_FormAbstract
                                 'data-rule-dateITA' => true,
                                 'placeholder' => 'DD/MM/AAAA',
                             ),
-                    )),
-                    'desobs'             => array('textarea', array(
-                            'label'    => 'Observação',
+                        )
+                    ),
+                    'desobs' => array(
+                        'textarea',
+                        array(
+                            'label' => 'Observação',
                             'required' => false,
-                            'filters'  => array('StringTrim', 'StripTags', array('HtmlEntities', array('quotestyle' => ENT_QUOTES))),
+                            'filters' => array(
+                                'StringTrim',
+                                'StripTags',
+                                array('HtmlEntities', array('quotestyle' => ENT_QUOTES))
+                            ),
                             'validators' => array(array('StringLength', false, array(0, 4000))),
                             'attribs' => array(
-                                'rows'                => 24,
-                                'cols'                => 30,
-                                'class'               => 'span8 textarea_obs',
-                                'data-rule-required'  => false,
+                                'rows' => 24,
+                                'cols' => 30,
+                                'class' => 'span8 textarea_obs',
+                                'data-rule-required' => false,
                                 'data-rule-maxlength' => 4000,
                             ),
-                    )),
-                    'flaativo'            => array('select', array(
-                            'label'        => 'Ativo',
-                            'multiOptions' => array('S'        => 'Sim', 'N'        => 'Não'),
+                        )
+                    ),
+                    'flaativo' => array(
+                        'select',
+                        array(
+                            'label' => 'Ativo',
+                            'multiOptions' => array('S' => 'Sim', 'N' => 'Não'),
                             'required' => true,
-                            'filters'  => array('StringTrim', 'StripTags'),
+                            'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty'),
                             'attribs' => array(
-                                'class'              => 'span2',
+                                'class' => 'span2',
                                 'data-rule-required' => true,
                             ),
-                    )),
-                    'submit'             => array('button', array(
-                            'ignore'  => true,
-                            'label'   => 'Enviar',
-                            'escape'  => false,
+                        )
+                    ),
+                    'submit' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'label' => 'Enviar',
+                            'escape' => false,
                             'attribs' => array(
-                                'id'    => 'submitbutton',
-                                'type'  => 'submit',
+                                'id' => 'submitbutton',
+                                'type' => 'submit',
                             ),
-                    )),
-                    'reset' => array('button', array(
-                            'ignore'  => true,
-                            'label'   => 'Limpar',
-                            'escape'  => false,
+                        )
+                    ),
+                    'reset' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'label' => 'Limpar',
+                            'escape' => false,
                             'attribs' => array(
-                                'id'   => 'resetbutton',
+                                'id' => 'resetbutton',
                                 'type' => 'reset',
                             ),
-                    )),
+                        )
+                    ),
                 )
             ));
         /*
         */
         $this->addElement('file', 'descaminho', array(
-            'label'      => 'Arquivo',
-            'required'   => true,
+            'label' => 'Arquivo',
+            'required' => true,
             'validators' => array(
                 array('Count', false, 1), // 100K
-                array('Size', false, array(
-                        'max'=> 1024000,
+                array(
+                    'Size',
+                    false,
+                    array(
+                        'max' => 32768000,
                         'messages' => array(
                             Zend_Validate_File_Size::TOO_BIG => 'Tamanho de arquivo inválido.',
                         ),
-                )), // 1M
-                array('Extension', false, array(
-                    'pattern' => 'doc,docx,pdf,pptx',
-                    'messages' => array(
-                        Zend_Validate_File_Extension::FALSE_EXTENSION => 'Extensão de arquivo inválida.',
                     )
-                )),
+                ), // 1M
+                array(
+                    'Extension',
+                    false,
+                    array(
+                        'pattern' => 'doc,docx,pdf,pptx',
+                        'messages' => array(
+                            Zend_Validate_File_Extension::FALSE_EXTENSION => 'Extensão de arquivo inválida.',
+                        )
+                    )
+                ),
 
             ),
             //'MultiFile' => 3,
             'destination' => APPLICATION_PATH . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "arquivos",
             'description' => 'São aceitas as extensões: doc,docx,pdf. Tamanho Máximo: 1MB   ',
-            'attribs'     => array(
-                'class'              => 'span4',
+            'attribs' => array(
+                'class' => 'span4',
                 'data-rule-required' => true,
             ),
         ));

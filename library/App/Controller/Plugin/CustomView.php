@@ -1,8 +1,10 @@
 <?php
 
-class App_Controller_Plugin_CustomView extends Zend_Controller_Plugin_Abstract {
+class App_Controller_Plugin_CustomView extends Zend_Controller_Plugin_Abstract
+{
 
-    public function init() {
+    public function init()
+    {
         $this->_initView();
     }
 
@@ -14,7 +16,8 @@ class App_Controller_Plugin_CustomView extends Zend_Controller_Plugin_Abstract {
      *
      * If it is not, setup the FlashMessenger
      */
-    public function preDispatch(Zend_Controller_Request_Abstract $request) {
+    public function preDispatch(Zend_Controller_Request_Abstract $request)
+    {
         $this->_initView();
         //if  its an AJAX request stop here - can be simulated via ?ajax GET parameter sent in the request
         if ($this->_request->isXmlHttpRequest() || isset($_GET['ajax'])) {
@@ -36,10 +39,12 @@ class App_Controller_Plugin_CustomView extends Zend_Controller_Plugin_Abstract {
         $this->view->headScript()->prependScript($script, $type = 'text/javascript', $attrs = array());
     }
 
-    protected function _initView() {
+    protected function _initView()
+    {
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
-        if (null === $viewRenderer->view)
+        if (null === $viewRenderer->view) {
             $viewRenderer->initView();
+        }
         $view = $viewRenderer->view;
         $this->view = $view;
     }

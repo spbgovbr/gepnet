@@ -3,18 +3,18 @@
 }
 
 .objetivos-porfolio {
-     margin: 0 0 15px 5px;
+    margin: 0 0 15px 5px;
 }
 
 .container-objetivos {
     width: 1300px;
     font-size: 12px;
-    /*border: 1px solid red;*/ 
-}    
+    /*border: 1px solid red;*/
+}
 
 .box-objetivo {
     padding-top: 5px;
-/*    height: 500px;*/
+    /*    height: 500px;*/
     width: 125px;
     /*border: 1px solid red;*/
     margin-left: 5px;
@@ -29,29 +29,29 @@
     color: #000;
 }
 
-.box-nome-objetivo a{
-     color: #000;
+.box-nome-objetivo a {
+    color: #000;
 }
 
-.box-nome-objetivo a:hover{
-     color: #808080;
-     text-decoration: none;
+.box-nome-objetivo a:hover {
+    color: #808080;
+    text-decoration: none;
 }
 
 .box-acao {
     margin: 1px 0;
-    width: 125px; 
+    width: 125px;
 }
 
 .box-acao ul {
-    list-style-type: none; 
+    list-style-type: none;
     margin: 0;
     padding: 0;
     min-height: 150px;
 }
 
 .item-acao {
-    border: 1px solid #ccc; 
+    border: 1px solid #ccc;
     margin-left: 0px;
     font-size: 12px;
     border: 2px solid #808080;

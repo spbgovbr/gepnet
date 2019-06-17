@@ -12,74 +12,74 @@ class Pessoal_AtividadeController extends Zend_Controller_Action
             ->addActionContext('edit', 'json')
             ->initContext();
     }
-    
+
     public function indexAction()
     {
         //$service = App_Service_ServiceAbstract::getService('Processo_Service_Processo');
         $service = new Pessoal_Service_Atividade();
         $form = $service->getFormPesquisar();
         $this->view->form = $form;
-        
+
     }
-    
+
     public function detalharAction()
     {
         $service = new Pessoal_Service_Atividade();
         $this->view->atividade = $service->getByIdDetalhar($this->_request->getParams());
     }
-    
+
     public function addAction()
     {
-       //$service = App_Service_ServiceAbstract::getService('Pessoal_Service_Atividade');
-       $service = new Pessoal_Service_Atividade();
-       $form = $service->getForm();
-       $success = false;
-       
-       if($this->_request->isPost()){
-           $dados = $this->_request->getPost();
-           $atividade = $service->inserir($dados);
-           if($atividade){
-               $success = true; 
-               $msg     = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
-           } else {
-               $msg = $service->getErrors();
-           }
-       }
-        
-       $this->view->form = $form;
-       if ($this->_request->isPost()) {
-           if($this->_request->isXmlHttpRequest()){
-               
-               $this->view->success = $success;
-               $this->view->msg = array(
-                   'text'    => $msg,
-                   'type'    => ($success) ? 'success' : 'error',
-                   'hide'    => true,
-                   'closer'  => true,
-                   'sticker' => false
-               );
-           } else {
-               
-               if($success){
-                   $this->_helper->_redirector->gotoSimpleAndExit('add', 'atividade', 'pessoal');
-               }
-               $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
-               $this->_helper->_redirector->gotoSimpleAndExit('add', 'atividade', 'pessoal');
-           }
-       }
+        //$service = App_Service_ServiceAbstract::getService('Pessoal_Service_Atividade');
+        $service = new Pessoal_Service_Atividade();
+        $form = $service->getForm();
+        $success = false;
+
+        if ($this->_request->isPost()) {
+            $dados = $this->_request->getPost();
+            $atividade = $service->inserir($dados);
+            if ($atividade) {
+                $success = true;
+                $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
+            } else {
+                $msg = $service->getErrors();
+            }
+        }
+
+        $this->view->form = $form;
+        if ($this->_request->isPost()) {
+            if ($this->_request->isXmlHttpRequest()) {
+
+                $this->view->success = $success;
+                $this->view->msg = array(
+                    'text' => $msg,
+                    'type' => ($success) ? 'success' : 'error',
+                    'hide' => true,
+                    'closer' => true,
+                    'sticker' => false
+                );
+            } else {
+
+                if ($success) {
+                    $this->_helper->_redirector->gotoSimpleAndExit('add', 'atividade', 'pessoal');
+                }
+                $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
+                $this->_helper->_redirector->gotoSimpleAndExit('add', 'atividade', 'pessoal');
+            }
+        }
     }
-    
+
     public function editAction()
     {
         $service = new Pessoal_Service_Atividade();
         $form = $service->getFormEditar();
         $success = false;
-        if($this->_request->isPost()){
+        if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
             $atividade = $service->update($dados);
-            if($atividade){
-                $success = true; 
-                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+            if ($atividade) {
+                $success = true;
+                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -87,20 +87,20 @@ class Pessoal_AtividadeController extends Zend_Controller_Action
             $atividade = $service->getById($this->_request->getParams());
             $form->populate($atividade->formPopulate());
         }
-        
+
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            if($this->_request->isXmlHttpRequest()){
+            if ($this->_request->isXmlHttpRequest()) {
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text'    => $msg,
-                    'type'    => ($success) ? 'success' : 'error',
-                    'hide'    => true,
-                    'closer'  => true,
+                    'text' => $msg,
+                    'type' => ($success) ? 'success' : 'error',
+                    'hide' => true,
+                    'closer' => true,
                     'sticker' => false
                 );
             } else {
-                if($success){
+                if ($success) {
                     $this->_helper->_redirector->gotoSimpleAndExit('index', 'atividade', 'pessoal');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -108,23 +108,24 @@ class Pessoal_AtividadeController extends Zend_Controller_Action
             }
         }
     }
-    
+
     public function pesquisarjsonAction()
     {
         $service = new Pessoal_Service_Atividade();
         $resultado = $service->pesquisar($this->_request->getParams(), true);
         $this->_helper->json->sendJson($resultado->toJqgrid());
     }
-    
+
     public function relatorioAction()
     {
         $service = new Pessoal_Service_Atividade();
         $form = $service->getFormRelatorio();
         $this->view->form = $form;
-     
+
     }
-    
-    public function imprimirAction(){
+
+    public function imprimirAction()
+    {
         $service = new Pessoal_Service_Atividade();
         $this->view->atividade = $service->pesquisarRelatorio($this->_request->getParams());
         $html = $this->view->render('/_partials/atividade-imprimir.phtml');
@@ -132,6 +133,6 @@ class Pessoal_AtividadeController extends Zend_Controller_Action
         $serviceImprimir->gerarPdf($html);
         exit;
     }
-    
-    
+
+
 }

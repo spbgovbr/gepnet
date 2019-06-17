@@ -18,9 +18,9 @@ class Default_Model_Mapper_Logacesso extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Logacesso $model)
     {
         $data = array(
-            "idmodulo"       => $model->idmodulo,
+            "idmodulo" => $model->idmodulo,
             "idperfilpessoa" => $model->idperfilpessoa,
-            "datacesso"      => $model->datacesso,
+            "datacesso" => $model->datacesso,
         );
         $this->getDbTable()->insert($data);
     }
@@ -34,11 +34,10 @@ class Default_Model_Mapper_Logacesso extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Logacesso $model)
     {
         $data = array(
-            "idmodulo"       => $model->idmodulo,
+            "idmodulo" => $model->idmodulo,
             "idperfilpessoa" => $model->idperfilpessoa,
-            "datacesso"      => $model->datacesso,
+            "datacesso" => $model->datacesso,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

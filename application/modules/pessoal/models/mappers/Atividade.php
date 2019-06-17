@@ -17,35 +17,35 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Pessoal_Model_Atividade $model)
     {
-        
-        try {
-                $model->idatividade = $this->maxVal('idatividade');
-                $datfimmeta = !empty($model->datfimmeta)? new Zend_Db_Expr("to_date('" . $model->datfimmeta->toString('Y-m-d') . "','YYYY-MM-DD')"): null;
-                $datfimreal = !empty($model->datfimreal)? new Zend_Db_Expr("to_date('" . $model->datfimreal->toString('Y-m-d') . "','YYYY-MM-DD')"): null;
 
-                $data = array(
-                    "idatividade"            => $model->idatividade,
-                    "nomatividade"           => $model->nomatividade,
-                    "desatividade"           => $model->desatividade,
-                    "idcadastrador"          => $model->idcadastrador,
-                    "idresponsavel"          => $model->idresponsavel,
-                    "datcadastro"            => new Zend_Db_Expr("now()"),
-                    "datatualizacao"         => new Zend_Db_Expr("now()"),
-                    "datinicio"              => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
-                    "datfimmeta"             => $datfimmeta,
-                    "datfimreal"             => $datfimreal,
-                    "flacontinua"            => $model->flacontinua,
-                    "numpercentualconcluido" => $model->numpercentualconcluido,
-                    "flacancelada"           => $model->flacancelada,
-                    "idescritorio"           => $model->idescritorio,
-                );
-                
-                $retorno = $this->getDbTable()->insert($data);
-                return $retorno;
-        } catch ( Exception $exc ) {
-        	throw $exc;
+        try {
+            $model->idatividade = $this->maxVal('idatividade');
+            $datfimmeta = !empty($model->datfimmeta) ? new Zend_Db_Expr("to_date('" . $model->datfimmeta->toString('Y-m-d') . "','YYYY-MM-DD')") : null;
+            $datfimreal = !empty($model->datfimreal) ? new Zend_Db_Expr("to_date('" . $model->datfimreal->toString('Y-m-d') . "','YYYY-MM-DD')") : null;
+
+            $data = array(
+                "idatividade" => $model->idatividade,
+                "nomatividade" => $model->nomatividade,
+                "desatividade" => $model->desatividade,
+                "idcadastrador" => $model->idcadastrador,
+                "idresponsavel" => $model->idresponsavel,
+                "datcadastro" => new Zend_Db_Expr("now()"),
+                "datatualizacao" => new Zend_Db_Expr("now()"),
+                "datinicio" => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
+                "datfimmeta" => $datfimmeta,
+                "datfimreal" => $datfimreal,
+                "flacontinua" => $model->flacontinua,
+                "numpercentualconcluido" => $model->numpercentualconcluido,
+                "flacancelada" => $model->flacancelada,
+                "idescritorio" => $model->idescritorio,
+            );
+
+            $retorno = $this->getDbTable()->insert($data);
+            return $retorno;
+        } catch (Exception $exc) {
+            throw $exc;
         }
-        
+
     }
 
     /**
@@ -56,42 +56,43 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
      */
     public function update(Pessoal_Model_Atividade $model)
     {
-        
-        $datfimmeta = !empty($model->datfimmeta)? new Zend_Db_Expr("to_date('" . $model->datfimmeta->toString('Y-m-d') . "','YYYY-MM-DD')"): null;
-        $datfimreal = !empty($model->datfimreal)? new Zend_Db_Expr("to_date('" . $model->datfimreal->toString('Y-m-d') . "','YYYY-MM-DD')"): null;
-        
+
+        $datfimmeta = !empty($model->datfimmeta) ? new Zend_Db_Expr("to_date('" . $model->datfimmeta->toString('Y-m-d') . "','YYYY-MM-DD')") : null;
+        $datfimreal = !empty($model->datfimreal) ? new Zend_Db_Expr("to_date('" . $model->datfimreal->toString('Y-m-d') . "','YYYY-MM-DD')") : null;
+
         $data = array(
-            "idatividade"            => $model->idatividade,
-            "nomatividade"           => $model->nomatividade,
-            "desatividade"           => $model->desatividade,
-            "idresponsavel"          => $model->idresponsavel,
-            "datatualizacao"         => new Zend_Db_Expr("now()"),
-            "datinicio"              => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datfimmeta"             => $datfimmeta,
-            "datfimreal"             => $datfimreal,
-            "flacontinua"            => $model->flacontinua,
+            "idatividade" => $model->idatividade,
+            "nomatividade" => $model->nomatividade,
+            "desatividade" => $model->desatividade,
+            "idresponsavel" => $model->idresponsavel,
+            "datatualizacao" => new Zend_Db_Expr("now()"),
+            "datinicio" => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datfimmeta" => $datfimmeta,
+            "datfimreal" => $datfimreal,
+            "flacontinua" => $model->flacontinua,
             "numpercentualconcluido" => $model->numpercentualconcluido,
-            "flacancelada"           => $model->flacancelada
+            "flacancelada" => $model->flacancelada,
         );
         try {
-        	$pks     = array(
-        			"idatividade" => $model->idatividade,
-        	);
-        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
-        	$retorno = $this->getDbTable()->update($data, $where);
-        	return $retorno;
-        } catch ( Exception $exc ) {
-        	throw $exc;
+            $pks = array(
+                "idatividade" => $model->idatividade,
+            );
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $retorno = $this->getDbTable()->update($data, $where);
+            return $retorno;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
-    
-     /**
+
+    /**
      *
      * @param array $params
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
-    public function pesquisar($params, $paginator = false) {
+    public function pesquisar($params, $paginator = false)
+    {
 
         $sql = "
                     SELECT 	
@@ -124,36 +125,36 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
             $nomatividade = strtoupper($params['nomatividade']);
             $sql .= " AND upper(ativ.nomatividade) LIKE '%{$nomatividade}%'";
         }
-        
+
         if (isset($params['datinicio'])) {
             $sql .= " AND ativ.datinicio = to_date('{$params['datinicio']}', 'DD/MM/YYYY')";
         }
-        
-        if(isset($params['inicioperiodo']) && isset($params['fimperiodo']) ){
+
+        if (isset($params['inicioperiodo']) && isset($params['fimperiodo'])) {
             $sql .= " AND ativ.datinicio between to_date('{$params['inicioperiodo']}', 'DD/MM/YYYY') AND to_date('{$params['fimperiodo']}', 'DD/MM/YYYY')";
-        }elseif(isset($params['inicioperiodo'])){
+        } elseif (isset($params['inicioperiodo'])) {
             $sql .= " AND ativ.datinicio >= to_date('{$params['inicioperiodo']}', 'DD/MM/YYYY')";
-        }elseif(isset($params['fimperiodo'])){
+        } elseif (isset($params['fimperiodo'])) {
             $sql .= " AND ativ.datinicio <= to_date('{$params['fimperiodo']}', 'DD/MM/YYYY')";
         }
-        
+
         if (isset($params['nomresponsavel'])) {
             $nomresponsavel = strtoupper($params['nomresponsavel']);
             $sql .= " AND upper(p2.nompessoa) LIKE '%{$nomresponsavel}%'";
         }
-        
-        if(isset($params['idescritorio'])){
+
+        if (isset($params['idescritorio'])) {
             $sql .= " AND ativ.idescritorio = {$params['idescritorio']}";
         }
-        if(isset($params['flacontinua']) && $params['flacontinua'] != 'T'){
+        if (isset($params['flacontinua']) && $params['flacontinua'] != 'T') {
             $sql .= " AND ativ.flacontinua = {$params['flacontinua']}";
         }
-        if(isset($params['concluida'])){
-            ($params['concluida'] == 1)? $sql .= " AND ativ.numpercentualconcluido = 100 " : "" ;
-            ($params['concluida'] == 2)? $sql .= " AND ativ.numpercentualconcluido < 100 " : "" ;
+        if (isset($params['concluida'])) {
+            ($params['concluida'] == 1) ? $sql .= " AND ativ.numpercentualconcluido = 100 " : "";
+            ($params['concluida'] == 2) ? $sql .= " AND ativ.numpercentualconcluido < 100 " : "";
         }
-        
-        if ( isset($params['sidx']) ) {
+
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
 
@@ -169,14 +170,14 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
     }
-    
+
 
     public function getForm()
     {
         return $this->_getForm(Pessoal_Form_Atividade);
     }
-    
-    
+
+
     public function getById($params)
     {
         $sql = "    SELECT 
@@ -206,12 +207,12 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
                         and p2.idpessoa = ativ.idresponsavel
                         and ativ.idescritorio = esc.idescritorio
                         and ativ.idatividade = :idatividade";
-        
+
         $resultado = $this->_db->fetchRow($sql, array('idatividade' => $params['idatividade']));
         $atividade = new Pessoal_Model_Atividade($resultado);
         return $atividade;
     }
-    
+
     public function getByIdDetalhar($params)
     {
         $sql = "    SELECT 
@@ -245,13 +246,14 @@ class Pessoal_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
                         and p2.idpessoa = ativ.idresponsavel
                         and ativ.idescritorio = esc.idescritorio
                         and ativ.idatividade = :idatividade";
-        
+
         $resultado = $this->_db->fetchRow($sql, array('idatividade' => $params['idatividade']));
         $atividade = new Pessoal_Model_Atividade($resultado);
         return $atividade;
     }
-    
-    public function fetchPairsPercentual(){
+
+    public function fetchPairsPercentual()
+    {
         return array(0 => '0', 25 => '25', 50 => '50', 75 => '75', 100 => '100');
     }
 

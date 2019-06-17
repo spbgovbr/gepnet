@@ -28,7 +28,7 @@ require_once 'Zend/Db/Statement/Exception.php';
 /**
  * ZendX_Db_Adapter_Firebird_Exception
  *
- * @category   ZendX 
+ * @category   ZendX
  * @package    ZendX_Db
  * @subpackage Statement
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)

@@ -59,7 +59,7 @@ class Zend_Tool_Project_Provider_Controller
         $newController = $controllersDirectory->createResource(
             'controllerFile',
             array('controllerName' => $controllerName, 'moduleName' => $moduleName)
-            );
+        );
 
         return $newController;
     }
@@ -79,7 +79,7 @@ class Zend_Tool_Project_Provider_Controller
         }
 
         $controllersDirectory = self::_getControllersDirectoryResource($profile, $moduleName);
-        return ($controllersDirectory &&($controllersDirectory->search(array('controllerFile' => array('controllerName' => $controllerName)))) instanceof Zend_Tool_Project_Profile_Resource);
+        return ($controllersDirectory && ($controllersDirectory->search(array('controllerFile' => array('controllerName' => $controllerName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
     /**
@@ -115,7 +115,7 @@ class Zend_Tool_Project_Provider_Controller
         // get request & response
         $request = $this->_registry->getRequest();
         $response = $this->_registry->getResponse();
-        
+
         // determine if testing is enabled in the project
         require_once 'Zend/Tool/Project/Provider/Test.php';
         $testingEnabled = Zend_Tool_Project_Provider_Test::isTestingEnabled($this->_loadedProfile);
@@ -125,12 +125,12 @@ class Zend_Tool_Project_Provider_Controller
             $response->appendContent(
                 'Note: PHPUnit is required in order to generate controller test stubs.',
                 array('color' => array('yellow'))
-                );
+            );
         }
-        
+
         $originalName = $name;
         $name = ucfirst($name);
-        
+
         if (self::hasResource($this->_loadedProfile, $name, $module)) {
             throw new Zend_Tool_Project_Provider_Exception('This project already has a controller named ' . $name);
         }
@@ -143,11 +143,14 @@ class Zend_Tool_Project_Provider_Controller
         try {
             $controllerResource = self::createResource($this->_loadedProfile, $name, $module);
             if ($indexActionIncluded) {
-                $indexActionResource = Zend_Tool_Project_Provider_Action::createResource($this->_loadedProfile, 'index', $name, $module);
-                $indexActionViewResource = Zend_Tool_Project_Provider_View::createResource($this->_loadedProfile, 'index', $name, $module);
+                $indexActionResource = Zend_Tool_Project_Provider_Action::createResource($this->_loadedProfile, 'index',
+                    $name, $module);
+                $indexActionViewResource = Zend_Tool_Project_Provider_View::createResource($this->_loadedProfile,
+                    'index', $name, $module);
             }
             if ($testingEnabled) {
-                $testActionResource = Zend_Tool_Project_Provider_Test::createApplicationResource($this->_loadedProfile, $name, 'index', $module);
+                $testActionResource = Zend_Tool_Project_Provider_Test::createApplicationResource($this->_loadedProfile,
+                    $name, 'index', $module);
             }
 
         } catch (Exception $e) {
@@ -160,17 +163,17 @@ class Zend_Tool_Project_Provider_Controller
             $tense = (($request->isPretend()) ? 'would be' : 'is');
             $response->appendContent(
                 'Note: The canonical controller name that ' . $tense
-                    . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
+                . ' used with other providers is "' . $name . '";'
+                . ' not "' . $originalName . '" as supplied',
                 array('color' => array('yellow'))
-                );
+            );
             unset($tense);
         }
 
         // do the creation
         if ($request->isPretend()) {
 
-            $response->appendContent('Would create a controller at '  . $controllerResource->getContext()->getPath());
+            $response->appendContent('Would create a controller at ' . $controllerResource->getContext()->getPath());
 
             if (isset($indexActionResource)) {
                 $response->appendContent('Would create an index action method in controller ' . $name);
@@ -203,7 +206,6 @@ class Zend_Tool_Project_Provider_Controller
         }
 
     }
-
 
 
 }

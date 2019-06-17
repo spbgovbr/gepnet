@@ -13,7 +13,7 @@ class Default_Model_Mapper_Documento extends App_Model_Mapper_MapperAbstract
 
     /**
      *
-     * @var Zend_Log 
+     * @var Zend_Log
      */
     protected $_log;
 
@@ -27,22 +27,22 @@ class Default_Model_Mapper_Documento extends App_Model_Mapper_MapperAbstract
     {
         try {
             $model->iddocumento = $this->maxVal('iddocumento');
-            $data               = array(
-                "iddocumento"     => $model->iddocumento,
-                "idescritorio"    => $model->idescritorio,
-                "nomdocumento"    => $model->nomdocumento,
+            $data = array(
+                "iddocumento" => $model->iddocumento,
+                "idescritorio" => $model->idescritorio,
+                "nomdocumento" => $model->nomdocumento,
                 "idtipodocumento" => $model->idtipodocumento,
 //                "descaminho"      => 'documento.pdf',
-                "descaminho"      => $model->descaminho,
-                "datdocumento"    => new Zend_Db_Expr("now()"),
-                "desobs"          => $model->desobs,
-                "idcadastrador"   => $model->idcadastrador,
-                "datcadastro"     => new Zend_Db_Expr("now()"),
-                "flaativo"        => $model->flaativo,
+                "descaminho" => $model->descaminho,
+                "datdocumento" => new Zend_Db_Expr("now()"),
+                "desobs" => $model->desobs,
+                "idcadastrador" => $model->idcadastrador,
+                "datcadastro" => new Zend_Db_Expr("now()"),
+                "flaativo" => $model->flaativo,
             );
             $id = $this->getDbTable()->insert($data);
             return $id;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->_log->err($exc);
             throw $exc;
         }
@@ -57,24 +57,24 @@ class Default_Model_Mapper_Documento extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Documento $model)
     {
         $data = array(
-            "nomdocumento"    => $model->nomdocumento,
+            "nomdocumento" => $model->nomdocumento,
             "idtipodocumento" => $model->idtipodocumento,
-           // "datcadastro"     => new Zend_Db_Expr("now()"),
-            "descaminho"      => $model->descaminho,
-            "desobs"          => $model->desobs,
-            "flaativo"        => $model->flaativo,
+            // "datcadastro"     => new Zend_Db_Expr("now()"),
+            "descaminho" => $model->descaminho,
+            "desobs" => $model->desobs,
+            "flaativo" => $model->flaativo,
         );
-        
+
         $data = array_filter($data);
         try {
             $pks = array(
                 "iddocumento" => $model->iddocumento,
             );
-            $where        = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
             //$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
-            $retorno      = $this->getDbTable()->update($data, $where);
+            $retorno = $this->getDbTable()->update($data, $where);
             return $retorno;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }
@@ -91,11 +91,11 @@ class Default_Model_Mapper_Documento extends App_Model_Mapper_MapperAbstract
             $pks = array(
                 "iddocumento" => $params['iddocumento']
             );
-            $where        = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
             //$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
-            $retorno      = $this->getDbTable()->delete($where);
+            $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }
@@ -137,65 +137,65 @@ class Default_Model_Mapper_Documento extends App_Model_Mapper_MapperAbstract
     }
 
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
     public function pesquisar($params, $paginator = false)
     {
-        // 'Carbo','Nome','Matrícula','CPF','Lotação','Operações'
+        // 'Cargo','Nome','Matrícula','CPF','Lotação','Operações'
 
-        $sql    = "SELECT 
+        $sql = "SELECT 
                     tip.nomtipodocumento,doc.nomdocumento,
                     to_char(doc.datdocumento,'DD/MM/YYYY') AS datdocumento, doc.iddocumento
                 FROM agepnet200.tb_documento doc, agepnet200.tb_tipodocumento tip
                 WHERE 
                     doc.idtipodocumento = tip.idtipodocumento";
         $params = array_filter($params);
-        if ( isset($params['nomdocumento']) ) {
+        if (isset($params['nomdocumento'])) {
             $nomdocumento = strtoupper($params['nomdocumento']);
             $sql .= " AND upper(doc.nomdocumento) LIKE '%{$nomdocumento}%'";
         }
 
-        if ( isset($params['tipodocumento']) ) {
+        if (isset($params['tipodocumento'])) {
             $sql .= " AND doc.idtipodocumento =  {$params['tipodocumento']}";
         }
 
-        if ( isset($params['data_cadastro_inicial']) && isset($params['data_cadastro_final']) ) {
+        if (isset($params['data_cadastro_inicial']) && isset($params['data_cadastro_final'])) {
             $dtci = new Zend_Date($params['data_cadastro_inicial'], 'dd/MM/yyyy');
             $dtcf = new Zend_Date($params['data_cadastro_final'], 'dd/MM/yyyy');
             /**
-             * Caso as datas inicial e final sejam iguais, adicionamos 
+             * Caso as datas inicial e final sejam iguais, adicionamos
              * um dia na data final para garantir o retorno
              */
-            if ( $dtci->equals($dtcf) ) {
+            if ($dtci->equals($dtcf)) {
                 $dtcf->addDay(1);
             }
             $sql .= " and doc.datcadastro BETWEEN TO_DATE('" . $dtci->toString('d/m/Y') . "','DD/MM/YYYY') 
                       AND TO_DATE('" . $dtcf->toString('d/m/Y') . "','DD/MM/YYYY')";
         } else {
-            if ( isset($params['data_cadastro_inicial']) ) {
+            if (isset($params['data_cadastro_inicial'])) {
                 $sql .= " and doc.datcadastro >= TO_DATE('" . $params['data_cadastro_inicial'] . "','DD/MM/YYYY')";
             }
 
-            if ( isset($params['data_cadastro_final']) ) {
+            if (isset($params['data_cadastro_final'])) {
                 $sql .= " and doc.datcadastro <= TO_DATE('" . $params['data_cadastro_final'] . "','DD/MM/YYYY')";
             }
         }
 
-        if ( isset($params['flaativo']) ) {
+        if (isset($params['flaativo'])) {
             $sql .= " and doc.flaativo = '" . $params['flaativo'] . "'";
         }
 
-        if ( isset($params['sidx']) ) {
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
         //Zend_Debug::dump($sql); exit;
 
-        if ( $paginator ) {
-            $page      = (isset($params['page'])) ? $params['page'] : 1;
-            $limit     = (isset($params['rows'])) ? $params['rows'] : 20;
+        if ($paginator) {
+            $page = (isset($params['page'])) ? $params['page'] : 1;
+            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);

@@ -1,132 +1,131 @@
-
-        <div class="row">
-            <div class="portlet portlet-cinza span4">
-                <h3>Nome</h3>
-                <div class="content">
-                    <?= $this->acordo->nomacordo; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-azul span2">
-                <h3>Num. SIAPRO</h3>
-                <div class="content">
-                    <?= $this->acordo->numsiapro; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Setor</h3>
-                <div class="content">
-                    <?= $this->acordo->nomsetor; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Palavra Chave</h3>
-                <div class="content">
-                    <?= $this->acordo->despalavrachave; ?>
-                </div>
-            </div>
+<div class="row">
+    <div class="portlet portlet-cinza span4">
+        <h3>Nome</h3>
+        <div class="content">
+            <?= $this->acordo->nomacordo; ?>
         </div>
-        <div class="row">
-            <div class="portlet portlet-cinza span2">
-                <h3>Rescindido?</h3>
-                <div class="content">
-                    <?= $this->acordo->flarescindido; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span6">
-                <h3>Instrumento Principal</h3>
-                <div class="content">
-                    <?php echo $this->acordo->instrumentoprincipal; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Prazo (dias)</h3>
-                <div class="content">
-                    <?= $this->acordo->numprazovigencia; ?>
-                </div>
-            </div>
+    </div>
+    <div class="portlet portlet-azul span2">
+        <h3>Num. SIAPRO</h3>
+        <div class="content">
+            <?= $this->acordo->numsiapro; ?>
         </div>
-        <div class="row">
-            <div class="portlet portlet-cinza span5">
-                <h3>Responsável Interno</h3>
-                <div class="content">
-                    <?php // echo $this->statusreport->datcadastro->toString('d/m/Y'); ?>
-                    <?= $this->acordo->responsavelinterno; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span5">
-                <h3>Fiscal</h3>
-                <div class="content">
-                    <?= $this->acordo->nomfiscal; ?>
-                </div>
-            </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Setor</h3>
+        <div class="content">
+            <?= $this->acordo->nomsetor; ?>
         </div>
-        <div class="row">
-            <div class="portlet portlet-cinza span5">
-                <h3>Fiscal 2</h3>
-                <div class="content">
-                    <?= $this->acordo->nomfiscal2; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span5">
-                <h3>Fiscal 3</h3>
-                <div class="content">
-                    <?= $this->acordo->nomfiscal3; ?>
-                </div>
-            </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Palavra Chave</h3>
+        <div class="content">
+            <?= $this->acordo->despalavrachave; ?>
         </div>
-        <div class="row">
-            <div class="portlet portlet-cinza span2">
-                <h3>Telefone do Responsável Interno</h3>
-                <div class="content">
-                    <?= $this->acordo->destelefoneresponsavelinterno; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Telefone do Fiscal</h3>
-                <div class="content">
-                    <?= $this->acordo->destelefonefiscal; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span6">
-                <h3>Cargo do Fiscal</h3>
-                <div class="content">
-                    <?= $this->acordo->descargofiscal; ?>
-                </div>
-            </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Rescindido?</h3>
+        <div class="content">
+            <?= $this->acordo->flarescindido; ?>
         </div>
-        <div class="row">
-            <div class="portlet portlet-cinza span2">
-                <h3>Data Assinatura</h3>
-                <div class="content">
-                    <?php //echo $this->acordo->datassinatura->toString('d/m/Y'); ?>
-                    <?= ($this->acordo->datassinatura) ? $this->acordo->datassinatura->toString('d/m/Y') : ""; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Data Publicação</h3>
-                <div class="content">
-                    <?php echo ($this->acordo->datpublicacao) ? $this->acordo->datpublicacao->toString('d/m/Y') : ""; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Data Início Vigência</h3>
-                <div class="content">
-                    <?= ($this->acordo->datiniciovigencia) ? $this->acordo->datiniciovigencia->toString('d/m/Y') : ""; ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Data Fim Vigência</h3>
-                <div class="content">
-                    <?= ($this->acordo->datfimvigencia) ? $this->acordo->datfimvigencia->toString('d/m/Y') : ""; ?>
-                </div>
-            </div>
-            <div>
-                <?php if($this->anexo){ ?>
-                    <div class="row" style="margin-left: 1px;">
-                        <div class="span5">
-                            <a target="_blank" class="btn" href="<?php echo $this->anexo;?>">VISUALIZAR PDF</a>
-                        </div>
-                    </div>
-                <?php } ?>
-            </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>Instrumento Principal</h3>
+        <div class="content">
+            <?php echo $this->acordo->instrumentoprincipal; ?>
         </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Prazo (dias)</h3>
+        <div class="content">
+            <?= $this->acordo->numprazovigencia; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span5">
+        <h3>Responsável Interno</h3>
+        <div class="content">
+            <?php // echo $this->statusreport->datcadastro->toString('d/m/Y'); ?>
+            <?= $this->acordo->responsavelinterno; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span5">
+        <h3>Fiscal</h3>
+        <div class="content">
+            <?= $this->acordo->nomfiscal; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span5">
+        <h3>Fiscal 2</h3>
+        <div class="content">
+            <?= $this->acordo->nomfiscal2; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span5">
+        <h3>Fiscal 3</h3>
+        <div class="content">
+            <?= $this->acordo->nomfiscal3; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Telefone do Responsável Interno</h3>
+        <div class="content">
+            <?= $this->acordo->destelefoneresponsavelinterno; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Telefone do Fiscal</h3>
+        <div class="content">
+            <?= $this->acordo->destelefonefiscal; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>Cargo do Fiscal</h3>
+        <div class="content">
+            <?= $this->acordo->descargofiscal; ?>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Assinatura</h3>
+        <div class="content">
+            <?php //echo $this->acordo->datassinatura->toString('d/m/Y'); ?>
+            <?= ($this->acordo->datassinatura) ? $this->acordo->datassinatura->toString('d/m/Y') : ""; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Publicação</h3>
+        <div class="content">
+            <?php echo ($this->acordo->datpublicacao) ? $this->acordo->datpublicacao->toString('d/m/Y') : ""; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Início Vigência</h3>
+        <div class="content">
+            <?= ($this->acordo->datiniciovigencia) ? $this->acordo->datiniciovigencia->toString('d/m/Y') : ""; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span2">
+        <h3>Data Fim Vigência</h3>
+        <div class="content">
+            <?= ($this->acordo->datfimvigencia) ? $this->acordo->datfimvigencia->toString('d/m/Y') : ""; ?>
+        </div>
+    </div>
+    <div>
+        <?php if ($this->anexo) { ?>
+            <div class="row" style="margin-left: 1px;">
+                <div class="span5">
+                    <a target="_blank" class="btn" href="<?php echo $this->anexo; ?>">VISUALIZAR PDF</a>
+                </div>
+            </div>
+        <?php } ?>
+    </div>
+</div>

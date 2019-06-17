@@ -8,8 +8,8 @@
 class Projeto_Model_Tep extends App_Model_ModelAbstract
 {
 
-    public $idprojeto                   = null;
-    public $desconsideracaofinal        = null;
+    public $idprojeto = null;
+    public $desconsideracaofinal = null;
 
     public function init()
     {
@@ -19,10 +19,10 @@ class Projeto_Model_Tep extends App_Model_ModelAbstract
     public function formPopulate()
     {
         return array(
-            'idprojeto'                   => $this->idprojeto,
-            'desobjetivo'                 => $this->desobjetivo,
-            'desprojeto'                  => $this->desprojeto,
-            'desconsideracaofinal'        => $this->desconsideracaofinal
+            'idprojeto' => $this->idprojeto,
+            'desobjetivo' => $this->desobjetivo,
+            'desprojeto' => $this->desprojeto,
+            'desconsideracaofinal' => $this->desconsideracaofinal
         );
     }
 }

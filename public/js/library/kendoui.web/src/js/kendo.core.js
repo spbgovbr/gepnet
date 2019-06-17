@@ -10,7 +10,7 @@
 */
 
 
-(function($, evil, undefined) {
+(function ($, evil, undefined) {
     var kendo = window.kendo = window.kendo || {},
         extend = $.extend,
         each = $.each,
@@ -40,10 +40,12 @@
 
     kendo.version = "2013.2.716";
 
-    function Class() {}
+    function Class() {
+    }
 
-    Class.extend = function(proto) {
-        var base = function() {},
+    Class.extend = function (proto) {
+        var base = function () {
+            },
             member,
             that = this,
             subclass = proto && proto.init ? proto.init : function () {
@@ -69,20 +71,20 @@
         return subclass;
     };
 
-    var preventDefault = function() {
+    var preventDefault = function () {
         this._defaultPrevented = true;
     };
 
-    var isDefaultPrevented = function() {
+    var isDefaultPrevented = function () {
         return this._defaultPrevented === true;
     };
 
     var Observable = Class.extend({
-        init: function() {
+        init: function () {
             this._events = {};
         },
 
-        bind: function(eventName, handlers, one) {
+        bind: function (eventName, handlers, one) {
             var that = this,
                 idx,
                 eventNames = typeof eventName === STRING ? [eventName] : eventName,
@@ -107,7 +109,7 @@
                 if (handler) {
                     if (one) {
                         original = handler;
-                        handler = function() {
+                        handler = function () {
                             that.unbind(eventName, handler);
                             original.apply(that, arguments);
                         };
@@ -120,11 +122,11 @@
             return that;
         },
 
-        one: function(eventNames, handlers) {
+        one: function (eventNames, handlers) {
             return this.bind(eventNames, handlers, true);
         },
 
-        first: function(eventName, handlers) {
+        first: function (eventName, handlers) {
             var that = this,
                 idx,
                 eventNames = typeof eventName === STRING ? [eventName] : eventName,
@@ -147,7 +149,7 @@
             return that;
         },
 
-        trigger: function(eventName, e) {
+        trigger: function (eventName, e) {
             var that = this,
                 events = that._events[eventName],
                 idx,
@@ -176,7 +178,7 @@
             return false;
         },
 
-        unbind: function(eventName, handler) {
+        unbind: function (eventName, handler) {
             var that = this,
                 events = that._events[eventName],
                 idx;
@@ -200,27 +202,27 @@
     });
 
 
-     function compilePart(part, stringPart) {
-         if (stringPart) {
-             return "'" +
-                 part.split("'").join("\\'")
-                     .split('\\"').join('\\\\\\"')
-                     .replace(/\n/g, "\\n")
-                     .replace(/\r/g, "\\r")
-                     .replace(/\t/g, "\\t") + "'";
-         } else {
-             var first = part.charAt(0),
-                 rest = part.substring(1);
+    function compilePart(part, stringPart) {
+        if (stringPart) {
+            return "'" +
+                part.split("'").join("\\'")
+                    .split('\\"').join('\\\\\\"')
+                    .replace(/\n/g, "\\n")
+                    .replace(/\r/g, "\\r")
+                    .replace(/\t/g, "\\t") + "'";
+        } else {
+            var first = part.charAt(0),
+                rest = part.substring(1);
 
-             if (first === "=") {
-                 return "+(" + rest + ")+";
-             } else if (first === ":") {
-                 return "+e(" + rest + ")+";
-             } else {
-                 return ";" + part + ";o+=";
-             }
-         }
-     }
+            if (first === "=") {
+                return "+(" + rest + ")+";
+            } else if (first === ":") {
+                return "+e(" + rest + ")+";
+            } else {
+                return ";" + part + ";o+=";
+            }
+        }
+    }
 
     var argumentNameRegExp = /^\w+/,
         encodeRegExp = /\$\{([^}]*)\}/g,
@@ -233,7 +235,7 @@
     Template = {
         paramName: "data", // name of the parameter of the generated template
         useWithBlock: true, // whether to wrap the template in a with() block
-        render: function(template, data) {
+        render: function (template, data) {
             var idx,
                 length,
                 html = "";
@@ -244,7 +246,7 @@
 
             return html;
         },
-        compile: function(template, options) {
+        compile: function (template, options) {
             var settings = extend({}, this, options),
                 paramName = settings.paramName,
                 argumentName = paramName.match(argumentNameRegExp)[0],
@@ -257,8 +259,8 @@
             if (isFunction(template)) {
                 if (template.length === 2) {
                     //looks like jQuery.template
-                    return function(d) {
-                        return template($, { data: d }).join("");
+                    return function (d) {
+                        return template($, {data: d}).join("");
                     };
                 }
                 return template;
@@ -275,7 +277,7 @@
                 .replace(escapedSharpRegExp, "__SHARP__")
                 .split("#");
 
-            for (idx = 0; idx < parts.length; idx ++) {
+            for (idx = 0; idx < parts.length; idx++) {
                 functionBody += compilePart(parts[idx], idx % 2 === 0);
             }
 
@@ -289,419 +291,557 @@
                 fn = new Function(argumentName, functionBody);
                 fn._slotCount = Math.floor(parts.length / 2);
                 return fn;
-            } catch(e) {
+            } catch (e) {
                 throw new Error(kendo.format("Invalid template:'{0}' Generated code:'{1}'", template, functionBody));
             }
         }
     };
 
-function pad(number, digits, end) {
-    number = number + "";
-    digits = digits || 2;
-    end = digits - number.length;
+    function pad(number, digits, end) {
+        number = number + "";
+        digits = digits || 2;
+        end = digits - number.length;
 
-    if (end) {
-        return zeros[digits].substring(0, end) + number;
+        if (end) {
+            return zeros[digits].substring(0, end) + number;
+        }
+
+        return number;
     }
-
-    return number;
-}
 
     //JSON stringify
-(function() {
-    var escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
-        gap,
-        indent,
-        meta = {
-            "\b": "\\b",
-            "\t": "\\t",
-            "\n": "\\n",
-            "\f": "\\f",
-            "\r": "\\r",
-            "\"" : '\\"',
-            "\\": "\\\\"
-        },
-        rep,
-        toString = {}.toString;
+    (function () {
+        var escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
+            gap,
+            indent,
+            meta = {
+                "\b": "\\b",
+                "\t": "\\t",
+                "\n": "\\n",
+                "\f": "\\f",
+                "\r": "\\r",
+                "\"": '\\"',
+                "\\": "\\\\"
+            },
+            rep,
+            toString = {}.toString;
 
-    if (typeof Date.prototype.toJSON !== FUNCTION) {
+        if (typeof Date.prototype.toJSON !== FUNCTION) {
 
-        Date.prototype.toJSON = function () {
-            var that = this;
+            Date.prototype.toJSON = function () {
+                var that = this;
 
-            return isFinite(that.valueOf()) ?
-                pad(that.getUTCFullYear(), 4) + "-" +
-                pad(that.getUTCMonth() + 1)   + "-" +
-                pad(that.getUTCDate())        + "T" +
-                pad(that.getUTCHours())       + ":" +
-                pad(that.getUTCMinutes())     + ":" +
-                pad(that.getUTCSeconds())     + "Z" : null;
-        };
+                return isFinite(that.valueOf()) ?
+                    pad(that.getUTCFullYear(), 4) + "-" +
+                    pad(that.getUTCMonth() + 1) + "-" +
+                    pad(that.getUTCDate()) + "T" +
+                    pad(that.getUTCHours()) + ":" +
+                    pad(that.getUTCMinutes()) + ":" +
+                    pad(that.getUTCSeconds()) + "Z" : null;
+            };
 
-        String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function () {
-            return this.valueOf();
-        };
-    }
-
-    function quote(string) {
-        escapable.lastIndex = 0;
-        return escapable.test(string) ? "\"" + string.replace(escapable, function (a) {
-            var c = meta[a];
-            return typeof c === STRING ? c :
-                "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
-        }) + "\"" : "\"" + string + "\"";
-    }
-
-    function str(key, holder) {
-        var i,
-            k,
-            v,
-            length,
-            mind = gap,
-            partial,
-            value = holder[key],
-            type;
-
-        if (value && typeof value === OBJECT && typeof value.toJSON === FUNCTION) {
-            value = value.toJSON(key);
+            String.prototype.toJSON = Number.prototype.toJSON = Boolean.prototype.toJSON = function () {
+                return this.valueOf();
+            };
         }
 
-        if (typeof rep === FUNCTION) {
-            value = rep.call(holder, key, value);
+        function quote(string) {
+            escapable.lastIndex = 0;
+            return escapable.test(string) ? "\"" + string.replace(escapable, function (a) {
+                var c = meta[a];
+                return typeof c === STRING ? c :
+                    "\\u" + ("0000" + a.charCodeAt(0).toString(16)).slice(-4);
+            }) + "\"" : "\"" + string + "\"";
         }
 
-        type = typeof value;
-        if (type === STRING) {
-            return quote(value);
-        } else if (type === NUMBER) {
-            return isFinite(value) ? String(value) : NULL;
-        } else if (type === BOOLEAN || type === NULL) {
-            return String(value);
-        } else if (type === OBJECT) {
-            if (!value) {
-                return NULL;
+        function str(key, holder) {
+            var i,
+                k,
+                v,
+                length,
+                mind = gap,
+                partial,
+                value = holder[key],
+                type;
+
+            if (value && typeof value === OBJECT && typeof value.toJSON === FUNCTION) {
+                value = value.toJSON(key);
             }
-            gap += indent;
-            partial = [];
-            if (toString.apply(value) === "[object Array]") {
-                length = value.length;
-                for (i = 0; i < length; i++) {
-                    partial[i] = str(i, value) || NULL;
+
+            if (typeof rep === FUNCTION) {
+                value = rep.call(holder, key, value);
+            }
+
+            type = typeof value;
+            if (type === STRING) {
+                return quote(value);
+            } else if (type === NUMBER) {
+                return isFinite(value) ? String(value) : NULL;
+            } else if (type === BOOLEAN || type === NULL) {
+                return String(value);
+            } else if (type === OBJECT) {
+                if (!value) {
+                    return NULL;
                 }
-                v = partial.length === 0 ? "[]" : gap ?
-                    "[\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "]" :
-                    "[" + partial.join(",") + "]";
+                gap += indent;
+                partial = [];
+                if (toString.apply(value) === "[object Array]") {
+                    length = value.length;
+                    for (i = 0; i < length; i++) {
+                        partial[i] = str(i, value) || NULL;
+                    }
+                    v = partial.length === 0 ? "[]" : gap ?
+                        "[\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "]" :
+                        "[" + partial.join(",") + "]";
+                    gap = mind;
+                    return v;
+                }
+                if (rep && typeof rep === OBJECT) {
+                    length = rep.length;
+                    for (i = 0; i < length; i++) {
+                        if (typeof rep[i] === STRING) {
+                            k = rep[i];
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                } else {
+                    for (k in value) {
+                        if (Object.hasOwnProperty.call(value, k)) {
+                            v = str(k, value);
+                            if (v) {
+                                partial.push(quote(k) + (gap ? ": " : ":") + v);
+                            }
+                        }
+                    }
+                }
+
+                v = partial.length === 0 ? "{}" : gap ?
+                    "{\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "}" :
+                    "{" + partial.join(",") + "}";
                 gap = mind;
                 return v;
             }
-            if (rep && typeof rep === OBJECT) {
-                length = rep.length;
-                for (i = 0; i < length; i++) {
-                    if (typeof rep[i] === STRING) {
-                        k = rep[i];
-                        v = str(k, value);
-                        if (v) {
-                            partial.push(quote(k) + (gap ? ": " : ":") + v);
-                        }
-                    }
-                }
-            } else {
-                for (k in value) {
-                    if (Object.hasOwnProperty.call(value, k)) {
-                        v = str(k, value);
-                        if (v) {
-                            partial.push(quote(k) + (gap ? ": " : ":") + v);
-                        }
-                    }
-                }
-            }
-
-            v = partial.length === 0 ? "{}" : gap ?
-                "{\n" + gap + partial.join(",\n" + gap) + "\n" + mind + "}" :
-                "{" + partial.join(",") + "}";
-            gap = mind;
-            return v;
         }
-    }
 
-    if (typeof JSON.stringify !== FUNCTION) {
-        JSON.stringify = function (value, replacer, space) {
-            var i;
-            gap = "";
-            indent = "";
+        if (typeof JSON.stringify !== FUNCTION) {
+            JSON.stringify = function (value, replacer, space) {
+                var i;
+                gap = "";
+                indent = "";
 
-            if (typeof space === NUMBER) {
-                for (i = 0; i < space; i += 1) {
-                    indent += " ";
+                if (typeof space === NUMBER) {
+                    for (i = 0; i < space; i += 1) {
+                        indent += " ";
+                    }
+
+                } else if (typeof space === STRING) {
+                    indent = space;
                 }
 
-            } else if (typeof space === STRING) {
-                indent = space;
-            }
+                rep = replacer;
+                if (replacer && typeof replacer !== FUNCTION && (typeof replacer !== OBJECT || typeof replacer.length !== NUMBER)) {
+                    throw new Error("JSON.stringify");
+                }
 
-            rep = replacer;
-            if (replacer && typeof replacer !== FUNCTION && (typeof replacer !== OBJECT || typeof replacer.length !== NUMBER)) {
-                throw new Error("JSON.stringify");
-            }
-
-            return str("", {"": value});
-        };
-    }
-})();
+                return str("", {"": value});
+            };
+        }
+    })();
 
 // Date and Number formatting
-(function() {
-    var dateFormatRegExp = /dddd|ddd|dd|d|MMMM|MMM|MM|M|yyyy|yy|HH|H|hh|h|mm|m|fff|ff|f|tt|ss|s|"[^"]*"|'[^']*'/g,
-        standardFormatRegExp =  /^(n|c|p|e)(\d*)$/i,
-        literalRegExp = /(\\.)|(['][^']*[']?)|(["][^"]*["]?)/g,
-        commaRegExp = /\,/g,
-        EMPTY = "",
-        POINT = ".",
-        COMMA = ",",
-        SHARP = "#",
-        ZERO = "0",
-        PLACEHOLDER = "??",
-        EN = "en-US",
-        objectToString = {}.toString;
+    (function () {
+        var dateFormatRegExp = /dddd|ddd|dd|d|MMMM|MMM|MM|M|yyyy|yy|HH|H|hh|h|mm|m|fff|ff|f|tt|ss|s|"[^"]*"|'[^']*'/g,
+            standardFormatRegExp = /^(n|c|p|e)(\d*)$/i,
+            literalRegExp = /(\\.)|(['][^']*[']?)|(["][^"]*["]?)/g,
+            commaRegExp = /\,/g,
+            EMPTY = "",
+            POINT = ".",
+            COMMA = ",",
+            SHARP = "#",
+            ZERO = "0",
+            PLACEHOLDER = "??",
+            EN = "en-US",
+            objectToString = {}.toString;
 
-    //cultures
-    kendo.cultures = {"en-US" : {
-        name: EN,
-        numberFormat: {
-            pattern: ["-n"],
-            decimals: 2,
-            ",": ",",
-            ".": ".",
-            groupSize: [3],
-            percent: {
-                pattern: ["-n %", "n %"],
-                decimals: 2,
-                ",": ",",
-                ".": ".",
-                groupSize: [3],
-                symbol: "%"
-            },
-            currency: {
-                pattern: ["($n)", "$n"],
-                decimals: 2,
-                ",": ",",
-                ".": ".",
-                groupSize: [3],
-                symbol: "$"
-            }
-        },
-        calendars: {
-            standard: {
-                days: {
-                    names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                    namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                    namesShort: [ "Su", "Mo", "Tu", "We", "Th", "Fr", "Sa" ]
+        //cultures
+        kendo.cultures = {
+            "en-US": {
+                name: EN,
+                numberFormat: {
+                    pattern: ["-n"],
+                    decimals: 2,
+                    ",": ",",
+                    ".": ".",
+                    groupSize: [3],
+                    percent: {
+                        pattern: ["-n %", "n %"],
+                        decimals: 2,
+                        ",": ",",
+                        ".": ".",
+                        groupSize: [3],
+                        symbol: "%"
+                    },
+                    currency: {
+                        pattern: ["($n)", "$n"],
+                        decimals: 2,
+                        ",": ",",
+                        ".": ".",
+                        groupSize: [3],
+                        symbol: "$"
+                    }
                 },
-                months: {
-                    names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-                },
-                AM: [ "AM", "am", "AM" ],
-                PM: [ "PM", "pm", "PM" ],
-                patterns: {
-                    d: "M/d/yyyy",
-                    D: "dddd, MMMM dd, yyyy",
-                    F: "dddd, MMMM dd, yyyy h:mm:ss tt",
-                    g: "M/d/yyyy h:mm tt",
-                    G: "M/d/yyyy h:mm:ss tt",
-                    m: "MMMM dd",
-                    M: "MMMM dd",
-                    s: "yyyy'-'MM'-'ddTHH':'mm':'ss",
-                    t: "h:mm tt",
-                    T: "h:mm:ss tt",
-                    u: "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
-                    y: "MMMM, yyyy",
-                    Y: "MMMM, yyyy"
-                },
-                "/": "/",
-                ":": ":",
-                firstDay: 0,
-                twoDigitYearMax: 2029
+                calendars: {
+                    standard: {
+                        days: {
+                            names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                            namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                            namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+                        },
+                        months: {
+                            names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                            namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                        },
+                        AM: ["AM", "am", "AM"],
+                        PM: ["PM", "pm", "PM"],
+                        patterns: {
+                            d: "M/d/yyyy",
+                            D: "dddd, MMMM dd, yyyy",
+                            F: "dddd, MMMM dd, yyyy h:mm:ss tt",
+                            g: "M/d/yyyy h:mm tt",
+                            G: "M/d/yyyy h:mm:ss tt",
+                            m: "MMMM dd",
+                            M: "MMMM dd",
+                            s: "yyyy'-'MM'-'ddTHH':'mm':'ss",
+                            t: "h:mm tt",
+                            T: "h:mm:ss tt",
+                            u: "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
+                            y: "MMMM, yyyy",
+                            Y: "MMMM, yyyy"
+                        },
+                        "/": "/",
+                        ":": ":",
+                        firstDay: 0,
+                        twoDigitYearMax: 2029
+                    }
+                }
             }
-        }
-    }};
+        };
 
 
-     function findCulture(culture) {
-        if (culture) {
-            if (culture.numberFormat) {
-                return culture;
-            }
+        function findCulture(culture) {
+            if (culture) {
+                if (culture.numberFormat) {
+                    return culture;
+                }
 
-            if (typeof culture === STRING) {
-                var cultures = kendo.cultures;
-                return cultures[culture] || cultures[culture.split("-")[0]] || null;
+                if (typeof culture === STRING) {
+                    var cultures = kendo.cultures;
+                    return cultures[culture] || cultures[culture.split("-")[0]] || null;
+                }
+
+                return null;
             }
 
             return null;
         }
 
-        return null;
-    }
-
-    function getCulture(culture) {
-        if (culture) {
-            culture = findCulture(culture);
-        }
-
-        return culture || kendo.cultures.current;
-    }
-
-    function expandNumberFormat(numberFormat) {
-        numberFormat.groupSizes = numberFormat.groupSize;
-        numberFormat.percent.groupSizes = numberFormat.percent.groupSize;
-        numberFormat.currency.groupSizes = numberFormat.currency.groupSize;
-    }
-
-    kendo.culture = function(cultureName) {
-        var cultures = kendo.cultures, culture;
-
-        if (cultureName !== undefined) {
-            culture = findCulture(cultureName) || cultures[EN];
-            culture.calendar = culture.calendars.standard;
-            cultures.current = culture;
-
-            if (globalize) {
-                expandNumberFormat(culture.numberFormat);
+        function getCulture(culture) {
+            if (culture) {
+                culture = findCulture(culture);
             }
 
-        } else {
-            return cultures.current;
+            return culture || kendo.cultures.current;
         }
-    };
 
-    kendo.findCulture = findCulture;
-    kendo.getCulture = getCulture;
+        function expandNumberFormat(numberFormat) {
+            numberFormat.groupSizes = numberFormat.groupSize;
+            numberFormat.percent.groupSizes = numberFormat.percent.groupSize;
+            numberFormat.currency.groupSizes = numberFormat.currency.groupSize;
+        }
 
-    //set current culture to en-US.
-    kendo.culture(EN);
+        kendo.culture = function (cultureName) {
+            var cultures = kendo.cultures, culture;
 
-    function formatDate(date, format, culture) {
-        culture = getCulture(culture);
+            if (cultureName !== undefined) {
+                culture = findCulture(cultureName) || cultures[EN];
+                culture.calendar = culture.calendars.standard;
+                cultures.current = culture;
 
-        var calendar = culture.calendars.standard,
-            days = calendar.days,
-            months = calendar.months;
+                if (globalize) {
+                    expandNumberFormat(culture.numberFormat);
+                }
 
-        format = calendar.patterns[format] || format;
+            } else {
+                return cultures.current;
+            }
+        };
 
-        return format.replace(dateFormatRegExp, function (match) {
-            var result;
+        kendo.findCulture = findCulture;
+        kendo.getCulture = getCulture;
 
-            if (match === "d") {
-                result = date.getDate();
-            } else if (match === "dd") {
-                result = pad(date.getDate());
-            } else if (match === "ddd") {
-                result = days.namesAbbr[date.getDay()];
-            } else if (match === "dddd") {
-                result = days.names[date.getDay()];
-            } else if (match === "M") {
-                result = date.getMonth() + 1;
-            } else if (match === "MM") {
-                result = pad(date.getMonth() + 1);
-            } else if (match === "MMM") {
-                result = months.namesAbbr[date.getMonth()];
-            } else if (match === "MMMM") {
-                result = months.names[date.getMonth()];
-            } else if (match === "yy") {
-                result = pad(date.getFullYear() % 100);
-            } else if (match === "yyyy") {
-                result = pad(date.getFullYear(), 4);
-            } else if (match === "h" ) {
-                result = date.getHours() % 12 || 12;
-            } else if (match === "hh") {
-                result = pad(date.getHours() % 12 || 12);
-            } else if (match === "H") {
-                result = date.getHours();
-            } else if (match === "HH") {
-                result = pad(date.getHours());
-            } else if (match === "m") {
-                result = date.getMinutes();
-            } else if (match === "mm") {
-                result = pad(date.getMinutes());
-            } else if (match === "s") {
-                result = date.getSeconds();
-            } else if (match === "ss") {
-                result = pad(date.getSeconds());
-            } else if (match === "f") {
-                result = math.floor(date.getMilliseconds() / 100);
-            } else if (match === "ff") {
-                result = math.floor(date.getMilliseconds() / 10);
-            } else if (match === "fff") {
-                result = date.getMilliseconds();
-            } else if (match === "tt") {
-                result = date.getHours() < 12 ? calendar.AM[0] : calendar.PM[0];
+        //set current culture to en-US.
+        kendo.culture(EN);
+
+        function formatDate(date, format, culture) {
+            culture = getCulture(culture);
+
+            var calendar = culture.calendars.standard,
+                days = calendar.days,
+                months = calendar.months;
+
+            format = calendar.patterns[format] || format;
+
+            return format.replace(dateFormatRegExp, function (match) {
+                var result;
+
+                if (match === "d") {
+                    result = date.getDate();
+                } else if (match === "dd") {
+                    result = pad(date.getDate());
+                } else if (match === "ddd") {
+                    result = days.namesAbbr[date.getDay()];
+                } else if (match === "dddd") {
+                    result = days.names[date.getDay()];
+                } else if (match === "M") {
+                    result = date.getMonth() + 1;
+                } else if (match === "MM") {
+                    result = pad(date.getMonth() + 1);
+                } else if (match === "MMM") {
+                    result = months.namesAbbr[date.getMonth()];
+                } else if (match === "MMMM") {
+                    result = months.names[date.getMonth()];
+                } else if (match === "yy") {
+                    result = pad(date.getFullYear() % 100);
+                } else if (match === "yyyy") {
+                    result = pad(date.getFullYear(), 4);
+                } else if (match === "h") {
+                    result = date.getHours() % 12 || 12;
+                } else if (match === "hh") {
+                    result = pad(date.getHours() % 12 || 12);
+                } else if (match === "H") {
+                    result = date.getHours();
+                } else if (match === "HH") {
+                    result = pad(date.getHours());
+                } else if (match === "m") {
+                    result = date.getMinutes();
+                } else if (match === "mm") {
+                    result = pad(date.getMinutes());
+                } else if (match === "s") {
+                    result = date.getSeconds();
+                } else if (match === "ss") {
+                    result = pad(date.getSeconds());
+                } else if (match === "f") {
+                    result = math.floor(date.getMilliseconds() / 100);
+                } else if (match === "ff") {
+                    result = math.floor(date.getMilliseconds() / 10);
+                } else if (match === "fff") {
+                    result = date.getMilliseconds();
+                } else if (match === "tt") {
+                    result = date.getHours() < 12 ? calendar.AM[0] : calendar.PM[0];
+                }
+
+                return result !== undefined ? result : match.slice(1, match.length - 1);
+            });
+        }
+
+        //number formatting
+        function formatNumber(number, format, culture) {
+            culture = getCulture(culture);
+
+            var numberFormat = culture.numberFormat,
+                groupSize = numberFormat.groupSize[0],
+                groupSeparator = numberFormat[COMMA],
+                decimal = numberFormat[POINT],
+                precision = numberFormat.decimals,
+                pattern = numberFormat.pattern[0],
+                literals = [],
+                symbol,
+                isCurrency, isPercent,
+                customPrecision,
+                formatAndPrecision,
+                negative = number < 0,
+                integer,
+                fraction,
+                integerLength,
+                fractionLength,
+                replacement = EMPTY,
+                value = EMPTY,
+                idx,
+                length,
+                ch,
+                hasGroup,
+                hasNegativeFormat,
+                decimalIndex,
+                sharpIndex,
+                zeroIndex,
+                hasZero, hasSharp,
+                percentIndex,
+                currencyIndex,
+                startZeroIndex,
+                start = -1,
+                end;
+
+            //return empty string if no number
+            if (number === undefined) {
+                return EMPTY;
             }
 
-            return result !== undefined ? result : match.slice(1, match.length - 1);
-        });
-    }
+            if (!isFinite(number)) {
+                return number;
+            }
 
-    //number formatting
-    function formatNumber(number, format, culture) {
-        culture = getCulture(culture);
+            //if no format then return number.toString() or number.toLocaleString() if culture.name is not defined
+            if (!format) {
+                return culture.name.length ? number.toLocaleString() : number.toString();
+            }
 
-        var numberFormat = culture.numberFormat,
-            groupSize = numberFormat.groupSize[0],
-            groupSeparator = numberFormat[COMMA],
-            decimal = numberFormat[POINT],
-            precision = numberFormat.decimals,
-            pattern = numberFormat.pattern[0],
-            literals = [],
-            symbol,
-            isCurrency, isPercent,
-            customPrecision,
-            formatAndPrecision,
-            negative = number < 0,
-            integer,
-            fraction,
-            integerLength,
-            fractionLength,
-            replacement = EMPTY,
-            value = EMPTY,
-            idx,
-            length,
-            ch,
-            hasGroup,
-            hasNegativeFormat,
-            decimalIndex,
-            sharpIndex,
-            zeroIndex,
-            hasZero, hasSharp,
-            percentIndex,
-            currencyIndex,
-            startZeroIndex,
-            start = -1,
-            end;
+            formatAndPrecision = standardFormatRegExp.exec(format);
 
-        //return empty string if no number
-        if (number === undefined) {
-            return EMPTY;
-        }
+            // standard formatting
+            if (formatAndPrecision) {
+                format = formatAndPrecision[1].toLowerCase();
 
-        if (!isFinite(number)) {
-            return number;
-        }
+                isCurrency = format === "c";
+                isPercent = format === "p";
 
-        //if no format then return number.toString() or number.toLocaleString() if culture.name is not defined
-        if (!format) {
-            return culture.name.length ? number.toLocaleString() : number.toString();
-        }
+                if (isCurrency || isPercent) {
+                    //get specific number format information if format is currency or percent
+                    numberFormat = isCurrency ? numberFormat.currency : numberFormat.percent;
+                    groupSize = numberFormat.groupSize[0];
+                    groupSeparator = numberFormat[COMMA];
+                    decimal = numberFormat[POINT];
+                    precision = numberFormat.decimals;
+                    symbol = numberFormat.symbol;
+                    pattern = numberFormat.pattern[negative ? 0 : 1];
+                }
 
-        formatAndPrecision = standardFormatRegExp.exec(format);
+                customPrecision = formatAndPrecision[2];
 
-        // standard formatting
-        if (formatAndPrecision) {
-            format = formatAndPrecision[1].toLowerCase();
+                if (customPrecision) {
+                    precision = +customPrecision;
+                }
 
-            isCurrency = format === "c";
-            isPercent = format === "p";
+                //return number in exponential format
+                if (format === "e") {
+                    return customPrecision ? number.toExponential(precision) : number.toExponential(); // toExponential() and toExponential(undefined) differ in FF #653438.
+                }
+
+                // multiply if format is percent
+                if (isPercent) {
+                    number *= 100;
+                }
+
+                number = round(number, precision);
+                number = number.split(POINT);
+
+                integer = number[0];
+                fraction = number[1];
+
+                //exclude "-" if number is negative.
+                if (negative) {
+                    integer = integer.substring(1);
+                }
+
+                value = integer;
+                integerLength = integer.length;
+
+                //add group separator to the number if it is longer enough
+                if (integerLength >= groupSize) {
+                    value = EMPTY;
+                    for (idx = 0; idx < integerLength; idx++) {
+                        if (idx > 0 && (integerLength - idx) % groupSize === 0) {
+                            value += groupSeparator;
+                        }
+                        value += integer.charAt(idx);
+                    }
+                }
+
+                if (fraction) {
+                    value += decimal + fraction;
+                }
+
+                if (format === "n" && !negative) {
+                    return value;
+                }
+
+                number = EMPTY;
+
+                for (idx = 0, length = pattern.length; idx < length; idx++) {
+                    ch = pattern.charAt(idx);
+
+                    if (ch === "n") {
+                        number += value;
+                    } else if (ch === "$" || ch === "%") {
+                        number += symbol;
+                    } else {
+                        number += ch;
+                    }
+                }
+
+                return number;
+            }
+
+            //custom formatting
+            //
+            //separate format by sections.
+
+            //make number positive
+            if (negative) {
+                number = -number;
+            }
+
+            /*if (format.indexOf("'") > -1 || format.indexOf("\"") > -1) {
+                format = format.replace(literalRegExp, function(match) {
+                    literals.push(match.substring(1, match.length - 1));
+                    return PLACEHOLDER;
+                });
+            }*/
+
+            if (format.indexOf("'") > -1 || format.indexOf("\"") > -1 || format.indexOf("\\") > -1) {
+                format = format.replace(literalRegExp, function (match) {
+                    var quoteChar = match.charAt(0).replace("\\", ""),
+                        literal = match.slice(1).replace(quoteChar, "");
+
+                    literals.push(literal);
+
+                    return PLACEHOLDER;
+                });
+            }
+
+            format = format.split(";");
+            if (negative && format[1]) {
+                //get negative format
+                format = format[1];
+                hasNegativeFormat = true;
+            } else if (number === 0) {
+                //format for zeros
+                format = format[2] || format[0];
+                if (format.indexOf(SHARP) == -1 && format.indexOf(ZERO) == -1) {
+                    //return format if it is string constant.
+                    return format;
+                }
+            } else {
+                format = format[0];
+            }
+
+            percentIndex = format.indexOf("%");
+            currencyIndex = format.indexOf("$");
+
+            isPercent = percentIndex != -1;
+            isCurrency = currencyIndex != -1;
+
+            //multiply number if the format has percent
+            if (isPercent) {
+                number *= 100;
+            }
+
+            if (isCurrency && format[currencyIndex - 1] === "\\") {
+                format = format.split("\\").join("");
+                isCurrency = false;
+            }
 
             if (isCurrency || isPercent) {
                 //get specific number format information if format is currency or percent
@@ -711,850 +851,714 @@ function pad(number, digits, end) {
                 decimal = numberFormat[POINT];
                 precision = numberFormat.decimals;
                 symbol = numberFormat.symbol;
-                pattern = numberFormat.pattern[negative ? 0 : 1];
             }
 
-            customPrecision = formatAndPrecision[2];
-
-            if (customPrecision) {
-                precision = +customPrecision;
+            hasGroup = format.indexOf(COMMA) > -1;
+            if (hasGroup) {
+                format = format.replace(commaRegExp, EMPTY);
             }
 
-            //return number in exponential format
-            if (format === "e") {
-                return customPrecision ? number.toExponential(precision) : number.toExponential(); // toExponential() and toExponential(undefined) differ in FF #653438.
-            }
+            decimalIndex = format.indexOf(POINT);
+            length = format.length;
 
-            // multiply if format is percent
-            if (isPercent) {
-                number *= 100;
-            }
-
-            number = round(number, precision);
-            number = number.split(POINT);
-
-            integer = number[0];
-            fraction = number[1];
-
-            //exclude "-" if number is negative.
-            if (negative) {
-                integer = integer.substring(1);
-            }
-
-            value = integer;
-            integerLength = integer.length;
-
-            //add group separator to the number if it is longer enough
-            if (integerLength >= groupSize) {
-                value = EMPTY;
-                for (idx = 0; idx < integerLength; idx++) {
-                    if (idx > 0 && (integerLength - idx) % groupSize === 0) {
-                        value += groupSeparator;
-                    }
-                    value += integer.charAt(idx);
-                }
-            }
-
-            if (fraction) {
-                value += decimal + fraction;
-            }
-
-            if (format === "n" && !negative) {
-                return value;
-            }
-
-            number = EMPTY;
-
-            for (idx = 0, length = pattern.length; idx < length; idx++) {
-                ch = pattern.charAt(idx);
-
-                if (ch === "n") {
-                    number += value;
-                } else if (ch === "$" || ch === "%") {
-                    number += symbol;
+            if (decimalIndex != -1) {
+                fraction = number.toString().split("e");
+                if (fraction[1]) {
+                    fraction = round(number, Math.abs(fraction[1]));
                 } else {
-                    number += ch;
+                    fraction = fraction[0];
+                }
+                fraction = fraction.split(POINT)[1] || EMPTY;
+                zeroIndex = format.lastIndexOf(ZERO) - decimalIndex;
+                sharpIndex = format.lastIndexOf(SHARP) - decimalIndex;
+                hasZero = zeroIndex > -1;
+                hasSharp = sharpIndex > -1;
+                idx = fraction.length;
+
+                if (!hasZero && !hasSharp) {
+                    format = format.substring(0, decimalIndex) + format.substring(decimalIndex + 1);
+                    length = format.length;
+                    decimalIndex = -1;
+                    idx = 0;
+                }
+                if (hasZero && zeroIndex > sharpIndex) {
+                    idx = zeroIndex;
+                } else if (sharpIndex > zeroIndex) {
+                    if (hasSharp && idx > sharpIndex) {
+                        idx = sharpIndex;
+                    } else if (hasZero && idx < zeroIndex) {
+                        idx = zeroIndex;
+                    }
+                }
+
+                if (idx > -1) {
+                    number = round(number, idx);
+                }
+            } else {
+                number = round(number);
+            }
+
+            sharpIndex = format.indexOf(SHARP);
+            startZeroIndex = zeroIndex = format.indexOf(ZERO);
+
+            //define the index of the first digit placeholder
+            if (sharpIndex == -1 && zeroIndex != -1) {
+                start = zeroIndex;
+            } else if (sharpIndex != -1 && zeroIndex == -1) {
+                start = sharpIndex;
+            } else {
+                start = sharpIndex > zeroIndex ? zeroIndex : sharpIndex;
+            }
+
+            sharpIndex = format.lastIndexOf(SHARP);
+            zeroIndex = format.lastIndexOf(ZERO);
+
+            //define the index of the last digit placeholder
+            if (sharpIndex == -1 && zeroIndex != -1) {
+                end = zeroIndex;
+            } else if (sharpIndex != -1 && zeroIndex == -1) {
+                end = sharpIndex;
+            } else {
+                end = sharpIndex > zeroIndex ? sharpIndex : zeroIndex;
+            }
+
+            if (start == length) {
+                end = start;
+            }
+
+            if (start != -1) {
+                value = number.toString().split(POINT);
+                integer = value[0];
+                fraction = value[1] || EMPTY;
+
+                integerLength = integer.length;
+                fractionLength = fraction.length;
+
+                //add group separator to the number if it is longer enough
+                if (hasGroup) {
+                    if (integerLength === groupSize && integerLength < decimalIndex - startZeroIndex) {
+                        integer = groupSeparator + integer;
+                    } else if (integerLength > groupSize) {
+                        value = EMPTY;
+                        for (idx = 0; idx < integerLength; idx++) {
+                            if (idx > 0 && (integerLength - idx) % groupSize === 0) {
+                                value += groupSeparator;
+                            }
+                            value += integer.charAt(idx);
+                        }
+
+                        integer = value;
+                    }
+                }
+
+                number = format.substring(0, start);
+
+                if (negative && !hasNegativeFormat) {
+                    number += "-";
+                }
+
+                for (idx = start; idx < length; idx++) {
+                    ch = format.charAt(idx);
+
+                    if (decimalIndex == -1) {
+                        if (end - idx < integerLength) {
+                            number += integer;
+                            break;
+                        }
+                    } else {
+                        if (zeroIndex != -1 && zeroIndex < idx) {
+                            replacement = EMPTY;
+                        }
+
+                        if ((decimalIndex - idx) <= integerLength && decimalIndex - idx > -1) {
+                            number += integer;
+                            idx = decimalIndex;
+                        }
+
+                        if (decimalIndex === idx) {
+                            number += (fraction ? decimal : EMPTY) + fraction;
+                            idx += end - decimalIndex + 1;
+                            continue;
+                        }
+                    }
+
+                    if (ch === ZERO) {
+                        number += ch;
+                        replacement = ch;
+                    } else if (ch === SHARP) {
+                        number += replacement;
+                    }
+                }
+
+                if (end >= start) {
+                    number += format.substring(end + 1);
+                }
+
+                //replace symbol placeholders
+                if (isCurrency || isPercent) {
+                    value = EMPTY;
+                    for (idx = 0, length = number.length; idx < length; idx++) {
+                        ch = number.charAt(idx);
+                        value += (ch === "$" || ch === "%") ? symbol : ch;
+                    }
+                    number = value;
+                }
+
+                length = literals.length;
+
+                if (length) {
+                    for (idx = 0; idx < length; idx++) {
+                        number = number.replace(PLACEHOLDER, literals[idx]);
+                    }
                 }
             }
 
             return number;
         }
 
-        //custom formatting
-        //
-        //separate format by sections.
+        var round = function (value, precision) {
+            var power = Math.pow(10, precision || 0);
+            return (Math.round(value * power) / power).toFixed(precision);
+        };
 
-        //make number positive
-        if (negative) {
-            number = -number;
+        var toString = function (value, fmt, culture) {
+            if (fmt) {
+                if (objectToString.call(value) === "[object Date]") {
+                    return formatDate(value, fmt, culture);
+                } else if (typeof value === NUMBER) {
+                    return formatNumber(value, fmt, culture);
+                }
+            }
+
+            return value !== undefined ? value : "";
+        };
+
+        if (globalize) {
+            toString = proxy(globalize.format, globalize);
         }
 
-        /*if (format.indexOf("'") > -1 || format.indexOf("\"") > -1) {
-            format = format.replace(literalRegExp, function(match) {
-                literals.push(match.substring(1, match.length - 1));
-                return PLACEHOLDER;
+        kendo.format = function (fmt) {
+            var values = arguments;
+
+            return fmt.replace(formatRegExp, function (match, index, placeholderFormat) {
+                var value = values[parseInt(index, 10) + 1];
+
+                return toString(value, placeholderFormat ? placeholderFormat.substring(1) : "");
             });
-        }*/
+        };
 
-        if (format.indexOf("'") > -1 || format.indexOf("\"") > -1 || format.indexOf("\\") > -1) {
-            format = format.replace(literalRegExp, function (match) {
-                var quoteChar = match.charAt(0).replace("\\", ""),
-                    literal = match.slice(1).replace(quoteChar, "");
-
-                literals.push(literal);
-
-                return PLACEHOLDER;
-            });
-        }
-
-        format = format.split(";");
-        if (negative && format[1]) {
-            //get negative format
-            format = format[1];
-            hasNegativeFormat = true;
-        } else if (number === 0) {
-            //format for zeros
-            format = format[2] || format[0];
-            if (format.indexOf(SHARP) == -1 && format.indexOf(ZERO) == -1) {
-                //return format if it is string constant.
-                return format;
-            }
-        } else {
-            format = format[0];
-        }
-
-        percentIndex = format.indexOf("%");
-        currencyIndex = format.indexOf("$");
-
-        isPercent = percentIndex != -1;
-        isCurrency = currencyIndex != -1;
-
-        //multiply number if the format has percent
-        if (isPercent) {
-            number *= 100;
-        }
-
-        if (isCurrency && format[currencyIndex - 1] === "\\") {
-            format = format.split("\\").join("");
-            isCurrency = false;
-        }
-
-        if (isCurrency || isPercent) {
-            //get specific number format information if format is currency or percent
-            numberFormat = isCurrency ? numberFormat.currency : numberFormat.percent;
-            groupSize = numberFormat.groupSize[0];
-            groupSeparator = numberFormat[COMMA];
-            decimal = numberFormat[POINT];
-            precision = numberFormat.decimals;
-            symbol = numberFormat.symbol;
-        }
-
-        hasGroup = format.indexOf(COMMA) > -1;
-        if (hasGroup) {
-            format = format.replace(commaRegExp, EMPTY);
-        }
-
-        decimalIndex = format.indexOf(POINT);
-        length = format.length;
-
-        if (decimalIndex != -1) {
-            fraction = number.toString().split("e");
-            if (fraction[1]) {
-                fraction = round(number, Math.abs(fraction[1]));
-            } else {
-                fraction = fraction[0];
-            }
-            fraction = fraction.split(POINT)[1] || EMPTY;
-            zeroIndex = format.lastIndexOf(ZERO) - decimalIndex;
-            sharpIndex = format.lastIndexOf(SHARP) - decimalIndex;
-            hasZero = zeroIndex > -1;
-            hasSharp = sharpIndex > -1;
-            idx = fraction.length;
-
-            if (!hasZero && !hasSharp) {
-                format = format.substring(0, decimalIndex) + format.substring(decimalIndex + 1);
-                length = format.length;
-                decimalIndex = -1;
-                idx = 0;
-            } if (hasZero && zeroIndex > sharpIndex) {
-                idx = zeroIndex;
-            } else if (sharpIndex > zeroIndex) {
-                if (hasSharp && idx > sharpIndex) {
-                    idx = sharpIndex;
-                } else if (hasZero && idx < zeroIndex) {
-                    idx = zeroIndex;
-                }
+        kendo._extractFormat = function (format) {
+            if (format.slice(0, 3) === "{0:") {
+                format = format.slice(3, format.length - 1);
             }
 
-            if (idx > -1) {
-                number = round(number, idx);
+            return format;
+        };
+
+        kendo._activeElement = function () {
+            try {
+                return document.activeElement;
+            } catch (e) {
+                return document.documentElement.activeElement;
             }
-        } else {
-            number = round(number);
-        }
+        };
 
-        sharpIndex = format.indexOf(SHARP);
-        startZeroIndex = zeroIndex = format.indexOf(ZERO);
-
-        //define the index of the first digit placeholder
-        if (sharpIndex == -1 && zeroIndex != -1) {
-            start = zeroIndex;
-        } else if (sharpIndex != -1 && zeroIndex == -1) {
-            start = sharpIndex;
-        } else {
-            start = sharpIndex > zeroIndex ? zeroIndex : sharpIndex;
-        }
-
-        sharpIndex = format.lastIndexOf(SHARP);
-        zeroIndex = format.lastIndexOf(ZERO);
-
-        //define the index of the last digit placeholder
-        if (sharpIndex == -1 && zeroIndex != -1) {
-            end = zeroIndex;
-        } else if (sharpIndex != -1 && zeroIndex == -1) {
-            end = sharpIndex;
-        } else {
-            end = sharpIndex > zeroIndex ? sharpIndex : zeroIndex;
-        }
-
-        if (start == length) {
-            end = start;
-        }
-
-        if (start != -1) {
-            value = number.toString().split(POINT);
-            integer = value[0];
-            fraction = value[1] || EMPTY;
-
-            integerLength = integer.length;
-            fractionLength = fraction.length;
-
-            //add group separator to the number if it is longer enough
-            if (hasGroup) {
-                if (integerLength === groupSize && integerLength < decimalIndex - startZeroIndex) {
-                    integer = groupSeparator + integer;
-                } else if (integerLength > groupSize) {
-                    value = EMPTY;
-                    for (idx = 0; idx < integerLength; idx++) {
-                        if (idx > 0 && (integerLength - idx) % groupSize === 0) {
-                            value += groupSeparator;
-                        }
-                        value += integer.charAt(idx);
-                    }
-
-                    integer = value;
-                }
-            }
-
-            number = format.substring(0, start);
-
-            if (negative && !hasNegativeFormat) {
-                number += "-";
-            }
-
-            for (idx = start; idx < length; idx++) {
-                ch = format.charAt(idx);
-
-                if (decimalIndex == -1) {
-                    if (end - idx < integerLength) {
-                        number += integer;
-                        break;
-                    }
-                } else {
-                    if (zeroIndex != -1 && zeroIndex < idx) {
-                        replacement = EMPTY;
-                    }
-
-                    if ((decimalIndex - idx) <= integerLength && decimalIndex - idx > -1) {
-                        number += integer;
-                        idx = decimalIndex;
-                    }
-
-                    if (decimalIndex === idx) {
-                        number += (fraction ? decimal : EMPTY) + fraction;
-                        idx += end - decimalIndex + 1;
-                        continue;
-                    }
-                }
-
-                if (ch === ZERO) {
-                    number += ch;
-                    replacement = ch;
-                } else if (ch === SHARP) {
-                    number += replacement;
-                }
-            }
-
-            if (end >= start) {
-                number += format.substring(end + 1);
-            }
-
-            //replace symbol placeholders
-            if (isCurrency || isPercent) {
-                value = EMPTY;
-                for (idx = 0, length = number.length; idx < length; idx++) {
-                    ch = number.charAt(idx);
-                    value += (ch === "$" || ch === "%") ? symbol : ch;
-                }
-                number = value;
-            }
-
-            length = literals.length;
-
-            if (length) {
-                for (idx = 0; idx < length; idx++) {
-                    number = number.replace(PLACEHOLDER, literals[idx]);
-                }
-            }
-        }
-
-        return number;
-    }
-
-    var round = function(value, precision) {
-        var power = Math.pow(10, precision || 0);
-        return (Math.round(value * power) / power).toFixed(precision);
-    };
-
-    var toString = function(value, fmt, culture) {
-        if (fmt) {
-            if (objectToString.call(value) === "[object Date]") {
-                return formatDate(value, fmt, culture);
-            } else if (typeof value === NUMBER) {
-                return formatNumber(value, fmt, culture);
-            }
-        }
-
-        return value !== undefined ? value : "";
-    };
-
-    if (globalize) {
-        toString = proxy(globalize.format, globalize);
-    }
-
-    kendo.format = function(fmt) {
-        var values = arguments;
-
-        return fmt.replace(formatRegExp, function(match, index, placeholderFormat) {
-            var value = values[parseInt(index, 10) + 1];
-
-            return toString(value, placeholderFormat ? placeholderFormat.substring(1) : "");
-        });
-    };
-
-    kendo._extractFormat = function (format) {
-        if (format.slice(0,3) === "{0:") {
-            format = format.slice(3, format.length - 1);
-        }
-
-        return format;
-    };
-
-    kendo._activeElement = function() {
-        try {
-            return document.activeElement;
-        } catch(e) {
-            return document.documentElement.activeElement;
-        }
-    };
-
-    kendo._round = round;
-    kendo.toString = toString;
-})();
+        kendo._round = round;
+        kendo.toString = toString;
+    })();
 
 
-(function() {
-    var nonBreakingSpaceRegExp = /\u00A0/g,
-        exponentRegExp = /[eE][\-+]?[0-9]+/,
-        shortTimeZoneRegExp = /[+|\-]\d{1,2}/,
-        longTimeZoneRegExp = /[+|\-]\d{1,2}:\d{2}/,
-        dateRegExp = /^\/Date\((.*?)\)\/$/,
-        formatsSequence = ["G", "g", "d", "F", "D", "y", "m", "T", "t"],
-        numberRegExp = {
-            2: /^\d{1,2}/,
-            4: /^\d{4}/
-        },
-        objectToString = {}.toString;
-
-    function outOfRange(value, start, end) {
-        return !(value >= start && value <= end);
-    }
-
-    function designatorPredicate(designator) {
-        return designator.charAt(0);
-    }
-
-    function mapDesignators(designators) {
-        return $.map(designators, designatorPredicate);
-    }
-
-    //if date's day is different than the typed one - adjust
-    function adjustDST(date, hours) {
-        if (!hours && date.getHours() === 23) {
-            date.setHours(date.getHours() + 2);
-        }
-    }
-
-    function lowerArray(data) {
-        var idx = 0,
-            length = data.length,
-            array = [];
-
-        for (; idx < length; idx++) {
-            array[idx] = (data[idx] + "").toLowerCase();
-        }
-
-        return array;
-    }
-
-    function lowerLocalInfo(localInfo) {
-        var newLocalInfo = {}, property;
-
-        for (property in localInfo) {
-            newLocalInfo[property] = lowerArray(localInfo[property]);
-        }
-
-        return newLocalInfo;
-    }
-
-    function parseExact(value, format, culture) {
-        if (!value) {
-            return null;
-        }
-
-        var lookAhead = function (match) {
-                var i = 0;
-                while (format[idx] === match) {
-                    i++;
-                    idx++;
-                }
-                if (i > 0) {
-                    idx -= 1;
-                }
-                return i;
+    (function () {
+        var nonBreakingSpaceRegExp = /\u00A0/g,
+            exponentRegExp = /[eE][\-+]?[0-9]+/,
+            shortTimeZoneRegExp = /[+|\-]\d{1,2}/,
+            longTimeZoneRegExp = /[+|\-]\d{1,2}:\d{2}/,
+            dateRegExp = /^\/Date\((.*?)\)\/$/,
+            formatsSequence = ["G", "g", "d", "F", "D", "y", "m", "T", "t"],
+            numberRegExp = {
+                2: /^\d{1,2}/,
+                4: /^\d{4}/
             },
-            getNumber = function(size) {
-                var rg = numberRegExp[size] || new RegExp('^\\d{1,' + size + '}'),
-                    match = value.substr(valueIdx, size).match(rg);
+            objectToString = {}.toString;
 
-                if (match) {
-                    match = match[0];
-                    valueIdx += match.length;
-                    return parseInt(match, 10);
-                }
-                return null;
-            },
-            getIndexByName = function (names, lower) {
-                var i = 0,
-                    length = names.length,
-                    name, nameLength,
-                    subValue;
-
-                for (; i < length; i++) {
-                    name = names[i];
-                    nameLength = name.length;
-                    subValue = value.substr(valueIdx, nameLength);
-
-                    if (lower) {
-                        subValue = subValue.toLowerCase();
-                    }
-
-                    if (subValue == name) {
-                        valueIdx += nameLength;
-                        return i + 1;
-                    }
-                }
-                return null;
-            },
-            checkLiteral = function() {
-                var result = false;
-                if (value.charAt(valueIdx) === format[idx]) {
-                    valueIdx++;
-                    result = true;
-                }
-                return result;
-            },
-            calendar = culture.calendars.standard,
-            year = null,
-            month = null,
-            day = null,
-            hours = null,
-            minutes = null,
-            seconds = null,
-            milliseconds = null,
-            idx = 0,
-            valueIdx = 0,
-            literal = false,
-            date = new Date(),
-            twoDigitYearMax = calendar.twoDigitYearMax || 2029,
-            defaultYear = date.getFullYear(),
-            ch, count, length, pattern,
-            pmHour, UTC, ISO8601, matches,
-            amDesignators, pmDesignators,
-            hoursOffset, minutesOffset;
-
-        if (!format) {
-            format = "d"; //shord date format
+        function outOfRange(value, start, end) {
+            return !(value >= start && value <= end);
         }
 
-        //if format is part of the patterns get real format
-        pattern = calendar.patterns[format];
-        if (pattern) {
-            format = pattern;
+        function designatorPredicate(designator) {
+            return designator.charAt(0);
         }
 
-        format = format.split("");
-        length = format.length;
+        function mapDesignators(designators) {
+            return $.map(designators, designatorPredicate);
+        }
 
-        for (; idx < length; idx++) {
-            ch = format[idx];
-
-            if (literal) {
-                if (ch === "'") {
-                    literal = false;
-                } else {
-                    checkLiteral();
-                }
-            } else {
-                if (ch === "d") {
-                    count = lookAhead("d");
-                    if (!calendar._lowerDays) {
-                        calendar._lowerDays = lowerLocalInfo(calendar.days);
-                    }
-
-                    day = count < 3 ? getNumber(2) : getIndexByName(calendar._lowerDays[count == 3 ? "namesAbbr" : "names"], true);
-
-                    if (day === null || outOfRange(day, 1, 31)) {
-                        return null;
-                    }
-                } else if (ch === "M") {
-                    count = lookAhead("M");
-                    if (!calendar._lowerMonths) {
-                        calendar._lowerMonths = lowerLocalInfo(calendar.months);
-                    }
-                    month = count < 3 ? getNumber(2) : getIndexByName(calendar._lowerMonths[count == 3 ? 'namesAbbr' : 'names'], true);
-
-                    if (month === null || outOfRange(month, 1, 12)) {
-                        return null;
-                    }
-                    month -= 1; //because month is zero based
-                } else if (ch === "y") {
-                    count = lookAhead("y");
-                    year = getNumber(count);
-
-                    if (year === null) {
-                        return null;
-                    }
-
-                    if (count == 2) {
-                        if (typeof twoDigitYearMax === "string") {
-                            twoDigitYearMax = defaultYear + parseInt(twoDigitYearMax, 10);
-                        }
-
-                        year = (defaultYear - defaultYear % 100) + year;
-                        if (year > twoDigitYearMax) {
-                            year -= 100;
-                        }
-                    }
-                } else if (ch === "h" ) {
-                    lookAhead("h");
-                    hours = getNumber(2);
-                    if (hours == 12) {
-                        hours = 0;
-                    }
-                    if (hours === null || outOfRange(hours, 0, 11)) {
-                        return null;
-                    }
-                } else if (ch === "H") {
-                    lookAhead("H");
-                    hours = getNumber(2);
-                    if (hours === null || outOfRange(hours, 0, 23)) {
-                        return null;
-                    }
-                } else if (ch === "m") {
-                    lookAhead("m");
-                    minutes = getNumber(2);
-                    if (minutes === null || outOfRange(minutes, 0, 59)) {
-                        return null;
-                    }
-                } else if (ch === "s") {
-                    lookAhead("s");
-                    seconds = getNumber(2);
-                    if (seconds === null || outOfRange(seconds, 0, 59)) {
-                        return null;
-                    }
-                } else if (ch === "f") {
-                    count = lookAhead("f");
-                    milliseconds = getNumber(count);
-
-                    if (milliseconds !== null && count > 3) {
-                        milliseconds = parseInt(milliseconds.toString().substring(0, 3), 10);
-                    }
-
-                    if (milliseconds === null || outOfRange(milliseconds, 0, 999)) {
-                        return null;
-                    }
-
-                } else if (ch === "t") {
-                    count = lookAhead("t");
-                    amDesignators = calendar.AM;
-                    pmDesignators = calendar.PM;
-
-                    if (count === 1) {
-                        amDesignators = mapDesignators(amDesignators);
-                        pmDesignators = mapDesignators(pmDesignators);
-                    }
-
-                    pmHour = getIndexByName(pmDesignators);
-                    if (!pmHour && !getIndexByName(amDesignators)) {
-                        return null;
-                    }
-                }
-                else if (ch === "z") {
-                    UTC = true;
-                    count = lookAhead("z");
-
-                    if (value.substr(valueIdx, 1) === "Z") {
-                        if (!ISO8601) {
-                            return null;
-                        }
-
-                        checkLiteral();
-                        continue;
-                    }
-
-                    matches = value.substr(valueIdx, 6)
-                                   .match(count > 2 ? longTimeZoneRegExp : shortTimeZoneRegExp);
-
-                    if (!matches) {
-                        return null;
-                    }
-
-                    matches = matches[0];
-                    valueIdx = matches.length;
-                    matches = matches.split(":");
-
-                    hoursOffset = parseInt(matches[0], 10);
-                    if (outOfRange(hoursOffset, -12, 13)) {
-                        return null;
-                    }
-
-                    if (count > 2) {
-                        minutesOffset = parseInt(matches[1], 10);
-                        if (isNaN(minutesOffset) || outOfRange(minutesOffset, 0, 59)) {
-                            return null;
-                        }
-                    }
-                } else if (ch === "T") {
-                    ISO8601 = checkLiteral();
-                } else if (ch === "'") {
-                    literal = true;
-                    checkLiteral();
-                } else if (!checkLiteral()) {
-                    return null;
-                }
+        //if date's day is different than the typed one - adjust
+        function adjustDST(date, hours) {
+            if (!hours && date.getHours() === 23) {
+                date.setHours(date.getHours() + 2);
             }
         }
 
-        if (year === null) {
-            year = defaultYear;
-        }
-
-        if (pmHour && hours < 12) {
-            hours += 12;
-        }
-
-        if (day === null) {
-            day = 1;
-        }
-
-        if (UTC) {
-            if (hoursOffset) {
-                hours += -hoursOffset;
-            }
-
-            if (minutesOffset) {
-                minutes += -minutesOffset;
-            }
-
-            value = new Date(Date.UTC(year, month, day, hours, minutes, seconds, milliseconds));
-        } else {
-            value = new Date(year, month, day, hours, minutes, seconds, milliseconds);
-            adjustDST(value, hours);
-        }
-
-        if (year < 100) {
-            value.setFullYear(year);
-        }
-
-        if (value.getDate() !== day && UTC === undefined) {
-            return null;
-        }
-
-        return value;
-    }
-
-    kendo.parseDate = function(value, formats, culture) {
-        if (objectToString.call(value) === "[object Date]") {
-            return value;
-        }
-
-        var idx = 0,
-            date = null,
-            length, patterns;
-
-        if (value && value.indexOf("/D") === 0) {
-            date = dateRegExp.exec(value);
-            if (date) {
-                return new Date(parseInt(date[1], 10));
-            }
-        }
-
-        culture = kendo.getCulture(culture);
-
-        if (!formats) {
-            formats = [];
-            patterns = culture.calendar.patterns;
-            length = formatsSequence.length;
+        function lowerArray(data) {
+            var idx = 0,
+                length = data.length,
+                array = [];
 
             for (; idx < length; idx++) {
-                formats[idx] = patterns[formatsSequence[idx]];
+                array[idx] = (data[idx] + "").toLowerCase();
             }
 
-            idx = 0;
-
-            formats.push(
-                "yyyy/MM/dd HH:mm:ss",
-                "yyyy/MM/dd HH:mm",
-                "yyyy/MM/dd",
-                "ddd MMM dd yyyy HH:mm:ss",
-                "yyyy-MM-ddTHH:mm:ss.fffffffzzz",
-                "yyyy-MM-ddTHH:mm:ss.fffzzz",
-                "yyyy-MM-ddTHH:mm:sszzz",
-                "yyyy-MM-ddTHH:mmzzz",
-                "yyyy-MM-ddTHH:mmzz",
-                "yyyy-MM-ddTHH:mm:ss",
-                "yyyy-MM-ddTHH:mm",
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyy-MM-dd HH:mm",
-                "yyyy-MM-dd"
-            );
+            return array;
         }
 
-        formats = isArray(formats) ? formats: [formats];
-        length = formats.length;
+        function lowerLocalInfo(localInfo) {
+            var newLocalInfo = {}, property;
 
-        for (; idx < length; idx++) {
-            date = parseExact(value, formats[idx], culture);
-            if (date) {
-                return date;
+            for (property in localInfo) {
+                newLocalInfo[property] = lowerArray(localInfo[property]);
             }
+
+            return newLocalInfo;
         }
 
-        return date;
-    };
-
-    kendo.parseInt = function(value, culture) {
-        var result = kendo.parseFloat(value, culture);
-        if (result) {
-            result = result | 0;
-        }
-        return result;
-    };
-
-    kendo.parseFloat = function(value, culture, format) {
-        if (!value && value !== 0) {
-           return null;
-        }
-
-        if (typeof value === NUMBER) {
-           return value;
-        }
-
-        value = value.toString();
-        culture = kendo.getCulture(culture);
-
-        var number = culture.numberFormat,
-            percent = number.percent,
-            currency = number.currency,
-            symbol = currency.symbol,
-            percentSymbol = percent.symbol,
-            negative = value.indexOf("-"),
-            parts, isPercent;
-
-        //handle exponential number
-        if (exponentRegExp.test(value)) {
-            value = parseFloat(value);
-            if (isNaN(value)) {
-                value = null;
+        function parseExact(value, format, culture) {
+            if (!value) {
+                return null;
             }
+
+            var lookAhead = function (match) {
+                    var i = 0;
+                    while (format[idx] === match) {
+                        i++;
+                        idx++;
+                    }
+                    if (i > 0) {
+                        idx -= 1;
+                    }
+                    return i;
+                },
+                getNumber = function (size) {
+                    var rg = numberRegExp[size] || new RegExp('^\\d{1,' + size + '}'),
+                        match = value.substr(valueIdx, size).match(rg);
+
+                    if (match) {
+                        match = match[0];
+                        valueIdx += match.length;
+                        return parseInt(match, 10);
+                    }
+                    return null;
+                },
+                getIndexByName = function (names, lower) {
+                    var i = 0,
+                        length = names.length,
+                        name, nameLength,
+                        subValue;
+
+                    for (; i < length; i++) {
+                        name = names[i];
+                        nameLength = name.length;
+                        subValue = value.substr(valueIdx, nameLength);
+
+                        if (lower) {
+                            subValue = subValue.toLowerCase();
+                        }
+
+                        if (subValue == name) {
+                            valueIdx += nameLength;
+                            return i + 1;
+                        }
+                    }
+                    return null;
+                },
+                checkLiteral = function () {
+                    var result = false;
+                    if (value.charAt(valueIdx) === format[idx]) {
+                        valueIdx++;
+                        result = true;
+                    }
+                    return result;
+                },
+                calendar = culture.calendars.standard,
+                year = null,
+                month = null,
+                day = null,
+                hours = null,
+                minutes = null,
+                seconds = null,
+                milliseconds = null,
+                idx = 0,
+                valueIdx = 0,
+                literal = false,
+                date = new Date(),
+                twoDigitYearMax = calendar.twoDigitYearMax || 2029,
+                defaultYear = date.getFullYear(),
+                ch, count, length, pattern,
+                pmHour, UTC, ISO8601, matches,
+                amDesignators, pmDesignators,
+                hoursOffset, minutesOffset;
+
+            if (!format) {
+                format = "d"; //shord date format
+            }
+
+            //if format is part of the patterns get real format
+            pattern = calendar.patterns[format];
+            if (pattern) {
+                format = pattern;
+            }
+
+            format = format.split("");
+            length = format.length;
+
+            for (; idx < length; idx++) {
+                ch = format[idx];
+
+                if (literal) {
+                    if (ch === "'") {
+                        literal = false;
+                    } else {
+                        checkLiteral();
+                    }
+                } else {
+                    if (ch === "d") {
+                        count = lookAhead("d");
+                        if (!calendar._lowerDays) {
+                            calendar._lowerDays = lowerLocalInfo(calendar.days);
+                        }
+
+                        day = count < 3 ? getNumber(2) : getIndexByName(calendar._lowerDays[count == 3 ? "namesAbbr" : "names"], true);
+
+                        if (day === null || outOfRange(day, 1, 31)) {
+                            return null;
+                        }
+                    } else if (ch === "M") {
+                        count = lookAhead("M");
+                        if (!calendar._lowerMonths) {
+                            calendar._lowerMonths = lowerLocalInfo(calendar.months);
+                        }
+                        month = count < 3 ? getNumber(2) : getIndexByName(calendar._lowerMonths[count == 3 ? 'namesAbbr' : 'names'], true);
+
+                        if (month === null || outOfRange(month, 1, 12)) {
+                            return null;
+                        }
+                        month -= 1; //because month is zero based
+                    } else if (ch === "y") {
+                        count = lookAhead("y");
+                        year = getNumber(count);
+
+                        if (year === null) {
+                            return null;
+                        }
+
+                        if (count == 2) {
+                            if (typeof twoDigitYearMax === "string") {
+                                twoDigitYearMax = defaultYear + parseInt(twoDigitYearMax, 10);
+                            }
+
+                            year = (defaultYear - defaultYear % 100) + year;
+                            if (year > twoDigitYearMax) {
+                                year -= 100;
+                            }
+                        }
+                    } else if (ch === "h") {
+                        lookAhead("h");
+                        hours = getNumber(2);
+                        if (hours == 12) {
+                            hours = 0;
+                        }
+                        if (hours === null || outOfRange(hours, 0, 11)) {
+                            return null;
+                        }
+                    } else if (ch === "H") {
+                        lookAhead("H");
+                        hours = getNumber(2);
+                        if (hours === null || outOfRange(hours, 0, 23)) {
+                            return null;
+                        }
+                    } else if (ch === "m") {
+                        lookAhead("m");
+                        minutes = getNumber(2);
+                        if (minutes === null || outOfRange(minutes, 0, 59)) {
+                            return null;
+                        }
+                    } else if (ch === "s") {
+                        lookAhead("s");
+                        seconds = getNumber(2);
+                        if (seconds === null || outOfRange(seconds, 0, 59)) {
+                            return null;
+                        }
+                    } else if (ch === "f") {
+                        count = lookAhead("f");
+                        milliseconds = getNumber(count);
+
+                        if (milliseconds !== null && count > 3) {
+                            milliseconds = parseInt(milliseconds.toString().substring(0, 3), 10);
+                        }
+
+                        if (milliseconds === null || outOfRange(milliseconds, 0, 999)) {
+                            return null;
+                        }
+
+                    } else if (ch === "t") {
+                        count = lookAhead("t");
+                        amDesignators = calendar.AM;
+                        pmDesignators = calendar.PM;
+
+                        if (count === 1) {
+                            amDesignators = mapDesignators(amDesignators);
+                            pmDesignators = mapDesignators(pmDesignators);
+                        }
+
+                        pmHour = getIndexByName(pmDesignators);
+                        if (!pmHour && !getIndexByName(amDesignators)) {
+                            return null;
+                        }
+                    } else if (ch === "z") {
+                        UTC = true;
+                        count = lookAhead("z");
+
+                        if (value.substr(valueIdx, 1) === "Z") {
+                            if (!ISO8601) {
+                                return null;
+                            }
+
+                            checkLiteral();
+                            continue;
+                        }
+
+                        matches = value.substr(valueIdx, 6)
+                            .match(count > 2 ? longTimeZoneRegExp : shortTimeZoneRegExp);
+
+                        if (!matches) {
+                            return null;
+                        }
+
+                        matches = matches[0];
+                        valueIdx = matches.length;
+                        matches = matches.split(":");
+
+                        hoursOffset = parseInt(matches[0], 10);
+                        if (outOfRange(hoursOffset, -12, 13)) {
+                            return null;
+                        }
+
+                        if (count > 2) {
+                            minutesOffset = parseInt(matches[1], 10);
+                            if (isNaN(minutesOffset) || outOfRange(minutesOffset, 0, 59)) {
+                                return null;
+                            }
+                        }
+                    } else if (ch === "T") {
+                        ISO8601 = checkLiteral();
+                    } else if (ch === "'") {
+                        literal = true;
+                        checkLiteral();
+                    } else if (!checkLiteral()) {
+                        return null;
+                    }
+                }
+            }
+
+            if (year === null) {
+                year = defaultYear;
+            }
+
+            if (pmHour && hours < 12) {
+                hours += 12;
+            }
+
+            if (day === null) {
+                day = 1;
+            }
+
+            if (UTC) {
+                if (hoursOffset) {
+                    hours += -hoursOffset;
+                }
+
+                if (minutesOffset) {
+                    minutes += -minutesOffset;
+                }
+
+                value = new Date(Date.UTC(year, month, day, hours, minutes, seconds, milliseconds));
+            } else {
+                value = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+                adjustDST(value, hours);
+            }
+
+            if (year < 100) {
+                value.setFullYear(year);
+            }
+
+            if (value.getDate() !== day && UTC === undefined) {
+                return null;
+            }
+
             return value;
         }
 
-        if (negative > 0) {
-            return null;
-        } else {
-            negative = negative > -1;
-        }
-
-        if (value.indexOf(symbol) > -1 || (format && format.toLowerCase().indexOf("c") > -1)) {
-            number = currency;
-            parts = number.pattern[0].replace("$", symbol).split("n");
-            if (value.indexOf(parts[0]) > -1 && value.indexOf(parts[1]) > -1) {
-                value = value.replace(parts[0], "").replace(parts[1], "");
-                negative = true;
-            }
-        } else if (value.indexOf(percentSymbol) > -1) {
-            isPercent = true;
-            number = percent;
-            symbol = percentSymbol;
-        }
-
-        value = value.replace("-", "")
-                     .replace(symbol, "")
-                     .replace(nonBreakingSpaceRegExp, " ")
-                     .split(number[","].replace(nonBreakingSpaceRegExp, " ")).join("")
-                     .replace(number["."], ".");
-
-        value = parseFloat(value);
-
-        if (isNaN(value)) {
-            value = null;
-        } else if (negative) {
-            value *= -1;
-        }
-
-        if (value && isPercent) {
-            value /= 100;
-        }
-
-        return value;
-    };
-
-    if (globalize) {
-        kendo.parseDate = function (value, format, culture) {
+        kendo.parseDate = function (value, formats, culture) {
             if (objectToString.call(value) === "[object Date]") {
                 return value;
             }
 
-            return globalize.parseDate(value, format, culture);
+            var idx = 0,
+                date = null,
+                length, patterns;
+
+            if (value && value.indexOf("/D") === 0) {
+                date = dateRegExp.exec(value);
+                if (date) {
+                    return new Date(parseInt(date[1], 10));
+                }
+            }
+
+            culture = kendo.getCulture(culture);
+
+            if (!formats) {
+                formats = [];
+                patterns = culture.calendar.patterns;
+                length = formatsSequence.length;
+
+                for (; idx < length; idx++) {
+                    formats[idx] = patterns[formatsSequence[idx]];
+                }
+
+                idx = 0;
+
+                formats.push(
+                    "yyyy/MM/dd HH:mm:ss",
+                    "yyyy/MM/dd HH:mm",
+                    "yyyy/MM/dd",
+                    "ddd MMM dd yyyy HH:mm:ss",
+                    "yyyy-MM-ddTHH:mm:ss.fffffffzzz",
+                    "yyyy-MM-ddTHH:mm:ss.fffzzz",
+                    "yyyy-MM-ddTHH:mm:sszzz",
+                    "yyyy-MM-ddTHH:mmzzz",
+                    "yyyy-MM-ddTHH:mmzz",
+                    "yyyy-MM-ddTHH:mm:ss",
+                    "yyyy-MM-ddTHH:mm",
+                    "yyyy-MM-dd HH:mm:ss",
+                    "yyyy-MM-dd HH:mm",
+                    "yyyy-MM-dd"
+                );
+            }
+
+            formats = isArray(formats) ? formats : [formats];
+            length = formats.length;
+
+            for (; idx < length; idx++) {
+                date = parseExact(value, formats[idx], culture);
+                if (date) {
+                    return date;
+                }
+            }
+
+            return date;
         };
 
-        kendo.parseFloat = function (value, culture) {
+        kendo.parseInt = function (value, culture) {
+            var result = kendo.parseFloat(value, culture);
+            if (result) {
+                result = result | 0;
+            }
+            return result;
+        };
+
+        kendo.parseFloat = function (value, culture, format) {
+            if (!value && value !== 0) {
+                return null;
+            }
+
             if (typeof value === NUMBER) {
                 return value;
             }
 
-            if (value === undefined || value === null) {
-               return null;
+            value = value.toString();
+            culture = kendo.getCulture(culture);
+
+            var number = culture.numberFormat,
+                percent = number.percent,
+                currency = number.currency,
+                symbol = currency.symbol,
+                percentSymbol = percent.symbol,
+                negative = value.indexOf("-"),
+                parts, isPercent;
+
+            //handle exponential number
+            if (exponentRegExp.test(value)) {
+                value = parseFloat(value);
+                if (isNaN(value)) {
+                    value = null;
+                }
+                return value;
             }
 
-            value = globalize.parseFloat(value, culture);
+            if (negative > 0) {
+                return null;
+            } else {
+                negative = negative > -1;
+            }
 
-            return isNaN(value) ? null : value;
+            if (value.indexOf(symbol) > -1 || (format && format.toLowerCase().indexOf("c") > -1)) {
+                number = currency;
+                parts = number.pattern[0].replace("$", symbol).split("n");
+                if (value.indexOf(parts[0]) > -1 && value.indexOf(parts[1]) > -1) {
+                    value = value.replace(parts[0], "").replace(parts[1], "");
+                    negative = true;
+                }
+            } else if (value.indexOf(percentSymbol) > -1) {
+                isPercent = true;
+                number = percent;
+                symbol = percentSymbol;
+            }
+
+            value = value.replace("-", "")
+                .replace(symbol, "")
+                .replace(nonBreakingSpaceRegExp, " ")
+                .split(number[","].replace(nonBreakingSpaceRegExp, " ")).join("")
+                .replace(number["."], ".");
+
+            value = parseFloat(value);
+
+            if (isNaN(value)) {
+                value = null;
+            } else if (negative) {
+                value *= -1;
+            }
+
+            if (value && isPercent) {
+                value /= 100;
+            }
+
+            return value;
         };
-    }
-})();
+
+        if (globalize) {
+            kendo.parseDate = function (value, format, culture) {
+                if (objectToString.call(value) === "[object Date]") {
+                    return value;
+                }
+
+                return globalize.parseDate(value, format, culture);
+            };
+
+            kendo.parseFloat = function (value, culture) {
+                if (typeof value === NUMBER) {
+                    return value;
+                }
+
+                if (value === undefined || value === null) {
+                    return null;
+                }
+
+                value = globalize.parseFloat(value, culture);
+
+                return isNaN(value) ? null : value;
+            };
+        }
+    })();
 
     function wrap(element) {
         var browser = support.browser,
@@ -1563,7 +1567,7 @@ function pad(number, digits, end) {
 
         if (!element.parent().hasClass("k-animation-container")) {
             var shadow = element.css(kendo.support.transitions.css + "box-shadow") || element.css("box-shadow"),
-                radius = shadow ? shadow.match(boxShadowRegExp) || [ 0, 0, 0, 0, 0 ] : [ 0, 0, 0, 0, 0 ],
+                radius = shadow ? shadow.match(boxShadowRegExp) || [0, 0, 0, 0, 0] : [0, 0, 0, 0, 0],
                 blur = math.max((+radius[3]), +(radius[4] || 0)),
                 left = (-radius[1]) + blur,
                 right = (+radius[1]) + blur,
@@ -1579,20 +1583,24 @@ function pad(number, digits, end) {
 
             percentage = percentWidth || percentHeight;
 
-            if (!percentWidth) { width = element.outerWidth(); }
-            if (!percentHeight) { height = element.outerHeight(); }
+            if (!percentWidth) {
+                width = element.outerWidth();
+            }
+            if (!percentHeight) {
+                height = element.outerHeight();
+            }
 
             element.wrap(
-                         $("<div/>")
-                         .addClass("k-animation-container")
-                         .css({
-                             width: width,
-                             height: height,
-                             marginLeft: left * (isRtl ? 1 : -1),
-                             paddingLeft: left,
-                             paddingRight: right,
-                             paddingBottom: bottom
-                         }));
+                $("<div/>")
+                    .addClass("k-animation-container")
+                    .css({
+                        width: width,
+                        height: height,
+                        marginLeft: left * (isRtl ? 1 : -1),
+                        paddingLeft: left,
+                        paddingRight: right,
+                        paddingBottom: bottom
+                    }));
 
             if (percentage) {
                 element.css({
@@ -1622,7 +1630,7 @@ function pad(number, digits, end) {
         }
 
         if (browser.msie && math.floor(browser.version) <= 7) {
-            element.css({ zoom: 1 });
+            element.css({zoom: 1});
             element.children(".k-menu").width(element.width());
         }
 
@@ -1688,7 +1696,7 @@ function pad(number, digits, end) {
             computedStyle = document.defaultView.getComputedStyle(element, "");
 
             if (properties) {
-                $.each(properties, function(idx, value) {
+                $.each(properties, function (idx, value) {
                     styles[value] = computedStyle.getPropertyValue(value);
                 });
             }
@@ -1696,8 +1704,10 @@ function pad(number, digits, end) {
             computedStyle = element.currentStyle;
 
             if (properties) {
-                $.each(properties, function(idx, value) {
-                    styles[value] = computedStyle[value.replace(/\-(\w)/g, function (strMatch, g1) { return g1.toUpperCase(); })];
+                $.each(properties, function (idx, value) {
+                    styles[value] = computedStyle[value.replace(/\-(\w)/g, function (strMatch, g1) {
+                        return g1.toUpperCase();
+                    })];
                 });
             }
         }
@@ -1709,8 +1719,8 @@ function pad(number, digits, end) {
         return styles;
     }
 
-    (function() {
-        support.scrollbar = function() {
+    (function () {
+        support.scrollbar = function () {
             var div = document.createElement("div"),
                 result;
 
@@ -1724,7 +1734,7 @@ function pad(number, digits, end) {
             return result;
         };
 
-        support.isRtl = function(element) {
+        support.isRtl = function (element) {
             return $(element).closest(".k-rtl").length > 0;
         };
 
@@ -1748,7 +1758,7 @@ function pad(number, digits, end) {
 
         support.hasHW3D = ("WebKitCSSMatrix" in window && "m11" in new window.WebKitCSSMatrix()) || "MozPerspective" in document.documentElement.style || "msPerspective" in document.documentElement.style;
 
-        each([ "Moz", "webkit", "O", "ms" ], function () {
+        each(["Moz", "webkit", "O", "ms"], function () {
             var prefix = this.toString(),
                 hasTransitions = typeof table.style[prefix + "Transition"] === STRING;
 
@@ -1779,16 +1789,16 @@ function pad(number, digits, end) {
             support.screenWidth = window.outerWidth || window.screen ? window.screen.availWidth : window.innerWidth;
             support.screenHeight = window.outerHeight || window.screen ? window.screen.availHeight : window.innerHeight;
 
-            support.zoomLevel = function() {
+            support.zoomLevel = function () {
                 return support.touch ? (document.documentElement.clientWidth / window.innerWidth) :
-                       support.pointers ? ((top || window).outerWidth / (top || window).innerWidth) : 1;
+                    support.pointers ? ((top || window).outerWidth / (top || window).innerWidth) : 1;
             };
-        } catch(e) {
+        } catch (e) {
             //window.outerWidth throws error when in IE showModalDialog.
             support.screenWidth = window.screen.availWidth;
             support.screenHeight = window.screen.availHeight;
 
-            support.zoomLevel = function() {
+            support.zoomLevel = function () {
                 return 1;
             };
         }
@@ -1834,7 +1844,9 @@ function pad(number, digits, end) {
                 if (agentRxs.hasOwnProperty(agent)) {
                     match = ua.match(agentRxs[agent]);
                     if (match) {
-                        if (agent == "windows" && "plugins" in navigator) { return false; } // Break if not Metro/Mobile Windows
+                        if (agent == "windows" && "plugins" in navigator) {
+                            return false;
+                        } // Break if not Metro/Mobile Windows
 
                         os = {};
                         os.device = agent;
@@ -1903,7 +1915,7 @@ function pad(number, digits, end) {
 
         support.cssBorderSpacing = typeof document.documentElement.style.borderSpacing != "undefined" && !(support.browser.msie && support.browser.version < 8);
 
-        (function(browser) {
+        (function (browser) {
             // add browser-specific CSS class
             var cssClass,
                 majorVersion = parseInt(browser.version, 10);
@@ -1928,27 +1940,29 @@ function pad(number, digits, end) {
         support.eventCapture = document.documentElement.addEventListener;
 
         support.placeholder = "placeholder" in document.createElement("input");
-        support.stableSort = (function() {
-            var sorted = [0,1,2,3,4,5,6,7,8,9,10,11,12].sort(function() { return 0; } );
+        support.stableSort = (function () {
+            var sorted = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].sort(function () {
+                return 0;
+            });
             return sorted[0] === 0 && sorted[1] === 1 && sorted[2] === 2 && sorted[3] === 3 && sorted[4] === 4 &&
                 sorted[5] === 5 && sorted[6] === 6 && sorted[7] === 7 && sorted[8] === 8 &&
                 sorted[9] === 9 && sorted[10] === 10 && sorted[11] === 11 && sorted[12] === 12;
         })();
 
         support.matchesSelector = elementProto.webkitMatchesSelector || elementProto.mozMatchesSelector ||
-                                  elementProto.msMatchesSelector || elementProto.oMatchesSelector || elementProto.matchesSelector ||
-          function( selector ) {
-              var nodeList = document.querySelectorAll ? ( this.parentNode || document ).querySelectorAll( selector ) || [] : $(selector),
-                  i = nodeList.length;
+            elementProto.msMatchesSelector || elementProto.oMatchesSelector || elementProto.matchesSelector ||
+            function (selector) {
+                var nodeList = document.querySelectorAll ? (this.parentNode || document).querySelectorAll(selector) || [] : $(selector),
+                    i = nodeList.length;
 
-              while (i--) {
-                  if (nodeList[i] == this) {
-                      return true;
-                  }
-              }
+                while (i--) {
+                    if (nodeList[i] == this) {
+                        return true;
+                    }
+                }
 
-              return false;
-          };
+                return false;
+            };
 
         support.pushState = window.history && window.history.pushState;
 
@@ -1998,20 +2012,20 @@ function pad(number, digits, end) {
     }
 
     var directions = {
-        left: { reverse: "right" },
-        right: { reverse: "left" },
-        down: { reverse: "up" },
-        up: { reverse: "down" },
-        top: { reverse: "bottom" },
-        bottom: { reverse: "top" },
-        "in": { reverse: "out" },
-        out: { reverse: "in" }
+        left: {reverse: "right"},
+        right: {reverse: "left"},
+        down: {reverse: "up"},
+        up: {reverse: "down"},
+        top: {reverse: "bottom"},
+        bottom: {reverse: "top"},
+        "in": {reverse: "out"},
+        out: {reverse: "in"}
     };
 
     function parseEffects(input) {
         var effects = {};
 
-        each((typeof input === "string" ? input.split(" ") : input), function(idx) {
+        each((typeof input === "string" ? input.split(" ") : input), function (idx) {
             effects[idx] = this;
         });
 
@@ -2025,13 +2039,13 @@ function pad(number, digits, end) {
     var effects = {};
 
     $.extend(effects, {
-        Element: function(element) {
+        Element: function (element) {
             this.element = $(element);
         },
 
         promise: function (element, options) {
             if (!element.is(":visible")) {
-                element.css({ display: element.data("olddisplay") || "block" }).css("display");
+                element.css({display: element.data("olddisplay") || "block"}).css("display");
             }
 
             if (options.hide) {
@@ -2049,7 +2063,7 @@ function pad(number, digits, end) {
             element.dequeue();
         },
 
-        transitionPromise: function(element, destination, options) {
+        transitionPromise: function (element, destination, options) {
             var container = kendo.wrap(element);
             container.append(destination);
 
@@ -2080,7 +2094,7 @@ function pad(number, digits, end) {
                 reverse = false;
             }
 
-            if (typeof duration === BOOLEAN){
+            if (typeof duration === BOOLEAN) {
                 reverse = duration;
                 duration = 400;
             }
@@ -2101,7 +2115,7 @@ function pad(number, digits, end) {
             init: noop,
             teardown: noop,
             hide: false
-        }, options, { completeCallback: options.complete, complete: noop }); // Move external complete callback, so deferred.resolve can be always executed.
+        }, options, {completeCallback: options.complete, complete: noop}); // Move external complete callback, so deferred.resolve can be always executed.
 
     }
 
@@ -2110,9 +2124,9 @@ function pad(number, digits, end) {
             length = element.length,
             instance;
 
-        for (; idx < length; idx ++) {
+        for (; idx < length; idx++) {
             instance = $(element[idx]);
-            instance.queue(function() {
+            instance.queue(function () {
                 effects.promise(instance, prepareAnimationOptions(options, duration, reverse, complete));
             });
         }
@@ -2128,7 +2142,7 @@ function pad(number, digits, end) {
         if (classes) {
             classes = classes.split(" ");
 
-            each(classes, function(idx, value) {
+            each(classes, function (idx, value) {
                 element.toggleClass(value, add);
             });
         }
@@ -2138,25 +2152,25 @@ function pad(number, digits, end) {
 
     if (!("kendoAnimate" in $.fn)) {
         extend($.fn, {
-            kendoStop: function(clearQueue, gotoEnd) {
+            kendoStop: function (clearQueue, gotoEnd) {
                 return this.stop(clearQueue, gotoEnd);
             },
 
-            kendoAnimate: function(options, duration, reverse, complete) {
+            kendoAnimate: function (options, duration, reverse, complete) {
                 return animate(this, options, duration, reverse, complete);
             },
 
-            kendoAnimateTo: function(destination, options, duration, reverse, complete) {
+            kendoAnimateTo: function (destination, options, duration, reverse, complete) {
                 return animateTo(this, destination, options, duration, reverse, complete);
             },
 
-            kendoAddClass: function(classes, options){
+            kendoAddClass: function (classes, options) {
                 return kendo.toggleClass(this, classes, options, true);
             },
-            kendoRemoveClass: function(classes, options){
+            kendoRemoveClass: function (classes, options) {
                 return kendo.toggleClass(this, classes, options, false);
             },
-            kendoToggleClass: function(classes, options, toggle){
+            kendoToggleClass: function (classes, options, toggle) {
                 return kendo.toggleClass(this, classes, options, toggle);
             }
         });
@@ -2165,6 +2179,7 @@ function pad(number, digits, end) {
     var ampRegExp = /&/g,
         ltRegExp = /</g,
         gtRegExp = />/g;
+
     function htmlEncode(value) {
         return ("" + value).replace(ampRegExp, "&amp;").replace(ltRegExp, "&lt;").replace(gtRegExp, "&gt;");
     }
@@ -2175,14 +2190,14 @@ function pad(number, digits, end) {
 
     if (support.touch) {
 
-        eventTarget = function(e) {
+        eventTarget = function (e) {
             var touches = "originalEvent" in e ? e.originalEvent.changedTouches : "changedTouches" in e ? e.changedTouches : null;
 
             return touches ? document.elementFromPoint(touches[0].clientX, touches[0].clientY) : e.target;
         };
 
-        each(["swipe", "swipeLeft", "swipeRight", "swipeUp", "swipeDown", "doubleTap", "tap"], function(m, value) {
-            $.fn[value] = function(callback) {
+        each(["swipe", "swipeLeft", "swipeRight", "swipeUp", "swipeDown", "doubleTap", "tap"], function (m, value) {
+            $.fn[value] = function (callback) {
                 return this.bind(value, callback);
             };
         });
@@ -2220,35 +2235,35 @@ function pad(number, digits, end) {
         support.resize = "resize";
     }
 
-    var wrapExpression = function(members, paramName) {
-        var result = paramName || "d",
-            index,
-            idx,
-            length,
-            member,
-            count = 1;
+    var wrapExpression = function (members, paramName) {
+            var result = paramName || "d",
+                index,
+                idx,
+                length,
+                member,
+                count = 1;
 
-        for (idx = 0, length = members.length; idx < length; idx++) {
-            member = members[idx];
-            if (member !== "") {
-                index = member.indexOf("[");
+            for (idx = 0, length = members.length; idx < length; idx++) {
+                member = members[idx];
+                if (member !== "") {
+                    index = member.indexOf("[");
 
-                if (index !== 0) {
-                    if (index == -1) {
-                        member = "." + member;
-                    } else {
-                        count++;
-                        member = "." + member.substring(0, index) + " || {})" + member.substring(index);
+                    if (index !== 0) {
+                        if (index == -1) {
+                            member = "." + member;
+                        } else {
+                            count++;
+                            member = "." + member.substring(0, index) + " || {})" + member.substring(index);
+                        }
                     }
-                }
 
-                count++;
-                result += member + ((idx < length - 1) ? " || {})" : ")");
+                    count++;
+                    result += member + ((idx < length - 1) ? " || {})" : ")");
+                }
             }
-        }
-        return new Array(count).join("(") + result;
-    },
-    localUrlRe = /^([a-z]+:)?\/\//i;
+            return new Array(count).join("(") + result;
+        },
+        localUrlRe = /^([a-z]+:)?\/\//i;
 
     extend(kendo, {
         ui: kendo.ui || {},
@@ -2256,7 +2271,7 @@ function pad(number, digits, end) {
         effects: kendo.effects || effects,
         mobile: kendo.mobile || {},
         data: kendo.data || {},
-        dataviz: kendo.dataviz || {ui: { roles: {}}},
+        dataviz: kendo.dataviz || {ui: {roles: {}}},
         keys: {
             INSERT: 45,
             DELETE: 46,
@@ -2280,7 +2295,7 @@ function pad(number, digits, end) {
         support: kendo.support || support,
         animate: kendo.animate || animate,
         ns: "",
-        attr: function(value) {
+        attr: function (value) {
             return "data-" + kendo.ns + value;
         },
         wrap: wrap,
@@ -2299,11 +2314,11 @@ function pad(number, digits, end) {
         stringify: proxy(JSON.stringify, JSON),
         eventTarget: eventTarget,
         htmlEncode: htmlEncode,
-        isLocalUrl: function(url) {
+        isLocalUrl: function (url) {
             return url && !localUrlRe.test(url);
         },
 
-        expr: function(expression, safe, paramName) {
+        expr: function (expression, safe, paramName) {
             expression = expression || "";
 
             if (typeof safe == STRING) {
@@ -2326,22 +2341,22 @@ function pad(number, digits, end) {
             return expression;
         },
 
-        getter: function(expression, safe) {
+        getter: function (expression, safe) {
             return getterCache[expression] = getterCache[expression] || new Function("d", "return " + kendo.expr(expression, safe));
         },
 
-        setter: function(expression) {
+        setter: function (expression) {
             return setterCache[expression] = setterCache[expression] || new Function("d,value", kendo.expr(expression) + "=value");
         },
 
-        accessor: function(expression) {
+        accessor: function (expression) {
             return {
                 get: kendo.getter(expression),
                 set: kendo.setter(expression)
             };
         },
 
-        guid: function() {
+        guid: function () {
             var id = "", i, random;
 
             for (i = 0; i < 32; i++) {
@@ -2356,25 +2371,25 @@ function pad(number, digits, end) {
             return id;
         },
 
-        roleSelector: function(role) {
+        roleSelector: function (role) {
             return role.replace(/(\S+)/g, "[" + kendo.attr("role") + "=$1],").slice(0, -1);
         },
 
-        triggeredByInput: function(e) {
+        triggeredByInput: function (e) {
             return (/^(label|input|textarea|select)$/i).test(e.target.tagName);
         },
 
-        logToConsole: function(message) {
+        logToConsole: function (message) {
             var console = window.console;
 
-            if (typeof(console) != "undefined" && console.log) {
+            if (typeof (console) != "undefined" && console.log) {
                 console.log(message);
             }
         }
     });
 
-    var Widget = Observable.extend( {
-        init: function(element, options) {
+    var Widget = Observable.extend({
+        init: function (element, options) {
             var that = this;
 
             that.element = kendo.jQuery(element).handler(that);
@@ -2398,7 +2413,7 @@ function pad(number, digits, end) {
             prefix: ""
         },
 
-        _tabindex: function(target) {
+        _tabindex: function (target) {
             target = target || this.wrapper;
 
             var element = this.element,
@@ -2410,13 +2425,13 @@ function pad(number, digits, end) {
             target.attr(TABINDEX, !isNaN(tabindex) ? tabindex : 0);
         },
 
-        setOptions: function(options) {
+        setOptions: function (options) {
             var that = this,
                 idx = 0,
                 length = that.events.length,
                 e;
 
-            for (; idx < length; idx ++) {
+            for (; idx < length; idx++) {
                 e = that.events[idx];
                 if (that.options[e] && options[e]) {
                     that.unbind(e, that.options[e]);
@@ -2427,7 +2442,7 @@ function pad(number, digits, end) {
             that.bind(that.events, options);
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             that.element.removeData("kendo" + that.options.prefix + that.options.name);
@@ -2493,7 +2508,7 @@ function pad(number, digits, end) {
         return result;
     }
 
-    kendo.initWidget = function(element, options, roles) {
+    kendo.initWidget = function (element, options, roles) {
         var result,
             option,
             widget,
@@ -2561,7 +2576,7 @@ function pad(number, digits, end) {
         return result;
     };
 
-    kendo.rolesFromNamespaces = function(namespaces) {
+    kendo.rolesFromNamespaces = function (namespaces) {
         var roles = [],
             idx,
             length;
@@ -2570,27 +2585,27 @@ function pad(number, digits, end) {
             namespaces = [kendo.ui, kendo.dataviz.ui];
         }
 
-        for (idx = 0, length = namespaces.length; idx < length; idx ++) {
+        for (idx = 0, length = namespaces.length; idx < length; idx++) {
             roles[idx] = namespaces[idx].roles;
         }
 
         return extend.apply(null, [{}].concat(roles.reverse()));
     };
 
-    kendo.init = function(element) {
+    kendo.init = function (element) {
         var roles = kendo.rolesFromNamespaces(slice.call(arguments, 1));
 
-        $(element).find("[data-" + kendo.ns + "role]").andSelf().each(function(){
+        $(element).find("[data-" + kendo.ns + "role]").andSelf().each(function () {
             kendo.initWidget(this, {}, roles);
         });
     };
 
-    kendo.destroy = function(element) {
-        $(element).find("[data-" + kendo.ns + "role]").andSelf().each(function(){
+    kendo.destroy = function (element) {
+        $(element).find("[data-" + kendo.ns + "role]").andSelf().each(function () {
             var element = $(this),
                 widget = kendo.widgetInstance(element, kendo.ui) ||
-                         kendo.widgetInstance(element, kendo.mobile.ui) ||
-                         kendo.widgetInstance(element, kendo.dataviz.ui);
+                    kendo.widgetInstance(element, kendo.mobile.ui) ||
+                    kendo.widgetInstance(element, kendo.dataviz.ui);
 
             if (widget) {
                 widget.destroy();
@@ -2603,7 +2618,7 @@ function pad(number, digits, end) {
     extend(kendo.ui, {
         Widget: Widget,
         roles: {},
-        progress: function(container, toggle) {
+        progress: function (container, toggle) {
             var mask = container.find(".k-loading-mask"),
                 support = kendo.support,
                 browser = support.browser,
@@ -2626,7 +2641,7 @@ function pad(number, digits, end) {
                 mask.remove();
             }
         },
-        plugin: function(widget, register, prefix) {
+        plugin: function (widget, register, prefix) {
             var name = widget.fn.options.name,
                 getter;
 
@@ -2640,14 +2655,14 @@ function pad(number, digits, end) {
             getter = "getKendo" + prefix + name;
             name = "kendo" + prefix + name;
 
-            $.fn[name] = function(options) {
+            $.fn[name] = function (options) {
                 var value = this,
                     args;
 
                 if (typeof options === STRING) {
                     args = slice.call(arguments, 1);
 
-                    this.each(function(){
+                    this.each(function () {
                         var widget = $.data(this, name),
                             method,
                             result;
@@ -2670,7 +2685,7 @@ function pad(number, digits, end) {
                         }
                     });
                 } else {
-                    this.each(function() {
+                    this.each(function () {
                         new widget(this, options);
                     });
                 }
@@ -2678,22 +2693,26 @@ function pad(number, digits, end) {
                 return value;
             };
 
-            $.fn[getter] = function() {
+            $.fn[getter] = function () {
                 return this.data(name);
             };
         }
     });
 
-    var ContainerNullObject = { bind: function () { return this; } };
+    var ContainerNullObject = {
+        bind: function () {
+            return this;
+        }
+    };
 
     var MobileWidget = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             Widget.fn.init.call(this, element, options);
             this.element.autoApplyNS();
             this.wrapper = this.element;
         },
 
-        destroy: function() {
+        destroy: function () {
             Widget.fn.destroy.call(this);
             this.element.kendoDestroy();
         },
@@ -2704,34 +2723,34 @@ function pad(number, digits, end) {
 
         events: [],
 
-        view: function() {
+        view: function () {
             var viewElement = this.element.closest(kendo.roleSelector("view splitview modalview drawer"));
             return kendo.widgetInstance(viewElement, kendo.mobile.ui);
         },
 
-        container: function() {
+        container: function () {
             var element = this.element.closest(kendo.roleSelector("view layout modalview drawer"));
             return kendo.widgetInstance(element, kendo.mobile.ui) || ContainerNullObject;
         }
     });
 
     extend(kendo.mobile, {
-        init: function(element) {
+        init: function (element) {
             kendo.init(element, kendo.mobile.ui, kendo.ui, kendo.dataviz.ui);
         },
 
         ui: {
             Widget: MobileWidget,
             roles: {},
-            plugin: function(widget) {
+            plugin: function (widget) {
                 kendo.ui.plugin(widget, kendo.mobile.ui, "Mobile");
             }
         }
     });
 
-    kendo.touchScroller = function(elements, options) {
+    kendo.touchScroller = function (elements, options) {
         // return the first touch scroller
-        return $(elements).map(function(idx, element) {
+        return $(elements).map(function (idx, element) {
             element = $(element);
             if (support.kineticScrollNeeded && kendo.mobile.ui.Scroller && !element.data("kendoMobileScroller")) {
                 element.kendoMobileScroller(options);
@@ -2742,11 +2761,11 @@ function pad(number, digits, end) {
         })[0];
     };
 
-    kendo.preventDefault = function(e) {
+    kendo.preventDefault = function (e) {
         e.preventDefault();
     };
 
-    kendo.widgetInstance = function(element, suite) {
+    kendo.widgetInstance = function (element, suite) {
         var widget = suite.roles[element.data(kendo.ns + "role")];
 
         if (widget) {
@@ -2754,21 +2773,23 @@ function pad(number, digits, end) {
         }
     };
 
-    kendo.onResize = function(callback) {
+    kendo.onResize = function (callback) {
         var handler = callback;
         if (support.mobileOS.android) {
-            handler = function() { setTimeout(callback, 200); };
+            handler = function () {
+                setTimeout(callback, 200);
+            };
         }
 
         $(window).on(support.resize, handler);
         return handler;
     };
 
-    kendo.unbindResize = function(callback) {
+    kendo.unbindResize = function (callback) {
         $(window).off(support.resize, callback);
     };
 
-    kendo.attrValue = function(element, key) {
+    kendo.attrValue = function (element, key) {
         return element.data(kendo.ns + key);
     };
 
@@ -2788,20 +2809,20 @@ function pad(number, digits, end) {
         return (/input|select|textarea|button|object/.test(nodeName) ?
                 !element.disabled :
                 "a" === nodeName ?
-                element.href || isTabIndexNotNaN :
-                isTabIndexNotNaN
-               ) &&
+                    element.href || isTabIndexNotNaN :
+                    isTabIndexNotNaN
+            ) &&
             visible(element);
     }
 
     function visible(element) {
-        return !$(element).parents().andSelf().filter(function() {
-            return $.css(this,"visibility") === "hidden" || $.expr.filters.hidden(this);
+        return !$(element).parents().andSelf().filter(function () {
+            return $.css(this, "visibility") === "hidden" || $.expr.filters.hidden(this);
         }).length;
     }
 
-    $.extend($.expr[ ":" ], {
-        focusable: function(element) {
+    $.extend($.expr[":"], {
+        focusable: function (element) {
             var idx = $.attr(element, "tabindex");
             return focusable(element, !isNaN(idx) && idx > -1);
         }
@@ -2811,7 +2832,7 @@ function pad(number, digits, end) {
     var EXCLUDE_BUST_CLICK_SELECTOR = "label, input, [data-rel=external]";
 
     var MouseEventNormalizer = {
-        setupMouseMute: function() {
+        setupMouseMute: function () {
             var idx = 0,
                 length = MOUSE_EVENTS.length,
                 element = document.documentElement;
@@ -2825,7 +2846,7 @@ function pad(number, digits, end) {
             MouseEventNormalizer.bustClick = false;
             MouseEventNormalizer.captureMouse = false;
 
-            var handler = function(e) {
+            var handler = function (e) {
                 if (MouseEventNormalizer.captureMouse) {
                     if (e.type === "click") {
                         if (MouseEventNormalizer.bustClick && !$(e.target).is(EXCLUDE_BUST_CLICK_SELECTOR)) {
@@ -2843,7 +2864,7 @@ function pad(number, digits, end) {
             }
         },
 
-        muteMouse: function(e) {
+        muteMouse: function (e) {
             MouseEventNormalizer.captureMouse = true;
             if (e.data.bustClick) {
                 MouseEventNormalizer.bustClick = true;
@@ -2851,9 +2872,9 @@ function pad(number, digits, end) {
             clearTimeout(MouseEventNormalizer.mouseTrapTimeoutID);
         },
 
-        unMuteMouse: function() {
+        unMuteMouse: function () {
             clearTimeout(MouseEventNormalizer.mouseTrapTimeoutID);
-            MouseEventNormalizer.mouseTrapTimeoutID = setTimeout(function() {
+            MouseEventNormalizer.mouseTrapTimeoutID = setTimeout(function () {
                 MouseEventNormalizer.captureMouse = false;
                 MouseEventNormalizer.bustClick = false;
             }, 400);
@@ -2888,12 +2909,12 @@ function pad(number, digits, end) {
         $.each({
             MSPointerEnter: "MSPointerOver",
             MSPointerLeave: "MSPointerOut"
-        }, function( orig, fix ) {
-            $.event.special[ orig ] = {
+        }, function (orig, fix) {
+            $.event.special[orig] = {
                 delegateType: fix,
                 bindType: fix,
 
-                handle: function( event ) {
+                handle: function (event) {
                     var ret,
                         target = this,
                         related = event.relatedTarget,
@@ -2901,9 +2922,9 @@ function pad(number, digits, end) {
 
                     // For mousenter/leave call the handler if related is outside the target.
                     // NB: No relatedTarget if the mouse left/entered the browser window
-                    if ( !related || (related !== target && !$.contains( target, related )) ) {
+                    if (!related || (related !== target && !$.contains(target, related))) {
                         event.type = handleObj.origType;
-                        ret = handleObj.handler.apply( this, arguments );
+                        ret = handleObj.handler.apply(this, arguments);
                         event.type = fix;
                     }
                     return ret;
@@ -2913,10 +2934,12 @@ function pad(number, digits, end) {
     }
 
 
-    var getEventMap = function(e) { return (eventMap[e] || e); },
+    var getEventMap = function (e) {
+            return (eventMap[e] || e);
+        },
         eventRegEx = /([^ ]+)/g;
 
-    kendo.applyEventMap = function(events, ns) {
+    kendo.applyEventMap = function (events, ns) {
         events = events.replace(eventRegEx, getEventMap);
 
         if (ns) {
@@ -2938,7 +2961,7 @@ function pad(number, digits, end) {
 
     kendoJQuery.fn.constructor = kendoJQuery;
 
-    kendoJQuery.fn.init = function(selector, context) {
+    kendoJQuery.fn.init = function (selector, context) {
         if (context && context instanceof $ && !(context instanceof kendoJQuery)) {
             context = kendoJQuery(context);
         }
@@ -2951,17 +2974,17 @@ function pad(number, digits, end) {
     var rootjQuery = kendoJQuery(document);
 
     extend(kendoJQuery.fn, {
-        handler: function(handler) {
+        handler: function (handler) {
             this.data("handler", handler);
             return this;
         },
 
-        autoApplyNS: function(ns) {
+        autoApplyNS: function (ns) {
             this.data("kendoNS", ns || kendo.guid());
             return this;
         },
 
-        on: function() {
+        on: function () {
             var that = this,
                 ns = that.data("kendoNS");
 
@@ -2973,11 +2996,11 @@ function pad(number, digits, end) {
             var context = that,
                 args = slice.call(arguments);
 
-            if (typeof args[args.length -1] === UNDEFINED) {
+            if (typeof args[args.length - 1] === UNDEFINED) {
                 args.pop();
             }
 
-            var callback =  args[args.length - 1],
+            var callback = args[args.length - 1],
                 events = kendo.applyEventMap(args[0], ns);
 
             // setup mouse trap
@@ -3002,7 +3025,7 @@ function pad(number, digits, end) {
                 context = that.data("handler");
                 callback = context[callback];
 
-                args[args.length - 1] = function(e) {
+                args[args.length - 1] = function (e) {
                     callback.call(context, e);
                 };
             }
@@ -3014,7 +3037,7 @@ function pad(number, digits, end) {
             return that;
         },
 
-        kendoDestroy: function(ns) {
+        kendoDestroy: function (ns) {
             ns = ns || this.data("kendoNS");
 
             if (ns) {
@@ -3028,9 +3051,9 @@ function pad(number, digits, end) {
     kendo.jQuery = kendoJQuery;
     kendo.eventMap = eventMap;
 
-    kendo.timezone = (function(){
-        var months =  { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11 };
-        var days = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    kendo.timezone = (function () {
+        var months = {Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11};
+        var days = {Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6};
 
         function ruleToDate(year, rule) {
             var date;
@@ -3086,7 +3109,7 @@ function pad(number, digits, end) {
 
             var year = new Date(utcTime).getUTCFullYear();
 
-            rules = jQuery.grep(rules, function(rule) {
+            rules = jQuery.grep(rules, function (rule) {
                 var from = rule[0];
                 var to = rule[1];
 
@@ -3095,7 +3118,7 @@ function pad(number, digits, end) {
 
             rules.push(utcTime);
 
-            rules.sort(function(a, b) {
+            rules.sort(function (a, b) {
                 if (typeof a != "number") {
                     a = Number(ruleToDate(year, a));
                 }
@@ -3158,7 +3181,7 @@ function pad(number, digits, end) {
             var zone = info.zone;
             var rule = info.rule;
 
-            return rule? zone[0] - rule[6] : zone[0];
+            return rule ? zone[0] - rule[6] : zone[0];
         }
 
         function abbr(utcTime, timezone) {
@@ -3196,25 +3219,25 @@ function pad(number, digits, end) {
         }
 
         function apply(date, timezone) {
-           return this.convert(date, date.getTimezoneOffset(), timezone);
+            return this.convert(date, date.getTimezoneOffset(), timezone);
         }
 
         function remove(date, timezone) {
-           return this.convert(date, timezone, date.getTimezoneOffset());
+            return this.convert(date, timezone, date.getTimezoneOffset());
         }
 
         return {
-           zones: {},
-           rules: {},
-           offset: offset,
-           convert: convert,
-           apply: apply,
-           remove: remove,
-           abbr: abbr
+            zones: {},
+            rules: {},
+            offset: offset,
+            convert: convert,
+            apply: apply,
+            remove: remove,
+            abbr: abbr
         };
     })();
 
-    kendo.date = (function(){
+    kendo.date = (function () {
         var MS_PER_MINUTE = 60000,
             MS_PER_DAY = 86400000;
 
@@ -3315,7 +3338,7 @@ function pad(number, digits, end) {
 
         function addDays(date, offset) {
             var hours = date.getHours();
-                date = new Date(date);
+            date = new Date(date);
 
             setTime(date, offset * MS_PER_DAY);
             adjustDST(date, hours);
@@ -3339,7 +3362,7 @@ function pad(number, digits, end) {
         }
 
         function isToday(date) {
-           return getDate(date).getTime() == today().getTime();
+            return getDate(date).getTime() == today().getTime();
         }
 
         return {
@@ -3350,10 +3373,10 @@ function pad(number, digits, end) {
             isInDateRange: isInDateRange,
             isInTimeRange: isInTimeRange,
             isToday: isToday,
-            nextDay: function(date) {
+            nextDay: function (date) {
                 return addDays(date, 1);
             },
-            previousDay: function(date) {
+            previousDay: function (date) {
                 return addDays(date, -1);
             },
             MS_PER_DAY: MS_PER_DAY,
@@ -3369,10 +3392,10 @@ function pad(number, digits, end) {
     })();
 
 
-    kendo.stripWhitespace = function(element) {
-        var iterator = document.createNodeIterator(element, NodeFilter.SHOW_TEXT, function(node) {
-                return node.parentNode == element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
-            }, false);
+    kendo.stripWhitespace = function (element) {
+        var iterator = document.createNodeIterator(element, NodeFilter.SHOW_TEXT, function (node) {
+            return node.parentNode == element ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }, false);
 
         while (iterator.nextNode()) {
             if (iterator.referenceNode && !iterator.referenceNode.textContent.trim()) {
@@ -3385,7 +3408,8 @@ function pad(number, digits, end) {
 
 /*global kendo_module:true */
 if (typeof kendo_module === "undefined") {
-    kendo_module = function(){};
+    kendo_module = function () {
+    };
 }
 
 kendo_module({

@@ -24,31 +24,31 @@ class Agenda_Bootstrap extends Zend_Application_Module_Bootstrap
         //Zend_Debug::dump('passou');
         //new Zend_
         $autoloader = new Zend_Loader_Autoloader_Resource(array(
-                'namespace'     => 'Processo',
-                'basePath'      => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'agenda',
-                'resourceTypes' => array(
-                    'form' => array(
-                        'path'      => 'forms',
-                        'namespace' => 'Form'
-                    ),
-                    'model'     => array(
-                        'path'      => 'models',
-                        'namespace' => 'Model',
-                    ),
-                    'dbtable'    => array(
-                        'path'      => 'models/DbTable',
-                        'namespace' => 'Model_DbTable',
-                    ),
-                    'mapper'    => array(
-                        'path'      => 'models/mappers',
-                        'namespace' => 'Model_Mapper',
-                    ),
-                    'service'   => array(
-                        'path'      => 'services',
-                        'namespace' => 'Service',
-                    ),
-                )
-            ));
+            'namespace' => 'Processo',
+            'basePath' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'agenda',
+            'resourceTypes' => array(
+                'form' => array(
+                    'path' => 'forms',
+                    'namespace' => 'Form'
+                ),
+                'model' => array(
+                    'path' => 'models',
+                    'namespace' => 'Model',
+                ),
+                'dbtable' => array(
+                    'path' => 'models/DbTable',
+                    'namespace' => 'Model_DbTable',
+                ),
+                'mapper' => array(
+                    'path' => 'models/mappers',
+                    'namespace' => 'Model_Mapper',
+                ),
+                'service' => array(
+                    'path' => 'services',
+                    'namespace' => 'Service',
+                ),
+            )
+        ));
         //$autoloader->addResourceType('Form', 'forms/', 'Form');
         //$autoloader->addResourceType('mapper', 'models/mappers', 'Model_Mapper');
         return $autoloader;
@@ -59,7 +59,7 @@ class Agenda_Bootstrap extends Zend_Application_Module_Bootstrap
      *
      * @return void
      */
-    
+
     protected function _initServices()
     {
         $config = new Zend_Config($this->getOptions());
@@ -67,5 +67,5 @@ class Agenda_Bootstrap extends Zend_Application_Module_Bootstrap
             new Agenda_Service_InjectionContainer($config), 'Agenda_Service_'
         );
     }
-    
+
 }

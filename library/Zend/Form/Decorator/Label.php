@@ -66,7 +66,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set element ID
      *
-     * @param  string $id
+     * @param string $id
      * @return Zend_Form_Decorator_Label
      */
     public function setId($id)
@@ -99,7 +99,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set HTML tag with which to surround label
      *
-     * @param  string $tag
+     * @param string $tag
      * @return Zend_Form_Decorator_Label
      */
     public function setTag($tag)
@@ -107,7 +107,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         if (empty($tag)) {
             $this->_tag = null;
         } else {
-            $this->_tag = (string) $tag;
+            $this->_tag = (string)$tag;
         }
 
         $this->removeOption('tag');
@@ -137,7 +137,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Set the class to apply to the HTML tag with which to surround label
      *
-     * @param  string $tagClass
+     * @param string $tagClass
      * @return Zend_Form_Decorator_Label
      */
     public function setTagClass($tagClass)
@@ -145,7 +145,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
         if (empty($tagClass)) {
             $this->_tagClass = null;
         } else {
-            $this->_tagClass = (string) $tagClass;
+            $this->_tagClass = (string)$tagClass;
         }
 
         $this->removeOption('tagClass');
@@ -181,7 +181,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      */
     public function getClass()
     {
-        $class   = '';
+        $class = '';
         $element = $this->getElement();
 
         $decoratorClass = $this->getOption('class');
@@ -189,7 +189,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
             $class .= ' ' . $decoratorClass;
         }
 
-        $type  = $element->isRequired() ? 'required' : 'optional';
+        $type = $element->isRequired() ? 'required' : 'optional';
 
         if (!strstr($class, $type)) {
             $class .= ' ' . $type;
@@ -202,14 +202,14 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Load an optional/required suffix/prefix key
      *
-     * @param  string $key
+     * @param string $key
      * @return void
      */
     protected function _loadOptReqKey($key)
     {
         if (!isset($this->$key)) {
             $value = $this->getOption($key);
-            $this->$key = (string) $value;
+            $this->$key = (string)$value;
             if (null !== $value) {
                 $this->removeOption($key);
             }
@@ -230,8 +230,8 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
      * - setReq(uired)Prefix()
      * - setReq(uired)Suffix()
      *
-     * @param  string $method
-     * @param  array $args
+     * @param string $method
+     * @param array $args
      * @return mixed
      * @throws Zend_Form_Exception for unsupported methods
      */
@@ -243,7 +243,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
             && (('Prefix' == $tail) || ('Suffix' == $tail))
         ) {
             $position = substr($method, -6);
-            $type     = strtolower(substr($method, 3, 3));
+            $type = strtolower(substr($method, 3, 3));
             switch ($type) {
                 case 'req':
                     $key = 'required' . $position;
@@ -253,14 +253,16 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                     break;
                 default:
                     require_once 'Zend/Form/Exception.php';
-                    throw new Zend_Form_Exception(sprintf('Invalid method "%s" called in Label decorator, and detected as type %s', $method, $type));
+                    throw new Zend_Form_Exception(sprintf('Invalid method "%s" called in Label decorator, and detected as type %s',
+                        $method, $type));
             }
 
             switch ($head) {
                 case 'set':
                     if (0 === count($args)) {
                         require_once 'Zend/Form/Exception.php';
-                        throw new Zend_Form_Exception(sprintf('Method "%s" requires at least one argument; none provided', $method));
+                        throw new Zend_Form_Exception(sprintf('Method "%s" requires at least one argument; none provided',
+                            $method));
                     }
                     $value = array_shift($args);
                     $this->$key = $value;
@@ -270,7 +272,7 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
                     if (null === ($element = $this->getElement())) {
                         $this->_loadOptReqKey($key);
                     } elseif (isset($element->$key)) {
-                        $this->$key = (string) $element->$key;
+                        $this->$key = (string)$element->$key;
                     } else {
                         $this->_loadOptReqKey($key);
                     }
@@ -325,25 +327,25 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
     /**
      * Render a label
      *
-     * @param  string $content
+     * @param string $content
      * @return string
      */
     public function render($content)
     {
         $element = $this->getElement();
-        $view    = $element->getView();
+        $view = $element->getView();
         if (null === $view) {
             return $content;
         }
 
-        $label     = $this->getLabel();
+        $label = $this->getLabel();
         $separator = $this->getSeparator();
         $placement = $this->getPlacement();
-        $tag       = $this->getTag();
-        $tagClass  = $this->getTagClass();
-        $id        = $this->getId();
-        $class     = $this->getClass();
-        $options   = $this->getOptions();
+        $tag = $this->getTag();
+        $tagClass = $this->getTagClass();
+        $id = $this->getId();
+        $class = $this->getClass();
+        $options = $this->getOptions();
 
 
         if (empty($label) && empty($tag)) {
@@ -361,12 +363,16 @@ class Zend_Form_Decorator_Label extends Zend_Form_Decorator_Abstract
             require_once 'Zend/Form/Decorator/HtmlTag.php';
             $decorator = new Zend_Form_Decorator_HtmlTag();
             if (null !== $this->_tagClass) {
-                $decorator->setOptions(array('tag'   => $tag,
-                                             'id'    => $id . '-label',
-                                             'class' => $tagClass));
+                $decorator->setOptions(array(
+                    'tag' => $tag,
+                    'id' => $id . '-label',
+                    'class' => $tagClass
+                ));
             } else {
-                $decorator->setOptions(array('tag'   => $tag,
-                                             'id'    => $id . '-label'));
+                $decorator->setOptions(array(
+                    'tag' => $tag,
+                    'id' => $id . '-label'
+                ));
             }
 
             $label = $decorator->render($label);

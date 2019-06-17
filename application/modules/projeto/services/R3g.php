@@ -1,6 +1,7 @@
 <?php
 
-class Projeto_Service_R3g extends App_Service_ServiceAbstract {
+class Projeto_Service_R3g extends App_Service_ServiceAbstract
+{
 
     protected $_form;
 
@@ -19,29 +20,50 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
      */
     public $errors = array();
 
-    public function init() {
+    public function init()
+    {
         $this->_mapper = new Projeto_Model_Mapper_R3g();
     }
 
     /**
      * @return Projeto_Form_R3g
      */
-    public function getForm() {
+    public function getForm()
+    {
         return $this->_getForm('Projeto_Form_R3g');
     }
 
     /**
      * @return Default_Form_R3gEditar
      */
-    public function getFormEdit() {
+    public function getFormEdit()
+    {
         $formEditar = $this->_getForm('Projeto_Form_R3gEdit');
         return $formEditar;
     }
 
     //put your code here
-    public function inserir($dados) {
+    public function inserir($dados)
+    {
+        if (@trim($dados['desplanejado']) != "") {
+            $dados['desplanejado'] = @mb_substr(@trim($dados['desplanejado']), 0, 4000);
+        }
+        if (@trim($dados['desrealizado']) != "") {
+            $dados['desrealizado'] = @mb_substr(@trim($dados['desrealizado']), 0, 4000);
+        }
+        if (@trim($dados['descausa']) != "") {
+            $dados['descausa'] = @mb_substr(@trim($dados['descausa']), 0, 4000);
+        }
+        if (@trim($dados['desconsequencia']) != "") {
+            $dados['desconsequencia'] = @mb_substr(@trim($dados['desconsequencia']), 0, 4000);
+        }
+        if (@trim($dados['descontramedida']) != "") {
+            $dados['descontramedida'] = @mb_substr(@trim($dados['descontramedida']), 0, 4000);
+        }
+        if (@trim($dados['desobs']) != "") {
+            $dados['desobs'] = @mb_substr(@trim($dados['desobs']), 0, 4000);
+        }
         $form = $this->getForm();
-
         if ($form->isValid($dados)) {
             $model = new Projeto_Model_R3g($form->getValues());
             $auth = Zend_Auth::getInstance();
@@ -61,7 +83,26 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
      * @param array $dados
      * @return boolean | array
      */
-    public function update($dados) {
+    public function update($dados)
+    {
+        if (@trim($dados['desplanejado']) != "") {
+            $dados['desplanejado'] = @mb_substr(@trim($dados['desplanejado']), 0, 4000);
+        }
+        if (@trim($dados['desrealizado']) != "") {
+            $dados['desrealizado'] = @mb_substr(@trim($dados['desrealizado']), 0, 4000);
+        }
+        if (@trim($dados['descausa']) != "") {
+            $dados['descausa'] = @mb_substr(@trim($dados['descausa']), 0, 4000);
+        }
+        if (@trim($dados['desconsequencia']) != "") {
+            $dados['desconsequencia'] = @mb_substr(@trim($dados['desconsequencia']), 0, 4000);
+        }
+        if (@trim($dados['descontramedida']) != "") {
+            $dados['descontramedida'] = @mb_substr(@trim($dados['descontramedida']), 0, 4000);
+        }
+        if (@trim($dados['desobs']) != "") {
+            $dados['desobs'] = @mb_substr(@trim($dados['desobs']), 0, 4000);
+        }
         $form = $this->_getForm('Projeto_Form_R3g');
         if ($form->isValidPartial($dados)) {
             $values = array_filter($form->getValues());
@@ -78,7 +119,8 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
      *
      * @param array $dados
      */
-    public function excluir($dados) {
+    public function excluir($dados)
+    {
         try {
             //$model = new Default_Model_Gerencia($dados);
             return $this->_mapper->excluir($dados);
@@ -88,11 +130,13 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
         }
     }
 
-    public function getById($dados) {
+    public function getById($dados)
+    {
         return $this->_mapper->getById($dados);
     }
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -102,7 +146,8 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
      */
-    public function pesquisar($params, $paginator) {
+    public function pesquisar($params, $paginator)
+    {
 //        $dados = $this->_mapper->pesquisar($params, $paginator);
         $dados = $this->_mapper->getPaginatortById($params, $paginator);
         if ($paginator) {
@@ -115,10 +160,10 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
                 $array = array();
                 $tipo = $efetiva = '';
 
-                $tipo       = $this->getTipo($d['domtipo']);
-                $efetiva    = $this->getEfetiva($d['flacontramedidaefetiva']);
-                $status     = $this->getStatusContramedida($d['domstatuscontramedida']);
-                $prazo      = $this->getPrazoProjeto($d['domcorprazoprojeto']);
+                $tipo = $this->getTipo((trim($d['domtipo']) != "" ? $d['domtipo'] : 99));
+                $efetiva = $this->getEfetiva((trim($d['flacontramedidaefetiva']) != "" ? $d['flacontramedidaefetiva'] : 99));
+                $status = $this->getStatusContramedida((trim($d['domstatuscontramedida']) != "" ? $d['domstatuscontramedida'] : 99));
+                $prazo = $this->getPrazoProjeto((trim($d['domcorprazoprojeto']) != "" ? $d['domcorprazoprojeto'] : 99));
 
 //                Zend_Debug::dump($d);exit;
 
@@ -153,9 +198,10 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
         return $dados;
     }
 
-    public function getTipo($tipo = false){
-        if($tipo){
-            switch($tipo){
+    public function getTipo($tipo = false)
+    {
+        if ($tipo) {
+            switch ($tipo) {
                 case 1:
                     return 'Prazo';
                     break;
@@ -168,11 +214,14 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
                 case 4:
                     return 'Escopo';
                     break;
+                default :
+                    return '';
+                    break;
 
             }
         }
         return array(
-            ''  => 'Selecione',
+            '' => 'Selecione',
             '1' => 'Prazo',
             '2' => 'Custo',
             '3' => 'Qualidade',
@@ -180,9 +229,10 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
         );
     }
 
-    public function getPrazoProjeto($tipo = false){
-        if($tipo){
-            switch($tipo){
+    public function getPrazoProjeto($tipo = false)
+    {
+        if ($tipo) {
+            switch ($tipo) {
                 case 1:
                     return "<span class='badge badge-important' title=''>P</span>";
                     break;
@@ -192,21 +242,25 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
                 case 3:
                     return "<span class='badge badge-success' title=''>P</span>";
                     break;
+                default :
+                    return '';
+                    break;
 
             }
         }
 
         return array(
-            ''  => 'Selecione',
+            '' => 'Selecione',
             '1' => 'Vermelho',
             '2' => 'Amarelo',
             '3' => 'Verde',
         );
     }
 
-    public function getStatusContramedida($status = false) {
-        if($status){
-            switch($status){
+    public function getStatusContramedida($status = false)
+    {
+        if ($status) {
+            switch ($status) {
                 case 1:
                     return 'Em Andamento';
                     break;
@@ -225,11 +279,14 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
                 case 6:
                     return 'Cancelada';
                     break;
+                default :
+                    return '';
+                    break;
 
             }
         }
         return array(
-            ''  => 'Selecione',
+            '' => 'Selecione',
             '1' => 'Em andamento',
             '2' => 'Atrasada',
             '3' => 'Concluída',
@@ -239,27 +296,40 @@ class Projeto_Service_R3g extends App_Service_ServiceAbstract {
         );
     }
 
-    public function getEfetiva($tipo = false){
-        if($tipo){
-            switch($tipo){
+    public function getEfetiva($tipo = false)
+    {
+        if ($tipo) {
+            switch ($tipo) {
                 case 1:
                     return 'SIM';
                     break;
                 case 2:
                     return 'NÃO';
                     break;
+                default :
+                    return '';
+                    break;
             }
         }
         return array(
-          ''  => 'Selecione',
-          '1' => 'SIM',
-          '2' => 'NÃO',
+            '' => 'Selecione',
+            '1' => 'SIM',
+            '2' => 'NÃO',
         );
     }
 
-    public function retornaContramedida($params){
+    public function retornaContramedida($params)
+    {
         return $this->_mapper->retornaContramedida($params);
     }
-}
-?>
 
+    public function retornaTodasContramedidas($params)
+    {
+        return $this->_mapper->retornaTodasContramedidas($params);
+    }
+
+    public function getProjeto($idR3g)
+    {
+        return $this->_mapper->getProjeto($idR3g);
+    }
+}

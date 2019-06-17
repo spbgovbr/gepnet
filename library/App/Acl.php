@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 class App_Acl extends Zend_Acl
 {
@@ -7,7 +7,7 @@ class App_Acl extends Zend_Acl
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
 
@@ -52,12 +52,12 @@ class App_Acl extends Zend_Acl
     private function initRoles()
     {
         $auth = Zend_Auth::getInstance();
-        if ( $auth->hasIdentity() ) {
+        if ($auth->hasIdentity()) {
             //Zend_Debug::dump($auth); exit;
 
             $perfil = Zend_Auth::getInstance()->getIdentity()->perfilAtivo;
 
-            if ( $perfil ) {
+            if ($perfil) {
                 $this->_perfil = $perfil->idperfil;
                 $this->addRole(new Zend_Acl_Role($this->_perfil));
             }
@@ -72,21 +72,20 @@ class App_Acl extends Zend_Acl
 
     private function initResources()
     {
-        $sql  = "select
+        $sql = "select
                     idrecurso,
                     ds_recurso
                from agepnet200.tb_recurso";
         $rows = $this->_db->fetchAll($sql);
         //Zend_Debug::dump($rows);die;
         $this
-            ->add(new Zend_Acl_Resource('default:index')) // Para sair do sistema
+            ->add(new Zend_Acl_Resource('default:index'))// Para sair do sistema
             ->add(new Zend_Acl_Resource('default:error')) // Para sair do sistema
-        //->add(new Zend_Acl_Resource('cadastro:recurso')) // Para sair do sistema
+            //->add(new Zend_Acl_Resource('cadastro:recurso')) // Para sair do sistema
         ;
 
-        foreach ( $rows as $recurso )
-        {
-            if ( false == $this->has($recurso['ds_recurso']) ) {
+        foreach ($rows as $recurso) {
+            if (false == $this->has($recurso['ds_recurso'])) {
                 $this->add(new Zend_Acl_Resource($recurso['ds_recurso']));
             }
         }
@@ -96,23 +95,27 @@ class App_Acl extends Zend_Acl
     {
         $this
             ->deny()
-            ->allow(null, 'default:index') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-            ->allow(null, 'default:error') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-           // ->allow(null, 'cadastro:recurso') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-           // ->allow(null, 'cadastro:permissao') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-           // ->allow(null, 'cadastro:perfil') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-           // ->allow(null, 'projeto:gerencia') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            ->allow(null,
+                'default:index')// Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            ->allow(null,
+                'default:error')// Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            ->allow(null, 'default:autenticarcodigo')
+            // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            // ->allow(null, 'cadastro:recurso') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            // ->allow(null, 'cadastro:permissao') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            // ->allow(null, 'cadastro:perfil') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            // ->allow(null, 'projeto:gerencia') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
             //->allow(null, 'processo:index') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
-           // ->allow(null, 'cadastro:documento') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
+            // ->allow(null, 'cadastro:documento') // Tem que permitir que cara saia não é mesmo, ah não ser que o perfil seja prisioneiro ai não ehaueshuase =D
             //->allow(null, 'pesquisa:responder') // Libera o acesso externo para responder pesquisas no GEPNET
             //->allow(null, 'cadastro:permissao', 'retorna-por-perfil')
 
         ;
-        if ( null == $this->_perfil ) {
+        if (null == $this->_perfil) {
             return;
         }
 
-        $sql  = "select per.idpermissao, rec.idrecurso, per.no_permissao, rec.ds_recurso
+        $sql = "select per.idpermissao, rec.idrecurso, per.no_permissao, rec.ds_recurso
                 from
                     agepnet200.tb_permissaoperfil ppe,
                     agepnet200.tb_permissao per,
@@ -125,15 +128,14 @@ class App_Acl extends Zend_Acl
         $rows = $this->_db->fetchAll($sql, array('perfil' => $this->_perfil));
 
 
-        foreach ( $rows as $permissao )
-        {
+        foreach ($rows as $permissao) {
             $this->allow($this->_perfil, $permissao['ds_recurso'], array($permissao['no_permissao']));
         }
     }
 
     public function isUserAllowed($role, $resource, $permission)
     {
-        if ( false == $this->has($resource) ) {
+        if (false == $this->has($resource)) {
             return false;
         }
         return ($this->isAllowed($role, $resource, $permission));

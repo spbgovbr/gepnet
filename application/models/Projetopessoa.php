@@ -8,9 +8,9 @@
 class Default_Model_Projetopessoa extends App_Model_ModelAbstract
 {
 
-    public $idpessoa    = null;
-    public $idprojeto   = null;
-    public $desfuncao   = null;
+    public $idpessoa = null;
+    public $idprojeto = null;
+    public $desfuncao = null;
     public $destelefone = null;
 
 }

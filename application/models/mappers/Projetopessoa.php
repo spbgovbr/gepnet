@@ -18,9 +18,9 @@ class Default_Model_Mapper_Projetopessoa extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Projetopessoa $model)
     {
         $data = array(
-            "idpessoa"    => $model->idpessoa,
-            "idprojeto"   => $model->idprojeto,
-            "desfuncao"   => $model->desfuncao,
+            "idpessoa" => $model->idpessoa,
+            "idprojeto" => $model->idprojeto,
+            "desfuncao" => $model->desfuncao,
             "destelefone" => $model->destelefone,
         );
         $this->getDbTable()->insert($data);
@@ -35,12 +35,11 @@ class Default_Model_Mapper_Projetopessoa extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Projetopessoa $model)
     {
         $data = array(
-            "idpessoa"    => $model->idpessoa,
-            "idprojeto"   => $model->idprojeto,
-            "desfuncao"   => $model->desfuncao,
+            "idpessoa" => $model->idpessoa,
+            "idprojeto" => $model->idprojeto,
+            "desfuncao" => $model->desfuncao,
             "destelefone" => $model->destelefone,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

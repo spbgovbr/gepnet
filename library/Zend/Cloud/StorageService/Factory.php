@@ -36,6 +36,7 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
      * @var string Interface which adapter must implement to be considered valid
      */
     protected static $_adapterInterface = 'Zend_Cloud_StorageService_Adapter';
+
     /**
      * Constructor
      *
@@ -49,7 +50,7 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
     /**
      * Retrieve StorageService adapter
      *
-     * @param  array $options
+     * @param array $options
      * @return void
      */
     public static function getAdapter($options = array())
@@ -58,7 +59,7 @@ class Zend_Cloud_StorageService_Factory extends Zend_Cloud_AbstractFactory
         if (!$adapter) {
             require_once 'Zend/Cloud/StorageService/Exception.php';
             throw new Zend_Cloud_StorageService_Exception('Class must be specified using the \'' .
-            self::STORAGE_ADAPTER_KEY . '\' key');
+                self::STORAGE_ADAPTER_KEY . '\' key');
         } elseif (!$adapter instanceof self::$_adapterInterface) {
             require_once 'Zend/Cloud/StorageService/Exception.php';
             throw new Zend_Cloud_StorageService_Exception(

@@ -24,33 +24,35 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
         $model->idacordo = $this->maxVal('idacordo');
         $model->flasituacaoatual = '2';
         $model->flarescindido = 'N';
-        if(empty($model->numprazovigencia)) $model->numprazovigencia = 0;
+        if (empty($model->numprazovigencia)) {
+            $model->numprazovigencia = 0;
+        }
         $data = array(
-            "idacordo"                      => $model->idacordo,
-            "idacordopai"                   => $model->idacordopai,
-            "idtipoacordo"                  => $model->idtipoacordo,
-            "nomacordo"                     => $model->nomacordo,
-            "idresponsavelinterno"          => $model->idresponsavelinterno,
+            "idacordo" => $model->idacordo,
+            "idacordopai" => $model->idacordopai,
+            "idtipoacordo" => $model->idtipoacordo,
+            "nomacordo" => $model->nomacordo,
+            "idresponsavelinterno" => $model->idresponsavelinterno,
             "destelefoneresponsavelinterno" => $model->destelefoneresponsavelinterno,
-            "idsetor"                       => $model->idsetor,
-            "idfiscal"                      => $model->idfiscal,
-            "destelefonefiscal"             => $model->destelefonefiscal,
-            "despalavrachave"               => $model->despalavrachave,
-            "desobjeto"                     => $model->desobjeto,
-            "desobservacao"                 => $model->desobservacao,
+            "idsetor" => $model->idsetor,
+            "idfiscal" => $model->idfiscal,
+            "destelefonefiscal" => $model->destelefonefiscal,
+            "despalavrachave" => $model->despalavrachave,
+            "desobjeto" => $model->desobjeto,
+            "desobservacao" => $model->desobservacao,
 //            "datatualizacao"                => new Zend_Db_Expr("to_date('" . $model->datatualizacao->toString('Y-m-d') . "','YYYY-MM-DD')"),
 //            "datatualizacao"                => new Zend_Db_Expr("now()"),
-            "datcadastro"                   => new Zend_Db_Expr("now()"),
-            "numprazovigencia"              => (int)$model->numprazovigencia,
-            "idcadastrador"                 => $model->idcadastrador,
-            "flarescindido"                 => $model->flarescindido,
+            "datcadastro" => new Zend_Db_Expr("now()"),
+            "numprazovigencia" => (int)$model->numprazovigencia,
+            "idcadastrador" => $model->idcadastrador,
+            "flarescindido" => $model->flarescindido,
 //            "flasituacaoatual"              => $model->flasituacaoatual,
-            "flasituacaoatual"              => $model->flasituacaoatual,
-            "numsiapro"                     => $model->numsiapro,
-            "descontatoexterno"             => $model->descontatoexterno,
-            "idfiscal2"                     => $model->idfiscal2,
-            "idfiscal3"                     => $model->idfiscal3,
-            "descargofiscal"                => $model->descargofiscal,
+            "flasituacaoatual" => $model->flasituacaoatual,
+            "numsiapro" => $model->numsiapro,
+            "descontatoexterno" => $model->descontatoexterno,
+            "idfiscal2" => $model->idfiscal2,
+            "idfiscal3" => $model->idfiscal3,
+            "descargofiscal" => $model->descargofiscal,
         );
 
 //        Zend_Debug::dump($model->datassinatura);
@@ -59,26 +61,26 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
 //        Zend_Debug::dump($model->datpublicacao->toString('Y-m-d'));
 //        exit;
 
-        if($model->datassinatura){
+        if ($model->datassinatura) {
             $data['datassinatura'] = new Zend_Db_Expr("to_date('" . $model->datassinatura->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datiniciovigencia){
+        if ($model->datiniciovigencia) {
             $data['datiniciovigencia'] = new Zend_Db_Expr("to_date('" . $model->datiniciovigencia->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datfimvigencia){
+        if ($model->datfimvigencia) {
             $data['datfimvigencia'] = new Zend_Db_Expr("to_date('" . $model->datfimvigencia->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datpublicacao){
+        if ($model->datpublicacao) {
             $data['datpublicacao'] = new Zend_Db_Expr("to_date('" . $model->datpublicacao->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->descaminho){
+        if ($model->descaminho) {
             $data['descaminho'] = $model->descaminho;
         }
 
-        try{
+        try {
             $this->getDbTable()->insert($data);
             return $model;
-        } catch(Exception $e){
+        } catch (Exception $e) {
             throw $e;
         }
     }
@@ -94,48 +96,48 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
 //        print('aqui');
 //        Zend_Debug::dump($model->numprazovigencia); exit;
         $data = array(
-            "idacordo"                      => $model->idacordo,
-            "idacordopai"                   => $model->idacordopai,
-            "idtipoacordo"                  => $model->idtipoacordo,
-            "nomacordo"                     => $model->nomacordo,
-            "idresponsavelinterno"          => $model->idresponsavelinterno,
+            "idacordo" => $model->idacordo,
+            "idacordopai" => $model->idacordopai,
+            "idtipoacordo" => $model->idtipoacordo,
+            "nomacordo" => $model->nomacordo,
+            "idresponsavelinterno" => $model->idresponsavelinterno,
             "destelefoneresponsavelinterno" => $model->destelefoneresponsavelinterno,
-            "idsetor"                       => $model->idsetor,
-            "idfiscal"                      => $model->idfiscal,
-            "destelefonefiscal"             => $model->destelefonefiscal,
-            "despalavrachave"               => $model->despalavrachave,
-            "desobjeto"                     => $model->desobjeto,
-            "desobservacao"                 => $model->desobservacao,
+            "idsetor" => $model->idsetor,
+            "idfiscal" => $model->idfiscal,
+            "destelefonefiscal" => $model->destelefonefiscal,
+            "despalavrachave" => $model->despalavrachave,
+            "desobjeto" => $model->desobjeto,
+            "desobservacao" => $model->desobservacao,
 //            "datassinatura"                 => $model->datassinatura,
 //            "datiniciovigencia"             => $model->datiniciovigencia,
 //            "datfimvigencia"                => $model->datfimvigencia,
 //            "datpublicacao"                 => $model->datpublicacao,
-            "numprazovigencia"              => (int)$model->numprazovigencia,
-            "datatualizacao"                => new Zend_Db_Expr('now()'),
+            "numprazovigencia" => (int)$model->numprazovigencia,
+            "datatualizacao" => new Zend_Db_Expr('now()'),
 //            "datcadastro"                   => $model->datcadastro,
 //            "idcadastrador"                 => $model->idcadastrador,
-            "flarescindido"                 => $model->flarescindido,
+            "flarescindido" => $model->flarescindido,
 //            "flasituacaoatual"              => $model->flasituacaoatual,
-            "numsiapro"                     => $model->numsiapro,
-            "descontatoexterno"             => $model->descontatoexterno,
-            "idfiscal2"                     => $model->idfiscal2,
-            "idfiscal3"                     => $model->idfiscal3,
-            "descargofiscal"                => $model->descargofiscal,
+            "numsiapro" => $model->numsiapro,
+            "descontatoexterno" => $model->descontatoexterno,
+            "idfiscal2" => $model->idfiscal2,
+            "idfiscal3" => $model->idfiscal3,
+            "descargofiscal" => $model->descargofiscal,
         );
 
-        if($model->datassinatura){
+        if ($model->datassinatura) {
             $data['datassinatura'] = new Zend_Db_Expr("to_date('" . $model->datassinatura->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datiniciovigencia){
+        if ($model->datiniciovigencia) {
             $data['datiniciovigencia'] = new Zend_Db_Expr("to_date('" . $model->datiniciovigencia->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datfimvigencia){
+        if ($model->datfimvigencia) {
             $data['datfimvigencia'] = new Zend_Db_Expr("to_date('" . $model->datfimvigencia->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->datpublicacao){
+        if ($model->datpublicacao) {
             $data['datpublicacao'] = new Zend_Db_Expr("to_date('" . $model->datpublicacao->toString('Y-m-d') . "','YYYY-MM-DD')");
         }
-        if($model->descaminho){
+        if ($model->descaminho) {
             $data['descaminho'] = $model->descaminho;
         }
 //         $this->getDbTable()->update($data, array("id = ?" => $model->idacordo));
@@ -155,7 +157,8 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
         return $this->_getForm(Acordocooperacao_Form_Acordo);
     }
 
-    public function pesquisar($params, $paginator = false){
+    public function pesquisar($params, $paginator = false)
+    {
 //        Zend_Debug::dump($params); exit;
         $sql = "
                 SELECT
@@ -191,34 +194,34 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
         $params = array_filter($params);
 
         if (isset($params['idacordo'])) {
-            $sql.= " and ac.idacordo = {$params['idacordo']}";
+            $sql .= " and ac.idacordo = {$params['idacordo']}";
         }
         if (isset($params['nomsetor'])) {
-            $sql.= " and st.nomsetor like '%{$params['nomsetor']}%'";
+            $sql .= " and st.nomsetor like '%{$params['nomsetor']}%'";
         }
         if (isset($params['idsetor'])) {
-            $sql.= " and st.idsetor = {$params['idsetor']}";
+            $sql .= " and st.idsetor = {$params['idsetor']}";
         }
         if (isset($params['nomacordo'])) {
-            $sql.= " and ac.nomacordo like '%{$params['nomacordo']}%'";
+            $sql .= " and ac.nomacordo like '%{$params['nomacordo']}%'";
         }
         if (isset($params['numsiapro'])) {
-            $sql.= " and ac.numsiapro = {$params['numsiapro']}";
+            $sql .= " and ac.numsiapro = {$params['numsiapro']}";
         }
         if (isset($params['reponsavelinterno'])) {
-            $sql.= " and p1.nompessoa = {$params['reponsavelinterno']}";
+            $sql .= " and p1.nompessoa = {$params['reponsavelinterno']}";
         }
         if (isset($params['nomfiscal'])) {
-            $sql.= " and p2.nomepessoa = {$params['nomfiscal']}";
+            $sql .= " and p2.nomepessoa = {$params['nomfiscal']}";
         }
         if (isset($params['datiniciovigencia'])) {
-            $sql.= " and ac.datiniciovigencia = {$params['datiniciovigencia']}";
+            $sql .= " and ac.datiniciovigencia = {$params['datiniciovigencia']}";
         }
         if (isset($params['datfimvigencia'])) {
-            $sql.= " and ac.datfimvigencia = {$params['datfimvigencia']}";
+            $sql .= " and ac.datfimvigencia = {$params['datfimvigencia']}";
         }
         if (isset($params['flasituacaoatual'])) {
-            $sql.= " and ac.flasituacaoatual = '{$params['flasituacaoatual']}'";
+            $sql .= " and ac.flasituacaoatual = '{$params['flasituacaoatual']}'";
         }
 
         if (isset($params['sidx'])) {
@@ -247,7 +250,8 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
         return $this->_db->fetchPairs($sql);
     }
 
-    public function getById($params){
+    public function getById($params)
+    {
         $sql = "
                 SELECT
                   ac.idacordo,
@@ -299,13 +303,14 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
                    ac.idacordo = :idacordo
         ";
 
-        $resultado =  $this->_db->fetchRow($sql,array('idacordo' => $params['idacordo']));
+        $resultado = $this->_db->fetchRow($sql, array('idacordo' => $params['idacordo']));
 //        Zend_Debug::dump($resultado); exit;
 //        return new Acordocooperacao_Model_Acordo($resultado);
         return $resultado;
     }
 
-    public function getByIdDetalhar($params){
+    public function getByIdDetalhar($params)
+    {
         $sql = "
                 SELECT
                   ac.idacordo,
@@ -357,7 +362,7 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
                    ac.idacordo = :idacordo
         ";
 
-        $resultado =  $this->_db->fetchRow($sql,array('idacordo' => $params['idacordo']));
+        $resultado = $this->_db->fetchRow($sql, array('idacordo' => $params['idacordo']));
 //        Zend_Debug::dump($resultado); exit;
         return new Acordocooperacao_Model_Acordo($resultado);
 //        return $resultado;

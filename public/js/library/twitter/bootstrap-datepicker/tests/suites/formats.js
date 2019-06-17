@@ -1,14 +1,14 @@
 module('Formats', {
-    setup: function(){
+    setup: function () {
         this.input = $('<input type="text">').appendTo('#qunit-fixture');
         this.date = UTCDate(2012, 2, 15, 0, 0, 0, 0); // March 15, 2012
     },
-    teardown: function(){
+    teardown: function () {
         this.input.data('datepicker').picker.remove();
     }
 });
 
-test('d: Day of month, no leading zero.', function(){
+test('d: Day of month, no leading zero.', function () {
     this.input
         .val('2012-03-05')
         .datepicker({format: 'yyyy-mm-d'})
@@ -16,7 +16,7 @@ test('d: Day of month, no leading zero.', function(){
     equal(this.input.val().split('-')[2], '5');
 });
 
-test('dd: Day of month, leading zero.', function(){
+test('dd: Day of month, leading zero.', function () {
     this.input
         .val('2012-03-5')
         .datepicker({format: 'yyyy-mm-dd'})
@@ -24,7 +24,7 @@ test('dd: Day of month, leading zero.', function(){
     equal(this.input.val().split('-')[2], '05');
 });
 
-test('D: Day of week, short.', function(){
+test('D: Day of week, short.', function () {
     this.input
         .val('2012-03-05')
         .datepicker({format: 'yyyy-mm-dd-D'})
@@ -32,7 +32,7 @@ test('D: Day of week, short.', function(){
     equal(this.input.val().split('-')[3], 'Mon');
 });
 
-test('DD: Day of week, long.', function(){
+test('DD: Day of week, long.', function () {
     this.input
         .val('2012-03-05')
         .datepicker({format: 'yyyy-mm-dd-DD'})
@@ -40,7 +40,7 @@ test('DD: Day of week, long.', function(){
     equal(this.input.val().split('-')[3], 'Monday');
 });
 
-test('m: Month, no leading zero.', function(){
+test('m: Month, no leading zero.', function () {
     this.input
         .val('2012-03-05')
         .datepicker({format: 'yyyy-m-dd'})
@@ -48,7 +48,7 @@ test('m: Month, no leading zero.', function(){
     equal(this.input.val().split('-')[1], '3');
 });
 
-test('mm: Month, leading zero.', function(){
+test('mm: Month, leading zero.', function () {
     this.input
         .val('2012-3-5')
         .datepicker({format: 'yyyy-mm-dd'})
@@ -56,7 +56,7 @@ test('mm: Month, leading zero.', function(){
     equal(this.input.val().split('-')[1], '03');
 });
 
-test('M: Month shortname.', function(){
+test('M: Month shortname.', function () {
     this.input
         .val('2012-Mar-05')
         .datepicker({format: 'yyyy-M-dd'})
@@ -64,7 +64,7 @@ test('M: Month shortname.', function(){
     equal(this.input.val().split('-')[1], 'Mar');
 });
 
-test('MM: Month full name.', function(){
+test('MM: Month full name.', function () {
     this.input
         .val('2012-March-5')
         .datepicker({format: 'yyyy-MM-dd'})
@@ -72,7 +72,7 @@ test('MM: Month full name.', function(){
     equal(this.input.val().split('-')[1], 'March');
 });
 
-test('yy: Year, two-digit.', function(){
+test('yy: Year, two-digit.', function () {
     this.input
         .val('2012-03-05')
         .datepicker({format: 'yy-mm-dd'})
@@ -80,7 +80,7 @@ test('yy: Year, two-digit.', function(){
     equal(this.input.val().split('-')[0], '12');
 });
 
-test('yyyy: Year, four-digit.', function(){
+test('yyyy: Year, four-digit.', function () {
     this.input
         .val('2012-03-5')
         .datepicker({format: 'yyyy-mm-dd'})
@@ -88,7 +88,7 @@ test('yyyy: Year, four-digit.', function(){
     equal(this.input.val().split('-')[0], '2012');
 });
 
-test('dd-mm-yyyy: Regression: Prevent potential month overflow in small-to-large formats (Mar 31, 2012 -> Mar 01, 2012)', function(){
+test('dd-mm-yyyy: Regression: Prevent potential month overflow in small-to-large formats (Mar 31, 2012 -> Mar 01, 2012)', function () {
     this.input
         .val('31-03-2012')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -96,7 +96,7 @@ test('dd-mm-yyyy: Regression: Prevent potential month overflow in small-to-large
     equal(this.input.val(), '31-03-2012');
 });
 
-test('dd-mm-yyyy: Leap day', function(){
+test('dd-mm-yyyy: Leap day', function () {
     this.input
         .val('29-02-2012')
         .datepicker({format: 'dd-mm-yyyy'})
@@ -104,7 +104,7 @@ test('dd-mm-yyyy: Leap day', function(){
     equal(this.input.val(), '29-02-2012');
 });
 
-test('yyyy-mm-dd: Alternative format', function(){
+test('yyyy-mm-dd: Alternative format', function () {
     this.input
         .val('2012-02-12')
         .datepicker({format: 'yyyy-mm-dd'})
@@ -112,7 +112,7 @@ test('yyyy-mm-dd: Alternative format', function(){
     equal(this.input.val(), '2012-02-12');
 });
 
-test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', function(){
+test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', function () {
     this.input
         .val('2012-02-12')
         .datepicker({format: 'yyyy-MM-dd'})
@@ -120,7 +120,7 @@ test('yyyy-MM-dd: Regression: Infinite loop when numbers used for month', functi
     equal(this.input.val(), '2012-February-12');
 });
 
-test('+1d: Tomorrow', patch_date(function(Date){
+test('+1d: Tomorrow', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1d')
@@ -129,7 +129,7 @@ test('+1d: Tomorrow', patch_date(function(Date){
     equal(this.input.val(), '16-03-2012');
 }));
 
-test('-1d: Yesterday', patch_date(function(Date){
+test('-1d: Yesterday', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1d')
@@ -138,7 +138,7 @@ test('-1d: Yesterday', patch_date(function(Date){
     equal(this.input.val(), '14-03-2012');
 }));
 
-test('+1w: Next week', patch_date(function(Date){
+test('+1w: Next week', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1w')
@@ -147,7 +147,7 @@ test('+1w: Next week', patch_date(function(Date){
     equal(this.input.val(), '22-03-2012');
 }));
 
-test('-1w: Last week', patch_date(function(Date){
+test('-1w: Last week', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1w')
@@ -156,7 +156,7 @@ test('-1w: Last week', patch_date(function(Date){
     equal(this.input.val(), '08-03-2012');
 }));
 
-test('+1m: Next month', patch_date(function(Date){
+test('+1m: Next month', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1m')
@@ -165,7 +165,7 @@ test('+1m: Next month', patch_date(function(Date){
     equal(this.input.val(), '15-04-2012');
 }));
 
-test('-1m: Last month', patch_date(function(Date){
+test('-1m: Last month', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1m')
@@ -174,7 +174,7 @@ test('-1m: Last month', patch_date(function(Date){
     equal(this.input.val(), '15-02-2012');
 }));
 
-test('+1y: Next year', patch_date(function(Date){
+test('+1y: Next year', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('+1y')
@@ -183,7 +183,7 @@ test('+1y: Next year', patch_date(function(Date){
     equal(this.input.val(), '15-03-2013');
 }));
 
-test('-1y: Last year', patch_date(function(Date){
+test('-1y: Last year', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1y')
@@ -192,7 +192,7 @@ test('-1y: Last year', patch_date(function(Date){
     equal(this.input.val(), '15-03-2011');
 }));
 
-test('-1y +2m: Multiformat', patch_date(function(Date){
+test('-1y +2m: Multiformat', patch_date(function (Date) {
     Date.now = UTCDate(2012, 2, 15);
     this.input
         .val('-1y +2m')
@@ -201,7 +201,7 @@ test('-1y +2m: Multiformat', patch_date(function(Date){
     equal(this.input.val(), '15-05-2011');
 }));
 
-test('Regression: End-of-month bug', patch_date(function(Date){
+test('Regression: End-of-month bug', patch_date(function (Date) {
     Date.now = UTCDate(2012, 4, 31);
     this.input
         .val('29-02-2012')
@@ -210,7 +210,7 @@ test('Regression: End-of-month bug', patch_date(function(Date){
     equal(this.input.val(), '29-02-2012');
 }));
 
-test('Invalid formats are force-parsed into a valid date on tab', patch_date(function(Date){
+test('Invalid formats are force-parsed into a valid date on tab', patch_date(function (Date) {
     Date.now = UTCDate(2012, 4, 31);
     this.input
         .val('44-44-4444')

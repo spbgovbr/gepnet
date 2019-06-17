@@ -28,7 +28,7 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
 /**
  * jQuery Spinner View Helper
  *
- * @uses 	   Zend_Json
+ * @uses       Zend_Json
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
@@ -40,25 +40,25 @@ class ZendX_JQuery_View_Helper_Spinner extends ZendX_JQuery_View_Helper_UiWidget
      * Create FormText field for numeric values that can be spinned through its values.
      *
      * @link   http://docs.jquery.com/UI/Spinner
-     * @param  string $id
-     * @param  string $value
-     * @param  array  $params
-     * @param  array  $attribs
+     * @param string $id
+     * @param string $value
+     * @param array $params
+     * @param array $attribs
      * @return string
      */
-	public function spinner($id, $value="", array $params=array(), array $attribs=array())
-	{
-	    $attribs = $this->_prepareAttributes($id, $value, $attribs);
+    public function spinner($id, $value = "", array $params = array(), array $attribs = array())
+    {
+        $attribs = $this->_prepareAttributes($id, $value, $attribs);
 
-	    if(!isset($params['start']) && is_numeric($value)) {
-	        $params['start'] = $value;
-	    }
+        if (!isset($params['start']) && is_numeric($value)) {
+            $params['start'] = $value;
+        }
 
-	    if(count($params)) {
-	        $params = ZendX_JQuery::encodeJson($params);
-	    } else {
-	        $params = '{}';
-	    }
+        if (count($params)) {
+            $params = ZendX_JQuery::encodeJson($params);
+        } else {
+            $params = '{}';
+        }
 
         $js = sprintf('%s("#%s").spinner(%s);',
             ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
@@ -68,6 +68,6 @@ class ZendX_JQuery_View_Helper_Spinner extends ZendX_JQuery_View_Helper_UiWidget
 
         $this->jquery->addOnLoad($js);
 
-	    return $this->view->formText($id, $value, $attribs);
-	}
+        return $this->view->formText($id, $value, $attribs);
+    }
 }

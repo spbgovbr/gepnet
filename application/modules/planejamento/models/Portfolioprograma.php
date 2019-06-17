@@ -8,8 +8,8 @@
 class Planejamento_Model_Portfolioprograma extends App_Model_ModelAbstract
 {
 
-    public $idportfolio     = null;
-    public $idprograma      = null;
+    public $idportfolio = null;
+    public $idprograma = null;
 
 
 }

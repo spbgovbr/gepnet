@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
+class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -31,7 +32,7 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
 
     /**
      * Retorna lista de pesquisas respondidas
-     * 
+     *
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
@@ -57,7 +58,7 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function relatorioPercentual($params)
     {
         try {
@@ -67,7 +68,7 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function relatorioTabelado($params)
     {
         try {
@@ -77,7 +78,7 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function totalRespondidas($params)
     {
         try {
@@ -87,12 +88,12 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function retornaEnunciadoPesquisa($params)
     {
         try {
-             $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_Pesquisa');
-             return $service->retornaEnunciadoPesquisa($params);
+            $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_Pesquisa');
+            return $service->retornaEnunciadoPesquisa($params);
         } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
@@ -104,10 +105,10 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
         $adapter = $this->_mapper->getDbTable()->getAdapter();
         try {
             $adapter->beginTransaction();
-            
+
             //cada idresultado corresponde a uma pesquisa respondida
             $idresultado = $this->_mapper->maxIdResultado($params);
-            
+
             $resultadoPesquisa = new Pesquisa_Model_ResultadoPesquisa();
             $mapper = new Pesquisa_Model_Mapper_QuestionarioPesquisa();
             $questionario = $mapper->retornaQuestionarioById($params);
@@ -133,14 +134,14 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
                         $resultadoPesquisa->idquestionariopesquisa = $params['idquestionariopesquisa'];
                         $resultadoPesquisa->idfrasepesquisa = $fraseId[1];
                         $resultadoPesquisa->desresposta = $valor;
-                        $resultadoPesquisa->datcadastro = $dataCadastro;    
+                        $resultadoPesquisa->datcadastro = $dataCadastro;
                         $this->_mapper->insert($resultadoPesquisa);
                     }
                 } else {
                     $resultadoPesquisa->idresultado = $idresultado;
                     $resultadoPesquisa->idquestionariopesquisa = $params['idquestionariopesquisa'];
                     $resultadoPesquisa->idfrasepesquisa = $fraseId[1];
-                    $resultadoPesquisa->desresposta = $resposta ?: NULL;
+                    $resultadoPesquisa->desresposta = $resposta ?: null;
                     $resultadoPesquisa->datcadastro = $dataCadastro;
                     $this->_mapper->insert($resultadoPesquisa);
                 }
@@ -153,7 +154,7 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function salvarResultadoPesquisaExterna($params)
     {
         $adapter = $this->_mapper->getDbTable()->getAdapter();
@@ -196,17 +197,17 @@ class Pesquisa_Service_ResultadoPesquisa extends App_Service_ServiceAbstract {
                     $resultadoPesquisa->idresultado = $idresultado;
                     $resultadoPesquisa->idquestionariopesquisa = $params['idquestionariopesquisa'];
                     $resultadoPesquisa->idfrasepesquisa = $fraseId[1];
-                    $resultadoPesquisa->desresposta = $resposta ?: NULL;
+                    $resultadoPesquisa->desresposta = $resposta ?: null;
                     $resultadoPesquisa->datcadastro = $dataCadastro;
                     $this->_mapper->insert($resultadoPesquisa);
                 }
             }
-            
-             //apos a insercao limpa o namespace 'ldap_pesquisa'
-             $auth = Zend_Auth::getInstance();
-             $auth->setStorage(new Zend_Auth_Storage_Session('ldap_pesquisa'));
-             $auth->getStorage()->clear();
-            
+
+            //apos a insercao limpa o namespace 'ldap_pesquisa'
+            $auth = Zend_Auth::getInstance();
+            $auth->setStorage(new Zend_Auth_Storage_Session('ldap_pesquisa'));
+            $auth->getStorage()->clear();
+
             $adapter->commit();
             return true;
         } catch (Exception $exc) {

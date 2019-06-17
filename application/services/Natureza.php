@@ -16,12 +16,12 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -35,7 +35,7 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
      */
     public function getForm()
     {
-        return $this->_getForm('Default_Form_Natureza',array('flaativo'));
+        return $this->_getForm('Default_Form_Natureza', array('flaativo'));
     }
 
     /**
@@ -51,17 +51,17 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
      */
     public function getFormEditar()
     {
-    	$formEditar = $this->_getForm('Default_Form_Natureza', array('submit','reset'));
-    	$nomprograma = $formEditar->getElement('nomprograma');
-    	$nomprograma->setValidators(array(
-			'NotEmpty',
-			array('StringLength', false, array(0, 100)),
-		));
-    	
-    	$formEditar->removeElement('nomprograma');
-    	$formEditar->addElement($nomprograma);
-    	
-        return  $formEditar;
+        $formEditar = $this->_getForm('Default_Form_Natureza', array('submit', 'reset'));
+        $nomprograma = $formEditar->getElement('nomprograma');
+        $nomprograma->setValidators(array(
+            'NotEmpty',
+            array('StringLength', false, array(0, 100)),
+        ));
+
+        $formEditar->removeElement('nomprograma');
+        $formEditar->addElement($nomprograma);
+
+        return $formEditar;
     }
 
     //put your code here
@@ -69,8 +69,8 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     {
         $form = $this->getForm();
 
-        if ( $form->isValid($dados) ) {
-            $model        = new Default_Model_Natureza($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Default_Model_Natureza($form->getValues());
             return $this->_mapper->insert($model);
         } else {
             $this->errors = $form->getMessages();
@@ -79,42 +79,42 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
-    	
+
         $form = $this->getFormEditar();
-        if ( $form->isValid($dados) ) {
-        	
-        	//Não duplicar nomescritorio2
-        	$programa = $this->getById(array('idprograma' => $form->getValue('idprograma')));
-         	//Zend_Debug::dump($programa);exit;
-        	
-        	
-        	//Não alterando nome deixa salvar
-        	if ( $programa['nomprograma'] == $form->getValue('nomprograma')){
-        		$model   = new Default_Model_Natureza($form->getValues());
-        		$retorno = $this->_mapper->update($model);
-        		return $retorno;
-        		
-        	}
-        			
-			$programa2 = $this->getByName(array('nomprograma' => $form->getValue('nomprograma')));
-	        //Zend_Debug::dump($escritorio2); exit;	
-	        //sendo igual não permite update
-	        if(count($programa2) > 0){
-	        	$this->errors[] = "Um registro com o nome {$form->getValue('nomprograma')} já existe no banco de dados.";
-				return false;
-	        }
-	        
-	        $model   = new Default_Model_Natureza($form->getValues());
-	        $retorno = $this->_mapper->update($model);
-	        return $retorno;
-	        
-        	//Caso formulario não for valido
+        if ($form->isValid($dados)) {
+
+            //Não duplicar nomescritorio2
+            $programa = $this->getById(array('idprograma' => $form->getValue('idprograma')));
+            //Zend_Debug::dump($programa);exit;
+
+
+            //Não alterando nome deixa salvar
+            if ($programa['nomprograma'] == $form->getValue('nomprograma')) {
+                $model = new Default_Model_Natureza($form->getValues());
+                $retorno = $this->_mapper->update($model);
+                return $retorno;
+
+            }
+
+            $programa2 = $this->getByName(array('nomprograma' => $form->getValue('nomprograma')));
+            //Zend_Debug::dump($escritorio2); exit;
+            //sendo igual não permite update
+            if (count($programa2) > 0) {
+                $this->errors[] = "Um registro com o nome {$form->getValue('nomprograma')} já existe no banco de dados.";
+                return false;
+            }
+
+            $model = new Default_Model_Natureza($form->getValues());
+            $retorno = $this->_mapper->update($model);
+            return $retorno;
+
+            //Caso formulario não for valido
         } else {
             $this->errors = $form->getMessages();
             return false;
@@ -122,7 +122,7 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      */
     public function excluir($dados)
@@ -130,7 +130,7 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
         try {
             //$model = new Default_Model_Escritorio($dados);
             return $this->_mapper->excluir($dados);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -140,17 +140,17 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     {
         return $this->_mapper->getById($dados);
     }
-    
+
     public function retornaPorId($dados)
     {
-    	return $this->_mapper->retornaPorId($dados);
+        return $this->_mapper->retornaPorId($dados);
     }
-    
+
     public function getByName($dados)
     {
-    	return $this->_mapper->getByName($dados);
+        return $this->_mapper->getByName($dados);
     }
-    
+
 
     public function getErrors()
     {
@@ -158,7 +158,7 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
@@ -166,7 +166,7 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);
@@ -174,40 +174,30 @@ class Default_Service_Natureza extends App_Service_ServiceAbstract
         }
         return $dados;
     }
-    
-    
-    
-    
+
+
     public function fetchPairs()
     {
-    	return $this->_mapper->fetchPairs();
+        return $this->_mapper->fetchPairs();
     }
 
     public function mapaFetchPairs()
     {
-    	return $this->_mapper->mapaFetchPairs();
-    	/*
-    	$sql = "SELECT DISTINCT idescritorio,nomescritorio from agepnet200.tb_escritorio";
-    	$this->_db->fetchPairs($sql);Consulta de Escritório de Projeto
-    	*/
+        return $this->_mapper->mapaFetchPairs();
+        /*
+        $sql = "SELECT DISTINCT idescritorio,nomescritorio from agepnet200.tb_escritorio";
+        $this->_db->fetchPairs($sql);Consulta de Escritório de Projeto
+        */
     }
-    
+
     public function nomeUnique()
     {
-    	
-    	$nomeUnique = new Zend_Validate_Db_NoRecordExists('tb_escritorio', 'nomescritorio2');
-    	return $nomeUnique;
-    	
+
+        $nomeUnique = new Zend_Validate_Db_NoRecordExists('tb_escritorio', 'nomescritorio2');
+        return $nomeUnique;
+
     }
-    
-    
-    
- 
-    
-    
-    
-    
-    
+
 
 }
 

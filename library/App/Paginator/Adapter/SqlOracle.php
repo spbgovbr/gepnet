@@ -30,7 +30,8 @@ require_once 'Zend/Paginator/Adapter/Interface.php';
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
+class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface
+{
 
     /**
      * Array
@@ -44,7 +45,7 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
      * @var integer
      */
     protected $_count = null;
-    
+
     protected $_db = null;
     protected $_rowCount = null;
 
@@ -54,7 +55,8 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
      * @param string $sql
      */
     //public function __construct(array $array) {
-    public function __construct(string $sql) {
+    public function __construct(string $sql)
+    {
         $this->_db = Zend_Db_Table::getDefaultAdapter();
         $this->_sql = $sql;
     }
@@ -62,11 +64,12 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
     /**
      * Returns an array of items for a page.
      *
-     * @param  integer $offset Page offset
-     * @param  integer $itemCountPerPage Number of items per page
+     * @param integer $offset Page offset
+     * @param integer $itemCountPerPage Number of items per page
      * @return array
      */
-    public function getItems($offset, $itemCountPerPage) {
+    public function getItems($offset, $itemCountPerPage)
+    {
         //return array_slice($this->_array, $offset, $itemCountPerPage);
         $sql = "SELECT
                     *
@@ -81,17 +84,17 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
                     )
                  WHERE 
                     ? <= numero_linha";
-        
-         $limit_sql = "SELECT z2.*
+
+        $limit_sql = "SELECT z2.*
             FROM (
                 SELECT z1.*, ROWNUM AS \"zend_db_rownum\"
                 FROM (
                     " . $this->_sql . "
                 ) z1
             ) z2
-            WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset+1) . " AND " . ($offset+$count);
-        
-        $stmt = $this->_db->query( $sql, array($itemCountPerPage, $offset) );
+            WHERE z2.\"zend_db_rownum\" BETWEEN " . ($offset + 1) . " AND " . ($offset + $count);
+
+        $stmt = $this->_db->query($sql, array($itemCountPerPage, $offset));
         return $stmt->fetchAll();
         /*
         $sql = "SELECT
@@ -115,9 +118,8 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
         oci_bind_by_name($stmt, ':item_count_per_page', $item_count_per_page);
         oci_execute($stmt);
         */
-        
 
-        
+
         /*
         $sql = "SELECT / *+ FIRST_ROWS * / s.* FROM".
         "(SELECT r.*, rownum as adodb_rownum, $fields FROM".
@@ -132,7 +134,8 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
      *
      * @return integer
      */
-    public function count() {
+    public function count()
+    {
         if ($this->_rowCount === null) {
             $this->setRowCount(
                 $this->getCountSelect()
@@ -141,13 +144,13 @@ class App_Paginator_Adapter_Oracle implements Zend_Paginator_Adapter_Interface {
 
         return $this->_rowCount;
     }
-    
+
     public function getCountSelect()
     {
         $sql = "SELECT COUNT(*) AS zend_paginator_row_count FROM($this->_sql)";
         return $sql;
     }
-    
+
     public function setRowCount($sql)
     {
         $rowCount = $this->_db->fetchOne($sql);

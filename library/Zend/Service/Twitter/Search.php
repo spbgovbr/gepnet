@@ -42,7 +42,6 @@ require_once 'Zend/Feed.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-
 class Zend_Service_Twitter_Search extends Zend_Rest_Client
 {
     /**
@@ -70,7 +69,7 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
     /**
      * Constructor
      *
-     * @param  string $returnType
+     * @param string $returnType
      * @return void
      */
     public function __construct($responseType = 'json')
@@ -85,12 +84,12 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
      * set responseType
      *
      * @param string $responseType
-     * @throws Zend_Service_Twitter_Exception
      * @return Zend_Service_Twitter_Search
+     * @throws Zend_Service_Twitter_Exception
      */
     public function setResponseType($responseType = 'json')
     {
-        if(!in_array($responseType, $this->_responseTypes, TRUE)) {
+        if (!in_array($responseType, $this->_responseTypes, true)) {
             require_once 'Zend/Service/Twitter/Exception.php';
             throw new Zend_Service_Twitter_Exception('Invalid Response Type');
         }
@@ -111,12 +110,12 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
     /**
      * Get the current twitter trends.  Currnetly only supports json as the return.
      *
-     * @throws Zend_Http_Client_Exception
      * @return array
+     * @throws Zend_Http_Client_Exception
      */
     public function trends()
     {
-        $response     = $this->restGet('/trends.json');
+        $response = $this->restGet('/trends.json');
 
         return Zend_Json::decode($response->getBody());
     }
@@ -133,8 +132,8 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
 
         $_query['q'] = $query;
 
-        foreach($params as $key=>$param) {
-            switch($key) {
+        foreach ($params as $key => $param) {
+            switch ($key) {
                 case 'geocode':
                 case 'lang':
                 case 'since_id':
@@ -153,7 +152,7 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
 
         $response = $this->restGet('/search.' . $this->_responseType, $_query);
 
-        switch($this->_responseType) {
+        switch ($this->_responseType) {
             case 'json':
                 return Zend_Json::decode($response->getBody());
                 break;
@@ -162,6 +161,6 @@ class Zend_Service_Twitter_Search extends Zend_Rest_Client
                 break;
         }
 
-        return ;
+        return;
     }
 }

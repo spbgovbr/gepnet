@@ -13,12 +13,13 @@ class Agenda_Model_Pessoaagenda extends App_Model_ModelAbstract
     public $nompessoa = null;
     public $desemail = null;
 
-    public function formPopulate(){
+    public function formPopulate()
+    {
         return array(
-          'idagenda'    => $this->idagenda,
-          'idpessoa'    => $this->idpessoa,
-          'nompessoa'   => $this->nompessoa,
-          'desemail'    => $this->desemail,
+            'idagenda' => $this->idagenda,
+            'idpessoa' => $this->idpessoa,
+            'nompessoa' => $this->nompessoa,
+            'desemail' => $this->desemail,
         );
     }
 }

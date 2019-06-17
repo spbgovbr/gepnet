@@ -9,8 +9,8 @@
 
     <!-- Le styles -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" href="css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
-    <link type="text/css" href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link type="text/css" href="css/custom-theme/jquery-ui-1.10.0.custom.css" rel="stylesheet"/>
+    <link type="text/css" href="assets/css/font-awesome.min.css" rel="stylesheet"/>
     <!--[if IE 7]>
     <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css">
     <![endif]-->
@@ -20,7 +20,7 @@
     <link href="assets/css/docs.css" rel="stylesheet">
     <link href="assets/js/google-code-prettify/prettify.css" rel="stylesheet">
     <!--begin wijmo menu-->
-    <link href="third-party/wijmo/jquery.wijmo-open.1.5.0.css" rel="stylesheet" type="text/css" />
+    <link href="third-party/wijmo/jquery.wijmo-open.1.5.0.css" rel="stylesheet" type="text/css"/>
     <!--End wijmo menu-->
     <!--begin file input-->
     <link href="third-party/jQuery-UI-FileInput/css/enhanced.css" rel="Stylesheet">
@@ -68,8 +68,18 @@
                     </li>
                 </ul>
                 <div id="twitter-share" class="pull-right">
-                    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://addyosmani.github.com/jquery-ui-bootstrap/" data-text="A new jQuery UI Bootstrap theme" data-via="addyosmani" data-size="large">Tweet</a>
-                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                    <a href="https://twitter.com/share" class="twitter-share-button"
+                       data-url="http://addyosmani.github.com/jquery-ui-bootstrap/"
+                       data-text="A new jQuery UI Bootstrap theme" data-via="addyosmani" data-size="large">Tweet</a>
+                    <script>!function (d, s, id) {
+                        var js, fjs = d.getElementsByTagName(s)[0];
+                        if (!d.getElementById(id)) {
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = "//platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
+                        }
+                    }(document, "script", "twitter-wjs");</script>
                 </div>
             </div>
         </div>
@@ -104,7 +114,9 @@
                     <h1>Wijmo</h1>
                 </div>
                 <p>
-                    This is an example of how to retheme one of the Wijmo jQuery UI components to match the Twitter Bootstrap theme. Whilst a menu component will be arriving to jQueryUI soon, you can find the menu in <a href="http://wijmo.com/widgets/wijmo-open/">Wijmo Open</a>.
+                    This is an example of how to retheme one of the Wijmo jQuery UI components to match the Twitter
+                    Bootstrap theme. Whilst a menu component will be arriving to jQueryUI soon, you can find the menu in
+                    <a href="http://wijmo.com/widgets/wijmo-open/">Wijmo Open</a>.
                 </p>
                 <div id="wijmo-container" class="container-fluid">
                     <ul id="menu1">
@@ -117,10 +129,10 @@
                         <li><a href="#">Link</a></li>
                         <li><a href="#">Dropdown</a>
                             <ul>
-                                <li><a href="#">Secondary link</a> </li>
-                                <li><a href="#">Something else here</a> </li>
+                                <li><a href="#">Secondary link</a></li>
+                                <li><a href="#">Something else here</a></li>
                                 <li></li>
-                                <li><a href="#">Another link</a> </li>
+                                <li><a href="#">Another link</a></li>
                             </ul>
                         </li>
                         <li>
@@ -130,7 +142,7 @@
                     <!-- End demo markup -->
                 </div>
                 <div class="clearfix"></div>
-<pre class="prettyprint linenums">
+                <pre class="prettyprint linenums">
 $("#menu1").wijmenu({
     trigger: ".wijmo-wijmenu-item",
     triggerEvent: "click"
@@ -147,7 +159,7 @@ $("#menu1").wijmenu({
                         <input type="file" class="span3" name="file" id="file">
                     </form>
                 </div>
-<pre class="prettyprint linenums">
+                <pre class="prettyprint linenums">
 $('#file').customFileInput({
     button_position : 'right'
 });
@@ -160,10 +172,10 @@ $('#file').customFileInput({
                     <h1>Select a Date Range with datepicker</h1>
                 </div>
                 <p>
-                    <input type="text" value="01/01/2013" id="rangeBa" />
-                    <input type="text" value="02/06/2013" id="rangeBb" />
+                    <input type="text" value="01/01/2013" id="rangeBa"/>
+                    <input type="text" value="02/06/2013" id="rangeBb"/>
                 </p>
-<pre class="prettyprint linenums">
+                <pre class="prettyprint linenums">
 // Select a Date Range with datepicker
 $( "#rangeBa" ).datepicker({
     defaultDate: "+1w",

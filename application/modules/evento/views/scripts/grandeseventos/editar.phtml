@@ -1,6 +1,6 @@
 <?php
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'));
+    ->appendStylesheet($this->baseUrl('/css/form.css'));
 
 $frmAttr = $this->form->getAttribs();
 ?>
@@ -45,15 +45,20 @@ $frmAttr = $this->form->getAttribs();
 
         <div class="row">
             <div class="span6">
-               <?php echo $this->form->desevento; ?>
+                <?php echo $this->form->desevento; ?>
             </div>
-        </div>   
+        </div>
         <div class="row">
             <div class="span6">
-               <?php echo $this->form->desobs; ?>
+                <?php echo $this->form->desobs; ?>
             </div>
-        </div>   
-       
+        </div>
+
         <?php echo $this->form->idevento; ?>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
     </form>
 </div>

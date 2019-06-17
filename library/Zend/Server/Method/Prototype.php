@@ -49,7 +49,7 @@ class Zend_Server_Method_Prototype
     /**
      * Constructor
      *
-     * @param  null|array $options
+     * @param null|array $options
      * @return void
      */
     public function __construct($options = null)
@@ -62,7 +62,7 @@ class Zend_Server_Method_Prototype
     /**
      * Set return value
      *
-     * @param  string $returnType
+     * @param string $returnType
      * @return Zend_Server_Method_Prototype
      */
     public function setReturnType($returnType)
@@ -84,7 +84,7 @@ class Zend_Server_Method_Prototype
     /**
      * Add a parameter
      *
-     * @param  string $parameter
+     * @param string $parameter
      * @return Zend_Server_Method_Prototype
      */
     public function addParameter($parameter)
@@ -97,7 +97,7 @@ class Zend_Server_Method_Prototype
         } else {
             require_once 'Zend/Server/Method/Parameter.php';
             $parameter = new Zend_Server_Method_Parameter(array(
-                'type' => (string) $parameter,
+                'type' => (string)$parameter,
             ));
             $this->_parameters[] = $parameter;
         }
@@ -107,7 +107,7 @@ class Zend_Server_Method_Prototype
     /**
      * Add parameters
      *
-     * @param  array $parameter
+     * @param array $parameter
      * @return Zend_Server_Method_Prototype
      */
     public function addParameters(array $parameters)
@@ -121,12 +121,12 @@ class Zend_Server_Method_Prototype
     /**
      * Set parameters
      *
-     * @param  array $parameters
+     * @param array $parameters
      * @return Zend_Server_Method_Prototype
      */
     public function setParameters(array $parameters)
     {
-        $this->_parameters       = array();
+        $this->_parameters = array();
         $this->_parameterNameMap = array();
         $this->addParameters($parameters);
         return $this;
@@ -159,7 +159,7 @@ class Zend_Server_Method_Prototype
     /**
      * Retrieve a single parameter by name or index
      *
-     * @param  string|int $index
+     * @param string|int $index
      * @return null|Zend_Server_Method_Parameter
      */
     public function getParameter($index)
@@ -179,7 +179,7 @@ class Zend_Server_Method_Prototype
     /**
      * Set object state from array
      *
-     * @param  array $options
+     * @param array $options
      * @return Zend_Server_Method_Prototype
      */
     public function setOptions(array $options)

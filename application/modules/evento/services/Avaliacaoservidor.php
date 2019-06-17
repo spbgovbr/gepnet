@@ -12,7 +12,7 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
     protected $_mapper;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -33,15 +33,16 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
     {
         $form = $this->_getForm('Evento_Form_AvaliacaoServidor');
         $form->getElement('idevento')
-                            ->setRequired(false)
-                            ->setAttribs(array('data-rule-required' => false));
+            ->setRequired(false)
+            ->setAttribs(array('data-rule-required' => false));
         $form->getElement('idtipoavaliacao')
-                            ->setRequired(false)
-                            ->setAttribs(array('data-rule-required' => false));
+            ->setRequired(false)
+            ->setAttribs(array('data-rule-required' => false));
 
         $serviceEvento = new Evento_Service_Grandeseventos();
         $form->getElement('idevento')->setMultioptions($this->initCombo($serviceEvento->fetchPairs(), 'Todos'));
-        $form->getElement('idtipoavaliacao')->setMultioptions($this->initCombo($this->fetchPairsTipoAvaliacao(), 'Todos'));
+        $form->getElement('idtipoavaliacao')->setMultioptions($this->initCombo($this->fetchPairsTipoAvaliacao(),
+            'Todos'));
         return $form;
     }
 
@@ -52,12 +53,12 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
 
     public function inserir($dados)
     {
-       //echo "<pre>"; var_dump($dados);
+        //echo "<pre>"; var_dump($dados);
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-             $model     = new Evento_Model_Eventoavaliacao($dados);
-             $model->calculaMedias();
-             $retorno = $this->_mapper->insert($model);
+        if ($form->isValid($dados)) {
+            $model = new Evento_Model_Eventoavaliacao($dados);
+            $model->calculaMedias();
+            $retorno = $this->_mapper->insert($model);
             return $retorno;
         } else {
             $this->errors = $form->getMessages();
@@ -66,15 +67,15 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
         $form = $this->getFormEditar();
-        if ( $form->isValid($dados) ) {
-            $model   = new Evento_Model_Eventoavaliacao($dados);
+        if ($form->isValid($dados)) {
+            $model = new Evento_Model_Eventoavaliacao($dados);
             $model->calculaMedias();
             $retorno = $this->_mapper->update($model);
             return $retorno;
@@ -83,9 +84,9 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
             return false;
         }
     }
-    
+
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \App_Service_JqGrid | array
@@ -93,7 +94,7 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
@@ -108,7 +109,7 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
 
     public function getByIdDetalhar($dados)
     {
-    	return $this->_mapper->getByIdDetalhar($dados);
+        return $this->_mapper->getByIdDetalhar($dados);
     }
 
     public function getErrors()
@@ -116,38 +117,40 @@ class Evento_Service_Avaliacaoservidor extends App_Service_ServiceAbstract
         return $this->errors;
     }
 
-    
+
     public function getPerguntas()
     {
-        return array( 'numpontualidade'         => 'Compareceu pontualmente ao local de trabalho?',
-                      'numordens'               => 'Acatou as ordens da chefia?',
-                      'numrespeitochefia'       => 'Demonstrou respeito no trato da chefia?',
-                      'numrespeitocolega'       => 'Demonstrou respeito no trato dos colegas?',
-                      'numurbanidade'           => 'Demonstrou urbanidade no tratamento do público externo?',
-                      'numequilibrio'           => 'Demonstrou equilíbrio em situações de crise?',
-                      'numcomprometimento'      => 'Demonstrou comprometimento com o resultado das missões designadas?',
-                      'numesforco'              => 'Empreendeu todos os esforços necessários ao cumprimento das missões designadas?',
-                      'numtrabalhoequipe'       => 'Demonstrou capacidade de trabalhar em equipe?',
-                      'numauxiliouequipe'       => 'Permaneceu auxiliando a equipe até a liberação final da chefia?',
-                      'numaceitousugestao'      => 'Aceitou sugestões para melhor desenvolver seu trabalho?',
-                      'numconhecimentonorma'    => 'Demonstrou conhecimento das normas aplicáveis ao caso concreto?',
-                      'numalternativaproblema'  => 'Apresentou alternativas para solucionar problemas?',
-                      'numiniciativa'           => 'Demonstrou iniciativa para realizar atividades além das propostas?',
-                      'numtarefacomplexa'       => 'Demonstrou interesse em assumir tarefas de maior complexidade?',
-            );
+        return array(
+            'numpontualidade' => 'Compareceu pontualmente ao local de trabalho?',
+            'numordens' => 'Acatou as ordens da chefia?',
+            'numrespeitochefia' => 'Demonstrou respeito no trato da chefia?',
+            'numrespeitocolega' => 'Demonstrou respeito no trato dos colegas?',
+            'numurbanidade' => 'Demonstrou urbanidade no tratamento do público externo?',
+            'numequilibrio' => 'Demonstrou equilíbrio em situações de crise?',
+            'numcomprometimento' => 'Demonstrou comprometimento com o resultado das missões designadas?',
+            'numesforco' => 'Empreendeu todos os esforços necessários ao cumprimento das missões designadas?',
+            'numtrabalhoequipe' => 'Demonstrou capacidade de trabalhar em equipe?',
+            'numauxiliouequipe' => 'Permaneceu auxiliando a equipe até a liberação final da chefia?',
+            'numaceitousugestao' => 'Aceitou sugestões para melhor desenvolver seu trabalho?',
+            'numconhecimentonorma' => 'Demonstrou conhecimento das normas aplicáveis ao caso concreto?',
+            'numalternativaproblema' => 'Apresentou alternativas para solucionar problemas?',
+            'numiniciativa' => 'Demonstrou iniciativa para realizar atividades além das propostas?',
+            'numtarefacomplexa' => 'Demonstrou interesse em assumir tarefas de maior complexidade?',
+        );
     }
-    
+
     public function fetchPairsTipoAvaliacao()
     {
         $mapperTipoAva = new Evento_Model_Mapper_Tipoavaliacao();
         return $mapperTipoAva->fetchPairs();
     }
-    
-    public function initCombo($objeto, $msg) {
+
+    public function initCombo($objeto, $msg)
+    {
 
         $listArray = array();
         $listArray = array('' => $msg);
-        
+
         foreach ($objeto as $val => $desc) {
             if ($desc != $msg) {
                 $listArray[$val] = $desc;

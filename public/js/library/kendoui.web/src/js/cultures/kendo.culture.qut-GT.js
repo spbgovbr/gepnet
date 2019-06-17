@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["qut-GT"] = {
         name: "qut-GT",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["($n)","$n"],
+                pattern: ["($n)", "$n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["juq\u0027ij","kaq\u0027ij","oxq\u0027ij","kajq\u0027ij","joq\u0027ij","waqq\u0027ij","wuqq\u0027ij"],
-                    namesAbbr: ["juq","kaq","oxq","kajq","joq","waqq","wuqq"],
-                    namesShort: ["ju","ka","ox","ka","jo","wa","wu"]
+                    names: ["juq\u0027ij", "kaq\u0027ij", "oxq\u0027ij", "kajq\u0027ij", "joq\u0027ij", "waqq\u0027ij", "wuqq\u0027ij"],
+                    namesAbbr: ["juq", "kaq", "oxq", "kajq", "joq", "waqq", "wuqq"],
+                    namesShort: ["ju", "ka", "ox", "ka", "jo", "wa", "wu"]
                 },
                 months: {
-                    names: ["nab\u0027e ik\u0027","ukab\u0027 ik\u0027","rox ik\u0027","ukaj ik\u0027","uro\u0027 ik\u0027","uwaq ik\u0027","uwuq ik\u0027","uwajxaq ik\u0027","ub\u0027elej ik\u0027","ulaj ik\u0027","ujulaj ik\u0027","ukab\u0027laj ik\u0027",""],
-                    namesAbbr: ["nab\u0027e","ukab","rox","ukaj","uro","uwaq","uwuq","uwajxaq","ub\u0027elej","ulaj","ujulaj","ukab\u0027laj",""]
+                    names: ["nab\u0027e ik\u0027", "ukab\u0027 ik\u0027", "rox ik\u0027", "ukaj ik\u0027", "uro\u0027 ik\u0027", "uwaq ik\u0027", "uwuq ik\u0027", "uwajxaq ik\u0027", "ub\u0027elej ik\u0027", "ulaj ik\u0027", "ujulaj ik\u0027", "ukab\u0027laj ik\u0027", ""],
+                    namesAbbr: ["nab\u0027e", "ukab", "rox", "ukaj", "uro", "uwaq", "uwuq", "uwajxaq", "ub\u0027elej", "ulaj", "ujulaj", "ukab\u0027laj", ""]
                 },
-                AM: ["a.m.","a.m.","A.M."],
-                PM: ["p.m.","p.m.","P.M."],
+                AM: ["a.m.", "a.m.", "A.M."],
+                PM: ["p.m.", "p.m.", "P.M."],
                 patterns: {
                     d: "dd/MM/yyyy",
                     D: "dddd, dd' de 'MMMM' de 'yyyy",

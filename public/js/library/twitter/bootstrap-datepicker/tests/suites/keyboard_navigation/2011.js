@@ -1,5 +1,5 @@
 module('Keyboard Navigation 2011', {
-    setup: function(){
+    setup: function () {
         /*
             Tests start with picker on March 31, 2011.  Fun facts:
 
@@ -7,18 +7,18 @@ module('Keyboard Navigation 2011', {
             * March 31, 2011 was on a Thursday
         */
         this.input = $('<input type="text" value="31-03-2011">')
-                        .appendTo('#qunit-fixture')
-                        .datepicker({format: "dd-mm-yyyy"})
-                        .focus(); // Activate for visibility checks
+            .appendTo('#qunit-fixture')
+            .datepicker({format: "dd-mm-yyyy"})
+            .focus(); // Activate for visibility checks
         this.dp = this.input.data('datepicker')
         this.picker = this.dp.picker;
     },
-    teardown: function(){
+    teardown: function () {
         this.picker.remove();
     }
 });
 
-test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb 27, 2011', function(){
+test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb 27, 2011', function () {
     var target;
 
     this.input.val('06-03-2011').datepicker('update');
@@ -40,7 +40,7 @@ test('Regression: by week (up/down arrows); up from Mar 6, 2011 should go to Feb
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
 
-test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to Feb 28, 2011', function(){
+test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to Feb 28, 2011', function () {
     var target;
 
     this.input.val('01-03-2011').datepicker('update');
@@ -62,7 +62,7 @@ test('Regression: by day (left/right arrows); left from Mar 1, 2011 should go to
     equal(target.text(), 'February 2011', 'Title is "February 2011"');
 });
 
-test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 should go to Feb 15, 2011', function(){
+test('Regression: by month (shift + left/right arrows); left from Mar 15, 2011 should go to Feb 15, 2011', function () {
     var target;
 
     this.input.val('15-03-2011').datepicker('update');

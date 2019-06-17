@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 //    $('#calendar').attr('style','width:350px');
-    $('#link_participantes').attr('style','display:block');
+    $('#link_participantes').attr('style', 'display:block');
 });

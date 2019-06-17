@@ -15,7 +15,7 @@ $html = '
 
 <address>Address: Vestibulum feugiat, orci at imperdiet tincidunt, mauris erat facilisis urna, sagittis ultricies dui nisl et lectus. Sed lacinia, lectus vitae dictum sodales, elit ipsum ultrices orci, non euismod arcu diam non metus.</address>
 
-<div><a href="dummy'.time().'">Hyperlink (&lt;a&gt;)</a></div>
+<div><a href="dummy' . time() . '">Hyperlink (&lt;a&gt;)</a></div>
 <div><a href="#top">Hyperlink (&lt;a&gt;)</a></div>
 <div><a href="http://www.pallcare.info">Hyperlink (&lt;a&gt;)</a></div>
 
@@ -56,20 +56,18 @@ $html = '
 ';
 
 
-
-
 //==============================================================
 //==============================================================
 //==============================================================
 include("../mpdf.php");
 
-$mpdf=new mPDF('c'); 
+$mpdf = new mPDF('c');
 
 $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->WriteHTML($html);
 
-$mpdf->Output(); 
+$mpdf->Output();
 
 exit;
 

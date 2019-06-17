@@ -9,19 +9,19 @@
 class Default_Model_DbTable_Aceite extends Zend_Db_Table_Abstract
 {
 
-    protected $_name    = 'tb_aceite';
+    protected $_name = 'tb_aceite';
     protected $_primary = array('idaceite');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
-            'refTableClass'       => 'tb_pessoa',
-            'columns'             => 'idcadastrador',
-            'refColumns'          => 'idpessoa'
+            'refTableClass' => 'tb_pessoa',
+            'columns' => 'idcadastrador',
+            'refColumns' => 'idpessoa'
         ),
         'Atividadecronograma' => array(
             'refTableClass' => 'tb_atividadecronograma',
-            'columns'       => 'identrega',
-            'refColumns'    => 'idatividadecronograma'
+            'columns' => 'identrega',
+            'refColumns' => 'idatividadecronograma'
         )
     );
 

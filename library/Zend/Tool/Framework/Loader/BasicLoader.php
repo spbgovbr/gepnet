@@ -87,7 +87,7 @@ class Zend_Tool_Framework_Loader_BasicLoader
     }
 
     /**
-     * @param  array $classesToLoad
+     * @param array $classesToLoad
      * @return Zend_Tool_Framework_Loader_Abstract
      */
     public function setClassesToLoad(array $classesToLoad)
@@ -128,19 +128,19 @@ class Zend_Tool_Framework_Loader_BasicLoader
     }
 
     /**
-     * @param  ReflectionClass $reflectionClass
+     * @param ReflectionClass $reflectionClass
      * @return bool
      */
     private function _isManifestImplementation($reflectionClass)
     {
         return (
             $reflectionClass->implementsInterface('Zend_Tool_Framework_Manifest_Interface')
-                && !$reflectionClass->isAbstract()
+            && !$reflectionClass->isAbstract()
         );
     }
 
     /**
-     * @param  ReflectionClass $reflectionClass
+     * @param ReflectionClass $reflectionClass
      * @return bool
      */
     private function _isProviderImplementation($reflectionClass)
@@ -149,8 +149,8 @@ class Zend_Tool_Framework_Loader_BasicLoader
 
         return (
             $reflectionClass->implementsInterface('Zend_Tool_Framework_Provider_Interface')
-                && !$reflectionClass->isAbstract()
-                && !$providerRegistry->hasProvider($reflectionClass->getName(), false)
+            && !$reflectionClass->isAbstract()
+            && !$providerRegistry->hasProvider($reflectionClass->getName(), false)
         );
     }
 

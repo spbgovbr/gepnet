@@ -16,10 +16,10 @@ kendo_module({
     category: "web",
     description: "",
     hidden: true,
-    depends: [ "listview", "dropdownlist", "upload" ]
+    depends: ["listview", "dropdownlist", "upload"]
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
         isPlainObject = $.isPlainObject,
@@ -39,32 +39,32 @@ kendo_module({
         NAMEFIELD = "name",
         SIZEFIELD = "size",
         TYPEFIELD = "type",
-        DEFAULTSORTORDER = { field: TYPEFIELD, dir: "asc" },
+        DEFAULTSORTORDER = {field: TYPEFIELD, dir: "asc"},
         EMPTYTILE = kendo.template('<li class="k-tile-empty"><strong>${text}</strong></li>'),
         TOOLBARTMPL = '<div class="k-widget k-toolbar k-header k-floatwrap">' +
-                            '<div class="k-toolbar-wrap">' +
-                                '# if (showUpload) { # ' +
-                                    '<div class="k-widget k-upload"><div class="k-button k-button-icontext k-upload-button">' +
-                                        '<span class="k-icon k-add"></span>#=messages.uploadFile#<input type="file" name="file" /></div></div>' +
-                                '# } #' +
+            '<div class="k-toolbar-wrap">' +
+            '# if (showUpload) { # ' +
+            '<div class="k-widget k-upload"><div class="k-button k-button-icontext k-upload-button">' +
+            '<span class="k-icon k-add"></span>#=messages.uploadFile#<input type="file" name="file" /></div></div>' +
+            '# } #' +
 
-                                '# if (showCreate) { #' +
-                                     '<button type="button" class="k-button k-button-icon"><span class="k-icon k-addfolder" /></button>' +
-                                '# } #' +
+            '# if (showCreate) { #' +
+            '<button type="button" class="k-button k-button-icon"><span class="k-icon k-addfolder" /></button>' +
+            '# } #' +
 
-                                '# if (showDelete) { #' +
-                                    '<button type="button" class="k-button k-button-icon k-state-disabled"><span class="k-icon k-delete" /></button>&nbsp;' +
-                                '# } #' +
-                            '</div>' +
-                            '<div class="k-tiles-arrange">' +
-                                '<label>#=messages.orderBy#: <select /></label></a>' +
-                            '</div>' +
-                        '</div>';
+            '# if (showDelete) { #' +
+            '<button type="button" class="k-button k-button-icon k-state-disabled"><span class="k-icon k-delete" /></button>&nbsp;' +
+            '# } #' +
+            '</div>' +
+            '<div class="k-tiles-arrange">' +
+            '<label>#=messages.orderBy#: <select /></label></a>' +
+            '</div>' +
+            '</div>';
 
     extend(true, kendo.data, {
         schemas: {
             "imagebrowser": {
-                data: function(data) {
+                data: function (data) {
                     return data.items || data || [];
                 },
                 model: {
@@ -82,11 +82,11 @@ kendo_module({
     extend(true, kendo.data, {
         transports: {
             "imagebrowser": kendo.data.RemoteTransport.extend({
-                init: function(options) {
+                init: function (options) {
                     kendo.data.RemoteTransport.fn.init.call(this, $.extend(true, {}, this.options, options));
                 },
-                _call: function(type, options) {
-                    options.data = $.extend({}, options.data, { path: this.options.path() });
+                _call: function (type, options) {
+                    options.data = $.extend({}, options.data, {path: this.options.path()});
 
                     if (isFunction(this.options[type])) {
                         this.options[type].call(this, options);
@@ -94,16 +94,16 @@ kendo_module({
                         kendo.data.RemoteTransport.fn[type].call(this, options);
                     }
                 },
-                read: function(options) {
+                read: function (options) {
                     this._call("read", options);
                 },
-                create: function(options) {
+                create: function (options) {
                     this._call("create", options);
                 },
-                destroy: function(options) {
+                destroy: function (options) {
                     this._call("destroy", options);
                 },
-                update: function() {
+                update: function () {
                     //updates are handled by the upload
                 },
                 options: {
@@ -128,12 +128,12 @@ kendo_module({
         var hideInterval, lastDrag;
 
         element
-            .on("dragenter" + NS, function() {
+            .on("dragenter" + NS, function () {
                 onDragEnter();
                 lastDrag = new Date();
 
                 if (!hideInterval) {
-                    hideInterval = setInterval(function() {
+                    hideInterval = setInterval(function () {
                         var sinceLastDrag = new Date() - lastDrag;
                         if (sinceLastDrag > 100) {
                             onDragLeave();
@@ -144,7 +144,7 @@ kendo_module({
                     }, 100);
                 }
             })
-            .on("dragover" + NS, function() {
+            .on("dragover" + NS, function () {
                 lastDrag = new Date();
             });
     }
@@ -161,14 +161,14 @@ kendo_module({
     }
 
     function concatPaths(path, name) {
-        if(path === undefined || !path.match(/\/$/)) {
+        if (path === undefined || !path.match(/\/$/)) {
             path = (path || "") + "/";
         }
         return path + name;
     }
 
     function sizeFormatter(value) {
-        if(!value) {
+        if (!value) {
             return "";
         }
 
@@ -180,7 +180,7 @@ kendo_module({
         } else if (value >= 1048576) {
             suffix = " MB";
             value /= 1048576;
-        } else  if (value >= 1024) {
+        } else if (value >= 1024) {
             suffix = " KB";
             value /= 1024;
         }
@@ -189,7 +189,7 @@ kendo_module({
     }
 
     var ImageBrowser = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             options = options || {};
@@ -233,7 +233,7 @@ kendo_module({
 
         events: [ERROR, CHANGE, APPLY],
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -253,7 +253,7 @@ kendo_module({
             kendo.destroy(that.element);
         },
 
-        value: function() {
+        value: function () {
             var that = this,
                 selected = that._selectedItem(),
                 path,
@@ -268,7 +268,7 @@ kendo_module({
             }
         },
 
-        _selectedItem: function() {
+        _selectedItem: function () {
             var listView = this.listView,
                 selected = listView.select();
 
@@ -277,21 +277,21 @@ kendo_module({
             }
         },
 
-        _toolbar: function() {
+        _toolbar: function () {
             var that = this,
                 template = kendo.template(TOOLBARTMPL),
                 messages = that.options.messages,
                 arrangeBy = [
-                    { text: messages.orderByName, value: "name" },
-                    { text: messages.orderBySize, value: "size" }
+                    {text: messages.orderByName, value: "name"},
+                    {text: messages.orderBySize, value: "size"}
                 ];
 
             that.toolbar = $(template({
-                    messages: messages,
-                    showUpload: that.options.transport.uploadUrl,
-                    showCreate: that.options.transport.create,
-                    showDelete: that.options.transport.destroy
-                }))
+                messages: messages,
+                showUpload: that.options.transport.uploadUrl,
+                showCreate: that.options.transport.create,
+                showDelete: that.options.transport.destroy
+            }))
                 .appendTo(that.element)
                 .find(".k-upload input")
                 .kendoUpload({
@@ -304,8 +304,8 @@ kendo_module({
                         autoUpload: true
                     },
                     upload: proxy(that._fileUpload, that),
-                    error: function(e) {
-                        that._error({ xhr: e.XMLHttpRequest, status: "error" });
+                    error: function (e) {
+                        that._error({xhr: e.XMLHttpRequest, status: "error"});
                     }
                 }).end();
 
@@ -318,7 +318,7 @@ kendo_module({
                     dataSource: arrangeBy,
                     dataTextField: "text",
                     dataValueField: "value",
-                    change: function() {
+                    change: function () {
                         that.orderBy(this.value());
                     }
                 })
@@ -327,7 +327,7 @@ kendo_module({
             that._attachDropzoneEvents();
         },
 
-        _attachDropzoneEvents: function() {
+        _attachDropzoneEvents: function () {
             var that = this;
 
             if (that.options.transport.uploadUrl) {
@@ -339,17 +339,17 @@ kendo_module({
             }
         },
 
-        _dropEnter: function() {
+        _dropEnter: function () {
             this._positionDropzone();
             $(document).on("scroll" + NS, this._scrollHandler);
         },
 
-        _dropLeave: function() {
+        _dropLeave: function () {
             this._removeDropzone();
             $(document).off("scroll" + NS, this._scrollHandler);
         },
 
-        _positionDropzone: function() {
+        _positionDropzone: function () {
             var that = this,
                 element = that.element,
                 offset = element.offset();
@@ -364,13 +364,13 @@ kendo_module({
                 });
         },
 
-        _removeDropzone: function() {
+        _removeDropzone: function () {
             this.toolbar.find(".k-dropzone")
                 .removeClass("k-imagebrowser-dropzone")
-                .css({ width: "", height: "", lineHeight: "", top: "", left: "" });
+                .css({width: "", height: "", lineHeight: "", top: "", left: ""});
         },
 
-        _deleteClick: function() {
+        _deleteClick: function () {
             var that = this,
                 item = that.listView.select(),
                 message = kendo.format(that.options.messages.deleteFile, item.find("strong").text());
@@ -380,29 +380,29 @@ kendo_module({
             }
         },
 
-        _addClick: function() {
+        _addClick: function () {
             this.createDirectory();
         },
 
-        _fileUpload: function(e) {
+        _fileUpload: function (e) {
             var that = this,
                 options = that.options,
                 fileTypes = options.fileTypes,
-                filterRegExp = new RegExp(("(" + fileTypes.split(",").join(")|(") + ")").replace(/\*\./g , ".*."), "i"),
+                filterRegExp = new RegExp(("(" + fileTypes.split(",").join(")|(") + ")").replace(/\*\./g, ".*."), "i"),
                 fileName = e.files[0].name,
                 fileNameField = NAMEFIELD,
                 sizeField = SIZEFIELD,
                 model;
 
             if (filterRegExp.test(fileName)) {
-                e.data = { path: that.path() };
+                e.data = {path: that.path()};
 
                 model = that._createFile(fileName);
 
                 if (!model) {
                     e.preventDefault();
                 } else {
-                    that.upload.one("success", function(e) {
+                    that.upload.one("success", function (e) {
                         model.set(fileNameField, e.response[fileNameField]);
                         model.set(sizeField, e.response[sizeField]);
                         that._tiles = that.listView.items().filter("[" + kendo.attr("type") + "=f]");
@@ -415,7 +415,7 @@ kendo_module({
             }
         },
 
-        _findFile: function(name) {
+        _findFile: function (name) {
             var data = this.dataSource.data(),
                 idx,
                 result,
@@ -436,7 +436,7 @@ kendo_module({
             return result;
         },
 
-        _createFile: function(fileName) {
+        _createFile: function (fileName) {
             var that = this,
                 idx,
                 length,
@@ -468,7 +468,7 @@ kendo_module({
             return that.dataSource.insert(++index, model);
         },
 
-        createDirectory: function() {
+        createDirectory: function () {
             var that = this,
                 idx,
                 length,
@@ -488,9 +488,9 @@ kendo_module({
             model.set(typeField, "d");
             model.set(nameField, name);
 
-            that.listView.one("dataBound", function() {
+            that.listView.one("dataBound", function () {
                 var selected = that.listView.items()
-                    .filter("[" + kendo.attr("uid") + "=" + model.uid + "]"),
+                        .filter("[" + kendo.attr("uid") + "=" + model.uid + "]"),
                     input = selected.find("input");
 
                 if (selected.length) {
@@ -499,34 +499,34 @@ kendo_module({
 
                 this.element.scrollTop(selected.attr("offsetTop") - this.element[0].offsetHeight);
 
-                setTimeout(function() {
+                setTimeout(function () {
                     input.select();
                 });
             })
-            .one("save", function(e) {
-                var value = e.model.get(nameField);
+                .one("save", function (e) {
+                    var value = e.model.get(nameField);
 
-                if (!value) {
-                    e.model.set(nameField, name);
-                } else {
-                    e.model.set(nameField, that._nameExists(value, model.uid) ? that._nameDirectory() : value);
-                }
-            });
+                    if (!value) {
+                        e.model.set(nameField, name);
+                    } else {
+                        e.model.set(nameField, that._nameExists(value, model.uid) ? that._nameDirectory() : value);
+                    }
+                });
 
             that.dataSource.insert(++lastDirectoryIdx, model);
         },
 
-        _directoryKeyDown: function(e) {
+        _directoryKeyDown: function (e) {
             if (e.keyCode == 13) {
                 e.currentTarget.blur();
             }
         },
 
-        _directoryBlur: function() {
+        _directoryBlur: function () {
             this.listView.save();
         },
 
-        _nameExists: function(name, uid) {
+        _nameExists: function (name, uid) {
             var data = this.dataSource.data(),
                 typeField = TYPEFIELD,
                 nameField = NAMEFIELD,
@@ -543,7 +543,7 @@ kendo_module({
             return false;
         },
 
-        _nameDirectory: function() {
+        _nameDirectory: function () {
             var name = "New folder",
                 data = this.dataSource.data(),
                 directoryNames = [],
@@ -573,14 +573,14 @@ kendo_module({
             return name;
         },
 
-        orderBy: function(field) {
+        orderBy: function (field) {
             this.dataSource.sort([
-                { field: TYPEFIELD, dir: "asc" },
-                { field: field, dir: "asc" }
+                {field: TYPEFIELD, dir: "asc"},
+                {field: field, dir: "asc"}
             ]);
         },
 
-        search: function(name) {
+        search: function (name) {
             this.dataSource.filter({
                 field: NAMEFIELD,
                 operator: "contains",
@@ -588,7 +588,7 @@ kendo_module({
             });
         },
 
-        _content: function() {
+        _content: function () {
             var that = this;
 
             that.list = $('<ul class="k-reset k-floats k-tiles" />')
@@ -602,26 +602,26 @@ kendo_module({
                 editTemplate: that._editTmpl(),
                 selectable: true,
                 autoBind: false,
-                dataBinding: function(e) {
+                dataBinding: function (e) {
                     that.toolbar.find(".k-delete").parent().addClass("k-state-disabled");
 
                     if (e.action === "remove" || e.action === "sync") {
                         e.preventDefault();
                     }
                 },
-                dataBound: function() {
+                dataBound: function () {
                     if (that.dataSource.view().length) {
                         that._tiles = this.items().filter("[" + kendo.attr("type") + "=f]");
                         that._scroll();
                     } else {
-                        this.wrapper.append(EMPTYTILE({ text: that.options.messages.emptyFolder }));
+                        this.wrapper.append(EMPTYTILE({text: that.options.messages.emptyFolder}));
                     }
                 },
                 change: proxy(that._listViewChange, that)
             });
         },
 
-        _dblClick: function(e) {
+        _dblClick: function (e) {
             var that = this,
                 li = $(e.currentTarget);
 
@@ -636,7 +636,7 @@ kendo_module({
             }
         },
 
-        _listViewChange: function() {
+        _listViewChange: function () {
             var selected = this._selectedItem();
 
             if (selected) {
@@ -648,12 +648,12 @@ kendo_module({
             }
         },
 
-        _dataSource: function() {
+        _dataSource: function () {
             var that = this,
                 options = that.options,
                 transport = options.transport,
                 typeSortOrder = extend({}, DEFAULTSORTORDER),
-                nameSortOrder = { field: NAMEFIELD, dir: "asc" },
+                nameSortOrder = {field: NAMEFIELD, dir: "asc"},
                 schema,
                 dataSource = {
                     type: transport.type || "imagebrowser",
@@ -681,29 +681,29 @@ kendo_module({
                 .bind(ERROR, that._errorHandler);
         },
 
-        _navigation: function() {
+        _navigation: function () {
             var that = this,
                 navigation = $('<div class="k-floatwrap"><input/><input/></div>')
                     .appendTo(this.element);
 
             that.breadcrumbs = navigation.find("input:first")
-                    .kendoBreadcrumbs({
-                        value: that.options.path,
-                        change: function() {
-                            that.path(this.value());
-                        }
-                    }).data("kendoBreadcrumbs");
+                .kendoBreadcrumbs({
+                    value: that.options.path,
+                    change: function () {
+                        that.path(this.value());
+                    }
+                }).data("kendoBreadcrumbs");
 
             that.searchBox = navigation.parent().find("input:last")
-                    .kendoSearchBox({
-                        label: that.options.messages.search,
-                        change: function() {
-                            that.search(this.value());
-                        }
-                    }).data("kendoSearchBox");
+                .kendoSearchBox({
+                    label: that.options.messages.search,
+                    change: function () {
+                        that.search(this.value());
+                    }
+                }).data("kendoSearchBox");
         },
 
-        _error: function(e) {
+        _error: function (e) {
             var that = this,
                 status;
 
@@ -722,30 +722,30 @@ kendo_module({
             }
         },
 
-        _showMessage: function(message, type) {
+        _showMessage: function (message, type) {
             return window[type || "alert"](message);
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this;
             that._navigation();
             that._toolbar();
             that._content();
         },
 
-        _loadImage: function(li) {
+        _loadImage: function (li) {
             var that = this,
                 element = $(li),
                 dataItem = that.dataSource.getByUid(element.attr(kendo.attr("uid"))),
                 name = dataItem.get(NAMEFIELD),
                 thumbnailUrl = that.options.transport.thumbnailUrl,
-                img = $("<img />", { alt: name }),
+                img = $("<img />", {alt: name}),
                 urlJoin = "?";
 
             img.hide()
-               .on("load" + NS, function() {
-                   $(this).prev().remove().end().addClass("k-image").fadeIn();
-               });
+                .on("load" + NS, function () {
+                    $(this).prev().remove().end().addClass("k-image").fadeIn();
+                });
 
             element.find(".k-loading").after(img);
 
@@ -766,17 +766,17 @@ kendo_module({
             li.loaded = true;
         },
 
-        _scroll: function() {
+        _scroll: function () {
             var that = this;
             if (that.options.transport && that.options.transport.thumbnailUrl) {
                 clearTimeout(that._timeout);
 
-                that._timeout = setTimeout(function() {
+                that._timeout = setTimeout(function () {
                     var height = that.list.outerHeight(),
                         viewTop = that.list.scrollTop(),
                         viewBottom = viewTop + height;
 
-                    that._tiles.each(function() {
+                    that._tiles.each(function () {
                         var top = offsetTop(this),
                             bottom = top + this.offsetHeight;
 
@@ -789,7 +789,7 @@ kendo_module({
                         }
                     });
 
-                    that._tiles = that._tiles.filter(function() {
+                    that._tiles = that._tiles.filter(function () {
                         return !this.loaded;
                     });
 
@@ -797,7 +797,7 @@ kendo_module({
             }
         },
 
-        _editTmpl: function() {
+        _editTmpl: function () {
             var html = '<li class="k-tile k-state-selected" ' + kendo.attr("uid") + '="#=uid#" ';
 
             html += kendo.attr("type") + '="${' + TYPEFIELD + '}">';
@@ -811,10 +811,10 @@ kendo_module({
             html += "#}#";
             html += '</li>';
 
-            return proxy(kendo.template(html), { sizeFormatter: sizeFormatter } );
+            return proxy(kendo.template(html), {sizeFormatter: sizeFormatter});
         },
 
-        _itemTmpl: function() {
+        _itemTmpl: function () {
             var that = this,
                 html = '<li class="k-tile" ' + kendo.attr("uid") + '="#=uid#" ';
 
@@ -832,16 +832,16 @@ kendo_module({
             html += '#if(' + TYPEFIELD + ' == "f") { # <span class="k-filesize">${this.sizeFormatter(' + SIZEFIELD + ')}</span> #}#';
             html += '</li>';
 
-            return proxy(kendo.template(html), { sizeFormatter: sizeFormatter } );
+            return proxy(kendo.template(html), {sizeFormatter: sizeFormatter});
         },
 
-        path: function(value) {
+        path: function (value) {
             var that = this,
                 path = that._path || "";
 
             if (value !== undefined) {
                 that._path = value.replace(trimSlashesRegExp, "") + "/";
-                that.dataSource.read({ path: that._path });
+                that.dataSource.read({path: that._path});
                 return;
             }
 
@@ -854,7 +854,7 @@ kendo_module({
     });
 
     var SearchBox = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             options = options || {};
@@ -886,9 +886,9 @@ kendo_module({
             value: ""
         },
 
-        events: [ CHANGE ],
+        events: [CHANGE],
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             that.wrapper
@@ -899,18 +899,18 @@ kendo_module({
             Widget.fn.destroy.call(that);
         },
 
-        _keydown: function(e) {
+        _keydown: function (e) {
             if (e.keyCode === 13) {
                 this._updateValue();
             }
         },
 
-        _click: function(e) {
+        _click: function (e) {
             e.preventDefault();
             this._updateValue();
         },
 
-        _updateValue: function() {
+        _updateValue: function () {
             var that = this,
                 value = that.element.val();
 
@@ -921,22 +921,22 @@ kendo_module({
             }
         },
 
-        _blur: function() {
+        _blur: function () {
             this._updateValue();
             this._toggleLabel();
         },
 
-        _toggleLabel: function() {
+        _toggleLabel: function () {
             if (!placeholderSupported) {
                 this.label.toggle(!this.element.val());
             }
         },
 
-        _focus: function() {
+        _focus: function () {
             this.label.hide();
         },
 
-        _wrapper: function() {
+        _wrapper: function () {
             var element = this.element,
                 wrapper = element.parents(".k-search-wrap");
 
@@ -955,7 +955,7 @@ kendo_module({
             this.label = wrapper.find(">label");
         },
 
-        value: function(value) {
+        value: function (value) {
             var that = this;
 
             if (value !== undefined) {
@@ -969,7 +969,7 @@ kendo_module({
     });
 
     var Breadcrumbs = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             options = options || {};
@@ -993,9 +993,9 @@ kendo_module({
             gap: 50
         },
 
-        events: [ CHANGE ],
+        events: [CHANGE],
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -1006,7 +1006,7 @@ kendo_module({
                 .off(BREADCRUBMSNS);
         },
 
-        _update: function(val) {
+        _update: function (val) {
             val = (val || "").charAt(0) === "/" ? val : ("/" + (val || ""));
 
             if (val !== this.value()) {
@@ -1015,29 +1015,29 @@ kendo_module({
             }
         },
 
-        _click: function(e) {
+        _click: function (e) {
             e.preventDefault();
             this._update(this._path($(e.target).prevAll("a:not(.k-i-arrow-n)").andSelf()));
         },
 
-        _rootClick: function(e) {
+        _rootClick: function (e) {
             e.preventDefault();
             this._update("");
         },
 
-        _focus: function() {
+        _focus: function () {
             var that = this,
                 element = that.element;
 
             that.overlay.hide();
             that.element.val(that.value());
 
-            setTimeout(function() {
-               element.select();
+            setTimeout(function () {
+                element.select();
             });
         },
 
-        _blur: function() {
+        _blur: function () {
             if (this.overlay.is(":visible")) {
                 return;
             }
@@ -1051,18 +1051,18 @@ kendo_module({
             that._update(val);
         },
 
-        _keydown: function(e) {
+        _keydown: function (e) {
             var that = this;
             if (e.keyCode === 13) {
                 that._blur();
 
-                setTimeout(function() {
+                setTimeout(function () {
                     that.overlay.find("a:first").focus();
                 });
             }
         },
 
-        _wrapper: function() {
+        _wrapper: function () {
             var element = this.element,
                 wrapper = element.parents(".k-breadcrumbs"),
                 overlay;
@@ -1082,7 +1082,7 @@ kendo_module({
             this.overlay = overlay;
         },
 
-        refresh: function() {
+        refresh: function () {
             var html = "",
                 value = this.value(),
                 segments,
@@ -1111,14 +1111,14 @@ kendo_module({
             this._adjustSectionWidth();
         },
 
-        _adjustSectionWidth: function() {
+        _adjustSectionWidth: function () {
             var that = this,
                 wrapper = that.wrapper,
                 width = wrapper.width() - that.options.gap,
                 links = that.overlay.find("a"),
                 a;
 
-            links.each(function(index) {
+            links.each(function (index) {
                 a = $(this);
 
                 if (a.parent().width() > width) {
@@ -1131,7 +1131,7 @@ kendo_module({
             });
         },
 
-        value: function(val) {
+        value: function (val) {
             if (val !== undefined) {
                 this._value = val.replace(/\/{2,}/g, "/");
                 this.refresh();
@@ -1140,8 +1140,8 @@ kendo_module({
             return this._value;
         },
 
-        _path: function(trail) {
-            return "/" + $.map(trail, function(b) {
+        _path: function (trail) {
+            return "/" + $.map(trail, function (b) {
                 return $(b).text();
             }).join("/");
         }

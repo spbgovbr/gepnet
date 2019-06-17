@@ -41,7 +41,7 @@ class Zend_Reflection_Docblock implements Reflector
      * @var int
      */
     protected $_startLine = null;
-    protected $_endLine   = null;
+    protected $_endLine = null;
     /**#@-*/
 
     /**
@@ -74,8 +74,8 @@ class Zend_Reflection_Docblock implements Reflector
      *
      * Reqired by the Reflector interface.
      *
-     * @todo   What should this do?
      * @return void
+     * @todo   What should this do?
      */
     public static function export()
     {
@@ -87,20 +87,20 @@ class Zend_Reflection_Docblock implements Reflector
      *
      * Required by the Reflector interface
      *
-     * @todo   What should this return?
      * @return string
+     * @todo   What should this return?
      */
     public function __toString()
     {
-        $str = "Docblock [ /* Docblock */ ] {".PHP_EOL.PHP_EOL;
-        $str .= "  - Tags [".count($this->_tags)."] {".PHP_EOL;
+        $str = "Docblock [ /* Docblock */ ] {" . PHP_EOL . PHP_EOL;
+        $str .= "  - Tags [" . count($this->_tags) . "] {" . PHP_EOL;
 
-        foreach($this->_tags AS $tag) {
-            $str .= "    ".$tag;
+        foreach ($this->_tags AS $tag) {
+            $str .= "    " . $tag;
         }
 
-        $str .= "  }".PHP_EOL;
-        $str .= "}".PHP_EOL;
+        $str .= "  }" . PHP_EOL;
+        $str .= "}" . PHP_EOL;
 
         return $str;
     }
@@ -123,7 +123,7 @@ class Zend_Reflection_Docblock implements Reflector
             $lineCount = substr_count($docComment, "\n");
 
             $this->_startLine = $this->_reflector->getStartLine() - $lineCount - 1;
-            $this->_endLine   = $this->_reflector->getStartLine() - 1;
+            $this->_endLine = $this->_reflector->getStartLine() - 1;
 
         } elseif (is_string($commentOrReflector)) {
             $docComment = $commentOrReflector;
@@ -194,7 +194,7 @@ class Zend_Reflection_Docblock implements Reflector
     /**
      * Does the docblock contain the given annotation tag?
      *
-     * @param  string $name
+     * @param string $name
      * @return bool
      */
     public function hasTag($name)
@@ -210,7 +210,7 @@ class Zend_Reflection_Docblock implements Reflector
     /**
      * Retrieve the given docblock tag
      *
-     * @param  string $name
+     * @param string $name
      * @return Zend_Reflection_Docblock_Tag|false
      */
     public function getTag($name)
@@ -269,7 +269,8 @@ class Zend_Reflection_Docblock implements Reflector
 
             $matches = array();
 
-            if ((strpos($line, '@') === 0) && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment, $matches))) {
+            if ((strpos($line, '@') === 0) && (preg_match('#^(@\w+.*?)(\n)(?:@|\r?\n|$)#s', $parsedDocComment,
+                    $matches))) {
                 $this->_tags[] = Zend_Reflection_Docblock_Tag::factory($matches[1]);
                 $parsedDocComment = str_replace($matches[1] . $matches[2], '', $parsedDocComment);
             } else {
@@ -289,6 +290,6 @@ class Zend_Reflection_Docblock implements Reflector
         }
 
         $this->_shortDescription = rtrim($this->_shortDescription);
-        $this->_longDescription  = rtrim($this->_longDescription);
+        $this->_longDescription = rtrim($this->_longDescription);
     }
 }

@@ -1,12 +1,12 @@
 ;(function ($) {
-/**
- * jqGrid Persian Translation
- * Dual licensed under the MIT and GPL licenses:
- * http://www.opensource.org/licenses/mit-license.php
- * http://www.gnu.org/licenses/gpl.html
-**/
-	$.jgrid = $.jgrid || {};
-	$.extend($.jgrid,{
+    /**
+     * jqGrid Persian Translation
+     * Dual licensed under the MIT and GPL licenses:
+     * http://www.opensource.org/licenses/mit-license.php
+     * http://www.gnu.org/licenses/gpl.html
+     **/
+    $.jgrid = $.jgrid || {};
+    $.extend($.jgrid, {
         defaults: {
             recordtext: "نمابش {0} - {1} از {2}",
             emptyrecords: "رکوردی یافت نشد",
@@ -22,10 +22,10 @@
                 op: "AND",
                 text: "کل"
             },
-            {
-                op: "OR",
-                text: "مجموع"
-            }],
+                {
+                    op: "OR",
+                    text: "مجموع"
+                }],
             matchText: " حاوی",
             rulesText: " اطلاعات"
         },

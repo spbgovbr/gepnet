@@ -22,12 +22,12 @@ class Planejamento_Model_Mapper_Portfolioprograma extends App_Model_Mapper_Mappe
 
             $data = array(
                 "idportfolio" => $model->idportfolio,
-                "idprograma"  => $model->idprograma,
+                "idprograma" => $model->idprograma,
             );
 
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }
@@ -43,26 +43,27 @@ class Planejamento_Model_Mapper_Portfolioprograma extends App_Model_Mapper_Mappe
 
         try {
 
-            $pks     = array(
+            $pks = array(
                 "idportfolio" => $model->idportfolio,
             );
 
-            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
             $retorno = $this->getDbTable()->delete($where);
 
-            if( count($model->idprograma) > 0) {
-                foreach($model->idprograma as $programa){
+            if (count($model->idprograma) > 0) {
+                foreach ($model->idprograma as $programa) {
                     $dados = new Planejamento_Model_Portfolioprograma(
-                        array( 'idportfolio' => $model->idportfolio,
-                                'idprograma' => $programa,
+                        array(
+                            'idportfolio' => $model->idportfolio,
+                            'idprograma' => $programa,
 
                         ));
                     $insere = $this->insert($dados);
                 }
             }
             return $retorno;
-        } catch ( Exception $exc ) {
-        	throw $exc;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
 

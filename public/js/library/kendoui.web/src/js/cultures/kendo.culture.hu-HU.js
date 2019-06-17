@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["hu-HU"] = {
         name: "hu-HU",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["vasárnap","hétfő","kedd","szerda","csütörtök","péntek","szombat"],
-                    namesAbbr: ["V","H","K","Sze","Cs","P","Szo"],
-                    namesShort: ["V","H","K","Sze","Cs","P","Szo"]
+                    names: ["vasárnap", "hétfő", "kedd", "szerda", "csütörtök", "péntek", "szombat"],
+                    namesAbbr: ["V", "H", "K", "Sze", "Cs", "P", "Szo"],
+                    namesShort: ["V", "H", "K", "Sze", "Cs", "P", "Szo"]
                 },
                 months: {
-                    names: ["január","február","március","április","május","június","július","augusztus","szeptember","október","november","december",""],
-                    namesAbbr: ["jan.","febr.","márc.","ápr.","máj.","jún.","júl.","aug.","szept.","okt.","nov.","dec.",""]
+                    names: ["január", "február", "március", "április", "május", "június", "július", "augusztus", "szeptember", "október", "november", "december", ""],
+                    namesAbbr: ["jan.", "febr.", "márc.", "ápr.", "máj.", "jún.", "júl.", "aug.", "szept.", "okt.", "nov.", "dec.", ""]
                 },
-                AM: ["de.","de.","DE."],
-                PM: ["du.","du.","DU."],
+                AM: ["de.", "de.", "DE."],
+                PM: ["du.", "du.", "DU."],
                 patterns: {
                     d: "yyyy.MM.dd.",
                     D: "yyyy. MMMM d.",

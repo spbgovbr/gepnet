@@ -91,7 +91,7 @@ class Zend_Crypt_DiffieHellman
      */
     const BINARY = 'binary';
     const NUMBER = 'number';
-    const BTWOC  = 'btwoc';
+    const BTWOC = 'btwoc';
 
     /**
      * Constructor; if set construct the object using the parameter array to
@@ -129,7 +129,7 @@ class Zend_Crypt_DiffieHellman
             if ($this->hasPrivateKey()) {
                 $details['priv_key'] = $this->getPrivateKey();
             }
-            $opensslKeyResource = openssl_pkey_new( array('dh' => $details) );
+            $opensslKeyResource = openssl_pkey_new(array('dh' => $details));
             $data = openssl_pkey_get_details($opensslKeyResource);
             $this->setPrivateKey($data['dh']['priv_key'], self::BINARY);
             $this->setPublicKey($data['dh']['pub_key'], self::BINARY);
@@ -157,7 +157,7 @@ class Zend_Crypt_DiffieHellman
             require_once('Zend/Crypt/DiffieHellman/Exception.php');
             throw new Zend_Crypt_DiffieHellman_Exception('invalid parameter; not a positive natural number');
         }
-        $this->_publicKey = (string) $number;
+        $this->_publicKey = (string)$number;
         return $this;
     }
 
@@ -246,7 +246,7 @@ class Zend_Crypt_DiffieHellman
             require_once('Zend/Crypt/DiffieHellman/Exception.php');
             throw new Zend_Crypt_DiffieHellman_Exception('invalid parameter; not a positive natural number or too small: should be a large natural number prime');
         }
-        $this->_prime = (string) $number;
+        $this->_prime = (string)$number;
         return $this;
     }
 
@@ -277,7 +277,7 @@ class Zend_Crypt_DiffieHellman
             require_once('Zend/Crypt/DiffieHellman/Exception.php');
             throw new Zend_Crypt_DiffieHellman_Exception('invalid parameter; not a positive natural number greater than 1');
         }
-        $this->_generator = (string) $number;
+        $this->_generator = (string)$number;
         return $this;
     }
 
@@ -311,7 +311,7 @@ class Zend_Crypt_DiffieHellman
             require_once('Zend/Crypt/DiffieHellman/Exception.php');
             throw new Zend_Crypt_DiffieHellman_Exception('invalid parameter; not a positive natural number');
         }
-        $this->_privateKey = (string) $number;
+        $this->_privateKey = (string)$number;
         return $this;
     }
 

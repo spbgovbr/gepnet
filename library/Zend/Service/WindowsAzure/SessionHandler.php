@@ -57,7 +57,7 @@ class Zend_Service_WindowsAzure_SessionHandler
      * @var string
      */
     protected $_sessionTablePartition;
-    
+
     /**
      * Creates a new Zend_Service_WindowsAzure_SessionHandler instance
      *
@@ -65,30 +65,33 @@ class Zend_Service_WindowsAzure_SessionHandler
      * @param string $sessionTable Session table name
      * @param string $sessionTablePartition Session table partition
      */
-    public function __construct(Zend_Service_WindowsAzure_Storage_Table $tableStorage, $sessionTable = 'phpsessions', $sessionTablePartition = 'sessions')
-	{
-	    // Set properties
-		$this->_tableStorage = $tableStorage;
-		$this->_sessionTable = $sessionTable;
-		$this->_sessionTablePartition = $sessionTablePartition;
-	}
-	
-	/**
-	 * Registers the current session handler as PHP's session handler
-	 *
-	 * @return boolean
-	 */
-	public function register()
-	{
+    public function __construct(
+        Zend_Service_WindowsAzure_Storage_Table $tableStorage,
+        $sessionTable = 'phpsessions',
+        $sessionTablePartition = 'sessions'
+    ) {
+        // Set properties
+        $this->_tableStorage = $tableStorage;
+        $this->_sessionTable = $sessionTable;
+        $this->_sessionTablePartition = $sessionTablePartition;
+    }
+
+    /**
+     * Registers the current session handler as PHP's session handler
+     *
+     * @return boolean
+     */
+    public function register()
+    {
         return session_set_save_handler(array($this, 'open'),
-                                        array($this, 'close'),
-                                        array($this, 'read'),
-                                        array($this, 'write'),
-                                        array($this, 'destroy'),
-                                        array($this, 'gc')
+            array($this, 'close'),
+            array($this, 'read'),
+            array($this, 'write'),
+            array($this, 'destroy'),
+            array($this, 'gc')
         );
     }
-    
+
     /**
      * Open the session store
      *
@@ -101,7 +104,7 @@ class Zend_Service_WindowsAzure_SessionHandler
         if (!$tableExists) {
             $this->_tableStorage->createTable($this->_sessionTable);
         }
-        
+
         // Ok!
         return true;
     }
@@ -124,17 +127,14 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function read($id)
     {
-        try
-        {
+        try {
             $sessionRecord = $this->_tableStorage->retrieveEntityById(
                 $this->_sessionTable,
                 $this->_sessionTablePartition,
                 $id
             );
             return base64_decode($sessionRecord->serializedData);
-        }
-        catch (Zend_Service_WindowsAzure_Exception $ex)
-        {
+        } catch (Zend_Service_WindowsAzure_Exception $ex) {
             return '';
         }
     }
@@ -153,12 +153,9 @@ class Zend_Service_WindowsAzure_SessionHandler
 
         $sessionRecord->setAzurePropertyType('sessionExpires', 'Edm.Int32');
 
-        try
-        {
+        try {
             $this->_tableStorage->updateEntity($this->_sessionTable, $sessionRecord);
-        }
-        catch (Zend_Service_WindowsAzure_Exception $unknownRecord)
-        {
+        } catch (Zend_Service_WindowsAzure_Exception $unknownRecord) {
             $this->_tableStorage->insertEntity($this->_sessionTable, $sessionRecord);
         }
     }
@@ -171,8 +168,7 @@ class Zend_Service_WindowsAzure_SessionHandler
      */
     public function destroy($id)
     {
-        try
-        {
+        try {
             $sessionRecord = $this->_tableStorage->retrieveEntityById(
                 $this->_sessionTable,
                 $this->_sessionTablePartition,
@@ -181,9 +177,7 @@ class Zend_Service_WindowsAzure_SessionHandler
             $this->_tableStorage->deleteEntity($this->_sessionTable, $sessionRecord);
 
             return true;
-        }
-        catch (Zend_Service_WindowsAzure_Exception $ex)
-        {
+        } catch (Zend_Service_WindowsAzure_Exception $ex) {
             return false;
         }
     }
@@ -192,25 +186,22 @@ class Zend_Service_WindowsAzure_SessionHandler
      * Garbage collector
      *
      * @param int $lifeTime Session maximal lifetime
-     * @see session.gc_divisor  100
+     * @return boolean
      * @see session.gc_maxlifetime 1440
      * @see session.gc_probability 1
      * @usage Execution rate 1/100 (session.gc_probability/session.gc_divisor)
-     * @return boolean
+     * @see session.gc_divisor  100
      */
     public function gc($lifeTime)
     {
-        try
-        {
-            $result = $this->_tableStorage->retrieveEntities($this->_sessionTable, 'PartitionKey eq \'' . $this->_sessionTablePartition . '\' and sessionExpires lt ' . (time() - $lifeTime));
-            foreach ($result as $sessionRecord)
-            {
+        try {
+            $result = $this->_tableStorage->retrieveEntities($this->_sessionTable,
+                'PartitionKey eq \'' . $this->_sessionTablePartition . '\' and sessionExpires lt ' . (time() - $lifeTime));
+            foreach ($result as $sessionRecord) {
                 $this->_tableStorage->deleteEntity($this->_sessionTable, $sessionRecord);
             }
             return true;
-        }
-        catch (Zend_Service_WindowsAzure_exception $ex)
-        {
+        } catch (Zend_Service_WindowsAzure_exception $ex) {
             return false;
         }
     }

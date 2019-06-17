@@ -16,12 +16,12 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -33,21 +33,24 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
     /**
      * @return Default_Form_Objetivo
      */
-    public function getForm() {
+    public function getForm()
+    {
         return $this->_getForm('Default_Form_Objetivo', array('flaativo'));
     }
 
     /**
      * @return Default_Form_Objetivo
      */
-    public function getFormPesquisar() {
+    public function getFormPesquisar()
+    {
         return $this->_getForm('Default_Form_ObjetivoPesquisar');
     }
 
     /**
      * @return Default_Form_Objetivo_Editar
      */
-    public function getFormEditar() {
+    public function getFormEditar()
+    {
         $formEditar = $this->_getForm('Default_Form_Objetivo', array('submit', 'reset'));
         $nomobjetivo = $formEditar->getElement('nomobjetivo');
         $nomobjetivo->setValidators(array(
@@ -62,7 +65,8 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
     }
 
     //put your code here
-    public function inserir($dados) {
+    public function inserir($dados)
+    {
         $form = $this->getForm();
 
         if ($form->isValid($dados)) {
@@ -75,11 +79,12 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      * @return boolean | array
      */
-    public function update($dados) {
+    public function update($dados)
+    {
 
         $form = $this->getFormEditar();
         if ($form->isValid($dados)) {
@@ -114,10 +119,11 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      */
-    public function excluir($dados) {
+    public function excluir($dados)
+    {
         try {
             return $this->_mapper->excluir($dados);
         } catch (Exception $exc) {
@@ -126,29 +132,34 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
         }
     }
 
-    public function getById($dados) {
+    public function getById($dados)
+    {
         return $this->_mapper->getById($dados);
     }
 
-    public function retornaPorId($dados) {
+    public function retornaPorId($dados)
+    {
         return $this->_mapper->retornaPorId($dados);
     }
 
-    public function getByName($dados) {
+    public function getByName($dados)
+    {
         return $this->_mapper->getByName($dados);
     }
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
      */
-    public function pesquisar($params, $paginator) {
+    public function pesquisar($params, $paginator)
+    {
         $dados = $this->_mapper->pesquisar($params, $paginator);
         if ($paginator) {
             $service = new App_Service_JqGrid();
@@ -159,20 +170,24 @@ class Default_Service_Objetivo extends App_Service_ServiceAbstract
         return $dados;
     }
 
-    public function fetchPairs() {
+    public function fetchPairs()
+    {
         return $this->_mapper->fetchPairs();
     }
 
-    public function mapaFetchPairs() {
+    public function mapaFetchPairs()
+    {
         return $this->_mapper->mapaFetchPairs();
     }
 
-    public function nomeUnique() {
+    public function nomeUnique()
+    {
         $nomeUnique = new Zend_Validate_Db_NoRecordExists('tb_objetivo', 'nomobjetivo');
         return $nomeUnique;
     }
 
 }
+
 ?>
 
 

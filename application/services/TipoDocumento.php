@@ -12,7 +12,7 @@ class Default_Service_TipoDocumento extends App_Service_ServiceAbstract
     protected $_mapper;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -29,9 +29,8 @@ class Default_Service_TipoDocumento extends App_Service_ServiceAbstract
     public function fetchPairs()
     {
         $resultado = $this->_mapper->fetchPairs();
-        $retorno   = array('' => 'Todos');
-        foreach ( $resultado as $r => $v )
-        {
+        $retorno = array('' => 'Todos');
+        foreach ($resultado as $r => $v) {
             $retorno[$r] = $v;
         }
 

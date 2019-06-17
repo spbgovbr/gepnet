@@ -1,7 +1,7 @@
 <?php
 
 
-ini_set("memory_limit","256M");
+ini_set("memory_limit", "256M");
 
 
 $html = '
@@ -156,7 +156,7 @@ The ability to embed font subsets now makes it feasible to use open license CJK 
 <li>unbatang_0613 - contains all the (Korean) characters in the UHC codepage; original file from from http://kldp.net/projects/unfonts/download</li>
 </ul>
 The following characters only added an extra 15kB to the size of this PDF file, and approximately 0.15 seconds extra to compile:<br />
-Chinese (traditional) <span style="font-family:zn_hannom_a">'."\xe6\x86\x82\xe9\xac\xb1".'</span> ; chinese (simplified) <span style="font-family:zn_hannom_a">'."\xe6\x9d\xa5\xe8\x87\xaa".'</span> ; japanese <span style="font-family:zn_hannom_a">'."\xe3\x81\x9f\xe3\x82\x90".'</span> ; korean <span style="font-family:unBatang_0613">'."\xed\x82\xa4\xec\x8a\xa4".'</span> 
+Chinese (traditional) <span style="font-family:zn_hannom_a">' . "\xe6\x86\x82\xe9\xac\xb1" . '</span> ; chinese (simplified) <span style="font-family:zn_hannom_a">' . "\xe6\x9d\xa5\xe8\x87\xaa" . '</span> ; japanese <span style="font-family:zn_hannom_a">' . "\xe3\x81\x9f\xe3\x82\x90" . '</span> ; korean <span style="font-family:unBatang_0613">' . "\xed\x82\xa4\xec\x8a\xa4" . '</span> 
 </div>
 <br />
 
@@ -444,43 +444,46 @@ This layout can be used to produce company letters with only the first page on l
 
 
 ';
-if ($_REQUEST['html']) { echo $html; exit; }
+if ($_REQUEST['html']) {
+    echo $html;
+    exit;
+}
 
 
 //==============================================================
 //==============================================================
 //==============================================================
-define('_MPDF_URI','../'); 	// required for the progress bar
+define('_MPDF_URI', '../');    // required for the progress bar
 
 include("../mpdf.php");
 
-$mpdf=new mPDF('','A4','','',15,15,20,20,5,5); 
+$mpdf = new mPDF('', 'A4', '', '', 15, 15, 20, 20, 5, 5);
 
-$mpdf->StartProgressBarOutput(2);	// 2 => advanced mode
+$mpdf->StartProgressBarOutput(2);    // 2 => advanced mode
 
 $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->useSubstitutions = true;
 
 // Dynamically create image in var:smileyface
-	$img = imagecreatetruecolor(200, 200);
-	$white = imagecolorallocate($img, 255, 255, 255);
-	$red   = imagecolorallocate($img, 255,   0,   0);
-	$green = imagecolorallocate($img,   0, 255,   0);
-	$blue  = imagecolorallocate($img,   0,   0, 255);
-	imagearc($img, 100, 100, 200, 200,  0, 360, $white);
-	imagearc($img, 100, 100, 150, 150, 25, 155, $red);
-	imagearc($img,  60,  75,  50,  50,  0, 360, $green);
-	imagearc($img, 140,  75,  50,  50,  0, 360, $blue);
-	ob_start();
-	imagejpeg($img);
-	$mpdf->smileyface = ob_get_clean(); 
-	imagedestroy($img);
+$img = imagecreatetruecolor(200, 200);
+$white = imagecolorallocate($img, 255, 255, 255);
+$red = imagecolorallocate($img, 255, 0, 0);
+$green = imagecolorallocate($img, 0, 255, 0);
+$blue = imagecolorallocate($img, 0, 0, 255);
+imagearc($img, 100, 100, 200, 200, 0, 360, $white);
+imagearc($img, 100, 100, 150, 150, 25, 155, $red);
+imagearc($img, 60, 75, 50, 50, 0, 360, $green);
+imagearc($img, 140, 75, 50, 50, 0, 360, $blue);
+ob_start();
+imagejpeg($img);
+$mpdf->smileyface = ob_get_clean();
+imagedestroy($img);
 
 
 $mpdf->WriteHTML($html);
 
-$mpdf->Output(); 
+$mpdf->Output();
 exit;
 
 //==============================================================

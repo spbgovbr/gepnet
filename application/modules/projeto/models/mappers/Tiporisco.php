@@ -18,10 +18,10 @@ class Projeto_Model_Mapper_Tiporisco extends App_Model_Mapper_MapperAbstract
     public function insert(Projeto_Model_Tiporisco $model)
     {
         $data = array(
-            "idtiporisco"   => $model->idtiporisco,
-            "dstiporisco"   => $model->dstiporisco,
+            "idtiporisco" => $model->idtiporisco,
+            "dstiporisco" => $model->dstiporisco,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,10 +35,10 @@ class Projeto_Model_Mapper_Tiporisco extends App_Model_Mapper_MapperAbstract
     public function update(Projeto_Model_Tiporisco $model)
     {
         $data = array(
-            "idtiporisco"   => $model->idtiporisco,
-            "dstiporisco"   => $model->dstiporisco,
+            "idtiporisco" => $model->idtiporisco,
+            "dstiporisco" => $model->dstiporisco,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
@@ -47,17 +47,17 @@ class Projeto_Model_Mapper_Tiporisco extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Projeto_Form_Tiporisco);
     }
-    
+
     public function fetchPairs($selecione = false)
     {
-    	$sql = " SELECT idtiporisco, dstiporisco FROM agepnet200.tb_tiporisco order by dstiporisco asc";
-        
-        if($selecione) {
-            $arrTipoRisco = array(''=>'Selecione') +  $this->_db->fetchPairs($sql);
+        $sql = " SELECT idtiporisco, dstiporisco FROM agepnet200.tb_tiporisco order by dstiporisco asc";
+
+        if ($selecione) {
+            $arrTipoRisco = array('' => 'Selecione') + $this->_db->fetchPairs($sql);
             return $arrTipoRisco;
         }
-        
-    	return $this->_db->fetchPairs($sql);
+
+        return $this->_db->fetchPairs($sql);
     }
 
 }

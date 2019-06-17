@@ -22,7 +22,7 @@ class Twitter_Bootstrap_Form_Decorator_Captcha extends Zend_Form_Decorator_Captc
     /**
      * Render captcha
      *
-     * @param  string $content
+     * @param string $content
      * @return string
      */
     public function render($content)
@@ -41,10 +41,10 @@ class Twitter_Bootstrap_Form_Decorator_Captcha extends Zend_Form_Decorator_Captc
         $separator = $this->getSeparator();
 
         $captcha = $element->getCaptcha();
-        $markup  = '<label>' . $captcha->render($view) . '</label>';
+        $markup = '<label>' . $captcha->render($view) . '</label>';
         switch ($placement) {
             case 'PREPEND':
-                $content = $markup . $separator .  $content;
+                $content = $markup . $separator . $content;
                 break;
             case 'APPEND':
             default:

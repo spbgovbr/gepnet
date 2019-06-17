@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["en-IN"] = {
         name: "en-IN",
         numberFormat: {
@@ -18,37 +18,37 @@
             decimals: 2,
             ",": ",",
             ".": ".",
-            groupSize: [3,2],
+            groupSize: [3, 2],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
-                groupSize: [3,2],
+                groupSize: [3, 2],
                 symbol: "%"
             },
             currency: {
-                pattern: ["$ -n","$ n"],
+                pattern: ["$ -n", "$ n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
-                groupSize: [3,2],
+                groupSize: [3, 2],
                 symbol: "Rs."
             }
         },
         calendars: {
             standard: {
                 days: {
-                    names: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-                    namesAbbr: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
-                    namesShort: ["Su","Mo","Tu","We","Th","Fr","Sa"]
+                    names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    namesAbbr: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    namesShort: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
                 },
                 months: {
-                    names: ["January","February","March","April","May","June","July","August","September","October","November","December",""],
-                    namesAbbr: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""]
+                    names: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ""],
+                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""]
                 },
-                AM: ["AM","am","AM"],
-                PM: ["PM","pm","PM"],
+                AM: ["AM", "am", "AM"],
+                PM: ["PM", "pm", "PM"],
                 patterns: {
                     d: "dd-MM-yyyy",
                     D: "dd MMMM yyyy",

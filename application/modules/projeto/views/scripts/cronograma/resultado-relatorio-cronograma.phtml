@@ -2,14 +2,14 @@
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
-;
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
@@ -17,134 +17,407 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
-;
-
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/relatorioCronograma.js'), 'text/javascript');
 ?>
 
 <div class="region-center">
     <h5> Relatório de Cronograma</h5>
-    <div class="row"> 
+    <a class="btn btn-voltar" id="voltar" title="Voltar para a pesquisa">
+        <i class="icon-share-alt"></i>
+    </a>
+    <a class="btn btn-pdf" id="link-pdf" title="Gerar PDF" target="_blank" href="">
+        <i class="icon-print"></i>
+    </a>
+    <a class="btn btn-csv" id="link-csv" title="Gerar CSV" target="_blank" href="<?php echo $this->url(
+        array('module' => 'projeto', 'controller' => 'cronograma', 'action' => 'gerar-csv')); ?>">
+        <i class="icon-book"></i>
+    </a>
+
+    <div class="row" style="padding-top: 15px;">
         <div class="portlet portlet-cinza span12">
-            <div class="content">  
+            <div class="content">
                 <strong> Filtro da Pesquisa </strong>
                 <ul>
-                    <?php echo (isset($this->parametros['nomprograma']))?    '<li> Programa: '. $this->parametros['nomprograma'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['nomescritorio']))?  '<li> Escritório: '. $this->parametros['nomescritorio'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['nomprojeto']))?     '<li> Nome do Projeto: '. $this->parametros['nomprojeto'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['nomresponsavel']))? '<li> Responsável: '. $this->parametros['nomresponsavel'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['nomelementodespesa']))?'<li> Elemento de despesa: '. $this->parametros['nomelementodespesa'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['statusprojeto']))?     '<li> Status do Projeto: '. $this->parametros['statusprojeto'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['projetos']))?          '<li>'. $this->parametros['projetos'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['inicial_dti']))?    '<li> Período início da Atividade - Data Início: '. $this->parametros['inicial_dti'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['inicial_dtf']))?    '<li> Período início da Atividade - Data Fim: '. $this->parametros['inicial_dtf'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['final_dti']))?    '<li> Período fim da Atividade - Data Início: '. $this->parametros['final_dti'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['final_dtf']))?    '<li> Período fim da Atividade - Data Fim: '. $this->parametros['final_dtf'].'</li>' : '' ;?>
-                    <?php echo (isset($this->parametros['nomstatusatividade']))?'<li> Status da Atividade: '. $this->parametros['nomstatusatividade'].'</li>' : '' ;?>
-                    <?php if(isset($this->parametros['tipomarco'])){ echo '<li> Marco </li>'; }?>
-                    <?php if(isset($this->parametros['tipoatividade'])){ echo '<li> Atividade </li>'; }?>
-                    <?php if(isset($this->parametros['tipoentrega'])){ echo '<li> Entrega </li>'; }?>
-                    <?php if(isset($this->parametros['tipogrupo'])){ echo '<li> Grupo </li>'; }?>
+                    <?php echo (isset($this->parametros['nomprograma'])) ? '<li> Programa: ' . $this->parametros['nomprograma'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['nomescritorio'])) ? '<li> Escritório: ' . $this->parametros['nomescritorio'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['nomprojeto'])) ? '<li> Nome do Projeto: ' . $this->parametros['nomprojeto'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['nomresponsavel'])) ? '<li> Responsável: ' . $this->parametros['nomresponsavel'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['nomelementodespesa'])) ? '<li> Elemento de despesa: ' . $this->parametros['nomelementodespesa'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['statusprojeto'])) ? '<li> Status do Projeto: ' . $this->parametros['statusprojeto'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['projetos'])) ? '<li>' . $this->parametros['projetos'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['inicial_dti'])) ? '<li> Período início da Atividade - Data Início: ' . $this->parametros['inicial_dti'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['inicial_dtf'])) ? '<li> Período início da Atividade - Data Fim: ' . $this->parametros['inicial_dtf'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['final_dti'])) ? '<li> Período fim da Atividade - Data Início: ' . $this->parametros['final_dti'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['final_dtf'])) ? '<li> Período fim da Atividade - Data Fim: ' . $this->parametros['final_dtf'] . '</li>' : ''; ?>
+                    <?php echo (isset($this->parametros['nomstatusatividade'])) ? '<li> Status da Atividade: ' . $this->parametros['nomstatusatividade'] . '</li>' : ''; ?>
+                    <?php if (isset($this->parametros['tipomarco'])) {
+                        echo '<li> Marco </li>';
+                    } ?>
+                    <?php if (isset($this->parametros['tipoatividade'])) {
+                        echo '<li> Atividade </li>';
+                    } ?>
+                    <?php if (isset($this->parametros['tipoentrega'])) {
+                        echo '<li> Entrega </li>';
+                    } ?>
+                    <?php if (isset($this->parametros['tipogrupo'])) {
+                        echo '<li> Grupo </li>';
+                    } ?>
                 </ul>
             </div>
         </div>
-        <div class="row span12"> 
-            <div class="span3" style="float: right;"> <strong> Custo total dos projetos listados: <?php echo $this->custoTodosProjetos ?></strong> </div>
-            <div class="span3" style="float: right;"> <strong> Total de Registros encontrados: <?php echo $this->qtdeRegistros ?> </strong> </div>
+        <form class="form" method="POST" id="form-rel"
+              action="<?php echo $this->url(
+                  array('module' => 'projeto', 'controller' => 'cronograma', 'action' => 'gerar-pdf')
+              ); ?>" name="form-pdf" target="_blank">
+            <div style="display:none">
+                <input type="text" name="idprograma" value="
+                  <?php
+                echo (isset($this->parametros['idprograma'])) ? trim($this->parametros['idprograma']) : '';
+                ?>" id="idprograma">
+                <input type="text" name="nomprojeto" value="
+                  <?php
+                echo (isset($this->parametros['nomprojeto'])) ? $this->parametros['nomprojeto'] : '';
+                ?>" id="nomprojeto">
+                <input type="text" name="idescritorio" value="
+                  <?php
+                echo (isset($this->parametros['idescritorio'])) ? $this->parametros['idescritorio'] : '';
+                ?>" id="idescritorio">
+                <input type="text" name="domstatusprojeto" value="
+                  <?php
+                echo (isset($this->parametros['domstatusprojeto'])) ? $this->parametros['domstatusprojeto'] : '';
+                ?>" id="domstatusprojeto">
+                <input type="text" name="idresponsavel" value="
+                  <?php
+                echo (isset($this->parametros['idresponsavel'])) ? $this->parametros['idresponsavel'] : '';
+                ?>" id="idresponsavel">
+                <input type="text" name="idelementodespesa" value="
+                  <?php
+                echo (isset($this->parametros['idelementodespesa'])) ? $this->parametros['idelementodespesa'] : '';
+                ?>" id="idelementodespesa">
+                <input type="text" name="statusatividade" value="
+                  <?php
+                echo (isset($this->parametros['statusatividade'])) ? $this->parametros['statusatividade'] : '';
+                ?>" id="statusatividade">
+                <input type="text" name="inicial_dti" value="
+                  <?php
+                echo (isset($this->parametros['inicial_dti'])) ? $this->parametros['inicial_dti'] : '';
+                ?>" id="inicial_dti">
+                <input type="text" name="inicial_dtf" value="
+                  <?php
+                echo (isset($this->parametros['inicial_dtf'])) ? $this->parametros['inicial_dtf'] : '';
+                ?>" id="inicial_dtf">
+                <input type="text" name="final_dti" value="
+                  <?php
+                echo (isset($this->parametros['final_dti'])) ? $this->parametros['final_dti'] : '';
+                ?>" id="final_dti">
+                <input type="text" name="final_dtf" value="
+                  <?php
+                echo (isset($this->parametros['final_dtf'])) ? $this->parametros['final_dtf'] : '';
+                ?>" id="final_dtf">
+                <input type="text" name="tipogrupo" value="
+                  <?php
+                echo (isset($this->parametros['tipogrupo'])) ? $this->parametros['tipogrupo'] : '';
+                ?>" id="tipogrupo">
+                <input type="text" name="tipoentrega" value="
+                  <?php
+                echo (isset($this->parametros['tipoentrega'])) ? $this->parametros['tipoentrega'] : '';
+                ?>" id="tipoentrega">
+                <input type="text" name="tipoatividade" value="
+                  <?php
+                echo (isset($this->parametros['tipoatividade'])) ? $this->parametros['tipoatividade'] : '';
+                ?>" id="tipoatividade">
+                <input type="text" name="tipomarco" value="
+                  <?php
+                echo (isset($this->parametros['tipomarco'])) ? $this->parametros['tipomarco'] : '';
+                ?>" id="tipomarco">
+
+                <input type="text" name="nomprograma" value="
+                  <?php
+                echo (isset($this->parametros['nomprograma'])) ? $this->parametros['nomprograma'] : '';
+                ?>" id="nomprograma">
+                <input type="text" name="nomescritorio" value="
+                  <?php
+                echo (isset($this->parametros['nomescritorio'])) ? $this->parametros['nomescritorio'] : '';
+                ?>" id="nomescritorio">
+
+                <input type="text" name="statusprojeto" value="
+                  <?php
+                echo (isset($this->parametros['statusprojeto'])) ? $this->parametros['statusprojeto'] : '';
+                ?>" id="statusprojeto">
+                <input type="text" name="projetos" value="
+                  <?php
+                echo (isset($this->parametros['projetos'])) ? $this->parametros['projetos'] : '';
+                ?>" id="projetos">
+                <input type="text" name="nomstatusatividade" value="
+                  <?php
+                echo (isset($this->parametros['nomstatusatividade'])) ? $this->parametros['nomstatusatividade'] : '';
+                ?>" id="nomstatusatividade">
+                <input type="text" name="nomelementodespesa" value="
+                  <?php
+                echo (isset($this->parametros['nomelementodespesa'])) ? $this->parametros['nomelementodespesa'] : '';
+                ?>" id="nomelementodespesa">
+                <input type="text" name="nomresponsavel" value="
+                  <?php
+                echo (isset($this->parametros['nomresponsavel'])) ? trim($this->parametros['nomresponsavel']) : '';
+                ?>" id="nomresponsavel">
+                <input type="text" name="marco" value="
+                  <?php
+                echo (isset($this->parametros['marco'])) ? $this->parametros['marco'] : '';
+                ?>" id="marco">
+                <input type="text" name="atividade" value="
+                  <?php
+                echo (isset($this->parametros['atividade'])) ? $this->parametros['atividade'] : '';
+                ?>" id="atividade">
+                <input type="text" name="entrega" value="
+                  <?php
+                echo (isset($this->parametros['entrega'])) ? $this->parametros['entrega'] : '';
+                ?>" id="entrega">
+                <input type="text" name="grupo" value="
+                  <?php
+                echo (isset($this->parametros['grupo'])) ? $this->parametros['grupo'] : '';
+                ?>" id="grupo">
+            </div>
+        </form>
+        <form class="form" method="POST" id="form-csv"
+              action="<?php echo $this->url(
+                  array('module' => 'projeto', 'controller' => 'cronograma', 'action' => 'gerar-csv')
+              ); ?>" name="form-pdf" target="_blank">
+            <div style="display:none">
+                <input type="text" name="idprograma" value="
+                  <?php
+                echo (isset($this->parametros['idprograma'])) ? trim($this->parametros['idprograma']) : '';
+                ?>" id="idprograma">
+                <input type="text" name="nomprojeto" value="
+                  <?php
+                echo (isset($this->parametros['nomprojeto'])) ? $this->parametros['nomprojeto'] : '';
+                ?>" id="nomprojeto">
+                <input type="text" name="idescritorio" value="
+                  <?php
+                echo (isset($this->parametros['idescritorio'])) ? $this->parametros['idescritorio'] : '';
+                ?>" id="idescritorio">
+                <input type="text" name="domstatusprojeto" value="
+                  <?php
+                echo (isset($this->parametros['domstatusprojeto'])) ? $this->parametros['domstatusprojeto'] : '';
+                ?>" id="domstatusprojeto">
+                <input type="text" name="idresponsavel" value="
+                  <?php
+                echo (isset($this->parametros['idresponsavel'])) ? $this->parametros['idresponsavel'] : '';
+                ?>" id="idresponsavel">
+                <input type="text" name="idelementodespesa" value="
+                  <?php
+                echo (isset($this->parametros['idelementodespesa'])) ? $this->parametros['idelementodespesa'] : '';
+                ?>" id="idelementodespesa">
+                <input type="text" name="statusatividade" value="
+                  <?php
+                echo (isset($this->parametros['statusatividade'])) ? $this->parametros['statusatividade'] : '';
+                ?>" id="statusatividade">
+                <input type="text" name="inicial_dti" value="
+                  <?php
+                echo (isset($this->parametros['inicial_dti'])) ? $this->parametros['inicial_dti'] : '';
+                ?>" id="inicial_dti">
+                <input type="text" name="inicial_dtf" value="
+                  <?php
+                echo (isset($this->parametros['inicial_dtf'])) ? $this->parametros['inicial_dtf'] : '';
+                ?>" id="inicial_dtf">
+                <input type="text" name="final_dti" value="
+                  <?php
+                echo (isset($this->parametros['final_dti'])) ? $this->parametros['final_dti'] : '';
+                ?>" id="final_dti">
+                <input type="text" name="final_dtf" value="
+                  <?php
+                echo (isset($this->parametros['final_dtf'])) ? $this->parametros['final_dtf'] : '';
+                ?>" id="final_dtf">
+                <input type="text" name="tipogrupo" value="
+                  <?php
+                echo (isset($this->parametros['tipogrupo'])) ? $this->parametros['tipogrupo'] : '';
+                ?>" id="tipogrupo">
+                <input type="text" name="tipoentrega" value="
+                  <?php
+                echo (isset($this->parametros['tipoentrega'])) ? $this->parametros['tipoentrega'] : '';
+                ?>" id="tipoentrega">
+                <input type="text" name="tipoatividade" value="
+                  <?php
+                echo (isset($this->parametros['tipoatividade'])) ? $this->parametros['tipoatividade'] : '';
+                ?>" id="tipoatividade">
+                <input type="text" name="tipomarco" value="
+                  <?php
+                echo (isset($this->parametros['tipomarco'])) ? $this->parametros['tipomarco'] : '';
+                ?>" id="tipomarco">
+
+                <input type="text" name="nomprograma" value="
+                  <?php
+                echo (isset($this->parametros['nomprograma'])) ? $this->parametros['nomprograma'] : '';
+                ?>" id="nomprograma">
+                <input type="text" name="nomescritorio" value="
+                  <?php
+                echo (isset($this->parametros['nomescritorio'])) ? $this->parametros['nomescritorio'] : '';
+                ?>" id="nomescritorio">
+
+                <input type="text" name="statusprojeto" value="
+                  <?php
+                echo (isset($this->parametros['statusprojeto'])) ? $this->parametros['statusprojeto'] : '';
+                ?>" id="statusprojeto">
+                <input type="text" name="projetos" value="
+                  <?php
+                echo (isset($this->parametros['projetos'])) ? $this->parametros['projetos'] : '';
+                ?>" id="projetos">
+                <input type="text" name="nomstatusatividade" value="
+                  <?php
+                echo (isset($this->parametros['nomstatusatividade'])) ? $this->parametros['nomstatusatividade'] : '';
+                ?>" id="nomstatusatividade">
+                <input type="text" name="nomelementodespesa" value="
+                  <?php
+                echo (isset($this->parametros['nomelementodespesa'])) ? $this->parametros['nomelementodespesa'] : '';
+                ?>" id="nomelementodespesa">
+                <input type="text" name="nomresponsavel" value="
+                  <?php
+                echo (isset($this->parametros['nomresponsavel'])) ? trim($this->parametros['nomresponsavel']) : '';
+                ?>" id="nomresponsavel">
+                <input type="text" name="marco" value="
+                  <?php
+                echo (isset($this->parametros['marco'])) ? $this->parametros['marco'] : '';
+                ?>" id="marco">
+                <input type="text" name="atividade" value="
+                  <?php
+                echo (isset($this->parametros['atividade'])) ? $this->parametros['atividade'] : '';
+                ?>" id="atividade">
+                <input type="text" name="entrega" value="
+                  <?php
+                echo (isset($this->parametros['entrega'])) ? $this->parametros['entrega'] : '';
+                ?>" id="entrega">
+                <input type="text" name="grupo" value="
+                  <?php
+                echo (isset($this->parametros['grupo'])) ? $this->parametros['grupo'] : '';
+                ?>" id="grupo">
+            </div>
+        </form>
+        <div class="row span12">
+            <div class="span3" style="float: right;"><strong> Custo total dos projetos
+                    listados: <?php echo $this->custoTodosProjetos ?></strong></div>
+            <div class="span3" style="float: right;"><strong> Total de Registros
+                    encontrados: <?php echo $this->qtdeRegistros ?> </strong></div>
         </div>
-   </div> 
-  
-    <?php 
-          if( count($this->resultado) > 0 ):
-            foreach($this->resultado as $res): ?>
+    </div>
+
+    <?php
+    if (count($this->resultado) > 0 && !empty($this->resultado)):
+        foreach ($this->resultado as $res): ?>
             <div class="cabecalho-projeto">
                 <div class="row">
                     <div class="portlet portlet-azul span12">
-                        <div class="title span12"> 
-                            
+                        <div class="title span12">
                             <?php echo $res['idprograma'] ?> <br/>
-                            <?php echo $res['idescritorio'] . ' - '. $res['nomprojeto']?> (<?php echo $res['statusprojeto'] ?>) <br />
-                            <span class="span2" style="margin-left: 0;"> In&iacute;cio: <?php echo $res['datinicio']; ?> </span>
+                            <?php echo $res['idescritorio'] . ' - ' . $res['nomprojeto'] ?>
+                            (<?php echo $res['statusprojeto'] ?>) <br/>
+                            <span class="span2"
+                                  style="margin-left: 0;"> In&iacute;cio: <?php echo $res['datinicio']; ?> </span>
                             <span class="span3">Fim: <?php echo $res['datfim']; ?></span>
                             <span class="span2">Custo: <?php echo $res['custoProjeto']; ?></span></span>
                             <span class="span2">Previsto Atual: <?php echo $res['numpercentualprevisto']; ?>&percnt;</span>
                             <span class="span2">Conclu&iacute;do Atual: <?php echo $res['numpercentualconcluido']; ?>&percnt;</span>
                         </div>
-                        
-                        <div class="content">  
-                            <table class="table table-striped table-hover table-condensed"> 
+
+                        <div class="content">
+                            <table class="table table-striped table-hover table-condensed">
                                 <thead>
-                                    <th>Grupo/Evento/Atividade</th>
-                                    <th>Base Line</th>
-                                    <th>Real</th>
-                                    <th>&percnt;</th>
-                                    <th>Respons&aacute;vel</th>
-                                    <th>Farol</th>
+                                <th>Grupo/Evento/Atividade</th>
+                                <th>Base Line</th>
+                                <th>Real</th>
+                                <th>&percnt;</th>
+                                <th>Respons&aacute;vel</th>
+                                <th>Farol</th>
                                 </thead>
                                 <tbody>
-                                    <?php if(isset($res['grupos']) ):
-                                            foreach($res['grupos'] as $gr): 
-                                              if( $gr['show'] ):  ?>         
-                                                <tr>
-                                                    <td style="width: 40%"> <i class="icon-folder-open"></i> <?php echo $gr['nomatividadecronograma'] ?> </td>
-                                                    <td> <?php echo isset($gr['datiniciobaseline'])? $gr['datiniciobaseline'] : '' ; ?> -
-                                                         <?php echo isset($gr['datfimbaseline'])?  $gr['datfimbaseline']: '' ?> </td>
-                                                    <td> <?php echo isset($gr['datinicio'])? $gr['datinicio']: '' ; ?> - 
-                                                         <?php echo isset($gr['datfim'])? $gr['datfim'] : '' ?> </td>
-                                                    <td> <?php echo $gr['numpercentualconcluido'] ?>&percnt; </td>
-                                                    <td></td>
-                                                    <td </td>
-                                                </tr>
+                                <?php if (isset($res['grupos'])):
+                                    foreach ($res['grupos'] as $gr):
+                                        if ($gr['show']): ?>
+                                            <tr>
+                                                <td style="width: 40%"><i
+                                                            class="icon-folder-open"></i> <?php echo $gr['nomatividadecronograma'] ?>
+                                                </td>
+                                                <td> <?php echo isset($gr['datiniciobaseline']) ? $gr['datiniciobaseline'] : ''; ?>
+                                                    -
+                                                    <?php echo isset($gr['datfimbaseline']) ? $gr['datfimbaseline'] : '' ?> </td>
+                                                <td> <?php echo isset($gr['datinicio']) ? $gr['datinicio'] : ''; ?> -
+                                                    <?php echo isset($gr['datfim']) ? $gr['datfim'] : '' ?> </td>
+                                                <td> <?php echo $gr['numpercentualconcluido'] ?>&percnt;</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
                                         <?php endif; ?>
-                                        <?php if( isset($gr['entregas']) ):
-                                                 foreach ($gr['entregas'] as $en):
-                                                   if( $en['show']):  ?>
-                                                        <tr>
-                                                            <td style="padding-left: 15px;"><i class="icon-tag"></i> <?php echo $en['nomatividadecronograma'] ?> </td>
-                                                            <td> <?php echo $en['datiniciobaseline']. ' - '.$en['datfimbaseline']  ?> </td>
-                                                            <td> <?php echo $en['datinicio'].' - '. $en['datfim'] ?> </td>
-                                                            <td> <?php echo $en['numpercentualconcluido'] ?>&percnt;  </td>
-                                                            <td> <?php echo $en['desemail']  ?> </td>
-                                                            <td> <span class="badge badge-<?php echo $en['descricaoprazo'] ?>" title="<?php echo $en['dias'] ?>"><?php echo $en['prazo'] ?></span></td>
-                                                        </tr>
-                                                    <?php endif; ?>    
-                                                    <?php if( isset($en['atividades']) ):
-                                                            foreach ($en['atividades'] as $at):
-                                                              if( $at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_COMUM && $at['showAtividade']): ?>
-                                                                    <tr class="<?php echo $at['retornaDescricaoConclusao'] ?>">
-                                                                        <td style="padding-left: 30px;"><i class="icon-list-alt"></i> <?php echo $at['nomatividadecronograma'] ?> </td>
-                                                                        <td> <?php echo $at['datiniciobaseline']. ' - '.$at['datfimbaseline']  ?> </td>
-                                                                        <td> <?php echo $at['datinicio'].' - '. $at['datfim'] ?> </td>
-                                                                        <td> <?php echo $at['numpercentualconcluido']?>&percnt;  </td>
-                                                                        <td> <?php echo $at['desemail']  ?> </td>
-                                                                        <td> <span class="badge badge-<?php echo $at['descricaoprazo'] ?>" title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span> </td>
-                                                                    </tr>
-                                                         <?php elseif( $at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_MARCO && $at['showMarco']): ?>
-                                                                    <tr class="<?php echo $at['retornaDescricaoConclusao'] ?>">
-                                                                        <td style="padding-left: 30px;"><i class="icon-flag"></i> <?php echo $at['nomatividadecronograma'] ?> </td>
-                                                                        <td> <?php echo $at['datiniciobaseline']. ' - '.$at['datfimbaseline']  ?> </td>
-                                                                        <td> <?php echo $at['datinicio'].' - '. $at['datfim'] ?> </td>
-                                                                        <td> <?php echo $at['numpercentualconcluido']?>&percnt;  </td>
-                                                                        <td> <?php echo $at['desemail']  ?> </td>
-                                                                        <td> <span class="badge badge-<?php echo $at['descricaoprazo'] ?>" title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span> </td>
-                                                                    </tr>
-                                                         <?php endif; ?>           
-                                                    <?php endforeach;
-                                                        endif;?>
-                                        <?php   endforeach; 
-                                               endif;?>
+                                        <?php if (isset($gr['entregas'])):
+                                        foreach ($gr['entregas'] as $en):
+                                            if ($en['show']): ?>
+                                                <tr>
+                                                    <td style="padding-left: 15px;"><i
+                                                                class="icon-tag"></i> <?php echo $en['nomatividadecronograma'] ?>
+                                                    </td>
+                                                    <td> <?php echo $en['datiniciobaseline'] . ' - ' . $en['datfimbaseline'] ?> </td>
+                                                    <td> <?php echo $en['datinicio'] . ' - ' . $en['datfim'] ?> </td>
+                                                    <td> <?php echo $en['numpercentualconcluido'] ?>&percnt;</td>
+                                                    <td> <?php echo $en['desemail'] ?> </td>
+                                                    <td>
+                                                        <span class="badge badge-<?php echo (int)$en['numpercentualconcluido'] == 100 ? "" : $en['descricaoprazo'] ?>"
+                                                              title="<?php echo $en['dias'] ?>"><?php echo $en['prazo'] ?></span>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                            <?php if (isset($en['atividades'])):
+                                            foreach ($en['atividades'] as $at):
+                                                if ($at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_COMUM && $at['showAtividade']): ?>
+                                                    <tr class="<?php echo $at['retornaDescricaoConclusao'] ?>">
+                                                        <td style="padding-left: 30px;"><i
+                                                                    class="icon-list-alt"></i> <?php echo $at['nomatividadecronograma'] ?>
+                                                        </td>
+                                                        <td> <?php echo $at['datiniciobaseline'] . ' - ' . $at['datfimbaseline'] ?> </td>
+                                                        <td> <?php echo $at['datinicio'] . ' - ' . $at['datfim'] ?> </td>
+                                                        <td> <?php echo $at['numpercentualconcluido'] ?>&percnt;</td>
+                                                        <td>
+                                                            <?php
+                                                            echo $at['desemail'] = isset($at['desemail']) ? $at['desemail'] : "";
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-<?php echo $at['descricaoprazo'] ?>"
+                                                                  title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span>
+                                                        </td>
+                                                    </tr>
+                                                <?php elseif ($at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_MARCO && $at['showMarco']): ?>
+                                                    <tr class="<?php echo $at['retornaDescricaoConclusao'] ?>">
+                                                        <td style="padding-left: 30px;"><i
+                                                                    class="icon-flag"></i> <?php echo $at['nomatividadecronograma'] ?>
+                                                        </td>
+                                                        <td> <?php echo $at['datiniciobaseline'] . ' - ' . $at['datfimbaseline'] ?> </td>
+                                                        <td> <?php echo $at['datinicio'] . ' - ' . $at['datfim'] ?> </td>
+                                                        <td> <?php echo $at['numpercentualconcluido'] ?>&percnt;</td>
+                                                        <td>
+                                                            <?php
+                                                            echo $at['desemail'] = isset($at['desemail']) ? $at['desemail'] : "";
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <span class="badge badge-<?php echo $at['descricaoprazo'] ?>"
+                                                                  title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span>
+                                                        </td>
+                                                    </tr>
+                                                <?php endif; ?>
+                                            <?php endforeach;
+                                        endif; ?>
+                                        <?php endforeach;
+                                    endif; ?>
                                     <?php
-                                         endforeach; 
-                                        endif;?>
+                                    endforeach;
+                                endif; ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <?php endforeach;  
-            else:
-                'Não foram encontrados Registros.';
-            endif;
-            ?>
+        <?php endforeach;
+    else:
+        'Não foram encontrados Registros.';
+    endif;
+    ?>
 </div>
 

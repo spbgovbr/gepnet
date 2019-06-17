@@ -1,4 +1,3 @@
-
 function selectRow(row) {
     $('.input-selecionado')
         .find('input:hidden').val(row.idpessoa).trigger('blur')
@@ -6,7 +5,7 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function() {
+$(function () {
 
     $.pnotify.defaults.history = false;
 
@@ -15,8 +14,8 @@ $(function() {
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
-            enviar_ajax("/planejamento/portfolio/editar/format/json", "form#form-portfolio-editar", function(data) {
+        submitHandler: function (form) {
+            enviar_ajax("/planejamento/portfolio/editar/format/json", "form#form-portfolio-editar", function (data) {
                 if (data.success) {
                     $("#resetbutton").trigger('click');
                 }
@@ -25,7 +24,7 @@ $(function() {
     });
 
 
-    $(document.body).on('click',".pessoa-button", function(event) {
+    $(document.body).on('click', ".pessoa-button", function (event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -34,15 +33,15 @@ $(function() {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function(html) {
+                success: function (html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click',function() {
+                .on('click', function () {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function(){
+                    $(".grid-append").slideDown('fast', function () {
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });
@@ -50,7 +49,7 @@ $(function() {
         }
     });
 
-    $(document.body).on('change', "#idescritorio", function(event){
+    $(document.body).on('change', "#idescritorio", function (event) {
         event.preventDefault();
         var $id = $(this).val();
         $('.dados-escritorio').hide();
@@ -62,13 +61,13 @@ $(function() {
             data: {
                 'idescritorio': $id
             },
-            success: function(data) {
+            success: function (data) {
                 $('.dados-escritorio').show();
                 //console.log(data);
                 $('.email').html("Email Escritório: <br/>" + data.desemail);
                 $('.telefone').html("Telefone Escritório: <br/>" + data.numfone);
             },
-            error: function() {
+            error: function () {
                 /*$.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -77,7 +76,6 @@ $(function() {
             }
         });
     });
-
 
 
 });

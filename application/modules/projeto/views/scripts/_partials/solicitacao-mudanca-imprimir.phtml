@@ -1,8 +1,8 @@
 <?php echo $this->partial('_partials/relatorio-cabecalho.phtml'); ?>
 <div id="content">
-<?php 
-        
- ?>
+    <?php
+
+    ?>
     <div align="left" class="span4" style="margin-top: 60px">
         <h5>1. SOLICITA&Ccedil;&Atilde;O DE MUDAN&Ccedil;A</h5>
     </div>
@@ -15,75 +15,75 @@
                 <col style="width: 50px; background-color: #CCC;">
                 <col style="width: 100px;">
             </colgroup>
-                <tr>
-                    <td>C&Oacute;DIGO DO PROJETO</td>
-                    <td><?= $this->projeto->nomcodigo; ?></td>
-                </tr>
-                <tr>
-                    <td>T&Iacute;TULO DO PROJETO</td>
-                    <td><?= $this->projeto->nomprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>GERENTE DE PROJETO</td>
-                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>GERENTE ADJUNTO</td>
-                    <td><?= $this->projeto->nomgerenteadjunto; ?></td>
-                </tr>
-                <tr>
-                    <td>PATROCINADOR</td>
-                    <td><?= $this->projeto->nompatrocinador; ?></td>
-                </tr> 
+            <tr>
+                <td>C&Oacute;DIGO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomcodigo; ?></td>
+            </tr>
+            <tr>
+                <td>T&Iacute;TULO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE DE PROJETO</td>
+                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE ADJUNTO</td>
+                <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
+            </tr>
+            <tr>
+                <td>PATROCINADOR</td>
+                <td><?php echo $this->projeto->nompatrocinador; ?></td>
+            </tr>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.2 MUDAN&Ccedil;A</h5>
     </div>
     <div align="center" style="margin-top: 20px;">
-        
+
         <table class="table table-bordered table-hover table-striped span10">
             <colgroup>
                 <col style="width: 50px; border:1px solid #000; background-color: #CCC; ">
                 <col style="width: 100px;">
             </colgroup>
-                <tr>
-                    <td>DATA DA SOLICITA&Ccedil;&Atilde;O</td>
-                    <td><?= $this->dateBr($this->mudanca->datsolicitacao); ?></td>
-                </tr>
-                <tr >
-                    <td>TIPO DE MUDAN&Ccedil;A</td>
-                    <td><?= $this->mudanca->dsmudanca; ?></td>
-                </tr>
-                <tr>
-                    <td>SOLICITANTE</td>
-                    <td><?=  $this->mudanca->nomsolicitante; ?></td>
-                </tr>
-                <tr>
-                    <td>APROVADA?</td>
-                    <td><?=  $this->mudanca->flaaprovada; ?></td>
-                </tr>
-                <tr>
-                    <td>DATA DA DECIS&Atilde;O</td>
-                    <td><?=  $this->dateBr($this->mudanca->datdecisao); ?></td>
-                </tr> 
-                <tr>
-                    <td>DESCRI&Ccedil;&Atilde;O</td>
-                    <td><?=  $this->mudanca->desmudanca; ?></td>
-                </tr> 
-                <tr>
-                    <td>JUSTIFICATIVA</td>
-                    <td><?=  $this->mudanca->desjustificativa; ?></td>
-                </tr> 
-                <tr>
-                    <td>PARECER DO ESCRIT&Oacute;RIO</td>
-                    <td><?=  $this->mudanca->despareceregp; ?></td>
-                </tr> 
-                <tr>
-                    <td>PARECER DOS APROVADORES</td>
-                    <td><?=  $this->mudanca->despareceraprovadores; ?></td>
-                </tr> 
+            <tr>
+                <td>DATA DA SOLICITA&Ccedil;&Atilde;O</td>
+                <td><?php echo $this->dateBr($this->mudanca->datsolicitacao); ?></td>
+            </tr>
+            <tr>
+                <td>TIPO DE MUDAN&Ccedil;A</td>
+                <td><?php echo $this->mudanca->dsmudanca; ?></td>
+            </tr>
+            <tr>
+                <td>SOLICITANTE</td>
+                <td><?php echo $this->mudanca->nomsolicitante; ?></td>
+            </tr>
+            <tr>
+                <td>APROVADA?</td>
+                <td><?php echo $this->mudanca->flaaprovada; ?></td>
+            </tr>
+            <tr>
+                <td>DATA DA DECIS&Atilde;O</td>
+                <td><?php echo $this->dateBr($this->mudanca->datdecisao); ?></td>
+            </tr>
+            <tr>
+                <td>DESCRI&Ccedil;&Atilde;O</td>
+                <td><?php echo $this->mudanca->desmudanca; ?></td>
+            </tr>
+            <tr>
+                <td>JUSTIFICATIVA</td>
+                <td><?php echo $this->mudanca->desjustificativa; ?></td>
+            </tr>
+            <tr>
+                <td>PARECER DO ESCRIT&Oacute;RIO</td>
+                <td><?php echo $this->mudanca->despareceregp; ?></td>
+            </tr>
+            <tr>
+                <td>PARECER DOS APROVADORES</td>
+                <td><?php echo $this->mudanca->despareceraprovadores; ?></td>
+            </tr>
         </table>
     </div>
     <?php ?>

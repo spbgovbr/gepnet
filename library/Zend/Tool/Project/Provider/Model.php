@@ -47,7 +47,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         $newModel = $modelsDirectory->createResource(
             'modelFile',
             array('modelName' => $modelName, 'moduleName' => $moduleName)
-            );
+        );
 
         return $newModel;
     }
@@ -67,11 +67,11 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         }
 
         $modelsDirectory = self::_getModelsDirectoryResource($profile, $moduleName);
-        
+
         if (!$modelsDirectory instanceof Zend_Tool_Project_Profile_Resource) {
             return false;
         }
-        
+
         return (($modelsDirectory->search(array('modelFile' => array('modelName' => $modelName)))) instanceof Zend_Tool_Project_Profile_Resource);
     }
 
@@ -132,10 +132,10 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         if ($name !== $originalName) {
             $response->appendContent(
                 'Note: The canonical model name that ' . $tense
-                    . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
+                . ' used with other providers is "' . $name . '";'
+                . ' not "' . $originalName . '" as supplied',
                 array('color' => array('yellow'))
-                );
+            );
         }
 
         try {
@@ -153,7 +153,7 @@ class Zend_Tool_Project_Provider_Model extends Zend_Tool_Project_Provider_Abstra
         // do the creation
         if ($request->isPretend()) {
 
-            $response->appendContent('Would create a model at '  . $modelResource->getContext()->getPath());
+            $response->appendContent('Would create a model at ' . $modelResource->getContext()->getPath());
 
             if ($testModelResource) {
                 $response->appendContent('Would create a model test file at ' . $testModelResource->getContext()->getPath());

@@ -1,14 +1,16 @@
 <?php
 
-class App_View_Helper_Navigation_Twitter extends Zend_View_Helper_Navigation_Menu {
+class App_View_Helper_Navigation_Twitter extends Zend_View_Helper_Navigation_Menu
+{
 
     public $view;
 
-    public function setView(Zend_View_Interface $view) {
+    public function setView(Zend_View_Interface $view)
+    {
         $this->view = $view;
     }
 
-    public function _getHtmlLabel(Zend_Navigation_Page $page) 
+    public function _getHtmlLabel(Zend_Navigation_Page $page)
     {
         // get label and title for translating
         $label = $page->getLabel();
@@ -26,18 +28,19 @@ class App_View_Helper_Navigation_Twitter extends Zend_View_Helper_Navigation_Men
 
     private $_AclCheckFunction = null;
 
-    public function setAclCheckFunction($function) {
+    public function setAclCheckFunction($function)
+    {
         if (is_callable($function)) {
             $this->_AclCheckFunction = $function;
         }
     }
 
-    public function twitter(Zend_Navigation_Container $container = null) 
+    public function twitter(Zend_Navigation_Container $container = null)
     {
-        if($container){
+        if ($container) {
             $this->setContainer($container);
         }
-         /**
+        /**
          * @author Kanstantsin A Kamkou (2ka.by)
          * History:
          *  - 21.08.2012 Bootstrap 2.1.0 corrections

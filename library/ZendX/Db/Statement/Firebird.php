@@ -85,7 +85,7 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
     protected $_meta = null;
 
     /**
-     * @param  string $sql
+     * @param string $sql
      * @return void
      * @throws ZendX_Db_Statement_Firebird_Exception
      */
@@ -96,10 +96,11 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
 
         $connection = $this->_adapter->getConnection();
 
-        if ($trans = $this->_adapter->getTransaction())
+        if ($trans = $this->_adapter->getTransaction()) {
             $this->_stmtPrepared = @ibase_prepare($connection, $trans, $sql);
-        else
+        } else {
             $this->_stmtPrepared = @ibase_prepare($connection, $sql);
+        }
 
         if ($this->_stmtPrepared === false) {
             /**
@@ -114,10 +115,10 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
      * Binds a parameter to the specified variable name.
      *
      * @param mixed $parameter Name the parameter, either integer or string.
-     * @param mixed $variable  Reference to PHP variable containing the value.
-     * @param mixed $type      OPTIONAL Datatype of SQL parameter.
-     * @param mixed $length    OPTIONAL Length of SQL parameter.
-     * @param mixed $options   OPTIONAL Other options.
+     * @param mixed $variable Reference to PHP variable containing the value.
+     * @param mixed $type OPTIONAL Datatype of SQL parameter.
+     * @param mixed $length OPTIONAL Length of SQL parameter.
+     * @param mixed $options OPTIONAL Other options.
      * @return bool
      * @throws ZendX_Db_Statement_Firebird_Exception
      */
@@ -181,7 +182,7 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
         if ($this->_stmtPrepared || $this->_stmtResult) {
             return ibase_errcode();
         }
-        return false;        
+        return false;
     }
 
     /**
@@ -226,28 +227,30 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
                 'ibase_execute',
                 $params
             );
-        } else
-            // execute the statement
+        } else // execute the statement
+        {
             $retval = @ibase_execute($this->_stmtPrepared);
+        }
         $this->_stmtResult = $retval;
 
         if ($retval === false) {
             $last_error = ibase_errmsg();
             $this->_stmtRowCount = 0;
-        }        
-        
+        }
+
         //Firebird php ibase extension, auto-commit is not after each call, but at
         //end of script. Disabled when transaction is active
-        if (!$this->_adapter->getTransaction())
+        if (!$this->_adapter->getTransaction()) {
             ibase_commit_ret();
-            
+        }
+
         if ($retval === false) {
             /**
              * @see ZendX_Db_Statement_Firebird_Exception
              */
             require_once 'ZendX/Db/Statement/Firebird/Exception.php';
             throw new ZendX_Db_Statement_Firebird_Exception("Firebird statement execute error : " . $last_error);
-        }               
+        }
 
         // statements that have no result set do not return metadata
         if (is_resource($this->_stmtResult)) {
@@ -273,17 +276,18 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
             }
         }
 
-        if ($trans = $this->_adapter->getTransaction())
+        if ($trans = $this->_adapter->getTransaction()) {
             $this->_stmtRowCount = ibase_affected_rows($trans);
-        else
+        } else {
             $this->_stmtRowCount = ibase_affected_rows($this->_adapter->getConnection());
+        }
         return true;
     }
 
     /**
      * Fetches a row from the result set.
      *
-     * @param int $style  OPTIONAL Fetch mode for this fetch operation.
+     * @param int $style OPTIONAL Fetch mode for this fetch operation.
      * @param int $cursor OPTIONAL Absolute, relative, or other.
      * @param int $offset OPTIONAL Number for absolute or relative cursors.
      * @return mixed Array, object, or scalar depending on fetch mode.
@@ -298,7 +302,7 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
         if ($style === null) {
             $style = $this->_fetchMode;
         }
-        
+
         switch ($style) {
             case Zend_Db::FETCH_NUM:
                 $row = ibase_fetch_row($this->_stmtResult, IBASE_TEXT);
@@ -308,15 +312,16 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
                 break;
             case Zend_Db::FETCH_BOTH:
                 $row = ibase_fetch_assoc($this->_stmtResult, IBASE_TEXT);
-                if ($row !== false)
+                if ($row !== false) {
                     $row = array_merge($row, array_values($row));
+                }
                 break;
             case Zend_Db::FETCH_OBJ:
                 $row = ibase_fetch_object($this->_stmtResult, IBASE_TEXT);
                 break;
             case Zend_Db::FETCH_BOUND:
                 $row = ibase_fetch_assoc($this->_stmtResult, IBASE_TEXT);
-                if ($row !== false){
+                if ($row !== false) {
                     $row = array_merge($row, array_values($row));
                     $row = $this->_fetchBound($row);
                 }
@@ -350,7 +355,7 @@ class ZendX_Db_Statement_Firebird extends Zend_Db_Statement
          * @see ZendX_Db_Statement_Firebird_Exception
          */
         require_once 'ZendX/Db/Statement/Firebird/Exception.php';
-        throw new ZendX_Db_Statement_Firebird_Exception(__FUNCTION__.'() is not implemented');
+        throw new ZendX_Db_Statement_Firebird_Exception(__FUNCTION__ . '() is not implemented');
     }
 
     /**

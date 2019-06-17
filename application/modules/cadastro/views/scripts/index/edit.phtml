@@ -1,7 +1,6 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/form.css'));
 /*
   $this->headScript()
   ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
@@ -16,67 +15,67 @@ $this->headLink()
 $frmAttr = $this->form->getAttribs();
 ?>
 <div class="content">
-	<form id="<?php echo $frmAttr['id']; ?>"
-		name="<?php echo $frmAttr['id']; ?>"
-		action="<?php echo $this->form->getAction(); ?>"
-		method="<?php echo $frmAttr['method']; ?>">
-			<div class="row">
-				<fieldset>
-						<div class="span8">
-							<div class="row">
-								<div class="span3">
-                                    <?php echo $this->form->idprocessopai; ?>
-                                </div>
-								<div class="span2">
-                                    <?php echo $this->form->nomprocesso; ?>
-                                </div>
-							</div>
-						</div>
-						<div class="span12">
-							<div class="row">
-								<div class="span3">
-                                    <?php echo $this->form->iddono; ?>
-                                </div>
-								<div class="span3">
-                                    <?php echo $this->form->idgestor; ?>
-                                </div>
-								<div class="span3">
-                                    <?php echo $this->form->idexecutor; ?>
-                                </div>
-								<div class="span3">
-                                    <?php echo $this->form->idconsultor; ?>
-                                </div>
-							</div>
-						</div>
-						<div class="span12">
-							<div class="row">
-								<div class="span3">
-                                    <?php echo $this->form->nomcodigo; ?>
-                                </div>
-								<div class="span3">
-                                    <?php echo $this->form->idsetor; ?>
-                                </div>
-								<div class="span1">
-                                    <?php echo $this->form->numvalidade; ?>
-                                </div>
-							</div>
-						</div>
-						<div class="span8">
-							<div class="row">
-								<div class="span2">
-                                    <?php echo $this->form->desprocesso; ?>
-                                </div>
-							</div>
-						</div>
-						<div class="span1">
-					        <div class="row">
-					        	<div class="span1">
-					            	<?php echo $this->form->idprocesso; ?>
-					            </div>
-					        </div>
-					    </div>
-			</fieldset>
-		</div>
-	</form>
+    <form id="<?php echo $frmAttr['id']; ?>"
+          name="<?php echo $frmAttr['id']; ?>"
+          action="<?php echo $this->form->getAction(); ?>"
+          method="<?php echo $frmAttr['method']; ?>">
+        <div class="row">
+            <fieldset>
+                <div class="span8">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idprocessopai; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->nomprocesso; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->iddono; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idgestor; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idexecutor; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idconsultor; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="span12">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomcodigo; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idsetor; ?>
+                        </div>
+                        <div class="span1">
+                            <?php echo $this->form->numvalidade; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="span8">
+                    <div class="row">
+                        <div class="span2">
+                            <?php echo $this->form->desprocesso; ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="span1">
+                    <div class="row">
+                        <div class="span1">
+                            <?php echo $this->form->idprocesso; ?>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </form>
 </div>
 

@@ -18,10 +18,10 @@ class Default_Model_Mapper_Etapa extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Etapa $model)
     {
         $data = array(
-            "idetapa"       => $model->idetapa,
-            "dsetapa"       => $model->dsetapa,
+            "idetapa" => $model->idetapa,
+            "dsetapa" => $model->dsetapa,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,12 +35,11 @@ class Default_Model_Mapper_Etapa extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Etapa $model)
     {
         $data = array(
-            "idetapa"       => $model->idetapa,
-            "dsetapa"       => $model->dsetapa,
+            "idetapa" => $model->idetapa,
+            "dsetapa" => $model->dsetapa,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro"    => $model->dtcadastro,
+            "dtcadastro" => $model->dtcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

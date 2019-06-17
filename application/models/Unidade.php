@@ -7,10 +7,10 @@
  */
 class Default_Model_Unidade extends App_Model_ModelAbstract
 {
-    public $id_unidade; 
-    public $sigla; 
-    public $nome; 
-    public $unidade_responsavel; 
+    public $id_unidade;
+    public $sigla;
+    public $nome;
+    public $unidade_responsavel;
     public $tipo;
 }
 

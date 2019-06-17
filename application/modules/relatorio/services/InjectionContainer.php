@@ -1,6 +1,6 @@
 <?php
 
-class Relatorio_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Relatorio_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -31,5 +31,48 @@ class Relatorio_Service_InjectionContainer extends  App_Service_InjectionContain
         );
 
         return $service;
-    } 
+    }
+
+    /**
+     * Retorna relatorio servico
+     *
+     * @return Relatorio_Service_Licao
+     */
+    public function getRelatorioServiceLicao()
+    {
+        $service = new Relatorio_Service_Licao(
+            new Relatorio_Model_Mapper_Licao()
+        );
+
+        return $service;
+    }
+
+    /**
+     * Retorna relatorio servico
+     *
+     * @return Relatorio_Service_Diariobordo
+     */
+    public function getRelatorioServiceDiariobordo()
+    {
+        $service = new Relatorio_Service_Diariobordo(
+            new Relatorio_Model_Mapper_Diariobordo()
+        );
+
+        return $service;
+    }
+
+    /**
+     * Retorna relatorio servico
+     *
+     * @return Relatorio_Service_Aceite
+     */
+    public function getRelatorioServiceAceite()
+    {
+        $service = new Relatorio_Service_Aceite(
+            new Relatorio_Model_Mapper_Aceite()
+        );
+
+        return $service;
+    }
+
 }

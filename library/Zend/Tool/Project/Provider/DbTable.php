@@ -38,8 +38,12 @@ class Zend_Tool_Project_Provider_DbTable
      */
     protected $_nameFilter = null;
 
-    public static function createResource(Zend_Tool_Project_Profile $profile, $dbTableName, $actualTableName, $moduleName = null)
-    {
+    public static function createResource(
+        Zend_Tool_Project_Profile $profile,
+        $dbTableName,
+        $actualTableName,
+        $moduleName = null
+    ) {
         $profileSearchParams = array();
 
         if ($moduleName != null && is_string($moduleName)) {
@@ -54,14 +58,15 @@ class Zend_Tool_Project_Provider_DbTable
             throw new Zend_Tool_Project_Provider_Exception(
                 'A models directory was not found' .
                 (($moduleName) ? ' for module ' . $moduleName . '.' : '.')
-                );
+            );
         }
 
         if (!($dbTableDirectory = $modelsDirectory->search('DbTableDirectory'))) {
             $dbTableDirectory = $modelsDirectory->createResource('DbTableDirectory');
         }
 
-        $dbTableFile = $dbTableDirectory->createResource('DbTableFile', array('dbTableName' => $dbTableName, 'actualTableName' => $actualTableName));
+        $dbTableFile = $dbTableDirectory->createResource('DbTableFile',
+            array('dbTableName' => $dbTableName, 'actualTableName' => $actualTableName));
 
         return $dbTableFile;
     }
@@ -119,10 +124,10 @@ class Zend_Tool_Project_Provider_DbTable
         if ($name !== $originalName) {
             $response->appendContent(
                 'Note: The canonical model name that ' . $tense
-                    . ' used with other providers is "' . $name . '";'
-                    . ' not "' . $originalName . '" as supplied',
+                . ' used with other providers is "' . $name . '";'
+                . ' not "' . $originalName . '" as supplied',
                 array('color' => array('yellow'))
-                );
+            );
         }
 
         try {
@@ -135,7 +140,7 @@ class Zend_Tool_Project_Provider_DbTable
 
         // do the creation
         if ($request->isPretend()) {
-            $response->appendContent('Would create a DbTable at '  . $tableResource->getContext()->getPath());
+            $response->appendContent('Would create a DbTable at ' . $tableResource->getContext()->getPath());
         } else {
             $response->appendContent('Creating a DbTable at ' . $tableResource->getContext()->getPath());
             $tableResource->create();
@@ -144,9 +149,9 @@ class Zend_Tool_Project_Provider_DbTable
     }
 
     /**
-     * @param string $module        Module name action should be applied to.
-     * @param bool $forceOverwrite  Whether should force overwriting previous classes generated
-     * @return void 
+     * @param string $module Module name action should be applied to.
+     * @param bool $forceOverwrite Whether should force overwriting previous classes generated
+     * @return void
      */
     public function createFromDatabase($module = null, $forceOverwrite = false)
     {
@@ -176,7 +181,7 @@ class Zend_Tool_Project_Provider_DbTable
                 throw new Zend_Tool_Project_Provider_Exception(
                     'This DbTable resource already exists, if you wish to overwrite it, '
                     . 'pass the "forceOverwrite" flag to this provider.'
-                    );
+                );
             }
 
             $tableResources[] = self::createResource(
@@ -184,7 +189,7 @@ class Zend_Tool_Project_Provider_DbTable
                 $dbTableName,
                 $actualTableName,
                 $module
-                );
+            );
         }
 
         if (count($tableResources) == 0) {
@@ -195,7 +200,7 @@ class Zend_Tool_Project_Provider_DbTable
         if ($this->_registry->getRequest()->isPretend()) {
 
             foreach ($tableResources as $tableResource) {
-                $this->_registry->getResponse()->appendContent('Would create a DbTable at '  . $tableResource->getContext()->getPath());
+                $this->_registry->getResponse()->appendContent('Would create a DbTable at ' . $tableResource->getContext()->getPath());
             }
 
         } else {

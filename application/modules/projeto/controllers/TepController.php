@@ -1,15 +1,28 @@
 <?php
 
-class Projeto_TepController extends Zend_Controller_Action{
+class Projeto_TepController extends Zend_Controller_Action
+{
 
-    public function init(){
+    public function init()
+    {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext
-                    ->addActionContext('editar', 'json')
-                    ->initContext();
+            ->addActionContext('editar', 'json')
+            ->initContext();
+        $servicePerfilPessoa = new Default_Service_Perfilpessoa();
+        $dadosEntrada = array(
+            "idprojeto" => $this->_request->getParam('idprojeto'),
+            "controller" => strtolower($this->_request->getControllerName()),
+            "action" => strtolower($this->_request->getActionName()),
+        );
+        if (!$servicePerfilPessoa->isValidaControllerAction($dadosEntrada)) {
+            $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => 'Acesso negado...'));
+            $this->_helper->_redirector->gotoSimpleAndExit('forbidden', 'error', 'projeto');
+        }
     }
 
-    public function indexAction(){
+    public function indexAction()
+    {
     }
 
     public function editarAction()
@@ -17,39 +30,48 @@ class Projeto_TepController extends Zend_Controller_Action{
         $service = App_Service_ServiceAbstract::getService('Projeto_Service_Tep');
         $serviceGerencia = App_Service_ServiceAbstract::getService('Projeto_Service_Gerencia');
         $form = $service->getFormTep();
+        $serviceAssinatura = new Projeto_Service_Assinadocumento();
+        $formAssinatura = $serviceAssinatura->getFormTap();
         $success = false;
-        if($this->_request->isPost()){
+        $msgError = "";
+        if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
-//            var_dump($dados); exit;
             $gerencia = $service->update($dados);
-            if($gerencia){
+
+            if ($gerencia) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+                /** Cadastra na linha do tempo (auditoria). */
+                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
+                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
+                $dados['tpacao'] = 'A'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
+                $dados['idprojeto'] = $dados["idprojeto"]; // Projeto que sofreu a ação.
+                $serviceLinhaTempo->inserir($dados);
+                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors();
+                $msg = App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msgError = $service->getErrors();
             }
         } else {
-//            $gerencia = $serviceGerencia->getById($this->_request->getParams());
             $gerencia = $serviceGerencia->retornaProjetoPorId(array('idprojeto' => $this->_request->getParam('idprojeto')));
-//            Zend_Debug::dump($gerencia); exit;
             $form->populate($gerencia->formPopulate());
             $this->view->gerencia = $gerencia;
             $this->view->form = $form;
+            $this->view->formAssinatura = $formAssinatura;
         }
 
-
         if ($this->_request->isPost()) {
-            if($this->_request->isXmlHttpRequest()){
+            if ($this->_request->isXmlHttpRequest()) {
                 $this->view->success = $success;
+                $this->view->msgError = $msgError;
                 $this->view->msg = array(
-                    'text'    => (is_array($msg)) ? array_shift($msg) : $msg,
-                    'type'    => ($success) ? 'success' : 'error',
-                    'hide'    => true,
-                    'closer'  => true,
+                    'text' => (is_array($msg)) ? array_shift($msg) : $msg,
+                    'type' => ($success) ? 'success' : 'error',
+                    'hide' => true,
+                    'closer' => true,
                     'sticker' => false
                 );
             } else {
-                if($success){
+                if ($success) {
                     $this->_helper->_redirector->gotoSimpleAndExit('edit', 'gerencia', 'default');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));

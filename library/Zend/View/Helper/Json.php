@@ -44,8 +44,8 @@ class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
      *
      * If $keepLayouts is true, does not disable layouts.
      *
-     * @param  mixed $data
-     * @param  bool $keepLayouts
+     * @param mixed $data
+     * @param bool $keepLayouts
      * NOTE:   if boolean, establish $keepLayouts to true|false
      *         if array, admit params for Zend_Json::encode as enableJsonExprFinder=>true|false
      *         this array can contains a 'keepLayout'=>true|false
@@ -55,12 +55,11 @@ class Zend_View_Helper_Json extends Zend_View_Helper_Abstract
     public function json($data, $keepLayouts = false)
     {
         $options = array();
-        if (is_array($keepLayouts))
-        {
-            $options     = $keepLayouts;
+        if (is_array($keepLayouts)) {
+            $options = $keepLayouts;
             $keepLayouts = (array_key_exists('keepLayouts', $keepLayouts))
-                            ? $keepLayouts['keepLayouts']
-                            : false;
+                ? $keepLayouts['keepLayouts']
+                : false;
             unset($options['keepLayouts']);
         }
 

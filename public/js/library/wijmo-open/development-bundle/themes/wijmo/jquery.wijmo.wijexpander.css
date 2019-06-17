@@ -1,21 +1,19 @@
-﻿.wijmo-wijexpander
-{
+﻿.wijmo-wijexpander {
     margin: 1px;
     padding: 0;
     display: block;
 }
 
-.wijmo-wijexpander a
-{
+.wijmo-wijexpander a {
     outline: none;
 }
 
-.wijmo-wijexpander .ui-expander-header
-{
+.wijmo-wijexpander .ui-expander-header {
     cursor: pointer;
     margin-top: 1px;
     position: relative;
 }
+
 /*.wijmo-wijexpander.ui-helper-horizontal > .ui-expander-header
 {
     cursor: pointer;
@@ -36,8 +34,7 @@
 }*/
 
 
-.ui-expander .ui-expander-content
-{
+.ui-expander .ui-expander-content {
     border-top: 0 none;
     display: none;
     margin-bottom: 2px;
@@ -49,36 +46,31 @@
 }
 
 
-.wijmo-wijexpander .ui-expander-header a
-{
+.wijmo-wijexpander .ui-expander-header a {
     display: block;
     font-size: 1em;
     padding: 0.5em 0.5em 0.5em 0.7em;
 }
 
-.wijmo-wijexpander .ui-expander-header .ui-icon
-{
+.wijmo-wijexpander .ui-expander-header .ui-icon {
     left: 0.5em;
     margin-top: -8px;
     position: absolute;
     top: 50%;
 }
 
-.wijmo-wijexpander .ui-expander-content-active
-{
+.wijmo-wijexpander .ui-expander-content-active {
     display: block;
     border-top: 0 none;
     padding: 1em 2.2em;
 }
 
 
-.wijmo-wijexpander .ui-expander-header > a
-{
+.wijmo-wijexpander .ui-expander-header > a {
     padding-left: 2.2em;
 }
 
-.ui-helper-horizontal.wijmo-wijexpander .ui-expander-header .ui-icon
-{
+.ui-helper-horizontal.wijmo-wijexpander .ui-expander-header .ui-icon {
     left: inherit;
     margin-top: inherit;
     margin-left: -8px;
@@ -87,8 +79,7 @@
     left: 50%;
 }
 
-.ui-helper-horizontal.wijmo-wijexpander .ui-expander-header > a
-{
+.ui-helper-horizontal.wijmo-wijexpander .ui-expander-header > a {
     padding-left: inherit;
     padding-top: 2.2em;
     display: inline-block;
@@ -97,24 +88,22 @@
 
 /* RIGHT */
 
-.ui-expander-right .ui-expander-header
-{
+.ui-expander-right .ui-expander-header {
     margin: 0 1px;
     width: 2em;
     height: 12em;
     overflow: hidden;
 }
 
-.ui-expander-right .ui-expander-content
-{
+.ui-expander-right .ui-expander-content {
     margin: 0;
     height: 200px;
     width: 12em;
     height: 12em;
     padding: 0 2.2em;
 }
-.ui-expander-right .ui-expander-content
-{
+
+.ui-expander-right .ui-expander-content {
     top: 0;
     margin-left: -2px;
     padding: 1px;
@@ -123,43 +112,38 @@
 }
 
 
-.ui-expander-right .ui-state-active
-{
+.ui-expander-right .ui-state-active {
     border-right: none;
 }
 
-.ui-expander-right .ui-expander-header a
-{
+.ui-expander-right .ui-expander-header a {
     padding: 2.2em 0 0 0;
 }
 
 
-.ui-expander-right .ui-expander-header .ui-icon
-{
+.ui-expander-right .ui-expander-header .ui-icon {
     top: 10%;
 }
 
 
 /* LEFT */
 
-.ui-expander-left .ui-expander-header
-{
+.ui-expander-left .ui-expander-header {
     margin: 0 1px;
     width: 2em;
     height: 12em;
     overflow: hidden;
 }
 
-.ui-expander-left .ui-expander-content
-{
+.ui-expander-left .ui-expander-content {
     margin: 0;
     height: 200px;
     width: 12em;
     height: 12em;
     padding: 0 2.2em;
 }
-.ui-expander-left .ui-expander-content
-{
+
+.ui-expander-left .ui-expander-content {
     border: none;
     padding: 1px;
     top: 0;
@@ -168,18 +152,15 @@
 }
 
 
-.ui-expander-left .ui-state-active
-{
+.ui-expander-left .ui-state-active {
     border-left: none;
 }
 
-.ui-expander-left .ui-expander-header a
-{
+.ui-expander-left .ui-expander-header a {
     padding: 2.2em 0 0 0;
 }
 
 
-.ui-expander-left .ui-expander-header .ui-icon
-{
+.ui-expander-left .ui-expander-header .ui-icon {
     top: 10%;
 }

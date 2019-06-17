@@ -48,7 +48,7 @@ class Zend_Service_Simpy_WatchlistFilter
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMNode $node Individual <filter> node from a parsed response from
+     * @param DOMNode $node Individual <filter> node from a parsed response from
      *                       a GetWatchlists or GetWatchlist operation
      * @return void
      */

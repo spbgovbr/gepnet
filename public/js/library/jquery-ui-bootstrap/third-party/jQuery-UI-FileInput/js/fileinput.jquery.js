@@ -25,15 +25,15 @@
         this.$element = $(content);
 
         this.options = $.extend({
-            classes	: (this.$element.attr('class') ? this.$element.attr('class') : ''),
+            classes: (this.$element.attr('class') ? this.$element.attr('class') : ''),
         }, options);
 
         //create custom control container
-        this.$upload = $('<div class="input-' + (('right' === this.options.button_position)?'append':'prepend') + ' customfile">');
+        this.$upload = $('<div class="input-' + (('right' === this.options.button_position) ? 'append' : 'prepend') + ' customfile">');
         //create custom control feedback
         this.$uploadFeedback = $('<input type="text" readonly="readonly" class="customfile-feedback ' + this.options.classes + '" aria-hidden="true" value="' + this.options.feedback_text + '"/>').appendTo(this.$upload);
         //create custom control button
-        this.$uploadButton = $('<span class="add-on customfile-button" aria-hidden="true">' + this.options.button_text + '</span>').css({ float : this.options.button_position });
+        this.$uploadButton = $('<span class="add-on customfile-button" aria-hidden="true">' + this.options.button_text + '</span>').css({float: this.options.button_position});
 
         this.$element
             .addClass('customfile-input') //add class for CSS
@@ -55,7 +55,9 @@
         if (this.$element.is('[disabled]')) {
             this.$element.trigger('disable');
         } else {
-            this.$upload.on('click', function () { self.$element.trigger('click'); });
+            this.$upload.on('click', function () {
+                self.$element.trigger('click');
+            });
         }
 
         //insert original input file in dom, css if hide it outside of screen
@@ -66,41 +68,41 @@
     CustomFileInput.prototype = {
         constructor: CustomFileInput,
 
-        onClick : function() {
+        onClick: function () {
             var self = this;
             this.$element.data('val', this.$element.val());
-            setTimeout(function(){
+            setTimeout(function () {
                 self.$element.trigger('checkChange');
-            } ,100);
+            }, 100);
         },
 
-        onCheckChange: function() {
-            if(this.$element.val() && this.$element.val() != this.$element.data('val')){
+        onCheckChange: function () {
+            if (this.$element.val() && this.$element.val() != this.$element.data('val')) {
                 this.$element.trigger('change');
             }
         },
 
-        onEnable: function() {
+        onEnable: function () {
             this.$element.removeAttr('disabled');
             this.$upload.removeClass('customfile-disabled');
         },
 
-        onDisable: function() {
-            this.$element.attr('disabled',true);
+        onDisable: function () {
+            this.$element.attr('disabled', true);
             this.$upload.addClass('customfile-disabled');
         },
 
-        onFocus: function() {
+        onFocus: function () {
             this.$upload.addClass('customfile-focus');
             this.$element.data('val', this.$element.val());
         },
 
-        onBlur: function() {
+        onBlur: function () {
             this.$upload.removeClass('customfile-focus');
             this.$element.trigger('checkChange');
         },
 
-        onChange : function() {
+        onChange: function () {
             //get file name
             var fileName = this.$element.val().split(/\\/).pop();
             if (!fileName) {
@@ -117,7 +119,7 @@
         }
     };
 
-    $.fn.customFileInput = function(option){
+    $.fn.customFileInput = function (option) {
         return this.each(function () {
             var $this = $(this);
             var data = $this.data('customFileInput')
@@ -129,10 +131,10 @@
     };
 
     $.fn.customFileInput.defaults = {
-        button_position 	: 'right',
-        feedback_text		: 'No file selected...',
-        button_text			: 'Browse',
-        button_change_text	: 'Change'
+        button_position: 'right',
+        feedback_text: 'No file selected...',
+        button_text: 'Browse',
+        button_change_text: 'Change'
     }
 
 }(window.jQuery);
