@@ -1,0 +1,154 @@
+<head>
+    <style>
+        .break {
+            page-break-before: always;
+        }
+
+        @media print {
+
+            @page {
+                size: landscape;
+            }
+
+            #image-example {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+        }
+    </style>
+</head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<?php
+
+if (count($this->aceite) > 0):
+    foreach ($this->aceite as $aceite): ?>
+
+        <table align="center" border="0" width="800px">
+            <tr align="left">
+                <td style="text-align:left;padding-bottom:20px;">
+                    <h5>1. TERMO DE ACEITE</h5>
+                </td>
+            </tr>
+            <tr align="left">
+                <td style="text-align:left;padding-bottom:20px;">
+                    <h5>1.1 PROJETO</h5>
+                </td>
+            </tr>
+            <tr align="center" style="padding-bottom: 20px;">
+                <td style="padding-left: 20px;">
+                    <table style="width: 100%;border-collapse: collapse;" border="1" cellpadding="1" cellspacing="1">
+                        <colgroup>
+                            <col style="width: 20%">
+                            <col style="width: 80%">
+                        </colgroup>
+                        <tbody>
+                        <tr valign="top">
+                            <td style="width: 20%">C&Oacute;DIGO DO PROJETO</td>
+                            <td style="width: 80%"><?php echo $this->projeto->nomcodigo; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>T&Iacute;TULO DO PROJETO</td>
+                            <td><?php echo $this->projeto->nomprojeto; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>GERENTE DE PROJETO</td>
+                            <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>GERENTE ADJUNTO</td>
+                            <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>PATROCINADOR</td>
+                            <td><?php echo $this->projeto->nompatrocinador; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr align="left">
+                <td style="text-align:left;padding-bottom:20px;">
+                    <h5>1.2 ENTREGA ASSOCIADA</h5>
+                </td>
+            </tr>
+            <tr align="center" style="padding-bottom: 20px;">
+                <td style="padding-left: 20px;">
+                    <table style="width: 100%;border-collapse: collapse;" border="1" cellpadding="1" cellspacing="1">
+                        <colgroup>
+                            <col style="width: 20%">
+                            <col style="width: 80%">
+                        </colgroup>
+                        <tbody>
+                        <tr valign="top">
+                            <td style="width: 20%">GRUPO</td>
+                            <td style="width: 80%"><?php echo $aceite['grupo']; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td style="width: 20%">ENTREGA</td>
+                            <td style="width: 80%"><?php echo $aceite['nomatividadecronograma']; ?></td>
+                        </tr>
+                        <!--                        <tr valign="top">
+                            <td>MARCO DA ENTREGA</td>
+                            <td><?php echo $aceite['nomarco']; ?></td>
+                        </tr>-->
+                        <tr valign="top">
+                            <td>DESCRI&Ccedil;&Atilde;O DA ENTREGA</td>
+                            <td><?php echo $aceite['desobs']; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O</td>
+                            <td><?php echo $aceite['descriterioaceitacao']; ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>RESPONS&Aacute;VEL PELA ENTREGA</td>
+                            <td><?php echo $aceite['nomparteinteressadaentrega'] ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>RESPONS&Aacute;VEL PELO ACEITE</td>
+                            <td><?php echo $aceite['nomresponsavel'] ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>PRODUTO OU SERVI&Ccedil;O ENTREGUE</td>
+                            <td><?php echo $aceite['desprodutoservico'] ?></td>
+                        </tr>
+                        <tr valign="top">
+                            <td>PARECER FINAL</td>
+                            <td><?php echo $aceite['desparecerfinal'] ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <div align="left" class="span4">
+            <h5>1.3 APROVA&Ccedil;&Atilde;O </h5>
+        </div>
+        <div align="left" style="margin-top: 7px; width: 60%;">
+            <table border="1" width="60px;">
+                <colgroup>
+                    <col style="width: 60px">
+                    <col style="width: 15px">
+                    <col style="width: 15px">
+                </colgroup>
+                <tbody style="text-align: center">
+                <tr style="vertical-align: bottom">
+                    <td><?php echo $aceite['nomresponsavel'] ?></td>
+                    <td>___________________________________________________</td>
+                    <td style="text-align: center">/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                </tr>
+                <tr style="vertical-align: top;">
+                    <td><b>RESPONS&Aacute;VEL PELO ACEITE</b></td>
+                    <td style="text-align: center"><b>Assinatura</b></td>
+                    <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    <?php endforeach;
+endif;

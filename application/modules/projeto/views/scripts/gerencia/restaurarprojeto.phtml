@@ -1,0 +1,28 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+?>
+<div class="region-center">
+    <div class="portlet">
+        <form id="form-restaurarprojeto"
+              name="form-restaurarprojeto"
+              action="<?php echo $this->baseUrl(); ?>/projeto/gerencia/restaurarprojeto/format/json"
+              method="post">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4>Aten&ccedil;&atilde;o!</h4>
+                Tem certeza que deseja <b>RECUPERAR</b> o projeto <strong><?php echo $this->projeto['nomcodigo'] ?>
+                    - <?php echo $this->projeto['nomprojeto']; ?>&nbsp;?</strong><br/><br/>
+                Ao concordar a situa&ccedil;&atilde;o do projeto ser&aacute; alterada para "Proposta".<br/>
+                <p>Depois de recuperado, o projeto poder&aacute; ser gerenciado normalmente na op&ccedil;&atilde;o
+                    Projeto/Gerenciar/.</p>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <input type="hidden" name="idprojeto" id="idprojeto"
+                           value="<?php echo $this->projeto['idprojeto']; ?>"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

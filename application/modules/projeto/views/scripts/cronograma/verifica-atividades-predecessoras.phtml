@@ -1,0 +1,28 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+$this->headScript()->appendFile($this->baseUrl('/js/app/projeto/cronograma/calcularTempo.js'), 'text/javascript');
+?>
+<form id="acatividadeexcluir"
+      name="ac-atividade-excluir"
+      action="<?php echo $this->baseUrl(); ?>/projeto/cronograma/excluir-atividade/format/json"
+      method="post">
+    <div class="alert alert-block" style="font-size: 14px !important;">
+        <h4>Aviso!</h4>
+        Deseja realmente excluir a atividade:
+        <strong><?php echo $this->atividade['nomatividadecronograma']; ?></strong>.<br/><br/>
+        Todas as predecessoras também serão excluídas.
+    </div>
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="span5">
+            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->atividade['idprojeto']; ?>"/>
+            <input type="hidden" name="idatividadecronograma" id="idatividadecronograma"
+                   value="<?php echo $this->atividade['idatividadecronograma']; ?>"/>
+            <input type="hidden" name="domtipoatividade" id="domtipoatividade"
+                   value="<?php echo $this->atividade['domtipoatividade']; ?>"/>
+        </div>
+    </div>
+</form>

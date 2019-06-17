@@ -1,0 +1,143 @@
+<?php
+
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'))
+    ->appendFile($this->baseUrl('/js/app/diagnostico/diagnostico/edit.js'), 'text/javascript');
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'detalhar-diagnostico', 'iddiagnostico' => $this->iddiagnostico));
+    ?>
+</div>
+<div class="region-center">
+    <div class="portlet portlet-marron">
+        <h3>DIAGNÓSTICO - Editar</h3>
+        <div class="content">
+
+            <form id="form-diagnostico-editar"
+                  name="form-diagnostico-editar"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <input type="hidden" name="feriadosfixos" id="feriadosfixos"
+                       value="<?php echo $this->feriadosfixos; ?>">
+                <input type="hidden" name="pessparte" id="pessparte" value="">
+                <input type="hidden" name="idpessoacheckbox" id="idpessoacheckbox"
+                       value="<?php echo $this->idpessoacheckbox; ?>">
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->idunidadeprincipal; ?>
+                    </div>
+                    <div id="idDisplay" style=" color: red; display: none; padding-top: 56px; float:left;
+                                margin-left: -268px; padding-bottom: 30px; font-size: 10px;">
+                        <span>Este campo é requerido.</span>
+                    </div>
+                    <div class="span4" title="Use o Ctrl ou Shift para múltipla seleção">
+                        <?php echo $this->form->pessoas; ?>
+                    </div>
+                    <div class="span1_5" style="margin-top: 27px;">
+                        <a class="btn btn-pessoas-move" id="pessoas-in" title="Adicionar Pessoa"
+                           href="#"><i class="icon-chevron-right"></i></a><br/>
+                        <a class="btn btn-pessoas-move" id="pessoas-out" title="Remover Pessoa"
+                           href="#"><i class="icon-chevron-left"></i></a>
+                    </div>
+                    <div class="row span4" title="Use o Ctrl ou Shift para múltipla seleção">
+                        <?php //echo $this->form->pessoasEquipe; ?>
+                        <label>Equipe do Diagnóstico</label>
+                        <select id="pessoasEquipe" name="pessoasEquipe" multiple="multiple"
+                                size="7" class="span4">
+                            <?php foreach ($this->equipe as $combo): ?>
+                                <option value="<?php echo $combo['idpessoa']; ?>">
+                                    <?php echo $combo['nompessoa']; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row" id="equipe-editar" style=" color: red; display: none; padding-top: 119px;
+                                font-size: 10px;">
+                        <span>Este campo é requerido.</span>
+                    </div>
+                </div>
+
+                <div class="row container-pessoa">
+                    <div class="span3">
+                        <div class="control-group">
+                            <?php echo $this->form->chefedaunidade->renderLabel(); ?>
+                            <div class="input-prepend">
+                                <?php echo $this->form->pessoabutton; ?>
+                                <?php echo $this->form->idchefedaunidade; ?>
+                                <?php echo $this->form->qualificacaoChefedaUnidade; ?>
+                                <?php echo $this->form->chefedaunidade->renderViewHelper(); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span3">
+                        <div class="control-group">
+                            <?php echo $this->form->pontofocal->renderLabel(); ?>
+                            <div class="input-prepend ">
+                                <?php echo $this->form->pessoabutton; ?>
+                                <?php echo $this->form->idpontofocal; ?>
+                                <?php echo $this->form->qualificacaoPontoFocal; ?>
+                                <?php echo $this->form->pontofocal->renderViewHelper(); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;"></div>
+                    <div class="span2">
+                        <?php echo $this->form->dtinicio; ?>
+                    </div>
+                    <div class="span4">
+                        <?php echo $this->form->dtencerramento; ?>
+                        <div style="color: red; display: none; font-size: 10px;" id="msndatas"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->dsdiagnostico; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3" id="grid-unidade-editar" style="display: table !important; height: auto !important;
+                                margin-bottom: 20px !important;"></div>
+                </div>
+                <div style="color: red; display: none; font-size: 10px;" id="msnchk"></div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->iddiagnostico; ?>
+                        <?php echo $this->form->submit; ?>
+                        <?php echo $this->form->reset; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                        (<?php echo "<img src=\"" .
+                            $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

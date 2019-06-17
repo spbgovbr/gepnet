@@ -1,0 +1,72 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pesquisaservidores/pesquisa.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'servidores', 'iddiagnostico' => $this->iddiagnostico));
+    ?>
+</div>
+<div class="region-center">
+    <?php echo $this->partial('_partials/questionario-pesquisaservidor-menu.phtml', array('dados' => $this->aba)); ?>
+
+    <div class="portlet portlet-marron span10">
+        <h3>Vincular Questionários dos Servidores</h3>
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <fieldset>
+                    <legend>Questionarios</legend>
+                    <div class="row">
+                        <div class="span4" title="Use o Ctrl ou Shift para múltipla seleção">
+                            <?php echo $this->form->ds_questionario; ?>
+                        </div>
+                        <div class="span1" style="margin-top: 27px;">
+                            <a class="btn btn-ds_item-move" id="ds_item-in" title="Adicionar Questinário" href="#"><i
+                                        class="icon-chevron-right"></i></a><br/>
+                            <a class="btn btn-ds_item-move" id="ds_item-out" title="Remover Questionário" href="#"><i
+                                        class="icon-chevron-left"></i></a>
+                        </div>
+                        <div class="span4" title="Use o Ctrl ou Shift para múltipla seleção">
+                            <?php echo $this->form->idquestionario; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span10">
+                            <input type="hidden" name="iddiagnostico" id="iddiagnostico"
+                                   value="<?php echo $this->iddiagnostico; ?>"/>
+                            <input type="hidden" id="questionario" name="questionario" value="">
+                            <input type="hidden" id="tpquestionario" name="tpquestionario" value="1">
+                            <?php echo $this->form->submit; ?>
+                            <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span2" style="float: right;">
+                            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                            obrigatório
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</div>

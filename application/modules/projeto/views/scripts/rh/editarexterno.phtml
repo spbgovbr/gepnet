@@ -1,0 +1,186 @@
+<div class="region-center">
+    <div class="portlet portlet-marron">
+        <div class="content">
+            <div class="row span">
+                <div class="portlet">
+                    <ul class="nav nav-pills">
+                        <?php if ($this->form): ?>
+                            <li class="origem origem-interno active" data-cont="interno"><a id="origem-interno-link"
+                                                                                            class="link" href="#">Interno</a>
+                            </li>
+                        <?php else: ?>
+                            <li class="origem origem-externo active" data-cont="externo"><a id="origem-externo-link"
+                                                                                            class="link" href="#">Externo</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row span12">
+            <?php if ($this->formExterno):
+                $frmAttrExterno = $this->formExterno->getAttribs();
+                ?>
+                <div class="externo formulario cont">
+                    <form id="<?php echo $frmAttrExterno['id']; ?>"
+                          name="<?php echo $frmAttrExterno['id']; ?>"
+                          method="<?php echo $frmAttrExterno['method']; ?>">
+                        <div class="span">
+                            <div class="row">
+                                <div class="row10">
+                                    <?php echo $this->formExterno->idprojetoexterno; ?>
+                                    <?php echo $this->formExterno->idparteinteressadaexterno; ?>
+                                    <?php echo $this->formExterno->idpessoainterna; ?>
+                                    <div class="span3">
+                                        <?php echo $this->formExterno->nomparteinteressadaexterno; ?>
+                                    </div>
+                                </div>
+                                <div class="row10">
+                                    <div class="span3">
+                                        <label class="control-label">Função no Projeto</label>
+                                        <?php foreach ($this->combofuncao as $id => $combo): ?>
+                                            <label class="checkbox" style="font-size: 9px;">
+                                                <input type="checkbox" name="idparteinteressadafuncaoexterno[]"
+                                                       class="validaFuncao"
+                                                       value="<?php echo $id; ?>" <?php echo in_array($id,
+                                                    $this->idparteinteressadafuncaoexterno) ? ' checked="checked"' : '' ?> />
+                                                &nbsp;&nbsp;<?php echo $combo; ?>
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="span2">
+                                        <?php echo $this->formExterno->domnivelinfluenciaexterno; ?>
+                                    </div>
+                                    <div class="span">
+                                        <?php echo $this->formExterno->desemailexterno; ?>
+                                    </div>
+                                </div>
+                                <div class="row10">
+                                    <div class="span">
+                                        <?php echo $this->formExterno->destelefoneexterno; ?>
+                                    </div>
+                                    <div class="span6">
+                                        <?php echo $this->formExterno->observacaoexterno; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right;  padding-top: 90px;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    var resetFormPart = function () {
+        $("input, select").not('input#idprojeto').val('');
+    };
+
+    var selectRow = function (row) {
+        $('.input-selecionado')
+            .find('input:hidden').val(row.idpessoa).trigger('blur')
+            .end()
+            .find('input:text').val(row.nompessoa).trigger('blur');
+    };
+
+    var validaFuncoes = function (val) {
+        var valida1 = ["1", "3", "4"];
+        var valida2 = ["2", "3", "4"];
+        var valida3 = ["5", "6"];
+        var valida4 = ["1", "2"];
+
+        var k1 = 0;
+        var k2 = 0;
+        var k3 = 0;
+        var k4 = 0;
+
+        var selected = [];
+
+        $('.validaFuncao:checked').each(function (i) {
+            selected.push("" + $('.validaFuncao:checked').eq(i).val());
+        });
+
+        for (var i in selected) {
+            if (valida1.indexOf(selected[i]) >= 0) {
+                k1++;
+            }
+
+            if (valida2.indexOf(selected[i]) >= 0) {
+                k2++;
+            }
+
+            if (valida3.indexOf(selected[i]) >= 0) {
+                k3++;
+            }
+
+            if (valida4.indexOf(selected[i]) >= 0) {
+                k4++;
+            }
+        }
+
+        if (valida3.indexOf(val) >= 0) {
+            return !(k1 > 0 || k2 > 0);
+        }
+
+        if (valida1.indexOf(val) >= 0) {
+            return !(k4 == 2 || k3 > 0 || (k2 == 3 && val == 6));
+        }
+
+        if (valida2.indexOf(val) >= 0) {
+            return !(k4 == 2 || k3 > 0 || k1 == 3);
+        }
+
+        return true;
+    };
+
+    $(document).ready(function () {
+
+        $("#accordion").accordion();
+
+        $.pnotify.defaults.history = false;
+
+        $("#tabs").tabs();
+
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR'
+        });
+
+        $('.mask-tel').mask("(99) 9999-9999");
+
+        $('.validaFuncao').on('click', function () {
+            return validaFuncoes($(this).val());
+        });
+
+        $(".pessoa-button").on('click', function (event) {
+            event.preventDefault();
+            $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+            $(this).closest('.control-group').addClass('input-selecionado');
+            if ($("table#list-grid-pessoa").length <= 0) {
+                $.ajax({
+                    url: base_url + "/cadastro/pessoa/grid",
+                    type: "GET",
+                    dataType: "html",
+                    success: function (html) {
+                        $(".grid-append").append(html).slideDown('fast');
+                    }
+                });
+                $('.pessoa-button')
+                    .off('click')
+                    .on('click', function () {
+                        var $this = $(this);
+                        $(".grid-append").slideDown('fast', function () {
+                            $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+                            $this.closest('.control-group').addClass('input-selecionado');
+                        });
+                    });
+            }
+        });
+    });
+</script>

@@ -1,0 +1,23 @@
+.span120px {
+    width: 120px !important;
+}
+
+fieldset.pesquisar {
+    margin-left: 30px;
+    width: 330px;
+}
+
+fieldset.pesquisar legend {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+fieldset.pesquisar .span120px {
+    margin-left: 0;
+}
+
+.tipo {
+    width: 50px;
+}

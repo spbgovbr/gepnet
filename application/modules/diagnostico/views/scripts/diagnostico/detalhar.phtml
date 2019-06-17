@@ -1,0 +1,115 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/diagnostico/index.js'), 'text/javascript');
+
+?>
+
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'detalhar-diagnostico', 'iddiagnostico' => $this->diagnostico->iddiagnostico));
+    ?>
+</div>
+<div class="region-center" id="barrafer" style="padding-right: 50px;">
+    <div class="row" style="float: right;">
+        <a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '"
+           href="<?php echo $this->url(
+               array(
+                   'module' => 'diagnostico',
+                   'controller' => 'diagnostico',
+                   'action' => 'editar',
+                   'iddiagnostico' => $this->diagnostico->iddiagnostico
+               ));
+           ?>"><i class="icon-edit"></i>
+        </a>
+        <a data-target="#dialog-excluir" id="btnexcluir" class="btn actionfrm excluir" title="excluir"
+           data-id="' + cellvalue + '" href="<?php echo $this->url(
+            array(
+                'module' => 'diagnostico',
+                'controller' => 'diagnostico',
+                'action' => 'excluir',
+                'iddiagnostico' => $this->diagnostico->iddiagnostico
+            ));
+        ?>"><i class="icon-trash"></i>
+        </a>
+    </div>
+
+    <!-- Diagnóstico -->
+    <div id="ii" class="informacoes" style="display: block">
+        <fieldset>
+            <legend>Diagnóstico</legend>
+            <div class="row">
+                <input type="hidden" id="diagnostico" value="<?php echo $this->diagnostico->iddiagnostico; ?>">
+                <div class="portlet portlet-verde span3">
+                    <h3>Unidade Principal</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->unidadeprincipal; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Nome do Diagnóstico</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->dsdiagnostico; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Unidades Vinculadas</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->unidadesvinculadas; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span2">
+                    <h3>Data Início</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->dtinicio->toString('d/m/Y'); ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span2">
+                    <h3>Data Fim</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->dtencerramento->toString('d/m/Y'); ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Chefe da Unidade Diagnosticada</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->chefedaunidade; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Ponto Focal da Unidade Diagnosticada</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->pontofocal; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Equipe do Diagnóstico</h3>
+                    <div class="content">
+                        <?php echo $this->diagnostico->pessoasequipe; ?>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <input type="hidden" name="quantidademelhoria" id="quantidademelhoria"
+               value="<?php echo $this->quantidadeMelhoria; ?>"/>
+    </div>
+</div>
+<div id="dialog" title="Confirmação Requerida" style="display: none">
+    <p>Tem certeza que deseja excluir o diagnóstico? </p>
+</div>​
+<div id="dialogqtmelhoria" title="Confirmação Requerida" style="display: none">
+    <p>Não é possível atualizar os dados. Existe uma ou mais sugestões de melhorias cadastradas para este
+        diagnóstico. </p>
+</div>​

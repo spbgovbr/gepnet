@@ -1,0 +1,273 @@
+/* Sass Variables */
+/* gantt styles */
+.gantt {
+    position: relative;
+    margin-top: 30px;
+    margin-left: 0px;
+    /*overflow: hidden; oculta o scroll padrão do browser*/
+    /*color: #93a1a1;*/
+    background: #FFFFFF;
+    /*border: 1px solid #C0C0C0;*/
+}
+
+.gantt * {
+    /*font-weight: normal;*/
+    margin: 0;
+    padding: 0;
+}
+
+.gantt li {
+    list-style: none;
+}
+
+/* optional title */
+.gantt figcaption {
+    position: absolute;
+    /*top: 25px;*/
+    left: 20px;
+    font-size: 20px;
+    /*color: white;*/
+    /*text-transform: uppercase;*/
+    /*letter-spacing: 4px;*/
+}
+
+/* sidebar */
+.gantt aside {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 199px;
+    border-right: 1px solid #f7f7f7;
+    z-index: 2;
+}
+
+.gantt aside:before {
+    position: absolute;
+    right: -7px;
+    pointer-events: none;
+    width: 7px;
+    top: 0;
+    bottom: 0;
+    content: "";
+    border-left: 1px solid rgba(255, 255, 255, 0.03);
+    background: -webkit-linear-gradient(left, rgba(95, 95, 95, 0.7), rgba(0, 43, 54, 0));
+    background: -moz-linear-gradient(left, rgba(95, 95, 95, 0.7), rgba(0, 43, 54, 0));
+    background: linear-gradient(left, rgba(95, 95, 95, 0.7), rgba(0, 43, 54, 0));
+    z-index: 3;
+}
+
+.gantt aside .gantt-labels {
+    border-top: 1px solid #C0C0C0;
+}
+
+.gantt-label {
+    background: #CCCCCC;
+}
+
+.gantt aside .gantt-label strong {
+    display: block;
+    padding: 0 20px;
+    /*color: #93a1a1;*/
+    border-bottom: 1px solid #f7f7f7;
+    border-left: 1px solid #f7f7f7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gantt aside .gantt-label .nivel2 {
+    text-indent: 1.5em;
+    font-weight: normal;
+}
+
+.gantt aside .gantt-label .nivel3 {
+    text-indent: 3em;
+    font-weight: normal;
+}
+
+
+/* data section */
+.gantt-data {
+    position: relative;
+    /*overflow-x: scroll; substitui o scroll padrao do browser*/
+    margin-left: 200px;
+    white-space: nowrap;
+}
+
+/* data section header */
+.gantt header .gantt-months {
+    overflow: hidden;
+    background: #CCCCCC;
+}
+
+.gantt header .gantt-month {
+    float: left;
+    text-align: center;
+}
+
+.gantt header .gantt-month strong {
+    display: block;
+    border-right: 1px solid #f7f7f7;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.gantt header .gantt-weeks {
+    overflow: hidden;
+    background: #CCCCCC;
+    white-space: initial !important;
+}
+
+.gantt header .gantt-week {
+    float: left;
+    text-align: center;
+}
+
+.gantt header .gantt-week strong {
+    display: block;
+    border-right: 1px solid #f7f7f7;
+    border-bottom: 1px solid #f7f7f7;
+}
+
+.gantt header .gantt-day span {
+    text-indent: 0;
+    text-align: center;
+}
+
+.gantt header .gantt-day.today span {
+    color: #1E90FF;
+}
+
+/* data items */
+.gantt-item {
+    position: relative;
+}
+
+.gantt-days {
+    overflow: hidden;
+}
+
+.gantt-day {
+    float: left;
+}
+
+.gantt-day span {
+    display: block;
+    border-right: 1px solid #C0C0C0;
+    border-bottom: 1px solid #C0C0C0;
+    text-indent: -12000px;
+}
+
+.gantt-day.weekend span {
+    background: #CCCCCC;
+}
+
+/* data blocks */
+.gantt-block {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    margin: 4px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.9) 0 2px 6px, rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+    -moz-box-shadow: rgba(0, 0, 0, 0.9) 0 2px 6px, rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+    box-shadow: rgba(0, 0, 0, 0.9) 0 2px 6px, rgba(255, 255, 255, 0.2) 0 1px 0 inset;
+    opacity: .9;
+}
+
+.gantt-block-label {
+    display: block;
+    color: #333 !important;
+    padding: 5px 0px;
+}
+
+/* block colors */
+.gantt-block {
+    background: #DCDCDC;
+}
+
+.gantt-block.important {
+    background: #b58900;
+}
+
+.gantt-block.urgent {
+    background: #d33682;
+}
+
+/* today sign */
+.gantt time {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    background: gray;
+    bottom: 0;
+    z-index: 1000;
+    text-indent: 5px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
+    -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 0 10px;
+}
+
+.gantt time:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: -4px;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid white;
+}
+
+/* scrollbar styles */
+.gantt ::-webkit-scrollbar {
+    background: silver;
+    height: 10px;
+}
+
+.gantt ::-webkit-scrollbar-thumb {
+    background: gray;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0 inset;
+    -moz-box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0 inset;
+    box-shadow: rgba(255, 255, 255, 0.1) 0 1px 0 inset;
+}
+
+/* selection styles */
+.gantt ::-moz-selection {
+    background: #fff;
+    color: #000;
+}
+
+.gantt ::selection {
+    background: #fff;
+    color: #000;
+}
+
+.taskDepLine {
+    border: 1px solid #9999ff;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: rgba(168, 168, 168, 0.7) 0 0 10px;
+}
+
+.arrowRigth {
+    background-image: url(src/arrowRigth.png);
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+}
+
+.arrowLeft {
+    background-image: url(src/arrowLeft.png);
+    width: 14px;
+    height: 14px;
+    background-repeat: no-repeat;
+}
+
+.popover-title {
+    padding: 8px 14px;
+    font-weight: bold;
+}
+
+.popover-content {
+    padding: 8px 14px;
+}

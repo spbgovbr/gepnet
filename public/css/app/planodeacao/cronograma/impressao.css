@@ -1,0 +1,20 @@
+
+.nome-grupo {
+    font-weight: bold;
+    font-size: 10px;
+}
+
+td .nome-entrega {
+    padding-left: 15px;
+    font-style: italic;
+
+}
+
+td .nome-atividade {
+    padding-left: 30px;
+    font-style: italic;
+}
+
+.centralizado {
+    text-align: center;
+}

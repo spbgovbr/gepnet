@@ -1,0 +1,303 @@
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<table align="center" border="0" width="800px">
+    <tr valign="top">
+        <td align="left" style="padding-top: 10px;">
+            <h3>1.1 INFORMAÇÕES INICIAIS</h3>
+        </td>
+    </tr>
+    <tr align="center" style="margin-top: 20px">
+        <td style="padding-left: 20px;">
+            <table style="width: 100%;" border="1" cellpadding="1" cellspacing="1">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="width:80%;">
+                </colgroup>
+                <tbody>
+                <tr valign="top">
+                    <td style="width:20%;">CÓDIGO DO PROJETO</td>
+                    <td style="width:80%;"><?php echo($this->processo->nomcodigo); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>TÍTULO DO PROJETO</td>
+                    <td><?php echo($this->processo->nomprojeto); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PROGRAMA</td>
+                    <td><?php echo($this->processo->programa["nomprograma"]); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>ALINHAMENTO ESTRATÉGICO</td>
+                    <td><?php echo($this->processo->objetivo["nomobjetivo"]); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>NATUREZA</td>
+                    <td><?php echo($this->processo->natureza["nomnatureza"]); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>ÁREA EXECUTORA</td>
+                    <td><?php echo($this->processo->setor["nomsetor"]); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PATROCINADOR</td>
+                    <td><?php echo($this->processo->nompatrocinador); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>DEMANDANTE</td>
+                    <td><?php echo($this->nomdemandante); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>ESCRITÓRIO RESPONSÁVEL</td>
+                    <td><?php echo($this->processo->escritorio->sigla); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>GERENTE DE PROJETO</td>
+                    <td><?php echo($this->processo->nomgerenteprojeto); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>GERENTE ADJUNTO</td>
+                    <td><?php echo($this->processo->nomgerenteadjunto); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>ORÇAMENTO PREVISTO</td>
+                    <td>R$<?php echo($this->valor); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PRAZO PREVISTO PARA PROJETO</td>
+                    <td> De: <?php echo mb_substr($this->processo->datinicio, 0, 10) ?>
+                        Até: <?php echo mb_substr($this->processo->datfim, 0, 10) ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PRAZO PARA DESENVOLVIMENTO<br/>DO PLANO DO PROJETO</td>
+                    <td> De: <?php echo mb_substr($this->processo->datinicioplano, 0, 10) ?>
+                        Até: <?php echo mb_substr($this->processo->datfimplano, 0, 10) ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>Nº DO PROCESSO</td>
+                    <td><?php echo $this->numProcessoSei; ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 10px;">
+            <h3>1.2 INFORMAÇÕES TÉCNICAS</h3>
+        </td>
+    </tr>
+    <tr align="center" style="margin-top: 20px">
+        <td style="padding-left: 20px;">
+            <table style="width: 100%;" border="1" cellpadding="1" cellspacing="1">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="width:80%;">
+                </colgroup>
+                <tbody>
+                <tr valign="top">
+                    <td style="width:20%;">JUSTIFICATIVA DO PROJETO</td>
+                    <td style="width:80%;"><?php echo(nl2br($this->processo->desjustificativa)); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>OBJETO DO PROJETO (O QUE SERÁ FEITO?)</td>
+                    <td><?php echo(nl2br($this->processo->desprojeto)); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>OBJETIVO DO PROJETO (PARA QUE SERÁ FEITO?)</td>
+                    <td><?php echo(nl2br($this->processo->desobjetivo)); ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 10px;">
+            <h3>1.3 RESUMO DO PROJETO</h3>
+        </td>
+    </tr>
+    <tr align="center" style="margin-top: 20px">
+        <td style="padding-left: 20px;">
+            <table style="width: 100%;" border="1" cellpadding="1" cellspacing="1">
+                <colgroup>
+                    <col style="width:20%;">
+                    <col style="width:80%;">
+                </colgroup>
+                <tbody>
+                <tr valign="top">
+                    <td style="width:20%;">ESCOPO RESUMIDO (PRINCIPAIS ENTREGAS)</td>
+                    <td style="width:80%;"><?php echo(nl2br($this->processo->desescopo)); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>NÃO ESCOPO (O QUE NÃO SERÁ FEITO?)</td>
+                    <td><?php echo(nl2br($this->processo->desnaoescopo)); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PREMISSAS</td>
+                    <td><?php echo(nl2br($this->processo->despremissa)); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>RESTRIÇÕES</td>
+                    <td><?php echo(nl2br($this->processo->desrestricao)); ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 10px;">
+            <h3>1.4 PARTES INTERESSADAS</h3>
+        </td>
+    </tr>
+    <tr align="center" style="margin-top: 20px">
+        <td style="padding-left: 20px;">
+            <table style="width: 100%;" border="1" cellpadding="1" cellspacing="1">
+                <colgroup>
+                    <col style="width: 35%">
+                    <col style="width: 20%">
+                    <col style="width: 20%">
+                    <col style="width: 25%">
+                    <col style="width: 10%">
+                </colgroup>
+                <thead>
+                <th>Nome</th>
+                <th>Função</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Nível Influência</th>
+                </thead>
+                <tbody>
+                <?php if (count($this->processo->partes) > 0): ?>
+                    <?php foreach ($this->processo->partes->getIterator() as $parte): ?>
+                        <tr>
+                            <td><?php echo($parte['nomparteinteressada']); ?></td>
+                            <td><?php echo($parte['nomfuncao']); ?></td>
+                            <td><?php echo($parte['destelefone']); ?></td>
+                            <td><?php echo($parte['desemail']); ?></td>
+                            <td><?php echo($parte['domnivelinfluencia']); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5">Partes Interessadas não cadastradas no sistema.</td>
+                    </tr>
+                <?php endif; ?>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 10px;">
+            <h3>1.5 DEMAIS INFORMAÇÕES</h3>
+        </td>
+    </tr>
+    <tr align="center" style="margin-top: 20px">
+        <td style="padding-left: 20px;">
+            <table style="width: 100%;" border="1" cellpadding="1" cellspacing="1">
+                <colgroup>
+                    <col style="width:40%;">
+                    <col style="width:60%;">
+                </colgroup>
+                <tbody>
+                <tr valign="top">
+                    <td style="width:40%;">TIPO DE PROJETO</td>
+                    <td style="width:60%;"><?php echo($this->processo->domtipoprojeto); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PROJETO DA COPA</td>
+                    <td><?php echo($this->grandesEventos); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PERIODICIDADE DE ATUALIZAÇÃO (DIAS)</td>
+                    <td><?php echo($this->processo->numperiodicidadeatualizacao); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>CRITÉRIO DO FAROL (DIAS)</td>
+                    <td><?php echo($this->processo->numcriteriofarol); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>PUBLICAR NA TELA MESTRA</td>
+                    <td><?php echo($this->telaMestra); ?></td>
+                </tr>
+                <tr valign="top">
+                    <td>APROVADO</td>
+                    <td><?php echo($this->aprovado); ?></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" style="padding-top: 40px;">
+            <h3>1.6 APROVAÇÃO DO PATROCINADOR</h3>
+            <div align="center">
+                <table class="span10">
+                    <colgroup>
+                        <col style="width: 150px">
+                        <col style="width: 15px">
+                        <col style="width: 15px">
+                    </colgroup>
+                    <tbody style="text-align: center">
+                    <tr style="vertical-align: bottom">
+                        <td><?php echo $this->processo->nompatrocinador; ?></td>
+                        <td>____________________________________________</td>
+                        <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                    </tr>
+                    <tr style="vertical-align: top">
+                        <td><b>Patrocinador</b></td>
+                        <td><b>Assinatura</b></td>
+                        <td><b>Data da Aprovação</b></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr align="left" style="margin-top: 10px">
+        <div align="left" class="span5" style="margin-top: 30px;margin-bottom: 10px">
+            <h3>1.7 CIÊNCIA DO GERENTE DE PROJETO</h3>
+        </div>
+        <div align="center">
+            <table class="span10">
+                <colgroup>
+                    <col style="width: 150px">
+                    <col style="width: 15px">
+                    <col style="width: 15px">
+                </colgroup>
+                <tbody style="text-align: center">
+                <tr style="vertical-align: bottom">
+                    <td><?php echo $this->processo->nomgerenteprojeto; ?></td>
+                    <td>____________________________________________</td>
+                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                </tr>
+                <tr style="vertical-align: top">
+                    <td><b>Gerente do Projeto</b></td>
+                    <td><b>Assinatura</b></td>
+                    <td><b>Data da Aprovação</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </tr>
+    <tr>
+        <div align="center" style="margin-top: 40px;">
+            <table class="span10">
+                <colgroup>
+                    <col style="width: 150px">
+                    <col style="width: 15px">
+                    <col style="width: 15px">
+                </colgroup>
+                <tbody style="text-align: center">
+                <tr style="vertical-align: bottom">
+                    <td><?php echo $this->processo->nomgerenteadjunto; ?></td>
+                    <td>____________________________________________</td>
+                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                </tr>
+                <tr style="vertical-align: top">
+                    <td><b>Gerente Adjunto</b></td>
+                    <td><b>Assinatura</b></td>
+                    <td><b>Data da Aprovação</b></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </tr>
+</table>
+

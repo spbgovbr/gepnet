@@ -1,0 +1,120 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/gerencia/configurar.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+
+?>
+
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'configuracao', 'idprojeto' => $this->idprojeto));
+    ?>
+</div>
+
+<div class="region-center">
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>"/>
+    <div class="portlet portlet-marron span12">
+        <h3>Partes Interessadas</h3>
+        <div class="row span12">
+            <div>&nbsp;</div>
+
+            <div id="listagemInteressados" class="row">
+                <?php if (count($this->dados) > 0): ?>
+                    <table class="table table-bordered table-hover table-striped span10">
+                        <colgroup>
+                            <col style="width: 150px">
+                            <col style="width: 150px">
+                            <col style="width: 50px">
+                            <col style="width: 50px">
+                            <col style="width: 50px">
+                            <col style="width: 25px">
+                        </colgroup>
+                        <thead>
+                        <th>Nome</th>
+                        <th>Função</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Nível Influência</th>
+                        <th style="text-align: center">Operações</th>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->dados as $data) : ?>
+                            <tr>
+                                <td>
+                                    <?php echo $data->nomparteinteressada; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->nomfuncao; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->destelefone; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->desemail; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->domnivelinfluencia; ?>
+                                </td>
+                                <td style="text-align:center;">
+                                    <?php $params = '/idparteinteressada/' . $data->idparteinteressada .
+                                        '/idpessoa/' . $data->idpessoainterna; ?>
+
+                                    <a data-target="#dialog-editar" class='btn actionfrm editar gerenciarbutton'
+                                       title='Gerenciar Permissões' href="<?php
+                                    echo $this->url(array(
+                                            'module' => 'projeto',
+                                            'controller' => 'gerencia',
+                                            'action' => 'editarpermissao'
+                                        )) . $params; ?>">
+                                        <i class='icon-edit'></i>
+                                    </a>
+                                    <a data-target="#dialog-detalhar" class='btn actionfrm detalhar detalharbutton'
+                                       title='Detalhar Permissões' href="<?php
+                                    echo $this->url(array(
+                                            'module' => 'projeto',
+                                            'controller' => 'gerencia',
+                                            'action' => 'detalharpermissao'
+                                        )) . $params; ?>">
+                                        <i class='icon-tasks'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div id="nenhumregistro" class="alert alert-block" style="display: none">Nenhum registro
+                        encontrado
+                    </div>
+                <?php else: ?>
+                    <div id="nenhumregistro" class="alert alert-danger">Nenhum registro encontrado</div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog-editar" style="display: none"></div>
+<div id="dialog-detalhar" style="display: none"></div>
+
+
+

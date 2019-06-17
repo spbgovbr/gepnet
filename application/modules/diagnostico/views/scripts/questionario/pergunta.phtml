@@ -1,0 +1,42 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pergunta/edit.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pergunta/opcoes-resposta.js'), 'text/javascript');
+?>
+<div class="region-center">
+    <?php echo $this->partial('_partials/questionario-menu.phtml', array('dados' => 'pergunta')); ?>
+    <input type="hidden" name="idquestionario" id="idquestionario" value="<?php echo $this->idquestionario; ?>"/>
+    <div class="form-actions form-actions-mini" style="margin-left: 30px !important;">
+        <div class="btn-group">
+            <a id="btn-t" data-target="#dialog-incluir" href="<?php echo $this->url(
+                array(
+                    'module' => 'diagnostico',
+                    'controller' => 'questionario',
+                    'action' => 'pergunta-add',
+                )); ?>" class="btn btn-primary incluir">Nova Pergunta</a>
+        </div>
+    </div>
+    <div style="margin-left: 30px !important;">
+        <table id="list-grid"></table>
+        <div id="toolbar-grid"></div>
+        <div id="pager-grid"></div>
+        <div id="dialog-incluir" style="display: none"></div>
+        <div id="dialog-editar" style="display: none"></div>
+        <div id="dialog-excluir" style="display: none"></div>
+        <div id="dialog-opcao-resposta" style="display: none"></div>
+    </div>
+
+</div>

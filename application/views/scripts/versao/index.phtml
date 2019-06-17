@@ -1,0 +1,71 @@
+<?php
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'), 'screen, projection')
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'), 'screen, projection')
+    //->appendStylesheet ( $this->baseUrl ( '/css/app/versaoSistema/bootstrap-3.3.7.css' ))
+    ->appendStylesheet($this->baseUrl('/css/app/versaoSistema/versao.css?' . time()), 'screen, projection');
+
+$this->headScript()
+    //->appendFile($this->baseUrl('/js/app/versaoSistema/jquery-3.1.1.js'), 'text/javascript')
+    //->appendFile($this->baseUrl('/js/app/versaoSistema/bootstrap.min-3.3.7.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/versaoSistema/jQuery-QuickSearch.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/versaoSistema/jquery.mark.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/versaoSistema/versao.js?' . time()), 'text/javascript');
+
+?>
+<div class="region-center">
+    <div class="row span12">
+        <ul class="breadcrumb">
+            <li><a
+                        href="<?php echo $this->url(array(
+                            'module' => 'default',
+                            'controller' => 'index',
+                            'action' => 'boas-vindas'
+                        )); ?>">Home</a>
+                <span class="divider">/</span></li>
+            <li class="active">Nota de Vers&atilde;o</li>
+        </ul>
+    </div>
+    <div class="row span12">
+        <div class="form-group input-group">
+            <input name="consulta" id="txt_consulta" placeholder="Consultar" type="text" class="form-control">
+            <span class="input-group-addon"><i class="icon-search" title="Pesquisa"></i></i></span>
+        </div>
+    </div>
+
+    <div class="row span12">
+        <?php
+        //Zend_Debug::dump(count($this->html->corpoHTML));exit;
+        if (count($this->html->corpoHTML) > 0) { ?>
+            <div class="accordion" id="accordion2">
+                <?php for ($i = 1; $i < count($this->html->corpoHTML); $i++) {
+                    $tags = array();
+                    $tags = explode("</h1>", $this->html->corpoHTML[$i]); ?>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                               href="#collapse<?= $i; ?>"><?php echo 'Vers&atilde;o ' . $tags[0]; ?>
+                                <i id="img<?= $i; ?>" class="icon-chevron-right"></i>
+                            </a>
+
+                        </div>
+                        <div id="collapse<?= $i; ?>"
+                             class="accordion-body collapse <?php echo ($i == 1) ? 'in' : ''; ?>">
+                            <div class="accordion-inner"><?php echo $tags[1]; ?></div>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } else { ?>
+            <div class="alert">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Atenção!</strong> Informo que não existe versionamento para esta aplicação até o momento.
+            </div>
+        <?php } ?>
+    </div>
+
+</div>

@@ -1,0 +1,40 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <div class="portlet portlet-cinza">
+        <div class="content">
+            <div class="row">
+                <div class="portlet portlet-cinza span8">
+                    <div class="title">Grupo</div>
+                    <div class="content"><?php echo $this->entrega['grupo']->nomatividadecronograma; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Nome da Entrega</div>
+                    <div class="content"><?php echo $this->entrega['nomatividadecronograma']; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Respons&aacute;vel pela aceita&ccedil;&atilde;o</div>
+                    <div class="content"><?php echo $this->entrega['nomparteinteressada']; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span8">
+                    <div class="title">Descri&ccedil;&atilde;o da Entrega</div>
+                    <div class="content"><?php echo $this->entrega['desobs']; ?></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-cinza span8">
+                    <div class="title">Crit&eacute;rio de Aceita&ccedil;&atilde;o / Desvio Aceit&acute;vel (Qualidade)
+                    </div>
+                    <div class="content"><?php echo $this->entrega['descriterioaceitacao']; ?></div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

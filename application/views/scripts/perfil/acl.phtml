@@ -1,0 +1,5 @@
+<p>User: <?php echo $this->user ?> - Role: <?php echo $this->role ?></p>
+
+<?php foreach ($this->allowed as $resource => $access) : ?>
+    <div>User: <?php echo $this->user ?> is <?php echo $access ?> access to <?php echo $resource ?></div>
+<?php endforeach; ?>

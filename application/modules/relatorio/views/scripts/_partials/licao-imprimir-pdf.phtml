@@ -1,0 +1,41 @@
+<div id="content">
+    <div class="region-center">
+        <div align="center">
+            <?php if ((isset($this->relatorio) && count($this->relatorio) > 0) && (is_array($this->relatorio))) : ?>
+                <table class="table table-striped table-hover table-bordered" border="1">
+                    <tr>
+                        <td nowrap="true" colspan="7" style="font-weight: bold;font-size: 18px;">Relatório - Lições
+                            Aprendidas
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;font-size: 16px;">Projeto</td>
+                        <td style="font-weight: bold;font-size: 16px;">Entrega</td>
+                        <td style="font-weight: bold;font-size: 16px;">Resultados&nbsp;Obtidos</td>
+                        <td style="font-weight: bold;font-size: 16px;">Pontos&nbsp;Fortes</td>
+                        <td style="font-weight: bold;font-size: 16px;">Pontos&nbsp;Fracos</td>
+                        <td style="font-weight: bold;font-size: 16px;">Sugestões</td>
+                        <td style="font-weight: bold;font-size: 16px;">Cadastro</td>
+                    </tr>
+                    <tbody>
+                    <?php foreach ($this->relatorio as $row): ?>
+                        <tr>
+                            <td style="width: 20%;font-size: 14px;"><?php echo $row['nomcodigo'] . '&nbsp;-&nbsp;' . $row['nomprojeto'] ?></td>
+                            <td style="width: 20%;font-size: 14px;"><?php echo $row['nomatividadecronograma'] ?></td>
+                            <td style="width: 15%;font-size: 14px;"><?php echo $row['desresultadosobtidos'] ?></td>
+                            <td style="width: 34%;font-size: 14px;"><?php echo $row['despontosfortes'] ?></td>
+                            <td style="width: 10%;font-size: 14px;"><?php echo $row['despontosfracos'] ?></td>
+                            <td style="width: 39%;font-size: 14px;"><?php echo $row['dessugestoes'] ?></td>
+                            <td style="width: 2%;font-size: 14px;"><?php echo $row['datcadastro'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <tr>
+                    <td colspan="7">Nenhum registro encontrado.</td>
+                </tr>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

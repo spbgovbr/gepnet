@@ -1,0 +1,56 @@
+<?php
+$this->headLink()
+    // ->appendStylesheet($this->baseUrl('/js/jquery.jqGrid-4.4.0/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/app/default/parecer/pesquisar.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="row">
+    <div class="portlet portlet-marron span12">
+        <div class="title">Pesquisar</div>
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->ds_referen_par; ?>
+                    </div>
+
+                    <div class="span3">
+                        <?php echo $this->form->ds_autor_par; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->ds_expedient_par; ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $this->form->ds_assunto_par; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span11 frm-actions">
+                        <?php echo $this->form->submit; ?>
+                        <?php echo $this->form->reset; ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<table id="list2"></table>
+<div id="toolbar2"></div>
+<div id="pager2"></div>
+<div class="row">
+</div>

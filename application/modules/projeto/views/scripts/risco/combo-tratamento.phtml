@@ -1,0 +1,11 @@
+<div id="combobox">
+    <label>Tratamento</label>
+    <select name="domtratamento" id="domtratamento" class="span2">
+        <option value="">Selecione</option>
+        <?php foreach ($this->tratamento as $k => $selectTratamento) : ?>
+            <option value="<?php echo $k; ?>">
+                <?php echo $selectTratamento; ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</div>

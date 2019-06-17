@@ -1,0 +1,126 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pesquisacidadao/pesquisacidadao.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pesquisacidadao/responderquestionariocidadao.js'),
+        'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'cidadao', 'iddiagnostico' => $this->iddiagnostico));
+    ?>
+</div>
+<div class="region-center">
+    <?php echo $this->partial('_partials/questionario-pesquisacidadao-menu.phtml', array('dados' => $this->aba)); ?>
+
+    <div class="portlet portlet-marron span10">
+        <h3>Responder
+            Questionário: <?php echo $this->questionario['numero'] . " - " . $this->questionario['nomquestionario']; ?></h3>
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <?php if (!empty($this->perguntas) && count($this->perguntas) > 0) : ?>
+                    <?php
+                    $idSecaoTeste = null;
+                    $idPergunta = null;
+                    foreach ($this->perguntas as $pergunta) :
+                        if (!empty($pergunta['idpergunta'])) : ?>
+                            <?php if ($idSecaoTeste != $pergunta['id_secao']) : ?>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <label class="labelSecao">Seção:&nbsp;&nbsp;<?php echo $pergunta['ds_secao']; ?></label>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($idPergunta != $pergunta['idpergunta'] && $pergunta['id_secao'] != 1 && $pergunta['id_secao'] != 2) : ?>
+                                <div class="row-fluid">
+                                    <div class="span12">
+                                        <label class="labelPergunta <?php echo ($pergunta['ativa'] == true) ? 'required' : ''; ?>">&nbsp;&nbsp;<?php echo $pergunta['posicao'] . "."; ?>
+                                            &nbsp;&nbsp;<?php echo $pergunta['dstitulo']; ?></label>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            <?php switch ($pergunta['tipopergunta']) :
+                                case '1' : ?>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                                <textarea rows="2" style="width: 96%"
+                                                          class="textareaResposta"
+                                                          maxlength="300"
+                                                          name="textareaResposta[<?php echo $pergunta['idpergunta']; ?>][]"
+                                                          id="textareaResposta[<?php echo $pergunta['idpergunta']; ?>]"></textarea>
+                                            <div><span class="caracteres">300</span> Restantes</div>
+                                        </div>
+                                    </div>
+                                    <?php break;
+                                case '2' : ?>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <label class="checkbox">
+                                                <input type="checkbox"
+                                                       name="checkbox[<?php echo $pergunta['idpergunta']; ?>][<?php echo $pergunta['idresposta']; ?>]"
+                                                       id="checkbox[<?php echo $pergunta['idpergunta']; ?>][<?php echo $pergunta['idresposta']; ?>]"
+                                                       value="<?php echo $pergunta['idresposta']; ?>"/>&nbsp;&nbsp;<?php echo $pergunta['resposta']; ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <?php break;
+                                case '3' :
+                                    ?>
+                                    <div class="row-fluid">
+                                        <div class="span12">
+                                            <input type="radio"
+                                                   name="radio[<?php echo $pergunta['idpergunta']; ?>]"
+                                                   id="radio[<?php echo $pergunta['idpergunta']; ?>]"
+                                                   class="radioButton"
+                                                   value="<?php echo $pergunta['idresposta']; ?>"/>&nbsp;&nbsp;<?php echo $pergunta['resposta']; ?>
+                                        </div>
+                                    </div>
+                                    <?php break; ?>
+                                <?php endswitch; ?>
+                            <?php $idSecaoTeste = $pergunta['id_secao']; ?>
+                            <?php $idPergunta = $pergunta['idpergunta']; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="span12">
+                        <input type="hidden" name="tpquestionario" id="tpquestionario" value="1"/>
+                        <?php echo $this->form->iddiagnostico; ?>
+                        <?php echo $this->form->idquestionariodiagnostico; ?>
+                        <?php echo $this->form->idpessoaresponde; ?>
+                        <?php echo $this->form->numero; ?>
+                        <?php echo $this->form->submit; ?>
+                        <?php echo $this->form->reset; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span12">
+                        <div style="margin-left: 68%;margin-top: 10px;">
+                            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                            obrigatório
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,184 @@
+<table width="20%" style="table-layout: fixed;">
+    <tr>
+        <td align="center">Relatório do Cronograma</td>
+    </tr>
+    <tr>
+        <td>Filtro da Pesquisa</td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomprograma'])) ?
+                '<li>Programa: ' . $this->parametros['nomprograma'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomescritorio'])) ?
+                '<li>Escritório: ' . $this->parametros['nomescritorio'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomprojeto'])) ?
+                '<li>Nome do Projeto: ' . $this->parametros['nomprojeto'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomresponsavel'])) ?
+                '<li>Responsável: ' . $this->parametros['nomresponsavel'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomelementodespesa'])) ?
+                '<li>Elemento de despesa: ' . $this->parametros['nomelementodespesa'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['statusprojeto'])) ?
+                '<li>Status do Projeto: ' . $this->parametros['statusprojeto'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['inicial_dti'])) ?
+                '<li>Período início da Atividade - Data Início: ' . $this->parametros['inicial_dti'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['inicial_dtf'])) ?
+                '<li>Período início da Atividade - Data Fim: ' . $this->parametros['inicial_dtf'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['final_dti'])) ?
+                '<li>Período fim da Atividade - Data Início: ' . $this->parametros['final_dti'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['final_dtf'])) ?
+                '<li>Período fim da Atividade - Data Fim: ' . $this->parametros['final_dtf'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+    <tr>
+        <td width="60">
+            <?php echo (!empty($this->parametros['nomstatusatividade'])) ?
+                '<li>Status da Atividade: ' . $this->parametros['nomstatusatividade'] . '</li>' : ''; ?>
+        </td>
+    </tr>
+</table>
+<table width="20%" style="table-layout: fixed;">
+    <tr>
+        <td>Custo total dos projetos listados:
+            <?php echo $this->custoTodosProjetos ?>
+        </td>
+        <td>Total de Registros encontrados:
+            <?php echo $this->qtdeRegistros ?>
+        </td>
+    </tr>
+</table>
+
+<?php
+if (count($this->resultado) > 0):
+    foreach ($this->resultado as $res): ?>
+        <table width="20%" style="table-layout: fixed;">
+            <tr>
+                <td width="60">
+                    <?php echo $res['idprograma'] ?>
+                    <?php echo $res['idescritorio'] . ' - ' . $res['nomprojeto'] ?> (<?php echo $res['statusprojeto'] ?>
+                    )
+                </td>
+                <td>Início: <?php echo $res['datinicio']; ?> </td>
+                <td>Fim: <?php echo $res['datfim']; ?></td>
+                <td>Custo: <?php echo $res['custoProjeto']; ?></td>
+                <td>Previsto Atual: <?php echo $res['numpercentualprevisto']; ?>%</td>
+                <td>Concluído Atual: <?php echo $res['numpercentualconcluido']; ?>%</td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>Grupo/Evento/Atividade</td>
+                <td>Base Line</td>
+                <td>Real</td>
+                <td>%</td>
+                <td>Responsável</td>
+                <td>Farol</td>
+            </tr>
+            <tbody>
+            <?php if (isset($res['grupos'])):
+                foreach ($res['grupos'] as $gr):
+                    if ($gr['show']): ?>
+                        <tr>
+                            <td><?php echo $gr['nomatividadecronograma'] ?> </td>
+                            <td> <?php echo isset($gr['datiniciobaseline']) ? $gr['datiniciobaseline'] : ''; ?> -
+                                <?php echo isset($gr['datfimbaseline']) ? $gr['datfimbaseline'] : '' ?>
+                            </td>
+                            <td> <?php echo isset($gr['datinicio']) ? $gr['datinicio'] : ''; ?> -
+                                <?php echo isset($gr['datfim']) ? $gr['datfim'] : '' ?>
+                            </td>
+                            <td> <?php echo $gr['numpercentualconcluido'] ?>%</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if (isset($gr['entregas'])):
+                    foreach ($gr['entregas'] as $en):
+                        if ($en['show']): ?>
+                            <tr>
+                                <td><?php echo $en['nomatividadecronograma'] ?> </td>
+                                <td><?php echo $en['datiniciobaseline'] . ' - ' . $en['datfimbaseline'] ?> </td>
+                                <td><?php echo $en['datinicio'] . ' - ' . $en['datfim'] ?> </td>
+                                <td><?php echo $en['numpercentualconcluido'] ?>%</td>
+                                <td><?php echo $en['desemail'] ?> </td>
+                                <td>
+                                    <span class="badge badge-<?php echo (int)$en['numpercentualconcluido'] == 100 ? "" : $en['descricaoprazo'] ?>"
+                                          title="<?php echo $en['dias'] ?>"><?php echo $en['prazo'] ?></span></td>
+                            </tr>
+                        <?php endif; ?>
+                        <?php if (isset($en['atividades'])):
+                        foreach ($en['atividades'] as $at):
+                            if ($at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_COMUM && $at['showAtividade']): ?>
+                                <tr>
+                                    <td><?php echo $at['nomatividadecronograma'] ?> </td>
+                                    <td><?php echo $at['datiniciobaseline'] . ' - ' . $at['datfimbaseline'] ?> </td>
+                                    <td><?php echo $at['datinicio'] . ' - ' . $at['datfim'] ?> </td>
+                                    <td><?php echo $at['numpercentualconcluido'] ?>%</td>
+                                    <td><?php echo $at['desemail'] = isset($at['desemail']) ? $at['desemail'] : ""; ?> </td>
+                                    <td><span class="badge badge-<?php echo $at['descricaoprazo'] ?>"
+                                              title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span></td>
+                                </tr>
+                            <?php elseif ($at['domtipoatividade'] == Projeto_Model_Atividadecronograma::TIPO_ATIVIDADE_MARCO && $at['showMarco']): ?>
+                                <tr class="<?php echo $at['retornaDescricaoConclusao'] ?> ">
+                                    <td style="padding-left: 30px;"><i
+                                                class="icon-flag"></i> <?php echo $at['nomatividadecronograma'] ?> </td>
+                                    <td> <?php echo $at['datiniciobaseline'] . ' - ' . $at['datfimbaseline'] ?> </td>
+                                    <td> <?php echo $at['datinicio'] . ' - ' . $at['datfim'] ?> </td>
+                                    <td> <?php echo $at['numpercentualconcluido'] ?>%;</td>
+                                    <td>
+                                        <?php
+                                        echo $at['desemail'] = isset($at['desemail']) ? $at['desemail'] : "";
+                                        ?>
+                                    </td>
+                                    <td><span class="badge badge-<?php echo $at['descricaoprazo'] ?>"
+                                              title="<?php echo $at['prazo'] ?>"><?php echo $at['prazo'] ?></span></td>
+                                </tr>
+                            <?php endif; ?>
+                        <?php endforeach;
+                    endif; ?>
+                    <?php endforeach;
+                endif; ?>
+                <?php
+                endforeach;
+            endif; ?>
+            </tbody>
+        </table>
+    <?php endforeach;
+else:
+    'Não foram encontrados Registros.';
+endif;
+?>

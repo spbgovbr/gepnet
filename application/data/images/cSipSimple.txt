@@ -1,0 +1,18 @@
+usuario: 071 139 469 5
+servidor: 189.125.145.99:5060
+protocolo: udp
+
+configuração rapida
+integrar com android: não
+-perfil de disponibilidade: disponivel com wifi
+
+
+-Nat transversal: habilitar STUN
+
+-Para ligações de entrada
+Usar wifi
+Utilizar outras redes
+
+Para ligações de saida
+usar wifi
+utilizar outras redes

@@ -1,0 +1,302 @@
+<script>
+    //$( document ).ready(function() {
+    //    $("#menuquest")
+    //        .find('li.active')
+    //        .removeClass('disabled')
+    //        .addClass('enabled');
+    //    $('#menuquest')
+    //        .find('a').unbind('click');
+    //
+    //    $('#menuquest')
+    //        .find('a').on("click", function (e) {
+    //            e.find('li.active')
+    //            e.removeClass('disabled')
+    //            e.addClass('enabled');
+    //        });
+    //
+    //    $.pnotify.defaults.history = false;
+    //
+    //    $("body").on("click", "#submitbutton", function (e) {
+    //
+    //        var $form = $('#add');
+    //
+    //        $form.validate().form();
+    //        if ($form.valid()) {
+    //            var param = $form.serialize();
+    //            $.ajax({
+    //                url: base_url + '/diagnostico/questionario/pergunta-add/format/json',
+    //                dataType: 'json',
+    //                type: 'POST',
+    //                data: param,
+    //                success: function (data) {
+    //                    $("#divTab").load(location.href+" #divTab>*","");
+    //                    if (data.success == true) {
+    //                        $.pnotify(data.msg.text);
+    //                        setTimeout(function() {
+    //                            window.location.href = base_url + "/diagnostico/questionario/pergunta/idquestionariodiagnostico/" +
+    //                                  $('#idquestionariodiagnostico').val();
+    //                        }, 1000);
+    //                    } else {
+    //                        $.pnotify(data.msg.text);
+    //                        setTimeout(function() {
+    //                            window.location.href = base_url + "/diagnostico/questionario/pergunta/idquestionariodiagnostico/" +
+    //                                  $('#idquestionariodiagnostico').val();
+    //                        }, 1000);
+    //                    }
+    //                },
+    //                error: function () {
+    //                    $.pnotify({
+    //                        text: 'Falha ao enviar a requisição',
+    //                        type: 'error',
+    //                        hide: false
+    //                    });
+    //                }
+    //            });
+    //            // evita propagação
+    //            e.stopImmediatePropagation();
+    //        } else {
+    //            return false;
+    //        }
+    //    });
+    //
+    //    $( '#tiporegistro, .form-check-input' ).on('click', function() {
+    //        if($("#tiporegistro option:selected").val() == 2) {
+    //            $("#tipopergunta option[value='']").remove('selected','selected');
+    //            $("#tipopergunta option[value=1]").attr('selected','selected');
+    //            $("#tipopergunta").attr('disabled','true');
+    //            $("#tipopergunta").append('<option value=1 selected="selected">Resposta</option>');
+    //        } else {
+    //            $("#tipopergunta option[value=1]").removeAttr("selected");
+    //            $("#tipopergunta").removeAttr("disabled", 'false');
+    //            $("#tipopergunta option[value=1]").remove();
+    //        }
+    //    });
+    //
+    //    $( '#tiporegistro, #tipopergunta, .form-check-input' ).on('click', function() {
+    //        if($("#tipopergunta option:selected").val() != "") {
+    //            $('#tipoperguntaHidden').val($("#tipopergunta option:selected").val());
+    //        } else {
+    //            $('#tipoperguntaHidden').val($("#tipopergunta option:selected").val());
+    //        }
+    //    });
+    //
+    //    if($("#tipopergunta option:selected").val() != "") {
+    //            $('#tipoperguntaHidden').val($("#tipopergunta option:selected").val());
+    //    } else {
+    //        $('#tipoperguntaHidden').val($("#tipopergunta option:selected").val());
+    //    }
+    //
+    //    if($('#tipopergunta').val() == 2 || $('#tipopergunta').val() == 3) {
+    //        $('#resposta').show();
+    //    } else {
+    //        $('#resposta').hide();
+    //    }
+    //
+    //    if($('#tiporegistro').val() == 2) {
+    //        $("#tipopergunta").attr('disabled','true');
+    //        $("#tipopergunta").append('<option value=1 selected="selected">Resposta</option>');
+    //    } else {
+    //        $("#tipopergunta").removeAttr("disabled", 'false');
+    //        $("#tipopergunta option[value=1]").remove();
+    //    }
+    //
+    //    $( '#tipopergunta, #tiporegistro, .form-check-input' ).on('click', function() {
+    //        if( ($("#tipopergunta option:selected").val() == 2 || $("#tipopergunta option:selected").val() == 3)
+    //             ) {
+    //            $('#resposta').show();
+    //        } else {
+    //            $('#resposta').hide();
+    //        }
+    //    });
+    //
+    //    $('#posicao').on('blur', function() {
+    //        if (($('#posicaocad').val().split('|').indexOf($(this).val()) != -1)
+    //        && ($('#posicaoat').val() != $(this).val())) {
+    //           $('#posicao').parent().addClass('error');
+    //           $('#posicao').parent().append('<label id="error" for="posicao" class="error poser">Já existe posição n° '+$(this).val()+'.</label>');
+    //           $("#submitbutton").attr('disabled','true');
+    //        } else {
+    //           $("#submitbutton").removeAttr("disabled", 'false');
+    //           $('#posicao').parent().removeClass('error');
+    //           $('.poser').remove();
+    //       }
+    //    });
+    //
+    //
+    //    $(document).ready(function() {
+    //        var max_fields = 50; //maximum input boxes allowed
+    //        var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    //        var add_button = $(".add_field_button"); //Add button ID
+    //
+    //        var x = 1; //initlal text box count
+    //        $(add_button).click(function(e) { //on add input button click
+    //            e.preventDefault();
+    //            var length = wrapper.find("input:text.textAdded").length;
+    //
+    //            if (x < max_fields) { //max input box allowed
+    //                x++; //text box increment
+    //                $(wrapper).append('<div>Opção de resposta: <input type="text" class="textAdded" value="" name="opRespta[]' + (length+1) + '" />\n\
+    //                    \n\ Escala: <input type="text" data-rule-required="1" class="span1" maxlength="10" value="" name="escala[]' + (length+1) + '" />\n\
+    //                    \n\ Ordem: <input type="text" data-rule-required="1" class="span1" maxlength="10"  value="" name="ordenacao[]' + (length+1) + '" />\n\
+    //                    ' +
+    //                    ' <a href="#" title="Remover" class="icon-minus-sign"></a></div>'); //add input box
+    //            }
+    //            //Fazendo com que cada uma escreva seu name
+    //            wrapper.find("input:text").each(function() {
+    //            });
+    //        });
+    //
+    //        $(wrapper).on("click", ".icon-minus-sign", function(e) { //user click on remove text
+    //            e.preventDefault();
+    //            $(this).parent('div').remove();
+    //            x--;
+    //        });
+    //    });
+    //
+    //    $('#posicao').keyup(function() {
+    //        $(this).val(this.value.replace(/\D/g, ''));
+    //    });
+    //
+    //    $('.icon-minus-sign').click(function(){
+    //
+    //        var idresposta;
+    //        idresposta = jQuery('.icon-minus-sign').attr("id");
+    //
+    //        var idpergunta;
+    //        idpergunta = jQuery('.icon-minus-sign').attr("dir");
+    //
+    //        var respquest = {
+    //            idresposta: idresposta,
+    //            idquestionario: idpergunta,
+    //            idquestionariodiagnostico :$('#idquestionariodiagnostico').val()
+    //        };
+    //
+    ////        var url = base_url + "/diagnostico/questionario/excluir-resp-questinario/idquestionariodiagnostico/" +
+    ////            $('#idquestionariodiagnostico').val();
+    //
+    //        $.ajax({
+    //           url: base_url + '/diagnostico/questionario/excluir-resp-questinario/format/json',
+    //           data: respquest,
+    //           type: 'POST'
+    //        }).success(function(data) {
+    //           if(data.success){
+    //                $.pnotify(data.msg.text);
+    //                setTimeout(function() {
+    //                    window.location.href = base_url + "/diagnostico/questionario/pergunta/idquestionariodiagnostico/" +
+    //                          $('#idquestionariodiagnostico').val();
+    //                }, 2000);
+    //            }
+    //        }).error(function() {
+    //           $.pnotify({
+    //                text: 'Falha ao enviar a requisição',
+    //                type: 'error',
+    //                hide: false
+    //            });
+    //        });
+    //    });
+    //
+    //});
+
+</script>
+<div>
+    <form id="add" name="add" action="" method="POST">
+        <div class="row">
+            <div class="form-group">
+                <div class="span12">
+                    <?php echo $this->form->posicao; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="span5">
+                    <?php echo $this->form->dspergunta; ?>
+                </div>
+                <div class="span5">
+                    <?php echo $this->form->dstitulo; ?>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="span2">
+                    <?php echo $this->form->id_secao; ?>
+                </div>
+                <div class="span3">
+                    <?php echo $this->form->tiporegistro; ?>
+                </div>
+
+                <div class="span3">
+                    <?php echo $this->form->tipopergunta; ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->ativa; ?>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="form-group">-->
+        <!--                <div class="span2">-->
+        <!--                    <button class="add_field_button" title="Clique no botão para adicionar as respostas">-->
+        <!--                        Nova Resposta-->
+        <!--                    </button>-->
+        <!--                </div>-->
+        <!--                <div class="span6">-->
+        <!--                    <div class="input_fields_wrap spna12" ></div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--        <div style="display: none" id="resposta">-->
+        <!--            <div class="row">-->
+        <!--                <div class="form-group">-->
+        <!--                    --><?php //if($this->respQuestionario > 0) :
+        //                        foreach ($this->respQuestionario as $q) : ?>
+        <!--                            <div class="span6">-->
+        <!--                                <label for="-->
+        <?php //echo $q['idresposta'];?><!--" class="control-label optional">Opção de resposta:</label>-->
+        <!--                                <input class="span6" type="text" name="opResposta[]" id="-->
+        <?php //echo $q['idresposta']; ?><!--"-->
+        <!--                                       dir="--><?php //echo $q["idpergunta"];?><!--" value="-->
+        <?php //echo $q["desresposta"]; ?><!--" />-->
+        <!--                            </div>-->
+        <!--                            <div class="span2">-->
+        <!--                                <label for="-->
+        <?php //echo $q['idresposta'];?><!--" class="control-label optional">Escala:</label>-->
+        <!--                                <input class="span2" type="text" name="escala[]" id="-->
+        <?php //echo $q['idresposta']; ?><!--"-->
+        <!--                                       dir="--><?php //echo $q["idpergunta"];?><!--" value="-->
+        <?php //echo $q["escala"]; ?><!--" />-->
+        <!--                            </div>-->
+        <!--                            <div class="span2">-->
+        <!--                                <label for="-->
+        <?php //echo $q['idresposta'];?><!--" class="control-label optional">Ordem:</label>-->
+        <!--                                <input class="span2" type="text" name="ordenacao[]" id="-->
+        <?php //echo $q['idresposta']; ?><!--"-->
+        <!--                                       dir="--><?php //echo $q["idpergunta"];?><!--" value="-->
+        <?php //echo $q["ordenacao"]; ?><!--" />-->
+        <!--                                <a href="#" id="-->
+        <?php //echo $q['idresposta']; ?><!--" title="Remover" dir="-->
+        <?php //echo $q["idpergunta"];?><!--" class="icon-minus-sign"></a>-->
+        <!--                            </div>-->
+        <!---->
+        <!--                        --><?php //endforeach; ?>
+        <!--                    --><?php //endif; ?>
+        <!---->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <div class="row" style="padding-top: 25px;">
+            <div class="span5">
+                <input type="hidden" id="tipoperguntaHidden" name="tipoperguntaHidden" value="">
+                <input type="hidden" id="posicaoat" name="posicaoat" value="<?php echo $this->posicaoat; ?>">
+                <input type="hidden" id="idquestionariodiagnostico" name="idquestionariodiagnostico"
+                       value="<?php echo $this->idquestionariodiagnostico; ?>">
+                <?php echo $this->form->posicaocad; ?>
+                <?php echo $this->form->idpergunta; ?>
+                <?php echo $this->form->submit; ?>
+                <?php echo $this->form->reset; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
+    </form>
+</div>

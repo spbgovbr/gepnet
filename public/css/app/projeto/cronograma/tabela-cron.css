@@ -1,0 +1,59 @@
+* {
+    position: relative;
+}
+
+.TableCSS table {
+    font-size: 11px;
+    /*color:#000;*/
+    width: 99.5%;
+    border-width: 1px;
+    border-color: #a9a9a9;
+    border-collapse: collapse;
+    zoom: 100%;
+    text-align: left;
+    margin-left: 0px;
+}
+
+.TableCSS th {
+    white-space: nowrap !important;
+    font-size: 11px;
+    background-color: #ffffff;
+    border-width: 1px;
+    padding: 3px;
+    border-style: solid;
+    border-color: #a9a9a9;
+    text-align: center;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    font-style: normal;
+
+}
+
+.TableCSS tr {
+    background-color: #ffffff;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    text-align: center;
+}
+
+.TableCSS td {
+    font-size: 11px;
+    border-width: 1px;
+    padding: 3px;
+    /*border-style: solid;*/
+    /*border-color: #a9a9a9;*/
+    text-align: left;
+    /*background-color: #ffffff;*/
+    /*padding-bottom: 0px;*/
+    /*padding-top: 0px;*/
+    /*color: black;*/
+}
+
+.TableCSS tbody {
+    border: none;
+}
+
+/*#tabCron tbody tr td {*/
+/*overflow-x: hidden;*/
+/*display: block;*/
+/*}*/

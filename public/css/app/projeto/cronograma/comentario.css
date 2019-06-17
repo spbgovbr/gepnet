@@ -1,0 +1,59 @@
+#comentario {
+    overflow-y: auto;
+    height: 20px;
+    width: auto;
+}
+
+.ui-dialog-content, .ui-widget-content {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.userComentario {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size: 9px;
+    color: #9a6837;
+    font-weight: bold;
+}
+
+.pubdate {
+    font-size: 9px;
+}
+
+a.comentarios {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    text-align: justify;
+    margin-left: 20px;
+}
+
+.contar {
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+    font-size: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.caixacomentario {
+    height: auto;
+    max-height: 235px;
+    overflow-y: auto;
+    width: 670px;
+}
+
+.comment_write {
+    background-image: url(../../../glyphicons/src/comments.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.comments {
+    margin-left: 70% !important;
+    cursor: pointer;
+}
+
+.dsatividade {
+    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    text-align: left;
+}

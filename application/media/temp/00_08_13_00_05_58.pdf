@@ -1,0 +1,728 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj 
+<</Type /Catalog /Version /1.4 /Pages 2 0 R /Names 9 0 R >>
+endobj
+2 0 obj 
+<</Type /Pages /Kids [3 0 R 4 0 R ] /Count 2 >>
+endobj
+3 0 obj 
+<</Type /Page /LastModified (D:20100813000558-03'00') /Resources <</ProcSet [/Text /PDF ] /Font <</F1 10 0 R >> >> /MediaBox [0 0 792 612 ] 
+/Contents [5 0 R ] /Parent 2 0 R >>
+endobj
+4 0 obj 
+<</Type /Page /LastModified (D:20100813000558-03'00') /Resources <</ProcSet [/Text /PDF ] /Font <</F1 10 0 R >> >> /MediaBox [0 0 792 612 ] 
+/Contents [6 0 R ] /Parent 2 0 R >>
+endobj
+5 0 obj 
+<</Length 3459 >>
+stream
+0.067 g
+/F1 14 Tf
+BT
+70 542 Td
+(DataGrid Zend Framework) Tj
+ET
+/F1 8 Tf
+BT
+70 532 Td
+(Easy and powerfull - \(Demo document\)) Tj
+ET
+BT
+40 40 Td
+(Downloaded from: http://www.petala-azul.com ) Tj
+ET
+BT
+678 40 Td
+( Page N. 1/2) Tj
+ET
+/F1 8 Tf
+/F1 9 Tf
+0.667 g
+40 488 277 16 re
+ B*
+0 g
+BT
+42 492 Td
+(Role Id) Tj
+ET
+0.667 g
+316 488 437 16 re
+ B*
+0 g
+BT
+318 492 Td
+(Role Name) Tj
+ET
+/F1 8 Tf
+0.067 g
+0.933 g
+40 472 277 16 re
+ B*
+0 g
+BT
+42 476 Td
+(1) Tj
+ET
+0.933 g
+316 472 437 16 re
+ B*
+0 g
+BT
+318 476 Td
+(Implementor) Tj
+ET
+1 g
+40 456 277 16 re
+ B*
+0 g
+BT
+42 460 Td
+(2) Tj
+ET
+1 g
+316 456 437 16 re
+ B*
+0 g
+BT
+318 460 Td
+(Administrator) Tj
+ET
+0.933 g
+40 440 277 16 re
+ B*
+0 g
+BT
+42 444 Td
+(3) Tj
+ET
+0.933 g
+316 440 437 16 re
+ B*
+0 g
+BT
+318 444 Td
+(Operator) Tj
+ET
+1 g
+40 424 277 16 re
+ B*
+0 g
+BT
+42 428 Td
+(4) Tj
+ET
+1 g
+316 424 437 16 re
+ B*
+0 g
+BT
+318 428 Td
+(User) Tj
+ET
+0.933 g
+40 408 277 16 re
+ B*
+0 g
+BT
+42 412 Td
+(5) Tj
+ET
+0.933 g
+316 408 437 16 re
+ B*
+0 g
+BT
+318 412 Td
+(Wilton) Tj
+ET
+1 g
+40 392 277 16 re
+ B*
+0 g
+BT
+42 396 Td
+(6) Tj
+ET
+1 g
+316 392 437 16 re
+ B*
+0 g
+BT
+318 396 Td
+(teste) Tj
+ET
+0.933 g
+40 376 277 16 re
+ B*
+0 g
+BT
+42 380 Td
+(7) Tj
+ET
+0.933 g
+316 376 437 16 re
+ B*
+0 g
+BT
+318 380 Td
+(1) Tj
+ET
+1 g
+40 360 277 16 re
+ B*
+0 g
+BT
+42 364 Td
+(8) Tj
+ET
+1 g
+316 360 437 16 re
+ B*
+0 g
+BT
+318 364 Td
+(2) Tj
+ET
+0.933 g
+40 344 277 16 re
+ B*
+0 g
+BT
+42 348 Td
+(9) Tj
+ET
+0.933 g
+316 344 437 16 re
+ B*
+0 g
+BT
+318 348 Td
+(fasdfasdf) Tj
+ET
+1 g
+40 328 277 16 re
+ B*
+0 g
+BT
+42 332 Td
+(10) Tj
+ET
+1 g
+316 328 437 16 re
+ B*
+0 g
+BT
+318 332 Td
+(asdfaf) Tj
+ET
+0.933 g
+40 312 277 16 re
+ B*
+0 g
+BT
+42 316 Td
+(11) Tj
+ET
+0.933 g
+316 312 437 16 re
+ B*
+0 g
+BT
+318 316 Td
+(Everyone11) Tj
+ET
+1 g
+40 296 277 16 re
+ B*
+0 g
+BT
+42 300 Td
+(13) Tj
+ET
+1 g
+316 296 437 16 re
+ B*
+0 g
+BT
+318 300 Td
+(Everyone13) Tj
+ET
+0.933 g
+40 280 277 16 re
+ B*
+0 g
+BT
+42 284 Td
+(14) Tj
+ET
+0.933 g
+316 280 437 16 re
+ B*
+0 g
+BT
+318 284 Td
+(Everyone14) Tj
+ET
+1 g
+40 264 277 16 re
+ B*
+0 g
+BT
+42 268 Td
+(16) Tj
+ET
+1 g
+316 264 437 16 re
+ B*
+0 g
+BT
+318 268 Td
+(Everyone16) Tj
+ET
+0.933 g
+40 248 277 16 re
+ B*
+0 g
+BT
+42 252 Td
+(17) Tj
+ET
+0.933 g
+316 248 437 16 re
+ B*
+0 g
+BT
+318 252 Td
+(Everyone17) Tj
+ET
+1 g
+40 232 277 16 re
+ B*
+0 g
+BT
+42 236 Td
+(18) Tj
+ET
+1 g
+316 232 437 16 re
+ B*
+0 g
+BT
+318 236 Td
+(Everyone18) Tj
+ET
+0.933 g
+40 216 277 16 re
+ B*
+0 g
+BT
+42 220 Td
+(53) Tj
+ET
+0.933 g
+316 216 437 16 re
+ B*
+0 g
+BT
+318 220 Td
+(Everyone) Tj
+ET
+1 g
+40 200 277 16 re
+ B*
+0 g
+BT
+42 204 Td
+(54) Tj
+ET
+1 g
+316 200 437 16 re
+ B*
+0 g
+BT
+318 204 Td
+(Everyone1) Tj
+ET
+0.933 g
+40 184 277 16 re
+ B*
+0 g
+BT
+42 188 Td
+(55) Tj
+ET
+0.933 g
+316 184 437 16 re
+ B*
+0 g
+BT
+318 188 Td
+(Everyone2) Tj
+ET
+1 g
+40 168 277 16 re
+ B*
+0 g
+BT
+42 172 Td
+(56) Tj
+ET
+1 g
+316 168 437 16 re
+ B*
+0 g
+BT
+318 172 Td
+(Everyone3) Tj
+ET
+0.933 g
+40 152 277 16 re
+ B*
+0 g
+BT
+42 156 Td
+(57) Tj
+ET
+0.933 g
+316 152 437 16 re
+ B*
+0 g
+BT
+318 156 Td
+(Everyone4) Tj
+ET
+1 g
+40 136 277 16 re
+ B*
+0 g
+BT
+42 140 Td
+(58) Tj
+ET
+1 g
+316 136 437 16 re
+ B*
+0 g
+BT
+318 140 Td
+(Everyone10) Tj
+ET
+0.933 g
+40 120 277 16 re
+ B*
+0 g
+BT
+42 124 Td
+(129) Tj
+ET
+0.933 g
+316 120 437 16 re
+ B*
+0 g
+BT
+318 124 Td
+(Implementor1) Tj
+ET
+1 g
+40 104 277 16 re
+ B*
+0 g
+BT
+42 108 Td
+(130) Tj
+ET
+1 g
+316 104 437 16 re
+ B*
+0 g
+BT
+318 108 Td
+(Administrator2) Tj
+ET
+0.933 g
+40 88 277 16 re
+ B*
+0 g
+BT
+42 92 Td
+(131) Tj
+ET
+0.933 g
+316 88 437 16 re
+ B*
+0 g
+BT
+318 92 Td
+(Operator3) Tj
+ET
+1 g
+40 72 277 16 re
+ B*
+0 g
+BT
+42 76 Td
+(132) Tj
+ET
+1 g
+316 72 437 16 re
+ B*
+0 g
+BT
+318 76 Td
+(User4) Tj
+ET
+
+endstream
+endobj
+6 0 obj 
+<</Length 1742 >>
+stream
+0.067 g
+/F1 14 Tf
+BT
+70 542 Td
+(DataGrid Zend Framework) Tj
+ET
+/F1 8 Tf
+BT
+70 532 Td
+(Easy and powerfull - \(Demo document\)) Tj
+ET
+BT
+40 40 Td
+(Downloaded from: http://www.petala-azul.com ) Tj
+ET
+BT
+678 40 Td
+( Page N. 2/2) Tj
+ET
+/F1 8 Tf
+/F1 9 Tf
+0.667 g
+40 488 277 16 re
+ B*
+0 g
+BT
+42 492 Td
+(Role Id) Tj
+ET
+0.667 g
+316 488 437 16 re
+ B*
+0 g
+BT
+318 492 Td
+(Role Name) Tj
+ET
+/F1 8 Tf
+0.067 g
+0.933 g
+40 472 277 16 re
+ B*
+0 g
+BT
+42 476 Td
+(133) Tj
+ET
+0.933 g
+316 472 437 16 re
+ B*
+0 g
+BT
+318 476 Td
+(Everyone5) Tj
+ET
+1 g
+40 456 277 16 re
+ B*
+0 g
+BT
+42 460 Td
+(135) Tj
+ET
+1 g
+316 456 437 16 re
+ B*
+0 g
+BT
+318 460 Td
+(Everyone27) Tj
+ET
+0.933 g
+40 440 277 16 re
+ B*
+0 g
+BT
+42 444 Td
+(136) Tj
+ET
+0.933 g
+316 440 437 16 re
+ B*
+0 g
+BT
+318 444 Td
+(Everyone38) Tj
+ET
+1 g
+40 424 277 16 re
+ B*
+0 g
+BT
+42 428 Td
+(137) Tj
+ET
+1 g
+316 424 437 16 re
+ B*
+0 g
+BT
+318 428 Td
+(Everyone49) Tj
+ET
+0.933 g
+40 408 277 16 re
+ B*
+0 g
+BT
+42 412 Td
+(138) Tj
+ET
+0.933 g
+316 408 437 16 re
+ B*
+0 g
+BT
+318 412 Td
+(Everyone1010) Tj
+ET
+1 g
+40 392 277 16 re
+ B*
+0 g
+BT
+42 396 Td
+(139) Tj
+ET
+1 g
+316 392 437 16 re
+ B*
+0 g
+BT
+318 396 Td
+(Everyone1111) Tj
+ET
+0.933 g
+40 376 277 16 re
+ B*
+0 g
+BT
+42 380 Td
+(140) Tj
+ET
+0.933 g
+316 376 437 16 re
+ B*
+0 g
+BT
+318 380 Td
+(Everyone1313) Tj
+ET
+1 g
+40 360 277 16 re
+ B*
+0 g
+BT
+42 364 Td
+(141) Tj
+ET
+1 g
+316 360 437 16 re
+ B*
+0 g
+BT
+318 364 Td
+(Everyone1414) Tj
+ET
+0.933 g
+40 344 277 16 re
+ B*
+0 g
+BT
+42 348 Td
+(142) Tj
+ET
+0.933 g
+316 344 437 16 re
+ B*
+0 g
+BT
+318 348 Td
+(Everyone1616) Tj
+ET
+1 g
+40 328 277 16 re
+ B*
+0 g
+BT
+42 332 Td
+(143) Tj
+ET
+1 g
+316 328 437 16 re
+ B*
+0 g
+BT
+318 332 Td
+(Everyone1717) Tj
+ET
+0.933 g
+40 312 277 16 re
+ B*
+0 g
+BT
+42 316 Td
+(144) Tj
+ET
+0.933 g
+316 312 437 16 re
+ B*
+0 g
+BT
+318 316 Td
+(Everyone1818) Tj
+ET
+
+endstream
+endobj
+7 0 obj 
+[]
+endobj
+8 0 obj 
+<</Names 7 0 R >>
+endobj
+9 0 obj 
+<</Dests 8 0 R >>
+endobj
+10 0 obj 
+<</Type /Font /Encoding /WinAnsiEncoding /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 11 
+0000000000 65535 f 
+0000000015 00000 n 
+0000000091 00000 n 
+0000000155 00000 n 
+0000000348 00000 n 
+0000000541 00000 n 
+0000004052 00000 n 
+0000005846 00000 n 
+0000005865 00000 n 
+0000005899 00000 n 
+0000005933 00000 n 
+trailer
+<</ID [<62663865613334666631373833396435> <33313563313836363537646235643366> ] /Size 11 /Root 1 0 R >>
+startxref
+6031
+%%EOF

@@ -1,0 +1,129 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/app/diagnostico/estatistica/resumo.js'), 'text/javascript');
+?>
+
+<div class="region-center" id="barrafer">
+    <div id="ii" class="informacoes" style="display: block">
+        <fieldset>
+            <legend>Resumo</legend>
+            <form action="post" name="filtro-diagnostico" id="filtro-diagnostico">
+                <label>Diagnóstico</label>
+                <select name="diagnostico" id="diagnostico">
+                    <option value="">Selecione</option>
+                    <option value="Todos">Todos</option>
+                    <?php foreach ($this->arrayDiagnostico as $k => $ad): ?>
+                        <option value="<?php echo $k ?>"><?php echo $ad; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </form>
+            <div class="row">
+                <div class="portlet portlet-verde span4">
+                    <h3>Quantidade de Unidades Diagnosticadas</h3>
+                    <span class="badge badge-success estatistica">
+                        <span id="unidadeDiagnosticadas">0</span>
+                    </span>
+
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Quantidade de Pessoas Entrevistadas</h3>
+                    <span class="badge badge-success estatistica">
+                        <span id="pessoasEntrevistadas">0</span>
+                    </span>
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Quantidade de Pessoas Entrevistadas por Cargo</h3>
+                    <table id="entrevistadasCargo" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>Cargo</td>
+                            <td style="text-align: center !important;">Qtd.</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">Não existe(m) pessoa(s) entrevistada(s)</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-verde span4">
+                    <h3>Quantidade de Questionários Respondidos</h3>
+                    <span class="badge badge-success estatistica">
+                        <span id="questionariosRespondidos">0</span>
+                    </span>
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Média Geral de Satisfação do Servidor</h3>
+                    <span class="badge badge-success estatistica">
+                        <span id="stisfacaoServidor">0</span>
+                    </span>
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Média Geral de Satisfação do Cidadão</h3>
+                    <span class="badge badge-success estatistica">
+                        <span id="satisfacaoCidadao">0</span>
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-verde span4">
+                    <h3>Média de Satisfação do Servidor por Seção</h3>
+                    <table id="satisfacaoServidorSecao" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>Seção</td>
+                            <td style="text-align: center !important;">Média</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">Não existe(m) seção(ões) cadastrada(s).</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Média de Satisfação do Servidor por Macroprocesso</h3>
+                    <table id="satisfacaoServidorMacroprocesso" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>Macroprocesso</td>
+                            <td style="text-align: center !important;">Média</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">Não existe(m) macroprocesso(s) cadastrado(s).</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="portlet portlet-verde span4">
+                    <h3>Média de Satisfação do Servidor por Cargo</h3>
+                    <table id="satisfacaoServidorCargo" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>Cargo</td>
+                            <td style="text-align: center !important;">Média</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td colspan="2">Não existe cargos cadastrados.</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>

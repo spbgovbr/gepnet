@@ -1,0 +1,39 @@
+<?php
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
+?>
+
+<table>
+    <thead>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr>
+        <td title="{{nomcodigo}} - {{nomprojeto}}" style="width: 395px; text-align: left; ">
+            <i class="icon-folder-close"></i>
+            {{nomeprojeto}}
+        </td>
+        <td style="width: 166px; text-align: left;">{{datiniciobaselinet}} a&nbsp;{{datfimbaselinet}}</td>
+        <td style="width: 57px; text-align: left;padding-left: 15px;">{{diasbaselinet}}</td>
+        <td style="width: 118px; text-align: left;">{{vlratividadet}}</td>
+        <td style="width: 223px; text-align: left;">{{datiniciot}} a&nbsp;{{datfimt}}</td>
+        <td style="width: 52px; text-align: left;">{{diasrealt}}</td>
+        <td style="width: 30px; text-align: left;">{{numpercentualconcluidot}}%</td>
+        <td style="width: 90px; text-align: left;"></td>
+        <td style="width: 91px; text-align: left;"></td>
+        <td style="width: 30px; text-align: left;">
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoRisco}}" title="{{prazoCabecalho}}">{{prazoCabecalho}}</span>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

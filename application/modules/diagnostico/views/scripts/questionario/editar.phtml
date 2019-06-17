@@ -1,0 +1,62 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'))
+    ->appendFile($this->baseUrl('/js/app/diagnostico/questionario/add.js'), 'text/javascript');
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <?php echo $this->partial('_partials/questionario-menu.phtml', array('dados' => 'add')); ?>
+    <div class="portlet portlet-marron span12" style="width:90%">
+        <h3>Dados Básicos</h3>
+        <div class="content" style="width:90%">
+            <form id="form-questionario-editar"
+                  name="form-questionario-editar"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <fieldset>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomquestionario; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->tipo; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->observacao; ?>
+                        </div>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->idquestionariodiagnostico; ?>
+                            <?php echo $this->form->submit; ?>
+                            <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                            obrigatório
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

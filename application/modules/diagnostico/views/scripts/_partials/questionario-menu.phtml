@@ -1,0 +1,18 @@
+<?php
+$dadosbasicos = ($this->dados == 'add') ? 'active' : "";
+$secoes = ($this->dados == 'secoes-add') ? 'active' : "";
+$perguntas = ($this->dados == 'pergunta') ? 'active' : "";
+?>
+<div id="menuquest" class="portlet span12">
+    <ul class="nav nav-pills">
+        <li class="<?php echo $dadosbasicos ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'dadosbasicos')) ?>">Dados Básicos</a>
+        </li>
+        <li class="<?php echo $secoes ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'secoes')) ?>">Seções</a>
+        </li>
+        <li class="<?php echo $perguntas ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'pergunta')) ?>">Perguntas</a>
+        </li>
+    </ul>
+</div>

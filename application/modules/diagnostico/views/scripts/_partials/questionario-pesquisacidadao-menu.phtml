@@ -1,0 +1,41 @@
+<?php
+$vincularQuestionario = ($this->dados == 'vincularQuestionario') ? 'active' : "";
+$questionario = ($this->dados == 'listarQuestionario') ? 'active' : "";
+$responderQuestionario = ($this->dados == 'responderQuestionario') ? 'active' : "";
+$listarQuestionarioRespondido = ($this->dados == 'listarQuestionarioRespondido') ? 'active' : "";
+$visualizarQuestionario = ($this->dados == 'visualizarQuestionario') ? 'active' : "";
+$visible = ($this->dados == 'responderQuestionario') ? 'visible' : 'hidden';
+$display = ($this->dados == 'responderQuestionario') ? '' : 'display:none;';
+$visibleQuestResp = ($this->dados == 'visualizarQuestionario') ? 'visible' : 'hidden';
+$displayQuestResp = ($this->dados == 'visualizarQuestionario') ? '' : 'display:none;';
+$sumario = ($this->dados == 'sumario') ? 'active' : "";
+
+?>
+<div id="menuquest" class="portlet span12" style="margin-bottom: 0px !important;margin-left: 30px !important;">
+    <ul class="nav nav-pills">
+        <li class="<?php echo $vincularQuestionario; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'vincularquestionariocidadao')) ?>">Vincular
+                Question&aacute;rio</a>
+        </li>
+        <li class="<?php echo $questionario; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'listarquestionariocidadao')) ?>">Question&aacute;rio</a>
+        </li>
+        <li class="<?php echo $responderQuestionario; ?>"
+            style="<?php echo $display; ?>float:left;visibility: <?php echo $visible; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'responderquestionariocidadao')) ?>">Responder
+                Question&aacute;rio</a>
+        </li>
+        <li class="<?php echo $listarQuestionarioRespondido; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'listarquestionariorespondidocidadao')) ?>">Question&aacute;rio
+                Respondido</a>
+        </li>
+        <li class="<?php echo $visualizarQuestionario; ?>"
+            style="<?php echo $displayQuestResp; ?>float:left;visibility: <?php echo $visibleQuestResp; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'visualizarQuestionariocidadao')) ?>">Visualizar
+                Question&aacute;rio Respondido</a>
+        </li>
+        <li class="<?php echo $sumario; ?>">
+            <a class="link" href="<?php echo $this->url(array('action' => 'sumariocidadao')) ?>">Sum&aacute;rio</a>
+        </li>
+    </ul>
+</div>

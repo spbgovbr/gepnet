@@ -1,0 +1,38 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <?php echo $this->form->tipodoc_cd_tipodoc; ?>
+    <?php echo $this->form->cd_documento; ?>
+    <?php echo $this->form->an_documento; ?>
+    <?php echo $this->form->nr_copia; ?>
+    <div class="row">
+        <div class="span3">
+            <?php echo $this->form->tipodoc; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->dt_documento; ?>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->ds_referen_doc; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->ds_interess_doc; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->ds_rubrica_doc; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8">
+            <?php echo $this->form->ds_assunto_doc; ?>
+        </div>
+    </div>
+</form>
+<div class="span2 pull-right">(<span class="campos-obrigatorios"></span>) Campos obrigatórios</div>

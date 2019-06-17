@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="span6">
+        <h5>Endereço</h5>
+        <div class="endereco">
+            <div class="complemento"><?php echo $this->endereco['est_endereco']; ?></div>
+            <div class="end"><?php echo $this->endereco['bai_desc'], ', ', $this->endereco['cid_desc'], ', ', $this->endereco['uf_nm'], ', ', $this->endereco['estado'], ', ', $this->endereco['est_nr_cep']; ?></div>
+            <div class="telefone"><strong>Tel: <?php echo $this->endereco['est_nr_fone']; ?></strong></div>
+        </div>
+    </div>
+    <div class="span2">
+        <h5>Logomarca</h5>
+        <img src="<?php echo $this->baseUrl() . '/img/estabelecimento/' . $this->endereco['est_img']; ?>"/>
+    </div>
+</div>

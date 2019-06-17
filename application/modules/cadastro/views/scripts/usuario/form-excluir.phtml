@@ -1,0 +1,22 @@
+<div class="portlet portlet-azul span2">
+    <h3>Matrícula</h3>
+    <div class="content">
+        <?= $this->resultado['cd_matricula']; ?>
+    </div>
+</div>
+<div class="portlet portlet-cinza span6">
+    <h3>Nome</h3>
+    <div class="content">
+        <?= $this->resultado['no_pessoa']; ?>
+    </div>
+</div>
+<div class="portlet portlet-cinza span8">
+    <div class="title">Descrição</div>
+    <div class="content">
+        <?= $this->resultado['ds_usuario']; ?>
+    </div>
+</div>
+<form id="usuario-excluir" name="usuario-excluir" action="" method="post">
+    <input type="hidden" name="cd_pessoa" value="<?php echo $this->resultado['cd_pessoa']; ?>"/>
+    <input type="hidden" name="cd_lotacao" value="<?php echo $this->resultado['cd_lotacao']; ?>"/>
+</form>

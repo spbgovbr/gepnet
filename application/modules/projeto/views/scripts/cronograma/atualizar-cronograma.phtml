@@ -1,0 +1,471 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/cronograma.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/grupo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/entrega.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/atividade.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/calcularTempo.js'), 'text/javascript');
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'cronograma', 'idprojeto' => $this->idprojeto));
+    ?>
+</div>
+
+<div class="region-center">
+
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>">
+
+    <div id="dados-projeto"></div>
+
+    <div data-spy="affix" data-offset-top="200">
+        <div class="toolbar-cronograma">
+            <div class="btn-toolbar">
+                <a id="btn-buscar" class="btn btn-buscar toggle-region" title="Pesquisar" data-region="east" href="#"><i
+                            class="icon-search"></i></a>
+                <a class="btn btn-cadastrar-grupo" title="Novo Grupo"
+                   href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-grupo/idprojeto/' . $this->idprojeto); ?>"><i
+                            class="icon-folder-open"></i></a>
+
+                <div class="btn-group btn-group-atividade" style="display: none;">
+                    <a class="btn btn-editar-atividade" title="Editar"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/editar-atividade/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-atividade" title="Excluir"><i class="icon-trash"></i></a>
+                    <a class="btn btn-tranformar-marco" title="Transformar em Marco"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-flag"></i></a>
+                    <a class="btn btn-tranformar-atividade" title="Transformar em Atividade"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-list-alt"></i></a>
+                    <a class="btn btn-atualizar-baseline-ativ" title="Atualizar Base Line da Atividade"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/atualizar-baseline-atividade/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-calendar"></i></a>
+                    <form name="e_atividade" id="e_atividade" style="display: inline-block; margin: 0; width: 350px;">
+                        <div class="control-group span1"
+                             style="width: 84px !important; margin-bottom: 0; margin-left: 0;">
+                            <select class="span1 input-toolbar" name="e_numpercentualconcluido"
+                                    title="Percentual concluído" id="e_numpercentualconcluido"
+                                    data-rule-required="true">
+                                <?php foreach (range(0, 100, 10) as $key => $value): ?>
+                                    <option value="<?php echo $value ?>"><?php echo $value ?>%</option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="control-group span1" id="dataInicio"
+                             style="width: 100px !important;  margin-bottom: 0; margin-left: 0;">
+                            <input type="text" class="span1 input-toolbar" name="e_datinicio"
+                                   title="Data inicio realizado" id="e_datinicio" data-rule-required="true"
+                                   data-rule-minlength="10" data-rule-dateBR="true"/>
+                        </div>
+                        <div class="control-group span1"
+                             style="width: 50px !important;  margin-bottom: 0; margin-left: 0;">
+                            <input type="text" style="width: 25px !important;text-align: center"
+                                   title="Qtd de Dias Realizados" class="span1 input-toolbar" name="e_numdiasrealizados"
+                                   id="e_numdiasrealizados" data-rule-required="true"/>
+                        </div>
+                        <div class="control-group span1"
+                             style="width: 50px !important;  margin-bottom: 0; margin-left:0;">
+                            <input type="text" class="span1 input-toolbar" name="e_datfim" id="e_datfim"
+                                   title="Data fim realizado" data-rule-required="true" data-rule-minlength="10"
+                                   data-rule-dateBR="true"/>
+                        </div>
+                        <input type="hidden" name="e_idatividadecronograma" id="e_idatividadecronograma"
+                               data-rule-required="true"/>
+                        <input type="hidden" name="e_idgrupo" id="e_idgrupo" data-rule-required="true"/>
+                        <button type="submit" id="e_salvar" class="btn" style="margin-left: 50px !important; ">Salvar
+                        </button>
+                    </form>
+                </div>
+                <div class="btn-group btn-group-entrega" style="display: none;">
+                    <a class="btn btn-editar-entrega" title="Editar"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/editar-entrega/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-entrega" title="Excluir"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-entrega/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-atividade" title="Nova Atividade"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-atividade/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-list-alt"></i></a>
+                    <!--<a class="btn btn-cadastrar-marco" title="Novo Marco" href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-marco/idprojeto/' . $this->idprojeto); ?>"><i class="icon-flag"></i></a>-->
+                    <a class="btn btn-clonar-entrega" title="Clonar Entrega" href="#"><i class="icon-tags"></i></a>
+
+                </div>
+                <div class="btn-group btn-group-grupo" style="display: none;">
+                    <a class="btn btn-editar-grupo" title="Editar"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/editar-grupo/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-pencil"></i></a>
+                    <a class="btn btn-excluir-grupo" title="Excluir"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-grupo/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-trash"></i></a>
+                    <a class="btn btn-cadastrar-entrega" title="Nova Entrega"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/cadastrar-entrega/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-tag"></i></a>
+                    <a class="btn btn-clonar-grupo" title="Clonar Grupo" href="#"><i class="icon-random"></i></a>
+                </div>
+                <div class="btn-group btn-group-ferramentas  pull-right" data-toggle="buttons-radio">
+                    <button type="button" id="btn-fullscreen" class="btn" title="Tela cheia"><i
+                                class="icon-fullscreen"></i></button>
+                    <button type="button" id="btn-restaurar" class="btn" title="Restaurar tela"><i
+                                class="icon-resize-small"></i></button>
+                </div>
+                <div class="btn-group btn-group-cronograma pull-right">
+                    <!--<a class="btn btn-atualizar-cronograma" title="Atualizar Cronograma" href="<?php //echo $this->baseUrl('/projeto/cronograma/atualizar-cronograma/idprojeto/' . $this->idprojeto); ?>"><i class="icon-ok"></i></a>-->
+                    <a class="btn btn-atualizar-baseline" title="Atualizar Base Line"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/atualizar-baseline/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-th-list"></i></a>
+                    <a class="btn btn-copiar-cronograma" title="Copiar Cronograma"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/pesquisar-projeto/idprojeto/' . $this->idprojeto); ?>"><i
+                                class="icon-list-alt"></i></a>
+                    <a class="btn btn-imprimir-cronograma" title="Visualizar Impressão"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/imprimir/idprojeto/' . $this->idprojeto); ?>"
+                       target="_blank"><i class="icon-print"></i></a>
+                    <a class="btn btn-imprimir-cronograma-pdf" title="Imprimir Cronograma PDF"
+                       href="<?php echo $this->baseUrl('/projeto/cronograma/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>"
+                       target="_blank"><i class="icon-download-alt"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table id="cronograma-titulos" class="table table-hover table-striped table-condensed">
+        <tr>
+            <td>
+                <div class="row">
+                    <div class="cron-radio" style="margin-left: 25px !important">#</div>
+                    <div class="nome-grupo" style="width: 280px !important;">Grupo/Entrega/Atividade</div>
+                    <div class="cron-perdecessoras" style="padding-left: 20px;">(<abbr title="Predecessoras">P</abbr>)
+                    </div>
+                    <div class="cron-datas" style="margin-left: -30px;">Início/Fim(Planejado)</div>
+                    <div class="cron-dias">(<abbr title="Quantidade de dias da base line">D/P</abbr> )</div>
+                    <div class="cron-custo">Custo</div>
+                    <div class="cron-datas-reais">In&iacute;cio/Fim(Realizado)</div>
+                    <div class="cron-datas" style="width: 40px !important; margin-left : 0px; padding-left: 10px;">
+                        (<abbr title="Quantidade de dias realizados">D/R</abbr> )
+                    </div>
+                    <div class="cron-percentual" style="width: 40px !important; padding-left: 40px;"><abbr
+                                title="Percentual de conclusão">%</abbr></div>
+                    <div class="cron-responsavel" style="margin-left: 4px;">Respons&aacute;vel</div>
+                    <div class="cron-info" style="margin-left: 42px;">Farol</div>
+                </div>
+            </td>
+            <!--Atualizando os valores repectivos-->
+            <td>
+                <div class="">
+                    <div class="cron-perdecessoras"></div>
+                    <div class="cron-dias"></div>
+                    <div class="cron-custo"></div>
+                    <div class="cron-percentual"><abbr title="Percentual de conclusão"></abbr></div>
+                    <div class="cron-responsavel"></div>
+                    <div class="cron-info"></div>
+                </div>
+            </td>
+            <!-- //Atualizando os valores repectivos-->
+        </tr>
+
+    </table>
+    <div class="container-grupo" style="height: 100%; overflow-y: scroll;">
+
+    </div>
+    <script type="text/x-handlebars-template"></script>
+    <div class="mensagens">
+        <div id="dialog-AtivPredecexcluir" style="display: none">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4 style="color:#000006 !important">ATEN&Ccedil;&Atilde;O</h4>
+                <p>
+                    Esta atividade é predecessora de outra(s) atividade(s) no cronograma.<br/>
+                    Para concluir esta operação remova o(s) vínculo(s) entre as atividades..
+                </p>
+            </div>
+        </div>
+        <div id="dialog-Predecessoraexcluir" style="display: none">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4>Aviso!</h4>
+                <p>Essa atividade é Predecessora de uma ou mais atividades.
+                    Ao confirmar esta operação essa atividade será desvinculada da(s) demais sucessora(s).
+                    Você tem certeza que deseja excluir?</P>
+            </div>
+        </div>
+        <div id="dialog-excluir" style="display: none">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4>Aviso!</h4>
+                <p>Tem certeza que deseja excluir essa atividade?</P>
+            </div>
+        </div>
+    </div>
+    <div id="dialog-excluir-entrega" style="display: none"></div>
+    <div id="dialog-excluir-grupo" style="display: none"></div>
+    <div id="dialog-grupo" style="display: none"></div>
+    <div id="dialog-entrega" style="display: none"></div>
+    <div id="dialog-atividade" style="display: none"></div>
+    <div id="dialog-marco" style="display: none"></div>
+    <div id="dialog-atualizar-baseline" style="display: none"></div>
+    <div id="dialog-atualizar-baseline-ativ" style="display: none"></div>
+    <?php echo $this->partial('_partials/cron-form-atividade-marco.phtml', array('form' => $this->formMarco)); ?>
+    <!--    </div>-->
+
+
+</div>
+<div class="region-east">
+    <?php $frmPesquisar = $this->formAtividadePesquisar->getAttribs(); ?>
+
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Pesquisar</div>
+            <div class="content">
+                <form id="<?php echo $frmPesquisar['id']; ?>"
+                      name="<?php echo $frmPesquisar['id']; ?>"
+                      action="<?php //echo $frmPesquisar->formAtividadePesquisar->getAction(); ?>"
+                      method="<?php echo $frmPesquisar['method']; ?>">
+                    <div class="row">
+                        <fieldset class="pesquisar">
+                            <legend>Início/Fim(Planejado)</legend>
+                            <div class="span2 span120px">
+                                <?php echo $this->formAtividadePesquisar->inicial_dti; ?>
+                            </div>
+                            <div class="span2">
+                                <?php echo $this->formAtividadePesquisar->inicial_dtf; ?>
+                            </div>
+                        </fieldset>
+                        <fieldset class="pesquisar">
+                            <legend>Início/Fim(Realizado)</legend>
+                            <div class="span2 span120px">
+                                <?php echo $this->formAtividadePesquisar->final_dti; ?>
+                            </div>
+                            <div class="span2">
+                                <?php echo $this->formAtividadePesquisar->final_dtf; ?>
+                            </div>
+                        </fieldset>
+                        <div class="span2 span120px">
+                            <?php echo $this->formAtividadePesquisar->domtipoatividade_pesq; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->formAtividadePesquisar->status; ?>
+                        </div>
+                        <div class="span4 intervalo-percentual" style="display: none;">
+                            <div class="span1_5 span120px">
+                                <?php echo $this->formAtividadePesquisar->percentualinicio; ?>
+                            </div>
+                            <div class="span1_5 span120px">
+                                <?php echo $this->formAtividadePesquisar->percentualfim; ?>
+                            </div>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->formAtividadePesquisar->idparteinteressada_pesq; ?>
+                            <?php echo $this->formAtividadePesquisar->idprojeto_pesq; ?>
+                        </div>
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->formAtividadePesquisar->submit_pesq; ?>
+                                <?php echo $this->formAtividadePesquisar->reset_pesq; ?>
+                                <?php echo $this->formAtividadePesquisar->close_pesq; ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="tpl-atividade" type="text/x-handlebars-template">
+    <div class="atividade" id="at{{idatividadecronograma}}" data-date="{{datiniciobaseline}}">
+        <div class="item-cronograma {{retornaDescricaoConclusao}}">
+            {{#compare domtipoatividade "eq" "3"}}
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma"
+                       data-group=".btn-group-atividade" value="{{idatividadecronograma}}"
+                       data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+            </div>
+            <div class="nome-atividade" style="width: 280px !important;">
+                <div class="container-atividade" style="width: 250px !important;">
+                    <i class="icon-list-alt"></i> {{nomatividadecronograma}}
+                </div>
+            </div>
+            {{else}}
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma item-marco"
+                       data-group=".btn-group-atividade" value="{{idatividadecronograma}}"
+                       data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+            </div>
+            <div class="nome-atividade" style="width: 280px !important;">
+                <div class="container-atividade" style="width: 280px !important;">
+                    <i class="icon-flag"></i> {{nomatividadecronograma}}
+                </div>
+            </div>
+            {{/compare}}
+            <div class="cron-perdecessoras">
+                {{#if predecessoras.length}}
+                <div class="btn-group" style="margin-left: -30px; width: 20px;">
+                    <a class="btn btn-mini btn-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        P <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        {{#each predecessoras}}
+                        <li><a href="#">{{nomatividadecronograma}} - {{datinicio}} à {{datfim}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+                {{/if}}
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -50px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} à {{datfim}}
+            </div>
+            <div class="cron-percentual">
+                {{numdiasrealizados}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{prazo}}">{{prazo}}</span>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    {{#each grupos}}
+    <div class="row grupo" id="gr{{idatividadecronograma}}">
+        <div class="item-cronograma">
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-grupo"
+                       value="{{idatividadecronograma}}">
+            </div>
+            <div class="nome-grupo" style="width: 280px !important;">
+                <i class="icon-folder-open"></i> {{nomatividadecronograma}}
+            </div>
+            <div class="cron-perdecessoras">
+
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left :-10px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} &agrave; {{datfim}}
+            </div>
+            <div class="cron-percentual">
+                {{diasreal}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+
+            </div>
+            <div class="cron-info">
+            </div>
+        </div>
+        <div class="container-entrega">
+            {{#each entregas}}
+            {{> helperEntrega}}
+            {{/each}}
+        </div>
+    </div>
+    {{/each}}
+    <div class="rodape-cronograma row span7 affix-bottom"> {{contGrupo}} grupo(s), {{contEntrega}} entrega(s) e
+        {{contAtividade}} atividade(s)
+    </div>
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+    <div class="entrega" id="en{{idatividadecronograma}}">
+        <div class="item-cronograma">
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-entrega"
+                       value="{{idatividadecronograma}}">
+            </div>
+            <div class="nome-entrega">
+                <i class="icon-tag"></i> {{nomatividadecronograma}}
+            </div>
+            <div class="cron-perdecessoras">
+
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -80px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} &agrave; {{datfim}}
+            </div>
+            <div class="cron-percentual">
+                {{diasreal}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+            </div>
+        </div>
+        <div class="container-atividade" style="display: block; width: 100%; clear: both;">
+            {{#each atividades}}
+            {{> helperAtividade}}
+            {{/each}}
+        </div>
+    </div>
+</script>
+<script id="tpl-predecessora" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}"
+                   data-idatividadepredecessora="{{idatividadepredecessora}}">
+        </td>
+        <td>{{datinicio}} a {{datfim}} - {{nomatividadecronograma}}</td>
+    </tr>
+</script>
+<script id="tpl-predecessora-editar" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}">
+        </td>
+        <td>{{nomatividadecronograma}}</td>
+    </tr>
+</script>

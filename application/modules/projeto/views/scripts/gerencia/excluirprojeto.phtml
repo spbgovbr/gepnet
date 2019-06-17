@@ -1,0 +1,31 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+
+?>
+<div class="region-center">
+    <div class="portlet">
+        <form id="form-excluirprojeto"
+              name="form-excluirprojeto"
+              action="<?php echo $this->baseUrl(); ?>/projeto/gerencia/excluirprojeto/format/json"
+              method="post">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4>Aten&ccedil;&atilde;o!</h4>
+                Tem certeza que deseja <b>EXCLUIR</b> este projeto <strong><?php echo $this->projeto['nomcodigo'] ?>
+                    - <?php echo $this->projeto['nomprojeto']; ?>&nbsp;?</strong><br/><br/>
+                Ao concordar a situa&ccedil;&atilde;o do projeto ser&aacute; alterada para "Exclu&iacute;do".<br/>
+                A consulta de projetos exclu&iacute;dos ser&aacute; poss&iacute;vel na op&ccedil;&atilde;o
+                Projeto/Gerenciar/Filtrar, campo Status definido como "Exclu&iacute;do".<br/>
+                <p>Depois de exclu&iacute;do, o projeto poder&aacute; ser restaurado por meio do comando "Recuperar
+                    Projeto".</p>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <input type="hidden" name="idprojeto" id="idprojeto"
+                           value="<?php echo $this->projeto['idprojeto']; ?>"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

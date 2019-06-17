@@ -1,0 +1,65 @@
+<?php
+$this->headLink()
+    // ->appendStylesheet($this->baseUrl('/js/jquery.jqGrid-4.4.0/css/ui.jqgrid.css'))
+    //->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.default.css'))
+    //->appendStylesheet($this->baseUrl('/js/library/pnotify-1.2.0/icons/jquery.pnotify.default.icons.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
+    //->appendStylesheet($this->baseUrl('/js/library/twitter/bootstrap-datepicker/css/datepicker.css'))
+    ->appendStylesheet($this->baseUrl('/css/form.css'));
+
+$this->headScript()
+    //->appendFile($this->baseUrl('/js/library/twitter/bootstrap-datepicker/js/bootstrap-datepicker.js'), 'text/javascript')
+    //->appendFile($this->baseUrl('/js/library/twitter/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    //->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    //->appendFile($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.3.2/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.3.2/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/default/documento/edit.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <?php echo $this->form->tipodoc_cd_tipodoc; ?>
+    <?php echo $this->form->cd_documento; ?>
+    <?php echo $this->form->an_documento; ?>
+    <?php echo $this->form->nr_copia; ?>
+    <div class="row">
+        <div class="span3">
+            <?php echo $this->form->tipodoc; ?>
+        </div>
+        <div class="span2">
+            <?php echo $this->form->dt_documento; ?>
+        </div>
+        <div class="span3">
+            <?php echo $this->form->ds_referen_doc; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->ds_interess_doc; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->ds_rubrica_doc; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8">
+            <?php echo $this->form->ds_assunto_doc; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span8 frm-actions">
+            <?php echo $this->form->submit; ?>
+        </div>
+    </div>
+</form>
+<div class="span2 offset10">(<span class="campos-obrigatorios"></span>) Campos obrigatórios</div>

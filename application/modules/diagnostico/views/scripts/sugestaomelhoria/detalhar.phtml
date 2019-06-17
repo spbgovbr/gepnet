@@ -1,0 +1,187 @@
+<script type="text/javascript">
+    $('#melhoria-menu-detalhar').click(function () {
+        $('#padronizacao-item').removeClass('active');
+        $('#melhoria-item').addClass('active');
+        $('#melhoria').show();
+        $('#padronizacao').hide();
+    });
+    $('#padronizacao-menu-detalhar').click(function () {
+        $('#melhoria-item').removeClass('active');
+        $('#padronizacao-item').addClass('active');
+        $('#melhoria').hide();
+        $('#padronizacao').show();
+    });
+</script>
+
+<div id="menuquest" class="portlet span10">
+    <ul class="nav nav-pills">
+        <li class="active" id="melhoria-item">
+            <a class="link" id="melhoria-menu-detalhar" href="#">Melhoria</a>
+        </li>
+        <li class="" id="padronizacao-item">
+            <a class="link" id="padronizacao-menu-detalhar" href="#">Padronização de Melhoria</a>
+        </li>
+    </ul>
+</div>
+<div class="region-center">
+
+    <div id="melhoria">
+        <div class="portlet portlet-cinza">
+            <div class="content">
+                <div class="row">
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Código</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idmelhoria']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Data</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['datmelhoria']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Unidade Gestora</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idunidadeprincipal']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Matrícula do Proponente</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['matriculaproponente']; ?>&nbsp;</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Descrição da Melhoria</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['desmelhoria']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Macroprocesso de Trabalho</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['macroprocessotrabalho']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Macroprocesso a Melhorar</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['macroprocessomelhorar']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Unidade Responsável pela Proposta</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idunidaderesponsavelproposta']; ?>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span9">
+                        <div class="title">Abrangência</div>
+                        <div class="content"
+                             style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['flaabrangencia']; ?>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span9">
+                        <div class="title">Unidade Responsável pela Implantação</div>
+                        <div class="content"
+                             style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['idunidaderesponsavelimplantacao']; ?>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span9">
+                        <div class="title">Objetivo Institucional</div>
+                        <div class="content"
+                             style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['idobjetivoinstitucional']; ?>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Ação Estratégica</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idacaoestrategica']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Área de Melhoria</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idareamelhoria']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Situação</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idsituacao']; ?>&nbsp;</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="padronizacao" style="display: none;">
+        <div class="portlet portlet-cinza">
+            <div class="content">
+                <div class="row">
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Descrição Revisada</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['desrevisada']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Prazo</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idprazo']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Impacto</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idimpacto']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Esforço</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['idesforco']; ?>&nbsp;</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="portlet portlet-cinza span3">
+                        <div class="title">Pontuação</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['numpontuacao']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Incidência</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['numincidencia']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Votação</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['numvotacao']; ?>&nbsp;</div>
+                    </div>
+                    <div class="portlet portlet-cinza span2">
+                        <div class="title">Agrupadora</div>
+                        <div class="content"><?php echo $this->sugestaomelhoria['flaagrupadora']; ?>&nbsp;</div>
+                    </div>
+                </div>
+                <?php if ($this->sugestaomelhoria['destitulogrupo']): ?>
+                    <div class="row">
+                        <div class="portlet portlet-cinza span9">
+                            <div class="title">Título do Grupo</div>
+                            <div class="content"
+                                 style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['destitulogrupo']; ?>
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($this->sugestaomelhoria['desmelhoriaagrupadora']): ?>
+                    <div class="row">
+                        <div class="portlet portlet-cinza span9">
+                            <div class="title">Melhoria Agrupadora</div>
+                            <div class="content"
+                                 style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['desmelhoriaagrupadora']; ?>
+                                &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <div class="row">
+                    <div class="portlet portlet-cinza span9">
+                        <div class="title">Informações Complementares</div>
+                        <div class="content"
+                             style="word-wrap: break-word; word-break: break-all;"><?php echo $this->sugestaomelhoria['desinformacoescomplementares']; ?>
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

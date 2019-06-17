@@ -1,0 +1,166 @@
+<html>
+    <head>
+    	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    	<style>
+            * {
+                font-family: helvetica, arial;
+            }
+    	</style>
+    </head>
+    <body style="font-family: helvetica, arial;">
+    <?php $i = 1; ?>
+	<?php foreach ($this->imprimir['ata'] as $ata): ?>
+    	<table align="center" border="0" width="800">
+            <tr>
+                <td style="text-align:left; padding-bottom:20px;">
+                    <h4 style="font-family: helvetica, arial;"><?php echo $i; ?>. ATA DE REUNI&Atilde;O</h4>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-left: 20px; padding-bottom: 20px;">
+                    <h5 style="font-family: helvetica, arial;"><?php echo $i; ?>.1 PROJETO</h5>
+                </td>
+            </tr>
+            <tr>
+            	<td style="padding-left: 20px; padding-bottom: 20px;">
+            		<br />
+	            	<table style="width: 750px; border-collapse: collapse; font-size: 12px !important;" border="1" cellpadding="1" cellspacing="1">
+                        <tbody>
+                            <tr>
+                                <td width="200"><b>C&Oacute;DIGO&nbsp;DO&nbsp;PROJETO&nbsp;</b></td>
+                                <td width="550"><?php echo $this->imprimir['projeto']->nomcodigo; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>T&Iacute;TULO&nbsp;DO&nbsp;PROJETO&nbsp;</b></td>
+                                <td><?php echo $this->imprimir['projeto']->nomprojeto; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>GERENTE&nbsp;DE&nbsp;PROJETO&nbsp;</b></td>
+                                <td><?php echo $this->imprimir['projeto']->nomgerenteprojeto; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>GERENTE&nbsp;ADJUNTO&nbsp;</b></td>
+                                <td><?php echo $this->imprimir['projeto']->nomgerenteadjunto; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>PATROCINADOR&nbsp;</b></td>
+                                <td><?php echo $this->imprimir['projeto']->nompatrocinador; ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+            	</td>
+            </tr>
+                       
+            <tr>
+                <td style="padding-left: 20px; padding-bottom: 20px;">
+                    <h5 style="font-family: helvetica, arial;"><?php echo $i; ?>.2 PARTICIPANTES</h5>
+                </td>
+            </tr>
+            <tr>
+            	<td style="padding-left: 20px; padding-bottom: 20px;">
+            		<br />
+        			<table style="width: 750px; font-size: 12px !important;" border="0" cellpadding="1" cellspacing="1">
+                        <tbody>
+                            <tr>
+                            	<td>
+                            		<?php
+                                        $ct = 1;
+                                        $paraticipantes = explode(PHP_EOL, $ata['desparticipante']);
+                                        foreach ($paraticipantes as $participante) {
+                                            $itemParticipante = trim($participante);
+                                            if (strlen($itemParticipante) > 1) {
+                                                if (sizeof($paraticipantes) > 1) {
+                                                    if ((mb_substr($itemParticipante, strlen($itemParticipante) - 1,
+                                                                1) == ",") || (mb_substr($itemParticipante,
+                                                                strlen($itemParticipante) - 1, 1) == ".")) {
+                                                        $itemParticipante = trim(mb_substr($itemParticipante, 0,
+                                                            strlen($itemParticipante) - 1));
+                                                    }
+                                                    $itemParticipante = (($ct != sizeof($paraticipantes)) && ($ct > 1) ? ", " : "")
+                                                        . ($ct == sizeof($paraticipantes) ? " e " : "")
+                                                        . $itemParticipante
+                                                        . ($ct == sizeof($paraticipantes) ? "." : "");
+                                                }
+                                                echo $itemParticipante;
+                                                $ct++;
+                                            }
+                                        } ?>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+            	</td>
+            </tr>
+            <tr>
+                <td style="padding-left: 20px; padding-bottom: 20px;">
+                    <h5 style="font-family: helvetica, arial;"><?php echo $i; ?>.3 ATA</h5>
+                </td>
+            </tr>
+            <tr>
+				<td style="padding-left: 20px; padding-bottom: 20px;">
+					<br />
+            		<table style="width: 750px; border-collapse: collapse; font-size: 12px !important;" border="1" cellpadding="1" cellspacing="1">
+                        <tbody>
+                             <tr>
+                                <td width="200"><b>DATA&nbsp;DA&nbsp;REUNI&Atilde;O&nbsp;&nbsp;</b></td>
+                                <td width="550"><?php echo $ata['datata'] . " " . $ata['hrreuniao']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>LOCAL&nbsp;&nbsp;</b></td>
+                                <td><?php echo $ata['deslocal']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>ASSUNTO&nbsp;&nbsp;</b></td>
+                                <td><?php echo $ata['desassunto']; ?></td>
+                            </tr>
+                            <tr>
+                                <td><b>PONTOS&nbsp;DISCUTIDOS&nbsp;&nbsp;</b></td>
+                                <td>
+        							<span style="font-family: helvetica"><?php echo $ata['despontodiscutido']; ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>DECIS&Otilde;ES&nbsp;&nbsp;</b></td>
+                                <td>
+                                    <span style="font-family: helvetica"><?php echo $ata['desdecisao']; ?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>PONTO&nbsp;DE&nbsp;ATEN&Ccedil;&Atilde;O</b>&nbsp;&nbsp;</td>
+                                <td>
+                                	<span style="font-family: helvetica"><?php echo $ata['despontoatencao']; ?></span>
+                                </td>
+                            </tr>
+						</tbody>
+					</table>
+            	</td>
+            </tr>
+			<tr align="left">
+                <td style="padding-left: 20px; padding-bottom: 20px;">
+                    <h5 style="font-family: helvetica, arial;"><?php echo $i; ?>.4 PR&Oacute;XIMOS PASSOS </h5>
+                </td>
+            </tr>
+            <tr>
+				<td style="padding-left: 20px; padding-bottom: 20px;">
+					<br />
+            		<table style="width: 750px; font-size: 12px !important;" border="0" cellpadding="1" cellspacing="1">
+                        <tbody>
+                            <tr>
+                            	<td>
+									<?php echo $ata['desproximopasso'] ? $ata['desproximopasso'] : "Nenhum registro encontrado.";?>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+            	</td>
+			</tr>
+            <tr>
+                <td style="text-align:left;">
+                    <div style="page-break-before: always;">&nbsp;</div>
+                </td>
+            </tr>
+		</table>
+		<?php $i++; ?>
+	<?php endforeach; ?>    
+    </body>
+</html>

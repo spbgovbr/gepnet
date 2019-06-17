@@ -1,0 +1,55 @@
+<?php
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/app/library/jquery-validation-1.11.0/dist/jquery.validate.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pergunta/edit.js'), 'text/javascript');
+
+
+?>
+<div class="region-center">
+    <div class="ui-dialog-content ui-widget-content">
+        <form id="form-editar-pergunta"
+              name="form-editar-pergunta"
+              method="POST">
+            <div class="row">
+                <div class="form-group">
+                    <div class="span2">
+                        <?php echo $this->form->id_secao; ?>
+                    </div>
+                    <div class="span1">
+                        <?php echo $this->form->posicao; ?>
+                    </div>
+                    <div class="span4">
+                        <?php echo $this->form->dspergunta; ?>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="span5">
+                        <?php echo $this->form->dstitulo; ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->ativa; ?>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="span3">
+                        <?php echo $this->form->tiporegistro; ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->tipopergunta; ?>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <?php echo $this->form->posicaocad; ?>
+                <?php echo $this->form->idquestionario; ?>
+                <?php echo $this->form->idpergunta; ?>
+                <div class="col-sm-offset-9 col-sm-span1" style="float: right;  padding-bottom: 2px;">
+                    (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                    obrigatório
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

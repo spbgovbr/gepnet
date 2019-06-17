@@ -1,0 +1,69 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/tap/resumodoprojeto.js'), 'text/javascript');
+
+
+//echo $this->form;
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <?php echo $this->partial('_partials/menuTap.phtml', array('dados' => 'resumodoprojeto')); ?>
+    <div class="portlet portlet-marron span12">
+        <h3>Resumo do Projeto</h3>
+        <form id="<?php echo $frmAttr['id']; ?>"
+              name="<?php echo $frmAttr['id']; ?>"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+            <div class="content">
+                <div class="row">
+                    <div class="span4">
+                        <?php echo $this->form->desescopo; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->desnaoescopo; ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->despremissa; ?>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="span3">
+                        <?php echo $this->form->desrestricao; ?>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="span5">
+                        <?php echo $this->form->idprojeto; ?>
+                        <?php echo $this->form->submit; ?>
+                        <?php echo $this->form->reset; ?>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,30 @@
+<?php
+
+if (null === $this->container) {
+    $this->container = $this->breadcrumbs()->getContainer();
+}
+if (!$active = $this->breadcrumbs()->findActive($this->container)) {
+    return '';
+}
+$active = $active['page'];
+//$html = array('<ul class="breadcrumb">');
+$html[] = ' <li class="active">' . $active->getLabel() . '</li>';
+
+while ($parent = $active->getParent()) {
+    if ($parent instanceof Zend_Navigation_Page) {
+        // prepend crumb to html
+        $html[] = ' <li>' . $this->breadcrumbs()->htmlify($parent) . '<span class="divider">/</li>';
+    }
+
+    if ($parent === $this->container) {
+        // at the root of the given container
+        break;
+    }
+
+    $active = $parent;
+}
+$html[] = '<li><a href="' . $this->baseUrl('/index/boas-vindas') . '"><i class="icon-home"></i></a><span class="divider">/</span></li>';
+rsort($html);
+
+echo '<ul class="breadcrumb">' . join(PHP_EOL, $html) . '</ul>';
+?>

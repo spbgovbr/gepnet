@@ -1,0 +1,16 @@
+<h4><?php echo $this->est_nm; ?></h4>
+<div class="span3" style="padding: 8px 0; margin-left: 0;">
+    <ul class="nav nav-list">
+        <li class="nav-header">Endereços</li>
+        <li class="active"><a href="<?php echo $this->baseUrl('/admin/estabelecimento/endereco/id/' . $this->id); ?>"><i
+                        class="icon-list-alt"></i> Listar</a></li>
+        <li><a href="<?php echo $this->baseUrl('/admin/estabelecimento/adicionar-endereco/id/') . $this->id ?>"><i
+                        class="icon-plus"></i> Adicionar</a></li>
+        <li class="divider"></li>
+        <li class="nav-header">Promoções</li>
+        <li><a href="<?php echo $this->baseUrl('/admin/estabelecimento/promocao/id/') . $this->id ?>"><i
+                        class="icon-list-alt"></i> Listar</a></li>
+        <li><a href="<?php echo $this->baseUrl('/admin/estabelecimento/adicionar-endereco/id/') . $this->id ?>"><i
+                        class="icon-plus"></i> Adicionar</a></li>
+    </ul>
+</div>

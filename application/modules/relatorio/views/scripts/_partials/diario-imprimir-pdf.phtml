@@ -1,0 +1,45 @@
+<div id="content">
+    <div class="region-center">
+        <div align="center">
+            <?php if ((isset($this->relatorio) && count($this->relatorio) > 0)) : ?>
+                <table class="table table-striped table-hover table-bordered" border="1">
+                    <tr>
+                        <td nowrap="true" colspan="6" style="font-weight: bold;font-size: 18px;">Relatório - Diário de
+                            Bordo
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;font-size: 16px;">Projeto
+                        </th>
+                        <td style="font-weight: bold;font-size: 16px;">Data&nbsp;Di&aacute;rio
+                        </th>
+                        <td style="font-weight: bold;font-size: 16px;">Refer&ecirc;ncia
+                        </th>
+                        <td style="font-weight: bold;font-size: 16px;">Status
+                        </th>
+                        <td style="font-weight: bold;font-size: 16px;">Usu&aacute;rio
+                        </th>
+                        <td style="font-weight: bold;font-size: 16px;">Descri&ccedil;&atilde;o
+                        </th>
+                    </tr>
+                    <tbody>
+                    <?php foreach ($this->relatorio as $row): ?>
+                        <tr>
+                            <td style="width: 16%;"><?php echo $row['nomcodigo'] . '&nbsp;-&nbsp;' . $row['nomprojeto'] ?></td>
+                            <td style="width: 5%;font-size: 14px;"><?php echo $row['datdiariobordo'] ?></td>
+                            <td style="width: 8%;font-size: 14px;"><?php echo $row['domreferencia'] ?></td>
+                            <td style="width: 5%;font-size: 14px;"><?php echo $row['domsemafarodecode'] ?></td>
+                            <td style="width: 21%;font-size: 14px;"><?php echo $row['nompessoa'] ?></td>
+                            <td style="width: 60%;font-size: 14px;"><?php echo trim($row['desdiariobordo']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Nenhum registro encontrado.</td>
+                </tr>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

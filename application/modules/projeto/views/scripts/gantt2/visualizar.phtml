@@ -1,0 +1,113 @@
+<?php
+
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->prependStylesheet($this->baseUrl('/css/app/projeto/gantt/gantti.css'))
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/app/projeto/gantt/visualizar.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+
+?>
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<div class="region-west">
+    <?php echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'gantt', 'idprojeto' => $this->idprojeto)) ?>
+</div>
+
+<div class="region-center">
+    <?php echo $this->action('resumo', 'gerencia', 'projeto', array('idprojeto' => $this->idprojeto)) ?>
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+        </div>
+    </div>
+
+    <div class="form-actions form-actions-mini">
+
+
+        <a data-target="#dialog-print" class="btn actionfrm mostrargantt" title="Print"
+           data-id="<?php echo $this->idprojeto ?>" href="<?php echo $this->url(array(
+            'module' => 'projeto',
+            'controller' => 'gantt',
+            'action' => 'mostrargantt'
+        )) ?>">
+            Print
+        </a>
+
+        <a data-target="#dialog-print" class='btn actionfrm detalhar detalharbutton' title='mostrar gantt' href="<?php
+        echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'gantt',
+                'action' => 'mostrargantt'
+            )) . $params; ?>">
+            <i class='icon-tasks'></i>
+        </a>
+    </div>
+
+
+    <div id="gantt">
+        <?php echo $this->htmlGantt ?>
+    </div>
+</div>
+
+<div class="region-east" style="overflow-y: scroll;">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Gantt - Filtrar</div>
+            <div class="content">
+
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <input type="hidden" name="idprojeto" id="idprojeto"
+                                   value="<?php echo $this->idprojeto; ?>"/>
+                            <?php echo $this->form->tipoexibicao ?>
+                            <?php echo $this->form->idgrupo ?>
+                            <?php echo $this->form->identrega ?>
+                            <?php echo $this->form->idatividadecronograma ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->form->btnpesquisar ?>
+                                <?php echo $this->form->reset ?>
+                                <?php echo $this->form->close ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog-print" style="display: none"></div>
+
+
+</div> 
+
+

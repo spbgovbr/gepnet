@@ -1,0 +1,1686 @@
+<?php
+$this->headScript()
+    //->prependFile($this->baseUrl('/js/library/jquery-ui-1.10.2.custom/js/jquery-ui-1.10.2.custom.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/Date.CultureInfo.pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/default/index/teste.js'), 'text/javascript');
+?>
+<style>
+    .span0_5 {
+        width: 30px;
+    }
+
+    .span1_5 {
+        width: 122px;
+    }
+
+    .container-tools {
+        /*border: 1px solid red;*/
+        display: inline-table;
+    }
+
+    .tools {
+        /*border: 1px solid green;*/
+    }
+
+    .tools .badge {
+        margin: 2px 0 0 8px;
+    }
+
+    .tools #slider-range-min {
+        margin-top: 5px;
+    }
+
+    .linha, .well-mini {
+        padding: 8px 0 2px 0;
+        margin-bottom: 4px;
+    }
+
+    .linha {
+        background: #ffffff;
+        border-top: 1px solid gray;
+    }
+
+    .well-mini {
+        background-color: #F5F5F5;
+        padding: 8px 0 2px 0;
+        margin-bottom: 4px;
+    }
+
+    .datai, .dataf {
+        width: 65px !important;
+    }
+
+    .container-data {
+        width: 110px !important;
+    }
+</style>
+<div>
+    <div class="row linha" id="linha1">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data1" class="span1 datai  datepicker"
+                                                 value="26/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data2" class="span2 dataf datepicker"
+                                                 value="28/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data3" class="datai span2 datepicker"
+                                                 value="05/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data4" class="dataf span2 datepicker"
+                                                 value="06/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data5" class="datai span2 datepicker"
+                                                 value="07/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data6" class="dataf span2 datepicker"
+                                                 value="09/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-important">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data7" class="datai span2 datepicker"
+                                                 value="10/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data8" class="dataf span2 datepicker"
+                                                 value="13/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+    <div class="row linha">
+        <div class="span2 container-data"><input type="text" name="datai[]" id="data9" class="datai span2 datepicker"
+                                                 value="14/04/2013"/></div>
+        <div class="span2 container-data"><input type="text" name="dataf[]" id="data10" class="dataf span2 datepicker"
+                                                 value="18/04/2013"/></div>
+        <div class="span1 span0_5">
+            <button class="btn btn-small btn-tools"><i class="icon-cog"></i></button>
+        </div>
+        <div class="span1"><span class="badge badge-success">20%</span></div>
+        <div class="container-tools"></div>
+    </div>
+</div>
+<div class="ferramentas hidden">
+    <div class="tools span12">
+        <div class="row">
+            <div class="span1_5">
+                <a class="btn btn-mini" title="Editar"><i class="icon-edit"></i></a>
+                <a class="btn btn-mini" title="Excluir"><i class="icon-remove"></i></a>
+                <a class="btn btn-mini" title="Novo"><i class="icon-file"></i></a>
+                <a class="btn btn-mini btn-aplicar" title="Aplicar apartir desta linha"><i class="icon-arrow-down"></i></a>
+            </div>
+            <div class="span2">
+                <div class="row">
+                    <input type="hidden" id="amount"/>
+                    <div id="slider-range-min" class="span1"></div>
+                    <span id="slider-value" class="badge"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

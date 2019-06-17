@@ -1,0 +1,56 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));;
+$frmAttr = $this->form->getAttribs();
+?>
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->baseUrl(); ?>/projeto/gantt/importar-grafico/"
+      method="<?php echo $frmAttr['method']; ?>" target="_blank">
+    <?php echo $this->form->idprojeto; ?>
+    <?php echo $this->form->idgrupo; ?>
+    <?php echo $this->form->identrega; ?>
+    <?php echo $this->form->idatividadecronograma; ?>
+    <?php echo $this->form->idatividademarco; ?>
+    <div class="row" style="margin-left: 25px;">
+        <table align="left" border="0">
+            <tr>
+                <td colspan="3"><?php echo $this->form->nomprojeto; ?></td>
+            </tr>
+            <tr>
+                <td colspan="3"><?php echo $this->form->formato; ?></td>
+            </tr>
+            <tr>
+                <td valign="top"><?php echo $this->form->tpabertura->renderViewHelper(); ?></td>
+                <td colspan="2" valign="bottom"
+                    style="padding-top: 4px;padding-left: 3px;"><?php echo $this->form->tpabertura->renderLabel(); ?></td>
+            </tr>
+            <tr>
+                <td style="width:1px;">&nbsp;</td>
+                <td valign="top"><input type="radio" name="chkfiltro" id="chkativo" value="1" checked/></td>
+                <td valign="bottom">Filtro Ativo</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="radio" name="chkfiltro" id="chkgrupo" value="2"/></td>
+                <td valign="bottom">Linha de Grupo</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="radio" name="chkfiltro" id="chkgrupoentrega" value="3"/></td>
+                <td valign="bottom">Linha de Grupo / Entrega</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="radio" name="chkfiltro" id="chkgrupoentregamarco" value="4"/></td>
+                <td valign="bottom">Linha de Grupo / Entrega / Marco</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="radio" name="chkfiltro" id="chkgrupoentregamarcoati" value="5"/></td>
+                <td valign="bottom">Linha de Grupo / Entrega / Atividade / Marco</td>
+            </tr>
+        </table>
+    </div>
+</form>
