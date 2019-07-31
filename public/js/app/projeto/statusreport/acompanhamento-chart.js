@@ -15,31 +15,7 @@ function chartatraso(data) {
         tooltip: {
             enabled: true
         },
-        title: {
-            text: 'Relatório',
-            horizontalAlignment: 'center',
-            verticalAlignment: 'bottom',
-            font: {
-                //color: 'black',
-                color: '#3A3636',
-                family: 'Verdana, Arial',
-                //opacity: 4.75,
-                size: 11,
-                weight: "bold",
-            }
-        },
-        valueAxis: {
-            position: "left",
-            title: {
-                text: "Atraso (%)",
-                font: {
-                    color: '#3A3636',
-                    family: 'Verdana, Arial',
-                    size: 11,
-                    weight: "bold",
-                }
-            }
-        },
+        //title: " Evolução Atraso ",
         legend: {
             verticalAlignment: "right",
             horizontalAlignment: "top"
@@ -49,54 +25,19 @@ function chartatraso(data) {
                 visible: false,
                 right: true
             }
-        },
-        export: {
-            enabled: true,
-            printingEnabled: true
         }
     });
-}
-
-function populaAcompanhamento(acompanhamento) {
-    $("#datacompanhamento").text(acompanhamento.datacompanhamento);
-    $("#nomdomstatusprojeto").text(acompanhamento.nomdomstatusprojeto);
-    $("#numpercentualprevisto").text(acompanhamento.numpercentualprevisto);
-    $("#numpercentualconcluido").text(acompanhamento.numpercentualconcluido);
-    $("#datfimprojetotendencia").text(acompanhamento.datfimprojetotendencia);
-    if (acompanhamento.nomatividadecronograma.length > 0) {
-        $("#nomatividadecronograma").text(acompanhamento.nomatividadecronograma);
-        $("#datfimbaseline").text(acompanhamento.datfimbaseline);
-        $("#datfimMarco").text(acompanhamento.datfimMarco);
-    }
-
-    $("#desatividadeconcluida").empty();
-    $("#desatividadeandamento").empty();
-    $("#desatividadeconcluida").text(acompanhamento.desatividadeconcluida);
-    $("#desatividadeandamento").text(acompanhamento.desatividadeandamento);
-    $("#desmotivoatraso").text(acompanhamento.desmotivoatraso);
-    $("#descontramedida").text(acompanhamento.descontramedida);
-    $("#desirregularidade").text(acompanhamento.desirregularidade);
-    $("#desrisco").text(acompanhamento.desrisco);
-    $("#link").empty();
-    if (acompanhamento.descaminho.length > 0) {
-        $("#link").append("<a href='" + acompanhamento.descaminho + "' title='Cronograma' target='_blank'><i class='icon-download-alt'></i></a>");
-    } else {
-        $("#link").text("Não existe cronograma disponível para esta data.");
-    }
 }
 
 function chartprazo(data) {
     var numcriteriofarol = $('#cf').val() ? $('#cf').val() : 30;
     var inicio = data < 0 ? data : -15;
-    var gauge = $("#chartcontainer-criteriofarol-atraso").dxCircularGauge({
+    $("#chartcontainer-criteriofarol-atraso").dxCircularGauge({
         scale: {
             startValue: inicio,
             endValue: parseInt(data) + parseInt(numcriteriofarol),
             majorTick: {
                 tickInterval: 45
-            },
-            label: {
-                visible: false,
             }
         },
         rangeContainer: {
@@ -121,9 +62,8 @@ function chartprazo(data) {
         },
         needles: [{value: data}],
         markers: [{value: data}]/*,
-         title: " Prazo "*/
+        title: " Prazo "*/
     });
-    return gauge;
 }
 
 function chartplanejadorealizado(data) {
@@ -134,8 +74,8 @@ function chartplanejadorealizado(data) {
         },
         series: [
 //           {name: 'Data', valueField: 'data'},
-            {name: 'Planejado', valueField: 'Planejado'},
-            {name: 'Realizado', valueField: 'Realizado'}
+           {name: 'Planejado', valueField: 'Planejado'},
+           {name: 'Realizado', valueField: 'Realizado'}
 
         ],
         argumentAxis: {
@@ -146,31 +86,7 @@ function chartplanejadorealizado(data) {
         tooltip: {
             enabled: true
         },
-        title: {
-            text: 'Relatório',
-            horizontalAlignment: 'center',
-            verticalAlignment: 'bottom',
-            font: {
-                //color: 'black',
-                color: '#3A3636',
-                family: 'Verdana, Arial',
-                //opacity: 4.75,
-                size: 11,
-                weight: "bold",
-            }
-        },
-        valueAxis: {
-            position: "left",
-            title: {
-                text: "% Concluído",
-                font: {
-                    color: '#3A3636',
-                    family: 'Verdana, Arial',
-                    size: 11,
-                    weight: "bold",
-                }
-            }
-        },
+       // title: " %Concluído ( Planejado x Realizado) ",
         legend: {
             verticalAlignment: "right",
             horizontalAlignment: "top"
@@ -184,27 +100,16 @@ function chartplanejadorealizado(data) {
     });
 }
 
-function gerachartacompanhamento() {
-    var locations, arr, idprojeto, ini;
-
-    locations = window.location.href;
-    arr = locations.indexOf("idprojeto");
-    ini = arr + 10;
-    // Recupera o ID do Projeto do campo hidden
-    if ($("#idprojeto").val().length == 0) {
-        idprojeto = locations.substring(ini);
-    } else {
-        idprojeto = $("#idprojeto").val();
-    }
+function gerachartacompanhamento(){
     $.ajax({
         url: base_url + "/projeto/statusreport/chartplanejadorealizadojson",
         dataType: 'json',
         type: 'POST',
-        data: {idprojeto: $('#ip').val(), idstatusreport: $('#idst').val()},
-        success: function (data) {
+        data: {idprojeto: $('#idprojeto').val()},
+        success: function(data) {
             chartplanejadorealizado(data);
         },
-        error: function () {
+        error: function() {
 //            $.pnotify({
 //                text: 'Falha ao renderizar gráfico <b>Planejado x Realizado</b>',
 //                type: 'error',
@@ -215,28 +120,16 @@ function gerachartacompanhamento() {
     });
 }
 
-function gerachartatraso() {
-    var locations, arr, idprojeto, ini;
-
-    locations = window.location.href;
-    arr = locations.indexOf("idprojeto");
-    ini = arr + 10;
-    //console.log(locations.substring(ini));
-    // Recupera o ID do Projeto do campo hidden
-    if ($("#idprojeto").val().length == 0) {
-        idprojeto = locations.substring(ini);
-    } else {
-        idprojeto = $("#idprojeto").val();
-    }
+function gerachartatraso(){
     $.ajax({
         url: base_url + "/projeto/statusreport/chartatrasojson",
         dataType: 'json',
         type: 'POST',
-        data: {idprojeto: $('#ip').val(), idstatusreport: $('#idst').val()},
-        success: function (data) {
+        data: {idprojeto: $('#idprojeto').val()},
+        success: function(data) {
             chartatraso(data);
         },
-        error: function () {
+        error: function() {
 //            $.pnotify({
 //                text: 'Falha ao renderizar gráfico <b>Evolução Atraso</b>',
 //                type: 'error',
@@ -247,28 +140,16 @@ function gerachartatraso() {
     });
 }
 
-function gerachartprazo() {
-    var locations, arr, idprojeto, ini;
-
-    locations = window.location.href;
-    arr = locations.indexOf("idprojeto");
-    ini = arr + 10;
-    // Recupera o ID do Projeto do campo hidden
-    if ($("#idprojeto").val().length == 0) {
-        idprojeto = locations.substring(ini);
-    } else {
-        idprojeto = $("#idprojeto").val();
-    }
-
+function gerachartprazo(){
     $.ajax({
         url: base_url + "/projeto/statusreport/chartprazojson",
         dataType: 'json',
         type: 'POST',
-        data: {idprojeto: $('#ip').val(), idstatusreport: $('#idst').val()},
-        success: function (data) {
+        data: {idprojeto: $('#idprojeto').val(), idstatusreport: $('#idst').val()},
+        success: function(data) {
             chartprazo(data.prazo);
         },
-        error: function () {
+        error: function() {
 //            $.pnotify({
 //                text: 'Falha ao renderizar gráfico <b>Farol Atraso</b>',
 //                type: 'error',
@@ -279,60 +160,22 @@ function gerachartprazo() {
     });
 }
 
-function gerachartPercentualConcluidoMarco() {
-    var locations, arr, idprojeto, ini;
+$(function() {
 
-    locations = window.location.href;
-    arr = locations.indexOf("idprojeto");
-    ini = arr + 10;
-    // Recupera o ID do Projeto do campo hidden
-    if ($("#idprojeto").val().length == 0) {
-        idprojeto = locations.substring(ini);
-    } else {
-        idprojeto = $("#idprojeto").val();
-    }
-    $.ajax({
-        url: base_url + "/projeto/statusreport/chartmarcoreljson",
-        dataType: 'json',
-        type: 'POST',
-        data: {idprojeto: $('#ip').val(), idstatusreport: $('#idst').val()},
-        success: function (data) {
-            charMarco(data.prazo);
-        },
-        error: function () {
-//            $.pnotify({
-//                text: 'Falha ao renderizar gráfico <b>Farol Atraso</b>',
-//                type: 'error',
-//                hide: false
-//            });
-            charMarco(0);
-        }
-    });
-}
+    gerachartacompanhamento();
 
-function charRisco(riscoValor) {
-    var riscoNome = "";
-    var riscoCor = "";
-    var riscoPos = "";
+    gerachartatraso();
+
+    gerachartprazo();
+
+
     var risco = 0;
-    if (riscoValor == 1) {
-        //Semaforo verde
-        risco = 17;
-        riscoNome = "Baixo";
-        riscoCor = "green";
-        riscoPos = "bottom-left";
-    } else if (riscoValor == 2) {
-        //Semaforo amarelo
-        risco = 50;
-        riscoNome = "Médio";
-        riscoCor = "#FF8C00";// Laranja escuro
-        riscoPos = "top-center";
+    if ($('#risco').val() == 1) {
+        risco = 17; //Semaforo verde
+    } else if ($('#risco').val() == 2) {
+        risco = 50; //Semaforo amarelo
     } else {
-        //Semaforo vermelho
-        risco = 80;
-        riscoNome = "Alto";
-        riscoCor = "red";
-        riscoPos = "bottom-right";
+        risco = 80; //Semaforo vermelho
     }
     $("#chartcontainer-criteriofarol-risco").dxCircularGauge({
         scale: {
@@ -340,9 +183,6 @@ function charRisco(riscoValor) {
             endValue: 100,
             majorTick: {
                 tickInterval: 5
-            },
-            label: {
-                visible: false,
             }
         },
         rangeContainer: {
@@ -365,37 +205,24 @@ function charRisco(riscoValor) {
                 }
             ]
         },
-        needles: [{value: risco}],
-        //markers: [{value: risco}],
-        title: {
-            text: riscoNome,
-            font: {
-                color: riscoCor,
-                family: "Verdana, Arial",
-                size: 14,
-                weight: "bold"
-            },
-            position: riscoPos
-        }
-    });/**/
-}
+        needles: [{value: risco}]/*,
+        title: " Risco "*/
+    });
 
-function charMarco(diasm, critf) {
-    var marco = 0;
-    marco = diasm;
-    // if (diasm >= critf) {
-    //     marco = 80; //Semaforo vermelho
-    // } else if (diasm > 0) {
-    //     marco = 50; //Semaforo amarelo
-    // } else {
-    //     marco = 17; //Semaforo verde
-    // }
+    var marco = 10;
+    if ($('#dm').val() >= $('#cf').val()) {
+        marco = 80; //Semaforo vermelho
+    } else if ($('#dm').val() > 0) {
+        marco = 50; //Semaforo amarelo
+    } else {
+        marco = 17; //Semaforo verde
+    }
     $("#chartcontainer-criteriofarol-marco").dxCircularGauge({
         scale: {
             startValue: 0,
             endValue: 100,
             majorTick: {
-                tickInterval: 10
+                tickInterval: 5
             }
         },
         rangeContainer: {
@@ -404,33 +231,23 @@ function charMarco(diasm, critf) {
                 {
                     startValue: 0,
                     endValue: 35,
-                    color: "#000000"
+                    color: "#A6C567"
                 },
                 {
                     startValue: 35,
                     endValue: 65,
-                    color: "#000000"
+                    color: "#FCBB69"
                 },
                 {
                     startValue: 65,
                     endValue: 100,
-                    color: "#000000"
+                    color: "#E19094"
                 }
             ]
         },
-        needles: [{value: marco}],
-        markers: [{value: marco}]
-        /* title: " Marco "*/
+        needles: [{value: marco}]/*,
+        title: " Marco "*/
     });
-}
-
-$(function () {
-
-    gerachartacompanhamento();
-    gerachartatraso();
-    gerachartprazo();
-    gerachartPercentualConcluidoMarco();
-    charRisco($('#risco').val());
-    charMarco($('#dm').val(), $('#cf').val());
 
 });
+

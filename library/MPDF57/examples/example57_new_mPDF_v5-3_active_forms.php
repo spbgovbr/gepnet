@@ -3,7 +3,7 @@
 
 include("../mpdf.php");
 
-$mpdf = new mPDF('');
+$mpdf=new mPDF(''); 
 
 //==============================================================
 
@@ -171,17 +171,14 @@ this.getField(\'inputfield\').value = \'T\u00f6rkylempij\u00e4\';
 
 
 //==============================================================
-if ($_REQUEST['html']) {
-    echo $html;
-    exit;
-}
-if ($_REQUEST['source']) {
-    $file = __FILE__;
-    header("Content-Type: text/plain");
-    header("Content-Length: " . filesize($file));
-    header("Content-Disposition: attachment; filename='" . $file . "'");
-    readfile($file);
-    exit;
+if ($_REQUEST['html']) { echo $html; exit; }
+if ($_REQUEST['source']) { 
+	$file = __FILE__;
+	header("Content-Type: text/plain");
+	header("Content-Length: ". filesize($file));
+	header("Content-Disposition: attachment; filename='".$file."'");
+	readfile($file);
+	exit; 
 }
 
 //==============================================================
@@ -224,8 +221,7 @@ this.getField("inputfield").value = reply;
 ');
 //==============================================================
 // OUTPUT
-$mpdf->Output();
-exit;
+$mpdf->Output(); exit;
 
 
 //==============================================================

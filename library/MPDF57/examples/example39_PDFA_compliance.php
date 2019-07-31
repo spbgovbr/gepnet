@@ -1,6 +1,7 @@
 <?php
 
 
+
 $html = '
 <h1>mPDF</h1>
 <h2>PDFA Compliance</h2>
@@ -11,7 +12,7 @@ $html = '
 //==============================================================
 include("../mpdf.php");
 
-$mpdf = new mPDF();
+$mpdf=new mPDF(); 
 
 $mpdf->PDFA = true;
 $mpdf->PDFAauto = true;

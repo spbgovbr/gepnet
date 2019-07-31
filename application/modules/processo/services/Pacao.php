@@ -50,8 +50,8 @@ class Processo_Service_PAcao extends App_Service_ServiceAbstract
     public function inserir($dados)
     {
         $form = $this->getForm();
-        if ($form->isValid($dados)) {
-            $model = new Processo_Model_PAcao($form->getValues());
+        if ( $form->isValid($dados) ) {
+            $model   = new Processo_Model_PAcao($form->getValues());
             $retorno = $this->_mapper->insert($model);
             return $retorno;
         } else {
@@ -68,8 +68,8 @@ class Processo_Service_PAcao extends App_Service_ServiceAbstract
     public function update($dados)
     {
         $form = $this->getFormEditar();
-        if ($form->isValid($dados)) {
-            $model = new Processo_Model_PAcao($form->getValues());
+        if ( $form->isValid($dados) ) {
+            $model   = new Processo_Model_PAcao($form->getValues());
             //Zend_Debug::dump($model); exit;
             $retorno = $this->_mapper->update($model);
             return $retorno;
@@ -104,7 +104,7 @@ class Processo_Service_PAcao extends App_Service_ServiceAbstract
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
         //Zend_Debug::dump($dados);exit;
-        if ($paginator) {
+        if ( $paginator ) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);

@@ -15,7 +15,7 @@ kendo_module({
     name: "AutoComplete",
     category: "web",
     description: "The AutoComplete widget provides suggestions depending on the typed text.It also allows multiple value entries.",
-    depends: ["list"]
+    depends: [ "list" ]
 });
 
 (function ($, undefined) {
@@ -73,7 +73,7 @@ kendo_module({
             var that = this, wrapper;
 
             that.ns = ns;
-            options = $.isArray(options) ? {dataSource: options} : options;
+            options = $.isArray(options) ? { dataSource: options} : options;
 
             List.fn.init.call(that, element, options);
 
@@ -148,7 +148,7 @@ kendo_module({
             animation: {}
         },
 
-        _dataSource: function () {
+        _dataSource: function() {
             var that = this;
 
             if (that.dataSource && that._refreshHandler) {
@@ -163,7 +163,7 @@ kendo_module({
                 .bind("progress", that._progressHandler);
         },
 
-        setDataSource: function (dataSource) {
+        setDataSource: function(dataSource) {
             this.options.dataSource = dataSource;
 
             this._dataSource();
@@ -178,7 +178,7 @@ kendo_module({
             "dataBound"
         ],
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             List.fn.setOptions.call(this, options);
 
             this._template();
@@ -186,7 +186,7 @@ kendo_module({
             this._aria();
         },
 
-        _editable: function (options) {
+        _editable: function(options) {
             var that = this,
                 element = that.element,
                 wrapper = that.wrapper.off(ns),
@@ -200,18 +200,18 @@ kendo_module({
                     .on(HOVEREVENTS, that._toggleHover);
 
                 element.removeAttr(DISABLED)
-                    .removeAttr(READONLY)
-                    .attr(ARIA_DISABLED, false)
-                    .attr(ARIA_READONLY, false);
+                       .removeAttr(READONLY)
+                       .attr(ARIA_DISABLED, false)
+                       .attr(ARIA_READONLY, false);
             } else {
                 wrapper
                     .addClass(disable ? STATEDISABLED : DEFAULT)
                     .removeClass(disable ? DEFAULT : STATEDISABLED);
 
                 element.attr(DISABLED, disable)
-                    .attr(READONLY, readonly)
-                    .attr(ARIA_DISABLED, disable)
-                    .attr(ARIA_READONLY, readonly);
+                       .attr(READONLY, readonly)
+                       .attr(ARIA_DISABLED, disable)
+                       .attr(ARIA_READONLY, readonly);
             }
         },
 
@@ -227,7 +227,7 @@ kendo_module({
             that.popup.close();
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             that.element.off(ns);
@@ -238,12 +238,12 @@ kendo_module({
 
         refresh: function () {
             var that = this,
-                ul = that.ul[0],
-                popup = that.popup,
-                options = that.options,
-                data = that._data(),
-                length = data.length,
-                action;
+            ul = that.ul[0],
+            popup = that.popup,
+            options = that.options,
+            data = that._data(),
+            length = data.length,
+            action;
 
             that.trigger("dataBinding");
 
@@ -293,10 +293,10 @@ kendo_module({
 
         search: function (word) {
             var that = this,
-                options = that.options,
-                ignoreCase = options.ignoreCase,
-                separator = options.separator,
-                length;
+            options = that.options,
+            ignoreCase = options.ignoreCase,
+            separator = options.separator,
+            length;
 
             word = word || that._accessor();
 
@@ -491,7 +491,7 @@ kendo_module({
             }, 100);
         },
 
-        _placeholder: function (show) {
+        _placeholder: function(show) {
             if (placeholderSupported) {
                 return;
             }
@@ -521,7 +521,7 @@ kendo_module({
                 }
 
                 element.toggleClass("k-readonly", show)
-                    .val(placeholder);
+                       .val(placeholder);
             }
         },
 
@@ -563,11 +563,11 @@ kendo_module({
             }
         },
 
-        _loader: function () {
+        _loader: function() {
             this._loading = $('<span class="k-icon k-loading" style="display:none"></span>').insertAfter(this.element);
         },
 
-        _toggleHover: function (e) {
+        _toggleHover: function(e) {
             $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
         },
 
@@ -598,8 +598,8 @@ kendo_module({
 
             that._focused = that.element;
             that.wrapper = wrapper
-                .addClass("k-widget k-autocomplete k-header")
-                .addClass(DOMelement.className);
+                              .addClass("k-widget k-autocomplete k-header")
+                              .addClass(DOMelement.className);
         }
     });
 

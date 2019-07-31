@@ -44,7 +44,7 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
     /**
      * Object constructor.
      *
-     * @param array $indices Arrays of indices for search
+     * @param array $indices   Arrays of indices for search
      * @throws Zend_Search_Lucene_Exception
      */
     public function __construct($indices = array())
@@ -798,7 +798,7 @@ class Zend_Search_Lucene_Interface_MultiSearcher implements Zend_Search_Lucene_I
      */
     public function setDocumentDistributorCallback($callback)
     {
-        if ($callback !== null && !is_callable($callback)) {
+        if ($callback !== null  &&  !is_callable($callback)) {
             require_once 'Zend/Search/Lucene/Exception.php';
             throw new Zend_Search_Lucene_Exception('$callback parameter must be a valid callback.');
         }

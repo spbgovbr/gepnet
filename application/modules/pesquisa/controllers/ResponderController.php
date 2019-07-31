@@ -1,14 +1,14 @@
 <?php
 
-class Pesquisa_ResponderController extends Zend_Controller_Action
-{
+class Pesquisa_ResponderController extends Zend_Controller_Action {
 
     public function init()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('responder-pesquisa', 'json');
         $ajaxContext->addActionContext('responder-externa', 'json')
-            ->initContext();
+                ->initContext()
+        ;
     }
 
     public function listarAction()
@@ -56,14 +56,13 @@ class Pesquisa_ResponderController extends Zend_Controller_Action
                     $form = $service->getFormPesquisa($params);
                     if ($request->isPost()) {
 
-                        $result = $service->salvarPesquisaRespondida($request->getParam('idpesquisa'),
-                            $request->getPost());
+                        $result = $service->salvarPesquisaRespondida($request->getParam('idpesquisa'), $request->getPost());
                         $success = false;
                         if ($result) {
                             $success = true; ###### AUTENTICATION SUCCESS
                             $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
                         } else {
-                            $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                            $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
                         }
 
                         if ($this->_request->isXmlHttpRequest()) {
@@ -96,18 +95,18 @@ class Pesquisa_ResponderController extends Zend_Controller_Action
     {
         //se for acesso externo (GEPNET LOGOFF) seta layout sem menus
         $this->_helper->layout()->setLayout('pesquisa-externa');
-
+        
         $service = App_Service_ServiceAbstract::getService('Default_Service_Login');
         $request = $this->getRequest();
-
-        $form = new Pesquisa_Form_Autenticar();
-
-        if ($request->isPost()) {
-            $post = $request->getPost();
-
-            if ($form->isValid($post)) {
+        
+        $form =  new Pesquisa_Form_Autenticar();
+        
+        if($request->isPost()){
+            $post =  $request->getPost();
+            
+            if($form->isValid($post)){
                 $result = $service->autenticaLdap($post);
-                if ($result) {
+                if($result){
                     $this->_forward('responder-externa', 'responder', 'pesquisa');
                 } else {
                     $this->view->message = $service->getErrors();
@@ -116,9 +115,9 @@ class Pesquisa_ResponderController extends Zend_Controller_Action
                 $this->view->message = App_Service_ServiceAbstract::ERRO_GENERICO;
             }
         }
-
+        
         $this->view->form = $form;
-
+        
     }
 
     public function responderExternaAction()
@@ -136,21 +135,20 @@ class Pesquisa_ResponderController extends Zend_Controller_Action
         $servicePesquisa = App_Service_ServiceAbstract::getService('Pesquisa_Service_Pesquisa');
         $pesquisaPublicada = $servicePesquisa->retornaPesquisaPublicadaById($params);
         if ($pesquisaPublicada) {
-
+            
             $isRespondida = $service->respondeuPesquisaLdap($pesquisaPublicada);
             if ($isRespondida) {
-                $this->view->message = 'Pesquisa já respondida por este usuário anteriormente.';
+                $this->view->message = 'Pesquisa já respondida por este usuário anteriormente.';                
             } else {
                 $form = $service->getFormPesquisa($params);
                 if ($request->isPost()) {
-                    $result = $service->salvarPesquisaRespondidaExterna($request->getParam('idpesquisa'),
-                        $request->getPost());
+                    $result = $service->salvarPesquisaRespondidaExterna($request->getParam('idpesquisa'), $request->getPost());
                     $success = false;
                     if ($result) {
                         $success = true; ###### AUTENTICATION SUCCESS
                         $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
                     } else {
-                        $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                        $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
                     }
 
                     if ($this->_request->isXmlHttpRequest()) {

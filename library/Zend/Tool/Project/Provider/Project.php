@@ -86,7 +86,7 @@ class Zend_Tool_Project_Provider_Project
         $newProfile = new Zend_Tool_Project_Profile(array(
             'projectDirectory' => $path,
             'profileData' => $profileData
-        ));
+            ));
 
         $newProfile->loadFromData();
 
@@ -102,7 +102,7 @@ class Zend_Tool_Project_Provider_Project
             $response->appendContent('Testing Note: ', array('separator' => false, 'color' => 'yellow'));
             $response->appendContent('PHPUnit was not found in your include_path, therefore no testing actions will be created.');
         }
-
+            
         foreach ($newProfile->getIterator() as $resource) {
             $resource->create();
         }
@@ -110,8 +110,7 @@ class Zend_Tool_Project_Provider_Project
 
     public function show()
     {
-        $this->_registry->getResponse()->appendContent('You probably meant to run "show project.info".',
-            array('color' => 'yellow'));
+        $this->_registry->getResponse()->appendContent('You probably meant to run "show project.info".', array('color' => 'yellow'));
     }
 
     public function showInfo()
@@ -130,7 +129,7 @@ class Zend_Tool_Project_Provider_Project
         if (Zend_Tool_Project_Provider_Test::isPHPUnitAvailable()) {
             $testAction = '                    	<testApplicationActionMethod forActionName="index" />';
         }
-
+        
         $version = Zend_Version::VERSION;
 
         $data = <<<EOS

@@ -9,19 +9,19 @@
 class Default_Model_DbTable_Atividade extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'tb_atividade';
+    protected $_name    = 'tb_atividade';
     protected $_primary = array('idatividade');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns' => 'idresponsavel',
-            'refColumns' => 'idpessoa'
+            'columns'       => 'idresponsavel',
+            'refColumns'    => 'idpessoa'
         ),
-        'Escritorio' => array(
+        'Escritorio'    => array(
             'refTableClass' => 'tb_escritorio',
-            'columns' => 'idescritorio',
-            'refColumns' => 'idescritorio'
+            'columns'       => 'idescritorio',
+            'refColumns'    => 'idescritorio'
         )
     );
 

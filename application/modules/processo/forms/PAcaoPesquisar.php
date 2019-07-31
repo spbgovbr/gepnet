@@ -5,11 +5,9 @@
  *
  * This class has been automatically generated16-05-2013 17:22
  */
-class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
-{
+class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract {
 
-    public function init()
-    {
+    public function init() {
         $mapperTbProjetoprocesso = new Processo_Model_Mapper_Projetoprocesso();
         $mapperTbPAcao = new Processo_Model_Mapper_PAcao();
         $mapperTbSetor = new Default_Model_Mapper_Setor();
@@ -21,9 +19,7 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                 'id_p_acao' => array('hidden', array()),
                 'numseq' => array('hidden', array()),
                 'idprojetoprocesso' => array('hidden', array()),
-                'nom_p_acao' => array(
-                    'text',
-                    array(
+                'nom_p_acao' => array('text', array(
                         'label' => 'Ação',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -31,11 +27,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                         'attribs' => array(
                             'class' => 'span9',
                         ),
-                    )
-                ),
-                'des_p_acao' => array(
-                    'textarea',
-                    array(
+                    )),
+                'des_p_acao' => array('textarea', array(
                         'label' => 'Descrição',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -44,11 +37,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                             'class' => 'span10',
                             'rows' => '10',
                         ),
-                    )
-                ),
-                'datinicioprevisto' => array(
-                    'text',
-                    array(
+                    )),
+                'datinicioprevisto' => array('text', array(
                         'label' => 'Data Início Previsto',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -56,11 +46,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                         'attribs' => array(
                             'class' => 'datepicker',
                         ),
-                    )
-                ),
-                'datinicioreal' => array(
-                    'text',
-                    array(
+                    )),
+                'datinicioreal' => array('text', array(
                         'label' => 'Data Início Real',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -68,11 +55,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                         'attribs' => array(
                             'class' => 'datepicker',
                         ),
-                    )
-                ),
-                'datterminoprevisto' => array(
-                    'text',
-                    array(
+                    )),
+                'datterminoprevisto' => array('text', array(
                         'label' => 'Data Término Previsto',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -80,11 +64,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                         'attribs' => array(
                             'class' => 'datepicker',
                         ),
-                    )
-                ),
-                'datterminoreal' => array(
-                    'text',
-                    array(
+                    )),
+                'datterminoreal' => array('text', array(
                         'label' => 'Data Término Real',
                         'required' => false,
                         'filters' => array('StringTrim', 'StripTags'),
@@ -92,64 +73,46 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                         'attribs' => array(
                             'class' => 'datepicker',
                         ),
-                    )
-                ),
-                'idsetorresponsavel' => array(
-                    'select',
-                    array(
+                    )),
+                'idsetorresponsavel' => array('select', array(
                         'label' => 'Setor Responsável',
                         'required' => false,
                         'multiOptions' => $mapperTbSetor->fetchPairs(),
                         'filters' => array('StringTrim', 'StripTags'),
                         'validators' => array('NotEmpty'),
                         'attribs' => array(),
-                    )
-                ),
-                'flacancelada' => array(
-                    'select',
-                    array(
+                    )),
+                'flacancelada' => array('select', array(
                         'label' => 'Cancelada?',
                         'required' => true,
                         'multiOptions' => $mapperTbPAcao->fetchCancelada(),
                         'filters' => array('StringTrim', 'StripTags'),
                         'validators' => array('NotEmpty'),
                         'attribs' => array(),
-                    )
-                ),
-                'idcadastrador' => array(
-                    'text',
-                    array(
+                    )),
+                'idcadastrador' => array('text', array(
                         'label' => '',
                         'required' => true,
                         'filters' => array('StringTrim', 'StripTags'),
                         'validators' => array(),
                         'attribs' => array(),
-                    )
-                ),
-                'datcadastro' => array(
-                    'text',
-                    array(
+                    )),
+                'datcadastro' => array('text', array(
                         'label' => 'Data Cadastro',
                         'required' => true,
                         'filters' => array('StringTrim', 'StripTags'),
                         'validators' => array(),
                         'attribs' => array(),
-                    )
-                ),
-                'idresponsavel' => array(
-                    'select',
-                    array(
+                    )),
+                'idresponsavel' => array('select', array(
                         'label' => 'Responsável',
                         'required' => false,
                         'multiOptions' => $mapperTbPessoa->fetchPairs(),
                         'filters' => array('StringTrim', 'StripTags'),
                         'validators' => array('NotEmpty'),
                         'attribs' => array(),
-                    )
-                ),
-                'submit' => array(
-                    'button',
-                    array(
+                    )),
+                'submit' => array('button', array(
                         'ignore' => true,
                         'label' => 'Pesquisar',
                         'escape' => false,
@@ -157,11 +120,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                             'id' => 'submitbutton',
                             'type' => 'submit',
                         ),
-                    )
-                ),
-                'reset' => array(
-                    'button',
-                    array(
+                    )),
+                'reset' => array('button', array(
                         'ignore' => true,
                         'label' => 'Limpar',
                         'escape' => false,
@@ -169,11 +129,8 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                             'id' => 'resetbutton',
                             'type' => 'reset',
                         ),
-                    )
-                ),
-                'close' => array(
-                    'button',
-                    array(
+                    )),
+                'close' => array('button', array(
                         'ignore' => true,
                         'icon' => 'arrow-right',
                         'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
@@ -183,22 +140,21 @@ class Processo_Form_PAcaoPesquisar extends App_Form_FormAbstract
                             'id' => 'closebutton',
                             'type' => 'button',
                         ),
-                    )
-                ),
+                    )),
             )
         ));
         $this->getElement('submit')
-            ->removeDecorator('label')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Wrapper');
+                ->removeDecorator('label')
+                ->removeDecorator('HtmlTag')
+                ->removeDecorator('Wrapper');
         $this->getElement('reset')
-            ->removeDecorator('label')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Wrapper');
+                ->removeDecorator('label')
+                ->removeDecorator('HtmlTag')
+                ->removeDecorator('Wrapper');
         $this->getElement('close')
-            ->removeDecorator('label')
-            ->removeDecorator('HtmlTag')
-            ->removeDecorator('Wrapper');
+                ->removeDecorator('label')
+                ->removeDecorator('HtmlTag')
+                ->removeDecorator('Wrapper');
     }
 
 }

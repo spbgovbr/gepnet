@@ -1,36 +1,37 @@
 <?php
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolio-charts.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolio-charts.js'), 'text/javascript')
+;
 ?>
-<input type="hidden" name="idprograma" id="idescritorio" value="<?php echo $grafico; ?>"/>
-<div class="row">
-    <div class="portlet portlet-cinza span12">
-        <div class="title"><?php echo $this->nomescritorio ?> </div>
-        <div class="content">
-            <div id="chartContainer-orcamentario" style="min-width: 580px; min-height: 300px;"></div>
+<input type="hidden" name="idprograma" id="idescritorio" value="<?php echo $grafico;?>" />
+    <div class="row">
+        <div class="portlet portlet-cinza span12">
+            <div class="title"><?php echo $this->nomescritorio ?> </div>
+            <div class="content">
+                <div id="chartContainer-orcamentario" style="min-width: 580px; min-height: 300px;"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="portlet portlet-cinza span8">
-        <div class="title"><?php echo $this->nomescritorio ?> </div>
-        <div class="content">
-            <div id="chartContainer-projetos-programa" style="min-width: 580px; min-height: 300px;"></div>
+    <div class="row">
+        <div class="portlet portlet-cinza span8">
+            <div class="title"><?php echo $this->nomescritorio ?> </div>
+            <div class="content">
+                <div id="chartContainer-projetos-programa" style="min-width: 580px; min-height: 300px;"></div>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="row">
-    <div class="portlet portlet-cinza span8">
-        <div class="title"><?php echo $this->nomescritorio ?> </div>
-        <div class="content">
-            <div id="chartContainer-projetos-natureza" style="min-width: 580px; min-height: 300px;"></div>
+    <div class="row">
+        <div class="portlet portlet-cinza span8">
+            <div class="title"><?php echo $this->nomescritorio ?> </div>
+            <div class="content">
+                <div id="chartContainer-projetos-natureza" style="min-width: 580px; min-height: 300px;"></div>
+            </div>
         </div>
     </div>
-</div>
     
    

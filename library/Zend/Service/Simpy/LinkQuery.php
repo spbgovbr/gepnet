@@ -69,10 +69,10 @@ class Zend_Service_Simpy_LinkQuery
     /**
      * Sets the query string for the query
      *
-     * @param string $query Query string in valid Simpy syntax
-     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
-     * @see    http://www.simpy.com/faq#searchFieldsLinks
+     * @param  string $query Query string in valid Simpy syntax
      * @see    http://www.simpy.com/faq#searchSyntax
+     * @see    http://www.simpy.com/faq#searchFieldsLinks
+     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
      */
     public function setQueryString($query)
     {
@@ -94,7 +94,7 @@ class Zend_Service_Simpy_LinkQuery
     /**
      * Sets the maximum number of search results to return
      *
-     * @param int $limit
+     * @param  int $limit
      * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
      */
     public function setLimit($limit)
@@ -122,10 +122,10 @@ class Zend_Service_Simpy_LinkQuery
      * Sets the date on which search results must have been added, which will
      * override any existing values set using setAfterDate() and setBeforeDate()
      *
-     * @param string $date
-     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
-     * @see    setBeforeDate()
+     * @param  string $date
      * @see    setAfterDate()
+     * @see    setBeforeDate()
+     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
      */
     public function setDate($date)
     {
@@ -150,9 +150,9 @@ class Zend_Service_Simpy_LinkQuery
      * Sets the date after which search results must have been added, which will
      * override any existing values set using setDate()
      *
-     * @param string $date
-     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
+     * @param  string $date
      * @see    setDate()
+     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
      */
     public function setAfterDate($date)
     {
@@ -176,9 +176,9 @@ class Zend_Service_Simpy_LinkQuery
      * Sets the date before which search results must have been added, which
      * will override any existing values set using setDate()
      *
-     * @param string $date
-     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
+     * @param  string $date
      * @see    setDate()
+     * @return Zend_Service_Simpy_LinkQuery Provides a fluent interface
      */
     public function setBeforeDate($date)
     {

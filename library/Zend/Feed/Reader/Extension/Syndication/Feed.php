@@ -49,7 +49,8 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
             return 'daily'; //Default specified by spec
         }
 
-        switch ($period) {
+        switch ($period)
+        {
             case 'hourly':
             case 'daily':
             case 'weekly':
@@ -57,7 +58,7 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
                 return $period;
             default:
                 throw new Zend_Feed_Exception("Feed specified invalid update period: '$period'."
-                    . " Must be one of hourly, daily, weekly or yearly"
+                    .  " Must be one of hourly, daily, weekly or yearly"
                 );
         }
     }
@@ -96,7 +97,8 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $period = $this->getUpdatePeriod();
         $ticks = 1;
 
-        switch ($period) {
+        switch ($period)
+        {
             //intentional fall through
             case 'yearly':
                 $ticks *= 52; //TODO: fix generalisation, how?

@@ -8,11 +8,11 @@
 class Default_Model_Setor extends App_Model_ModelAbstract
 {
 
-    public $idsetor = null;
-    public $nomsetor = null;
+    public $idsetor       = null;
+    public $nomsetor      = null;
     public $idcadastrador = null;
-    public $datcadastro = null;
-    public $flaativo = 's';
+    public $datcadastro   = null;
+    public $flaativo      = 's';
 
 }
 

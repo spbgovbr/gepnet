@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Service_Relatorio extends App_Service_ServiceAbstract
-{
+class Pesquisa_Service_Relatorio extends App_Service_ServiceAbstract {
 
     protected $_form = null;
 
@@ -17,7 +16,7 @@ class Pesquisa_Service_Relatorio extends App_Service_ServiceAbstract
 
     public function getFormPesquisar()
     {
-        $form = new Pesquisa_Form_PesquisaPesquisar();
+        $form  = new Pesquisa_Form_PesquisaPesquisar();
         return $form;
     }
 

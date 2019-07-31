@@ -9,7 +9,7 @@
 class Default_Model_DbTable_Pessoaagenda extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'tb_pessoaagenda';
+    protected $_name    = 'tb_pessoaagenda';
     protected $_primary = array(
         'idagenda',
         'idpessoa'
@@ -18,13 +18,13 @@ class Default_Model_DbTable_Pessoaagenda extends Zend_Db_Table_Abstract
     protected $_referenceMap = array(
         'Agenda' => array(
             'refTableClass' => 'tb_agenda',
-            'columns' => 'idagenda',
-            'refColumns' => 'idagenda'
+            'columns'       => 'idagenda',
+            'refColumns'    => 'idagenda'
         ),
-        'Pessoa' => array(
+        'Pessoa'        => array(
             'refTableClass' => 'tb_pessoa',
-            'columns' => 'idpessoa',
-            'refColumns' => 'idpessoa'
+            'columns'       => 'idpessoa',
+            'refColumns'    => 'idpessoa'
         )
     );
 

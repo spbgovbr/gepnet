@@ -9,16 +9,14 @@
 class Acordocooperacao_Model_DbTable_Tipoacordo extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'tb_tipoacordo';
+    protected $_name    = 'tb_tipoacordo';
     protected $_primary = array('idtipoacordo');
     protected $_dependentTables = array();
-    protected $_referenceMap = array(
-        'Pessoa' => array(
+    protected $_referenceMap = array('Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns' => 'idcadastrador',
-            'refColumns' => 'idpessoa'
-        )
-    );
+            'columns'       => 'idcadastrador',
+            'refColumns'    => 'idpessoa'
+        ));
 
 }
 

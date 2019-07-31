@@ -8,8 +8,8 @@
 class Evento_Model_Tipoavaliacao extends App_Model_ModelAbstract
 {
 
-    public $idtipoavaliacao = null;
-    public $noavaliacao = null;
+    public $idtipoavaliacao      = null;
+    public $noavaliacao          = null;
 
 }
 

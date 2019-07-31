@@ -125,7 +125,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Constructor
      *
-     * @param array $options Optional options array
+     * @param  array $options Optional options array
      * @return void
      */
     public function __construct($options = null, Zend_Oauth_Consumer $consumer = null)
@@ -145,7 +145,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
             $this->setUsername($options['username']);
         }
         if (isset($options['accessToken'])
-            && $options['accessToken'] instanceof Zend_Oauth_Token_Access) {
+        && $options['accessToken'] instanceof Zend_Oauth_Token_Access) {
             $this->setLocalHttpClient($options['accessToken']->getHttpClient($options));
         } else {
             $this->setLocalHttpClient(clone self::getHttpClient());
@@ -208,7 +208,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Set username
      *
-     * @param string $value
+     * @param  string $value
      * @return Zend_Service_Twitter
      */
     public function setUsername($value)
@@ -220,7 +220,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Proxy service methods
      *
-     * @param string $type
+     * @param  string $type
      * @return Zend_Service_Twitter
      * @throws Zend_Service_Twitter_Exception If method not in method types list
      */
@@ -239,8 +239,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Method overloading
      *
-     * @param string $method
-     * @param array $params
+     * @param  string $method
+     * @param  array $params
      * @return mixed
      * @throws Zend_Service_Twitter_Exception if unable to find method
      */
@@ -299,9 +299,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Set date header
      *
-     * @param int|string $value
-     * @return void
+     * @param  int|string $value
      * @deprecated Not supported by Twitter since April 08, 2009
+     * @return void
      */
     protected function _setDate($value)
     {
@@ -316,8 +316,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Public Timeline status
      *
-     * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function statusPublicTimeline()
     {
@@ -336,9 +336,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - since_id: return results only after the specific tweet
      * - page: return page X of results
      *
-     * @param array $params
-     * @return void
+     * @param  array $params
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return void
      */
     public function statusFriendsTimeline(array $params = array())
     {
@@ -348,19 +348,19 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         foreach ($params as $key => $value) {
             switch (strtolower($key)) {
                 case 'count':
-                    $count = (int)$value;
+                    $count = (int) $value;
                     if (0 >= $count) {
                         $count = 1;
                     } elseif (200 < $count) {
                         $count = 200;
                     }
-                    $_params['count'] = (int)$count;
+                    $_params['count'] = (int) $count;
                     break;
                 case 'since_id':
                     $_params['since_id'] = $this->_validInteger($value);
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 case 'max_id':
                     $_params['max_id'] = $this->_validInteger($value);
@@ -369,7 +369,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                 case 'trim_user':
                 case 'include_entities':
                     $_params[strtolower($key)] = $value ? '1' : '0';
-                    break;
+                    break;                    
                 default:
                     break;
             }
@@ -394,8 +394,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - trim_user: whether to return just the user ID or a full user object; omit to return full object
      * - include_entities: whether or not to return entities nodes with tweet metadata
      *
-     * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function statusUserTimeline(array $params = array())
     {
@@ -408,10 +408,10 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $path .= '/' . $value;
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 case 'count':
-                    $count = (int)$value;
+                    $count = (int) $value;
                     if (0 >= $count) {
                         $count = 1;
                     } elseif (200 < $count) {
@@ -448,9 +448,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Show a single status
      *
-     * @param int $id Id of status to show
-     * @return Zend_Rest_Client_Result
+     * @param  int $id Id of status to show
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function statusShow($id)
     {
@@ -463,8 +463,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Update user's current status
      *
-     * @param string $status
-     * @param int $in_reply_to_status_id
+     * @param  string $status
+     * @param  int $in_reply_to_status_id
      * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
      * @throws Zend_Service_Twitter_Exception if message is too short or too long
@@ -502,8 +502,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - since_id: return results only after the specified tweet id
      * - page: return page X of results
      *
-     * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function statusReplies(array $params = array())
     {
@@ -516,7 +516,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $_params['since_id'] = $this->_validInteger($value);
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
@@ -529,9 +529,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Destroy a status message
      *
-     * @param int $id ID of status to destroy
-     * @return Zend_Rest_Client_Result
+     * @param  int $id ID of status to destroy
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function statusDestroy($id)
     {
@@ -544,9 +544,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * User friends
      *
-     * @param int|string $id Id or username of user for whom to fetch friends
-     * @return Zend_Rest_Client_Result
+     * @param  int|string $id Id or username of user for whom to fetch friends
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function userFriends(array $params = array())
     {
@@ -560,7 +560,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $path .= '/' . $value;
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
@@ -575,9 +575,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * User Followers
      *
-     * @param bool $lite If true, prevents inline inclusion of current status for followers; defaults to false
-     * @return Zend_Rest_Client_Result
+     * @param  bool $lite If true, prevents inline inclusion of current status for followers; defaults to false
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function userFollowers($lite = false)
     {
@@ -593,15 +593,15 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Show extended information on a user
      *
-     * @param int|string $id User ID or name
-     * @return Zend_Rest_Client_Result
+     * @param  int|string $id User ID or name
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function userShow($id)
     {
         $this->_init();
         $path = '/1/users/show.xml';
-        $response = $this->_get($path, array('id' => $id));
+        $response = $this->_get($path, array('id'=>$id));
         return new Zend_Rest_Client_Result($response->getBody());
     }
 
@@ -612,9 +612,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - since_id: return statuses only greater than the one specified
      * - page: return page X of results
      *
-     * @param array $params
-     * @return Zend_Rest_Client_Result
+     * @param  array $params
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function directMessageMessages(array $params = array())
     {
@@ -627,7 +627,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $_params['since_id'] = $this->_validInteger($value);
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
@@ -644,9 +644,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - since_id: return statuses only greater than the one specified
      * - page: return page X of results
      *
-     * @param array $params
-     * @return Zend_Rest_Client_Result
+     * @param  array $params
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function directMessageSent(array $params = array())
     {
@@ -659,7 +659,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $_params['since_id'] = $this->_validInteger($value);
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
@@ -672,8 +672,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Send a direct message to a user
      *
-     * @param int|string $user User to whom to send message
-     * @param string $text Message to send to user
+     * @param  int|string $user User to whom to send message
+     * @param  string $text Message to send to user
      * @return Zend_Rest_Client_Result
      * @throws Zend_Service_Twitter_Exception if message is too short or too long
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
@@ -700,9 +700,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Destroy a direct message
      *
-     * @param int $id ID of message to destroy
-     * @return Zend_Rest_Client_Result
+     * @param  int $id ID of message to destroy
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function directMessageDestroy($id)
     {
@@ -715,9 +715,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Create friendship
      *
-     * @param int|string $id User ID or name of new friend
-     * @return Zend_Rest_Client_Result
+     * @param  int|string $id User ID or name of new friend
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function friendshipCreate($id)
     {
@@ -730,9 +730,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Destroy friendship
      *
-     * @param int|string $id User ID or name of friend to remove
-     * @return Zend_Rest_Client_Result
+     * @param  int|string $id User ID or name of friend to remove
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function friendshipDestroy($id)
     {
@@ -746,8 +746,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * Friendship exists
      *
      * @param int|string $id User ID or name of friend to see if they are your friend
-     * @return Zend_Rest_Client_result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_result
      */
     public function friendshipExists($id)
     {
@@ -760,9 +760,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
 
     /**
      * Verify Account Credentials
-     * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
      *
+     * @return Zend_Rest_Client_Result
      */
     public function accountVerifyCredentials()
     {
@@ -774,8 +774,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * End current session
      *
-     * @return true
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return true
      */
     public function accountEndSession()
     {
@@ -787,8 +787,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Returns the number of api requests you have left per hour.
      *
-     * @return Zend_Rest_Client_Result
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function accountRateLimitStatus()
     {
@@ -804,9 +804,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * - 'id': Id of a user for whom to fetch favorites
      * - 'page': Retrieve a different page of resuls
      *
-     * @param array $params
-     * @return Zend_Rest_Client_Result
+     * @param  array $params
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function favoriteFavorites(array $params = array())
     {
@@ -819,7 +819,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
                     $path .= '/' . $this->_validInteger($value);
                     break;
                 case 'page':
-                    $_params['page'] = (int)$value;
+                    $_params['page'] = (int) $value;
                     break;
                 default:
                     break;
@@ -833,9 +833,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Mark a status as a favorite
      *
-     * @param int $id Status ID you want to mark as a favorite
-     * @return Zend_Rest_Client_Result
+     * @param  int $id Status ID you want to mark as a favorite
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function favoriteCreate($id)
     {
@@ -848,9 +848,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Remove a favorite
      *
-     * @param int $id Status ID you want to de-list as a favorite
-     * @return Zend_Rest_Client_Result
+     * @param  int $id Status ID you want to de-list as a favorite
      * @throws Zend_Http_Client_Exception if HTTP request fails or times out
+     * @return Zend_Rest_Client_Result
      */
     public function favoriteDestroy($id)
     {
@@ -864,7 +864,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * Blocks the user specified in the ID parameter as the authenticating user.
      * Destroys a friendship to the blocked user if it exists.
      *
-     * @param integer|string $id The ID or screen name of a user to block.
+     * @param integer|string $id       The ID or screen name of a user to block.
      * @return Zend_Rest_Client_Result
      */
     public function blockCreate($id)
@@ -878,7 +878,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Un-blocks the user specified in the ID parameter for the authenticating user
      *
-     * @param integer|string $id The ID or screen_name of the user to un-block.
+     * @param integer|string $id       The ID or screen_name of the user to un-block.
      * @return Zend_Rest_Client_Result
      */
     public function blockDestroy($id)
@@ -892,7 +892,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Returns if the authenticating user is blocking a target user.
      *
-     * @param string|integer $id The ID or screen_name of the potentially blocked user.
+     * @param string|integer $id    The ID or screen_name of the potentially blocked user.
      * @param boolean $returnResult Instead of returning a boolean return the rest response from twitter
      * @return Boolean|Zend_Rest_Client_Result
      */
@@ -904,9 +904,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
 
         $cr = new Zend_Rest_Client_Result($response->getBody());
 
-        if ($returnResult === true) {
+        if ($returnResult === true)
             return $cr;
-        }
 
         if (!empty($cr->request)) {
             return false;
@@ -918,8 +917,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Returns an array of user objects that the authenticating user is blocking
      *
-     * @param integer $page Optional. Specifies the page number of the results beginning at 1. A single page contains 20 ids.
-     * @param boolean $returnUserIds Optional. Returns only the userid's instead of the whole user object
+     * @param integer $page         Optional. Specifies the page number of the results beginning at 1. A single page contains 20 ids.
+     * @param boolean $returnUserIds  Optional. Returns only the userid's instead of the whole user object
      * @return Zend_Rest_Client_Result
      */
     public function blockBlocking($page = 1, $returnUserIds = false)
@@ -951,8 +950,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      * Validate a screen name using Twitter rules
      *
      * @param string $name
-     * @return string
      * @throws Zend_Service_Twitter_Exception
+     * @return string
      */
     protected function _validateScreenName($name)
     {
@@ -969,9 +968,9 @@ class Zend_Service_Twitter extends Zend_Rest_Client
     /**
      * Call a remote REST web service URI and return the Zend_Http_Response object
      *
-     * @param string $path The path to append to the URI
-     * @return void
+     * @param  string $path            The path to append to the URI
      * @throws Zend_Rest_Client_Exception
+     * @return void
      */
     protected function _prepare($path)
     {
@@ -996,16 +995,16 @@ class Zend_Service_Twitter extends Zend_Rest_Client
          * Do this each time because the Zend_Http_Client instance is shared
          * among all Zend_Service_Abstract subclasses.
          */
-        $this->_localHttpClient->resetParameters()->setUri((string)$this->_uri);
+        $this->_localHttpClient->resetParameters()->setUri((string) $this->_uri);
     }
 
     /**
      * Performs an HTTP GET request to the $path.
      *
      * @param string $path
-     * @param array $query Array of GET parameters
-     * @return Zend_Http_Response
+     * @param array  $query Array of GET parameters
      * @throws Zend_Http_Client_Exception
+     * @return Zend_Http_Response
      */
     protected function _get($path, array $query = null)
     {
@@ -1019,8 +1018,8 @@ class Zend_Service_Twitter extends Zend_Rest_Client
      *
      * @param string $path
      * @param mixed $data Raw data to send
-     * @return Zend_Http_Response
      * @throws Zend_Http_Client_Exception
+     * @return Zend_Http_Response
      */
     protected function _post($path, $data = null)
     {
@@ -1045,7 +1044,7 @@ class Zend_Service_Twitter extends Zend_Rest_Client
         if (is_string($data)) {
             $client->setRawData($data);
         } elseif (is_array($data) || is_object($data)) {
-            $client->setParameterPost((array)$data);
+            $client->setParameterPost((array) $data);
         }
         return $client->request($method);
     }

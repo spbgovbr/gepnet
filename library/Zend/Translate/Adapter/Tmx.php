@@ -33,27 +33,26 @@ require_once 'Zend/Translate/Adapter.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
-{
+class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter {
     // Internal variables
-    private $_file = false;
-    private $_useId = true;
+    private $_file    = false;
+    private $_useId   = true;
     private $_srclang = null;
-    private $_tu = null;
-    private $_tuv = null;
-    private $_seg = null;
+    private $_tu      = null;
+    private $_tuv     = null;
+    private $_seg     = null;
     private $_content = null;
-    private $_data = array();
+    private $_data    = array();
 
     /**
      * Load translation data (TMX file reader)
      *
-     * @param string $filename TMX file to add, full path must be given for access
-     * @param string $locale Locale has no effect for TMX because TMX defines all languages within
+     * @param  string  $filename  TMX file to add, full path must be given for access
+     * @param  string  $locale    Locale has no effect for TMX because TMX defines all languages within
      *                            the source file
-     * @param array $option OPTIONAL Options to use
-     * @return array
+     * @param  array   $option    OPTIONAL Options to use
      * @throws Zend_Translation_Exception
+     * @return array
      */
     protected function _loadTranslationData($filename, $locale, array $options = array())
     {
@@ -64,7 +63,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
         }
 
         if (isset($options['useId'])) {
-            $this->_useId = (boolean)$options['useId'];
+            $this->_useId = (boolean) $options['useId'];
         }
 
         $encoding = $this->_findEncoding($filename);
@@ -76,9 +75,9 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
 
         if (!xml_parse($this->_file, file_get_contents($filename))) {
             $ex = sprintf('XML error: %s at line %d of file %s',
-                xml_error_string(xml_get_error_code($this->_file)),
-                xml_get_current_line_number($this->_file),
-                $filename);
+                          xml_error_string(xml_get_error_code($this->_file)),
+                          xml_get_current_line_number($this->_file),
+                          $filename);
             xml_parser_free($this->_file);
             require_once 'Zend/Translate/Exception.php';
             throw new Zend_Translate_Exception($ex);
@@ -90,20 +89,20 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
     /**
      * Internal method, called by xml element handler at start
      *
-     * @param resource $file File handler
-     * @param string $name Elements name
-     * @param array $attrib Attributes for this element
+     * @param resource $file   File handler
+     * @param string   $name   Elements name
+     * @param array    $attrib Attributes for this element
      */
     protected function _startElement($file, $name, $attrib)
     {
         if ($this->_seg !== null) {
-            $this->_content .= "<" . $name;
-            foreach ($attrib as $key => $value) {
+            $this->_content .= "<".$name;
+            foreach($attrib as $key => $value) {
                 $this->_content .= " $key=\"$value\"";
             }
             $this->_content .= ">";
         } else {
-            switch (strtolower($name)) {
+            switch(strtolower($name)) {
                 case 'header':
                     if (empty($this->_useId) && isset($attrib['srclang'])) {
                         if (Zend_Locale::isLocale($attrib['srclang'])) {
@@ -113,8 +112,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
                                 if ($this->_options['log']) {
                                     $this->_options['log']->notice("The language '{$attrib['srclang']}' can not be set because it does not exist.");
                                 } else {
-                                    trigger_error("The language '{$attrib['srclang']}' can not be set because it does not exist.",
-                                        E_USER_NOTICE);
+                                    trigger_error("The language '{$attrib['srclang']}' can not be set because it does not exist.", E_USER_NOTICE);
                                 }
                             }
 
@@ -136,8 +134,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
                                 if ($this->_options['log']) {
                                     $this->_options['log']->notice("The language '{$attrib['xml:lang']}' can not be set because it does not exist.");
                                 } else {
-                                    trigger_error("The language '{$attrib['xml:lang']}' can not be set because it does not exist.",
-                                        E_USER_NOTICE);
+                                    trigger_error("The language '{$attrib['xml:lang']}' can not be set because it does not exist.", E_USER_NOTICE);
                                 }
                             }
 
@@ -150,7 +147,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
                     }
                     break;
                 case 'seg':
-                    $this->_seg = true;
+                    $this->_seg     = true;
                     $this->_content = null;
                     break;
                 default:
@@ -163,13 +160,13 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
     /**
      * Internal method, called by xml element handler at end
      *
-     * @param resource $file File handler
-     * @param string $name Elements name
+     * @param resource $file   File handler
+     * @param string   $name   Elements name
      */
     protected function _endElement($file, $name)
     {
         if (($this->_seg !== null) and ($name !== 'seg')) {
-            $this->_content .= "</" . $name . ">";
+            $this->_content .= "</".$name.">";
         } else {
             switch (strtolower($name)) {
                 case 'tu':
@@ -198,7 +195,7 @@ class Zend_Translate_Adapter_Tmx extends Zend_Translate_Adapter
      * Internal method, called by xml element handler for content
      *
      * @param resource $file File handler
-     * @param string $data Elements content
+     * @param string   $data Elements content
      */
     protected function _contentElement($file, $data)
     {

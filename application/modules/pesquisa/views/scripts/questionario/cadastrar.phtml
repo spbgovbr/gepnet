@@ -1,6 +1,6 @@
 <script>
 
-    $(function () {
+    $(function() {
         $.pnotify.defaults.history = false;
 
         $('#desobservacao').limit('800', '#maxChars');
@@ -8,7 +8,8 @@
     });
 
 
-    function resetFormQuestionario() {
+    function resetFormQuestionario()
+    {
         $("#form-questionario :input").not('#idquestionario').val('');
     }
 
@@ -22,28 +23,23 @@
         <form id="<?php echo $frmAttrQuestionario['id']; ?>"
               name="<?php echo $frmAttrQuestionario['id']; ?>"
               action="<?php echo $this->formQuestionario->getAction(); ?>"
-              method="<?php echo $frmAttrQuestionario['method']; ?>">
-            <div class="row-fluid">
+              method="<?php echo $frmAttrQuestionario['method']; ?>">    
+            <div class="row-fluid">                                                                       
                 <div class="span">
                     <?php echo $this->formQuestionario->nomquestionario ?>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid"> 
                 <div class="span">
                     <?php echo $this->formQuestionario->desobservacao ?>
                     Número caracteres restantes: <span id="maxChars" style="color: red;"></span><br/><br/>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid"> 
                 <div class="span3">
-                    <?php echo $this->formQuestionario->tipoquestionario ?>
+                    <?php echo $this->formQuestionario->tipoquestionario ?>                
                 </div>
             </div>
         </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
-        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
     </div>
 </div>

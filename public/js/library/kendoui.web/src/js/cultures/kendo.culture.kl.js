@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["kl"] = {
         name: "kl",
         numberFormat: {
@@ -18,34 +18,34 @@
             decimals: 2,
             ",": ".",
             ".": ",",
-            groupSize: [3, 0],
+            groupSize: [3,0],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
-                groupSize: [3, 0],
+                groupSize: [3,0],
                 symbol: "%"
             },
             currency: {
-                pattern: ["$ -n", "$ n"],
+                pattern: ["$ -n","$ n"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
-                groupSize: [3, 0],
+                groupSize: [3,0],
                 symbol: "kr."
             }
         },
         calendars: {
             standard: {
                 days: {
-                    names: ["sapaat", "ataasinngorneq", "marlunngorneq", "pingasunngorneq", "sisamanngorneq", "tallimanngorneq", "arfininngorneq"],
-                    namesAbbr: ["sap", "ata", "mar", "ping", "sis", "tal", "arf"],
-                    namesShort: ["sa", "at", "ma", "pi", "si", "ta", "ar"]
+                    names: ["sapaat","ataasinngorneq","marlunngorneq","pingasunngorneq","sisamanngorneq","tallimanngorneq","arfininngorneq"],
+                    namesAbbr: ["sap","ata","mar","ping","sis","tal","arf"],
+                    namesShort: ["sa","at","ma","pi","si","ta","ar"]
                 },
                 months: {
-                    names: ["januari", "februari", "martsi", "apriili", "maaji", "juni", "juli", "aggusti", "septembari", "oktobari", "novembari", "decembari", ""],
-                    namesAbbr: ["jan", "feb", "mar", "apr", "mai", "jun", "jul", "aug", "sep", "okt", "nov", "dec", ""]
+                    names: ["januari","februari","martsi","apriili","maaji","juni","juli","aggusti","septembari","oktobari","novembari","decembari",""],
+                    namesAbbr: ["jan","feb","mar","apr","mai","jun","jul","aug","sep","okt","nov","dec",""]
                 },
                 AM: [""],
                 PM: [""],

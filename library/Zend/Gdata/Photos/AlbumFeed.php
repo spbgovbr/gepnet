@@ -235,8 +235,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
                 foreach ($categories as $category) {
                     if ($category->scheme == Zend_Gdata_Photos::KIND_PATH &&
                         $this->_entryKindClassMapping[$category->term] != "") {
-                        $entryClassName = $this->_entryKindClassMapping[$category->term];
-                        break;
+                            $entryClassName = $this->_entryKindClassMapping[$category->term];
+                            break;
                     } else {
                         require_once 'Zend/Gdata/App/Exception.php';
                         throw new Zend_Gdata_App_Exception('Entry is missing kind declaration.');
@@ -256,8 +256,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:user attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoUser
+     * @return string The requested attribute.
      */
     public function getGphotoUser()
     {
@@ -279,8 +279,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:access attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoAccess
+     * @return string The requested attribute.
      */
     public function getGphotoAccess()
     {
@@ -302,8 +302,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:location attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoLocation
+     * @return string The requested attribute.
      */
     public function getGphotoLocation()
     {
@@ -325,8 +325,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:name attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoName
+     * @return string The requested attribute.
      */
     public function getGphotoName()
     {
@@ -348,8 +348,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:numphotos attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoNumPhotos
+     * @return string The requested attribute.
      */
     public function getGphotoNumPhotos()
     {
@@ -371,8 +371,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:commentCount attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoCommentCount
+     * @return string The requested attribute.
      */
     public function getGphotoCommentCount()
     {
@@ -394,8 +394,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:commentingEnabled attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoCommentingEnabled
+     * @return string The requested attribute.
      */
     public function getGphotoCommentingEnabled()
     {
@@ -417,8 +417,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:id attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoId
+     * @return string The requested attribute.
      */
     public function getGphotoId()
     {
@@ -440,8 +440,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's georss:where attribute.
      *
-     * @return string The requested attribute.
      * @see setGeoRssWhere
+     * @return string The requested attribute.
      */
     public function getGeoRssWhere()
     {
@@ -463,8 +463,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:nickname attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoNickname
+     * @return string The requested attribute.
      */
     public function getGphotoNickname()
     {
@@ -486,8 +486,8 @@ class Zend_Gdata_Photos_AlbumFeed extends Zend_Gdata_Feed
     /**
      * Get the value for this element's gphoto:timestamp attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoTimestamp
+     * @return string The requested attribute.
      */
     public function getGphotoTimestamp()
     {

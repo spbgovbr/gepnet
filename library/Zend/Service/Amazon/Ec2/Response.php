@@ -32,8 +32,7 @@ require_once 'Zend/Http/Response.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Zend_Service_Amazon_Ec2_Response
-{
+class Zend_Service_Amazon_Ec2_Response {
     /**
      * XML namespace used for EC2 responses.
      */

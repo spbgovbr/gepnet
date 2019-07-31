@@ -1,11 +1,11 @@
-<div class="content">
+<div class="content"> 
     <form id="form-mudanca-editar"
-          name="form-mudanca-editar"
-          action="<?php echo $this->form->getAction(); ?>"
-          method="post">
-        <?php ?>
-        <input type="hidden" name="idprojeto" value="<?php echo $this->idprojeto ?>"/>
-        <?php echo $this->form->idmudanca; ?>
+            name="form-mudanca-editar"
+            action="<?php echo $this->form->getAction(); ?>"
+            method="post">
+    <?php  ?>
+     <input type="hidden" name="idprojeto" value="<?php echo $this->idprojeto ?>"/>
+     <?php echo $this->form->idmudanca; ?> 
         <div class="row">
             <div class="span2_5">
                 <?php echo $this->form->idtipomudanca; ?>
@@ -26,25 +26,20 @@
             </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <?php echo $this->form->desmudanca; ?>
-            </div>
+           <div class="span5">
+               <?php echo $this->form->desmudanca; ?> 
+           </div>
             <div class="span4">
-                <?php echo $this->form->desjustificativa; ?>
-            </div>
+               <?php echo $this->form->desjustificativa; ?>  
+           </div>
         </div>
         <div class="row">
-            <div class="span5">
-                <?php echo $this->form->despareceregp; ?>
-            </div>
+           <div class="span5">
+               <?php echo $this->form->despareceregp; ?> 
+           </div>
             <div class="span4">
-                <?php echo $this->form->despareceraprovadores; ?>
-            </div>
+               <?php echo $this->form->despareceraprovadores; ?>  
+           </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 30px;">
-                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-            </div>
-        </div>
-    </form>
+  </form>
 </div>

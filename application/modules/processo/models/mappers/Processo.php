@@ -6,8 +6,7 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
-{
+class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract {
 
     /**
      * Set the property
@@ -15,8 +14,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
      * @param string $value
      * @return Processo_Model_Processo
      */
-    public function insert(Processo_Model_Processo $model)
-    {
+    public function insert(Processo_Model_Processo $model) {
         $model->idprocesso = $this->maxVal('idprocesso');
         $model->idcadastrador = '30605';
         $data = array(
@@ -50,8 +48,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
      * @param string $value
      * @return Processo_Model_Processo
      */
-    public function update(Processo_Model_Processo $model)
-    {
+    public function update(Processo_Model_Processo $model) {
         $data = array(
             "idprocesso" => $model->idprocesso,
             "idprocessopai" => $model->idprocessopai,
@@ -83,8 +80,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
         }
     }
 
-    public function getForm()
-    {
+    public function getForm() {
         return $this->_getForm(Processo_Form_Processo);
     }
 
@@ -94,8 +90,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
-    public function pesquisar($params, $paginator = false)
-    {
+    public function pesquisar($params, $paginator = false) {
         // 'Carbo','Nome','Matrícula','CPF','Lotação','Operações'
 
         $sql = "
@@ -126,7 +121,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
             $sql .= " AND proc.idsetor =  '{$params['diretoria']}'";
         }
 
-        if (isset($params['sidx'])) {
+        if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
         //Zend_Debug::dump($sql);exit;
@@ -146,12 +141,11 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
     }
 
     /**
+     * @todo aguardando a criação da view da tabela de unidade do owner comum
      * @param array $params
      * @return array
-     * @todo aguardando a criação da view da tabela de unidade do owner comum
      */
-    public function getById($params)
-    {
+    public function getById($params) {
         $sql = "
     			SELECT 	
                             proc.idprocessopai,
@@ -194,12 +188,11 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
     }
 
     /**
+     * @todo aguardando a criação da view da tabela de unidade do owner comum
      * @param array $params
      * @return array
-     * @todo aguardando a criação da view da tabela de unidade do owner comum
      */
-    public function getByIdDetalhar($params)
-    {
+    public function getByIdDetalhar($params) {
         $sql = "SELECT 	proc.nomprocesso,
     					(SELECT p.nomprocesso FROM agepnet200.tb_processo p WHERE p.idprocesso = proc.idprocessopai) as nomprocessopai,
 						proc.iddono,
@@ -225,8 +218,7 @@ class Processo_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
         return $processo;
     }
 
-    public function fetchPairs()
-    {
+    public function fetchPairs() {
         $sql = " SELECT idprocesso, nomprocesso FROM agepnet200.tb_processo order by nomprocesso asc";
         return $this->_db->fetchPairs($sql);
     }

@@ -5,7 +5,8 @@
 .ui-helper-horizontal > H1,
 .ui-helper-horizontal > H2,
 .ui-helper-horizontal > H3,
-.ui-helper-horizontal > H4 {
+.ui-helper-horizontal > H4
+{
     float: left;
     clear: none;
     display: block;

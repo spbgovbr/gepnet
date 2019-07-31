@@ -49,8 +49,8 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Constructor
      *
-     * @param mixed $spec
-     * @param mixed $options
+     * @param  mixed $spec
+     * @param  mixed $options
      * @return void
      */
     public function __construct($spec, $options = null)
@@ -62,12 +62,12 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Get jQuery related parameter of this form element
      *
-     * @param string $key
+     * @param  string $key
      * @return string
      */
     public function getJQueryParam($key)
     {
-        $key = (string)$key;
+        $key = (string) $key;
         return $this->jQueryParams[$key];
     }
 
@@ -84,13 +84,13 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Set a jQuery related parameter of this form element.
      *
-     * @param string $key
-     * @param string $value
+     * @param  string $key
+     * @param  string $value
      * @return ZendX_JQuery_Form_Element_UiWidget
      */
     public function setJQueryParam($key, $value)
     {
-        $key = (string)$key;
+        $key = (string) $key;
         $this->jQueryParams[$key] = $value;
         return $this;
     }
@@ -98,7 +98,7 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Set an array of jQuery related options for this element (merging with old options).
      *
-     * @param Array $params
+     * @param  Array $params
      * @return ZendX_JQuery_Form_Element_UiWidget
      */
     public function setJQueryParams($params)
@@ -121,10 +121,10 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('UiWidgetElement')
-                ->addDecorator('Errors')
-                ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                ->addDecorator('Label', array('tag' => 'dt'));
+                 ->addDecorator('Errors')
+                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
+                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
+                 ->addDecorator('Label', array('tag' => 'dt'));
         }
     }
 
@@ -133,7 +133,7 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
      *
      * Ensures that the view object has the jQuery view helper path set.
      *
-     * @param Zend_View_Interface $view
+     * @param  Zend_View_Interface $view
      * @return ZendX_JQuery_Form_Element_UiWidget
      */
     public function setView(Zend_View_Interface $view = null)
@@ -149,27 +149,27 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Retrieve all decorators
      *
-     * @return array
      * @throws ZendX_JQuery_Form_Exception
+     * @return array
      */
     public function getDecorators()
     {
         $decorators = parent::getDecorators();
-        if (count($decorators) > 0) {
+        if(count($decorators) > 0) {
             // Only check this if there are decorators present, otherwise it could
             // be that the decorators have not been initialized yet.
             $foundUiWidgetElementMarker = false;
-            foreach ($decorators AS $decorator) {
-                if ($decorator instanceof ZendX_JQuery_Form_Decorator_UiWidgetElementMarker) {
+            foreach($decorators AS $decorator) {
+                if($decorator instanceof ZendX_JQuery_Form_Decorator_UiWidgetElementMarker) {
                     $foundUiWidgetElementMarker = true;
                 }
             }
-            if ($foundUiWidgetElementMarker === false) {
+            if($foundUiWidgetElementMarker === false) {
                 require_once "ZendX/JQuery/Form/Exception.php";
                 throw new ZendX_JQuery_Form_Exception(
-                    "Cannot render jQuery form element without at least one decorator " .
-                    "implementing the 'ZendX_JQuery_Form_Decorator_UiWidgetElementMarker' interface. " .
-                    "Default decorator for this marker interface is the 'ZendX_JQuery_Form_Decorator_UiWidgetElement'. " .
+                    "Cannot render jQuery form element without at least one decorator ".
+                    "implementing the 'ZendX_JQuery_Form_Decorator_UiWidgetElementMarker' interface. ".
+                    "Default decorator for this marker interface is the 'ZendX_JQuery_Form_Decorator_UiWidgetElement'. ".
                     "Hint: The ViewHelper decorator does not render jQuery elements correctly."
                 );
             }

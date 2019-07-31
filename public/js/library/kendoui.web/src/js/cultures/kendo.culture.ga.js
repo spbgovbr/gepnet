@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["ga"] = {
         name: "ga",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-$n", "$n"],
+                pattern: ["-$n","$n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Dé Domhnaigh", "Dé Luain", "Dé Máirt", "Dé Céadaoin", "Déardaoin", "Dé hAoine", "Dé Sathairn"],
-                    namesAbbr: ["Domh", "Luan", "Máir", "Céad", "Déar", "Aoi", "Sath"],
-                    namesShort: ["Do", "Lu", "Má", "Cé", "De", "Ao", "Sa"]
+                    names: ["Dé Domhnaigh","Dé Luain","Dé Máirt","Dé Céadaoin","Déardaoin","Dé hAoine","Dé Sathairn"],
+                    namesAbbr: ["Domh","Luan","Máir","Céad","Déar","Aoi","Sath"],
+                    namesShort: ["Do","Lu","Má","Cé","De","Ao","Sa"]
                 },
                 months: {
-                    names: ["Eanáir", "Feabhra", "Márta", "Aibreán", "Bealtaine", "Meitheamh", "Iúil", "Lúnasa", "Meán Fómhair", "Deireadh Fómhair", "Samhain", "Nollaig", ""],
-                    namesAbbr: ["Ean", "Feabh", "Már", "Aib", "Bealt", "Meith", "Iúil", "Lún", "M.Fómh", "D.Fómh", "Samh", "Noll", ""]
+                    names: ["Eanáir","Feabhra","Márta","Aibreán","Bealtaine","Meitheamh","Iúil","Lúnasa","Meán Fómhair","Deireadh Fómhair","Samhain","Nollaig",""],
+                    namesAbbr: ["Ean","Feabh","Már","Aib","Bealt","Meith","Iúil","Lún","M.Fómh","D.Fómh","Samh","Noll",""]
                 },
-                AM: ["r.n.", "r.n.", "R.N."],
-                PM: ["i.n.", "i.n.", "I.N."],
+                AM: ["r.n.","r.n.","R.N."],
+                PM: ["i.n.","i.n.","I.N."],
                 patterns: {
                     d: "dd/MM/yyyy",
                     D: "d MMMM yyyy",

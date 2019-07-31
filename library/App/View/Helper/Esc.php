@@ -15,9 +15,9 @@ class App_View_Helper_Esc extends Zend_View_Helper_Abstract
 
     public function __construct()
     {
-        $this->_auth = Zend_Auth::getInstance();
+        $this->_auth           = Zend_Auth::getInstance();
     }
-
+    
     public $view;
 
     public function setView(Zend_View_Interface $view)
@@ -26,17 +26,17 @@ class App_View_Helper_Esc extends Zend_View_Helper_Abstract
     }
 
     /**
-     *
+     * 
      * @param string $data
      * @param string $default
      * @return string
      */
     public function esc($valor, $default = null)
     {
-        if (empty($valor) && $default !== null) {
+        if(empty($valor) && $default !== null) {
             return $default;
         }
-
-        return empty($valor) ? '' : $valor;
+        
+        return empty($valor)? '' : $valor;
     }
 }

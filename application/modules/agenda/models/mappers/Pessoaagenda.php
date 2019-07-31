@@ -48,8 +48,7 @@ class Agenda_Model_Mapper_Pessoaagenda extends App_Model_Mapper_MapperAbstract
         return $this->_getForm(Agenda_Form_Pessoaagenda);
     }
 
-    public function retornaPartesPorAgenda($params)
-    {
+    public function retornaPartesPorAgenda($params){
         $sql = "
                 SELECT
                   pagenda.idagenda,
@@ -103,16 +102,16 @@ class Agenda_Model_Mapper_Pessoaagenda extends App_Model_Mapper_MapperAbstract
 
     public function excluir($params)
     {
-        /*        try {
-                    $pks = array(
-                        "idagenda" => $params['idagenda'],
-                    );
-                    $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
-                    $retorno = $this->getDbTable()->delete($where);
-                    return $retorno;
-                } catch ( Exception $exc ) {
-                    throw $exc;
-                }*/
+/*        try {
+            $pks = array(
+                "idagenda" => $params['idagenda'],
+            );
+            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $retorno = $this->getDbTable()->delete($where);
+            return $retorno;
+        } catch ( Exception $exc ) {
+            throw $exc;
+        }*/
 //        var_dump($params); exit;
         $sql = "
                 DELETE
@@ -141,8 +140,7 @@ class Agenda_Model_Mapper_Pessoaagenda extends App_Model_Mapper_MapperAbstract
                ";
         $params = array_filter($params);
 
-        $resultado = $this->_db->fetchAll($sql,
-            array('idagenda' => $params['idagenda'], 'idpessoa' => $params['idpessoa']));
+        $resultado = $this->_db->fetchAll($sql, array('idagenda' => $params['idagenda'], 'idpessoa' => $params['idpessoa']));
 
         return $resultado;
 

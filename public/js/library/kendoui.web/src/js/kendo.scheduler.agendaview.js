@@ -15,26 +15,26 @@ kendo_module({
     name: "Scheduler Agenda View",
     category: "web",
     description: "The Scheduler Agenda View",
-    depends: ["scheduler.view"]
+    depends: [ "scheduler.view" ]
 });
 
-(function ($) {
+(function($){
     var kendo = window.kendo,
         ui = kendo.ui,
         NS = ".kendoAgendaView",
         extend = $.extend;
 
     ui.AgendaView = ui.SchedulerView.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             ui.SchedulerView.fn.init.call(this, element, options);
 
             options = this.options;
 
             if (options.editable) {
                 options.editable = extend(
-                    {"delete": true},
+                    { "delete": true },
                     options.editable,
-                    {create: false, update: false}
+                    { create: false, update: false }
                 );
             }
 
@@ -46,21 +46,21 @@ kendo_module({
             this._timeTemplate = kendo.template(options.eventTimeTemplate);
 
             this.element.on("mouseenter" + NS, ".k-scheduler-agenda .k-scheduler-content tr", "_mouseenter")
-                .on("mouseleave" + NS, ".k-scheduler-agenda .k-scheduler-content tr", "_mouseleave")
-                .on("click" + NS, ".k-scheduler-agenda .k-scheduler-content .k-link:has(.k-si-close)", "_remove");
+                        .on("mouseleave" + NS, ".k-scheduler-agenda .k-scheduler-content tr", "_mouseleave")
+                        .on("click" + NS, ".k-scheduler-agenda .k-scheduler-content .k-link:has(.k-si-close)", "_remove");
 
             this._renderLayout(options.date);
         },
 
-        _mouseenter: function (e) {
+        _mouseenter: function(e) {
             $(e.currentTarget).addClass("k-state-hover");
         },
 
-        _mouseleave: function (e) {
+        _mouseleave: function(e) {
             $(e.currentTarget).removeClass("k-state-hover");
         },
 
-        _remove: function (e) {
+        _remove: function(e) {
             e.preventDefault();
 
             this.trigger("remove", {
@@ -68,40 +68,40 @@ kendo_module({
             });
         },
 
-        nextDate: function () {
+        nextDate: function() {
             return kendo.date.nextDay(this.startDate());
         },
 
-        startDate: function () {
+        startDate: function() {
             return this._startDate;
         },
 
-        endDate: function () {
+        endDate: function() {
             return this._endDate;
         },
 
-        previousDate: function () {
+        previousDate: function() {
             return kendo.date.previousDay(this.startDate());
         },
 
-        _renderLayout: function (date) {
+        _renderLayout: function(date) {
             this._startDate = date;
             this._endDate = kendo.date.addDays(date, 7);
             this.createLayout(this._layout());
             this.table.addClass("k-scheduler-agenda");
         },
 
-        _layout: function () {
+        _layout: function() {
             var columns = [
-                {text: this.options.messages.date, className: "k-scheduler-datecolumn"},
-                {text: this.options.messages.time, className: "k-scheduler-timecolumn"},
-                {text: this.options.messages.event}
-            ];
+                    { text: this.options.messages.date, className: "k-scheduler-datecolumn" },
+                    { text: this.options.messages.time, className: "k-scheduler-timecolumn" },
+                    { text: this.options.messages.event }
+                ];
             var resources = this.groupedResources;
             if (resources.length) {
                 var groupHeaders = [];
                 for (var idx = 0; idx < resources.length; idx++) {
-                    groupHeaders.push({text: "", className: "k-scheduler-groupcolumn"});
+                    groupHeaders.push({ text: "", className: "k-scheduler-groupcolumn"});
                 }
 
                 columns = groupHeaders.concat(columns);
@@ -112,7 +112,7 @@ kendo_module({
             };
         },
 
-        _tasks: function (events) {
+        _tasks: function(events) {
             var tasks = [];
 
             for (var idx = 0; idx < events.length; idx++) {
@@ -143,7 +143,7 @@ kendo_module({
                         task.start = start;
                         task.startDate = kendo.date.getDate(start);
                         task.end = kendo.date.nextDay(start);
-                        if (day == eventDurationInDays - 1) {
+                        if (day == eventDurationInDays -1) {
                             task.end = new Date(task.start.getFullYear(), task.start.getMonth(), task.start.getDate(), end.getHours(), end.getMinutes(), end.getSeconds(), end.getMilliseconds());
                             task.tail = true;
                         } else {
@@ -158,13 +158,10 @@ kendo_module({
                 }
             }
 
-            return new kendo.data.Query(tasks).sort([{field: "start", dir: "asc"}, {
-                field: "end",
-                dir: "asc"
-            }]).groupBy({field: "startDate"}).toArray();
+            return new kendo.data.Query(tasks).sort([{ field: "start", dir: "asc" },{ field: "end", dir: "asc" }]).groupBy({field: "startDate"}).toArray();
         },
 
-        _renderTaskGroups: function (tasksGroups, groups) {
+        _renderTaskGroups: function(tasksGroups, groups) {
             var tableRows = [];
 
             for (var taskGroupIndex = 0; taskGroupIndex < tasksGroups.length; taskGroupIndex++) {
@@ -184,7 +181,7 @@ kendo_module({
                             tableRow.push(kendo.format(
                                 '<td class="k-scheduler-groupcolumn{2}" rowspan="{0}">{1}</td>',
                                 groups[idx].rowSpan,
-                                this._groupTemplate({value: groups[idx].text}),
+                                this._groupTemplate({ value: groups[idx].text }),
                                 groups[idx].className
                             ));
                         }
@@ -194,7 +191,7 @@ kendo_module({
                         tableRow.push(kendo.format(
                             '<td class="k-scheduler-datecolumn{2}" rowspan="{0}">{1}</td>',
                             tasks.length,
-                            this._dateTemplate({date: date}),
+                            this._dateTemplate({ date: date }),
                             taskGroupIndex == tasksGroups.length - 1 && !groups.length ? " k-last" : ""
                         ));
                     }
@@ -212,10 +209,7 @@ kendo_module({
                     tableRow.push(kendo.format(
                         '<td class="k-scheduler-timecolumn"><div>{0}{1}{2}</div></td><td>{3}</td>',
                         task.tail || task.middle ? '<span class="k-icon k-i-arrow-w"></span>' : "",
-                        this._timeTemplate(extend({}, task, {
-                            start: task.startTime || task.start,
-                            end: task.endTime || task.end
-                        })),
+                        this._timeTemplate(extend({}, task, { start: task.startTime || task.start, end: task.endTime || task.end })),
                         task.head || task.middle ? '<span class="k-icon k-i-arrow-e"></span>' : "",
                         this._eventTemplate(task)
                     ));
@@ -227,7 +221,7 @@ kendo_module({
             return tableRows.join("");
         },
 
-        render: function (events) {
+        render: function(events) {
             var table = this.content.find("table").empty();
             var groups = [];
 
@@ -249,7 +243,7 @@ kendo_module({
             this.trigger("activate");
         },
 
-        _renderGroups: function (groups, table, parentGroups) {
+        _renderGroups: function(groups, table, parentGroups) {
             for (var idx = 0, length = groups.length; idx < length; idx++) {
                 var parents = parentGroups.splice(0);
                 parents.push(groups[idx]);
@@ -262,7 +256,7 @@ kendo_module({
             }
         },
 
-        _createGroupConfiguration: function (events, resources, parent) {
+        _createGroupConfiguration: function(events, resources, parent) {
             var resource = resources[0];
             var configuration = [];
             var data = resource.dataSource.view();
@@ -270,11 +264,7 @@ kendo_module({
             for (var dataIndex = 0; dataIndex < data.length; dataIndex++) {
                 var value = resourceValue(resource, data[dataIndex]);
 
-                var tmp = new kendo.data.Query(events).filter({
-                    field: resource.field,
-                    operator: ui.SchedulerView.groupEqFilter,
-                    value: value
-                }).toArray();
+                var tmp = new kendo.data.Query(events).filter({ field: resource.field, operator: ui.SchedulerView.groupEqFilter, value: value }).toArray();
 
                 if (tmp.length) {
                     var tasks = this._tasks(tmp);
@@ -311,7 +301,7 @@ kendo_module({
             return configuration;
         },
 
-        selectionByElement: function (cell) {
+        selectionByElement: function(cell) {
             cell = $(cell);
             if (cell.hasClass("k-scheduler-datecolumn")) {
                 return;
@@ -324,7 +314,7 @@ kendo_module({
             return event;
         },
 
-        select: function (selection) {
+        select: function(selection) {
             this.clearSelection();
             var row = this.table
                 .find(".k-task")
@@ -337,15 +327,15 @@ kendo_module({
             }
         },
 
-        move: function (selection, key) {
+        move: function(selection, key) {
             var handled = false;
             var index = selection.index;
 
             if (key == kendo.keys.UP) {
-                index--;
+                index --;
                 handled = true;
-            } else if (key == kendo.keys.DOWN) {
-                index++;
+            } else  if (key == kendo.keys.DOWN) {
+                index ++;
                 handled = true;
             }
 
@@ -355,7 +345,7 @@ kendo_module({
                     selection.start = event.start;
                     selection.end = event.end;
                     selection.isAllDay = event.isAllDay;
-                    selection.events = [event.uid];
+                    selection.events = [ event.uid ];
                     selection.index = index;
                 }
             }
@@ -363,22 +353,22 @@ kendo_module({
             return handled;
         },
 
-        moveSelectionToPeriod: function (selection) {
+        moveSelectionToPeriod: function(selection) {
             var event = this._eventsList[0];
             if (event) {
                 selection.start = event.start;
                 selection.end = event.end;
                 selection.isAllDay = event.isAllDay;
-                selection.events = [event.uid];
+                selection.events = [ event.uid ];
                 selection.index = 0;
             }
         },
 
-        isInRange: function () {
+        isInRange: function() {
             return true;
         },
 
-        destroy: function () {
+        destroy: function(){
             if (this.element) {
                 this.element.off(NS);
             }
@@ -391,34 +381,34 @@ kendo_module({
             name: "agenda",
             selectedDateFormat: "{0:D}-{1:D}",
             eventTemplate: '<div class="k-task" title="#:title#" data-#=kendo.ns#uid="#=uid#">' +
-                '# if (resources[0]) {#' +
-                '<span class="k-scheduler-mark" style="background-color:#=resources[0].color#"></span>' +
-                "# } #" +
-                "# if (data.id && data.recurrenceId) { #" +
-                '<span class="k-icon k-i-exception"></span>' +
-                '# } else if (data.recurrenceRule || data.recurrenceId) {#' +
-                '<span class="k-icon k-i-refresh"></span>' +
-                "# } #" +
-                '#:title#' +
-                '<a href="\\#" class="k-link k-event-delete"><span class="k-icon k-si-close"></span></a>' +
-                '</div>',
+                               '# if (resources[0]) {#' +
+                               '<span class="k-scheduler-mark" style="background-color:#=resources[0].color#"></span>' +
+                               "# } #" +
+                               "# if (data.id && data.recurrenceId) { #" +
+                               '<span class="k-icon k-i-exception"></span>' +
+                               '# } else if (data.recurrenceRule || data.recurrenceId) {#' +
+                               '<span class="k-icon k-i-refresh"></span>' +
+                               "# } #" +
+                               '#:title#' +
+                               '<a href="\\#" class="k-link k-event-delete"><span class="k-icon k-si-close"></span></a>' +
+                           '</div>',
             eventTimeTemplate: "#if(data.isAllDay) {#" +
-                "all day" +
-                "#} else { #" +
-                '#=kendo.format(format, start, end)#' +
-                "# } #",
+                            "all day" +
+                          "#} else { #" +
+                            '#=kendo.format(format, start, end)#' +
+                          "# } #",
             eventDateTemplate: '<strong class="k-scheduler-agendaday">' +
-                '#=kendo.toString(date, "dd")#' +
-                '</strong>' +
-                '<em class="k-scheduler-agendaweek">' +
-                '#=kendo.toString(date,"dddd")#' +
-                '</em>' +
-                '<span class="k-scheduler-agendadate">' +
-                '#=kendo.toString(date, "y")#' +
-                '</span>',
+                            '#=kendo.toString(date, "dd")#' +
+                          '</strong>' +
+                          '<em class="k-scheduler-agendaweek">' +
+                              '#=kendo.toString(date,"dddd")#' +
+                          '</em>' +
+                          '<span class="k-scheduler-agendadate">' +
+                              '#=kendo.toString(date, "y")#' +
+                              '</span>',
             eventGroupTemplate: '<strong class="k-scheduler-adgendagroup">' +
-                '#=value#' +
-                '</strong>',
+                            '#=value#' +
+                          '</strong>',
             messages: {
                 event: "Event",
                 date: "Date",
@@ -450,7 +440,7 @@ kendo_module({
             item,
             result = [];
 
-        for (; idx < length; idx++) {
+        for ( ; idx < length; idx ++) {
             item = groups[idx];
             if (item.groups) {
                 item = flattenGroup(item.groups);

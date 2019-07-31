@@ -102,11 +102,11 @@ class Zend_Service_DeveloperGarden_VoiceCall
      *
      */
     protected $_classMap = array(
-        'newCallResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse',
+        'newCallResponse'          => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse',
         'newCallSequencedResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse',
-        'tearDownCallResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_TearDownCallResponse',
-        'callStatusResponse' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse',
-        'callStatus2Response' => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response'
+        'tearDownCallResponse'     => 'Zend_Service_DeveloperGarden_Response_VoiceButler_TearDownCallResponse',
+        'callStatusResponse'       => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatusResponse',
+        'callStatus2Response'      => 'Zend_Service_DeveloperGarden_Response_VoiceButler_CallStatus2Response'
     );
 
     /**
@@ -122,27 +122,20 @@ class Zend_Service_DeveloperGarden_VoiceCall
      * @param string $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallResponse
      */
-    public function newCall(
-        $aNumber,
-        $bNumber,
-        $expiration,
-        $maxDuration,
-        $account = null,
-        $privacyA = null,
-        $privacyB = null,
-        $greeter = null
+    public function newCall($aNumber, $bNumber, $expiration, $maxDuration,
+        $account = null, $privacyA = null, $privacyB = null, $greeter = null
     ) {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_NewCall(
-            $this->getEnvironment()
+                $this->getEnvironment()
         );
         $request->setANumber($aNumber)
-            ->setBNumber($bNumber)
-            ->setPrivacyA($privacyA)
-            ->setPrivacyB($privacyB)
-            ->setExpiration($expiration)
-            ->setMaxDuration($maxDuration)
-            ->setGreeter($greeter)
-            ->setAccount($account);
+                ->setBNumber($bNumber)
+                ->setPrivacyA($privacyA)
+                ->setPrivacyB($privacyB)
+                ->setExpiration($expiration)
+                ->setMaxDuration($maxDuration)
+                ->setGreeter($greeter)
+                ->setAccount($account);
         $result = $this->getSoapClient()->newCall(array(
             'request' => $request
         ));
@@ -156,6 +149,7 @@ class Zend_Service_DeveloperGarden_VoiceCall
      * you can define a set of numbers to be called if the first number
      * isnt reachable (ie: bNumber = +4930-111111,+4930-222222,+4930-333333)
      *
+     * @throws Zend_Service_DeveloperGarden_Client_Exception
      * @param string $aNumber
      * @param array $bNumber
      * @param integer $expiration
@@ -166,31 +160,22 @@ class Zend_Service_DeveloperGarden_VoiceCall
      * @param boolean $privacyB
      * @param string $greeter
      * @return Zend_Service_DeveloperGarden_Response_VoiceButler_NewCallSequencedResponse
-     * @throws Zend_Service_DeveloperGarden_Client_Exception
      */
-    public function newCallSequenced(
-        $aNumber,
-        $bNumber,
-        $expiration,
-        $maxDuration,
-        $maxWait,
-        $account = null,
-        $privacyA = null,
-        $privacyB = null,
-        $greeter = null
+    public function newCallSequenced($aNumber, $bNumber, $expiration, $maxDuration,
+        $maxWait, $account = null, $privacyA = null, $privacyB = null, $greeter = null
     ) {
         $request = new Zend_Service_DeveloperGarden_Request_VoiceButler_NewCallSequenced(
-            $this->getEnvironment()
+                $this->getEnvironment()
         );
         $request->setANumber($aNumber)
-            ->setBNumber($bNumber)
-            ->setPrivacyA($privacyA)
-            ->setPrivacyB($privacyB)
-            ->setExpiration($expiration)
-            ->setMaxDuration($maxDuration)
-            ->setMaxWait($maxWait)
-            ->setGreeter($greeter)
-            ->setAccount($account);
+                ->setBNumber($bNumber)
+                ->setPrivacyA($privacyA)
+                ->setPrivacyB($privacyB)
+                ->setExpiration($expiration)
+                ->setMaxDuration($maxDuration)
+                ->setMaxWait($maxWait)
+                ->setGreeter($greeter)
+                ->setAccount($account);
         $result = $this->getSoapClient()->newCallSequenced(array(
             'request' => $request
         ));

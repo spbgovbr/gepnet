@@ -5,8 +5,7 @@
  *
  * This class has been automatically generated at "" @ 16-05-2013 17:22
  */
-class Processo_Model_Processo extends App_Model_ModelAbstract
-{
+class Processo_Model_Processo extends App_Model_ModelAbstract {
 
     public $idprocesso = null;
     public $idprocessopai = null;
@@ -27,17 +26,16 @@ class Processo_Model_Processo extends App_Model_ModelAbstract
     public $nomgestor = null;
     public $nomexecutor = null;
     public $nomconsultor = null;
-
-    public function setDatatualizacao($data)
+    
+    public function setDatatualizacao ($data)
     {
-        if (!empty($data)) {
-            $this->datatualizacao = new Zend_Date($data, 'dd/MM/yyyy');
+        if( !empty($data)){
+            $this->datatualizacao  = new Zend_Date($data, 'dd/MM/yyyy');
         }
         return $this;
     }
 
-    public function formPopulate()
-    {
+    public function formPopulate() {
         return array(
             'idprocesso' => $this->idprocesso,
             'idprocessopai' => $this->idprocessopai,

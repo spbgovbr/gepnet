@@ -173,8 +173,8 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the yt:description
      *
-     * @return Zend_Gdata_YouTube_Extension_Description|null
      * @throws Zend_Gdata_App_VersionException
+     * @return Zend_Gdata_YouTube_Extension_Description|null
      */
     public function getDescription()
     {
@@ -193,8 +193,8 @@ class Zend_Gdata_YouTube_InboxEntry extends Zend_Gdata_Media_Entry
      *
      * @param Zend_Gdata_YouTube_Extension_Description $description The
      *        description.
-     * @return Zend_Gdata_YouTube_InboxEntry Provides a fluent interface
      * @throws Zend_Gdata_App_VersionException
+     * @return Zend_Gdata_YouTube_InboxEntry Provides a fluent interface
      */
     public function setDescription($description = null)
     {

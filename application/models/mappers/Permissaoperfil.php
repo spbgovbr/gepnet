@@ -18,10 +18,10 @@ class Default_Model_Mapper_Permissaoperfil extends App_Model_Mapper_MapperAbstra
     public function insert(Default_Model_Permissaoperfil $model)
     {
         $model->idpermissaoperfil = $this->maxVal('idpermissaoperfil');
-        $data = array(
+        $data                     = array(
             "idpermissaoperfil" => $model->idpermissaoperfil,
-            "idperfil" => $model->idperfil,
-            "idpermissao" => $model->idpermissao,
+            "idperfil"          => $model->idperfil,
+            "idpermissao"       => $model->idpermissao,
         );
         return $this->getDbTable()->insert($data);
     }
@@ -36,25 +36,27 @@ class Default_Model_Mapper_Permissaoperfil extends App_Model_Mapper_MapperAbstra
     {
         $data = array(
             "idpermissaoperfil" => $model->idpermissaoperfil,
-            "idperfil" => $model->idperfil,
-            "idpermissao" => $model->idpermissao,
+            "idperfil"          => $model->idperfil,
+            "idpermissao"       => $model->idpermissao,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function delete($params)
     {
         try {
-            $pks = array(
+            $pks     = array(
                 "idpermissao" => $params['idpermissao'],
-                "idperfil" => $params['idperfil'],
+                "idperfil"    => $params['idperfil'],
             );
+            //$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
             $where[] = $this->_db->quoteInto('idpermissao = ?', $params['idpermissao']);
             $where[] = $this->_db->quoteInto('idperfil = ?', $params['idperfil']);
             //Zend_Debug::dump($pks); exit;
 
             $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             throw $exc;
         }
     }

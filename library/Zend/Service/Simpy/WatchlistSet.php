@@ -47,7 +47,7 @@ class Zend_Service_Simpy_WatchlistSet implements IteratorAggregate
     /**
      * Constructor to initialize the object with data
      *
-     * @param DOMDocument $doc Parsed response from a GetWatchlists operation
+     * @param  DOMDocument $doc Parsed response from a GetWatchlists operation
      * @return void
      */
     public function __construct(DOMDocument $doc)

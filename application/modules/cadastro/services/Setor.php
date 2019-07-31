@@ -16,12 +16,12 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Zend_Db_Adapter_Abstract 
      */
     protected $_db = null;
 
     /**
-     * @var array
+     * @var array 
      */
     public $errors = array();
 
@@ -45,9 +45,9 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     {
         $form = $this->_getForm('Cadastro_Form_Setor');
         $form->getElement('nomsetor')
-            ->setAttribs(array('class' => 'span3', 'data-rule-required' => false))
-            ->setRequired(false)
-            ->removeValidator('NotEmpty');
+                        ->setAttribs(array('class' => 'span3', 'data-rule-required' => false))
+                        ->setRequired(false)
+                        ->removeValidator('NotEmpty');
         return $form;
     }
 
@@ -56,8 +56,8 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     {
         $form = $this->getForm();
 
-        if ($form->isValid($dados)) {
-            $model = new Cadastro_Model_Setor($form->getValues());
+        if ( $form->isValid($dados) ) {
+            $model        = new Cadastro_Model_Setor($form->getValues());
             return $this->_mapper->insert($model);
         } else {
             $this->errors = $form->getMessages();
@@ -66,15 +66,15 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
-        $form = $this->getForm();
-        if ($form->isValid($dados)) {
-            $model = new Cadastro_Model_Setor($form->getValues());
+    	$form = $this->getForm();
+        if ( $form->isValid($dados) ) {
+            $model   = new Cadastro_Model_Setor($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -86,10 +86,10 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     public function getById($dados)
     {
         return $this->_mapper->getById($dados);
-
-
+       
+        
     }
-
+    
 
     public function getErrors()
     {
@@ -97,7 +97,7 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $params
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
@@ -105,14 +105,21 @@ class Cadastro_Service_Setor extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ($paginator) {
+        if ( $paginator ) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
         }
         return $dados;
     }
-
+    
+    
+ 
+    
+    
+    
+    
+    
 
 }
 

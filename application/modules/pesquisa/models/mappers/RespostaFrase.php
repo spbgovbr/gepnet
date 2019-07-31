@@ -12,8 +12,8 @@ class Pesquisa_Model_Mapper_RespostaFrase extends App_Model_Mapper_MapperAbstrac
     public function insert(Pesquisa_Model_RespostaFrase $model)
     {
         $data = array(
-            "idfrase" => $model->idfrase,
-            "idresposta" => $model->idresposta,
+            "idfrase"       => $model->idfrase,
+            "idresposta"    => $model->idresposta,
         );
         return $this->getDbTable()->insert($data);
     }
@@ -27,11 +27,10 @@ class Pesquisa_Model_Mapper_RespostaFrase extends App_Model_Mapper_MapperAbstrac
     public function update(Pesquisa_Model_RespostaFrase $model)
     {
         $data = array(
-            "idfrase" => $model->idfrase,
-            "idresposta" => $model->idresposta,
+             "idfrase"       => $model->idfrase,
+            "idresposta"    => $model->idresposta,
         );
-        return $this->getDbTable()->update($data,
-            array("idfrase = ?" => $model->idfrase, 'idresposta = ?' => $model->idresposta));
+         return $this->getDbTable()->update($data, array("idfrase = ?" => $model->idfrase, 'idresposta = ?'=>$model->idresposta));
     }
 
 //    public function delete($params)

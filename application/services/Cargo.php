@@ -10,7 +10,7 @@ class Default_Service_Cargo extends App_Service_ServiceAbstract
      */
     protected $_mapper;
     /**
-     * @var array
+     * @var array 
      */
     public $errors = array();
 
@@ -23,12 +23,13 @@ class Default_Service_Cargo extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     public function fetchPairs()
     {
         $resultado = $this->_mapper->fetchPairs();
         $aux = array();
-        foreach ($resultado as $i => $r) {
+        foreach($resultado as $i=>$r)
+        {
             $aux[$r['sigla']] = $r['sigla'];
         }
         $aux['COL'] = 'COL';

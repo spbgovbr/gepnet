@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Abstract injection container
  */
@@ -15,8 +14,7 @@ abstract class App_Service_InjectionContainerAbstract
     {
         $methodName = 'get' . str_replace('_', '', $serviceName);
         if (!method_exists($this, $methodName)) {
-            throw new App_Service_InvalidArgumentException(sprintf('Service with name "%s" does not exist',
-                $serviceName));
+            throw new App_Service_InvalidArgumentException(sprintf('Service with name "%s" does not exist', $serviceName));
         }
         return $this->{$methodName}();
     }

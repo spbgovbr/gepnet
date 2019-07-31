@@ -8,10 +8,10 @@
 class Default_Model_Origemrisco extends App_Model_ModelAbstract
 {
 
-    public $idorigemrisco = null;
+    public $idorigemrisco  = null;
     public $desorigemrisco = null;
-    public $idcadastrador = null;
-    public $dtcadastro = null;
+    public $idcadastrador  = null;
+    public $dtcadastro     = null;
 
 }
 

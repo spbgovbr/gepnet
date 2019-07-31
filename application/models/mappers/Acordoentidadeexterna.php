@@ -18,7 +18,7 @@ class Default_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapper_Mapper
     public function insert(Default_Model_Acordoentidadeexterna $model)
     {
         $data = array(
-            "idacordo" => $model->idacordo,
+            "idacordo"          => $model->idacordo,
             "identidadeexterna" => $model->identidadeexterna,
         );
         $this->getDbTable()->insert($data);
@@ -33,10 +33,10 @@ class Default_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapper_Mapper
     public function update(Default_Model_Acordoentidadeexterna $model)
     {
         $data = array(
-            "idacordo" => $model->idacordo,
+            "idacordo"          => $model->idacordo,
             "identidadeexterna" => $model->identidadeexterna,
         );
-
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

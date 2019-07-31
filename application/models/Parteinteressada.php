@@ -8,15 +8,15 @@
 class Default_Model_Parteinteressada extends App_Model_ModelAbstract
 {
 
-    public $idparteinteressada = null;
-    public $idprojeto = null;
+    public $idparteinteressada  = null;
+    public $idprojeto           = null;
     public $nomparteinteressada = null;
-    public $nomfuncao = null;
-    public $destelefone = null;
-    public $desemail = null;
-    public $domnivelinfluencia = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
+    public $nomfuncao           = null;
+    public $destelefone         = null;
+    public $desemail            = null;
+    public $domnivelinfluencia  = null;
+    public $idcadastrador       = null;
+    public $datcadastro         = null;
 
 }
 

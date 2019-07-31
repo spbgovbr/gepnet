@@ -57,7 +57,7 @@ class Zend_Search_Lucene_Document
      * Proxy method for getFieldValue(), provides more convenient access to
      * the string value of a field.
      *
-     * @param string $offset
+     * @param  string $offset
      * @return string
      */
     public function __get($offset)
@@ -110,8 +110,8 @@ class Zend_Search_Lucene_Document
     /**
      * Returns the string value of a named field in this document.
      *
-     * @return string
      * @see __get()
+     * @return string
      */
     public function getFieldValue($fieldName)
     {
@@ -121,8 +121,8 @@ class Zend_Search_Lucene_Document
     /**
      * Returns the string value of a named field in UTF-8 encoding.
      *
-     * @return string
      * @see __get()
+     * @return string
      */
     public function getFieldUtf8Value($fieldName)
     {

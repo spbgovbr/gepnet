@@ -1,30 +1,17 @@
 <?php
 
-class Projeto_R3gController extends Zend_Controller_Action
-{
+class Projeto_R3gController extends Zend_Controller_Action {
 
-    public function init()
-    {
+    public function init() {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext
             ->addActionContext('add', 'json')
             ->addActionContext('editar', 'json')
             ->addActionContext('excluir', 'json')
             ->initContext();
-        $servicePerfilPessoa = new Default_Service_Perfilpessoa();
-        $dadosEntrada = array(
-            "idprojeto" => $this->_request->getParam('idprojeto'),
-            "controller" => strtolower($this->_request->getControllerName()),
-            "action" => strtolower($this->_request->getActionName()),
-        );
-        if (!$servicePerfilPessoa->isValidaControllerAction($dadosEntrada)) {
-            $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => 'Acesso negado...'));
-            $this->_helper->_redirector->gotoSimpleAndExit('forbidden', 'error', 'projeto');
-        }
     }
 
-    public function indexAction()
-    {
+    public function indexAction() {
         $serviceGerencia = App_Service_ServiceAbstract::getService('Projeto_Service_Gerencia');
         $projeto = $serviceGerencia->retornaProjetoPorId(array('idprojeto' => $this->_request->getParam('idprojeto')));
 //        $this->view->idprojeto = $this->_request->getParam('idprojeto');
@@ -38,8 +25,7 @@ class Projeto_R3gController extends Zend_Controller_Action
         $this->_helper->json->sendJson($paginator);
     }
 
-    public function addAction()
-    {
+    public function addAction() {
         $service = App_Service_ServiceAbstract::getService('Projeto_Service_R3g');
         $form = $service->getForm();
 
@@ -51,12 +37,6 @@ class Projeto_R3gController extends Zend_Controller_Action
             $r3g = $service->inserir($dados);
             if ($r3g) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'N'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $dados['idprojeto'];
-                $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
@@ -92,18 +72,12 @@ class Projeto_R3gController extends Zend_Controller_Action
         $form = $service->getFormEdit();
         $success = false;
 
-        if ($this->_request->isPost()) {
+        if($this->_request->isPost()){
             $dados = $this->_request->getPost();
-            $r3g = $service->update($dados);
-            if ($r3g) {
+            $r3g= $service->update($dados);
+            if($r3g){
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'A'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $dados["idprojeto"]; // Projeto que sofreu a ação.
-                $serviceLinhaTempo->inserir($dados);
-                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -115,17 +89,17 @@ class Projeto_R3gController extends Zend_Controller_Action
         }
 
         if ($this->_request->isPost()) {
-            if ($this->_request->isXmlHttpRequest()) {
+            if($this->_request->isXmlHttpRequest()){
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text' => (is_array($msg)) ? array_shift($msg) : $msg,
-                    'type' => ($success) ? 'success' : 'error',
-                    'hide' => true,
-                    'closer' => true,
+                    'text'    => (is_array($msg)) ? array_shift($msg) : $msg,
+                    'type'    => ($success) ? 'success' : 'error',
+                    'hide'    => true,
+                    'closer'  => true,
                     'sticker' => false
                 );
             } else {
-                if ($success) {
+                if($success){
                     $this->_helper->_redirector->gotoSimpleAndExit('edit', 'r3g', 'index');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -152,24 +126,17 @@ class Projeto_R3gController extends Zend_Controller_Action
 
         $this->view->r3g = $r3g;
 
-        if ($request->isPost()) {
-            $idProjeto = $service->getProjeto($request->getPost('idr3g')); // Projeto que sofreu a ação.
+        if ( $request->isPost() ) {
             $result = $service->excluir($request->getPost('idr3g'));
-            if ($result) {
+            if ( $result ) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'E'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $idProjeto;
-                $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_EXCLUIDO_COM_SUCESSO;
             } else {
                 $success = false;
                 $msg = $service->getErrors();
             }
             //monta a mensagem de resposta do ajax
-            if ($this->_request->isXmlHttpRequest()) {
+            if ( $this->_request->isXmlHttpRequest() ) {
                 $this->view->success = $success;
                 $this->view->msg = array(
                     'text' => $msg,

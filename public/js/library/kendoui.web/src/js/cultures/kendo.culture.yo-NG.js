@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["yo-NG"] = {
         name: "yo-NG",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["$-n", "$ n"],
+                pattern: ["$-n","$ n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Aiku", "Aje", "Isegun", "Ojo\u0027ru", "Ojo\u0027bo", "Eti", "Abameta"],
-                    namesAbbr: ["Aik", "Aje", "Ise", "Ojo", "Ojo", "Eti", "Aba"],
-                    namesShort: ["A", "A", "I", "O", "O", "E", "A"]
+                    names: ["Aiku","Aje","Isegun","Ojo\u0027ru","Ojo\u0027bo","Eti","Abameta"],
+                    namesAbbr: ["Aik","Aje","Ise","Ojo","Ojo","Eti","Aba"],
+                    namesShort: ["A","A","I","O","O","E","A"]
                 },
                 months: {
-                    names: ["Osu kinni", "Osu keji", "Osu keta", "Osu kerin", "Osu karun", "Osu kefa", "Osu keje", "Osu kejo", "Osu kesan", "Osu kewa", "Osu kokanla", "Osu keresi", ""],
-                    namesAbbr: ["kin.", "kej.", "ket.", "ker.", "kar.", "kef.", "kej.", "kej.", "kes.", "kew.", "kok.", "ker.", ""]
+                    names: ["Osu kinni","Osu keji","Osu keta","Osu kerin","Osu karun","Osu kefa","Osu keje","Osu kejo","Osu kesan","Osu kewa","Osu kokanla","Osu keresi",""],
+                    namesAbbr: ["kin.","kej.","ket.","ker.","kar.","kef.","kej.","kej.","kes.","kew.","kok.","ker.",""]
                 },
-                AM: ["Owuro", "owuro", "OWURO"],
-                PM: ["Ale", "ale", "ALE"],
+                AM: ["Owuro","owuro","OWURO"],
+                PM: ["Ale","ale","ALE"],
                 patterns: {
                     d: "d/M/yyyy",
                     D: "dddd, MMMM dd, yyyy",

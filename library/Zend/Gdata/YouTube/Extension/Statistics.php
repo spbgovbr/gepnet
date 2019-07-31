@@ -92,19 +92,16 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
 
     /**
      * Constructs a new Zend_Gdata_YouTube_Extension_Statistics object.
-     * @param string $viewCount (optional) The viewCount value
-     * @param string $videoWatchCount (optional) The videoWatchCount value
-     * @param string $subscriberCount (optional) The subscriberCount value
-     * @param string $lastWebAccess (optional) The lastWebAccess value
-     * @param string $favoriteCount (optional) The favoriteCount value
+     * @param string $viewCount(optional) The viewCount value
+     * @param string $videoWatchCount(optional) The videoWatchCount value
+     * @param string $subscriberCount(optional) The subscriberCount value
+     * @param string $lastWebAccess(optional) The lastWebAccess value
+     * @param string $favoriteCount(optional) The favoriteCount value
      */
-    public function __construct(
-        $viewCount = null,
-        $videoWatchCount = null,
-        $subscriberCount = null,
-        $lastWebAccess = null,
-        $favoriteCount = null
-    ) {
+    public function __construct($viewCount = null, $videoWatchCount = null,
+        $subscriberCount = null, $lastWebAccess = null,
+        $favoriteCount = null)
+    {
         $this->registerAllNamespaces(Zend_Gdata_YouTube::$namespaces);
         parent::__construct();
         $this->_viewCount = $viewCount;
@@ -159,23 +156,23 @@ class Zend_Gdata_YouTube_Extension_Statistics extends Zend_Gdata_Extension
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-            case 'videoWatchCount':
-                $this->_videoWatchCount = $attribute->nodeValue;
-                break;
-            case 'viewCount':
-                $this->_viewCount = $attribute->nodeValue;
-                break;
-            case 'subscriberCount':
-                $this->_subscriberCount = $attribute->nodeValue;
-                break;
-            case 'lastWebAccess':
-                $this->_lastWebAccess = $attribute->nodeValue;
-                break;
-            case 'favoriteCount':
-                $this->_favoriteCount = $attribute->nodeValue;
-                break;
-            default:
-                parent::takeAttributeFromDOM($attribute);
+        case 'videoWatchCount':
+            $this->_videoWatchCount = $attribute->nodeValue;
+            break;
+        case 'viewCount':
+            $this->_viewCount = $attribute->nodeValue;
+            break;
+        case 'subscriberCount':
+            $this->_subscriberCount = $attribute->nodeValue;
+            break;
+        case 'lastWebAccess':
+            $this->_lastWebAccess = $attribute->nodeValue;
+            break;
+        case 'favoriteCount':
+            $this->_favoriteCount = $attribute->nodeValue;
+            break;
+        default:
+            parent::takeAttributeFromDOM($attribute);
         }
     }
 

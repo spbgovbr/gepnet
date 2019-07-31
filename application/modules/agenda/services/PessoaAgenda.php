@@ -1,7 +1,6 @@
 <?php
 
-class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
-{
+class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract {
 
     protected $_form;
 
@@ -13,28 +12,25 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
     /**
      * @var array
      */
-    public $errors = array();
-    protected $notify = null;
+    public $errors      = array();
+    protected $notify   = null;
 
-    public function init()
-    {
+    public function init() {
         $this->_mapper = new Agenda_Model_Mapper_Pessoaagenda();
     }
 
-    public function getForm()
-    {
+    public function getForm() {
         $form = $this->_getForm('Agenda_Form_Pessoaagenda');
         return $form;
     }
 
     //put your code here
-    public function inserir($dados)
-    {
+    public function inserir($dados) {
         $form = $this->getForm();
 
 //        var_dump($dados); exit;
-        if (empty($dados['idpessoa'])) {
-            $this->setNotify(false, 'Necessário selecionar um usuário.');
+        if(empty($dados['idpessoa'])){
+            $this->setNotify(false,'Necessário selecionar um usuário.');
         }
         if ($form->isValid($dados)) {
             $model = new Agenda_Model_Pessoaagenda($form->getValues());
@@ -62,8 +58,7 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
      * @param array $dados
      * @return boolean | array
      */
-    public function update($dados)
-    {
+    public function update($dados) {
 
         $form = $this->getFormResumoDoProjeto();
         $form->getElement('vlrorcamentodisponivel')->addFilter('Digits');
@@ -82,8 +77,7 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
      *
      * @param array $dados
      */
-    public function excluir($dados)
-    {
+    public function excluir($dados) {
         try {
             //$model = new Default_Model_Gerencia($dados);
             return $this->_mapper->excluir($dados);
@@ -92,13 +86,11 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
             return false;
         }
     }
-
     /**
      *
      * @param array $dados
      */
-    public function excluirparticipante($dados)
-    {
+    public function excluirparticipante($dados) {
         try {
             //$model = new Default_Model_Gerencia($dados);
             return $this->_mapper->excluirparticipante($dados);
@@ -108,23 +100,19 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
         }
     }
 
-    public function getById($dados)
-    {
+    public function getById($dados) {
         return $this->_mapper->getById($dados);
     }
 
-    public function getErrors()
-    {
+    public function getErrors() {
         return $this->errors;
     }
 
-    public function retornaPartesPorAgenda($params)
-    {
+    public function retornaPartesPorAgenda($params){
         return $this->_mapper->retornaPartesPorAgenda($params);
     }
 
-    public function setNotify($success, $msg)
-    {
+    public function setNotify($success, $msg){
         $this->notify['text'] = $msg;
         $this->notify['type'] = ($success) ? 'success' : 'error';
     }
@@ -134,6 +122,5 @@ class Agenda_Service_PessoaAgenda extends App_Service_ServiceAbstract
         return $this->notify;
     }
 }
-
 ?>
 

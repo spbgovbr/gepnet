@@ -15,12 +15,12 @@ kendo_module({
     name: "View",
     category: "framework",
     description: "The View class instantiates and handles the events of a certain screen from the application.",
-    depends: ["core", "binder"],
+    depends: [ "core", "binder" ],
     hidden: false
 });
 
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         Observable = kendo.Observable,
         SCRIPT = "SCRIPT",
@@ -29,7 +29,7 @@ kendo_module({
         HIDE = "hide";
 
     var View = Observable.extend({
-        init: function (content, options) {
+        init: function(content, options) {
             var that = this;
             options = options || {};
 
@@ -39,10 +39,10 @@ kendo_module({
             that.model = options.model;
             that._wrap = options.wrap !== false;
 
-            that.bind([INIT, SHOW, HIDE], options);
+            that.bind([ INIT, SHOW, HIDE ], options);
         },
 
-        render: function (container) {
+        render: function(container) {
             var that = this,
                 notInitialized = !that.element;
 
@@ -68,12 +68,12 @@ kendo_module({
             return that.element;
         },
 
-        hide: function () {
+        hide: function() {
             this.element.detach();
             this.trigger(HIDE);
         },
 
-        destroy: function () {
+        destroy: function() {
             var element = this.element;
 
             if (element) {
@@ -83,7 +83,7 @@ kendo_module({
             }
         },
 
-        _createElement: function () {
+        _createElement: function() {
             var that = this,
                 element,
                 content;
@@ -97,7 +97,7 @@ kendo_module({
             // <span> Span </span>
             // </script>
             if (!that._wrap) {
-                element = element.contents();
+               element = element.contents();
             }
 
             return element;
@@ -105,12 +105,12 @@ kendo_module({
     });
 
     var Layout = View.extend({
-        init: function (content, options) {
+        init: function(content, options) {
             View.fn.init.call(this, content, options);
             this.regions = {};
         },
 
-        showIn: function (container, view) {
+        showIn: function(container, view) {
             var previousView = this.regions[container];
 
             if (previousView) {

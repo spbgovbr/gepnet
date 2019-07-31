@@ -1,34 +1,31 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
-    ->appendStylesheet($this->baseUrl('/css/app/planejamento/portfolio.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
+        ->appendStylesheet($this->baseUrl('/css/app/planejamento/portfolio.css'))
+;
 $frmAttr = $this->form->getAttribs();
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
     //->appendFile($this->baseUrl('/js/app/planejamento/portfolio/index.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolioestrategico.js'), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolioestrategico.js'), 'text/javascript')
+
+;
 ?>
 
 <div class="region-center">
     <div class="form-actions form-actions-mini">
         <div class="btn-group">
             <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
-            <a class="btn" href="<?php echo $this->url(array(
-                'module' => 'planejamento',
-                'controller' => 'portfolio',
-                'action' => 'portfolioestrategico',
-                array()
-            )); ?>">Voltar</a>
+            <a class="btn" href="<?php echo $this->url(array('module' => 'planejamento', 'controller' => 'portfolio', 'action' => 'portfolioestrategico', array())); ?>">Voltar</a>
         </div>
     </div>
 
@@ -42,7 +39,7 @@ $this->headScript()
     <div class="row">
         <div class="portlet portlet-marron span4">
             <div class="title">Pesquisar Projeto</div>
-            <div class="content">
+            <div class="content">  
                 <form id="<?php echo $frmAttr['id']; ?>"
                       name="<?php echo $frmAttr['name']; ?>"
                       method="<?php echo $frmAttr['method']; ?>"
@@ -82,9 +79,9 @@ $this->headScript()
                             <div class="btn-group">
                                 <?php echo $this->form->submit; ?>
                                 <?php echo $this->form->reset; ?>
-                                <?php echo $this->form->close; ?>
-                            </div>
-                        </div>
+                                <?php echo $this->form->close; ?>   
+                            </div>  
+                        </div>     
                     </div>
                 </form>
             </div>

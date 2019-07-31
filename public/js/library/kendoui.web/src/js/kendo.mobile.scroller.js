@@ -15,10 +15,10 @@ kendo_module({
     name: "Scroller",
     category: "mobile",
     description: "The Kendo Mobile Scroller widget enables touch friendly kinetic scrolling for the contents of a given DOM element.",
-    depends: ["core", "fx", "draganddrop"]
+    depends: [ "core", "fx", "draganddrop" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         mobile = kendo.mobile,
         fx = kendo.effects,
@@ -47,7 +47,7 @@ kendo_module({
         SCROLL = "scroll";
 
     var ZoomSnapBack = Animation.extend({
-        init: function (options) {
+        init: function(options) {
             var that = this;
             Animation.fn.init.call(that);
             extend(that, options);
@@ -56,17 +56,17 @@ kendo_module({
             that.tapCapture.bind("press", proxy(that.cancel, that));
         },
 
-        done: function () {
+        done: function() {
             return this.dimensions.minScale - this.movable.scale < 0.01;
         },
 
-        tick: function () {
+        tick: function() {
             var movable = this.movable;
             movable.scaleWith(1.1);
             this.dimensions.rescale(movable.scale);
         },
 
-        onEnd: function () {
+        onEnd: function() {
             var movable = this.movable;
             movable.scaleTo(this.dimensions.minScale);
             this.dimensions.rescale(movable.scale);
@@ -74,7 +74,7 @@ kendo_module({
     });
 
     var DragInertia = Animation.extend({
-        init: function (options) {
+        init: function(options) {
             var that = this;
 
             Animation.fn.init.call(that);
@@ -83,31 +83,27 @@ kendo_module({
                 transition: new Transition({
                     axis: options.axis,
                     movable: options.movable,
-                    onEnd: function () {
-                        that._end();
-                    }
+                    onEnd: function() { that._end(); }
                 })
             });
 
-            that.tapCapture.bind("press", function () {
-                that.cancel();
-            });
+            that.tapCapture.bind("press", function() { that.cancel(); });
             that.userEvents.bind("end", proxy(that.start, that));
             that.userEvents.bind("gestureend", proxy(that.start, that));
             that.userEvents.bind("tap", proxy(that.onEnd, that));
         },
 
-        onCancel: function () {
+        onCancel: function() {
             this.transition.cancel();
         },
 
-        freeze: function (location) {
+        freeze: function(location) {
             var that = this;
             that.cancel();
             that._moveTo(location);
         },
 
-        onEnd: function () {
+        onEnd: function() {
             var that = this;
             if (that._outOfBounds()) {
                 that._snapBack();
@@ -116,16 +112,14 @@ kendo_module({
             }
         },
 
-        done: function () {
+        done: function() {
             return abs(this.velocity) < 1;
         },
 
-        start: function (e) {
+        start: function(e) {
             var that = this;
 
-            if (!that.dimension.enabled) {
-                return;
-            }
+            if (!that.dimension.enabled) { return; }
 
             if (that._outOfBounds()) {
                 that._snapBack();
@@ -138,44 +132,44 @@ kendo_module({
             }
         },
 
-        tick: function () {
+        tick: function() {
             var that = this,
                 dimension = that.dimension,
                 friction = that._outOfBounds() ? OUT_OF_BOUNDS_FRICTION : FRICTION,
                 delta = (that.velocity *= friction),
                 location = that.movable[that.axis] + delta;
 
-            if (!that.elastic && dimension.outOfBounds(location)) {
-                location = Math.max(Math.min(location, dimension.max), dimension.min);
-                that.velocity = 0;
-            }
+                if (!that.elastic && dimension.outOfBounds(location)) {
+                    location = Math.max(Math.min(location, dimension.max), dimension.min);
+                    that.velocity = 0;
+                }
 
             that.movable.moveAxis(that.axis, location);
         },
 
-        _end: function () {
+        _end: function() {
             this.tapCapture.cancelCapture();
             this.end();
         },
 
-        _outOfBounds: function () {
+        _outOfBounds: function() {
             return this.dimension.outOfBounds(this.movable[this.axis]);
         },
 
-        _snapBack: function () {
+        _snapBack: function() {
             var that = this,
                 dimension = that.dimension,
                 snapBack = that.movable[that.axis] > dimension.max ? dimension.max : dimension.min;
             that._moveTo(snapBack);
         },
 
-        _moveTo: function (location) {
-            this.transition.moveTo({location: location, duration: SNAPBACK_DURATION, ease: Transition.easeOutExpo});
+        _moveTo: function(location) {
+            this.transition.moveTo({ location: location, duration: SNAPBACK_DURATION, ease: Transition.easeOutExpo });
         }
     });
 
     var ScrollBar = Class.extend({
-        init: function (options) {
+        init: function(options) {
             var that = this,
                 horizontal = options.axis === "x",
                 element = $('<div class="km-touch-scrollbar km-' + (horizontal ? "horizontal" : "vertical") + '-scrollbar" />');
@@ -192,7 +186,7 @@ kendo_module({
             that.container.append(element);
         },
 
-        _move: function () {
+        _move: function() {
             var that = this,
                 axis = that.axis,
                 dimension = that.dimension,
@@ -202,12 +196,12 @@ kendo_module({
                 position = Math.round(-scrollMovable[axis] * sizeRatio),
                 size = Math.round(paneSize * sizeRatio);
 
-            if (position + size > paneSize) {
-                size = paneSize - position;
-            } else if (position < 0) {
-                size += position;
-                position = 0;
-            }
+                if (position + size > paneSize) {
+                    size = paneSize - position;
+                } else if (position < 0) {
+                    size += position;
+                    position = 0;
+                }
 
             if (that.elementSize != size) {
                 that.element.css(that.size, size + "px");
@@ -217,17 +211,17 @@ kendo_module({
             that.movable.moveAxis(axis, position);
         },
 
-        show: function () {
+        show: function() {
             this.element.css({opacity: SCROLLBAR_OPACITY, visibility: "visible"});
         },
 
-        hide: function () {
+        hide: function() {
             this.element.css({opacity: 0});
         }
     });
 
     var Scroller = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this;
             Widget.fn.init.call(that, element, options);
 
@@ -262,7 +256,7 @@ kendo_module({
                     element: inner,
                     container: element,
                     forcedEnabled: that.options.zoom,
-                    change: function () {
+                    change: function() {
                         that.trigger(RESIZE);
                     }
                 }),
@@ -274,12 +268,12 @@ kendo_module({
                     preventDragEvent: true,
                     captureUpIfMoved: true,
                     multiTouch: that.options.zoom,
-                    start: function (e) {
+                    start: function(e) {
                         dimensions.refresh();
 
                         var velocityX = abs(e.x.velocity),
                             velocityY = abs(e.y.velocity),
-                            horizontalSwipe = velocityX * 2 >= velocityY,
+                            horizontalSwipe  = velocityX * 2 >= velocityY,
                             verticalSwipe = velocityY * 2 >= velocityX;
 
                         if (!avoidScrolling(e) && that.enabled && (dimensions.x.enabled && horizontalSwipe || dimensions.y.enabled && verticalSwipe)) {
@@ -304,9 +298,9 @@ kendo_module({
                     tapCapture: tapCapture
                 });
 
-            movable.bind(CHANGE, function () {
-                that.scrollTop = -movable.y;
-                that.scrollLeft = -movable.x;
+            movable.bind(CHANGE, function() {
+                that.scrollTop = - movable.y;
+                that.scrollLeft = - movable.x;
 
                 that.trigger(SCROLL, {
                     scrollTop: that.scrollTop,
@@ -341,23 +335,23 @@ kendo_module({
             kendo.onResize($.proxy(that.reset, that));
         },
 
-        makeVirtual: function () {
+        makeVirtual: function() {
             this.dimensions.y.makeVirtual();
         },
 
-        virtualSize: function (min, max) {
+        virtualSize: function(min, max) {
             this.dimensions.y.virtualSize(min, max);
         },
 
-        height: function () {
+        height: function() {
             return this.dimensions.y.size;
         },
 
-        scrollHeight: function () {
+        scrollHeight: function() {
             return this.scrollElement[0].scrollHeight;
         },
 
-        scrollWidth: function () {
+        scrollWidth: function() {
             return this.scrollElement[0].scrollWidth;
         },
 
@@ -367,9 +361,7 @@ kendo_module({
             pullOffset: 140,
             elastic: true,
             useNative: false,
-            avoidScrolling: function () {
-                return false;
-            },
+            avoidScrolling: function() { return false; },
             pullTemplate: "Pull to refresh",
             releaseTemplate: "Release to refresh",
             refreshTemplate: "Refreshing"
@@ -381,7 +373,7 @@ kendo_module({
             RESIZE
         ],
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             var that = this;
             Widget.fn.setOptions.call(that, options);
             if (options.pullToRefresh) {
@@ -389,7 +381,7 @@ kendo_module({
             }
         },
 
-        reset: function () {
+        reset: function() {
             if (this._native) {
                 this.scrollElement.scrollTop(0);
             } else {
@@ -398,27 +390,27 @@ kendo_module({
             }
         },
 
-        zoomOut: function () {
+        zoomOut: function() {
             var dimensions = this.dimensions;
             dimensions.refresh();
             this._scale(dimensions.fitScale);
             this.movable.moveTo(dimensions.centerCoordinates());
         },
 
-        enable: function () {
+        enable: function() {
             this.enabled = true;
         },
 
-        disable: function () {
+        disable: function() {
             this.enabled = false;
         },
 
-        scrollTo: function (x, y) {
+        scrollTo: function(x, y) {
             this.dimensions.refresh();
             this.movable.moveTo({x: x, y: y});
         },
 
-        pullHandled: function () {
+        pullHandled: function() {
             var that = this;
             that.refreshHint.removeClass(REFRESHCLASS);
             that.hintContainer.html(that.pullTemplate({}));
@@ -426,17 +418,17 @@ kendo_module({
             that.xinertia.onEnd();
         },
 
-        destroy: function () {
+        destroy: function() {
             Widget.fn.destroy.call(this);
             this.userEvents.destroy();
         },
 
-        _scale: function (scale) {
+        _scale: function(scale) {
             this.dimensions.rescale(scale);
             this.movable.scaleTo(scale);
         },
 
-        _initPullToRefresh: function () {
+        _initPullToRefresh: function() {
             var that = this;
 
             that.dimensions.y.forceEnabled();
@@ -452,10 +444,10 @@ kendo_module({
             that.userEvents.bind("end", proxy(that._dragEnd, that));
         },
 
-        _dragEnd: function () {
+        _dragEnd: function() {
             var that = this;
 
-            if (!that.pulled) {
+            if(!that.pulled) {
                 return;
             }
 
@@ -466,7 +458,7 @@ kendo_module({
             that.trigger("pull");
         },
 
-        _paneChange: function () {
+        _paneChange: function() {
             var that = this;
 
             if (that.movable.y / OUT_OF_BOUNDS_FRICTION > that.options.pullOffset) {
@@ -482,7 +474,7 @@ kendo_module({
             }
         },
 
-        _initAxis: function (axis) {
+        _initAxis: function(axis) {
             var that = this,
                 movable = that.movable,
                 dimension = that.dimensions[axis],
@@ -494,7 +486,7 @@ kendo_module({
                     container: that.element
                 });
 
-            that.pane[axis].bind(CHANGE, function () {
+            that.pane[axis].bind(CHANGE, function() {
                 scrollBar.show();
             });
 
@@ -505,7 +497,7 @@ kendo_module({
                 userEvents: that.userEvents,
                 dimension: dimension,
                 elastic: that.options.elastic,
-                end: function () {
+                end: function() {
                     scrollBar.hide();
                     that.trigger("scrollEnd", {
                         axis: axis,

@@ -1,78 +1,81 @@
-$(function () {
 
+$(function() { 
+    
     perfilpessoa.init();
     $("#idperfil, #idescritorio, #flaativo").select2();
 
-    $(document.body).on('click', "a.perfilpessoa-toggle", function (event) {
+    $(document.body).on('click', "a.perfilpessoa-toggle", function(event) {
         event.preventDefault();
         var
-            $this = $(this);
+                $this = $(this);
         perfilpessoa.toggle($this);
     });
-
-    function formatadorLink(cellvalue, options, rowObject) {
+    
+    function formatadorLink(cellvalue, options, rowObject)
+    {
         var r = rowObject,
-            params = '',
-            url = {
-                trocarFlag: base_url + '/cadastro/perfilpessoa/format/json'
-            };
+                params = '',
+                url = {
+                    trocarFlag: base_url + '/cadastro/perfilpessoa/format/json'
+        };
         var flagativo = r[6];
         if (flagativo === 'S') {
             return '<a class="btn btn-success perfilpessoa-toggle" title="Inativar" data-permission="deny" data-id="' + r[5] + '" href="' + url.trocarFlag + '"><i class="icon-ok icon-white "></i></a>';
         } else {
-            return '<a class="btn btn-danger perfilpessoa-toggle" title="Ativar" data-permission="allow" data-id="' + r[5] + '" href="' + url.trocarFlag + '"><i class="icon-off icon-white "></i></a>';
-
+            return '<a class="btn btn-danger perfilpessoa-toggle" title="Ativar" data-permission="allow" data-id="' + r[5] + '" href="' + url.trocarFlag +  '"><i class="icon-off icon-white "></i></a>';
+            
         }
     }
-
-    function formatadorSituacao(cellvalue, options, rowObject) {
-        if (rowObject[6] === 'S') {
-            return '<span class="label label-success">Ativo</span>';
-        }
-        return '<span class="label label-important">Inativo</span>';
-
+    
+    function formatadorSituacao(cellvalue, options, rowObject)
+    {
+    	if(rowObject[6] === 'S'){
+    		return '<span class="label label-success">Ativo</span>';
+    	}
+    	return '<span class="label label-important">Inativo</span>';
+    	
     }
-
+    
     colNames = ['Nome', 'Perfil', 'Escritório', 'Email', 'Situação', 'Operações'];
     colModel = [{
-        name: 'nompessoa',
-        index: 'nompessoa',
-        width: 20,
-        search: true
-    }, {
-        name: 'nomperfil',
-        index: 'nomperfil',
-        width: 20,
-        hidden: false,
-        search: true
-    }, {
-        name: 'nomescritorio',
-        index: 'nomescritorio',
-        width: 15,
-        search: true
-    }, {
-        name: 'desemail',
-        index: 'desemail',
-        width: 15,
-        search: true
-    }, {
-        name: 'situacao',
-        index: 'situacao',
-        width: 8,
-        search: true,
-        align: 'center',
-        formatter: formatadorSituacao
-    }, {
-        name: 'idpessoa',
-        index: 'idpessoa',
-        width: 8,
-        search: false,
-        sortable: false,
-        align: 'center',
-        formatter: formatadorLink
-    }];
-
-    grid = jQuery("#list2").jqGrid({
+	        name: 'nompessoa',
+	        index: 'nompessoa',
+	        width: 20,
+	        search: true
+	    },{
+            name: 'nomperfil',
+            index: 'nomperfil',
+            width: 20,
+            hidden: false,
+            search: true
+        }, {
+            name: 'nomescritorio',
+            index: 'nomescritorio',
+            width: 15,
+            search: true
+        },{
+            name: 'desemail',
+            index: 'desemail',
+            width: 15,
+            search: true
+        },{
+            name: 'situacao',
+            index: 'situacao',
+            width: 8,
+            search: true,
+            align: 'center',
+            formatter: formatadorSituacao
+        }, {
+            name: 'idpessoa',
+            index: 'idpessoa',
+            width: 8,
+            search: false,
+            sortable: false,
+            align: 'center',
+            formatter: formatadorLink
+        }];
+    
+     grid = jQuery("#list2").jqGrid({
         url: base_url + "/cadastro/perfilpessoa/pesquisarjson",
         datatype: "json",
         mtype: 'post',
@@ -87,22 +90,22 @@ $(function () {
         sortname: 'nompessoa',
         viewrecords: true,
         sortorder: "asc",
-        gridComplete: function () {
+        gridComplete: function() {
         }
-    });
-
-    grid.jqGrid('navGrid', '#pager2', {
+     });
+     
+     grid.jqGrid('navGrid', '#pager2', {
         search: false,
         edit: false,
         add: false,
         del: false,
         view: false
-    });
+     });
 
-    grid.jqGrid('setLabel', 'rn', 'Ord');
+     grid.jqGrid('setLabel', 'rn', 'Ord');
 
-
-    $("form#perfilpessoa-pesquisa").on('submit', function (e) {
+     
+     $("form#perfilpessoa-pesquisa").on('submit', function(e) {
         e.preventDefault();
         grid.setGridParam({
             url: base_url + "/cadastro/perfilpessoa/pesquisarjson?" + $("form#perfilpessoa-pesquisa").serialize(),
@@ -112,6 +115,7 @@ $(function () {
     });
 
     resizeGrid();
+
 
 
 });

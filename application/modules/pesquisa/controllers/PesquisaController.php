@@ -1,15 +1,15 @@
 <?php
 
-class Pesquisa_PesquisaController extends Zend_Controller_Action
-{
+class Pesquisa_PesquisaController extends Zend_Controller_Action {
 
     public function init()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('cadastrar', 'json')
-            ->addActionContext('pesquisar', 'json')
-            ->addActionContext('publicar', 'json')
-            ->initContext();
+                ->addActionContext('pesquisar', 'json')
+                ->addActionContext('publicar', 'json')
+                ->initContext()
+        ;
     }
 
     public function listarAction()
@@ -37,7 +37,7 @@ class Pesquisa_PesquisaController extends Zend_Controller_Action
             }
         }
     }
-
+    
     public function pesquisaDuplicadaAction()
     {
         $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_QuestionarioPesquisa');
@@ -74,21 +74,21 @@ class Pesquisa_PesquisaController extends Zend_Controller_Action
     public function pesquisasRespondidasAction()
     {
         $idpesquisa = array('idpesquisa' => $this->_request->getParam('idpesquisa'));
-
+        
         $serviceQuestionario = App_Service_ServiceAbstract::getService('Pesquisa_Service_QuestionarioPesquisa');
         $this->view->questionario = $serviceQuestionario->retornaQuestionarioByPesquisa($idpesquisa);
-
+        
         $serviceResultado = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
         $this->view->formPesquisar = $serviceResultado->getFormPesquisar($idpesquisa);
     }
-
+    
     public function listarRespostasPesquisaAction()
     {
         $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
         $paginator = $service->retornaResultadoPesquisaGrid($this->_request->getParams());
         $this->_helper->json->sendJson($paginator->toJqgrid());
     }
-
+    
     public function respostaPesquisaAction()
     {
         $params = $this->_request->getParams();
@@ -96,12 +96,12 @@ class Pesquisa_PesquisaController extends Zend_Controller_Action
         $this->view->resultados = $service->retornaResultadoByPessoa($params);
         $this->view->idresultado = $params['idresultado'];
     }
-
-    public function detalharPesquisaAction()
+    
+    public function detalharPesquisaAction() 
     {
         $params = $this->_request->getParams();
         $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_Responder');
-        $form = $service->getFormPesquisa($params);
+        $form = $service->getFormPesquisa($params); 
         $this->view->form = $form;
     }
 

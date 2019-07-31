@@ -1,30 +1,24 @@
 <?php
-header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-header("Connection: close");
-
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/css/app/projeto/eap/eap.css'));
+ //   ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/eap/eap.css'))
+;
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')    
     ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js?'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/eap/eap.js?'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/eap/index.js?'), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/eap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/eap/index.js'), 'text/javascript')
+;
 
 ?>
 <div class="region-west">
@@ -34,148 +28,95 @@ $this->headScript()
 </div>
 
 <div class="region-center">
-    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>"/>
-
-    <div id="dados-projeto">
-        <?php
-        echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto));
-        ?>
-    </div>
-    <div data-spy="affix" data-offset-top="200">
-        <div class="toolbar-cronograma " style="border: 0px solid blue;">
-            <div class="btn-toolbar" style="border: 0px solid yellow;">
-                <a class="btn btn-cadastrar-grupo" title="Novo Grupo"
-                   href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-grupo/idprojeto/' . $this->idprojeto); ?>"><i
-                            class="icon-folder-open"></i></a>
-                <a class="btn btn-cadastrar-entrega" id="btn-cad-cro" title="Nova Entrega"
-                   href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-entrega/idprojeto/' . $this->idprojeto); ?>"><i
-                            class="icon-tag"></i></a>
-                <a class="btn btn-imprimir" title="Visualizar Impressão"
-                   href="<?php echo $this->baseUrl('/projeto/eap/visualizar-impressao/idprojeto/' . $this->idprojeto); ?>"><i
-                            class="icon-print"></i></a>
-                <a class="btn btn-imprimir-eap-pdf" title="Imprimir EAP PDF"
-                   href="<?php echo $this->baseUrl('/projeto/eap/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>"
-                   target="_blank"><i class="icon-download-alt"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="container-grupo" style="padding-top:30px;margin-bottom: 10px;">
-            <a class="estrutura-analitica" href="#"> <span style=""> ESTRUTURA ANALÍTICA DO PROJETO - EAP </span> </a>
-            <div class="grupos-eap" style="overflow: auto;">
-                <div class="agrupador">
-                    <?php if (isset($this->projeto['grupos']) && count($this->projeto['grupos']) > 0) :
-                        $contador = 0;
-                        foreach ($this->projeto['grupos'] as $grupo) :
-                            if (!empty($grupo['idatividadecronograma'])) : ?>
-                                <div class="item-grupo span3 droppable-grupo <?php echo ($contador == 0) ? 'item-grupo-first' : ''; ?>"
-                                     id="<?php echo $grupo['idatividadecronograma']; ?>">
-                                    <div class="titulo-grupo ">
-                                        <span class="span2"><?php echo trim($grupo['nomatividadecronograma']); ?></span>
-                                        <div class="pull-right">
-                                            <span class="span0_5"><a class="editar-grupo " title="Editar Grupo"
-                                                                     style="margin-right: 10px;"
-                                                                     href="<?php echo $this->baseUrl('/projeto/cronograma/editar-grupo/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . $grupo['idatividadecronograma']); ?>"><i
-                                                            class="icon-pencil"></i></a></span>
-                                            <span class="span0_5 pull-right"><a class="excluir-grupo "
-                                                                                title="Excluir Grupo"
-                                                                                href="<?php echo $this->baseUrl('/projeto/eap/excluir-grupo/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . $grupo['idatividadecronograma']); ?>"><i
-                                                            class="icon-trash"></i></a></span>
-                                        </div>
-                                    </div>
-                                    <?php if (isset($grupo['entregas']) && count($grupo['entregas']) > 0) : ?>
-                                        <ul class="container-entrega">
-                                            <?php
-                                            foreach ($grupo['entregas'] as $entrega) :
-                                                if (!empty($entrega['idatividadecronograma'])) : ?>
-                                                    <li class="well well-small span2 content draggable-entrega item-entrega"
-                                                        id="<?php echo $entrega['idatividadecronograma']; ?>">
-                                            <span class="badge badge-<?php echo (!empty($entrega['numpercentualconcluido']) && $entrega['numpercentualconcluido'] == 100) ? "default" : $entrega['domcoratraso']; ?>"
-                                                  title="<?php echo (!empty($entrega['atraso'])) ? $entrega['atraso'] : '0' . ' dias'; ?>"><?php echo (!empty($entrega['atraso'])) ? $entrega['atraso'] : 0; ?>&nbsp; dias</span>
-                                                        <span> <?php echo (!empty($entrega['numpercentualconcluido'])) ? $entrega['numpercentualconcluido'] . "%" : "0%"; ?>&nbsp;&nbsp;<?php echo $entrega['nomatividadecronograma']; ?></span>
-                                                        <div class="pull-right">
-                                                            <a class="alterar-entrega" style="right: 10px;"
-                                                               title="Editar Entrega"
-                                                               href="<?php echo $this->baseUrl('/projeto/cronograma/editar-entrega/idprojeto/' . $this->idprojeto . "/idatividadecronograma/" . $entrega['idatividadecronograma']); ?>">
-                                                                <i class="icon-pencil"></i>
-                                                            </a>
-                                                            <a class="excluir-entrega" style="right: 10px;"
-                                                               title="Excluir Entrega"
-                                                               href="<?php echo $this->baseUrl('/projeto/cronograma/excluir-entrega/idprojeto/' . $this->idprojeto . "/idatividadecronograma/" . $entrega['idatividadecronograma']); ?>">
-                                                                <i class="icon-trash"></i>
-                                                            </a>
-                                                        </div>
-                                                    </li>
-                                                <?php endif; ?>
-                                            <?php endforeach; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                </div>
-                                <?php $contador++;
-                            endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    <input type="hidden" name="qtd-grupos" id="qtd-grupos"
-                           value="<?php echo $this->projeto['grupos']['contGrupo']; ?>"/>
-                    <div class="row well well-small span4 qtdeResult">
-                        <i class="icon-folder-open"></i> <?php echo $this->projeto['grupos']['contGrupo']; ?> grupo(s),
-                        <i class="icon-tag"></i> <?php echo $this->projeto['grupos']['contEntrega']; ?> &nbsp;
-                        entrega(s)
-                    </div>
+    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto ;?>" />
+    
+    <div id="dados-projeto"></div>
+    <div class="row" data-spy="affix" data-offset-top="200" style="">
+        <div class="toolbar-cronograma " style="border: 1px solid blue; margin-left: 30px;">
+                <div class="btn-toolbar" style="border: 0px solid yellow;">
+                    <a class="btn btn-cadastrar-grupo" title="Novo Grupo" href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-grupo/idprojeto/' . $this->idprojeto); ?>"><i class="icon-folder-open"></i></a>
+                    <a class="btn btn-cadastrar-entrega" title="Nova Entrega" href="<?php echo $this->baseUrl('/projeto/eap/cadastrar-entrega/idprojeto/' . $this->idprojeto); ?>"><i class="icon-tag"></i></a>
+                    <a class="btn btn-imprimir" title="Visualizar Impressão" href="<?php echo $this->baseUrl('/projeto/eap/visualizar-impressao/idprojeto/' . $this->idprojeto); ?>"><i class="icon-print"></i></a>
+                    <a class="btn btn-imprimir-eap-pdf" title="Imprimir EAP PDF" href="<?php echo $this->baseUrl('/projeto/eap/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>" target="_blank"><i class="icon-download-alt"></i></a>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container-dicionario">
-            <a class="dicionario-eap" href="#"> <span>DICIONÁRIO DA EAP E CRITÉRIO DE ACEITAÇÃO (QUALIDADE) </span> </a>
-            <div class="quadro-dicionario-eap" style="display: none;overflow: auto;">
-                <table class="table table-hover table-striped table-condensed portlet portlet-marron"
-                       style="height: 100%;">
-                    <tr style="font-weight: bold;">
-                        <td style="width: 30%;">Identificação EAP</td>
-                        <td style="width: 25%;">Descrição</td>
-                        <td style="width: 15%;">Critério de Aceitação/Desvio Aceitável (Qualidade)</td>
-                        <td style="width: 15%;">Responsável Pela Entrega</td>
-                        <td style="width: 15%;">Responsável Pela Aceitação</td>
-                    </tr>
-                    <tbody>
-                    <?php if (isset($this->projeto['grupos']) && count($this->projeto['grupos']) > 0) : ?>
-                        <?php foreach ($this->projeto['grupos'] as $grupo) :
-                            if (!empty($grupo['idatividadecronograma'])) : ?>
-                                <tr>
-                                    <td colspan="5"
-                                        style="font-weight: bold;"><?php echo trim($grupo['nomatividadecronograma']); ?></td>
-                                </tr>
-                                <?php if (isset($grupo['entregas']) && count($grupo['entregas']) > 0) :
-                                    foreach ($grupo['entregas'] as $entrega) :
-                                        if (!empty($entrega['idatividadecronograma'])) : ?>
-                                            <tr>
-                                                <td> <?php echo $entrega['nomatividadecronograma']; ?></td>
-                                                <td> <?php echo $entrega['desobs']; ?></td>
-                                                <td> <?php echo $entrega['descriterioaceitacao']; ?></td>
-                                                <td> <?php echo $entrega['nomparteinteressada']; ?></td>
-                                                <td> <?php echo $entrega['nomeresponsavelaceitacao']; ?></td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-    </div>
-
+           </div>
+     </div>
+    
+     <div class="row">
+        <div class="container-grupo"  style="height: 100%;"> 
+         </div>
+     </div>
+    
     <div id="dialog-grupo" style="display: none"></div>
     <div id="dialog-entrega" style="display: none"></div>
     <div id="dialog-excluir-grupo" style="display: none"></div>
     <div id="dialog-excluir-entrega" style="display: none"></div>
-    <div id="dialog-editar-grupo" style="display: none"></div>
-
-
 </div>
+
+
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    <a class="estrutura-analitica" href="#"> <span style=""> ESTRUTURA ANALÍTICA DO PROJETO - EAP </span> </a>
+    <div class="grupos-eap" style="height: 100%;">
+        {{#each grupos}}
+                <div class="item-grupo span3 droppable-grupo" id="{{idatividadecronograma}}">
+                    <div class="titulo-grupo">
+                        <span class="span2">{{nomatividadecronograma}}</span>
+                        <span class="span0_5 pull-right"><a class="excluir-grupo pull-right" title="Excluir Grupo" href="<?php echo $this->baseUrl('/projeto/eap/excluir-grupo/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . '{{idatividadecronograma}}' ); ?>"><i class="icon-trash"></i></a></span>
+                    </div>
+                    <ul class="container-entrega">
+                        {{#each entregas}}
+                            {{> helperEntrega}}
+                        {{/each}}
+                    </ul>
+                </div>
+        {{/each}}
+    
+        <div class="row well well-small span4">
+            <i class="icon-folder-open"></i> {{contGrupo}} grupo(s), <i class="icon-tag"></i> {{contEntrega}} entrega(s)
+        </div>
+    </div>
+    <div class="row span8" style="width: 1270px;">
+        <a class="dicionario-eap" href="#"> <span>DICIONÁRIO DA EAP E CRITÉRIO DE ACEITAÇÃO (QUALIDADE) </span> </a>
+        <div class="quadro-dicionario-eap" style="display: none;">
+            <table class="table table-hover table-striped table-condensed portlet portlet-marron" style="height: 100%;">
+                    <tr style="font-weight: bold;">
+                        <td>Identificação EAP</td>
+                        <td>Descrição</td>
+                        <td>Critério de Aceitação/Desvio Aceitável (Qualidade)</td>
+                        <td>Responsável</td>
+                    </tr>
+               <tbody>
+                    {{#each grupos}}
+                        <tr>
+                            <td colspan="4" style="font-weight: bold;">{{nomatividadecronograma}}</td>
+                        </tr>
+                        {{#each entregas}}
+                            {{> helperQuadroEntrega}}
+                        {{/each}}
+                    {{/each}}
+               </tbody> 
+            </table>
+        </div>
+    </div>
+    
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+        <li class="well well-small span2 content draggable-entrega item-entrega" id="{{idatividadecronograma}}"> 
+           <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+           <span> {{numpercentualconcluido}}%  {{nomatividadecronograma}}  </span>
+           <a class="excluir-entrega pull-right" title="Excluir Entrega" href="<?php echo $this->baseUrl('/projeto/eap/excluir-entrega/idprojeto/' . $this->idprojeto . '/idatividadecronograma/' . '{{idatividadecronograma}}' ); ?>"><i class="icon-trash"></i></a>
+        </li>
+</script>
+
+
+
+<script id="tpl-quadro-entrega" type="text/x-handlebars-template">
+      <tr>
+          <td> {{nomatividadecronograma}} </td>
+          <td> {{desobs}} </td>
+          <td> {{descriterioaceitacao}} </td>
+          <td> {{nomparteinteressada}} </td>
+      </tr> 
+</script>
+
+

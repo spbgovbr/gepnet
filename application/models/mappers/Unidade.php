@@ -12,32 +12,23 @@ class Default_Model_Mapper_Unidade extends App_Model_Mapper_MapperAbstract
     public function getById($params)
     {
         $sql = "SELECT 
-                    id_unidade, sigla, nome, unidade_responsavel, tipo
+                    id_unidade, domcargo sigla, nome, unidade_responsavel, tipo
                 FROM vw_comum_unidade
                 WHERE id_unidade = :id_unidade";
-        return $this->_db->fetchOne($sql, array('id_unidade' => $params['id_unidade']));
+        return $this->_db->fetchOne($sql,array('id_unidade'=>$params['id_unidade']));
     }
-
     /**
+     * @todo Desenvolver o método retornando o json filtrado para o componente select2
      * @param type $params
      * @return type
-     * @todo Desenvolver o método retornando o json filtrado para o componente select2
      */
     public function fetchPairs()
     {
         $sql = "SELECT 
-                    id_unidade, sigla
+                    id_unidade, domcargo AS sigla
                 FROM vw_comum_unidade
-                WHERE ativo = true
+                --WHERE ativo = true
                 ORDER BY sigla";
-        return $this->_db->fetchPairs($sql);
-    }
-
-    public function listUnidadePrincipal()
-    {
-        $sql = "SELECT DISTINCT id_unidade, sigla 
-                FROM   vw_comum_unidade 
-                ORDER  BY sigla ";
         return $this->_db->fetchPairs($sql);
     }
 

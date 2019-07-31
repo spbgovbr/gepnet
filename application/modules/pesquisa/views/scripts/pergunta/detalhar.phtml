@@ -1,8 +1,8 @@
-<div class="region-center">
+<div class="region-center" >
     <div class="portlet portlet-cinza">
         <div class="title">Informções da Pergunta</div>
         <div class="content">
-            <div class="row-fluid">
+            <div class="row-fluid">              
                 <div class="portlet portlet-cinza span">
                     <div class="title">Pergunta</div>
                     <div class="content"><?php echo $this->pergunta['desfrase']; ?>&nbsp;</div>
@@ -20,31 +20,31 @@
             </div>
         </div>
     </div>
-
-    <?php if ($this->pergunta['inttipo'] == 1 || $this->pergunta['inttipo'] == 2 || $this->pergunta['inttipo'] == 7): ?>
-        <?php if ($this->resposta): ?>
+    
+    <?php if($this->pergunta['inttipo'] == 1 || $this->pergunta['inttipo'] == 2 || $this->pergunta['inttipo'] == 7):?>
+        <?php if($this->resposta):?>
             <div class="portlet portlet-azul">
                 <div class="title">Respostas Relacionadas</div>
                 <div class="content">
                     <?php foreach ($this->resposta as $resposta): ?>
-                        <div class="row-fluid">
-                            <div class="portlet portlet-azul span">
-                                <div class="title">Resposta</div>
-                                <div class="content"><?php echo $resposta['desresposta']; ?>&nbsp;</div>
-                            </div>
+                    <div class="row-fluid">              
+                        <div class="portlet portlet-azul span">
+                            <div class="title">Resposta</div>
+                            <div class="content"><?php echo $resposta['desresposta']; ?>&nbsp;</div>
                         </div>
-                        <div class="row-fluid">
-                            <div class="portlet portlet-azul span3">
-                                <div class="title">Ordem</div>
-                                <div class="content"><?php echo $resposta['numordem']; ?>&nbsp;</div>
-                            </div>
-                            <div class="portlet portlet-azul span4">
-                                <div class="title">Situa&ccedil;&atilde;o</div>
-                                <div class="content"><?php echo $resposta['flaativoresposta']; ?>&nbsp;</div>
-                            </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="portlet portlet-azul span3">
+                            <div class="title">Ordem</div>
+                            <div class="content"><?php echo $resposta['numordem']; ?>&nbsp;</div>
                         </div>
-                        <hr/>
-                    <?php endforeach; ?>
+                        <div class="portlet portlet-azul span4">
+                            <div class="title">Situa&ccedil;&atilde;o</div>
+                            <div class="content"><?php echo $resposta['flaativoresposta']; ?>&nbsp;</div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <?php endforeach;?>
                 </div>
             </div>
         <?php else: ?>

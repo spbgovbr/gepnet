@@ -29,7 +29,7 @@
  */
 class Zend_Ldap_Dn implements ArrayAccess
 {
-    const ATTR_CASEFOLD_NONE = 'none';
+    const ATTR_CASEFOLD_NONE  = 'none';
     const ATTR_CASEFOLD_UPPER = 'upper';
     const ATTR_CASEFOLD_LOWER = 'lower';
 
@@ -57,8 +57,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Creates a DN from an array or a string
      *
-     * @param string|array $dn
-     * @param string|null $caseFold
+     * @param  string|array $dn
+     * @param  string|null  $caseFold
      * @return Zend_Ldap_Dn
      * @throws Zend_Ldap_Exception
      */
@@ -66,24 +66,22 @@ class Zend_Ldap_Dn implements ArrayAccess
     {
         if (is_array($dn)) {
             return self::fromArray($dn, $caseFold);
+        } else if (is_string($dn)) {
+            return self::fromString($dn, $caseFold);
         } else {
-            if (is_string($dn)) {
-                return self::fromString($dn, $caseFold);
-            } else {
-                /**
-                 * Zend_Ldap_Exception
-                 */
-                require_once 'Zend/Ldap/Exception.php';
-                throw new Zend_Ldap_Exception(null, 'Invalid argument type for $dn');
-            }
+            /**
+             * Zend_Ldap_Exception
+             */
+            require_once 'Zend/Ldap/Exception.php';
+            throw new Zend_Ldap_Exception(null, 'Invalid argument type for $dn');
         }
     }
 
     /**
      * Creates a DN from a string
      *
-     * @param string $dn
-     * @param string|null $caseFold
+     * @param  string      $dn
+     * @param  string|null $caseFold
      * @return Zend_Ldap_Dn
      * @throws Zend_Ldap_Exception
      */
@@ -101,20 +99,20 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Creates a DN from an array
      *
-     * @param array $dn
-     * @param string|null $caseFold
+     * @param  array       $dn
+     * @param  string|null $caseFold
      * @return Zend_Ldap_Dn
      * @throws Zend_Ldap_Exception
      */
     public static function fromArray(array $dn, $caseFold = null)
     {
-        return new self($dn, $caseFold);
+         return new self($dn, $caseFold);
     }
 
     /**
      * Constructor
      *
-     * @param array $dn
+     * @param array       $dn
      * @param string|null $caseFold
      */
     protected function __construct(array $dn, $caseFold)
@@ -126,7 +124,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Gets the RDN of the current DN
      *
-     * @param string $caseFold
+     * @param  string $caseFold
      * @return array
      * @throws Zend_Ldap_Exception if DN has no RDN (empty array)
      */
@@ -139,7 +137,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Gets the RDN of the current DN as a string
      *
-     * @param string $caseFold
+     * @param  string $caseFold
      * @return string
      * @throws Zend_Ldap_Exception if DN has no RDN (empty array)
      */
@@ -152,7 +150,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Get the parent DN $levelUp levels up the tree
      *
-     * @param int $levelUp
+     * @param  int $levelUp
      * @return Zend_Ldap_Dn
      */
     public function getParentDn($levelUp = 1)
@@ -172,9 +170,9 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Get a DN part
      *
-     * @param int $index
-     * @param int $length
-     * @param string $caseFold
+     * @param  int    $index
+     * @param  int    $length
+     * @param  string $caseFold
      * @return array
      * @throws Zend_Ldap_Exception if index is illegal
      */
@@ -188,7 +186,8 @@ class Zend_Ldap_Dn implements ArrayAccess
         }
         if ($length === 1) {
             return self::_caseFoldRdn($this->_dn[$index], $caseFold);
-        } else {
+        }
+        else {
             return self::_caseFoldDn(array_slice($this->_dn, $index, $length, false), $caseFold);
         }
     }
@@ -196,8 +195,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Set a DN part
      *
-     * @param int $index
-     * @param array $value
+     * @param  int   $index
+     * @param  array $value
      * @return Zend_Ldap_Dn Provides a fluent interface
      * @throws Zend_Ldap_Exception if index is illegal
      */
@@ -212,8 +211,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Remove a DN part
      *
-     * @param int $index
-     * @param int $length
+     * @param  int $index
+     * @param  int $length
      * @return Zend_Ldap_Dn Provides a fluent interface
      * @throws Zend_Ldap_Exception if index is illegal
      */
@@ -231,7 +230,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Append a DN part
      *
-     * @param array $value
+     * @param  array $value
      * @return Zend_Ldap_Dn Provides a fluent interface
      */
     public function append(array $value)
@@ -244,7 +243,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Prepend a DN part
      *
-     * @param array $value
+     * @param  array $value
      * @return Zend_Ldap_Dn Provides a fluent interface
      */
     public function prepend(array $value)
@@ -257,8 +256,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Insert a DN part
      *
-     * @param int $index
-     * @param array $value
+     * @param  int   $index
+     * @param  array $value
      * @return Zend_Ldap_Dn Provides a fluent interface
      * @throws Zend_Ldap_Exception if index is illegal
      */
@@ -275,7 +274,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Assert index is correct and usable
      *
-     * @param mixed $index
+     * @param  mixed $index
      * @return boolean
      * @throws Zend_Ldap_Exception
      */
@@ -301,13 +300,13 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Assert if value is in a correct RDN format
      *
-     * @param array $value
+     * @param  array $value
      * @return boolean
      * @throws Zend_Ldap_Exception
      */
     protected static function _assertRdn(array $value)
     {
-        if (count($value) < 1) {
+        if (count($value)<1) {
             /**
              * Zend_Ldap_Exception
              */
@@ -339,7 +338,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Return DN as a string
      *
-     * @param string $caseFold
+     * @param  string $caseFold
      * @return string
      * @throws Zend_Ldap_Exception
      */
@@ -352,7 +351,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Return DN as an array
      *
-     * @param string $caseFold
+     * @param  string $caseFold
      * @return array
      */
     public function toArray($caseFold = null)
@@ -369,8 +368,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Do a case folding on a RDN
      *
-     * @param array $part
-     * @param string $caseFold
+     * @param  array  $part
+     * @param  string $caseFold
      * @return array
      */
     protected static function _caseFoldRdn(array $part, $caseFold)
@@ -389,8 +388,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Do a case folding on a DN ort part of it
      *
-     * @param array $dn
-     * @param string $caseFold
+     * @param  array  $dn
+     * @param  string $caseFold
      * @return array
      */
     protected static function _caseFoldDn(array $dn, $caseFold)
@@ -415,7 +414,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Required by the ArrayAccess implementation
      *
-     * @param int $offset
+     * @param  int $offset
      * @return boolean
      */
     public function offsetExists($offset)
@@ -432,36 +431,36 @@ class Zend_Ldap_Dn implements ArrayAccess
      * Proxy to {@see get()}
      * Required by the ArrayAccess implementation
      *
-     * @param int $offset
+     * @param  int $offset
      * @return array
      */
-    public function offsetGet($offset)
-    {
-        return $this->get($offset, 1, null);
-    }
+     public function offsetGet($offset)
+     {
+         return $this->get($offset, 1, null);
+     }
 
-    /**
-     * Proxy to {@see set()}
-     * Required by the ArrayAccess implementation
-     *
-     * @param int $offset
-     * @param array $value
-     */
-    public function offsetSet($offset, $value)
-    {
-        $this->set($offset, $value);
-    }
+     /**
+      * Proxy to {@see set()}
+      * Required by the ArrayAccess implementation
+      *
+      * @param int   $offset
+      * @param array $value
+      */
+     public function offsetSet($offset, $value)
+     {
+         $this->set($offset, $value);
+     }
 
-    /**
-     * Proxy to {@see remove()}
-     * Required by the ArrayAccess implementation
-     *
-     * @param int $offset
-     */
-    public function offsetUnset($offset)
-    {
-        $this->remove($offset, 1);
-    }
+     /**
+      * Proxy to {@see remove()}
+      * Required by the ArrayAccess implementation
+      *
+      * @param int $offset
+      */
+     public function offsetUnset($offset)
+     {
+         $this->remove($offset, 1);
+     }
 
     /**
      * Sets the default case fold
@@ -476,7 +475,7 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Sanitizes the case fold
      *
-     * @param string $caseFold
+     * @param  string $caseFold
      * @return string
      */
     protected static function _sanitizeCaseFold($caseFold, $default)
@@ -500,12 +499,12 @@ class Zend_Ldap_Dn implements ArrayAccess
      * The characters ",", "+", """, "\", "<", ">", ";", "#", " = " with a special meaning in RFC 2252
      * are preceeded by ba backslash. Control characters with an ASCII code < 32 are represented as \hexpair.
      * Finally all leading and trailing spaces are converted to sequences of \20.
-     * @param string|array $values An array containing the DN values that should be escaped
-     * @return array The array $values, but escaped
-     * @author Benedikt Hallinger <beni@php.net>
-     *
      * @see Net_LDAP2_Util::escape_dn_value() from Benedikt Hallinger <beni@php.net>
      * @link http://pear.php.net/package/Net_LDAP2
+     * @author Benedikt Hallinger <beni@php.net>
+     *
+     * @param  string|array $values An array containing the DN values that should be escaped
+     * @return array The array $values, but escaped
      */
     public static function escapeValue($values = array())
     {
@@ -514,28 +513,24 @@ class Zend_Ldap_Dn implements ArrayAccess
          */
         require_once 'Zend/Ldap/Converter.php';
 
-        if (!is_array($values)) {
-            $values = array($values);
-        }
+        if (!is_array($values)) $values = array($values);
         foreach ($values as $key => $val) {
             // Escaping of filter meta characters
-            $val = str_replace(array('\\', ',', '+', '"', '<', '>', ';', '#', '=',),
+            $val = str_replace(array('\\', ',', '+', '"', '<', '>', ';', '#', '=', ),
                 array('\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='), $val);
             $val = Zend_Ldap_Converter::ascToHex32($val);
 
             // Convert all leading and trailing spaces to sequences of \20.
             if (preg_match('/^(\s*)(.+?)(\s*)$/', $val, $matches)) {
                 $val = $matches[2];
-                for ($i = 0; $i < strlen($matches[1]); $i++) {
+                for ($i = 0; $i<strlen($matches[1]); $i++) {
                     $val = '\20' . $val;
                 }
-                for ($i = 0; $i < strlen($matches[3]); $i++) {
+                for ($i = 0; $i<strlen($matches[3]); $i++) {
                     $val = $val . '\20';
                 }
             }
-            if (null === $val) {
-                $val = '\0';
-            }  // apply escaped "null" if string is empty
+            if (null === $val) $val = '\0';  // apply escaped "null" if string is empty
             $values[$key] = $val;
         }
         return (count($values) == 1) ? $values[0] : $values;
@@ -546,12 +541,12 @@ class Zend_Ldap_Dn implements ArrayAccess
      *
      * Any escape sequence starting with a baskslash - hexpair or special character -
      * will be transformed back to the corresponding character.
-     * @param string|array $values Array of DN Values
-     * @return array Same as $values, but unescaped
-     * @author Benedikt Hallinger <beni@php.net>
-     *
      * @see Net_LDAP2_Util::escape_dn_value() from Benedikt Hallinger <beni@php.net>
      * @link http://pear.php.net/package/Net_LDAP2
+     * @author Benedikt Hallinger <beni@php.net>
+     *
+     * @param  string|array $values Array of DN Values
+     * @return array Same as $values, but unescaped
      */
     public static function unescapeValue($values = array())
     {
@@ -560,13 +555,11 @@ class Zend_Ldap_Dn implements ArrayAccess
          */
         require_once 'Zend/Ldap/Converter.php';
 
-        if (!is_array($values)) {
-            $values = array($values);
-        }
+        if (!is_array($values)) $values = array($values);
         foreach ($values as $key => $val) {
             // strip slashes from special chars
             $val = str_replace(array('\\\\', '\,', '\+', '\"', '\<', '\>', '\;', '\#', '\='),
-                array('\\', ',', '+', '"', '<', '>', ';', '#', '=',), $val);
+                array('\\', ',', '+', '"', '<', '>', ';', '#', '=', ), $val);
             $values[$key] = Zend_Ldap_Converter::hex32ToAsc($val);
         }
         return (count($values) == 1) ? $values[0] : $values;
@@ -584,19 +577,16 @@ class Zend_Ldap_Dn implements ArrayAccess
      * )
      * for a DN of cn=name1+uid=user,cn=name2,dc=example,dc=org.
      *
-     * @param string $dn
-     * @param array $keys An optional array to receive DN keys (e.g. CN, OU, DC, ...)
-     * @param array $vals An optional array to receive DN values
-     * @param string $caseFold
+     * @param  string $dn
+     * @param  array  $keys     An optional array to receive DN keys (e.g. CN, OU, DC, ...)
+     * @param  array  $vals     An optional array to receive DN values
+     * @param  string $caseFold
      * @return array
      * @throws Zend_Ldap_Exception
      */
-    public static function explodeDn(
-        $dn,
-        array &$keys = null,
-        array &$vals = null,
-        $caseFold = self::ATTR_CASEFOLD_NONE
-    ) {
+    public static function explodeDn($dn, array &$keys = null, array &$vals = null,
+        $caseFold = self::ATTR_CASEFOLD_NONE)
+    {
         $k = array();
         $v = array();
         if (!self::checkDn($dn, $k, $v, $caseFold)) {
@@ -611,39 +601,30 @@ class Zend_Ldap_Dn implements ArrayAccess
             if (is_array($k[$i]) && is_array($v[$i]) && (count($k[$i]) === count($v[$i]))) {
                 $multi = array();
                 for ($j = 0; $j < count($k[$i]); $j++) {
-                    $key = $k[$i][$j];
-                    $val = $v[$i][$j];
+                    $key=$k[$i][$j];
+                    $val=$v[$i][$j];
                     $multi[$key] = $val;
                 }
                 $ret[] = $multi;
-            } else {
-                if (is_string($k[$i]) && is_string($v[$i])) {
-                    $ret[] = array($k[$i] => $v[$i]);
-                }
+            } else if (is_string($k[$i]) && is_string($v[$i])) {
+                $ret[] = array($k[$i] => $v[$i]);
             }
         }
-        if ($keys !== null) {
-            $keys = $k;
-        }
-        if ($vals !== null) {
-            $vals = $v;
-        }
+        if ($keys !== null) $keys = $k;
+        if ($vals !== null) $vals = $v;
         return $ret;
     }
 
     /**
-     * @param string $dn The DN to parse
-     * @param array $keys An optional array to receive DN keys (e.g. CN, OU, DC, ...)
-     * @param array $vals An optional array to receive DN values
-     * @param string $caseFold
+     * @param  string $dn       The DN to parse
+     * @param  array  $keys     An optional array to receive DN keys (e.g. CN, OU, DC, ...)
+     * @param  array  $vals     An optional array to receive DN values
+     * @param  string $caseFold
      * @return boolean True if the DN was successfully parsed or false if the string is not a valid DN.
      */
-    public static function checkDn(
-        $dn,
-        array &$keys = null,
-        array &$vals = null,
-        $caseFold = self::ATTR_CASEFOLD_NONE
-    ) {
+    public static function checkDn($dn, array &$keys = null, array &$vals = null,
+        $caseFold = self::ATTR_CASEFOLD_NONE)
+    {
         /* This is a classic state machine parser. Each iteration of the
          * loop processes one character. State 1 collects the key. When equals ( = )
          * is encountered the state changes to 2 where the value is collected
@@ -665,60 +646,47 @@ class Zend_Ldap_Dn implements ArrayAccess
                 case 1: // collect key
                     if ($ch === '=') {
                         $key = trim(substr($dn, $ko, $di - $ko));
-                        if ($caseFold == self::ATTR_CASEFOLD_LOWER) {
-                            $key = strtolower($key);
-                        } else {
-                            if ($caseFold == self::ATTR_CASEFOLD_UPPER) {
-                                $key = strtoupper($key);
-                            }
-                        }
+                        if ($caseFold == self::ATTR_CASEFOLD_LOWER) $key = strtolower($key);
+                        else if ($caseFold == self::ATTR_CASEFOLD_UPPER) $key = strtoupper($key);
                         if (is_array($multi)) {
                             $keyId = strtolower($key);
                             if (in_array($keyId, $multi)) {
                                 return false;
                             }
-                            $ka[count($ka) - 1][] = $key;
+                            $ka[count($ka)-1][] = $key;
                             $multi[] = $keyId;
                         } else {
                             $ka[] = $key;
                         }
                         $state = 2;
                         $vo = $di + 1;
-                    } else {
-                        if ($ch === ',' || $ch === ';' || $ch === '+') {
-                            return false;
-                        }
+                    } else if ($ch === ',' || $ch === ';' || $ch === '+') {
+                        return false;
                     }
                     break;
                 case 2: // collect value
                     if ($ch === '\\') {
                         $state = 3;
-                    } else {
-                        if ($ch === ',' || $ch === ';' || $ch === 0 || $ch === '+') {
-                            $value = self::unescapeValue(trim(substr($dn, $vo, $di - $vo)));
-                            if (is_array($multi)) {
-                                $va[count($va) - 1][] = $value;
-                            } else {
-                                $va[] = $value;
-                            }
-                            $state = 1;
-                            $ko = $di + 1;
-                            if ($ch === '+' && $multi === false) {
-                                $lastKey = array_pop($ka);
-                                $lastVal = array_pop($va);
-                                $ka[] = array($lastKey);
-                                $va[] = array($lastVal);
-                                $multi = array(strtolower($lastKey));
-                            } else {
-                                if ($ch === ',' || $ch === ';' || $ch === 0) {
-                                    $multi = false;
-                                }
-                            }
+                    } else if ($ch === ',' || $ch === ';' || $ch === 0 || $ch === '+') {
+                        $value = self::unescapeValue(trim(substr($dn, $vo, $di - $vo)));
+                        if (is_array($multi)) {
+                            $va[count($va)-1][] = $value;
                         } else {
-                            if ($ch === '=') {
-                                return false;
-                            }
+                            $va[] = $value;
                         }
+                        $state = 1;
+                        $ko = $di + 1;
+                        if ($ch === '+' && $multi === false) {
+                            $lastKey = array_pop($ka);
+                            $lastVal = array_pop($va);
+                            $ka[] = array($lastKey);
+                            $va[] = array($lastVal);
+                            $multi = array(strtolower($lastKey));
+                        } else if ($ch === ','|| $ch === ';' || $ch === 0) {
+                            $multi = false;
+                        }
+                    } else if ($ch === '=') {
+                        return false;
                     }
                     break;
                 case 3: // escaped
@@ -743,8 +711,8 @@ class Zend_Ldap_Dn implements ArrayAccess
      * This method supports the creation of multi-valued RDNs
      * $part must contain an even number of elemets.
      *
-     * @param array $attribute
-     * @param string $caseFold
+     * @param  array  $attribute
+     * @param  string $caseFold
      * @return string
      * @throws Zend_Ldap_Exception
      */
@@ -756,7 +724,7 @@ class Zend_Ldap_Dn implements ArrayAccess
         foreach ($part as $key => $value) {
             $value = self::escapeValue($value);
             $keyId = strtolower($key);
-            $rdnParts[$keyId] = implode('=', array($key, $value));
+            $rdnParts[$keyId] =  implode('=', array($key, $value));
         }
         ksort($rdnParts, SORT_STRING);
         return implode('+', $rdnParts);
@@ -774,9 +742,9 @@ class Zend_Ldap_Dn implements ArrayAccess
      *      array("dc" => "org")
      * )
      *
-     * @param array $dnArray
-     * @param string $caseFold
-     * @param string $separator
+     * @param  array  $dnArray
+     * @param  string $caseFold
+     * @param  string $separator
      * @return string
      * @throws Zend_Ldap_Exception
      */
@@ -792,8 +760,8 @@ class Zend_Ldap_Dn implements ArrayAccess
     /**
      * Checks if given $childDn is beneath $parentDn subtree.
      *
-     * @param string|Zend_Ldap_Dn $childDn
-     * @param string|Zend_Ldap_Dn $parentDn
+     * @param  string|Zend_Ldap_Dn $childDn
+     * @param  string|Zend_Ldap_Dn $parentDn
      * @return boolean
      */
     public static function isChildOf($childDn, $parentDn)
@@ -811,18 +779,15 @@ class Zend_Ldap_Dn implements ArrayAccess
             } else {
                 $pdn = self::explodeDn($parentDn, $keys, $vals, Zend_Ldap_Dn::ATTR_CASEFOLD_LOWER);
             }
-        } catch (Zend_Ldap_Exception $e) {
+        }
+        catch (Zend_Ldap_Exception $e) {
             return false;
         }
 
-        $startIndex = count($cdn) - count($pdn);
-        if ($startIndex < 0) {
-            return false;
-        }
-        for ($i = 0; $i < count($pdn); $i++) {
-            if ($cdn[$i + $startIndex] != $pdn[$i]) {
-                return false;
-            }
+        $startIndex = count($cdn)-count($pdn);
+        if ($startIndex<0) return false;
+        for ($i = 0; $i<count($pdn); $i++) {
+            if ($cdn[$i+$startIndex] != $pdn[$i]) return false;
         }
         return true;
     }

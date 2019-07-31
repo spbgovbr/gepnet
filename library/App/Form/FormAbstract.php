@@ -2,9 +2,9 @@
 
 abstract class App_Form_FormAbstract extends Twitter_Bootstrap_Form_Vertical
 {
-    /**
-     * @param mixed $options
+     /**
      * @see   Zend_Form::__construct()
+     * @param mixed $options
      */
     public function __construct($options = null)
     {

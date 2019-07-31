@@ -1,43 +1,43 @@
 <?php if ($this->pageCount): ?>
-    <div class="paginationControl">
-        <?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
-        of <?php echo $this->totalItemCount; ?>
+<div class="paginationControl">
+<?php echo $this->firstItemNumber; ?> - <?php echo $this->lastItemNumber; ?>
+of <?php echo $this->totalItemCount; ?>
 
-        <!-- First page link -->
-        <?php if (isset($this->previous)): ?>
-            <a href="<?php echo $this->url(array('page' => $this->first)); ?>" rel="ui-icon ui-icon-carat-1-w">
-                First
-            </a> |
-        <?php else: ?>
-            <span class="disabled" rel="ui-icon ui-icon-carat-1-w">First</span> |
-        <?php endif; ?>
+<!-- First page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->first)); ?>" rel="ui-icon ui-icon-carat-1-w">
+    First
+  </a> |
+<?php else: ?>
+  <span class="disabled" rel="ui-icon ui-icon-carat-1-w">First</span> |
+<?php endif; ?>
 
-        <!-- Previous page link -->
-        <?php if (isset($this->previous)): ?>
-            <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
-                < Previous
-            </a> |
-        <?php else: ?>
-            <span class="disabled">&lt; Previous</span> |
-        <?php endif; ?>
+<!-- Previous page link -->
+<?php if (isset($this->previous)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+    < Previous
+  </a> |
+<?php else: ?>
+  <span class="disabled">&lt; Previous</span> |
+<?php endif; ?>
 
-        <!-- Next page link -->
-        <?php if (isset($this->next)): ?>
-            <a href="<?php echo $this->url(array('page' => $this->next)); ?>" rel="ui-icon ui-icon-carat-1-w">
-                Next >
-            </a> |
-        <?php else: ?>
-            <span class="disabled">Next &gt;</span> |
-        <?php endif; ?>
+<!-- Next page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->next)); ?>" rel="ui-icon ui-icon-carat-1-w">
+    Next >
+  </a> |
+<?php else: ?>
+  <span class="disabled">Next &gt;</span> |
+<?php endif; ?>
 
-        <!-- Last page link -->
-        <?php if (isset($this->next)): ?>
-            <a href="<?php echo $this->url(array('page' => $this->last)); ?>" rel="ui-icon ui-icon-carat-1-w">
-                Last
-            </a>
-        <?php else: ?>
-            <span class="disabled">Last</span>
-        <?php endif; ?>
+<!-- Last page link -->
+<?php if (isset($this->next)): ?>
+  <a href="<?php echo $this->url(array('page' => $this->last)); ?>" rel="ui-icon ui-icon-carat-1-w">
+    Last
+  </a>
+<?php else: ?>
+  <span class="disabled">Last</span>
+<?php endif; ?>
 
-    </div>
+</div>
 <?php endif; ?>

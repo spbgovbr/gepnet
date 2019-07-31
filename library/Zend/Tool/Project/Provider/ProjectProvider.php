@@ -53,8 +53,7 @@ class Zend_Tool_Project_Provider_ProjectProvider extends Zend_Tool_Project_Provi
         $profileSearchParams = array();
         $profileSearchParams[] = 'projectProvidersDirectory';
 
-        $projectProvider = $profile->createResourceAt($profileSearchParams, 'projectProviderFile',
-            array('projectProviderName' => $projectProviderName, 'actionNames' => $actionNames));
+        $projectProvider = $profile->createResourceAt($profileSearchParams, 'projectProviderFile', array('projectProviderName' => $projectProviderName, 'actionNames' => $actionNames));
 
         return $projectProvider;
     }
@@ -72,9 +71,9 @@ class Zend_Tool_Project_Provider_ProjectProvider extends Zend_Tool_Project_Provi
     /**
      * Create stub for Zend_Tool Project Provider
      *
+     * @var string       $name            class name for new Zend_Tool Project Provider
+     * @var array|string $actions         list of provider methods
      * @throws Zend_Tool_Project_Provider_Exception
-     * @var array|string $actions list of provider methods
-     * @var string $name class name for new Zend_Tool Project Provider
      */
     public function create($name, $actions = null)
     {
@@ -85,11 +84,11 @@ class Zend_Tool_Project_Provider_ProjectProvider extends Zend_Tool_Project_Provi
         if ($this->_registry->getRequest()->isPretend()) {
             $this->_registry->getResponse()->appendContent('Would create a project provider named ' . $name
                 . ' in location ' . $projectProvider->getPath()
-            );
+                );
         } else {
             $this->_registry->getResponse()->appendContent('Creating a project provider named ' . $name
                 . ' in location ' . $projectProvider->getPath()
-            );
+                );
             $projectProvider->create();
             $this->_storeProfile();
         }

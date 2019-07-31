@@ -15,7 +15,7 @@ kendo_module({
     name: "Splitter",
     category: "web",
     description: "The Splitter widget provides an easy way to create a dynamic layout of resizable and collapsible panes.",
-    depends: ["resizable"]
+    depends: [ "resizable" ]
 });
 
 (function ($, undefined) {
@@ -56,7 +56,7 @@ kendo_module({
     }
 
     function panePropertyAccessor(propertyName, triggersResize) {
-        return function (pane, value) {
+        return function(pane, value) {
             var paneConfig = this.element.find(pane).data(PANE);
 
             if (arguments.length == 1) {
@@ -73,7 +73,7 @@ kendo_module({
     }
 
     var Splitter = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this,
                 isHorizontal;
 
@@ -95,7 +95,7 @@ kendo_module({
 
             that._marker = kendo.guid().substring(0, 8);
 
-            that._resizeHandler = function () {
+            that._resizeHandler = function() {
                 that.trigger(RESIZE);
             };
 
@@ -121,72 +121,59 @@ kendo_module({
             LAYOUTCHANGE
         ],
 
-        _parentSplitter: function () {
+        _parentSplitter: function() {
             return this.element.parent().closest(".k-splitter");
         },
 
-        _attachEvents: function () {
+        _attachEvents: function() {
             var that = this,
                 orientation = that.options.orientation;
 
             // do not use delegated events to increase performance of nested elements
             that.element
                 .children(".k-splitbar-draggable-" + orientation)
-                .on("keydown" + NS, $.proxy(that._keydown, that))
-                .on("mousedown" + NS, function (e) {
-                    e.currentTarget.focus();
-                })
-                .on("focus" + NS, function (e) {
-                    $(e.currentTarget).addClass(FOCUSED);
-                })
-                .on("blur" + NS, function (e) {
-                    $(e.currentTarget).removeClass(FOCUSED);
-                    if (that.resizing) {
-                        that.resizing.end();
-                    }
-                })
-                .on(MOUSEENTER + NS, function () {
-                    $(this).addClass("k-splitbar-" + that.orientation + "-hover");
-                })
-                .on(MOUSELEAVE + NS, function () {
-                    $(this).removeClass("k-splitbar-" + that.orientation + "-hover");
-                })
-                .on("mousedown" + NS, function () {
-                    that._panes().append("<div class='k-splitter-overlay k-overlay' />");
-                })
-                .on("mouseup" + NS, function () {
-                    that._panes().children(".k-splitter-overlay").remove();
-                })
+                    .on("keydown" + NS, $.proxy(that._keydown, that))
+                    .on("mousedown" + NS, function(e) { e.currentTarget.focus(); })
+                    .on("focus" + NS, function(e) { $(e.currentTarget).addClass(FOCUSED);  })
+                    .on("blur" + NS, function(e) { $(e.currentTarget).removeClass(FOCUSED);
+                        if (that.resizing) {
+                            that.resizing.end();
+                        }
+                    })
+                    .on(MOUSEENTER + NS, function() { $(this).addClass("k-splitbar-" + that.orientation + "-hover"); })
+                    .on(MOUSELEAVE + NS, function() { $(this).removeClass("k-splitbar-" + that.orientation + "-hover"); })
+                    .on("mousedown" + NS, function() { that._panes().append("<div class='k-splitter-overlay k-overlay' />"); })
+                    .on("mouseup" + NS, function() { that._panes().children(".k-splitter-overlay").remove(); })
                 .end()
                 .children(".k-splitbar")
-                .on("dblclick" + NS, proxy(that._togglePane, that))
-                .children(".k-collapse-next, .k-collapse-prev").on(CLICK + NS, that._arrowClick(COLLAPSE)).end()
-                .children(".k-expand-next, .k-expand-prev").on(CLICK + NS, that._arrowClick(EXPAND)).end()
+                    .on("dblclick" + NS, proxy(that._togglePane, that))
+                    .children(".k-collapse-next, .k-collapse-prev").on(CLICK + NS, that._arrowClick(COLLAPSE)).end()
+                    .children(".k-expand-next, .k-expand-prev").on(CLICK + NS, that._arrowClick(EXPAND)).end()
                 .end();
 
-            that._parentSplitter().each(function () {
-                var parentSplitter = $(this),
-                    splitter = parentSplitter.data("kendo" + that.options.name);
+            that._parentSplitter().each(function() {
+                    var parentSplitter = $(this),
+                        splitter = parentSplitter.data("kendo" + that.options.name);
 
-                if (splitter) {
-                    splitter.bind(RESIZE, that._resizeHandler);
-                } else {
-                    parentSplitter.off("init" + NS).one("init" + NS, function () {
-                        $(this).data("kendo" + that.options.name).bind(RESIZE, that._resizeHandler);
-                        that._resizeHandler();
-                    });
-                }
-            });
+                    if (splitter) {
+                        splitter.bind(RESIZE, that._resizeHandler);
+                    } else {
+                        parentSplitter.off("init" + NS).one("init" + NS, function() {
+                            $(this).data("kendo" + that.options.name).bind(RESIZE, that._resizeHandler);
+                            that._resizeHandler();
+                        });
+                    }
+                });
         },
 
-        _detachEvents: function () {
+        _detachEvents: function() {
             var that = this,
                 parentSplitter = that._parentSplitter().data("kendo" + that.options.name);
 
             that.element
                 .children(".k-splitbar-draggable-" + that.orientation).off(NS).end()
                 .children(".k-splitbar").off("dblclick" + NS)
-                .children(".k-collapse-next, .k-collapse-prev, .k-expand-next, .k-expand-prev").off(NS);
+                    .children(".k-collapse-next, .k-collapse-prev, .k-expand-next, .k-expand-prev").off(NS);
 
             if (parentSplitter) {
                 parentSplitter.unbind(RESIZE, that._resizeHandler);
@@ -199,7 +186,7 @@ kendo_module({
             panes: []
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -215,7 +202,7 @@ kendo_module({
             kendo.destroy(that.element);
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             var that = this,
                 key = e.keyCode,
                 resizing = that.resizing,
@@ -248,7 +235,7 @@ kendo_module({
             }
         },
 
-        _initPanes: function () {
+        _initPanes: function() {
             var that = this,
                 panesConfig = that.options.panes || [];
 
@@ -269,7 +256,7 @@ kendo_module({
             that.trigger(RESIZE);
         },
 
-        ajaxRequest: function (pane, url, data) {
+        ajaxRequest: function(pane, url, data) {
             var that = this,
                 paneConfig;
 
@@ -290,24 +277,24 @@ kendo_module({
                         success: function (data) {
                             pane.html(data);
 
-                            that.trigger(CONTENTLOAD, {pane: pane[0]});
+                            that.trigger(CONTENTLOAD, { pane: pane[0] });
                         }
                     });
                 } else {
                     pane.removeClass("k-scrollable")
                         .html("<iframe src='" + url + "' frameborder='0' class='k-content-frame'>" +
-                            "This page requires frames in order to show content" +
-                            "</iframe>");
+                                "This page requires frames in order to show content" +
+                              "</iframe>");
                 }
             }
         },
-        _triggerAction: function (type, pane) {
-            if (!this.trigger(type, {pane: pane[0]})) {
+        _triggerAction: function(type, pane) {
+            if (!this.trigger(type, { pane: pane[0] })) {
                 this[type](pane[0]);
             }
         },
 
-        _togglePane: function (e) {
+        _togglePane: function(e) {
             var that = this,
                 target = $(e.target),
                 arrow;
@@ -335,7 +322,7 @@ kendo_module({
         _arrowClick: function (arrowType) {
             var that = this;
 
-            return function (e) {
+            return function(e) {
                 var target = $(e.target),
                     pane;
 
@@ -351,9 +338,9 @@ kendo_module({
                 that._triggerAction(arrowType, pane);
             };
         },
-        _updateSplitBar: function (splitbar, previousPane, nextPane) {
-            var catIconIf = function (iconType, condition) {
-                    return condition ? "<div class='k-icon " + iconType + "' />" : "";
+        _updateSplitBar: function(splitbar, previousPane, nextPane) {
+            var catIconIf = function(iconType, condition) {
+                   return condition ? "<div class='k-icon " + iconType + "' />" : "";
                 },
                 orientation = this.orientation,
                 draggable = (previousPane.resizable !== false) && (nextPane.resizable !== false),
@@ -363,25 +350,25 @@ kendo_module({
                 nextCollapsed = nextPane.collapsed;
 
             splitbar.addClass("k-splitbar k-state-default k-secondary k-splitbar-" + orientation)
-                .attr("role", "separator")
-                .attr("aria-expanded", !(prevCollapsed || nextCollapsed))
-                .removeClass("k-splitbar-" + orientation + "-hover")
-                .toggleClass("k-splitbar-draggable-" + orientation,
-                    draggable && !prevCollapsed && !nextCollapsed)
-                .toggleClass("k-splitbar-static-" + orientation,
-                    !draggable && !prevCollapsible && !nextCollapsible)
-                .html(
-                    catIconIf("k-collapse-prev", prevCollapsible && !prevCollapsed && !nextCollapsed) +
-                    catIconIf("k-expand-prev", prevCollapsible && prevCollapsed && !nextCollapsed) +
-                    catIconIf("k-resize-handle", draggable) +
-                    catIconIf("k-collapse-next", nextCollapsible && !nextCollapsed && !prevCollapsed) +
-                    catIconIf("k-expand-next", nextCollapsible && nextCollapsed && !prevCollapsed)
-                );
+                    .attr("role", "separator")
+                    .attr("aria-expanded", !(prevCollapsed || nextCollapsed))
+                    .removeClass("k-splitbar-" + orientation + "-hover")
+                    .toggleClass("k-splitbar-draggable-" + orientation,
+                        draggable && !prevCollapsed && !nextCollapsed)
+                    .toggleClass("k-splitbar-static-" + orientation,
+                        !draggable && !prevCollapsible && !nextCollapsible)
+                    .html(
+                        catIconIf("k-collapse-prev", prevCollapsible && !prevCollapsed && !nextCollapsed) +
+                        catIconIf("k-expand-prev", prevCollapsible && prevCollapsed && !nextCollapsed) +
+                        catIconIf("k-resize-handle", draggable) +
+                        catIconIf("k-collapse-next", nextCollapsible && !nextCollapsed && !prevCollapsed) +
+                        catIconIf("k-expand-next", nextCollapsible && nextCollapsed && !prevCollapsed)
+                    );
         },
-        _updateSplitBars: function () {
+        _updateSplitBars: function() {
             var that = this;
 
-            this.element.children(".k-splitbar").each(function () {
+            this.element.children(".k-splitbar").each(function() {
                 var splitbar = $(this),
                     previousPane = splitbar.prevAll(PANECLASS).first().data(PANE),
                     nextPane = splitbar.nextAll(PANECLASS).first().data(PANE);
@@ -393,10 +380,10 @@ kendo_module({
                 that._updateSplitBar(splitbar, previousPane, nextPane);
             });
         },
-        _panes: function () {
+        _panes: function() {
             return this.element.children(PANECLASS);
         },
-        _resize: function () {
+        _resize: function() {
             var that = this,
                 element = that.element,
                 panes = element.children(PANECLASS),
@@ -409,7 +396,7 @@ kendo_module({
             if (splitBarsCount === 0) {
                 splitBarsCount = panes.length - 1;
                 panes.slice(0, splitBarsCount)
-                    .after("<div tabindex='0' class='k-splitbar' data-marker='" + that._marker + "' />");
+                     .after("<div tabindex='0' class='k-splitbar' data-marker='" + that._marker + "' />");
 
                 that._updateSplitBars();
                 splitBars = element.children(".k-splitbar");
@@ -418,7 +405,7 @@ kendo_module({
             }
 
             // discard splitbar sizes from total size
-            splitBars.each(function () {
+            splitBars.each(function() {
                 totalSize -= this[isHorizontal ? "offsetWidth" : "offsetHeight"];
             });
 
@@ -426,29 +413,29 @@ kendo_module({
                 sizedPanesCount = 0,
                 freeSizedPanes = $();
 
-            panes.css({position: "absolute", top: 0})
-                [sizingProperty](function () {
-                var config = $(this).data(PANE) || {}, size;
+            panes.css({ position: "absolute", top: 0 })
+                [sizingProperty](function() {
+                    var config = $(this).data(PANE) || {}, size;
 
-                if (config.collapsed) {
-                    size = 0;
-                    $(this).css("overflow", "hidden");
-                } else if (isFluid(config.size)) {
-                    freeSizedPanes = freeSizedPanes.add(this);
-                    return;
-                } else { // sized in px/%, not collapsed
-                    size = parseInt(config.size, 10);
+                    if (config.collapsed) {
+                        size = 0;
+                        $(this).css("overflow", "hidden");
+                    } else if (isFluid(config.size)) {
+                        freeSizedPanes = freeSizedPanes.add(this);
+                        return;
+                    } else { // sized in px/%, not collapsed
+                        size = parseInt(config.size, 10);
 
-                    if (isPercentageSize(config.size)) {
-                        size = Math.floor(size * totalSize / 100);
+                        if (isPercentageSize(config.size)) {
+                            size = Math.floor(size * totalSize / 100);
+                        }
                     }
-                }
 
-                sizedPanesCount++;
-                sizedPanesWidth += size;
+                    sizedPanesCount++;
+                    sizedPanesWidth += size;
 
-                return size;
-            });
+                    return size;
+                });
 
             totalSize -= sizedPanesWidth;
 
@@ -457,10 +444,10 @@ kendo_module({
 
             freeSizedPanes
                 .slice(0, freeSizePanesCount - 1)
-                .css(sizingProperty, freeSizePaneWidth)
+                    .css(sizingProperty, freeSizePaneWidth)
                 .end()
                 .eq(freeSizePanesCount - 1)
-                .css(sizingProperty, totalSize - (freeSizePanesCount - 1) * freeSizePaneWidth);
+                    .css(sizingProperty, totalSize - (freeSizePanesCount - 1) * freeSizePaneWidth);
 
             // arrange panes
             var sum = 0,
@@ -469,7 +456,7 @@ kendo_module({
                 sizingDomProperty = isHorizontal ? "offsetWidth" : "offsetHeight";
 
             if (freeSizePanesCount === 0) {
-                var lastNonCollapsedPane = panes.filter(function () {
+                var lastNonCollapsedPane = panes.filter(function() {
                     return !(($(this).data(PANE) || {}).collapsed);
                 }).last();
 
@@ -489,7 +476,7 @@ kendo_module({
             that.trigger(LAYOUTCHANGE);
         },
 
-        toggle: function (pane, expand) {
+        toggle: function(pane, expand) {
             var paneConfig;
 
             pane = this.element.find(pane);
@@ -522,11 +509,11 @@ kendo_module({
             }
         },
 
-        collapse: function (pane) {
+        collapse: function(pane) {
             this.toggle(pane, false);
         },
 
-        expand: function (pane) {
+        expand: function(pane) {
             this.toggle(pane, true);
         },
 
@@ -540,20 +527,20 @@ kendo_module({
     ui.plugin(Splitter);
 
     var verticalDefaults = {
-        sizingProperty: "height",
-        sizingDomProperty: "offsetHeight",
-        alternateSizingProperty: "width",
-        positioningProperty: "top",
-        mousePositioningProperty: "pageY"
-    };
+            sizingProperty: "height",
+            sizingDomProperty: "offsetHeight",
+            alternateSizingProperty: "width",
+            positioningProperty: "top",
+            mousePositioningProperty: "pageY"
+        };
 
     var horizontalDefaults = {
-        sizingProperty: "width",
-        sizingDomProperty: "offsetWidth",
-        alternateSizingProperty: "height",
-        positioningProperty: "left",
-        mousePositioningProperty: "pageX"
-    };
+            sizingProperty: "width",
+            sizingDomProperty: "offsetWidth",
+            alternateSizingProperty: "height",
+            positioningProperty: "left",
+            mousePositioningProperty: "pageX"
+        };
 
     function PaneResizing(splitter) {
         var that = this,
@@ -572,17 +559,17 @@ kendo_module({
             start: proxy(that._start, that),
             max: proxy(that._max, that),
             min: proxy(that._min, that),
-            invalidClass: "k-restricted-size-" + orientation,
+            invalidClass:"k-restricted-size-" + orientation,
             resizeend: proxy(that._stop, that)
         });
     }
 
     PaneResizing.prototype = {
-        press: function (target) {
+        press: function(target) {
             this._resizable.press(target);
         },
 
-        move: function (delta, target) {
+        move: function(delta, target) {
             if (!this.pressed) {
                 this.press(target);
                 this.pressed = true;
@@ -595,26 +582,26 @@ kendo_module({
             this._resizable.move(delta);
         },
 
-        end: function () {
+        end: function() {
             this._resizable.end();
             this.pressed = false;
         },
 
-        destroy: function () {
+        destroy: function() {
             this._resizable.destroy();
         },
 
-        isResizing: function () {
+        isResizing: function() {
             return this._resizable.resizing;
         },
 
-        _createHint: function (handle) {
+        _createHint: function(handle) {
             var that = this;
             return $("<div class='k-ghost-splitbar k-ghost-splitbar-" + that.orientation + " k-state-default' />")
-                .css(that.alternateSizingProperty, handle[that.alternateSizingProperty]());
+                        .css(that.alternateSizingProperty, handle[that.alternateSizingProperty]());
         },
 
-        _start: function (e) {
+        _start: function(e) {
             var that = this,
                 splitbar = $(e.currentTarget),
                 previousPane = splitbar.prev(),
@@ -638,13 +625,13 @@ kendo_module({
             that._maxPosition = Math.min(nextBoundary - nextMinSize, prevBoundary + prevMaxSize);
             that._minPosition = Math.max(prevBoundary + prevMinSize, nextBoundary - nextMaxSize);
         },
-        _max: function () {
-            return this._maxPosition;
+        _max: function() {
+              return this._maxPosition;
         },
-        _min: function () {
+        _min: function() {
             return this._minPosition;
         },
-        _stop: function (e) {
+        _stop: function(e) {
             var that = this,
                 splitbar = $(e.currentTarget),
                 owner = that.owner;
@@ -659,9 +646,7 @@ kendo_module({
                     nextPaneConfig = nextPane.data(PANE),
                     previousPaneNewSize = ghostPosition - parseInt(previousPane[0].style[that.positioningProperty], 10),
                     nextPaneNewSize = parseInt(nextPane[0].style[that.positioningProperty], 10) + nextPane[0][that.sizingDomProperty] - ghostPosition - splitbar[0][that.sizingDomProperty],
-                    fluidPanesCount = that._element.children(PANECLASS).filter(function () {
-                        return isFluid($(this).data(PANE).size);
-                    }).length;
+                    fluidPanesCount = that._element.children(PANECLASS).filter(function() { return isFluid($(this).data(PANE).size); }).length;
 
                 if (!isFluid(previousPaneConfig.size) || fluidPanesCount > 1) {
                     if (isFluid(previousPaneConfig.size)) {

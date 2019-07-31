@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["hr-BA"] = {
         name: "hr-BA",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $", "n $"],
+                pattern: ["-n $","n $"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["nedjelja", "ponedjeljak", "utorak", "srijeda", "četvrtak", "petak", "subota"],
-                    namesAbbr: ["ned", "pon", "uto", "sri", "čet", "pet", "sub"],
-                    namesShort: ["ne", "po", "ut", "sr", "če", "pe", "su"]
+                    names: ["nedjelja","ponedjeljak","utorak","srijeda","četvrtak","petak","subota"],
+                    namesAbbr: ["ned","pon","uto","sri","čet","pet","sub"],
+                    namesShort: ["ne","po","ut","sr","če","pe","su"]
                 },
                 months: {
-                    names: ["siječanj", "veljača", "ožujak", "travanj", "svibanj", "lipanj", "srpanj", "kolovoz", "rujan", "listopad", "studeni", "prosinac", ""],
-                    namesAbbr: ["sij", "vlj", "ožu", "tra", "svi", "lip", "srp", "kol", "ruj", "lis", "stu", "pro", ""]
+                    names: ["siječanj","veljača","ožujak","travanj","svibanj","lipanj","srpanj","kolovoz","rujan","listopad","studeni","prosinac",""],
+                    namesAbbr: ["sij","vlj","ožu","tra","svi","lip","srp","kol","ruj","lis","stu","pro",""]
                 },
                 AM: [""],
                 PM: [""],

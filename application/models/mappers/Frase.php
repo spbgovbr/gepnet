@@ -18,14 +18,14 @@ class Default_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Frase $model)
     {
         $data = array(
-            "idfrase" => $model->idfrase,
-            "idfrasepai" => $model->idfrasepai,
-            "desfrase" => $model->desfrase,
-            "numordem" => $model->numordem,
-            "domtipofrase" => $model->domtipofrase,
-            "flaativo" => $model->flaativo,
-            "datcadastro" => $model->datcadastro,
-            "idescritorio" => $model->idescritorio,
+            "idfrase"       => $model->idfrase,
+            "idfrasepai"    => $model->idfrasepai,
+            "desfrase"      => $model->desfrase,
+            "numordem"      => $model->numordem,
+            "domtipofrase"  => $model->domtipofrase,
+            "flaativo"      => $model->flaativo,
+            "datcadastro"   => $model->datcadastro,
+            "idescritorio"  => $model->idescritorio,
             "idcadastrador" => $model->idcadastrador,
         );
         $this->getDbTable()->insert($data);
@@ -40,16 +40,17 @@ class Default_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Frase $model)
     {
         $data = array(
-            "idfrase" => $model->idfrase,
-            "idfrasepai" => $model->idfrasepai,
-            "desfrase" => $model->desfrase,
-            "numordem" => $model->numordem,
-            "domtipofrase" => $model->domtipofrase,
-            "flaativo" => $model->flaativo,
-            "datcadastro" => $model->datcadastro,
-            "idescritorio" => $model->idescritorio,
+            "idfrase"       => $model->idfrase,
+            "idfrasepai"    => $model->idfrasepai,
+            "desfrase"      => $model->desfrase,
+            "numordem"      => $model->numordem,
+            "domtipofrase"  => $model->domtipofrase,
+            "flaativo"      => $model->flaativo,
+            "datcadastro"   => $model->datcadastro,
+            "idescritorio"  => $model->idescritorio,
             "idcadastrador" => $model->idcadastrador,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

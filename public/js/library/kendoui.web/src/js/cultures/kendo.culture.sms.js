@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["sms"] = {
         name: "sms",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $", "n $"],
+                pattern: ["-n $","n $"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["pâ´sspei´vv", "vuõssargg", "mââibargg", "seärad", "nelljdpei´vv", "piâtnâc", "sue´vet"],
-                    namesAbbr: ["pâ", "vu", "mâ", "se", "ne", "pi", "su"],
-                    namesShort: ["p", "v", "m", "s", "n", "p", "s"]
+                    names: ["pâ´sspei´vv","vuõssargg","mââibargg","seärad","nelljdpei´vv","piâtnâc","sue´vet"],
+                    namesAbbr: ["pâ","vu","mâ","se","ne","pi","su"],
+                    namesShort: ["p","v","m","s","n","p","s"]
                 },
                 months: {
-                    names: ["ođđee´jjmään", "tä´lvvmään", "pâ´zzlâšttammään", "njuhččmään", "vue´ssmään", "ǩie´ssmään", "suei´nnmään", "på´rǧǧmään", "čõhččmään", "kålggmään", "skamm´mään", "rosttovmään", ""],
-                    namesAbbr: ["ođjm", "tä´lvv", "pâzl", "njuh", "vue", "ǩie", "suei", "på´r", "čõh", "kålg", "ska", "rost", ""]
+                    names: ["ođđee´jjmään","tä´lvvmään","pâ´zzlâšttammään","njuhččmään","vue´ssmään","ǩie´ssmään","suei´nnmään","på´rǧǧmään","čõhččmään","kålggmään","skamm´mään","rosttovmään",""],
+                    namesAbbr: ["ođjm","tä´lvv","pâzl","njuh","vue","ǩie","suei","på´r","čõh","kålg","ska","rost",""]
                 },
                 AM: [""],
                 PM: [""],

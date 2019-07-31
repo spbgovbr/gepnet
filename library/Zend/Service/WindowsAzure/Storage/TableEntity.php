@@ -68,13 +68,13 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
     /**
      * Constructor
      *
-     * @param string $partitionKey Partition key
-     * @param string $rowKey Row key
+     * @param string  $partitionKey    Partition key
+     * @param string  $rowKey          Row key
      */
     public function __construct($partitionKey = '', $rowKey = '')
-    {
+    {	
         $this->_partitionKey = $partitionKey;
-        $this->_rowKey = $rowKey;
+        $this->_rowKey       = $rowKey;
     }
 
     /**
@@ -182,20 +182,17 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
             if ($accessor->EntityType == 'ReflectionProperty') {
                 $property = $accessor->EntityAccessor;
                 $returnValue[] = (object)array(
-                    'Name' => $accessor->AzurePropertyName,
-                    'Type' => $accessor->AzurePropertyType,
+                    'Name'  => $accessor->AzurePropertyName,
+                    'Type'  => $accessor->AzurePropertyType,
                     'Value' => $this->$property,
                 );
-            } else {
-                if ($accessor->EntityType == 'ReflectionMethod' && substr(strtolower($accessor->EntityAccessor), 0,
-                        3) == 'get') {
-                    $method = $accessor->EntityAccessor;
-                    $returnValue[] = (object)array(
-                        'Name' => $accessor->AzurePropertyName,
-                        'Type' => $accessor->AzurePropertyType,
-                        'Value' => $this->$method(),
-                    );
-                }
+            } else if ($accessor->EntityType == 'ReflectionMethod' && substr(strtolower($accessor->EntityAccessor), 0, 3) == 'get') {
+                $method = $accessor->EntityAccessor;
+                $returnValue[] = (object)array(
+                    'Name'  => $accessor->AzurePropertyName,
+                    'Type'  => $accessor->AzurePropertyType,
+                    'Value' => $this->$method(),
+                );
             }
         }
 
@@ -224,18 +221,15 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
                     switch (strtolower($accessor->AzurePropertyType)) {
                         case 'edm.int32':
                         case 'edm.int64':
-                            $values[$accessor->AzurePropertyName] = intval($values[$accessor->AzurePropertyName]);
-                            break;
+                            $values[$accessor->AzurePropertyName] = intval($values[$accessor->AzurePropertyName]); break;
                         case 'edm.boolean':
-                            if ($values[$accessor->AzurePropertyName] == 'true' || $values[$accessor->AzurePropertyName] == '1') {
+                            if ($values[$accessor->AzurePropertyName] == 'true' || $values[$accessor->AzurePropertyName] == '1')
                                 $values[$accessor->AzurePropertyName] = true;
-                            } else {
+                            else
                                 $values[$accessor->AzurePropertyName] = false;
-                            }
                             break;
                         case 'edm.double':
-                            $values[$accessor->AzurePropertyName] = floatval($values[$accessor->AzurePropertyName]);
-                            break;
+                            $values[$accessor->AzurePropertyName] = floatval($values[$accessor->AzurePropertyName]); break;
                     }
                 }
 
@@ -243,17 +237,12 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
                 if ($accessor->EntityType == 'ReflectionProperty') {
                     $property = $accessor->EntityAccessor;
                     $this->$property = $values[$accessor->AzurePropertyName];
-                } else {
-                    if ($accessor->EntityType == 'ReflectionMethod' && substr(strtolower($accessor->EntityAccessor), 0,
-                            3) == 'set') {
-                        $method = $accessor->EntityAccessor;
-                        $this->$method($values[$accessor->AzurePropertyName]);
-                    }
+                } else if ($accessor->EntityType == 'ReflectionMethod' && substr(strtolower($accessor->EntityAccessor), 0, 3) == 'set') {
+                    $method = $accessor->EntityAccessor;
+                    $this->$method($values[$accessor->AzurePropertyName]);
                 }
-            } else {
-                if ($throwOnError) {
-                    throw new Zend_Service_WindowsAzure_Exception("Property '" . $accessor->AzurePropertyName . "' was not found in \$values array");
-                }
+            } else if ($throwOnError) {
+                throw new Zend_Service_WindowsAzure_Exception("Property '" . $accessor->AzurePropertyName . "' was not found in \$values array");
             }
         }
 
@@ -309,7 +298,8 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
         $docComment = $member->getDocComment();
 
         // Check for Azure comment
-        if (strpos($docComment, '@azure') === false) {
+        if (strpos($docComment, '@azure') === false)
+        {
             return null;
         }
 
@@ -329,8 +319,8 @@ class Zend_Service_WindowsAzure_Storage_TableEntity
         // Fetch @azure properties
         $azureProperties = explode(' ', $azureComment);
         return (object)array(
-            'EntityAccessor' => $member->getName(),
-            'EntityType' => get_class($member),
+            'EntityAccessor'    => $member->getName(),
+            'EntityType'        => get_class($member),
             'AzurePropertyName' => $azureProperties[0],
             'AzurePropertyType' => isset($azureProperties[1]) ? $azureProperties[1] : ''
         );

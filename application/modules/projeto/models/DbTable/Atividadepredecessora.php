@@ -8,15 +8,13 @@
  */
 class Projeto_Model_DbTable_Atividadepredecessora extends Zend_Db_Table_Abstract
 {
-    protected $_schema = 'agepnet200';
-    protected $_name = 'tb_atividadepredecessora';
-    protected $_sequence = false;
-    protected $_primary = array(
+    protected $_schema          = 'agepnet200';
+    protected $_name            = 'tb_atividadepredecessora';
+    protected $_sequence        = false;
+    protected $_primary         = array(
         'idatividadepredecessora',
         'idatividade',
         'idprojeto'
     );
-
-
 }
 

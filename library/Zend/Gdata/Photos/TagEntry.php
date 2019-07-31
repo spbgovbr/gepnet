@@ -118,8 +118,8 @@ class Zend_Gdata_Photos_TagEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:weight attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoWeight
+     * @return string The requested attribute.
      */
     public function getGphotoWeight()
     {

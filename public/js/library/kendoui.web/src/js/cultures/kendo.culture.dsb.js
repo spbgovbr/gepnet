@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["dsb"] = {
         name: "dsb",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $", "n $"],
+                pattern: ["-n $","n $"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["njeźela", "ponjeźele", "wałtora", "srjoda", "stwortk", "pětk", "sobota"],
-                    namesAbbr: ["nje", "pon", "wał", "srj", "stw", "pět", "sob"],
-                    namesShort: ["n", "p", "w", "s", "s", "p", "s"]
+                    names: ["njeźela","ponjeźele","wałtora","srjoda","stwortk","pětk","sobota"],
+                    namesAbbr: ["nje","pon","wał","srj","stw","pět","sob"],
+                    namesShort: ["n","p","w","s","s","p","s"]
                 },
                 months: {
-                    names: ["januar", "februar", "měrc", "apryl", "maj", "junij", "julij", "awgust", "september", "oktober", "nowember", "december", ""],
-                    namesAbbr: ["jan", "feb", "měr", "apr", "maj", "jun", "jul", "awg", "sep", "okt", "now", "dec", ""]
+                    names: ["januar","februar","měrc","apryl","maj","junij","julij","awgust","september","oktober","nowember","december",""],
+                    namesAbbr: ["jan","feb","měr","apr","maj","jun","jul","awg","sep","okt","now","dec",""]
                 },
                 AM: [""],
                 PM: [""],

@@ -15,10 +15,10 @@ kendo_module({
     name: "DropDownList",
     category: "web",
     description: "The DropDownList widget displays a list of values and allows the selection of a single value from the list.",
-    depends: ["list"]
+    depends: [ "list" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         Select = ui.Select,
@@ -37,18 +37,18 @@ kendo_module({
         TABINDEX = "tabindex",
         proxy = $.proxy;
 
-    var DropDownList = Select.extend({
-        init: function (element, options) {
+    var DropDownList = Select.extend( {
+        init: function(element, options) {
             var that = this,
                 index = options && options.index,
                 optionLabel, useOptionLabel, text;
 
             that.ns = ns;
-            options = $.isArray(options) ? {dataSource: options} : options;
+            options = $.isArray(options) ? { dataSource: options } : options;
 
             Select.fn.init.call(that, element, options);
 
-            that._focusHandler = function () {
+            that._focusHandler = function() {
                 that.wrapper.focus();
             };
 
@@ -90,7 +90,7 @@ kendo_module({
                 text = options.text || "";
                 if (!text) {
                     optionLabel = that._optionLabelText(options.optionLabel),
-                        useOptionLabel = optionLabel && options.index === 0;
+                    useOptionLabel = optionLabel && options.index === 0;
 
                     if (that._isSelect) {
                         if (useOptionLabel) {
@@ -136,7 +136,7 @@ kendo_module({
             "cascade"
         ],
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             Select.fn.setOptions.call(this, options);
 
             this._template();
@@ -144,7 +144,7 @@ kendo_module({
             this._aria();
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             that.wrapper.off(ns);
@@ -154,7 +154,7 @@ kendo_module({
             Select.fn.destroy.call(that);
         },
 
-        open: function () {
+        open: function() {
             var that = this;
 
             if (!that.ul[0].firstChild) {
@@ -169,11 +169,11 @@ kendo_module({
             }
         },
 
-        toggle: function (toggle) {
+        toggle: function(toggle) {
             this._toggle(toggle);
         },
 
-        refresh: function () {
+        refresh: function() {
             var that = this,
                 data = that._data(),
                 length = data.length,
@@ -217,7 +217,8 @@ kendo_module({
         },
 
 
-        search: function (word) {
+
+        search: function(word) {
             if (word) {
                 var that = this,
                     ignoreCase = that.options.ignoreCase;
@@ -226,7 +227,7 @@ kendo_module({
                     word = word.toLowerCase();
                 }
 
-                that._select(function (dataItem) {
+                that._select(function(dataItem) {
                     var text = that._text(dataItem);
 
                     if (text !== undefined) {
@@ -251,7 +252,7 @@ kendo_module({
             }
         },
 
-        value: function (value) {
+        value: function(value) {
             var that = this,
                 idx, hasValue;
 
@@ -274,18 +275,18 @@ kendo_module({
             }
         },
 
-        _editable: function (options) {
+        _editable: function(options) {
             var that = this,
                 element = that.element,
                 disable = options.disable,
                 readonly = options.readonly,
                 wrapper = that.wrapper.off(ns),
                 dropDownWrapper = that._inputWrapper.off(HOVEREVENTS),
-                focusin = function () {
+                focusin = function() {
                     dropDownWrapper.addClass(FOCUSED);
                     that._blured = false;
                 },
-                focusout = function () {
+                focusout = function() {
                     if (!that._blured) {
                         that._triggerCascade();
                         that._blur();
@@ -308,10 +309,10 @@ kendo_module({
                     .attr(TABINDEX, wrapper.data(TABINDEX))
                     .attr(ARIA_DISABLED, false)
                     .attr(ARIA_READONLY, false)
-                    .on("click" + ns, function (e) {
-                        that._blured = false;
-                        e.preventDefault();
-                        that.toggle();
+                    .on("click" + ns, function(e) {
+                            that._blured = false;
+                            e.preventDefault();
+                            that.toggle();
                     })
                     .on("keydown" + ns, proxy(that._keydown, that))
                     .on("keypress" + ns, proxy(that._keypress, that))
@@ -335,18 +336,18 @@ kendo_module({
                 }
 
                 element.attr(DISABLED, disable)
-                    .attr(READONLY, readonly);
+                       .attr(READONLY, readonly);
 
                 wrapper.attr(ARIA_DISABLED, disable)
-                    .attr(ARIA_READONLY, readonly);
+                       .attr(ARIA_READONLY, readonly);
             }
         },
 
-        _accept: function (li) {
+        _accept: function(li) {
             this._focus(li);
         },
 
-        _optionLabelText: function () {
+        _optionLabelText: function() {
             var options = this.options,
                 dataTextField = options.dataTextField,
                 optionLabel = options.optionLabel;
@@ -358,7 +359,7 @@ kendo_module({
             return optionLabel;
         },
 
-        _data: function () {
+        _data: function() {
             var that = this,
                 options = that.options,
                 optionLabel = options.optionLabel,
@@ -393,7 +394,7 @@ kendo_module({
             return data;
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             var that = this,
                 key = e.keyCode,
                 keys = kendo.keys,
@@ -417,7 +418,7 @@ kendo_module({
             }
         },
 
-        _selectNext: function (character, index) {
+        _selectNext: function(character, index) {
             var that = this,
                 ignoreCase = that.options.ignoreCase,
                 data = that._data(),
@@ -443,10 +444,10 @@ kendo_module({
             return false;
         },
 
-        _keypress: function (e) {
+        _keypress: function(e) {
             var that = this;
 
-            setTimeout(function () {
+            setTimeout(function() {
                 var character = String.fromCharCode(e.keyCode || e.charCode),
                     index = that.selectedIndex;
 
@@ -468,22 +469,22 @@ kendo_module({
             });
         },
 
-        _popup: function () {
+        _popup: function() {
             Select.fn._popup.call(this);
-            this.popup.one("open", function () {
+            this.popup.one("open", function() {
                 this.wrapper = kendo.wrap(this.element)
-                    .addClass("km-popup");
+                                    .addClass("km-popup");
             });
         },
 
-        _search: function () {
+        _search: function() {
             var that = this,
                 dataSource = that.dataSource,
                 word = that._word;
 
             clearTimeout(that._typing);
 
-            that._typing = setTimeout(function () {
+            that._typing = setTimeout(function() {
                 that._word = "";
             }, that.options.delay);
 
@@ -500,7 +501,7 @@ kendo_module({
             that._triggerEvents();
         },
 
-        _select: function (li) {
+        _select: function(li) {
             var that = this,
                 current = that._current,
                 data = that._data(),
@@ -535,14 +536,14 @@ kendo_module({
             }
         },
 
-        _triggerEvents: function () {
+        _triggerEvents: function() {
             if (!this.popup.visible()) {
                 this._triggerCascade();
                 this._change();
             }
         },
 
-        _mobile: function () {
+        _mobile: function() {
             var that = this,
                 popup = that.popup,
                 root = popup.element.parents(".km-root").eq(0);
@@ -552,7 +553,7 @@ kendo_module({
             }
         },
 
-        _span: function () {
+        _span: function() {
             var that = this,
                 wrapper = that.wrapper,
                 SELECTOR = "span.k-input",
@@ -562,19 +563,17 @@ kendo_module({
 
             if (!span[0]) {
                 wrapper.append('<span unselectable="on" class="k-dropdown-wrap k-state-default"><span unselectable="on" class="k-input">&nbsp;</span><span unselectable="on" class="k-select"><span unselectable="on" class="k-icon k-i-arrow-s">select</span></span></span>')
-                    .append(that.element);
+                       .append(that.element);
 
                 span = wrapper.find(SELECTOR);
             }
 
             that.span = span;
             that._inputWrapper = $(wrapper[0].firstChild);
-            that._arrow = wrapper.find(".k-icon").mousedown(function (e) {
-                e.preventDefault();
-            });
+            that._arrow = wrapper.find(".k-icon").mousedown(function(e) { e.preventDefault(); });
         },
 
-        _wrapper: function () {
+        _wrapper: function() {
             var that = this,
                 element = that.element,
                 DOMelement = element[0],
@@ -590,18 +589,18 @@ kendo_module({
             element.hide();
 
             that._focused = that.wrapper = wrapper
-                .addClass("k-widget k-dropdown k-header")
-                .addClass(DOMelement.className)
-                .css("display", "")
-                .attr({
-                    unselectable: "on",
-                    role: "listbox",
-                    "aria-haspopup": true,
-                    "aria-expanded": false
-                });
+                              .addClass("k-widget k-dropdown k-header")
+                              .addClass(DOMelement.className)
+                              .css("display", "")
+                              .attr({
+                                  unselectable: "on",
+                                  role: "listbox",
+                                  "aria-haspopup": true,
+                                  "aria-expanded": false
+                              });
         },
 
-        _clearSelection: function () {
+        _clearSelection: function() {
             var that = this,
                 optionLabel = that.options.optionLabel;
 

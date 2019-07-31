@@ -18,13 +18,13 @@ class Default_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Questionario $model)
     {
         $data = array(
-            "idquestionario" => $model->idquestionario,
+            "idquestionario"  => $model->idquestionario,
             "nomquestionario" => $model->nomquestionario,
-            "desobservacao" => $model->desobservacao,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "codescritorio" => $model->codescritorio,
+            "desobservacao"   => $model->desobservacao,
+            "flaativo"        => $model->flaativo,
+            "idcadastrador"   => $model->idcadastrador,
+            "datcadastro"     => $model->datcadastro,
+            "codescritorio"   => $model->codescritorio,
         );
         $this->getDbTable()->insert($data);
     }
@@ -38,14 +38,15 @@ class Default_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Questionario $model)
     {
         $data = array(
-            "idquestionario" => $model->idquestionario,
+            "idquestionario"  => $model->idquestionario,
             "nomquestionario" => $model->nomquestionario,
-            "desobservacao" => $model->desobservacao,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "codescritorio" => $model->codescritorio,
+            "desobservacao"   => $model->desobservacao,
+            "flaativo"        => $model->flaativo,
+            "idcadastrador"   => $model->idcadastrador,
+            "datcadastro"     => $model->datcadastro,
+            "codescritorio"   => $model->codescritorio,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

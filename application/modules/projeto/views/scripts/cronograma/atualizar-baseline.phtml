@@ -1,7 +1,8 @@
 <?php
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
 ?>
 <form id="atualizar-baseline"
       name="atualizar-baseline"
@@ -9,18 +10,17 @@ $this->headLink()
       method="post">
     <div class="alert alert-block" style="font-size: 14px !important;">
         <h4>Aviso!</h4>
-        Ao confirmar essa a&ccedil;&atilde;o, o sistema ir&aacute; copiar as datas In&iacute;cio e Fim atuais de todo o
-        projeto
+        Ao confirmar essa a&ccedil;&atilde;o, o sistema ir&aacute; copiar as datas In&iacute;cio e Fim atuais de todo o projeto
         para as datas In&iacute;cio e Fim da Base Line.
         <br/>
         A Base Line atual do projeto ser&aacute; sobreposta.
         <br/><br/>
         Deseja realmente realizar essa opera&ccedil;&atilde;o?
     </div>
-
+    
     <div class="row">
         <div class="span5">
-            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>"/>
+            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>" />
         </div>
     </div>
 </form>

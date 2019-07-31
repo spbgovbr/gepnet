@@ -8,17 +8,17 @@
 class Default_Model_Aquisicao extends App_Model_ModelAbstract
 {
 
-    public $idaquisicao = null;
-    public $idprojeto = null;
-    public $identrega = null;
-    public $descontrato = null;
-    public $desfornecedor = null;
-    public $numvalor = null;
+    public $idaquisicao       = null;
+    public $idprojeto         = null;
+    public $identrega         = null;
+    public $descontrato       = null;
+    public $desfornecedor     = null;
+    public $numvalor          = null;
     public $datprazoaquisicao = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
-    public $numquantidade = null;
-    public $desaquisicao = null;
+    public $idcadastrador     = null;
+    public $datcadastro       = null;
+    public $numquantidade     = null;
+    public $desaquisicao      = null;
 
 }
 

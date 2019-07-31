@@ -45,8 +45,8 @@ class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShorten
      * This function shortens long url
      *
      * @param string $url URL to Shorten
-     * @return string New URL
      * @throws Zend_Service_ShortUrl_Exception When URL is not valid
+     * @return string New URL
      */
     public function shorten($url)
     {
@@ -62,12 +62,12 @@ class Zend_Service_ShortUrl_JdemCz extends Zend_Service_ShortUrl_AbstractShorten
         return $response->getBody();
     }
 
-    /**
+   /**
      * Reveals target for short URL
      *
      * @param string $shortenedUrl URL to reveal target of
-     * @return string
      * @throws Zend_Service_ShortUrl_Exception When URL is not valid or is not shortened by this service
+     * @return string
      */
     public function unshorten($shortenedUrl)
     {

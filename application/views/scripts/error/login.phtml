@@ -1,9 +1,5 @@
 <div class="region-center">
-    <?php if (!empty($this->messages)): ?>
-        <div class="alert alert-<?php echo $this->messages[0]['status'] ?>">
-            <?php echo($this->messages[0]['message']); ?>
-        </div>
-    <?php endif; ?>
-
-    <a href="<?php echo $this->link; ?>">Início</a>
+    <div class="alert alert-<?php echo $this->messages[0]['status'] ?>">
+        <?php echo ($this->messages[0]['message']); ?>
+    </div>
 </div>

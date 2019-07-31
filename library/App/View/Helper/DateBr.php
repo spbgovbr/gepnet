@@ -15,9 +15,9 @@ class App_View_Helper_DateBr extends Zend_View_Helper_Abstract
 
     public function __construct()
     {
-        $this->_auth = Zend_Auth::getInstance();
+        $this->_auth           = Zend_Auth::getInstance();
     }
-
+    
     public $view;
 
     public function setView(Zend_View_Interface $view)
@@ -26,26 +26,26 @@ class App_View_Helper_DateBr extends Zend_View_Helper_Abstract
     }
 
     /**
-     *
+     * 
      * @param string | Zend_Date $data
      * @param string $default
      * @return string
      */
     public function dateBr($data, $default = null)
     {
-
-        if ($data instanceof Zend_Date) {
+        
+        if ( $data instanceof Zend_Date) {
             return $data->toString('d/m/Y');
         }
-
-        if ($data instanceof DateTime) {
+        
+        if ( $data instanceof DateTime) {
             return $data->format('d/m/Y');
         }
-
-        if (empty($data) && $default !== null) {
+        
+        if(empty($data) && $default !== null) {
             return $default;
         }
-
+        
         return $data;
     }
 }

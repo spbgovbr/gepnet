@@ -1,32 +1,31 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+;
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/risco/listar.js'),
-        'text/javascript')/*->appendFile($this->baseUrl('/js/app/projeto/risco/cadastrar.js'), 'text/javascript')*/
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))       
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        
+        ->appendFile($this->baseUrl('/js/app/projeto/risco/listar.js'), 'text/javascript')
 ;
 
 $frmAttr = $this->formPesquisar->getAttribs();
-$linkImprimirRiscos = '/projeto/risco/imprimir/idprojeto/' . $this->idprojeto . '/print/all';
+$linkImprimirRiscos = '/projeto/risco/imprimir/idprojeto/'.$this->idprojeto.'/print/all';
 
 ?>
-<?php if ($this->msgimpressao): ?>
+<?php if($this->msgimpressao):?>
     <script type="text/javascript">
-        $(function () {
+        $(function(){
             $.pnotify({
                 text: '<?php echo $this->msgimpressao; ?>',
                 type: 'error',
@@ -37,8 +36,7 @@ $linkImprimirRiscos = '/projeto/risco/imprimir/idprojeto/' . $this->idprojeto . 
 <?php endif; ?>
 
 <div class="region-west">
-    <?php echo $this->partial('_partials/menu-projeto.phtml',
-        array('ativo' => 'riscos', 'idprojeto' => $this->idprojeto)) ?>
+    <?php echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'riscos', 'idprojeto' => $this->idprojeto)) ?>
 </div>
 
 <div class="region-center">
@@ -46,20 +44,15 @@ $linkImprimirRiscos = '/projeto/risco/imprimir/idprojeto/' . $this->idprojeto . 
     <div class="form-actions form-actions-mini">
         <div class="btn-group">
             <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
-            <a data-target="#dialog-inserir" class="btn actionfrm inserir" title="Cadastrar"
-               data-id="<?php echo $this->idprojeto ?>" href="<?php echo $this->url(array(
-                'module' => 'projeto',
-                'controller' => 'risco',
-                'action' => 'cadastrar'
-            )) ?>">
+            <a data-target="#dialog-inserir" class="btn actionfrm inserir" title="Cadastrar" data-id="<?php echo $this->idprojeto?>" href="<?php echo $this->url(array(
+             'module' => 'projeto', 'controller' => 'risco', 'action' => 'cadastrar' ))?>">
                 Cadastrar
             </a>
         </div>
-        <a href="<?php echo $this->baseUrl($linkImprimirRiscos) ?>" class="btn print" title="Imprimir todos os riscos"
-           style="float: right;"><i class="icon-print"></i> &nbsp;Imprimir Todos</a>
-    </div>
-
-
+        <a href="<?php echo $this->baseUrl($linkImprimirRiscos)?>" class="btn print" title="Imprimir todos os riscos" style="float: right;"><i class="icon-print"></i>  &nbsp;Imprimir Todos</a>
+    </div> 
+    
+    
     <table id="list-grid-risco"></table>
     <div id="toolbar-grid-risco"></div>
     <div id="pager-grid-risco"></div>
@@ -70,71 +63,71 @@ $linkImprimirRiscos = '/projeto/risco/imprimir/idprojeto/' . $this->idprojeto . 
         <div class="portlet portlet-marron span4">
             <div class="title">Risco - Pesquisar</div>
             <div class="content">
-                <form id="<?php echo $frmAttr['id']; ?>"
-                      name="<?php echo $frmAttr['id']; ?>"
-                      action="<?php echo $this->formPesquisar->getAction(); ?>"
-                      method="<?php echo $frmAttr['method']; ?>">
-                    <div class="row">
-                        <input type="hidden" id="idprojeto" name='idprojeto' value="<?php echo $this->idprojeto ?>"/>
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->datdeteccao ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->norisco ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->idorigemrisco ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->idetapa ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->idtiporisco ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->domcorprobabilidade ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->domcorimpacto ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->domtratamento ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->flariscoativo ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->formPesquisar->datencerramentorisco ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span3">
-                            <div class="btn-group">
-                                <?php echo $this->formPesquisar->btnpesquisar ?>
-                                <?php echo $this->formPesquisar->reset ?>
-                                <?php echo $this->formPesquisar->close ?>
+                 <form id="<?php echo $frmAttr['id']; ?>"
+                        name="<?php echo $frmAttr['id']; ?>"
+                        action="<?php echo $this->formPesquisar->getAction(); ?>"
+                        method="<?php echo $frmAttr['method']; ?>">    
+                        <div class="row">                                                                       
+                            <input type="hidden" id="idprojeto" name='idprojeto' value="<?php echo $this->idprojeto ?>"/>
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->datdeteccao ?>
                             </div>
                         </div>
-                    </div>
-                </form>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->norisco ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->idorigemrisco ?>                
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->idetapa ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->idtiporisco ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->domcorprobabilidade ?>
+                            </div>    
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->domcorimpacto ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->domtratamento ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->flariscoativo ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <?php echo $this->formPesquisar->datencerramentorisco ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="span3">
+                                <div class="btn-group">
+                                    <?php echo $this->formPesquisar->btnpesquisar ?>
+                                    <?php echo $this->formPesquisar->reset ?>
+                                    <?php echo $this->formPesquisar->close ?>
+                                </div>
+                            </div>
+                        </div>
+                 </form>
             </div>
         </div>
     </div>

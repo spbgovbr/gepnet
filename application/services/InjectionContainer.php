@@ -1,6 +1,6 @@
 <?php
 
-class Default_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
+class Default_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -32,7 +32,7 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
 
         return $service;
     }
-
+    
     /**
      * Retorna cargo servico
      *
@@ -46,7 +46,7 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
 
         return $service;
     }
-
+    
     /**
      * Retorna cargo servico
      *
@@ -60,7 +60,7 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
 
         return $service;
     }
-
+    
     /**
      * Retorna unidade servico
      *
@@ -74,7 +74,6 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
 
         return $service;
     }
-
     /**
      * Retorna tipoDocumento servico
      *
@@ -101,15 +100,14 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
         $service = new Default_Service_Download();
         return $service;
     }
-
     /**
-     *
-     *
-     *
-     *
-     *
-     *
-     * /**
+    
+   
+
+    
+
+
+     /**
      * @return Default_Service_Escritorio
      */
     public function getDefaultServiceEscritorio()
@@ -117,7 +115,6 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
         $service = new Default_Service_Escritorio();
         return $service;
     }
-
     /**
      * Retorna perfil servico
      *
@@ -125,18 +122,19 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServicePerfil()
     {
-        $service = new Default_Service_Perfil();
-        return $service;
-    }
-
-
+      $service = new Default_Service_Perfil();
+      return $service;
+    } 
+      
+      
+      
     public function getDefaultServiceTipoEscritorio()
-    {
+   {
         $service = new Default_Service_TipoEscritorio();
         return $service;
-    }
-
-    /**
+    }    
+    
+   /**
      * Retorna login servico
      *
      * @return Default_Service_Login
@@ -149,8 +147,8 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
 
     public function getDefaultServicePrograma()
     {
-        $service = new Default_Service_Programa();
-        return $service;
+    	$service = new Default_Service_Programa();
+    	return $service;
     }
 
 
@@ -160,34 +158,37 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServicePermissao()
     {
-        $service = new Default_Service_Permissao();
-        return $service;
+    	$service = new Default_Service_Permissao();
+    	return $service;
     }
 
+
+
+    
     public function getDefaultServiceNatureza()
     {
-        $service = new Default_Service_Natureza();
-        return $service;
+    	$service = new Default_Service_Natureza();
+    	return $service;
     }
-
+    
     public function getDefaultServiceSetor()
     {
-        $service = new Default_Service_Setor();
-        return $service;
+    	$service = new Default_Service_Setor();
+    	return $service;
     }
-
+    
     public function getDefaultServiceObjetivo()
     {
-        $service = new Default_Service_Objetivo();
-        return $service;
+    	$service = new Default_Service_Objetivo();
+    	return $service;
     }
-
+    
     public function getDefaultServiceAcao()
     {
-        $service = new Default_Service_Acao();
-        return $service;
+    	$service = new Default_Service_Acao();
+    	return $service;
     }
-
+    
     /**
      * Retorna Ata servico
      *
@@ -195,13 +196,13 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceAta()
     {
-        $service = new Default_Service_Ata(
-            new Default_Model_Mapper_Ata()
-        );
-
-        return $service;
+    	$service = new Default_Service_Ata(
+                new Default_Model_Mapper_Ata()
+    	);
+    
+    	return $service;
     }
-
+    
     /**
      * Retorna Ata servico
      *
@@ -209,13 +210,13 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceMudanca()
     {
-        $service = new Default_Service_Mudanca(
-            new Default_Model_Mapper_Mudanca()
-        );
-
-        return $service;
+    	$service = new Default_Service_Mudanca(
+                new Default_Model_Mapper_Mudanca()
+    	);
+    
+    	return $service;
     }
-
+    
     /**
      * Retorna Impressao servico
      *
@@ -223,21 +224,11 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceImpressao()
     {
-        $service = new Default_Service_Impressao();
-
-        return $service;
-    }
-
-    /**
-     * Retorna PChart2 servico
-     *
-     * @return Default_Service_PChart2
-     */
-    public function getDefaultServicePChart2()
-    {
-        $service = new Default_Service_PChart2();
-
-        return $service;
+    	$service = new Default_Service_Impressao(
+    			
+    	);
+    
+    	return $service;
     }
 
     /**
@@ -247,7 +238,9 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceUpload()
     {
-        $service = new Default_Service_Upload();
+        $service = new Default_Service_Upload(
+
+        );
 
         return $service;
     }
@@ -259,7 +252,9 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceFuncionalidade()
     {
-        $service = new Default_Service_Funcionalidade();
+        $service = new Default_Service_Funcionalidade(
+
+        );
 
         return $service;
     }
@@ -271,7 +266,9 @@ class Default_Service_InjectionContainer extends App_Service_InjectionContainerA
      */
     public function getDefaultServiceEmail()
     {
-        $service = new Default_Service_Email();
+        $service = new Default_Service_Email(
+
+        );
 
         return $service;
     }

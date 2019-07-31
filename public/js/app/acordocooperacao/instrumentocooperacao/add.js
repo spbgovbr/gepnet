@@ -1,4 +1,4 @@
-$(function () {
-    console.log('aqui');
+$(function() {
+   console.log('aqui');
     alert('asdfas');
 });

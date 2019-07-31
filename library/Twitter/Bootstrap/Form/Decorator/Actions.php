@@ -39,7 +39,7 @@ class Twitter_Bootstrap_Form_Decorator_Actions extends Zend_Form_Decorator_Abstr
     /**
      * Renders the content
      *
-     * @param string $content
+     * @param  string $content
      * @return string
      */
     public function render($content)

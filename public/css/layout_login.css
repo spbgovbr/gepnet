@@ -1,47 +1,35 @@
 
-#conteudoLogin form label {
-    display: block;
-}
+#conteudoLogin form label { display:block;}
 
-#conteudoLogin input[type="text"],
+#conteudoLogin input[type="text"], 
 #conteudoLogin input[type="password"] {
     font-size: 15px;
     height: 28px;
     width: 100%;
 }
-
 #conteudoLogin input[type="submit"] {
     font-size: 13px;
     height: 32px;
     margin: 1em 1.5em 1.2em 0;
     line-height: 29px;
     background-color: #4D90FE;
-    background-image: -moz-linear-gradient(center top, #4D90FE, #4787ED);
+    background-image: -moz-linear-gradient(center top , #4D90FE, #4787ED);
     border: 1px solid #3079ED;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
 }
-
 #conteudoLogin input[type="submit"]:hover {
     background-color: #357AE8;
-    background-image: -moz-linear-gradient(center top, #4D90FE, #357AE8);
+    background-image: -moz-linear-gradient(center top , #4D90FE, #357AE8);
     border: 1px solid #2F5BB7;
     color: #FFFFFF;
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
 }
-
-#conteudoLogin {
-    margin: 5px;
-    padding: 20px 25px 15px;
-    background: #F5F5F5;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px 8px 8px 8px;
-}
+    
+#conteudoLogin { margin:5px; padding:20px 25px 15px; background:#F5F5F5; border: 1px solid #e5e5e5;  border-radius: 8px 8px 8px 8px;}
 
 /*#conteudo { margin: 0; }*/
 
-html {
-    background: #fff;
-}
+html { background:#fff;}
 
 /*#rodape {position:fixed; bottom:0; right:0;}*/

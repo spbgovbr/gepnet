@@ -121,30 +121,30 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     /**
      * Render an jQuery UI Widget Pane using its associated view helper
      *
-     * @param string $content
-     * @return string
      * @throws Zend_Form_Decorator_Exception
+     * @param  string $content
+     * @return string
      * @throws Zend_Form_Decorator_Exception if element or view are not registered
      */
     public function render($content)
     {
         $element = $this->getElement();
-        $view = $element->getView();
+        $view    = $element->getView();
         if (null === $view) {
             return $content;
         }
 
         $jQueryParams = $this->getJQueryParams();
-        $attribs = array_merge($this->getAttribs(), $this->getOptions());
+        $attribs     = array_merge($this->getAttribs(), $this->getOptions());
 
-        if (isset($jQueryParams['title']) && !empty($jQueryParams['title'])) {
+        if(isset($jQueryParams['title']) && !empty($jQueryParams['title'])) {
             if (null !== ($translator = $element->getTranslator())) {
                 $jQueryParams['title'] = $translator->translate($jQueryParams['title']);
             }
         }
 
-        if (isset($jQueryParams['containerId'])) {
-            $id = $jQueryParams['containerId'] . "-container";
+        if(isset($jQueryParams['containerId'])) {
+            $id = $jQueryParams['containerId']."-container";
         } else {
             require_once "Zend/Form/Decorator/Exception.php";
             throw new Zend_Form_Decorator_Exception("UiWidgetPane Decorators have to have a jQueryParam 'containerId', to point at their parent container. This containerId has been set via setAttrib('id') on the parent element.");

@@ -60,7 +60,7 @@ class Zend_Db_Table extends Zend_Db_Table_Abstract
                 trigger_error(__CLASS__ . '::' . __METHOD__ . '(\'registryName\') is not valid usage of Zend_Db_Table, '
                     . 'try extending Zend_Db_Table_Abstract in your extending classes.',
                     E_USER_NOTICE
-                );
+                    );
                 $config = array(self::ADAPTER => $config);
             } else {
                 // process this as table with or without a definition

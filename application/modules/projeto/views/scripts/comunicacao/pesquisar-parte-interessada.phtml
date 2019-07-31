@@ -1,8 +1,8 @@
 <script type="text/javascript">
 
-    $(function () {
+$(function() {
 
-        var
+    var
             grid = null,
             lastsel = null,
             gridEnd = null,
@@ -11,9 +11,9 @@
             btnSubmit = $("button#btn-grid-pessoa"),
             btnCloseGridPessoa = $("#btn-close-grid-pessoa");
 
-        //idparteinteressada, nomparteinteressada
-        colNames = ['Identificador', 'Interessados'];
-        colModel = [{
+    //idparteinteressada, nomparteinteressada
+    colNames = ['Identificador', 'Interessados'];
+    colModel = [{
             name: 'idparteinteressada',
             index: 'idparteinteressada',
             width: 20,
@@ -29,65 +29,65 @@
             sortable: false
         }];
 
-        grid = jQuery("#list-grid-pessoa").jqGrid({
-            //caption: "Documentos",
-            url: base_url + "/projeto/comunicacao/grid-parte-interessada/idprojeto/" + $("#idprojeto").val(),
-            datatype: "json",
-            mtype: 'post',
-            width: '645',
-            height: '200px',
-            colNames: colNames,
-            colModel: colModel,
-            rownumbers: true,
-            rowNum: 20,
-            rowList: [20, 50, 100],
-            pager: '#pager-grid-pessoa',
-            sortname: 'nomparteinteressada',
-            viewrecords: true,
-            sortorder: "asc",
-            gridComplete: function () {
-                // console.log('teste');
-                //$("a.actionfrm").tooltip();
-            },
-            onSelectRow: function (id) {
-                if (window.selectRow) {
-                    var row = grid.getRowData(id);
-                    selectRow(row);
-                } else {
-                    alert('Função [selectRow] não está definida');
-                }
-
-            },
-        });
-
-        //grid.jqGrid('filterToolbar');
-        grid.jqGrid('navGrid', '#pager-grid-pessoa', {
-            search: false,
-            edit: false,
-            add: false,
-            del: false,
-            view: false
-        });
-
-        grid.jqGrid('setLabel', 'rn', 'Ord');
-
-        btnSubmit.on('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            grid.setGridParam({
-                url: base_url + "/projeto/comunicacao/grid-parte-interessada/idprojeto/" + $("#idprojeto").val() + "/nomparteinteressada/" + $('#gridpessoa').val(),
-                page: 1
-            }).trigger("reloadGrid");
+    grid = jQuery("#list-grid-pessoa").jqGrid({
+        //caption: "Documentos",
+        url: base_url + "/projeto/comunicacao/grid-parte-interessada/idprojeto/" + $("#idprojeto").val(),
+        datatype: "json",
+        mtype: 'post',
+        width: '645',
+        height: '200px',
+        colNames: colNames,
+        colModel: colModel,
+        rownumbers: true,
+        rowNum: 20,
+        rowList: [20, 50, 100],
+        pager: '#pager-grid-pessoa',
+        sortname: 'nomparteinteressada',
+        viewrecords: true,
+        sortorder: "asc",
+        gridComplete: function() {
+            // console.log('teste');
             //$("a.actionfrm").tooltip();
-            return false;
-        });
+        },
+        onSelectRow: function(id) {
+            if(window.selectRow){
+                var row = grid.getRowData(id);
+                selectRow(row);
+            } else {
+                alert('Função [selectRow] não está definida');
+            }
 
-        btnCloseGridPessoa.on('click', function () {
-            $(".grid-append").slideUp('slow');
-            $('.container-pessoa').find('.control-group').removeClass('input-selecionado');
-        });
-
+        },
     });
+
+    //grid.jqGrid('filterToolbar');
+    grid.jqGrid('navGrid', '#pager-grid-pessoa', {
+        search: false,
+        edit: false,
+        add: false,
+        del: false,
+        view: false
+    });
+
+    grid.jqGrid('setLabel', 'rn', 'Ord');
+
+    btnSubmit.on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        grid.setGridParam({
+            url: base_url + "/projeto/comunicacao/grid-parte-interessada/idprojeto/" + $("#idprojeto").val()+"/nomparteinteressada/"+$('#gridpessoa').val(),
+            page: 1
+        }).trigger("reloadGrid");
+        //$("a.actionfrm").tooltip();
+        return false;
+    });
+    
+    btnCloseGridPessoa.on('click',function(){
+        $(".grid-append").slideUp('slow');
+        $('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+    });
+
+});
 </script>
 
 <div class="control-group">

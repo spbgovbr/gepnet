@@ -1,9 +1,10 @@
-.wijmo-wijlist-list {
+.wijmo-wijlist-list
+{
     cursor: default;
     overflow: hidden;
 }
-
-.wijmo-wijlist-ul {
+.wijmo-wijlist-ul
+{
     list-style: none;
     padding: 2px;
     margin: 0;
@@ -11,8 +12,8 @@
     border: 0px;
     overflow: hidden;
 }
-
-.wijmo-wijlist-ul .wijmo-wijlist-item {
+.wijmo-wijlist-ul .wijmo-wijlist-item
+{
     margin: 1px 0;
     padding: 3px 5px;
     /*white-space: nowrap;*/
@@ -21,12 +22,13 @@
     font-weight: normal;
     border: solid 1px transparent;
 }
-
-.wijmo-wijlist-ul .wijmo-wijlist-item.ui-state-hover {
+.wijmo-wijlist-ul .wijmo-wijlist-item.ui-state-hover
+{
     font-weight: normal;
 }
 
-.wijmo-wijlist .ui-resizable-se {
+.wijmo-wijlist .ui-resizable-se
+{
     width: 7px;
     height: 7px;
     background: none;

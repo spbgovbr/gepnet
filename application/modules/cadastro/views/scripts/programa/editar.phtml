@@ -2,7 +2,7 @@
 //echo $this->form;
 $frmAttr = $this->form->getAttribs();
 ?>
-<form id="<?php echo $frmAttr['id']; ?>"
+<form id="<?php echo $frmAttr['id']; ?>" 
       name="<?php echo $frmAttr['id']; ?>"
       enctype="<?php echo $frmAttr['enctype']; ?>"
       action="<?php echo $this->form->getAction(); ?>"
@@ -44,11 +44,6 @@ $frmAttr = $this->form->getAttribs();
         </div>
         <div class="span">
             <?php echo $this->form->idprograma; ?>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
-            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
         </div>
     </div>
 </form>

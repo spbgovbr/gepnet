@@ -2,7 +2,7 @@
 
 class Planejamento_PortfolioController extends Zend_Controller_Action
 {
-    public function init()
+    public function init ()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext
@@ -11,8 +11,8 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
             ->addActionContext('cadastrar', 'json')
             ->initContext();
     }
-
-    public function indexAction()
+    
+    public function indexAction ()
     {
         $service = new Planejamento_Service_Portfolio();
         $this->view->form = $service->getFormPortfolioEstrategico();
@@ -22,46 +22,47 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
     {
         $service = new Planejamento_Service_Portfolio();
         $serviceEscritorio = new Default_Service_Escritorio();
-        if ($this->_request->isPost()) {
-            $params = $this->_request->getPost();
-            if (($params['nomprojeto'] != ''
-                || $params['idescritorio'] != ''
-                || isset($params['idprograma']) && $params['idprograma'] != ''
-                || $params['idobjetivo'] != ''
-                || $params['idacao'] != ''
-                || $params['idnatureza'] != '')) {
-
-                //$this->view->portfolio = $pesquisa;
-                $buscarPorti = $service->getBuscaPortfolioEstrategico($params);
-                $this->view->portfolio = $buscarPorti;
-                $escritorio = $serviceEscritorio->getById(array('idescritorio' => $params['idescritorio']));
-                //$this->view->form = $service->getFormPortfolioEstrategico(array('idescritorio' => $idescritorio));
-            }
+        if($this->_request->isPost()){
+        $params = $this->_request->getPost();
+        if(($params['nomprojeto'] != '' 
+                   || $params['idescritorio'] != ''
+                      || isset($params['idprograma']) && $params['idprograma'] != '' 
+                         || $params['idobjetivo'] != '' 
+                            || $params['idacao'] != '' 
+                               || $params['idnatureza']!= ''))
+        {            
+       
+            //$this->view->portfolio = $pesquisa;
+            $buscarPorti = $service->getBuscaPortfolioEstrategico($params);
+            $this->view->portfolio = $buscarPorti;
+            $escritorio = $serviceEscritorio->getById(array('idescritorio' => $params['idescritorio']));
+            //$this->view->form = $service->getFormPortfolioEstrategico(array('idescritorio' => $idescritorio));
+        }
             $idprograma = $service->pesquisarIdPrograma($params);
             $this->view->escritorio = $escritorio;
             $this->view->idprograma = $idprograma;
         }
         //$this->view->form = $service->getFormPortfolioEstrategico(array('idescritorio' => $idescritorio));
         //$this->view->escritorio = $escritorio;
-        $params = $this->_request->getParams();
+          $params = $this->_request->getParams();
         //$serviceFrom = App_Service_ServiceAbstract::getService('Planejamento_Service_Portfolio');
-        if (!isset($params['idescritorio'])) {
+        if( !isset($params['idescritorio']) ){
             $serviceLogin = new Default_Service_Login();
             $perfilAtivo = $serviceLogin->retornaPerfilAtivo();
-            $idescritorio = $perfilAtivo->idescritorio;
-        } else {
+            //$idescritorio = $perfilAtivo->idescritorio;
+        }else{
             $idescritorio = $params['idescritorio'];
 
         }
 //        $grafico = $service->getPortfolioEstrategico(array('idescritorio' => $idescritorio));
 //        Zend_Debug::dump($grafico);die;
         $this->view->portfolio = $service->getPortfolioEstrategico(array('idescritorio' => $idescritorio));
-        $escritorio = $serviceEscritorio->getById(array('idescritorio' => $idescritorio));
+        $escritorio = $serviceEscritorio->getById(array('idescritorio' => $params['idescritorios']));
         //$this->view->form = $service->getFormPortfolioEstrategico(array('idescritorio' => $idescritorio));
         $this->view->escritorio = $escritorio;
 
-
-        $formPesquisar = $service->getFormPesquisar($params);
+  
+        $formPesquisar = $service->getFormPesquisar();
         //Zend_Debug::dump($formPesquisar); die;
         $this->view->formPesquisar = $formPesquisar;
         $selectEscritorio = $serviceEscritorio->selecionarTodoEscritorio();
@@ -73,29 +74,29 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
         $service = new Planejamento_Service_Portfolio();
         $form = $service->getForm();
         $success = false;
-        if ($this->_request->isPost()) {
+        if($this->_request->isPost()){
             $dados = $this->_request->getPost();
             $portfolio = $service->inserir($dados);
-            if ($portfolio) {
+            if($portfolio){
                 $success = true;
-                $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
+                $msg     = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
         }
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            if ($this->_request->isXmlHttpRequest()) {
+            if($this->_request->isXmlHttpRequest()){
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text' => $msg,
-                    'type' => ($success) ? 'success' : 'error',
-                    'hide' => true,
-                    'closer' => true,
+                    'text'    => $msg,
+                    'type'    => ($success) ? 'success' : 'error',
+                    'hide'    => true,
+                    'closer'  => true,
                     'sticker' => false
                 );
             } else {
-                if ($success) {
+                if($success){
                     $this->_helper->_redirector->gotoSimpleAndExit('cadastrar', 'portfolio', 'planejamento');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -109,12 +110,12 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
         $service = new Planejamento_Service_Portfolio();
         $form = $service->getFormEditar();
         $success = false;
-        if ($this->_request->isPost()) {
+        if($this->_request->isPost()){
             $dados = $this->_request->getPost();
             $portfolio = $service->editar($dados);
-            if ($portfolio) {
+            if($portfolio){
                 $success = true;
-                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -125,17 +126,17 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
 
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            if ($this->_request->isXmlHttpRequest()) {
+            if($this->_request->isXmlHttpRequest()){
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text' => $msg,
-                    'type' => ($success) ? 'success' : 'error',
-                    'hide' => true,
-                    'closer' => true,
+                    'text'    => $msg,
+                    'type'    => ($success) ? 'success' : 'error',
+                    'hide'    => true,
+                    'closer'  => true,
                     'sticker' => false
                 );
             } else {
-                if ($success) {
+                if($success){
                     $this->_helper->_redirector->gotoSimpleAndExit('index', 'portfolio', 'planejamento');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -156,31 +157,30 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
         $resultado = $service->pesquisarPortfolio($this->_request->getParams(), true);
         $this->_helper->json->sendJson($resultado->toJqgrid());
     }
-
+    
     public function pesquisarprojetoAction()
     {
         $params = $this->_request->getParams();
         $service = new Planejamento_Service_Portfolio();
         $this->view->form = $service->getFormPesquisar($params);
     }
-
+    
     public function chartorcamentarioprojetosprogramajsonAction()
     {
-        $param = $this->_request->getParams();
-        $service = new Planejamento_Service_Portfolio();
+        $param     = $this->_request->getParams();
+        $service   = new Planejamento_Service_Portfolio();
         $resultado = $service->getTotalOrcamentarioProjetosPrograma($param);
         $this->_helper->json->sendJson($resultado);
     }
-
     public function chartprojetosprogramajsonAction()
-    {
-        $param = $this->_request->getParams();
-        $service = new Planejamento_Service_Portfolio();
+    {   
+        $param     = $this->_request->getParams();
+        $service   = new Planejamento_Service_Portfolio();
         $resultado = $service->getTotalOrcamentarioProjetosPrograma($param);
         $this->_helper->json->sendJson($resultado);
     }
-
-
+    
+    
     public function chartprojetosnaturezajsonAction()
     {
         $param = $this->_request->getParams();
@@ -188,7 +188,7 @@ class Planejamento_PortfolioController extends Zend_Controller_Action
         $resultado = $service->getTotalProjetosPorNatureza($param);
         $this->_helper->json->sendJson($resultado);
     }
-
+    
     public function pesquisarprojetojsonAction()
     {
         $service = new Planejamento_Service_Portfolio();

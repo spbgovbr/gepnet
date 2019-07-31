@@ -18,9 +18,7 @@ $frmAttr = $this->form->getAttribs();
                 <strong>Data avalia&ccedil;&atilde;o:</strong> <?php echo $this->dadosBanco['datcadastro']; ?>
             </div>
             <div class="span2">
-                <strong>Avalia&ccedil;&atilde;o
-                    T&eacute;cnica:</strong> <?php echo number_format($this->dadosBanco['nummedia'], 2); ?>
-                (<?php echo $this->dadosBanco['numtotalavaliado'] ?>)
+                <strong>Avalia&ccedil;&atilde;o T&eacute;cnica:</strong> <?php echo number_format($this->dadosBanco['nummedia'], 2); ?> (<?php echo $this->dadosBanco['numtotalavaliado'] ?>)
             </div>
             <div class="span1_5">
                 <strong>Avalia&ccedil;&atilde;o Pessoal:</strong> <?php echo $this->dadosBanco['numnotaavaliador']; ?>
@@ -63,35 +61,25 @@ $frmAttr = $this->form->getAttribs();
                     </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($this->perguntas as $key => $pergunta): ?>
+                    <?php foreach($this->perguntas as $key => $pergunta): ?>
                         <tr>
                             <td style="padding: 0px 15px;"> <?php echo $pergunta; ?> </td>
-                            <td style="text-align: center;"><input type="radio" name="<?php echo $key ?>"
-                                                                   value="10" <?php echo ($this->dadosBanco[$key] == '10') ? "checked='checked'" : ""; ?>/>
-                            </td>
-                            <td style="text-align: center"><input type="radio" name="<?php echo $key ?>"
-                                                                  value="8" <?php echo ($this->dadosBanco[$key] == '8') ? "checked='checked'" : ""; ?>/>
-                            </td>
-                            <td style="text-align: center"><input type="radio" name="<?php echo $key ?>"
-                                                                  value="2" <?php echo ($this->dadosBanco[$key] == '2') ? "checked='checked'" : ""; ?>/>
-                            </td>
-                            <td style="text-align: center"><input type="radio" name="<?php echo $key ?>"
-                                                                  value="0" <?php echo ($this->dadosBanco[$key] == '0') ? "checked='checked'" : ""; ?>/>
-                            </td>
-                            <td style="text-align: center"><input type="radio" name="<?php echo $key ?>"
-                                                                  value="-1" <?php echo ($this->dadosBanco[$key] == '-1') ? "checked='checked'" : ""; ?>/>
-                            </td>
+                            <td style="text-align: center;"> <input type="radio" name="<?php echo $key?>" value="10" <?php echo ($this->dadosBanco[$key] == '10')? "checked='checked'" : ""; ?>/> </td>
+                            <td style="text-align: center"> <input type="radio" name="<?php echo $key?>" value="8"   <?php echo ($this->dadosBanco[$key] == '8')? "checked='checked'" : ""; ?>/> </td>
+                            <td style="text-align: center"> <input type="radio" name="<?php echo $key?>" value="2"   <?php echo ($this->dadosBanco[$key] == '2')? "checked='checked'" : ""; ?>/> </td>
+                            <td style="text-align: center"> <input type="radio" name="<?php echo $key?>" value="0"   <?php echo ($this->dadosBanco[$key] == '0')? "checked='checked'" : ""; ?>/> </td>
+                            <td style="text-align: center"> <input type="radio" name="<?php echo $key?>" value="-1"  <?php echo ($this->dadosBanco[$key] == '-1')? "checked='checked'" : ""; ?>/></td>
                         </tr>
                     <?php endforeach; ?>
                     <tr>
-                        <td colspan="6"><?php echo $this->form->numnotaavaliador ?></td>
+                        <td colspan="6"><?php echo $this->form->numnotaavaliador?></td>
                     </tr>
                     <tr>
-                        <td colspan="6" style="color: #ff0000;"> * Não foi poss&iacute;vel avaliar</td>
+                        <td colspan="6" style="color: #ff0000;"> * Não foi poss&iacute;vel avaliar </td>
                     </tr>
                     </tbody>
                 </table>
-                <div class="span4"></div>
+                <div class="span4">  </div>
 
             </div>
         </div>
@@ -109,10 +97,7 @@ $frmAttr = $this->form->getAttribs();
 
         <?php echo $this->form->ideventoavaliacao; ?>
         <?php echo $this->form->idavaliador; ?>
-        <div class="row">
-            <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
-                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-            </div>
-        </div>
+
+
     </form>
 </div>

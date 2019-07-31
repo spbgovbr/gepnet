@@ -30,7 +30,7 @@ class App_View_Helper_Usuario extends Zend_View_Helper_Abstract
       </li>
       </ul>';
      */
-    protected $template = '<div id="info-logado">
+    protected $template          = '<div id="info-logado">
                                <div id="info-logado-nome">&nbsp;%s</div>
                                <!--<div id="info-logado-unidade"><strong>Unidade:</strong>&nbsp;%s</div>-->
                                <div id="info-logado-perfil"><strong>Perfil:</strong>&nbsp;<a href="%s" title="Mudar perfil" class="link_perfil">%s</a></div>
@@ -39,7 +39,7 @@ class App_View_Helper_Usuario extends Zend_View_Helper_Abstract
                                   <a href="%s" title="Sair do sistema" class="link_sair">Sair</a>
                                </div>
                            </div>';
-
+    
     protected $templateSemPerfil = '<div id="info-logado">
                                <div id="info-logado-nome">&nbsp;%s</div>
                                <div id="info-ultimo-acesso">
@@ -57,34 +57,30 @@ class App_View_Helper_Usuario extends Zend_View_Helper_Abstract
     public function usuario()
     {
         $auth = Zend_Auth::getInstance();
-        if ($auth->hasIdentity()) {
+        if ( $auth->hasIdentity() ) {
             $user = $auth->getIdentity();
+            
             /*
               $sg = explode('/',$user->SG_LOTACAO);
               $sigla = $sg[0] . '-' . $user->SG_UF;
              */
-            if ($user->perfilAtivo) {
+            //Zend_Debug::dump($user);
+            
+            if ( $user->perfilAtivo ) {
                 return sprintf(
-                    $this->template,
-                    $user->nompessoa,
-                    $user->sigla,
-                    $this->view->url(array('module' => 'default', 'controller' => 'index', 'action' => 'perfil')),
-                    $user->perfilAtivo->nomperfil,
-                    $this->view->url(array(
-                        'module' => 'default',
-                        'controller' => 'log',
-                        'action' => 'out'
-                    )));
+                    $this->template, 
+                    $user->nompessoa, 
+                    $user->sigla, 
+                    $this->view->url(array('module' => 'default', 'controller' => 'index', 'action' => 'perfil')), 
+                    $user->perfilAtivo->nomperfil, 
+                    $this->view->url(array('module' => 'default', 'controller' => 'log', 'action' => 'out')));
             }
+            
             return sprintf(
-                $this->templateSemPerfil,
-                $user->nompessoa,
-                $user->sigla,
-                $this->view->url(array(
-                    'module' => 'default',
-                    'controller' => 'log',
-                    'action' => 'out'
-                )));
+                $this->templateSemPerfil, 
+                $user->nompessoa, 
+                $user->sigla, 
+                $this->view->url(array('module' => 'default', 'controller' => 'log', 'action' => 'out')));
         }
     }
 

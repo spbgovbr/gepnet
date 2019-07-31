@@ -112,8 +112,8 @@ class Zend_Gdata_Geo_Extension_GmlPoint extends Zend_Gdata_Extension
     /**
      * Get the value for this element's pos attribute.
      *
-     * @return Zend_Gdata_Geo_Extension_GmlPos The requested attribute.
      * @see setPos
+     * @return Zend_Gdata_Geo_Extension_GmlPos The requested attribute.
      */
     public function getPos()
     {

@@ -23,10 +23,10 @@ class Twitter_Bootstrap_Form_Decorator_Addon extends Zend_Form_Decorator_Abstrac
 
     /**
      *
-     * @param string $content
+     * @param  string $content
      * @return string
      */
-    public function render($content)
+    public function render ($content)
     {
         $prepend = $this->getElement()->getAttrib('prepend');
         $append = $this->getElement()->getAttrib('append');
@@ -59,8 +59,8 @@ class Twitter_Bootstrap_Form_Decorator_Addon extends Zend_Form_Decorator_Abstrac
 
         // Return the rendered input field
         return '<div class="' . $placement . '">' .
-            ((null !== $prepend) ? $prepend : '') . trim($content) .
-            ((null !== $append) ? $append : '') . '</div>';
+                 ((null !== $prepend) ? $prepend : '') . trim($content) .
+                 ((null !== $append) ? $append : '') . '</div>';
     }
 
     /**
@@ -68,7 +68,7 @@ class Twitter_Bootstrap_Form_Decorator_Addon extends Zend_Form_Decorator_Abstrac
      *
      * @param mixed $addon
      */
-    protected function _prepareAddon(&$addon)
+    protected function _prepareAddon (&$addon)
     {
         $addonClass = 'add-on';
 
@@ -100,7 +100,7 @@ class Twitter_Bootstrap_Form_Decorator_Addon extends Zend_Form_Decorator_Abstrac
      *
      * @param Zend_Form_Element $element
      */
-    protected function _renderElement(Zend_Form_Element $element)
+    protected function _renderElement (Zend_Form_Element $element)
     {
         $element->setDecorators(array('ViewHelper'));
 

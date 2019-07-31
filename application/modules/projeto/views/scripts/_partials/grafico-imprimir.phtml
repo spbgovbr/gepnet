@@ -1,76 +1,35 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 ?>
-<div class="region-center">
+<div class="region-center" >
     <?php echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto)); ?>
     <div class="form-actions form-actions-mini">
         <div class="btn-group">
             <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
         </div>
-        <!--        <div class="btn-group">
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'tap',
-            'action' => 'imprimir',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Termo de Abertura</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'planoprojeto',
-            'action' => 'imprimir',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Plano do Projeto</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'atareuniao',
-            'action' => 'imprimir',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Ata de Reunião</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'termoaceite',
-            'action' => 'imprimir-todos',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Termo de Aceite</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'solicitacaomudanca',
-            'action' => 'imprimir',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Solicitação de Mudança</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'termoencerramento',
-            'action' => 'imprimir',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Termo de Encerramento</a>
-            <a class="btn" target="_blank" href="<?php echo $this->url(array(
-            'module' => 'projeto',
-            'controller' => 'termoencerramento',
-            'action' => 'imprimirGrafico',
-            'idprojeto' => $this->projeto->idprojeto
-        )); ?>">Imprimir Gráfico</a>
+<!--        <div class="btn-group">
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'tap', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto )); ?>">Termo de Abertura</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'planoprojeto', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto )); ?>">Plano do Projeto</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'atareuniao', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto )); ?>">Ata de Reunião</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'termoaceite', 'action' => 'imprimir-todos','idprojeto' => $this->projeto->idprojeto )); ?>">Termo de Aceite</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'solicitacaomudanca', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto )); ?>">Solicitação de Mudança</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'termoencerramento', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto )); ?>">Termo de Encerramento</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'termoencerramento', 'action' => 'imprimirGrafico','idprojeto' => $this->projeto->idprojeto )); ?>">Imprimir Gráfico</a>
         </div>-->
     </div>
     <?php if ($this->acompanhamento): ?>
-        <?php /* var_dump($this->projeto); */
-        echo $this->partial('_partials/status-report-acompanhamento.phtml', array(
-            'acompanhamento' => $this->acompanhamento,
-            'entregasMarcos' => $this->entregasMarcos,
-            'proximoMarco' => $this->proximoMarco
-        )); ?>
-        <?php /* var_dump($this->projeto); */
-        echo $this->partial('_partials/status-report-entregas-marcos.phtml',
-            array('entregasMarcos' => $this->entregasMarcos)); ?>
+        <?php /* var_dump($this->projeto); */echo $this->partial('_partials/status-report-acompanhamento.phtml', array('acompanhamento' => $this->acompanhamento,'entregasMarcos' => $this->entregasMarcos,'proximoMarco' => $this->proximoMarco)); ?>
+        <?php /* var_dump($this->projeto); */echo $this->partial('_partials/status-report-entregas-marcos.phtml', array('entregasMarcos' => $this->entregasMarcos)); ?>
     <?php endif; ?>
 </div>
 <!--<div class="region-east" >
@@ -88,10 +47,10 @@ $frmAttr = $this->form->getAttribs();
                             <select id="idstatusreport">
                                 <option value="">Selecione</option>
                                 <?php
-$i = 0;
-foreach ($this->listaAcompanhamentos as $acomp):
-    $i++;
-    ?>
+                                $i = 0;
+                                foreach ($this->listaAcompanhamentos as $acomp):
+                                    $i++;
+                                    ?>
                                     <option value="<?php echo $acomp->idstatusreport; ?>"><?php echo $i . " - " . $acomp->datacompanhamento; ?></option>
                                 <?php endforeach; ?>
                             </select>

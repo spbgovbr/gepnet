@@ -91,13 +91,13 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
     {
         if (null === $this->_jQueryParams) {
             $this->_jQueryParams = array();
-            if ($attribs = $this->getElement()->getAttribs()) {
+            if($attribs = $this->getElement()->getAttribs()) {
                 if (array_key_exists('jQueryParams', $attribs)) {
                     $this->_jQueryParams = $attribs['jQueryParams'];
                 }
             }
 
-            if ($options = $this->getOptions()) {
+            if($options = $this->getOptions()) {
                 if (array_key_exists('jQueryParams', $options)) {
                     $this->_jQueryParams = array_merge($this->_jQueryParams, $options['jQueryParams']);
                     $this->removeOption('jQueryParams');
@@ -115,23 +115,23 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
      * the element type. Then call as
      * helper($element->getName(), $element->getValue(), $element->getAttribs())
      *
-     * @param string $content
+     * @param  string $content
      * @return string
      * @throws Zend_Form_Decorator_Exception if element or view are not registered
      */
     public function render($content)
     {
         $element = $this->getElement();
-        $view = $element->getView();
+        $view    = $element->getView();
         if (null === $view) {
             return $content;
         }
 
         $jQueryParams = $this->getJQueryParams();
-        $attribs = $this->getOptions();
+        $attribs     = $this->getOptions();
 
-        $helper = $this->getHelper();
-        $id = $element->getId() . '-container';
+        $helper      = $this->getHelper();
+        $id          = $element->getId() . '-container';
 
         return $view->$helper($id, $jQueryParams, $attribs);
     }

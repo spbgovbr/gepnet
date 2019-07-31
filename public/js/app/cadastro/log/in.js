@@ -1,38 +1,38 @@
 var caps = null;
-$(function () {
+$(function(){
     $.pnotify.defaults.history = false;
-    var $form = $("form#perfil");
-    //$senha = $("input#senha");
-
+    var $form  = $("form#perfil");
+        //$senha = $("input#senha");
+        
     $form.validate({
-        errorClass: 'error',
-        validClass: 'success',
-        submitHandler: function (form) {
+        errorClass:'error',
+        validClass:'success',
+        submitHandler: function(form) {
             $.ajax({
                 url: base_url + "/log/in/format/json",
                 dataType: 'json',
                 type: 'POST',
                 async: true,
-                cache: true,
+                cache:true,
                 data: $form.serialize(),
-                processData: false,
-                success: function (data) {
-                    if (typeof data.msg.text != 'string') {
+                processData:false,
+                success: function(data) {
+                    if(typeof data.msg.text != 'string'){
                         $.formErrors(data.msg.text);
                         return;
-                    }
+                    } 
                     $.pnotify(data.msg);
-                    if (data.success) {
+                    if(data.success){
                         window.location = data.redirect;
                     }
                 },
                 error: function () {
-                    //$('div#noticia').html('Em manuten&ccedil;&atilde;o');
+                //$('div#noticia').html('Em manuten&ccedil;&atilde;o');
                 }
             });
         }
     });
-
+    
 //    $.formErrors = function(data) {
 //        $.each(data, function(element, errors) {
 //            var ul = $("<ul>").attr("class", "errors help-inline");

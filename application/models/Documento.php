@@ -8,17 +8,17 @@
 class Default_Model_Documento extends App_Model_ModelAbstract
 {
 
-    public $iddocumento = null;
-    public $idescritorio = null;
-    public $nomdocumento = null;
+    public $iddocumento     = null;
+    public $idescritorio    = null;
+    public $nomdocumento    = null;
     public $idtipodocumento = null;
-    public $descaminho = null;
-    public $datdocumento = null;
-    public $desobs = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
-    public $flaativo = null;
-    public $tipodocumento = null;
+    public $descaminho      = null;
+    public $datdocumento    = null;
+    public $desobs          = null;
+    public $idcadastrador   = null;
+    public $datcadastro     = null;
+    public $flaativo        = null;
+    public $tipodocumento   = null;
 
     public function setDatcadastro($datcadastro)
     {
@@ -40,7 +40,7 @@ class Default_Model_Documento extends App_Model_ModelAbstract
     public function setFlaativo($flaativo)
     {
         $valores = array('S', 'N');
-        if (!in_array($flaativo, $valores)) {
+        if ( !in_array($flaativo, $valores) ) {
             throw new Exception('Este model somente aceita os valores S ou N');
         }
         $this->flaativo = $flaativo;
@@ -63,7 +63,7 @@ class Default_Model_Documento extends App_Model_ModelAbstract
             'N' => 'Não',
         );
 
-        if (array_key_exists($this->flaativo, $valores)) {
+        if ( array_key_exists($this->flaativo, $valores) ) {
             return $valores[$this->flaativo];
         }
         return 'Não informado.';
@@ -71,31 +71,24 @@ class Default_Model_Documento extends App_Model_ModelAbstract
 
     public function getUrlDocumento()
     {
-        $config = Zend_Registry::get('config');
-        $dir = $config->resources->cachemanager->default->backend->options->arquivos_dir;
-        $path = $dir . $this->descaminho;
-        $view = new Zend_View_Helper_Url();
-        return $view->url(
-            array(
-                'arquivo' => base64_encode($path)
-            ),
-            'download'
-        );
+        $d       = DIRECTORY_SEPARATOR;
+        $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        return $baseUrl . $d . '..' . $d . 'arquivos' . $d . $this->descaminho;
     }
 
     public function formPopulate()
     {
         return array(
-            'iddocumento' => $this->iddocumento,
-            'idescritorio' => $this->idescritorio,
-            'nomdocumento' => $this->nomdocumento,
+            'iddocumento'     => $this->iddocumento,
+            'idescritorio'    => $this->idescritorio,
+            'nomdocumento'    => $this->nomdocumento,
             'idtipodocumento' => $this->idtipodocumento,
-            'descaminho' => $this->descaminho,
-            'datdocumento' => $this->datdocumento->toString('d/m/Y'),
-            'desobs' => $this->desobs,
-            'idcadastrador' => $this->idcadastrador,
-            'datcadastro' => $this->datcadastro,
-            'flaativo' => $this->flaativo,
+            'descaminho'      => $this->descaminho,
+            'datdocumento'    => $this->datdocumento->toString('d/m/Y'),
+            'desobs'          => $this->desobs,
+            'idcadastrador'   => $this->idcadastrador,
+            'datcadastro'     => $this->datcadastro,
+            'flaativo'        => $this->flaativo,
         );
     }
 

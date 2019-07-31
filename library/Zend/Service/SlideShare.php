@@ -40,10 +40,10 @@ require_once 'Zend/Service/SlideShare/SlideShow.php';
  * slideshare.net web server to retrieve slide shows hosted on the web site for
  * display or other processing.
  *
- * @throws     Zend_Service_SlideShare_Exception
+ * @category   Zend
  * @package    Zend_Service
  * @subpackage SlideShare
- * @category   Zend
+ * @throws     Zend_Service_SlideShare_Exception
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -53,35 +53,35 @@ class Zend_Service_SlideShare
     /**
      * Web service result code mapping
      */
-    const SERVICE_ERROR_BAD_APIKEY = 1;
-    const SERVICE_ERROR_BAD_AUTH = 2;
-    const SERVICE_ERROR_MISSING_TITLE = 3;
-    const SERVICE_ERROR_MISSING_FILE = 4;
-    const SERVICE_ERROR_EMPTY_TITLE = 5;
-    const SERVICE_ERROR_NOT_SOURCEOBJ = 6;
-    const SERVICE_ERROR_INVALID_EXT = 7;
-    const SERVICE_ERROR_FILE_TOO_BIG = 8;
-    const SERVICE_ERROR_SHOW_NOT_FOUND = 9;
-    const SERVICE_ERROR_USER_NOT_FOUND = 10;
-    const SERVICE_ERROR_GROUP_NOT_FOUND = 11;
-    const SERVICE_ERROR_MISSING_TAG = 12;
-    const SERVICE_ERROR_DAILY_LIMIT = 99;
-    const SERVICE_ERROR_ACCOUNT_BLOCKED = 100;
+    const SERVICE_ERROR_BAD_APIKEY       = 1;
+    const SERVICE_ERROR_BAD_AUTH         = 2;
+    const SERVICE_ERROR_MISSING_TITLE    = 3;
+    const SERVICE_ERROR_MISSING_FILE     = 4;
+    const SERVICE_ERROR_EMPTY_TITLE      = 5;
+    const SERVICE_ERROR_NOT_SOURCEOBJ    = 6;
+    const SERVICE_ERROR_INVALID_EXT      = 7;
+    const SERVICE_ERROR_FILE_TOO_BIG     = 8;
+    const SERVICE_ERROR_SHOW_NOT_FOUND   = 9;
+    const SERVICE_ERROR_USER_NOT_FOUND   = 10;
+    const SERVICE_ERROR_GROUP_NOT_FOUND  = 11;
+    const SERVICE_ERROR_MISSING_TAG      = 12;
+    const SERVICE_ERROR_DAILY_LIMIT      = 99;
+    const SERVICE_ERROR_ACCOUNT_BLOCKED  = 100;
 
     /**
      * Slide share Web service communication URIs
      */
-    const SERVICE_UPLOAD_URI = 'http://www.slideshare.net/api/1/upload_slideshow';
-    const SERVICE_GET_SHOW_URI = 'http://www.slideshare.net/api/1/get_slideshow';
-    const SERVICE_GET_SHOW_BY_USER_URI = 'http://www.slideshare.net/api/1/get_slideshow_by_user';
-    const SERVICE_GET_SHOW_BY_TAG_URI = 'http://www.slideshare.net/api/1/get_slideshow_by_tag';
-    const SERVICE_GET_SHOW_BY_GROUP_URI = 'http://www.slideshare.net/api/1/get_slideshows_from_group';
+    const SERVICE_UPLOAD_URI                  = 'http://www.slideshare.net/api/1/upload_slideshow';
+    const SERVICE_GET_SHOW_URI                = 'http://www.slideshare.net/api/1/get_slideshow';
+    const SERVICE_GET_SHOW_BY_USER_URI        = 'http://www.slideshare.net/api/1/get_slideshow_by_user';
+    const SERVICE_GET_SHOW_BY_TAG_URI         = 'http://www.slideshare.net/api/1/get_slideshow_by_tag';
+    const SERVICE_GET_SHOW_BY_GROUP_URI       = 'http://www.slideshare.net/api/1/get_slideshows_from_group';
 
     /**
      * The MIME type of Slideshow files
      *
      */
-    const POWERPOINT_MIME_TYPE = "application/vnd.ms-powerpoint";
+    const POWERPOINT_MIME_TYPE    = "application/vnd.ms-powerpoint";
 
     /**
      * The API key to use in requests
@@ -147,12 +147,10 @@ class Zend_Service_SlideShare
     public function getHttpClient()
     {
 
-        if (!($this->_httpclient instanceof Zend_Http_Client)) {
+        if(!($this->_httpclient instanceof Zend_Http_Client)) {
             $client = new Zend_Http_Client();
-            $client->setConfig(array(
-                'maxredirects' => 2,
-                'timeout' => 5
-            ));
+            $client->setConfig(array('maxredirects' => 2,
+                                     'timeout' => 5));
 
             $this->setHttpClient($client);
         }
@@ -183,12 +181,10 @@ class Zend_Service_SlideShare
     public function getCacheObject()
     {
 
-        if (!($this->_cacheobject instanceof Zend_Cache_Core)) {
-            $cache = Zend_Cache::factory('Core', 'File', array(
-                'lifetime' => 43200,
-                'automatic_serialization' => true
-            ),
-                array('cache_dir' => '/tmp'));
+        if(!($this->_cacheobject instanceof Zend_Cache_Core)) {
+            $cache = Zend_Cache::factory('Core', 'File', array('lifetime' => 43200,
+                                                               'automatic_serialization' => true),
+                                                         array('cache_dir' => '/tmp'));
 
             $this->setCacheObject($cache);
         }
@@ -295,9 +291,9 @@ class Zend_Service_SlideShare
     public function __construct($apikey, $sharedSecret, $username = null, $password = null)
     {
         $this->setApiKey($apikey)
-            ->setSharedSecret($sharedSecret)
-            ->setUserName($username)
-            ->setPassword($password);
+             ->setSharedSecret($sharedSecret)
+             ->setUserName($username)
+             ->setPassword($password);
 
         $this->_httpclient = new Zend_Http_Client();
     }
@@ -314,34 +310,32 @@ class Zend_Service_SlideShare
 
         $timestamp = time();
 
-        $params = array(
-            'api_key' => $this->getApiKey(),
-            'ts' => $timestamp,
-            'hash' => sha1($this->getSharedSecret() . $timestamp),
-            'username' => $this->getUserName(),
-            'password' => $this->getPassword(),
-            'slideshow_title' => $ss->getTitle()
-        );
+        $params = array('api_key' => $this->getApiKey(),
+                        'ts' => $timestamp,
+                        'hash' => sha1($this->getSharedSecret().$timestamp),
+                        'username' => $this->getUserName(),
+                        'password' => $this->getPassword(),
+                        'slideshow_title' => $ss->getTitle());
 
         $description = $ss->getDescription();
         $tags = $ss->getTags();
 
         $filename = $ss->getFilename();
 
-        if (!file_exists($filename) || !is_readable($filename)) {
+        if(!file_exists($filename) || !is_readable($filename)) {
             require_once 'Zend/Service/SlideShare/Exception.php';
             throw new Zend_Service_SlideShare_Exception("Specified Slideshow for upload not found or unreadable");
         }
 
-        if (!empty($description)) {
+        if(!empty($description)) {
             $params['slideshow_description'] = $description;
         } else {
             $params['slideshow_description'] = "";
         }
 
-        if (!empty($tags)) {
+        if(!empty($tags)) {
             $tmp = array();
-            foreach ($tags as $tag) {
+            foreach($tags as $tag) {
                 $tmp[] = "\"$tag\"";
             }
             $params['slideshow_tags'] = implode(' ', $tmp);
@@ -358,21 +352,21 @@ class Zend_Service_SlideShare
         require_once 'Zend/Http/Client/Exception.php';
         try {
             $response = $client->request('POST');
-        } catch (Zend_Http_Client_Exception $e) {
+        } catch(Zend_Http_Client_Exception $e) {
             require_once 'Zend/Service/SlideShare/Exception.php';
             throw new Zend_Service_SlideShare_Exception("Service Request Failed: {$e->getMessage()}", 0, $e);
         }
 
         $sxe = simplexml_load_string($response->getBody());
 
-        if ($sxe->getName() == "SlideShareServiceError") {
+        if($sxe->getName() == "SlideShareServiceError") {
             $message = (string)$sxe->Message[0];
             list($code, $error_str) = explode(':', $message);
             require_once 'Zend/Service/SlideShare/Exception.php';
             throw new Zend_Service_SlideShare_Exception(trim($error_str), $code);
         }
 
-        if (!$sxe->getName() == "SlideShowUploaded") {
+        if(!$sxe->getName() == "SlideShowUploaded") {
             require_once 'Zend/Service/SlideShare/Exception.php';
             throw new Zend_Service_SlideShare_Exception("Unknown XML Respons Received");
         }
@@ -392,18 +386,16 @@ class Zend_Service_SlideShare
     {
         $timestamp = time();
 
-        $params = array(
-            'api_key' => $this->getApiKey(),
-            'ts' => $timestamp,
-            'hash' => sha1($this->getSharedSecret() . $timestamp),
-            'slideshow_id' => $ss_id
-        );
+        $params = array('api_key' => $this->getApiKey(),
+                        'ts' => $timestamp,
+                        'hash' => sha1($this->getSharedSecret().$timestamp),
+                        'slideshow_id' => $ss_id);
 
         $cache = $this->getCacheObject();
 
         $cache_key = md5("__zendslideshare_cache_$ss_id");
 
-        if (!$retval = $cache->load($cache_key)) {
+        if(!$retval = $cache->load($cache_key)) {
             $client = $this->getHttpClient();
 
             $client->setUri(self::SERVICE_GET_SHOW_URI);
@@ -412,21 +404,21 @@ class Zend_Service_SlideShare
             require_once 'Zend/Http/Client/Exception.php';
             try {
                 $response = $client->request('POST');
-            } catch (Zend_Http_Client_Exception $e) {
+            } catch(Zend_Http_Client_Exception $e) {
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception("Service Request Failed: {$e->getMessage()}", 0, $e);
             }
 
             $sxe = simplexml_load_string($response->getBody());
 
-            if ($sxe->getName() == "SlideShareServiceError") {
+            if($sxe->getName() == "SlideShareServiceError") {
                 $message = (string)$sxe->Message[0];
                 list($code, $error_str) = explode(':', $message);
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception(trim($error_str), $code);
             }
 
-            if (!$sxe->getName() == 'Slideshows') {
+            if(!$sxe->getName() == 'Slideshows') {
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception('Unknown XML Repsonse Received');
             }
@@ -463,9 +455,9 @@ class Zend_Service_SlideShare
     public function getSlideShowsByTag($tag, $offset = null, $limit = null)
     {
 
-        if (is_array($tag)) {
+        if(is_array($tag)) {
             $tmp = array();
-            foreach ($tag as $t) {
+            foreach($tag as $t) {
                 $tmp[] = "\"$t\"";
             }
 
@@ -503,7 +495,7 @@ class Zend_Service_SlideShare
 
         $key = strtolower($key);
 
-        switch ($key) {
+        switch($key) {
             case 'username_for':
                 $responseTag = 'User';
                 $queryUri = self::SERVICE_GET_SHOW_BY_USER_URI;
@@ -523,26 +515,24 @@ class Zend_Service_SlideShare
 
         $timestamp = time();
 
-        $params = array(
-            'api_key' => $this->getApiKey(),
-            'ts' => $timestamp,
-            'hash' => sha1($this->getSharedSecret() . $timestamp),
-            $key => $value
-        );
+        $params = array('api_key' => $this->getApiKey(),
+                        'ts' => $timestamp,
+                        'hash' => sha1($this->getSharedSecret().$timestamp),
+                        $key => $value);
 
-        if ($offset !== null) {
+        if($offset !== null) {
             $params['offset'] = (int)$offset;
         }
 
-        if ($limit !== null) {
+        if($limit !== null) {
             $params['limit'] = (int)$limit;
         }
 
         $cache = $this->getCacheObject();
 
-        $cache_key = md5($key . $value . $offset . $limit);
+        $cache_key = md5($key.$value.$offset.$limit);
 
-        if (!$retval = $cache->load($cache_key)) {
+        if(!$retval = $cache->load($cache_key)) {
 
             $client = $this->getHttpClient();
 
@@ -552,29 +542,29 @@ class Zend_Service_SlideShare
             require_once 'Zend/Http/Client/Exception.php';
             try {
                 $response = $client->request('POST');
-            } catch (Zend_Http_Client_Exception $e) {
+            } catch(Zend_Http_Client_Exception $e) {
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception("Service Request Failed: {$e->getMessage()}", 0, $e);
             }
 
             $sxe = simplexml_load_string($response->getBody());
 
-            if ($sxe->getName() == "SlideShareServiceError") {
+            if($sxe->getName() == "SlideShareServiceError") {
                 $message = (string)$sxe->Message[0];
                 list($code, $error_str) = explode(':', $message);
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception(trim($error_str), $code);
             }
 
-            if (!$sxe->getName() == $responseTag) {
+            if(!$sxe->getName() == $responseTag) {
                 require_once 'Zend/Service/SlideShare/Exception.php';
                 throw new Zend_Service_SlideShare_Exception('Unknown or Invalid XML Repsonse Received');
             }
 
             $retval = array();
 
-            foreach ($sxe->children() as $node) {
-                if ($node->getName() == 'Slideshow') {
+            foreach($sxe->children() as $node) {
+                if($node->getName() == 'Slideshow') {
                     $retval[] = $this->_slideShowNodeToObject($node);
                 }
             }
@@ -595,7 +585,7 @@ class Zend_Service_SlideShare
     protected function _slideShowNodeToObject(SimpleXMLElement $node)
     {
 
-        if ($node->getName() == 'Slideshow') {
+        if($node->getName() == 'Slideshow') {
 
             $ss = new Zend_Service_SlideShare_SlideShow();
 
@@ -607,9 +597,9 @@ class Zend_Service_SlideShare
             $ss->setStatus((string)$node->Status);
             $ss->setStatusDescription((string)$node->StatusDescription);
 
-            foreach (explode(",", (string)$node->Tags) as $tag) {
+            foreach(explode(",", (string)$node->Tags) as $tag) {
 
-                if (!in_array($tag, $ss->getTags())) {
+                if(!in_array($tag, $ss->getTags())) {
                     $ss->addTag($tag);
                 }
             }

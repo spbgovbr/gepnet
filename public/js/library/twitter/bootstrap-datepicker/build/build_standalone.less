@@ -5,25 +5,26 @@
 //     lessc build_standalone.less datepicker.css
 //
 // Variables, mixins, and rules copied from bootstrap 2.0.2
+
 @import "build.less";
 
 // Dropdown css
 
-@zindexDropdown: 1000;
-@grayDark: #333;
-@baseLineHeight: 18px;
-@tableBackground: transparent; // overall background-color
-@dropdownBackground: @white;
-@dropdownBorder: rgba(0, 0, 0, .2);
-@dropdownLinkColor: @grayDark;
-@dropdownLinkColorHover: @white;
-@dropdownLinkBackgroundHover: @linkColor;
+@zindexDropdown:                1000;
+@grayDark:                      #333;
+@baseLineHeight:                18px;
+@tableBackground:               transparent; // overall background-color
+@dropdownBackground:            @white;
+@dropdownBorder:                rgba(0,0,0,.2);
+@dropdownLinkColor:             @grayDark;
+@dropdownLinkColorHover:        @white;
+@dropdownLinkBackgroundHover:   @linkColor;
 
 // Drop shadows
 .box-shadow(@shadow) {
   -webkit-box-shadow: @shadow;
-  -moz-box-shadow: @shadow;
-  box-shadow: @shadow;
+     -moz-box-shadow: @shadow;
+          box-shadow: @shadow;
 }
 
 // The dropdown menu (ul)
@@ -39,19 +40,19 @@
   list-style: none;
   background-color: @dropdownBackground;
   border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, .2);
+  border: 1px solid rgba(0,0,0,.2);
   .border-radius(5px);
-  .box-shadow(0 5px 10px rgba(0, 0, 0, .2));
+  .box-shadow(0 5px 10px rgba(0,0,0,.2));
   -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
-  background-clip: padding-box;
+     -moz-background-clip: padding;
+          background-clip: padding-box;
   *border-right-width: 2px;
   *border-bottom-width: 2px;
 
   // Normally inherited from bootstrap's `body`
   color: #333333;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:13px;
   line-height: @baseLineHeight;
 
   th, td {
@@ -62,15 +63,7 @@
 // Alternative arrows
 // May require `charset="UTF-8"` in your `<link>` tag
 .datepicker {
-  .prev, .next {
-    font-style: normal;
-  }
-
-  .prev:after {
-    content: "«";
-  }
-
-  .next:after {
-    content: "»";
-  }
+  .prev, .next {font-style:normal;}
+  .prev:after {content:"«";}
+  .next:after {content:"»";}
 }

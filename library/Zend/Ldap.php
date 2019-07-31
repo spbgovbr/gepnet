@@ -28,12 +28,12 @@
  */
 class Zend_Ldap
 {
-    const SEARCH_SCOPE_SUB = 1;
-    const SEARCH_SCOPE_ONE = 2;
+    const SEARCH_SCOPE_SUB  = 1;
+    const SEARCH_SCOPE_ONE  = 2;
     const SEARCH_SCOPE_BASE = 3;
 
-    const ACCTNAME_FORM_DN = 1;
-    const ACCTNAME_FORM_USERNAME = 2;
+    const ACCTNAME_FORM_DN        = 1;
+    const ACCTNAME_FORM_USERNAME  = 2;
     const ACCTNAME_FORM_BACKSLASH = 3;
     const ACCTNAME_FORM_PRINCIPAL = 4;
 
@@ -82,9 +82,9 @@ class Zend_Ldap
     protected $_schema = null;
 
     /**
-     * @param string $str The string to escape.
-     * @return string The escaped string
      * @deprecated will be removed, use {@see Zend_Ldap_Filter_Abstract::escapeValue()}
+     * @param  string $str The string to escape.
+     * @return string The escaped string
      */
     public static function filterEscape($str)
     {
@@ -96,12 +96,12 @@ class Zend_Ldap
     }
 
     /**
-     * @param string $dn The DN to parse
-     * @param array $keys An optional array to receive DN keys (e.g. CN, OU, DC, ...)
-     * @param array $vals An optional array to receive DN values
+     * @deprecated will be removed, use {@see Zend_Ldap_Dn::checkDn()}
+     * @param  string $dn   The DN to parse
+     * @param  array  $keys An optional array to receive DN keys (e.g. CN, OU, DC, ...)
+     * @param  array  $vals An optional array to receive DN values
      * @return boolean True if the DN was successfully parsed or false if the string is
      * not a valid DN.
-     * @deprecated will be removed, use {@see Zend_Ldap_Dn::checkDn()}
      */
     public static function explodeDn($dn, array &$keys = null, array &$vals = null)
     {
@@ -115,7 +115,7 @@ class Zend_Ldap
     /**
      * Constructor.
      *
-     * @param array|Zend_Config $options Options used in connecting, binding, etc.
+     * @param  array|Zend_Config $options Options used in connecting, binding, etc.
      * @return void
      * @throws Zend_Ldap_Exception if ext/ldap is not installed
      */
@@ -180,8 +180,8 @@ class Zend_Ldap
     /**
      * Return the LDAP error message of the last LDAP command
      *
-     * @param int $errorCode
-     * @param array $errorMessages
+     * @param  int   $errorCode
+     * @param  array $errorMessages
      * @return string
      */
     public function getLastError(&$errorCode = null, array &$errorMessages = null)
@@ -254,7 +254,7 @@ class Zend_Ldap
      *  optRefferals
      *  tryUsernameSplit
      *
-     * @param array|Zend_Config $options Options used in connecting, binding, etc.
+     * @param  array|Zend_Config $options Options used in connecting, binding, etc.
      * @return Zend_Ldap Provides a fluent interface
      * @throws Zend_Ldap_Exception
      */
@@ -265,21 +265,21 @@ class Zend_Ldap
         }
 
         $permittedOptions = array(
-            'host' => null,
-            'port' => 0,
-            'useSsl' => false,
-            'username' => null,
-            'password' => null,
-            'bindRequiresDn' => false,
-            'baseDn' => null,
-            'accountCanonicalForm' => null,
-            'accountDomainName' => null,
+            'host'                   => null,
+            'port'                   => 0,
+            'useSsl'                 => false,
+            'username'               => null,
+            'password'               => null,
+            'bindRequiresDn'         => false,
+            'baseDn'                 => null,
+            'accountCanonicalForm'   => null,
+            'accountDomainName'      => null,
             'accountDomainNameShort' => null,
-            'accountFilterFormat' => null,
-            'allowEmptyPassword' => false,
-            'useStartTls' => false,
-            'optReferrals' => false,
-            'tryUsernameSplit' => true,
+            'accountFilterFormat'    => null,
+            'allowEmptyPassword'     => false,
+            'useStartTls'            => false,
+            'optReferrals'           => false,
+            'tryUsernameSplit'       => true,
         );
 
         foreach ($permittedOptions as $key => $val) {
@@ -301,7 +301,7 @@ class Zend_Ldap
                     case 'optReferrals':
                     case 'tryUsernameSplit':
                         $permittedOptions[$key] = ($val === true ||
-                            $val === '1' || strcasecmp($val, 'true') == 0);
+                                $val === '1' || strcasecmp($val, 'true') == 0);
                         break;
                     default:
                         $permittedOptions[$key] = trim($val);
@@ -405,12 +405,10 @@ class Zend_Ldap
             $accountDomainNameShort = $this->_getAccountDomainNameShort();
             if ($accountDomainNameShort) {
                 $accountCanonicalForm = Zend_Ldap::ACCTNAME_FORM_BACKSLASH;
+            } else if ($accountDomainName) {
+                $accountCanonicalForm = Zend_Ldap::ACCTNAME_FORM_PRINCIPAL;
             } else {
-                if ($accountDomainName) {
-                    $accountCanonicalForm = Zend_Ldap::ACCTNAME_FORM_PRINCIPAL;
-                } else {
-                    $accountCanonicalForm = Zend_Ldap::ACCTNAME_FORM_USERNAME;
-                }
+                $accountCanonicalForm = Zend_Ldap::ACCTNAME_FORM_USERNAME;
             }
         }
 
@@ -497,7 +495,7 @@ class Zend_Ldap
     }
 
     /**
-     * @param string $name The name to split
+     * @param string $name  The name to split
      * @param string $dname The resulting domain name (this is an out parameter)
      * @param string $aname The resulting account name (this is an out parameter)
      * @return void
@@ -525,7 +523,7 @@ class Zend_Ldap
     }
 
     /**
-     * @param string $acctname The name of the account
+     * @param  string $acctname The name of the account
      * @return string The DN of the specified account
      * @throws Zend_Ldap_Exception
      */
@@ -535,16 +533,14 @@ class Zend_Ldap
          * @see Zend_Ldap_Dn
          */
         require_once 'Zend/Ldap/Dn.php';
-        if (Zend_Ldap_Dn::checkDn($acctname)) {
-            return $acctname;
-        }
+        if (Zend_Ldap_Dn::checkDn($acctname)) return $acctname;
         $acctname = $this->getCanonicalAccountName($acctname, Zend_Ldap::ACCTNAME_FORM_USERNAME);
         $acct = $this->_getAccount($acctname, array('dn'));
         return $acct['dn'];
     }
 
     /**
-     * @param string $dname The domain name to check
+     * @param  string $dname The domain name to check
      * @return boolean
      */
     protected function _isPossibleAuthority($dname)
@@ -567,8 +563,8 @@ class Zend_Ldap
     }
 
     /**
-     * @param string $acctname The name to canonicalize
-     * @param int $type The desired form of canonicalization
+     * @param  string $acctname The name to canonicalize
+     * @param  int    $type     The desired form of canonicalization
      * @return string The canonicalized name in the desired form
      * @throws Zend_Ldap_Exception
      */
@@ -639,7 +635,7 @@ class Zend_Ldap
     }
 
     /**
-     * @param array $attrs An array of names of desired attributes
+     * @param  array $attrs An array of names of desired attributes
      * @return array An array of the attributes representing the account
      * @throws Zend_Ldap_Exception
      */
@@ -673,22 +669,20 @@ class Zend_Ldap
             $acct = $accounts->getFirst();
             $accounts->close();
             return $acct;
+        } else if ($count === 0) {
+            /**
+             * @see Zend_Ldap_Exception
+             */
+            require_once 'Zend/Ldap/Exception.php';
+            $code = Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT;
+            $str = "No object found for: $accountFilter";
         } else {
-            if ($count === 0) {
-                /**
-                 * @see Zend_Ldap_Exception
-                 */
-                require_once 'Zend/Ldap/Exception.php';
-                $code = Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT;
-                $str = "No object found for: $accountFilter";
-            } else {
-                /**
-                 * @see Zend_Ldap_Exception
-                 */
-                require_once 'Zend/Ldap/Exception.php';
-                $code = Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR;
-                $str = "Unexpected result count ($count) for: $accountFilter";
-            }
+            /**
+             * @see Zend_Ldap_Exception
+             */
+            require_once 'Zend/Ldap/Exception.php';
+            $code = Zend_Ldap_Exception::LDAP_OPERATIONS_ERROR;
+            $str = "Unexpected result count ($count) for: $accountFilter";
         }
         $accounts->close();
         /**
@@ -718,10 +712,10 @@ class Zend_Ldap
      * if you really care about the server's cert you can put a cert on the
      * web server.
      *
-     * @param string $host The hostname of the LDAP server to connect to
-     * @param int $port The port number of the LDAP server to connect to
-     * @param boolean $useSsl Use SSL
-     * @param boolean $useStartTls Use STARTTLS
+     * @param  string  $host        The hostname of the LDAP server to connect to
+     * @param  int     $port        The port number of the LDAP server to connect to
+     * @param  boolean $useSsl      Use SSL
+     * @param  boolean $useStartTls Use STARTTLS
      * @return Zend_Ldap Provides a fluent interface
      * @throws Zend_Ldap_Exception
      */
@@ -789,7 +783,7 @@ class Zend_Ldap
 
             $optReferrals = ($this->_getOptReferrals()) ? 1 : 0;
             if (@ldap_set_option($resource, LDAP_OPT_PROTOCOL_VERSION, 3) &&
-                @ldap_set_option($resource, LDAP_OPT_REFERRALS, $optReferrals)) {
+                        @ldap_set_option($resource, LDAP_OPT_REFERRALS, $optReferrals)) {
                 if ($useSsl || !$useStartTls || @ldap_start_tls($resource)) {
                     return $this;
                 }
@@ -811,8 +805,8 @@ class Zend_Ldap
     }
 
     /**
-     * @param string $username The username for authenticating the bind
-     * @param string $password The password for authenticating the bind
+     * @param  string $username The username for authenticating the bind
+     * @param  string $password The password for authenticating the bind
      * @return Zend_Ldap Provides a fluent interface
      * @throws Zend_Ldap_Exception
      */
@@ -922,27 +916,20 @@ class Zend_Ldap
      * - sizelimit
      * - timelimit
      *
-     * @param string|Zend_Ldap_Filter_Abstract|array $filter
-     * @param string|Zend_Ldap_Dn|null $basedn
-     * @param integer $scope
-     * @param array $attributes
-     * @param string|null $sort
-     * @param string|null $collectionClass
-     * @param integer $sizelimit
-     * @param integer $timelimit
+     * @param  string|Zend_Ldap_Filter_Abstract|array $filter
+     * @param  string|Zend_Ldap_Dn|null               $basedn
+     * @param  integer                                $scope
+     * @param  array                                  $attributes
+     * @param  string|null                            $sort
+     * @param  string|null                            $collectionClass
+     * @param  integer                                  $sizelimit
+     * @param  integer                                  $timelimit
      * @return Zend_Ldap_Collection
      * @throws Zend_Ldap_Exception
      */
-    public function search(
-        $filter,
-        $basedn = null,
-        $scope = self::SEARCH_SCOPE_SUB,
-        array $attributes = array(),
-        $sort = null,
-        $collectionClass = null,
-        $sizelimit = 0,
-        $timelimit = 0
-    ) {
+    public function search($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB, array $attributes = array(),
+        $sort = null, $collectionClass = null, $sizelimit = 0, $timelimit = 0)
+    {
         if (is_array($filter)) {
             $options = array_change_key_case($filter, CASE_LOWER);
             foreach ($options as $key => $value) {
@@ -970,10 +957,9 @@ class Zend_Ldap
 
         if ($basedn === null) {
             $basedn = $this->getBaseDn();
-        } else {
-            if ($basedn instanceof Zend_Ldap_Dn) {
-                $basedn = $basedn->toString();
-            }
+        }
+        else if ($basedn instanceof Zend_Ldap_Dn) {
+            $basedn = $basedn->toString();
         }
 
         if ($filter instanceof Zend_Ldap_Filter_Abstract) {
@@ -993,7 +979,7 @@ class Zend_Ldap
                 break;
         }
 
-        if ($search === false) {
+        if($search === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -1002,7 +988,7 @@ class Zend_Ldap
         }
         if ($sort !== null && is_string($sort)) {
             $isSorted = @ldap_sort($this->getResource(), $search, $sort);
-            if ($isSorted === false) {
+            if($isSorted === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
@@ -1022,8 +1008,8 @@ class Zend_Ldap
     /**
      * Extension point for collection creation
      *
-     * @param Zend_Ldap_Collection_Iterator_Default $iterator
-     * @param string|null $collectionClass
+     * @param  Zend_Ldap_Collection_Iterator_Default    $iterator
+     * @param  string|null                                $collectionClass
      * @return Zend_Ldap_Collection
      * @throws Zend_Ldap_Exception
      */
@@ -1060,9 +1046,9 @@ class Zend_Ldap
     /**
      * Count items found by given filter.
      *
-     * @param string|Zend_Ldap_Filter_Abstract $filter
-     * @param string|Zend_Ldap_Dn|null $basedn
-     * @param integer $scope
+     * @param  string|Zend_Ldap_Filter_Abstract $filter
+     * @param  string|Zend_Ldap_Dn|null         $basedn
+     * @param  integer                          $scope
      * @return integer
      * @throws Zend_Ldap_Exception
      */
@@ -1071,11 +1057,8 @@ class Zend_Ldap
         try {
             $result = $this->search($filter, $basedn, $scope, array('dn'), null);
         } catch (Zend_Ldap_Exception $e) {
-            if ($e->getCode() === Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT) {
-                return 0;
-            } else {
-                throw $e;
-            }
+            if ($e->getCode() === Zend_Ldap_Exception::LDAP_NO_SUCH_OBJECT) return 0;
+            else throw $e;
         }
         return $result->count();
     }
@@ -1083,7 +1066,7 @@ class Zend_Ldap
     /**
      * Count children for a given DN.
      *
-     * @param string|Zend_Ldap_Dn $dn
+     * @param  string|Zend_Ldap_Dn $dn
      * @return integer
      * @throws Zend_Ldap_Exception
      */
@@ -1095,7 +1078,7 @@ class Zend_Ldap
     /**
      * Check if a given DN exists.
      *
-     * @param string|Zend_Ldap_Dn $dn
+     * @param  string|Zend_Ldap_Dn $dn
      * @return boolean
      * @throws Zend_Ldap_Exception
      */
@@ -1118,27 +1101,20 @@ class Zend_Ldap
      * - sizelimit
      * - timelimit
      *
-     * @param string|Zend_Ldap_Filter_Abstract|array $filter
-     * @param string|Zend_Ldap_Dn|null $basedn
-     * @param integer $scope
-     * @param array $attributes
-     * @param string|null $sort
-     * @param boolean $reverseSort
-     * @param integer $sizelimit
-     * @param integer $timelimit
+     * @param  string|Zend_Ldap_Filter_Abstract|array $filter
+     * @param  string|Zend_Ldap_Dn|null               $basedn
+     * @param  integer                                $scope
+     * @param  array                                  $attributes
+     * @param  string|null                            $sort
+     * @param  boolean                                $reverseSort
+     * @param  integer                                  $sizelimit
+     * @param  integer                                  $timelimit
      * @return array
      * @throws Zend_Ldap_Exception
      */
-    public function searchEntries(
-        $filter,
-        $basedn = null,
-        $scope = self::SEARCH_SCOPE_SUB,
-        array $attributes = array(),
-        $sort = null,
-        $reverseSort = false,
-        $sizelimit = 0,
-        $timelimit = 0
-    ) {
+    public function searchEntries($filter, $basedn = null, $scope = self::SEARCH_SCOPE_SUB,
+        array $attributes = array(), $sort = null, $reverseSort = false, $sizelimit = 0, $timelimit = 0)
+    {
         if (is_array($filter)) {
             $filter = array_change_key_case($filter, CASE_LOWER);
             if (isset($filter['collectionclass'])) {
@@ -1160,9 +1136,9 @@ class Zend_Ldap
     /**
      * Get LDAP entry by DN
      *
-     * @param string|Zend_Ldap_Dn $dn
-     * @param array $attributes
-     * @param boolean $throwOnNotFound
+     * @param  string|Zend_Ldap_Dn $dn
+     * @param  array               $attributes
+     * @param  boolean             $throwOnNotFound
      * @return array
      * @throws Zend_Ldap_Exception
      */
@@ -1172,10 +1148,8 @@ class Zend_Ldap
             $result = $this->search("(objectClass=*)", $dn, self::SEARCH_SCOPE_BASE,
                 $attributes, null);
             return $result->getFirst();
-        } catch (Zend_Ldap_Exception $e) {
-            if ($throwOnNotFound !== false) {
-                throw $e;
-            }
+        } catch (Zend_Ldap_Exception $e){
+            if ($throwOnNotFound !== false) throw $e;
         }
         return null;
     }
@@ -1183,47 +1157,39 @@ class Zend_Ldap
     /**
      * Prepares an ldap data entry array for insert/update operation
      *
-     * @param array $entry
+     * @param  array $entry
      * @return void
      * @throws InvalidArgumentException
      */
     public static function prepareLdapEntryArray(array &$entry)
     {
-        if (array_key_exists('dn', $entry)) {
-            unset($entry['dn']);
-        }
+        if (array_key_exists('dn', $entry)) unset($entry['dn']);
         foreach ($entry as $key => $value) {
             if (is_array($value)) {
                 foreach ($value as $i => $v) {
-                    if ($v === null) {
-                        unset($value[$i]);
+                    if ($v === null) unset($value[$i]);
+                    else if (!is_scalar($v)) {
+                        throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
                     } else {
-                        if (!is_scalar($v)) {
-                            throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
+                        $v = (string)$v;
+                        if (strlen($v) == 0) {
+                            unset($value[$i]);
                         } else {
-                            $v = (string)$v;
-                            if (strlen($v) == 0) {
-                                unset($value[$i]);
-                            } else {
-                                $value[$i] = $v;
-                            }
+                            $value[$i] = $v;
                         }
                     }
                 }
                 $entry[$key] = array_values($value);
             } else {
-                if ($value === null) {
-                    $entry[$key] = array();
+                if ($value === null) $entry[$key] = array();
+                else if (!is_scalar($value)) {
+                    throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
                 } else {
-                    if (!is_scalar($value)) {
-                        throw new InvalidArgumentException('Only scalar values allowed in LDAP data');
+                    $value = (string)$value;
+                    if (strlen($value) == 0) {
+                        $entry[$key] = array();
                     } else {
-                        $value = (string)$value;
-                        if (strlen($value) == 0) {
-                            $entry[$key] = array();
-                        } else {
-                            $entry[$key] = array($value);
-                        }
+                        $entry[$key] = array($value);
                     }
                 }
             }
@@ -1234,8 +1200,8 @@ class Zend_Ldap
     /**
      * Add new information to the LDAP repository
      *
-     * @param string|Zend_Ldap_Dn $dn
-     * @param array $entry
+     * @param  string|Zend_Ldap_Dn $dn
+     * @param  array               $entry
      * @return Zend_Ldap                  Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1256,23 +1222,12 @@ class Zend_Ldap
             $value = Zend_Ldap_Dn::unescapeValue($value);
             if (!array_key_exists($key, $entry)) {
                 $entry[$key] = array($value);
-            } else {
-                if (!in_array($value, $entry[$key])) {
-                    $entry[$key] = array_merge(array($value), $entry[$key]);
-                }
+            } else if (!in_array($value, $entry[$key])) {
+                $entry[$key] = array_merge(array($value), $entry[$key]);
             }
         }
-        $adAttributes = array(
-            'distinguishedname',
-            'instancetype',
-            'name',
-            'objectcategory',
-            'objectguid',
-            'usnchanged',
-            'usncreated',
-            'whenchanged',
-            'whencreated'
-        );
+        $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
+            'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
         foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
@@ -1280,7 +1235,7 @@ class Zend_Ldap
         }
 
         $isAdded = @ldap_add($this->getResource(), $dn->toString(), $entry);
-        if ($isAdded === false) {
+        if($isAdded === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -1293,8 +1248,8 @@ class Zend_Ldap
     /**
      * Update LDAP registry
      *
-     * @param string|Zend_Ldap_Dn $dn
-     * @param array $entry
+     * @param  string|Zend_Ldap_Dn $dn
+     * @param  array               $entry
      * @return Zend_Ldap                  Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1313,17 +1268,8 @@ class Zend_Ldap
             }
         }
 
-        $adAttributes = array(
-            'distinguishedname',
-            'instancetype',
-            'name',
-            'objectcategory',
-            'objectguid',
-            'usnchanged',
-            'usncreated',
-            'whenchanged',
-            'whencreated'
-        );
+        $adAttributes = array('distinguishedname', 'instancetype', 'name', 'objectcategory',
+            'objectguid', 'usnchanged', 'usncreated', 'whenchanged', 'whencreated');
         foreach ($adAttributes as $attr) {
             if (array_key_exists($attr, $entry)) {
                 unset($entry[$attr]);
@@ -1332,7 +1278,7 @@ class Zend_Ldap
 
         if (count($entry) > 0) {
             $isModified = @ldap_modify($this->getResource(), $dn->toString(), $entry);
-            if ($isModified === false) {
+            if($isModified === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
@@ -1349,8 +1295,8 @@ class Zend_Ldap
      * Internally decides if entry will be updated to added by calling
      * {@link exists()}.
      *
-     * @param string|Zend_Ldap_Dn $dn
-     * @param array $entry
+     * @param  string|Zend_Ldap_Dn $dn
+     * @param  array               $entry
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1359,19 +1305,16 @@ class Zend_Ldap
         if ($dn instanceof Zend_Ldap_Dn) {
             $dn = $dn->toString();
         }
-        if ($this->exists($dn)) {
-            $this->update($dn, $entry);
-        } else {
-            $this->add($dn, $entry);
-        }
+        if ($this->exists($dn)) $this->update($dn, $entry);
+        else $this->add($dn, $entry);
         return $this;
     }
 
     /**
      * Delete an LDAP entry
      *
-     * @param string|Zend_Ldap_Dn $dn
-     * @param boolean $recursively
+     * @param  string|Zend_Ldap_Dn $dn
+     * @param  boolean             $recursively
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1381,7 +1324,7 @@ class Zend_Ldap
             $dn = $dn->toString();
         }
         if ($recursively === true) {
-            if ($this->countChildren($dn) > 0) {
+            if ($this->countChildren($dn)>0) {
                 $children = $this->_getChildrenDns($dn);
                 foreach ($children as $c) {
                     $this->delete($c, true);
@@ -1389,7 +1332,7 @@ class Zend_Ldap
             }
         }
         $isDeleted = @ldap_delete($this->getResource(), $dn);
-        if ($isDeleted === false) {
+        if($isDeleted === false) {
             /**
              * @see Zend_Ldap_Exception
              */
@@ -1405,7 +1348,7 @@ class Zend_Ldap
      * This method is used in recursive methods like {@see delete()}
      * or {@see copy()}
      *
-     * @param string|Zend_Ldap_Dn $parentDn
+     * @param  string|Zend_Ldap_Dn $parentDn
      * @return array of DNs
      */
     protected function _getChildrenDns($parentDn)
@@ -1416,8 +1359,8 @@ class Zend_Ldap
         $children = array();
         $search = @ldap_list($this->getResource(), $parentDn, '(objectClass=*)', array('dn'));
         for ($entry = @ldap_first_entry($this->getResource(), $search);
-             $entry !== false;
-             $entry = @ldap_next_entry($this->getResource(), $entry)) {
+                $entry !== false;
+                $entry = @ldap_next_entry($this->getResource(), $entry)) {
             $childDn = @ldap_get_dn($this->getResource(), $entry);
             if ($childDn === false) {
                 /**
@@ -1435,10 +1378,10 @@ class Zend_Ldap
     /**
      * Moves a LDAP entry from one DN to another subtree.
      *
-     * @param string|Zend_Ldap_Dn $from
-     * @param string|Zend_Ldap_Dn $to
-     * @param boolean $recursively
-     * @param boolean $alwaysEmulate
+     * @param  string|Zend_Ldap_Dn $from
+     * @param  string|Zend_Ldap_Dn $to
+     * @param  boolean             $recursively
+     * @param  boolean             $alwaysEmulate
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1466,10 +1409,10 @@ class Zend_Ldap
      *
      * This is an alias for {@link rename()}
      *
-     * @param string|Zend_Ldap_Dn $from
-     * @param string|Zend_Ldap_Dn $to
-     * @param boolean $recursively
-     * @param boolean $alwaysEmulate
+     * @param  string|Zend_Ldap_Dn $from
+     * @param  string|Zend_Ldap_Dn $to
+     * @param  boolean             $recursively
+     * @param  boolean             $alwaysEmulate
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1483,23 +1426,18 @@ class Zend_Ldap
      *
      * This method implicitely moves the entry to another location within the tree.
      *
-     * @param string|Zend_Ldap_Dn $from
-     * @param string|Zend_Ldap_Dn $to
-     * @param boolean $recursively
-     * @param boolean $alwaysEmulate
+     * @param  string|Zend_Ldap_Dn $from
+     * @param  string|Zend_Ldap_Dn $to
+     * @param  boolean             $recursively
+     * @param  boolean             $alwaysEmulate
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
     public function rename($from, $to, $recursively = false, $alwaysEmulate = false)
     {
         $emulate = (bool)$alwaysEmulate;
-        if (!function_exists('ldap_rename')) {
-            $emulate = true;
-        } else {
-            if ($recursively) {
-                $emulate = true;
-            }
-        }
+        if (!function_exists('ldap_rename')) $emulate = true;
+        else if ($recursively) $emulate = true;
 
         if ($emulate === false) {
             if ($from instanceof Zend_Ldap_Dn) {
@@ -1515,17 +1453,14 @@ class Zend_Ldap
             $newRdn = Zend_Ldap_Dn::implodeRdn(array_shift($newDnParts));
             $newParent = Zend_Ldap_Dn::implodeDn($newDnParts);
             $isOK = @ldap_rename($this->getResource(), $from, $newRdn, $newParent, true);
-            if ($isOK === false) {
+            if($isOK === false) {
                 /**
                  * @see Zend_Ldap_Exception
                  */
                 require_once 'Zend/Ldap/Exception.php';
                 throw new Zend_Ldap_Exception($this, 'renaming ' . $from . ' to ' . $to);
-            } else {
-                if (!$this->exists($to)) {
-                    $emulate = true;
-                }
             }
+            else if (!$this->exists($to)) $emulate = true;
         }
         if ($emulate) {
             $this->copy($from, $to, $recursively);
@@ -1537,9 +1472,9 @@ class Zend_Ldap
     /**
      * Copies a LDAP entry from one DN to another subtree.
      *
-     * @param string|Zend_Ldap_Dn $from
-     * @param string|Zend_Ldap_Dn $to
-     * @param boolean $recursively
+     * @param  string|Zend_Ldap_Dn $from
+     * @param  string|Zend_Ldap_Dn $to
+     * @param  boolean             $recursively
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1565,9 +1500,9 @@ class Zend_Ldap
     /**
      * Copies a LDAP entry from one DN to another DN.
      *
-     * @param string|Zend_Ldap_Dn $from
-     * @param string|Zend_Ldap_Dn $to
-     * @param boolean $recursively
+     * @param  string|Zend_Ldap_Dn $from
+     * @param  string|Zend_Ldap_Dn $to
+     * @param  boolean             $recursively
      * @return Zend_Ldap Provides a fluid interface
      * @throws Zend_Ldap_Exception
      */
@@ -1582,7 +1517,7 @@ class Zend_Ldap
         }
         $this->add($to, $entry);
 
-        if ($recursively === true && $this->countChildren($from) > 0) {
+        if ($recursively === true && $this->countChildren($from)>0) {
             $children = $this->_getChildrenDns($from);
             foreach ($children as $c) {
                 $cDnParts = Zend_Ldap_Dn::explodeDn($c);
@@ -1597,7 +1532,7 @@ class Zend_Ldap
     /**
      * Returns the specified DN as a Zend_Ldap_Node
      *
-     * @param string|Zend_Ldap_Dn $dn
+     * @param  string|Zend_Ldap_Dn $dn
      * @return Zend_Ldap_Node|null
      * @throws Zend_Ldap_Exception
      */

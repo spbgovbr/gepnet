@@ -2,29 +2,31 @@
 <html lang="en">
 <head>
     <title>List - Overview</title>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <meta name="description" content="%description%"/>
-    <meta name="keywords" content=""/>
-    <meta name="author" content="ComponentOne"/>
-
-    <link href="../../themes/rocket/jquery-wijmo.css" rel="stylesheet" type="text/css"/>
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="description" content="%description%" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="ComponentOne" />
+    
+    <link href="../../themes/rocket/jquery-wijmo.css" rel="stylesheet" type="text/css" />
+    
     <script src="../../external/jquery-1.7.1.min.js" type="text/javascript"></script>
     <script src="../../external/jquery-ui-1.8.18.custom.min.js" type="text/javascript"></script>
     <script src="../../external/jquery.mousewheel.min.js" type="text/javascript"></script>
-    <link href="../../themes/wijmo/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css"/>
-    <link href="../../themes/wijmo/jquery.wijmo.wijlist.css" rel="stylesheet" type="text/css"/>
+    <link href="../../themes/wijmo/jquery.wijmo.wijsuperpanel.css" rel="stylesheet" type="text/css" />
+    <link href="../../themes/wijmo/jquery.wijmo.wijlist.css" rel="stylesheet" type="text/css" />
     <script src="../../wijmo/jquery.wijmo.wijutil.js" type="text/javascript"></script>
     <script src="../../wijmo/jquery.wijmo.wijsuperpanel.js" type="text/javascript"></script>
     <script src="../../wijmo/jquery.wijmo.wijlist.js" type="text/javascript"></script>
     <style type="text/css">
-        #list {
+        #list
+        {
             height: 200px;
             width: 300px;
         }
-
-        #testinput {
+        
+        #testinput
+        {
             width: 150px;
             padding: 5px;
         }
@@ -117,7 +119,6 @@
                 }
             });
         });
-
         function selectButtonClick(select) {
             var list = $("#list").data('wijlist');
             var indices = $('#indices').val().split(',');
@@ -127,40 +128,40 @@
             });
             if (select) {
                 list.selectItems(newArray);
-            } else {
+            }
+            else {
                 list.unselectItems(newArray);
             }
         }
     </script>
 </head>
 <body class="demo-single">
-<div class="container">
-    <div class="header">
-        <h2>
-            Overview</h2>
-    </div>
-    <div class="main demo">
-        <!-- Begin demo markup -->
-        <div class="ui-widget">
-            <input readonly="readonly" id="testinput" type="text" class="ui-widget-content ui-corner-all"/>
-            <div id="list">
+    <div class="container">
+        <div class="header">
+            <h2>
+                Overview</h2>
+        </div>
+        <div class="main demo">
+            <!-- Begin demo markup -->
+            <div class="ui-widget">
+                <input readonly="readonly" id="testinput" type="text" class="ui-widget-content ui-corner-all" />
+                <div id="list">
+                </div>
+            </div>
+            <!-- End demo markup -->
+            <div class="demo-options">
+                <!-- Begin options markup -->
+                <!-- End options markup -->
             </div>
         </div>
-        <!-- End demo markup -->
-        <div class="demo-options">
-            <!-- Begin options markup -->
-            <!-- End options markup -->
+        <div class="footer demo-description">
+            <p>
+                Wijlist is a user interface widget that allows users to select one or more items from a list. In this particular sample, we demonstrate how to populate a wijlist from an array.
+		</p>
+		<p>
+		The samples in this section will get you started with the wijlist control. 
+            </p>
         </div>
     </div>
-    <div class="footer demo-description">
-        <p>
-            Wijlist is a user interface widget that allows users to select one or more items from a list. In this
-            particular sample, we demonstrate how to populate a wijlist from an array.
-        </p>
-        <p>
-            The samples in this section will get you started with the wijlist control.
-        </p>
-    </div>
-</div>
 </body>
 </html>

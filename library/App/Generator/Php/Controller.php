@@ -9,9 +9,7 @@
  *
  * @author abdalacerqueira
  */
-class Controller
-{
+class Controller {
     //put your code here
 }
-
 ?>

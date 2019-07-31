@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
-{
+class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract {
 
     public $_mapper = null;
     protected $_form = null;
@@ -35,10 +34,10 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     /**
      * Retorna as Respostas cadastradas
-     *
+     * 
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
@@ -49,7 +48,7 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -60,18 +59,18 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
         try {
             $resposta = $this->_mapper->getByIdDetalhar($params);
             return $resposta;
-        } catch (Exception $exc) {
+        } catch (Exception $exc){
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
     }
-
+    
     public function getByIdPerguntaDetalhar($params)
     {
         try {
             $resposta = $this->_mapper->getByIdPerguntaDetalhar($params);
             return $resposta;
-        } catch (Exception $exc) {
+        } catch (Exception $exc){
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -82,7 +81,7 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
         try {
             $resposta = $this->_mapper->getById($params);
             return $resposta;
-        } catch (Exception $exc) {
+         } catch (Exception $exc){
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -92,30 +91,30 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
     {
         $form = $this->getFormResposta();
 
-        if ($form->isValid($dados)) {
+        if ( $form->isValid($dados) ) {
             $model = new Pesquisa_Model_Resposta();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
             $model->idescritorio = $this->auth->perfilAtivo->idescritorio;
 
             $adapter = $this->_mapper->getDbTable()->getAdapter();
-
+            
             try {
                 $adapter->beginTransaction();
                 //salva a resposta
                 $model->idresposta = $this->_mapper->insert($model);
-
+                
                 //salva tb_respostafrase
-                $mapperRespostaFrase = new Pesquisa_Model_Mapper_RespostaFrase();
+                $mapperRespostaFrase =  new Pesquisa_Model_Mapper_RespostaFrase();                
                 $modelRespostaFrase = new Pesquisa_Model_RespostaFrase();
-                $modelRespostaFrase->idfrase = $dados['idfrase'];
+                $modelRespostaFrase->idfrase =  $dados['idfrase'];
                 $modelRespostaFrase->idresposta = $model->idresposta;
-
+                
                 $mapperRespostaFrase->insert($modelRespostaFrase);
-
+                
                 $adapter->commit();
                 return $model;
-            } catch (Exception $exc) {
+            } catch ( Exception $exc ) {
                 $adapter->rollBack();
                 $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
                 return false;
@@ -129,9 +128,9 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
     public function update($params)
     {
         $form = $this->getFormResposta();
-        if ($form->isValid($params)) {
+        if ( $form->isValid($params) ) {
             $model = new Pesquisa_Model_Resposta($form->getValidValues($params));
-
+            
             try {
                 $retorno = $this->_mapper->update($model);
                 return $retorno;
@@ -151,17 +150,17 @@ class Pesquisa_Service_Resposta extends App_Service_ServiceAbstract
         try {
             $adapter->beginTransaction();
 
-            $mapperRespostaFrase = new Pesquisa_Model_Mapper_RespostaFrase();
+            $mapperRespostaFrase =  new Pesquisa_Model_Mapper_RespostaFrase();
             $mapperRespostaFrase->delete($params);
             $result = $this->_mapper->delete($params);
-
+            
             $adapter->commit();
             return $result;
-        } catch (Zend_Db_Statement_Exception $exc) {
-            if ($exc->getCode() == 23503) {
+        } catch ( Zend_Db_Statement_Exception $exc ) {
+            if ( $exc->getCode() == 23503 ) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_VIOLACAO_FK_CODE_23503;
             }
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $adapter->rollBack();
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;

@@ -112,8 +112,8 @@ abstract class Zend_Pdf_Destination_Explicit extends Zend_Pdf_Destination
     /**
      * Get resource
      *
-     * @return Zend_Pdf_Element
      * @internal
+     * @return Zend_Pdf_Element
      */
     public function getResource()
     {

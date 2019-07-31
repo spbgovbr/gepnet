@@ -17,8 +17,8 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Planejamento_Model_Objetivo $model)
     {
-        $model->idobjetivo = $this->maxVal('idobjetivo');
-        $model->numseq = $this->maxVal('numseq');
+        $model->idobjetivo      = $this->maxVal('idobjetivo');
+        $model->numseq          = $this->maxVal('numseq');
 
 //        $model->idcadastrador   = '30605';
         $auth = Zend_Auth::getInstance();
@@ -27,25 +27,25 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
         }
 
         $data = array(
-            "idobjetivo" => $model->idobjetivo,
+            "idobjetivo"    => $model->idobjetivo,
             // Id foi comentado pq nao consta na tabela tb_objetivo
             //"idprojeto"    => $model->idprojeto,
             //////////////////////////////////////
-            "nomobjetivo" => $model->nomobjetivo,
+            "nomobjetivo"   => $model->nomobjetivo,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => new Zend_Db_Expr("now()"),
-            "flaativo" => $model->flaativo,
-            "desobjetivo" => $model->desobjetivo,
+            "datcadastro"   => new Zend_Db_Expr("now()"),
+            "flaativo"      => $model->flaativo,
+            "desobjetivo"   => $model->desobjetivo,
             "codescritorio" => $model->codescritorio,
-            "numseq" => $model->numseq,
+            "numseq"        => $model->numseq,
         );
 //        $this->getDbTable()->insert($data);
-
+        
         try {
-            $retorno = $this->getDbTable()->insert($data);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$retorno = $this->getDbTable()->insert($data);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
@@ -59,26 +59,26 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
 //            "idobjetivo"    => $model->idobjetivo,
-            "nomobjetivo" => $model->nomobjetivo,
+            "nomobjetivo"   => $model->nomobjetivo,
 //            "idcadastrador" => $model->idcadastrador,
 //            "datcadastro"   => $model->datcadastro,
-            "flaativo" => $model->flaativo,
-            "desobjetivo" => $model->desobjetivo,
+            "flaativo"      => $model->flaativo,
+            "desobjetivo"   => $model->desobjetivo,
             "codescritorio" => $model->codescritorio,
 //            "numseq"        => $model->numseq,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
-
+        
         try {
-            $pks = array(
-                "idobjetivo" => $model->idobjetivo,
-            );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
-            //$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
-            $retorno = $this->getDbTable()->update($data, $where);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$pks     = array(
+                    "idobjetivo" => $model->idobjetivo,
+        	);
+        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+        	//$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
+        	$retorno = $this->getDbTable()->update($data, $where);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
@@ -86,23 +86,21 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Planejamento_Form_Objetivo);
     }
-
+    
     public function fetchPairs()
     {
-        $sql = " SELECT idobjetivo, nomobjetivo FROM agepnet200.tb_objetivo order by nomobjetivo asc";
-        return $this->_db->fetchPairs($sql);
+    	$sql = " SELECT idobjetivo, nomobjetivo FROM agepnet200.tb_objetivo order by nomobjetivo asc";
+    	return $this->_db->fetchPairs($sql);
     }
-
-    public function fetchFlaativo()
-    {
-        $retorno = array(
-            '' => 'Selecione',
-            'S' => 'Sim',
-            'N' => 'Não'
-        );
-        return $retorno;
+    
+    public function fetchFlaativo(){
+        $retorno   = array(
+    			'' => 'Selecione',
+    			'S' => 'Sim',
+    			'N' => 'Não');
+    	return $retorno;
     }
-
+    
     /**
      *
      * @param array $params
@@ -110,8 +108,8 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
      * @return \Zend_Paginator | array
      */
     public function pesquisar($params, $paginator = false)
-    {
-        $sql = "
+    {   
+    	$sql    = "
                     SELECT
                             obj.nomobjetivo,
                             (SELECT p.nompessoa FROM agepnet200.tb_pessoa p WHERE p.idpessoa = obj.idcadastrador) as idcadastrador,
@@ -129,30 +127,30 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
                     WHERE
                             1 = 1
     		";
-
-        $params = array_filter($params);
-        if (isset($params['nomobjetivo'])) {
-            $nomobjetivo = strtoupper($params['nomobjetivo']);
-            $sql .= " AND upper(nomobjetivo) LIKE '%{$nomobjetivo}%'";
-        }
-
-        if (isset($params['sidx'])) {
+    	
+    	$params = array_filter($params);
+    	if ( isset($params['nomobjetivo']) ) {
+    		$nomobjetivo = strtoupper($params['nomobjetivo']);
+    		$sql .= " AND upper(nomobjetivo) LIKE '%{$nomobjetivo}%'";
+    	}
+    	
+        if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        //Zend_Debug::dump($sql);exit;
-
-        if ($paginator) {
-            $page = (isset($params['page'])) ? $params['page'] : 1;
-            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
-            $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
-            $paginator->setItemCountPerPage($limit);
-            $paginator->setCurrentPageNumber($page);
-            return $paginator;
-        }
-
-        $resultado = $this->_db->fetchAll($sql);
+    	//Zend_Debug::dump($sql);exit;
+    	
+    	if ( $paginator ) {
+    		$page      = (isset($params['page'])) ? $params['page'] : 1;
+    		$limit     = (isset($params['rows'])) ? $params['rows'] : 20;
+    		$paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
+    		$paginator->setItemCountPerPage($limit);
+    		$paginator->setCurrentPageNumber($page);
+    		return $paginator;
+    	}
+    	
+    	$resultado = $this->_db->fetchAll($sql);
 //     	Zend_Debug::dump($resultado);exit;
-        return $resultado;
+    	return $resultado;
     }
 
     /**
@@ -161,7 +159,7 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
      */
     public function getById($params)
     {
-        $sql = "
+    	$sql = "
                     SELECT
                             obj.idobjetivo,
                             obj.nomobjetivo,
@@ -175,19 +173,19 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
                     WHERE
                             obj.idobjetivo = :idobjetivo
             ";
-
-        $resultado = $this->_db->fetchRow($sql, array('idobjetivo' => $params['idobjetivo']));
-        $processo = new Planejamento_Model_Objetivo($resultado);
-        return $processo;
+    
+    	$resultado       = $this->_db->fetchRow($sql, array('idobjetivo' => $params['idobjetivo']));
+    	$processo        = new Planejamento_Model_Objetivo($resultado);
+    	return $processo;
     }
-
+    
     /**
      * @param array $params
      * @return array
      */
     public function getByIdDetalhar($params)
     {
-        $sql = "    
+    	$sql = "    
                     SELECT
                             obj.idobjetivo,
                             obj.nomobjetivo,
@@ -205,15 +203,15 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
                     WHERE
                             obj.idobjetivo = :idobjetivo
             ";
-
-        $resultado = $this->_db->fetchRow($sql, array('idobjetivo' => $params['idobjetivo']));
-        $processo = new Planejamento_Model_Objetivo($resultado);
-        return $processo;
+   
+    	$resultado       = $this->_db->fetchRow($sql, array('idobjetivo' => $params['idobjetivo']));
+    	$processo        = new Planejamento_Model_Objetivo($resultado);
+    	return $processo;
     }
-
+    
     public function getTodosObjetivosEAcoes($params)
     {
-
+        
         $sql = " SELECT 
                         o.idobjetivo,
                         o.nomobjetivo,
@@ -224,41 +222,39 @@ class Planejamento_Model_Mapper_Objetivo extends App_Model_Mapper_MapperAbstract
                        o.flaativo = 'S'
                   ORDER BY o.idobjetivo
                 ";
-
+        
         $resultado = $this->_db->fetchAll($sql);
-
+        
         $collection = new App_Model_Collection();
         $collection->setDomainClass('Planejamento_Model_Objetivo');
         $mapperAcao = new Planejamento_Model_Mapper_Acao();
-
-        foreach ($resultado as $r) {
+        
+        foreach ( $resultado as $r )
+        {
             $o = new Planejamento_Model_Objetivo($r);
             $o->acoes = new App_Model_Relation(
-                $mapperAcao, 'getByObjetivo', array(
-                    array(
-                        'idobjetivo' => $o->idobjetivo,
-                    ),
-                    true
+                $mapperAcao, 'getByObjetivo', array( 
+                    array('idobjetivo' => $o->idobjetivo,
+                         ), true
                 )
             );
-            $o->acoes->getIterator();
-
+            $o->acoes->getIterator();    
+            
             //echo "<pre>"; var_dump($o->acoes->getIterator()); exit;
             $collection[] = $o;
         }//exit;
         //echo "<pre>"; var_dump($collection); die;
         return $collection;
     }
-
+   
     // Listando os registros da tabela projeto com o idobjetivo
-    public function getListaProjetoIdObjetivo($idobjetivoProjeto, $codescritorio)
-    {
-
+    public function getListaProjetoIdObjetivo($idobjetivoProjeto, $codescritorio){
+        
         $sql = 'SELECT idprojeto, idescritorio FROM agepnet200.tb_projeto'
-            . ' WHERE idobjetivo = ' . $idobjetivoProjeto .
-            'and idescritorio = ' . $codescritorio . 'and flaativo = ' . 'S';
-        $resultado = $this->_db->fetchAll($sql);
-        return $resultado;
+                . ' WHERE idobjetivo = '. $idobjetivoProjeto .
+                'and idescritorio = ' . $codescritorio .'and flaativo = '. 'S'; 
+         $resultado = $this->_db->fetchAll($sql);
+         return $resultado;
     }
 }
 

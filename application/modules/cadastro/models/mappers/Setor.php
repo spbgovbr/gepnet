@@ -9,12 +9,12 @@
 class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
 {
 
-    /**
-     *
-     * @var Cadastro_Model_Mapper_Setor
-     */
-    protected $_mapper;
-
+	/**
+	 *
+	 * @var Cadastro_Model_Mapper_Setor
+	 */
+	protected $_mapper;
+	
     /**
      * Set the property
      *
@@ -23,21 +23,21 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Cadastro_Model_Setor $model)
     {
-        try {
+        try{
             $model->idsetor = $this->maxVal('idsetor');
             $data = array(
-                "idsetor" => $model->idsetor,
-                "nomsetor" => $model->nomsetor,
+                "idsetor"       => $model->idsetor,
+                "nomsetor"      => $model->nomsetor,
                 "idcadastrador" => $model->idcadastrador,
-                "datcadastro" => new Zend_Db_Expr("now()"),
-                "flaativo" => $model->flaativo,
+                "datcadastro"   => new Zend_Db_Expr("now()"),
+                "flaativo"      => $model->flaativo,
             );
-
+            
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-
+            
         } catch (Exception $exc) {
-            throw $exc;
+                throw $exc;
         }
     }
 
@@ -50,18 +50,18 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
     public function update(Cadastro_Model_Setor $model)
     {
         $data = array(
-            "nomsetor" => $model->nomsetor,
-            "flaativo" => $model->flaativo
+            "nomsetor"      => $model->nomsetor,
+            "flaativo"      => $model->flaativo
         );
         try {
-            $pks = array(
-                "idsetor" => $model->idsetor,
-            );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
-            $retorno = $this->getDbTable()->update($data, $where);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$pks     = array(
+        			"idsetor" => $model->idsetor,
+        	);
+        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+        	$retorno = $this->getDbTable()->update($data, $where);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
@@ -72,10 +72,10 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
 
     public function fetchPairs()
     {
-        $sql = " SELECT idsetor, nomsetor FROM agepnet200.tb_setor order by nomsetor asc";
-        return $this->_db->fetchPairs($sql);
+    	$sql = " SELECT idsetor, nomsetor FROM agepnet200.tb_setor order by nomsetor asc";
+    	return $this->_db->fetchPairs($sql);
     }
-
+    
     public function pesquisar($params, $paginator = false)
     {
         $sql = "SELECT 
@@ -87,20 +87,20 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
                     agepnet200.tb_setor s,
                     agepnet200.tb_pessoa p
                  WHERE
-                    s.idcadastrador = p.idpessoa";
-
-
-        $params = array_filter($params);
-        if (isset($params['nomsetor'])) {
-            $nomsetor = strtoupper($params['nomsetor']);
-            $sql .= " AND upper(s.nomsetor) LIKE '%{$nomsetor}%'";
-        }
-
-        if (isset($params['sidx'])) {
+                    s.idcadastrador = p.idpessoa" ;
+        
+         
+         $params = array_filter($params);
+         if (isset($params['nomsetor'])) {
+             $nomsetor = strtoupper($params['nomsetor']);
+             $sql .= " AND upper(s.nomsetor) LIKE '%{$nomsetor}%'";
+         }
+         
+         if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-
-        if ($paginator) {
+        
+         if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
@@ -111,11 +111,10 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
 
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
-
+        
     }
-
-    public function getById($params)
-    {
+    
+    public function getById($params){
         $sql = "
                 SELECT
                     idsetor,
@@ -127,7 +126,7 @@ class Cadastro_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
                     agepnet200.tb_setor
                 WHERE
                     idsetor = :idsetor";
-
+        
         $resultado = $this->_db->fetchRow($sql, array('idsetor' => $params["idsetor"]));
         $setor = new Cadastro_Model_Setor($resultado);
         return $setor;

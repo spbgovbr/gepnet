@@ -23,7 +23,7 @@ while ($parent = $active->getParent()) {
 
     $active = $parent;
 }
-$html[] = '<li><a href="' . $this->baseUrl('/index/boas-vindas') . '"></i></a><span class="divider">/</span></li>';
+$html[] = '<li><a href="/"><i class="icon-home"></i></a><span class="divider">/</span></li>';
 rsort($html);
 
 echo '<ul class="breadcrumb">' . join(PHP_EOL, $html) . '</ul>';

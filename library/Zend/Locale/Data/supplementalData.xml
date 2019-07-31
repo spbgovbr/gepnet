@@ -68,7 +68,7 @@
             <info iso4217="ZMK" digits="0" rounding="0"/>
             <info iso4217="ZWD" digits="0" rounding="0"/>
         </fractions>
-        <region iso3166="AD">
+       <region iso3166="AD">
             <currency iso4217="EUR" from="1999-01-01"/>
             <currency iso4217="ESP" from="1873-01-01" to="2002-02-28"/>
             <currency iso4217="FRF" from="1960-01-01" to="2002-02-17"/>
@@ -106,7 +106,7 @@
             <currency iso4217="AOK" from="1977-01-08" to="1991-03-01"/>
         </region>
         <region iso3166="AQ">
-            <currency iso4217="XXX"/>
+        <currency iso4217="XXX"/>
         </region>
         <region iso3166="AR">
             <currency iso4217="ARS" from="1992-01-01"/>
@@ -399,8 +399,8 @@
             <currency iso4217="GBP" from="1830-01-01"/>
         </region>
         <region iso3166="GH">
-            <currency iso4217="GHS" from="2007-07-03"/>
-            <currency iso4217="GHC" from="1979-03-09" to="2007-12-31"/>
+          <currency iso4217="GHS" from="2007-07-03"/>
+          <currency iso4217="GHC" from="1979-03-09" to="2007-12-31"/>
         </region>
         <region iso3166="GI">
             <currency iso4217="GIP" from="1713-01-01"/>
@@ -1116,8 +1116,7 @@
         <language type="amo" scripts="Latn"/>
         <language type="an" scripts="Latn"/>
         <language type="anp" scripts="Deva"/>
-        <language type="ar" scripts="Arab"
-                  territories="AE BH DJ DZ EG EH ER IL IQ JO KM KW LB LY MA MR OM PS QA SA SD SY TD TN YE"/>
+        <language type="ar" scripts="Arab" territories="AE BH DJ DZ EG EH ER IL IQ JO KM KW LB LY MA MR OM PS QA SA SD SY TD TN YE"/>
         <language type="ar" scripts="Syrc" territories="IR" alt="secondary"/>
         <language type="arn" scripts="Latn"/>
         <language type="arp" scripts="Latn"/>
@@ -1264,12 +1263,10 @@
         <language type="el" scripts="Grek" territories="CY GR"/>
         <language type="emk" scripts="Nkoo"/>
         <language type="emk" territories="GN" alt="secondary"/>
-        <language type="en" scripts="Latn"
-                  territories="AG AI AS AU BB BM BS BW BZ CA CC CK CM CX DM FJ FK FM GB GD GG GH GI GM GU GY HK HN IE IM JE JM KE KI KN KY LC LR LS MG MH MP MS MT MU MW NA NF NG NR NU NZ PG PH PK PN PR RW SB SC SG SH SL SZ TC TK TO TT TV TZ UG UM US VC VG VI VU WS ZA ZM ZW"/>
+        <language type="en" scripts="Latn" territories="AG AI AS AU BB BM BS BW BZ CA CC CK CM CX DM FJ FK FM GB GD GG GH GI GM GU GY HK HN IE IM JE JM KE KI KN KY LC LR LS MG MH MP MS MT MU MW NA NF NG NR NU NZ PG PH PK PN PR RW SB SC SG SH SL SZ TC TK TO TT TV TZ UG UM US VC VG VI VU WS ZA ZM ZW"/>
         <language type="en" scripts="Dsrt Shaw" territories="BE DE ES ET FR IN IT MY NL PW" alt="secondary"/>
         <language type="eo" scripts="Latn"/>
-        <language type="es" scripts="Latn"
-                  territories="AR BO CL CO CR CU DO EC ES GQ GT HN MX NI PA PE PH PR PY SV UY VE"/>
+        <language type="es" scripts="Latn" territories="AR BO CL CO CR CU DO EC ES GQ GT HN MX NI PA PE PH PR PY SV UY VE"/>
         <language type="es" territories="AD BZ US" alt="secondary"/>
         <language type="et" scripts="Latn" territories="EE"/>
         <language type="ett" scripts="Ital Latn" alt="secondary"/>
@@ -1292,8 +1289,7 @@
         <language type="fo" scripts="Latn" territories="FO"/>
         <language type="fon" scripts="Latn"/>
         <language type="fon" territories="BJ" alt="secondary"/>
-        <language type="fr" scripts="Latn"
-                  territories="BE BF BI BJ BL CA CD CF CG CH CI CM DJ DZ FR GA GF GN GP GQ HT KM LU MA MC MF MG ML MQ MU NC NE PF PM RE RW SC SN SY TD TG TN VU WF YT"/>
+        <language type="fr" scripts="Latn" territories="BE BF BI BJ BL CA CD CF CG CH CI CM DJ DZ FR GA GF GN GP GQ HT KM LU MA MC MF MG ML MQ MU NC NE PF PM RE RW SC SN SY TD TG TN VU WF YT"/>
         <language type="fr" territories="GB US" alt="secondary"/>
         <language type="frr" scripts="Latn"/>
         <language type="frs" scripts="Latn"/>
@@ -2021,8 +2017,7 @@
             <languagePopulation type="de" populationPercent="1.8"/>
             <languagePopulation type="cwd" populationPercent="0.11" officialStatus="official_regional"/>
             <languagePopulation type="crk" populationPercent="0.11" officialStatus="official_regional"/>
-            <languagePopulation type="iu" writingPercent="30" populationPercent="0.056"
-                                officialStatus="official_regional"/>
+            <languagePopulation type="iu" writingPercent="30" populationPercent="0.056" officialStatus="official_regional"/>
             <languagePopulation type="dgr" populationPercent="0.0063"/>
         </territory>
         <territory type="CC" gdp="0" literacyPercent="0" population="596">
@@ -2176,8 +2171,7 @@
         <territory type="ER" gdp="3946000000" literacyPercent="58.6" population="5647170">
             <languagePopulation type="ti" populationPercent="27" officialStatus="de_facto_official"/>
             <languagePopulation type="tig" populationPercent="18"/>
-            <languagePopulation type="ar" writingPercent="5" populationPercent="4.9"
-                                officialStatus="de_facto_official"/>
+            <languagePopulation type="ar" writingPercent="5" populationPercent="4.9" officialStatus="de_facto_official"/>
             <languagePopulation type="aa" populationPercent="3.6"/>
             <languagePopulation type="byn" populationPercent="1.6"/>
         </territory>
@@ -2258,8 +2252,7 @@
             <languagePopulation type="el" populationPercent="0.34"/>
             <languagePopulation type="it" populationPercent="0.34"/>
             <languagePopulation type="ks" populationPercent="0.19"/>
-            <languagePopulation type="gd" writingPercent="5" populationPercent="0.099"
-                                officialStatus="official_regional"/>
+            <languagePopulation type="gd" writingPercent="5" populationPercent="0.099" officialStatus="official_regional"/>
             <languagePopulation type="ml" populationPercent="0.035"/>
             <languagePopulation type="ga" populationPercent="0.026" officialStatus="official_regional"/>
             <languagePopulation type="fr" populationPercent="0.024" officialStatus="official_regional"/>
@@ -2472,8 +2465,7 @@
             <languagePopulation type="unr" populationPercent="0.095"/>
             <languagePopulation type="bhi" populationPercent="0.092"/>
             <languagePopulation type="hoj" populationPercent="0.082"/>
-            <languagePopulation type="kha" writingPercent="29" populationPercent="0.08"
-                                officialStatus="official_regional"/>
+            <languagePopulation type="kha" writingPercent="29" populationPercent="0.08" officialStatus="official_regional"/>
             <languagePopulation type="kfr" populationPercent="0.075"/>
             <languagePopulation type="grt" populationPercent="0.053"/>
             <languagePopulation type="unx" populationPercent="0.048"/>
@@ -3383,311 +3375,310 @@
         <territory type="ZZ" gdp="0" literacyPercent="0" population="0">
         </territory>
     </territoryInfo>
-    <calendarData>
-        <calendar type="gregorian">
-            <calendarSystem type="solar"/>
-            <eras>
-                <era type="0" end="0"/>
-                <era type="1" start="1"/>
-            </eras>
-        </calendar>
+       <calendarData>
+           <calendar type="gregorian">
+              <calendarSystem type="solar" />
+              <eras>
+                  <era type="0" end="0" />
+                  <era type="1" start="1" />
+              </eras>
+           </calendar>
         <calendar type="japanese">
-            <calendarSystem type="solar"/>
-            <eras>
-                <era type="0" start="645-6-19"/>
-                <era type="1" start="650-2-15"/>
-                <era type="2" start="672-1-1"/>
-                <era type="3" start="686-7-20"/>
-                <era type="4" start="701-3-21"/>
-                <era type="5" start="704-5-10"/>
-                <era type="6" start="708-1-11"/>
-                <era type="7" start="715-9-2"/>
-                <era type="8" start="717-11-17"/>
-                <era type="9" start="724-2-4"/>
-                <era type="10" start="729-8-5"/>
-                <era type="11" start="749-4-14"/>
-                <era type="12" start="749-7-2"/>
-                <era type="13" start="757-8-18"/>
-                <era type="14" start="765-1-7"/>
-                <era type="15" start="767-8-16"/>
-                <era type="16" start="770-10-1"/>
-                <era type="17" start="781-1-1"/>
-                <era type="18" start="782-8-19"/>
-                <era type="19" start="806-5-18"/>
-                <era type="20" start="810-9-19"/>
-                <era type="21" start="824-1-5"/>
-                <era type="22" start="834-1-3"/>
-                <era type="23" start="848-6-13"/>
-                <era type="24" start="851-4-28"/>
-                <era type="25" start="854-11-30"/>
-                <era type="26" start="857-2-21"/>
-                <era type="27" start="859-4-15"/>
-                <era type="28" start="877-4-16"/>
-                <era type="29" start="885-2-21"/>
-                <era type="30" start="889-4-27"/>
-                <era type="31" start="898-4-26"/>
-                <era type="32" start="901-7-15"/>
-                <era type="33" start="923-4-11"/>
-                <era type="34" start="931-4-26"/>
-                <era type="35" start="938-5-22"/>
-                <era type="36" start="947-4-22"/>
-                <era type="37" start="957-10-27"/>
-                <era type="38" start="961-2-16"/>
-                <era type="39" start="964-7-10"/>
-                <era type="40" start="968-8-13"/>
-                <era type="41" start="970-3-25"/>
-                <era type="42" start="973-12-20"/>
-                <era type="43" start="976-7-13"/>
-                <era type="44" start="978-11-29"/>
-                <era type="45" start="983-4-15"/>
-                <era type="46" start="985-4-27"/>
-                <era type="47" start="987-4-5"/>
-                <era type="48" start="989-8-8"/>
-                <era type="49" start="990-11-7"/>
-                <era type="50" start="995-2-22"/>
-                <era type="51" start="999-1-13"/>
-                <era type="52" start="1004-7-20"/>
-                <era type="53" start="1012-12-25"/>
-                <era type="54" start="1017-4-23"/>
-                <era type="55" start="1021-2-2"/>
-                <era type="56" start="1024-7-13"/>
-                <era type="57" start="1028-7-25"/>
-                <era type="58" start="1037-4-21"/>
-                <era type="59" start="1040-11-10"/>
-                <era type="60" start="1044-11-24"/>
-                <era type="61" start="1046-4-14"/>
-                <era type="62" start="1053-1-11"/>
-                <era type="63" start="1058-8-29"/>
-                <era type="64" start="1065-8-2"/>
-                <era type="65" start="1069-4-13"/>
-                <era type="66" start="1074-8-23"/>
-                <era type="67" start="1077-11-17"/>
-                <era type="68" start="1081-2-10"/>
-                <era type="69" start="1084-2-7"/>
-                <era type="70" start="1087-4-7"/>
-                <era type="71" start="1094-12-15"/>
-                <era type="72" start="1096-12-17"/>
-                <era type="73" start="1097-11-21"/>
-                <era type="74" start="1099-8-28"/>
-                <era type="75" start="1104-2-10"/>
-                <era type="76" start="1106-4-9"/>
-                <era type="77" start="1108-8-3"/>
-                <era type="78" start="1110-7-13"/>
-                <era type="79" start="1113-7-13"/>
-                <era type="80" start="1118-4-3"/>
-                <era type="81" start="1120-4-10"/>
-                <era type="82" start="1124-4-3"/>
-                <era type="83" start="1126-1-22"/>
-                <era type="84" start="1131-1-29"/>
-                <era type="85" start="1132-8-11"/>
-                <era type="86" start="1135-4-27"/>
-                <era type="87" start="1141-7-10"/>
-                <era type="88" start="1142-4-28"/>
-                <era type="89" start="1144-2-23"/>
-                <era type="90" start="1145-7-22"/>
-                <era type="91" start="1151-1-26"/>
-                <era type="92" start="1154-10-28"/>
-                <era type="93" start="1156-4-27"/>
-                <era type="94" start="1159-4-20"/>
-                <era type="95" start="1160-1-10"/>
-                <era type="96" start="1161-9-4"/>
-                <era type="97" start="1163-3-29"/>
-                <era type="98" start="1165-6-5"/>
-                <era type="99" start="1166-8-27"/>
-                <era type="100" start="1169-4-8"/>
-                <era type="101" start="1171-4-21"/>
-                <era type="102" start="1175-7-28"/>
-                <era type="103" start="1177-8-4"/>
-                <era type="104" start="1181-7-14"/>
-                <era type="105" start="1182-5-27"/>
-                <era type="106" start="1184-4-16"/>
-                <era type="107" start="1185-8-14"/>
-                <era type="108" start="1190-4-11"/>
-                <era type="109" start="1199-4-27"/>
-                <era type="110" start="1201-2-13"/>
-                <era type="111" start="1204-2-20"/>
-                <era type="112" start="1206-4-27"/>
-                <era type="113" start="1207-10-25"/>
-                <era type="114" start="1211-3-9"/>
-                <era type="115" start="1213-12-6"/>
-                <era type="116" start="1219-4-12"/>
-                <era type="117" start="1222-4-13"/>
-                <era type="118" start="1224-11-20"/>
-                <era type="119" start="1225-4-20"/>
-                <era type="120" start="1227-12-10"/>
-                <era type="121" start="1229-3-5"/>
-                <era type="122" start="1232-4-2"/>
-                <era type="123" start="1233-4-15"/>
-                <era type="124" start="1234-11-5"/>
-                <era type="125" start="1235-9-19"/>
-                <era type="126" start="1238-11-23"/>
-                <era type="127" start="1239-2-7"/>
-                <era type="128" start="1240-7-16"/>
-                <era type="129" start="1243-2-26"/>
-                <era type="130" start="1247-2-28"/>
-                <era type="131" start="1249-3-18"/>
-                <era type="132" start="1256-10-5"/>
-                <era type="133" start="1257-3-14"/>
-                <era type="134" start="1259-3-26"/>
-                <era type="135" start="1260-4-13"/>
-                <era type="136" start="1261-2-20"/>
-                <era type="137" start="1264-2-28"/>
-                <era type="138" start="1275-4-25"/>
-                <era type="139" start="1278-2-29"/>
-                <era type="140" start="1288-4-28"/>
-                <era type="141" start="1293-8-55"/>
-                <era type="142" start="1299-4-25"/>
-                <era type="143" start="1302-11-21"/>
-                <era type="144" start="1303-8-5"/>
-                <era type="145" start="1306-12-14"/>
-                <era type="146" start="1308-10-9"/>
-                <era type="147" start="1311-4-28"/>
-                <era type="148" start="1312-3-20"/>
-                <era type="149" start="1317-2-3"/>
-                <era type="150" start="1319-4-28"/>
-                <era type="151" start="1321-2-23"/>
-                <era type="152" start="1324-12-9"/>
-                <era type="153" start="1326-4-26"/>
-                <era type="154" start="1329-8-29"/>
-                <era type="155" start="1331-8-9"/>
-                <era type="156" start="1334-1-29"/>
-                <era type="157" start="1336-2-29"/>
-                <era type="158" start="1340-4-28"/>
-                <era type="159" start="1346-12-8"/>
-                <era type="160" start="1370-7-24"/>
-                <era type="161" start="1372-4-1"/>
-                <era type="162" start="1375-5-27"/>
-                <era type="163" start="1379-3-22"/>
-                <era type="164" start="1381-2-10"/>
-                <era type="165" start="1384-4-28"/>
-                <era type="166" start="1384-2-27"/>
-                <era type="167" start="1387-8-23"/>
-                <era type="168" start="1389-2-9"/>
-                <era type="169" start="1390-3-26"/>
-                <era type="170" start="1394-7-5"/>
-                <era type="171" start="1428-4-27"/>
-                <era type="172" start="1429-9-5"/>
-                <era type="173" start="1441-2-17"/>
-                <era type="174" start="1444-2-5"/>
-                <era type="175" start="1449-7-28"/>
-                <era type="176" start="1452-7-25"/>
-                <era type="177" start="1455-7-25"/>
-                <era type="178" start="1457-9-28"/>
-                <era type="179" start="1460-12-21"/>
-                <era type="180" start="1466-2-28"/>
-                <era type="181" start="1467-3-3"/>
-                <era type="182" start="1469-4-28"/>
-                <era type="183" start="1487-7-29"/>
-                <era type="184" start="1489-8-21"/>
-                <era type="185" start="1492-7-19"/>
-                <era type="186" start="1501-2-29"/>
-                <era type="187" start="1504-2-30"/>
-                <era type="188" start="1521-8-23"/>
-                <era type="189" start="1528-8-20"/>
-                <era type="190" start="1532-7-29"/>
-                <era type="191" start="1555-10-23"/>
-                <era type="192" start="1558-2-28"/>
-                <era type="193" start="1570-4-23"/>
-                <era type="194" start="1573-7-28"/>
-                <era type="195" start="1592-12-8"/>
-                <era type="196" start="1596-10-27"/>
-                <era type="197" start="1615-7-13"/>
-                <era type="198" start="1624-2-30"/>
-                <era type="199" start="1644-12-16"/>
-                <era type="200" start="1648-2-15"/>
-                <era type="201" start="1652-9-18"/>
-                <era type="202" start="1655-4-13"/>
-                <era type="203" start="1658-7-23"/>
-                <era type="204" start="1661-4-25"/>
-                <era type="205" start="1673-9-21"/>
-                <era type="206" start="1681-9-29"/>
-                <era type="207" start="1684-2-21"/>
-                <era type="208" start="1688-9-30"/>
-                <era type="209" start="1704-3-13"/>
-                <era type="210" start="1711-4-25"/>
-                <era type="211" start="1716-6-22"/>
-                <era type="212" start="1736-4-28"/>
-                <era type="213" start="1741-2-27"/>
-                <era type="214" start="1744-2-21"/>
-                <era type="215" start="1748-7-12"/>
-                <era type="216" start="1751-10-27"/>
-                <era type="217" start="1764-6-2"/>
-                <era type="218" start="1772-11-16"/>
-                <era type="219" start="1781-4-2"/>
-                <era type="220" start="1789-1-25"/>
-                <era type="221" start="1801-2-5"/>
-                <era type="222" start="1804-2-11"/>
-                <era type="223" start="1818-4-22"/>
-                <era type="224" start="1830-12-10"/>
-                <era type="225" start="1844-12-2"/>
-                <era type="226" start="1848-2-28"/>
-                <era type="227" start="1854-11-27"/>
-                <era type="228" start="1860-3-18"/>
-                <era type="229" start="1861-2-19"/>
-                <era type="230" start="1864-2-20"/>
-                <era type="231" start="1865-4-7"/>
-                <era type="232" start="1868-9-8"/>
-                <era type="233" start="1912-7-30"/>
-                <era type="234" start="1926-12-25"/>
-                <era type="235" start="1989-1-8"/>
-            </eras>
+          <calendarSystem type="solar" />
+          <eras>
+              <era type="0" start="645-6-19"/>
+              <era type="1" start="650-2-15"/>
+              <era type="2" start="672-1-1"/>
+              <era type="3" start="686-7-20"/>
+              <era type="4" start="701-3-21"/>
+              <era type="5" start="704-5-10"/>
+              <era type="6" start="708-1-11"/>
+              <era type="7" start="715-9-2"/>
+              <era type="8" start="717-11-17"/>
+              <era type="9" start="724-2-4"/>
+              <era type="10" start="729-8-5"/>
+              <era type="11" start="749-4-14"/>
+              <era type="12" start="749-7-2"/>
+              <era type="13" start="757-8-18"/>
+              <era type="14" start="765-1-7"/>
+              <era type="15" start="767-8-16"/>
+              <era type="16" start="770-10-1"/>
+              <era type="17" start="781-1-1"/>
+              <era type="18" start="782-8-19"/>
+              <era type="19" start="806-5-18"/>
+              <era type="20" start="810-9-19"/>
+              <era type="21" start="824-1-5"/>
+              <era type="22" start="834-1-3"/>
+              <era type="23" start="848-6-13"/>
+              <era type="24" start="851-4-28"/>
+              <era type="25" start="854-11-30"/>
+              <era type="26" start="857-2-21"/>
+              <era type="27" start="859-4-15"/>
+              <era type="28" start="877-4-16"/>
+              <era type="29" start="885-2-21"/>
+              <era type="30" start="889-4-27"/>
+              <era type="31" start="898-4-26"/>
+              <era type="32" start="901-7-15"/>
+              <era type="33" start="923-4-11"/>
+              <era type="34" start="931-4-26"/>
+              <era type="35" start="938-5-22"/>
+              <era type="36" start="947-4-22"/>
+              <era type="37" start="957-10-27"/>
+              <era type="38" start="961-2-16"/>
+              <era type="39" start="964-7-10"/>
+              <era type="40" start="968-8-13"/>
+              <era type="41" start="970-3-25"/>
+              <era type="42" start="973-12-20"/>
+              <era type="43" start="976-7-13"/>
+              <era type="44" start="978-11-29"/>
+              <era type="45" start="983-4-15"/>
+              <era type="46" start="985-4-27"/>
+              <era type="47" start="987-4-5"/>
+              <era type="48" start="989-8-8"/>
+              <era type="49" start="990-11-7"/>
+              <era type="50" start="995-2-22"/>
+              <era type="51" start="999-1-13"/>
+              <era type="52" start="1004-7-20"/>
+              <era type="53" start="1012-12-25"/>
+              <era type="54" start="1017-4-23"/>
+              <era type="55" start="1021-2-2"/>
+              <era type="56" start="1024-7-13"/>
+              <era type="57" start="1028-7-25"/>
+              <era type="58" start="1037-4-21"/>
+              <era type="59" start="1040-11-10"/>
+              <era type="60" start="1044-11-24"/>
+              <era type="61" start="1046-4-14"/>
+              <era type="62" start="1053-1-11"/>
+              <era type="63" start="1058-8-29"/>
+              <era type="64" start="1065-8-2"/>
+              <era type="65" start="1069-4-13"/>
+              <era type="66" start="1074-8-23"/>
+              <era type="67" start="1077-11-17"/>
+              <era type="68" start="1081-2-10"/>
+              <era type="69" start="1084-2-7"/>
+              <era type="70" start="1087-4-7"/>
+              <era type="71" start="1094-12-15"/>
+              <era type="72" start="1096-12-17"/>
+              <era type="73" start="1097-11-21"/>
+              <era type="74" start="1099-8-28"/>
+              <era type="75" start="1104-2-10"/>
+              <era type="76" start="1106-4-9"/>
+              <era type="77" start="1108-8-3"/>
+              <era type="78" start="1110-7-13"/>
+              <era type="79" start="1113-7-13"/>
+              <era type="80" start="1118-4-3"/>
+              <era type="81" start="1120-4-10"/>
+              <era type="82" start="1124-4-3"/>
+              <era type="83" start="1126-1-22"/>
+              <era type="84" start="1131-1-29"/>
+              <era type="85" start="1132-8-11"/>
+              <era type="86" start="1135-4-27"/>
+              <era type="87" start="1141-7-10"/>
+              <era type="88" start="1142-4-28"/>
+              <era type="89" start="1144-2-23"/>
+              <era type="90" start="1145-7-22"/>
+              <era type="91" start="1151-1-26"/>
+              <era type="92" start="1154-10-28"/>
+              <era type="93" start="1156-4-27"/>
+              <era type="94" start="1159-4-20"/>
+              <era type="95" start="1160-1-10"/>
+              <era type="96" start="1161-9-4"/>
+              <era type="97" start="1163-3-29"/>
+              <era type="98" start="1165-6-5"/>
+              <era type="99" start="1166-8-27"/>
+              <era type="100" start="1169-4-8"/>
+              <era type="101" start="1171-4-21"/>
+              <era type="102" start="1175-7-28"/>
+              <era type="103" start="1177-8-4"/>
+              <era type="104" start="1181-7-14"/>
+              <era type="105" start="1182-5-27"/>
+              <era type="106" start="1184-4-16"/>
+              <era type="107" start="1185-8-14"/>
+              <era type="108" start="1190-4-11"/>
+              <era type="109" start="1199-4-27"/>
+              <era type="110" start="1201-2-13"/>
+              <era type="111" start="1204-2-20"/>
+              <era type="112" start="1206-4-27"/>
+              <era type="113" start="1207-10-25"/>
+              <era type="114" start="1211-3-9"/>
+              <era type="115" start="1213-12-6"/>
+              <era type="116" start="1219-4-12"/>
+              <era type="117" start="1222-4-13"/>
+              <era type="118" start="1224-11-20"/>
+              <era type="119" start="1225-4-20"/>
+              <era type="120" start="1227-12-10"/>
+              <era type="121" start="1229-3-5"/>
+              <era type="122" start="1232-4-2"/>
+              <era type="123" start="1233-4-15"/>
+              <era type="124" start="1234-11-5"/>
+              <era type="125" start="1235-9-19"/>
+              <era type="126" start="1238-11-23"/>
+              <era type="127" start="1239-2-7"/>
+              <era type="128" start="1240-7-16"/>
+              <era type="129" start="1243-2-26"/>
+              <era type="130" start="1247-2-28"/>
+              <era type="131" start="1249-3-18"/>
+              <era type="132" start="1256-10-5"/>
+              <era type="133" start="1257-3-14"/>
+              <era type="134" start="1259-3-26"/>
+              <era type="135" start="1260-4-13"/>
+              <era type="136" start="1261-2-20"/>
+              <era type="137" start="1264-2-28"/>
+              <era type="138" start="1275-4-25"/>
+              <era type="139" start="1278-2-29"/>
+              <era type="140" start="1288-4-28"/>
+              <era type="141" start="1293-8-55"/>
+              <era type="142" start="1299-4-25"/>
+              <era type="143" start="1302-11-21"/>
+              <era type="144" start="1303-8-5"/>
+              <era type="145" start="1306-12-14"/>
+              <era type="146" start="1308-10-9"/>
+              <era type="147" start="1311-4-28"/>
+              <era type="148" start="1312-3-20"/>
+              <era type="149" start="1317-2-3"/>
+              <era type="150" start="1319-4-28"/>
+              <era type="151" start="1321-2-23"/>
+              <era type="152" start="1324-12-9"/>
+              <era type="153" start="1326-4-26"/>
+              <era type="154" start="1329-8-29"/>
+              <era type="155" start="1331-8-9"/>
+              <era type="156" start="1334-1-29"/>
+              <era type="157" start="1336-2-29"/>
+              <era type="158" start="1340-4-28"/>
+              <era type="159" start="1346-12-8"/>
+              <era type="160" start="1370-7-24"/>
+              <era type="161" start="1372-4-1"/>
+              <era type="162" start="1375-5-27"/>
+              <era type="163" start="1379-3-22"/>
+              <era type="164" start="1381-2-10"/>
+              <era type="165" start="1384-4-28"/>
+              <era type="166" start="1384-2-27"/>
+              <era type="167" start="1387-8-23"/>
+              <era type="168" start="1389-2-9"/>
+              <era type="169" start="1390-3-26"/>
+              <era type="170" start="1394-7-5"/>
+              <era type="171" start="1428-4-27"/>
+              <era type="172" start="1429-9-5"/>
+              <era type="173" start="1441-2-17"/>
+              <era type="174" start="1444-2-5"/>
+              <era type="175" start="1449-7-28"/>
+              <era type="176" start="1452-7-25"/>
+              <era type="177" start="1455-7-25"/>
+              <era type="178" start="1457-9-28"/>
+              <era type="179" start="1460-12-21"/>
+              <era type="180" start="1466-2-28"/>
+              <era type="181" start="1467-3-3"/>
+              <era type="182" start="1469-4-28"/>
+              <era type="183" start="1487-7-29"/>
+              <era type="184" start="1489-8-21"/>
+              <era type="185" start="1492-7-19"/>
+              <era type="186" start="1501-2-29"/>
+              <era type="187" start="1504-2-30"/>
+              <era type="188" start="1521-8-23"/>
+              <era type="189" start="1528-8-20"/>
+              <era type="190" start="1532-7-29"/>
+              <era type="191" start="1555-10-23"/>
+              <era type="192" start="1558-2-28"/>
+              <era type="193" start="1570-4-23"/>
+              <era type="194" start="1573-7-28"/>
+              <era type="195" start="1592-12-8"/>
+              <era type="196" start="1596-10-27"/>
+              <era type="197" start="1615-7-13"/>
+              <era type="198" start="1624-2-30"/>
+              <era type="199" start="1644-12-16"/>
+              <era type="200" start="1648-2-15"/>
+              <era type="201" start="1652-9-18"/>
+              <era type="202" start="1655-4-13"/>
+              <era type="203" start="1658-7-23"/>
+              <era type="204" start="1661-4-25"/>
+              <era type="205" start="1673-9-21"/>
+              <era type="206" start="1681-9-29"/>
+              <era type="207" start="1684-2-21"/>
+              <era type="208" start="1688-9-30"/>
+              <era type="209" start="1704-3-13"/>
+              <era type="210" start="1711-4-25"/>
+              <era type="211" start="1716-6-22"/>
+              <era type="212" start="1736-4-28"/>
+              <era type="213" start="1741-2-27"/>
+              <era type="214" start="1744-2-21"/>
+              <era type="215" start="1748-7-12"/>
+              <era type="216" start="1751-10-27"/>
+              <era type="217" start="1764-6-2"/>
+              <era type="218" start="1772-11-16"/>
+              <era type="219" start="1781-4-2"/>
+              <era type="220" start="1789-1-25"/>
+              <era type="221" start="1801-2-5"/>
+              <era type="222" start="1804-2-11"/>
+              <era type="223" start="1818-4-22"/>
+              <era type="224" start="1830-12-10"/>
+              <era type="225" start="1844-12-2"/>
+              <era type="226" start="1848-2-28"/>
+              <era type="227" start="1854-11-27"/>
+              <era type="228" start="1860-3-18"/>
+              <era type="229" start="1861-2-19"/>
+              <era type="230" start="1864-2-20"/>
+              <era type="231" start="1865-4-7"/>
+              <era type="232" start="1868-9-8"/>
+              <era type="233" start="1912-7-30"/>
+              <era type="234" start="1926-12-25"/>
+              <era type="235" start="1989-1-8"/>
+          </eras>
         </calendar>
         <calendar type="islamic-civil">
-            <calendarSystem type="lunar"/>
-            <eras>
-                <era type="0" start="622-7-15"/>
-            </eras>
+          <calendarSystem type="lunar" />
+          <eras>
+              <era type="0" start="622-7-15"/>
+          </eras>
         </calendar>
         <calendar type="islamic">
-            <calendarSystem type="lunar"/>
-            <eras>
-                <era type="0" start="622-7-15"/>
-            </eras>
+          <calendarSystem type="lunar" />
+          <eras>
+              <era type="0" start="622-7-15"/>
+          </eras>
         </calendar>
         <calendar type="chinese">
-            <calendarSystem type="lunisolar"/>
-            <eras>
-                <era type="0" start="-2636"/>
-            </eras>
+          <calendarSystem type="lunisolar"/>
+          <eras>
+              <era type="0" start="-2636"/>
+          </eras>
         </calendar>
         <calendar type="hebrew">
-            <calendarSystem type="lunisolar"/>
-            <eras>
-                <era type="0" start="-3760-10-7"/>
-            </eras>
+          <calendarSystem type="lunisolar"/>
+          <eras>
+              <era type="0" start="-3760-10-7"/>
+          </eras>
         </calendar>
         <calendar type="buddhist">
-            <calendarSystem type="solar"/>
-            <eras>
-                <era type="0" start="-542"/>
-            </eras>
+          <calendarSystem type="solar" />
+          <eras>
+              <era type="0" start="-542"/>
+          </eras>
         </calendar>
         <calendar type="coptic"/>
         <calendar type="persian">
-            <calendarSystem type="solar"/>
-            <eras>
-                <era type="0" start="622"/>
-            </eras>
+          <calendarSystem type="solar"/>
+          <eras>
+              <era type="0" start="622"/>
+          </eras>
         </calendar>
         <calendar type="ethiopic"/>
         <calendar type="indian">
-            <eras>
-                <era type="0" start="79"/>
-            </eras>
+          <eras>
+              <era type="0" start="79"/>
+          </eras>
         </calendar>
         <calendar type="roc">
-            <eras>
-                <era type="0" end="1911"/>
-                <era type="1" start="1912"/>
-            </eras>
+          <eras>
+              <era type="0" end="1911"/>
+              <era type="1" start="1912"/>
+          </eras>
         </calendar>
 
     </calendarData>
 
     <calendarPreferenceData>
         <calendarPreference territories="001" ordering="gregorian"/>
-        <calendarPreference territories="AE BH DJ DZ EH ER IQ JO KM KW LB LY MA MR OM PS QA SA SD SY TD TN YE"
-                            ordering="gregorian islamic islamic-civil"/>
+        <calendarPreference territories="AE BH DJ DZ EH ER IQ JO KM KW LB LY MA MR OM PS QA SA SD SY TD TN YE" ordering="gregorian islamic islamic-civil"/>
         <calendarPreference territories="AF IR" ordering="gregorian persian islamic islamic-civil"/>
         <calendarPreference territories="CN CX HK MO SG" ordering="gregorian chinese"/>
         <calendarPreference territories="EG" ordering="gregorian coptic islamic islamic-civil"/>
@@ -3700,29 +3691,28 @@
     </calendarPreferenceData>
 
     <weekData>
-        <minDays count="4" territories="001"/>
+          <minDays count="4" territories="001" />
 
-        <firstDay day="mon" territories="001"/>
-        <firstDay day="fri" territories="MV"/>
-        <firstDay day="sat" territories="AF BH DJ DZ EG ER ET IQ IR JO KE KW LY MA OM QA SA SD SO TN YE"/>
-        <firstDay day="sun"
-                  territories="AS AZ BW CA CN FO GE GL GU HK IE IL IN IS JM JP KG KR LA MH MN MO MP MT NZ PH PK SG SY TH TT TW UM US UZ VI ZW"/>
+          <firstDay day="mon"  territories="001" />
+          <firstDay day="fri"  territories="MV" />
+          <firstDay day="sat"  territories="AF BH DJ DZ EG ER ET IQ IR JO KE KW LY MA OM QA SA SD SO TN YE" />
+          <firstDay day="sun"  territories="AS AZ BW CA CN FO GE GL GU HK IE IL IN IS JM JP KG KR LA MH MN MO MP MT NZ PH PK SG SY TH TT TW UM US UZ VI ZW" />
 
-        <weekendStart day="thu" territories="DZ KW OM SA SD YE AF IR"/>
-        <weekendStart day="fri" territories="AE BH EG IL IQ JO LY MA QA SY TN"/>
-        <weekendStart day="sat" territories="001"/>
-        <weekendStart day="sun" territories="IN"/>
+          <weekendStart day="thu"  territories="DZ KW OM SA SD YE AF IR"/>
+          <weekendStart day="fri"  territories="AE BH EG IL IQ JO LY MA QA SY TN"/>
+          <weekendStart day="sat"  territories="001"/>
+          <weekendStart day="sun"  territories="IN"/>
 
-        <weekendEnd day="fri" territories="DZ KW OM SA SD YE AF IR"/>
-        <weekendEnd day="sat" territories="AE BH EG IL IQ JO LY MA QA SY TN"/>
-        <weekendEnd day="sun" territories="001"/>
+          <weekendEnd day="fri"  territories="DZ KW OM SA SD YE AF IR"/>
+          <weekendEnd day="sat"  territories="AE BH EG IL IQ JO LY MA QA SY TN"/>
+          <weekendEnd day="sun"  territories="001"/>
     </weekData>
 
     <measurementData>
-        <measurementSystem type="metric" territories="001"/>
-        <measurementSystem type="US" territories="LR MM US"/>
-        <paperSize type="A4" territories="001"/>
-        <paperSize type="US-Letter" territories="CA CL CO MX PH PR US VE"/>
+          <measurementSystem type="metric"  territories="001"/>
+          <measurementSystem type="US"  territories="LR MM US"/>
+          <paperSize type="A4"  territories="001"/>
+          <paperSize type="US-Letter"  territories="CA CL CO MX PH PR US VE"/>
     </measurementData>
     <timezoneData>
         <mapTimezones type="windows">
@@ -4141,8 +4131,7 @@
             <mapZone other="Yerevan" territory="001" type="Asia/Yerevan"/>
             <mapZone other="Yukon" territory="001" type="America/Yakutat"/>
         </mapTimezones>
-        <zoneFormatting multizone="001 AQ AR AU BR CA CD CL CN EC ES FM GL ID KI KZ MH MN MX MY NZ PF PT RU UA UM US UZ"
-                        tzidVersion="2009f">
+        <zoneFormatting multizone="001 AQ AR AU BR CA CD CL CN EC ES FM GL ID KI KZ MH MN MX MY NZ PF PT RU UA UM US UZ" tzidVersion="2009f">
             <zoneItem type="Africa/Abidjan" territory="CI"/>
             <zoneItem type="Africa/Accra" territory="GH"/>
             <zoneItem type="Africa/Addis_Ababa" territory="ET"/>
@@ -4221,8 +4210,7 @@
             <zoneItem type="America/Campo_Grande" territory="BR"/>
             <zoneItem type="America/Cancun" territory="MX"/>
             <zoneItem type="America/Caracas" territory="VE"/>
-            <zoneItem type="America/Catamarca" territory="AR"
-                      aliases="America/Argentina/Catamarca America/Argentina/ComodRivadavia"/>
+            <zoneItem type="America/Catamarca" territory="AR" aliases="America/Argentina/Catamarca America/Argentina/ComodRivadavia"/>
             <zoneItem type="America/Cayenne" territory="GF"/>
             <zoneItem type="America/Cayman" territory="KY"/>
             <zoneItem type="America/Chicago" territory="US" aliases="CST6CDT SystemV/CST6CDT US/Central"/>
@@ -4261,8 +4249,7 @@
             <zoneItem type="America/Indiana/Vevay" territory="US"/>
             <zoneItem type="America/Indiana/Vincennes" territory="US"/>
             <zoneItem type="America/Indiana/Winamac" territory="US"/>
-            <zoneItem type="America/Indianapolis" territory="US"
-                      aliases="America/Fort_Wayne America/Indiana/Indianapolis US/East-Indiana"/>
+            <zoneItem type="America/Indianapolis" territory="US" aliases="America/Fort_Wayne America/Indiana/Indianapolis US/East-Indiana"/>
             <zoneItem type="America/Inuvik" territory="CA"/>
             <zoneItem type="America/Iqaluit" territory="CA"/>
             <zoneItem type="America/Jamaica" territory="JM" aliases="Jamaica"/>
@@ -4271,8 +4258,7 @@
             <zoneItem type="America/Kentucky/Monticello" territory="US"/>
             <zoneItem type="America/La_Paz" territory="BO"/>
             <zoneItem type="America/Lima" territory="PE"/>
-            <zoneItem type="America/Los_Angeles" territory="US"
-                      aliases="PST8PDT SystemV/PST8PDT US/Pacific US/Pacific-New"/>
+            <zoneItem type="America/Los_Angeles" territory="US" aliases="PST8PDT SystemV/PST8PDT US/Pacific US/Pacific-New"/>
             <zoneItem type="America/Louisville" territory="US" aliases="America/Kentucky/Louisville"/>
             <zoneItem type="America/Maceio" territory="BR"/>
             <zoneItem type="America/Managua" territory="NI"/>
@@ -4443,8 +4429,7 @@
             <zoneItem type="Australia/Melbourne" territory="AU" aliases="Australia/Victoria"/>
             <zoneItem type="Australia/Perth" territory="AU" aliases="Australia/West"/>
             <zoneItem type="Australia/Sydney" territory="AU" aliases="Australia/ACT Australia/Canberra Australia/NSW"/>
-            <zoneItem type="Etc/GMT" territory="001"
-                      aliases="Etc/GMT+0 Etc/GMT-0 Etc/GMT0 Etc/Greenwich Etc/UCT Etc/UTC Etc/Universal Etc/Zulu GMT GMT+0 GMT-0 GMT0 Greenwich UCT UTC Universal Zulu"/>
+            <zoneItem type="Etc/GMT" territory="001" aliases="Etc/GMT+0 Etc/GMT-0 Etc/GMT0 Etc/Greenwich Etc/UCT Etc/UTC Etc/Universal Etc/Zulu GMT GMT+0 GMT-0 GMT0 Greenwich UCT UTC Universal Zulu"/>
             <zoneItem type="Etc/GMT-1" territory="001"/>
             <zoneItem type="Etc/GMT-2" territory="001"/>
             <zoneItem type="Etc/GMT-3" territory="001"/>
@@ -4876,8 +4861,7 @@
         <territoryCodes type="ZM" numeric="894" alpha3="ZMB" fips10="ZA"/>
         <territoryCodes type="ZR" numeric="180" alpha3="ZAR"/>
         <territoryCodes type="ZW" numeric="716" alpha3="ZWE" fips10="ZI"/>
-        <territoryCodes type="ZZ" numeric="999" alpha3="ZZZ"
-                        internet="AERO ARPA BIZ CAT COM COOP EDU GOV INFO INT JOBS MIL MOBI MUSEUM NAME NET ORG PRO TRAVEL"/>
+        <territoryCodes type="ZZ" numeric="999" alpha3="ZZZ" internet="AERO ARPA BIZ CAT COM COOP EDU GOV INFO INT JOBS MIL MOBI MUSEUM NAME NET ORG PRO TRAVEL"/>
     </codeMappings>
 
     <bcp47KeywordMappings>

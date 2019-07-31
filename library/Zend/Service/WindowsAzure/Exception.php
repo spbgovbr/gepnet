@@ -32,5 +32,4 @@ require_once 'Zend/Service/Exception.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Service_WindowsAzure_Exception extends Zend_Service_Exception
-{
-}
+{}

@@ -40,16 +40,16 @@ class Zend_InfoCard_Xml_Security_Transform_XmlExcC14N
     /**
      * Transform the input XML based on C14n XML Exclusive Canonicalization rules
      *
+     * @throws Zend_InfoCard_Xml_Security_Transform_Exception
      * @param string $strXMLData The input XML
      * @return string The output XML
-     * @throws Zend_InfoCard_Xml_Security_Transform_Exception
      */
     public function transform($strXMLData)
     {
         $dom = new DOMDocument();
         $dom->loadXML($strXMLData);
 
-        if (method_exists($dom, 'C14N')) {
+        if(method_exists($dom, 'C14N')) {
             return $dom->C14N(true, false);
         }
 

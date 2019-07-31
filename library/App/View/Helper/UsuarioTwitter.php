@@ -10,8 +10,7 @@
  * @author Aaron Bach <bachya1208[at]googlemail.com
  * @license Free to use - no strings.
  */
-class App_View_Helper_Usuario extends Zend_View_Helper_Abstract
-{
+class App_View_Helper_Usuario extends Zend_View_Helper_Abstract {
     //protected $template = '<span id="user_name">%s</span> | <a href="%s">sair</a>';
     protected $template = '<ul class="nav pull-right">
                             <li class="divider-vertical"></li>
@@ -28,28 +27,25 @@ class App_View_Helper_Usuario extends Zend_View_Helper_Abstract
                             </li>
                         </ul>';
     public $view;
-
+    
     public function setView(Zend_View_Interface $view)
     {
         $this->view = $view;
     }
-
-    public function usuario()
-    {
+    public function usuario() {
         $auth = Zend_Auth::getInstance();
-        if ($auth->hasIdentity()) {
-            $user = $auth->getIdentity();
-
-            $sg = explode('/', $user->SG_LOTACAO);
+        if($auth->hasIdentity()) {
+            $user = $auth->getIdentity(); 
+            
+            $sg = explode('/',$user->SG_LOTACAO);
             $sigla = $sg[0] . '-' . $user->SG_UF;
-
+            
             //Zend_Debug::dump($user);
-            return sprintf($this->template, $user->DS_LOTACAO, $sigla, $user->DS_USUARIO,
-                $this->view->url(array('module' => 'default', 'controller' => 'log', 'action' => 'out')));
+            return sprintf($this->template, $user->DS_LOTACAO, $sigla, $user->DS_USUARIO, $this->view->url(array('module' => 'default', 'controller' => 'log', 'action' => 'out')));
         }
-
+        
     }
-
+    
     /*
   ["CD_PESSOA"] => string(5) "20662"
   ["NR_NIVEL"] => string(1) "3"

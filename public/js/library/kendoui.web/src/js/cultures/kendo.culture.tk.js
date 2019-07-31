@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["tk"] = {
         name: "tk",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n%", "n%"],
+                pattern: ["-n%","n%"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n$", "n$"],
+                pattern: ["-n$","n$"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Duşenbe", "Sişenbe", "Çarşenbe", "Penşenbe", "Anna", "Şenbe", "Ýekşenbe"],
-                    namesAbbr: ["Db", "Sb", "Çb", "Pb", "An", "Şb", "Ýb"],
-                    namesShort: ["D", "S", "Ç", "P", "A", "Ş", "Ý"]
+                    names: ["Duşenbe","Sişenbe","Çarşenbe","Penşenbe","Anna","Şenbe","Ýekşenbe"],
+                    namesAbbr: ["Db","Sb","Çb","Pb","An","Şb","Ýb"],
+                    namesShort: ["D","S","Ç","P","A","Ş","Ý"]
                 },
                 months: {
-                    names: ["Ýanwar", "Fewral", "Mart", "Aprel", "Maý", "lýun", "lýul", "Awgust", "Sentýabr", "Oktýabr", "Noýabr", "Dekabr", ""],
-                    namesAbbr: ["Ýan", "Few", "Mart", "Apr", "Maý", "lýun", "lýul", "Awg", "Sen", "Okt", "Not", "Dek", ""]
+                    names: ["Ýanwar","Fewral","Mart","Aprel","Maý","lýun","lýul","Awgust","Sentýabr","Oktýabr","Noýabr","Dekabr",""],
+                    namesAbbr: ["Ýan","Few","Mart","Apr","Maý","lýun","lýul","Awg","Sen","Okt","Not","Dek",""]
                 },
                 AM: [""],
                 PM: [""],

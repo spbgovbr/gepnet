@@ -16,9 +16,6 @@ $frmAttr = $this->form->getAttribs();
     </div>
     <div class="row">
         <div class="span4">
-            <?php echo $this->form->idresponsavel; ?>
-        </div>
-        <div class="span4">
             <?php echo $this->form->idparteinteressada; ?>
         </div>
         <div class="span4 hidden container-nomresponsavel">
@@ -38,9 +35,5 @@ $frmAttr = $this->form->getAttribs();
             <?php echo $this->form->domtipoatividade; ?>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
-            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-        </div>
-    </div>
+
 </form>

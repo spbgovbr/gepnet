@@ -1,499 +1,66 @@
-$(function () {
-    vExcluir = true;
-    vRestaurar = true;
-    vClonar = true;
+$(function() {
+
     var
-        grid = null,
-        lastsel = null,
-        gridEnd = null,
-        colModel = null,
-        colNames = null,
-        actions = {
-            pesquisar: {
-                form: $("form#form-pesquisar"),
-                url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize()
-            },
-            detalhar: {
-                dialog: $('#dialog-detalhar')
-            },
-            editar: {
-                form: $("form#form-gerencia"),
-                url: base_url + '/projeto/gerencia/editar/format/json',
-                dialog: $('#dialog-editar')
-            },
-            configurar: {
-                form: $("form#form-configurar"),
-                url: base_url + '/projeto/gerencia/configurar/format/json',
-                dialog: $('#dialog-configurar')
-            },
-            arquivo: {
-                form: $("form#form-escritorio-arquivo"),
-                url: base_url + '/cadastro/escritorio/editar-arquivo/format/json',
-                dialog: $('#dialog-arquivo')
-            },
-            excluir: {
-                form: $("form#form-escritorio-excluir"),
-                url: base_url + '/cadastro/escritorio/excluir/format/json',
-                dialog: $('#dialog-excluir')
-            },
-            desbloquear: {
-                form: $("form#form-desbloqueio"),
-                url: base_url + '/projeto/gerencia/desbloquear/format/json',
-                dialog: $('#dialog-desbloquear')
-            },
-            clonarprojeto: {
-                form: $("form#form-clonarprojeto"),
-                url: base_url + '/projeto/gerencia/clonarprojeto/format/json',
-                dialog: $('#dialog-clonarprojeto')
-            },
-            excluirprojeto: {
-                form: $("form#form-excluirprojeto"),
-                url: base_url + '/projeto/gerencia/excluirprojeto/format/json',
-                dialog: $('#dialog-excluirprojeto')
-            },
-            restaurarprojeto: {
-                form: $("form#form-restaurarprojeto"),
-                url: base_url + '/projeto/gerencia/restaurarprojeto/format/json',
-                dialog: $('#dialog-restaurarprojeto')
-            },
-        };
+            grid = null,
+            lastsel = null,
+            gridEnd = null,
+            colModel = null,
+            colNames = null,
+            actions = {
+        pesquisar: {
+            form: $("form#form-pesquisar"),
+            url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize()
+        },
+        detalhar: {
+            dialog: $('#dialog-detalhar')
+        },
+        editar: {
+            form: $("form#form-gerencia"),
+            url: base_url + '/projeto/gerencia/editar/format/json',
+            dialog: $('#dialog-editar')
+        },
+        arquivo: {
+            form: $("form#form-escritorio-arquivo"),
+            url: base_url + '/cadastro/escritorio/editar-arquivo/format/json',
+            dialog: $('#dialog-arquivo')
+        },
+        excluir: {
+            form: $("form#form-escritorio-excluir"),
+            url: base_url + '/cadastro/escritorio/excluir/format/json',
+            dialog: $('#dialog-excluir')
+        },
+        desbloquear: {
+            form: $("form#form-desbloqueio"),
+            url: base_url + '/projeto/gerencia/desbloquear/format/json',
+            dialog: $('#dialog-desbloquear')
+        }
+    };
 
     $(".select2").select2();
 
+
+
+
+
     //Reset button
-    $("#resetbutton").click(function () {
+    $("#resetbutton").click(function() {
         //$('.container-importar').slideToggle();
         $(".select2").select2('data', null);
         $("#nomprograma").select2('data', null);
         $("#domstatusprojeto").select2('data', null);
         $("#idescritorio").select2('data', null);
-        $("#codobjetivo").select2('data', null);
-        $("#codacao").select2('data', null);
-        $('#codacao').children('option').remove();
-        //$('#codacao').append('<option value="0" selected>Todos</option>');
-        $("#acompanhamento").select2('data', null);
-        $("#nomprojeto").focus();
+//        $("#nomalinhamento").select2('data', null);
+//        $("#nomacao").select2('data', null);
+//        $("#nomnatureza").select2('data', null);
+
     });
-
-    if ($("#codobjetivo").val() == 0) {
-        $('#codacao').append('<option value="0">Todos</option>');
-        //console.log($('#codacao').options[0]);
-    }
-    $("#codobjetivo").change(function () {
-        $('#codacao').children('option').remove();
-        $.ajax({
-            url: base_url + "/projeto/gerencia/pesquisaracaojson",
-            dataType: 'json',
-            type: 'POST',
-            data: {
-                'idobjetivo': $(this).val(),
-            },
-            success: function (data) {
-                console.log(data);
-                $.each(data, function (key, value) {
-                    $('#codacao').append('<option value="' + key + '">' + value + '</option>');
-                });
-            },
-            error: function () {
-                $.pnotify({
-                    text: 'Não foi encontrado ações para o objetivo selecionado.',
-                    type: 'info',
-                    hide: true
-                });
-            }
-        });
-    });
-
-
-    /*xxxxxx CLONAR PROJETO xxxxxx*/
-    var options = {
-        url: actions.clonarprojeto.url,
-        dataType: 'json',
-        type: 'POST',
-        delegation: true,
-        success: function (data) {
-            if (typeof data.msg.text !== 'string') {
-                $.formErrors(data.msg.text);
-                return;
-            }
-            $.pnotify(data.msg);
-            if (data.success) {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-            }
-        }
-    };
-
-    actions.clonarprojeto.form.ajaxForm(options);
-
-    actions.clonarprojeto.dialog.dialog({
-        autoOpen: false,
-        title: 'Gerencia - Clonar Projeto',
-        width: '900px',
-        modal: true,
-        open: function (event, ui) {
-
-        },
-        close: function (event, ui) {
-            vClonar = true;
-            $('#dialog-clonarprojeto').parent().find("button").each(function () {
-                $(this).attr('disabled', false);
-            });
-            actions.clonarprojeto.dialog.empty();
-            grid.setGridParam({
-                url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                page: 1
-            }).trigger("reloadGrid");
-            resizeGrid();
-        },
-        buttons: {
-            'Clonar': function () {
-                if (vClonar) {
-                    vClonar = false;
-                    $('#dialog-clonarprojeto').parent().find("button").each(function () {
-                        $(this).attr('disabled', true);
-                    });
-                    $("form#form-clonarprojeto").validate();
-                    var form = $("form#form-clonarprojeto");
-                    form.validate();
-                    if (form.valid()) {
-
-                        $.ajax({
-                            url: actions.clonarprojeto.url,
-                            dataType: 'json',
-                            type: 'POST',
-                            data: {
-                                'idprojeto': form.parent().find('input#idprojeto').val(),
-                                'nomprojeto': form.parent().find('input#nomprojeto').val(),
-                                'idescritorio': form.parent().find('select#idescritorio').val(),
-                                'ano': form.parent().find('input#ano').val(),
-                            },
-                            success: function (data) {
-                                //console.log(data.status);
-                                if (data.status == 'error') {
-                                    $.pnotify({
-                                        text: 'Acesso Negado, este projeto não é público.',
-                                        type: 'error',
-                                        hide: false
-                                    });
-                                    $('#dialog-clonarprojeto').dialog('close');
-                                } else {
-                                    $.pnotify(data.msg);
-                                }
-
-                                if (data.success) {
-                                    grid.setGridParam({
-                                        url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                                        page: 1
-                                    }).trigger("reloadGrid");
-                                    resizeGrid();
-                                }
-                                $('#dialog-clonarprojeto').dialog('close');
-                            },
-                            error: function () {
-                                $('#dialog-clonarprojeto').dialog('close');
-
-                                $.pnotify({
-                                    text: 'Falha ao enviar a requisição',
-                                    type: 'error',
-                                    hide: false
-                                });
-                            }
-                        });
-                    } else {
-                        $('#dialog-clonarprojeto').parent().find("button").each(function () {
-                            $(this).attr('disabled', false);
-                        });
-                    }
-                }
-            },
-            'Fechar': function () {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $(document.body).on('click', "a.clonarprojeto", function (event) {
-        event.preventDefault();
-        var
-            $this = $(this),
-            $dialog = $($this.data('target'));
-
-        $.ajax({
-            url: $this.attr('href'),
-            dataType: 'html',
-            type: 'GET',
-            async: true,
-            cache: true,
-            processData: false,
-            success: function (data) {
-                actions.clonarprojeto.dialog.html(data).dialog('open');
-            },
-            error: function () {
-                $.pnotify({
-                    text: 'Falha ao enviar a requisição',
-                    type: 'error',
-                    hide: false
-                });
-            }
-        });
-        /**/
-    });
-    /*xxxxxx EXCLUIR PROJETO xxxxxx*/
-    var options = {
-        url: actions.excluirprojeto.url,
-        dataType: 'json',
-        type: 'POST',
-        delegation: true,
-        success: function (data) {
-            if (typeof data.msg.text !== 'string') {
-                $.formErrors(data.msg.text);
-                return;
-            }
-            $.pnotify(data.msg);
-            if (data.success) {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-            }
-        }
-    };
-
-    actions.excluirprojeto.form.ajaxForm(options);
-
-    actions.excluirprojeto.dialog.dialog({
-        autoOpen: false,
-        title: 'Gerencia - Excluir Projeto',
-        width: '800px',
-        modal: true,
-        open: function (event, ui) {
-
-        },
-        close: function (event, ui) {
-            vRestaurar = true;
-            $('#dialog-excluirprojeto').parent().find("button").each(function () {
-                $(this).attr('disabled', false);
-            });
-            actions.excluirprojeto.dialog.empty();
-            grid.setGridParam({
-                url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                page: 1
-            }).trigger("reloadGrid");
-            resizeGrid();
-        },
-        buttons: {
-            'Excluir': function () {
-                if (vRestaurar) {
-                    vRestaurar = false;
-                    $('#dialog-excluirprojeto').parent().find("button").each(function () {
-                        $(this).attr('disabled', true);
-                    });
-
-                    $.ajax({
-                        url: actions.excluirprojeto.url,
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'idprojeto': $('#idprojeto').val()
-                        },
-                        success: function (data) {
-                            $.pnotify(data.msg);
-                            if (data.success) {
-                                grid.setGridParam({
-                                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                                    page: 1
-                                }).trigger("reloadGrid");
-                                resizeGrid();
-                            }
-                            $('#dialog-excluirprojeto').dialog('close');
-                        },
-                        error: function () {
-                            $('#dialog-excluirprojeto').dialog('close');
-                            $.pnotify({
-                                text: 'Falha ao enviar a requisição',
-                                type: 'error',
-                                hide: false
-                            });
-                        }
-                    });
-                    /**/
-                }
-            },
-            'Fechar': function () {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $(document.body).on('click', "a.excluirprojeto", function (event) {
-        event.preventDefault();
-        var
-            $this = $(this),
-            $dialog = $($this.data('target'));
-
-        $.ajax({
-            url: $this.attr('href'),
-            dataType: 'html',
-            type: 'GET',
-            async: true,
-            cache: true,
-            processData: false,
-            success: function (data) {
-                actions.excluirprojeto.dialog.html(data).dialog('open');
-            },
-            error: function () {
-                $.pnotify({
-                    text: 'Falha ao enviar a requisição',
-                    type: 'error',
-                    hide: false
-                });
-            }
-        });
-        /**/
-    });
-
-    /*xxxxxx RECUPERAR PROJETO xxxxxx*/
-    var options = {
-        url: actions.restaurarprojeto.url,
-        dataType: 'json',
-        type: 'POST',
-        delegation: true,
-        success: function (data) {
-            if (typeof data.msg.text !== 'string') {
-                $.formErrors(data.msg.text);
-                return;
-            }
-            $.pnotify(data.msg);
-            if (data.success) {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-            }
-        }
-    };
-
-    actions.restaurarprojeto.form.ajaxForm(options);
-
-    actions.restaurarprojeto.dialog.dialog({
-        autoOpen: false,
-        title: 'Gerencia - Recuperar Projeto',
-        width: '800px',
-        modal: true,
-        open: function (event, ui) {
-
-        },
-        close: function (event, ui) {
-            vRestaurar = true;
-            $('#dialog-restaurarprojeto').parent().find("button").each(function () {
-                $(this).attr('disabled', false);
-            });
-            actions.restaurarprojeto.dialog.empty();
-            grid.setGridParam({
-                url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                page: 1
-            }).trigger("reloadGrid");
-            resizeGrid();
-        },
-        buttons: {
-            'Recuperar': function () {
-                if (vRestaurar) {
-                    vRestaurar = false;
-                    $('#dialog-restaurarprojeto').parent().find("button").each(function () {
-                        $(this).attr('disabled', true);
-                    });
-
-                    $.ajax({
-                        url: actions.restaurarprojeto.url,
-                        dataType: 'json',
-                        type: 'POST',
-                        data: {
-                            'idprojeto': $('#idprojeto').val()
-                        },
-                        success: function (data) {
-                            $.pnotify(data.msg);
-                            if (data.success) {
-                                grid.setGridParam({
-                                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                                    page: 1
-                                }).trigger("reloadGrid");
-                                resizeGrid();
-                            }
-                            $('#dialog-restaurarprojeto').dialog('close');
-                        },
-                        error: function () {
-                            $('#dialog-restaurarprojeto').dialog('close');
-                            $.pnotify({
-                                text: 'Falha ao enviar a requisição',
-                                type: 'error',
-                                hide: false
-                            });
-                        }
-                    });
-                    /**/
-                }
-            },
-            'Fechar': function () {
-                grid.setGridParam({
-                    url: base_url + "/projeto/gerencia/pesquisarjson?" + $("form#form-pesquisar").serialize(),
-                    page: 1
-                }).trigger("reloadGrid");
-                resizeGrid();
-                $(this).dialog('close');
-            }
-        }
-    });
-
-    $(document.body).on('click', "a.restaurarprojeto", function (event) {
-        event.preventDefault();
-        var
-            $this = $(this),
-            $dialog = $($this.data('target'));
-
-        $.ajax({
-            url: $this.attr('href'),
-            dataType: 'html',
-            type: 'GET',
-            async: true,
-            cache: true,
-            processData: false,
-            success: function (data) {
-                actions.restaurarprojeto.dialog.html(data).dialog('open');
-            },
-            error: function () {
-                $.pnotify({
-                    text: 'Falha ao enviar a requisição',
-                    type: 'error',
-                    hide: false
-                });
-            }
-        });
-        /**/
-    });
-
     /*xxxxxxxxxx EDITAR xxxxxxxxxx*/
     var options = {
         url: actions.editar.url,
         dataType: 'json',
         type: 'POST',
         delegation: true,
-        success: function (data) {
+        success: function(data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
@@ -512,28 +79,34 @@ $(function () {
         autoOpen: false,
         title: 'Gerencia - Editar',
         width: '800px',
-        modal: true,
-        open: function (event, ui) {
+        modal: false,
+        open: function(event, ui) {
 
         },
-        close: function (event, ui) {
+        close: function(event, ui) {
             actions.editar.dialog.empty();
         },
         buttons: {
-            'Salvar': function () {
+            'Salvar': function() {
+                //console.log('submit');
                 $('form#form-gerencia').submit();
+                //$('form#form-documento').submit();
+                //console.log(actions.editar.form);
+                //$formEditar.on('submit');
+                //$(actions.editar.form).trigger('submit');
+                //enviar_ajax(actions.editar.url, actions.editar.form );
             },
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.editar_", function (event) {
+    $(document.body).on('click', "a.editar_", function(event) {
         event.preventDefault();
         var
-            $this = $(this),
-            $dialog = $($this.data('target'));
+                $this = $(this),
+                $dialog = $($this.data('target'));
 
         $.ajax({
             url: $this.attr('href'),
@@ -542,7 +115,8 @@ $(function () {
             async: true,
             cache: true,
             processData: false,
-            success: function (data) {
+            success: function(data) {
+
 
                 actions.editar.dialog.html(data).dialog('open');
                 $("#idtipodocumento").select2();
@@ -554,7 +128,7 @@ $(function () {
                 $('form#form-gerencia').validate();
 
             },
-            error: function () {
+            error: function() {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -570,18 +144,18 @@ $(function () {
         autoOpen: false,
         title: 'Escritorio - Detalhar',
         width: '810px',
-        modal: true,
+        modal: false,
         buttons: {
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.detalhar", function (event) {
+    $(document.body).on('click', "a.detalhar", function(event) {
         //event.preventDefault();
         var
-            $this = $(this);
+                $this = $(this);
 
 //        $.ajax({
 //            url: $this.attr('href'),
@@ -611,7 +185,7 @@ $(function () {
         dataType: 'json',
         type: 'POST',
         delegation: true,
-        success: function (data) {
+        success: function(data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
@@ -630,29 +204,29 @@ $(function () {
         autoOpen: false,
         title: 'Documento - Editar arquivo',
         width: '800px',
-        modal: true,
-        open: function (event, ui) {
+        modal: false,
+        open: function(event, ui) {
 
         },
-        close: function (event, ui) {
+        close: function(event, ui) {
             actions.arquivo.dialog.empty();
         },
         buttons: {
-            'Salvar': function () {
+            'Salvar': function() {
                 console.log('submit');
                 $('form#form-documento-arquivo').submit();
             },
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.arquivo, a.btn_editar", function (event) {
+    $(document.body).on('click', "a.arquivo, a.btn_editar", function(event) {
         event.preventDefault();
         var
-            $this = $(this),
-            $dialog = $($this.data('target'));
+                $this = $(this),
+                $dialog = $($this.data('target'));
 
         $.ajax({
             url: $this.attr('href'),
@@ -661,12 +235,12 @@ $(function () {
             async: true,
             cache: true,
             processData: false,
-            success: function (data) {
+            success: function(data) {
                 actions.arquivo.dialog.html(data).dialog('open');
                 $('form#form-documento-arquivo').validate();
 
             },
-            error: function () {
+            error: function() {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -682,7 +256,7 @@ $(function () {
         dataType: 'json',
         type: 'POST',
         delegation: true,
-        success: function (data) {
+        success: function(data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
@@ -701,22 +275,22 @@ $(function () {
         autoOpen: false,
         title: 'Documento - Excluir',
         width: '810px',
-        modal: true,
+        modal: false,
         buttons: {
-            'Excluir': function () {
+            'Excluir': function() {
                 $('form#form-documento-excluir').submit();
             },
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.excluir", function (event) {
+    $(document.body).on('click', "a.excluir", function(event) {
         event.preventDefault();
         var
-            $this = $(this),
-            $dialog = $($this.data('target'));
+                $this = $(this),
+                $dialog = $($this.data('target'));
 
         $.ajax({
             url: $this.attr('href'),
@@ -726,10 +300,10 @@ $(function () {
             cache: true,
             //data: $formEditar.serialize(),
             processData: false,
-            success: function (data) {
+            success: function(data) {
                 actions.excluir.dialog.html(data).dialog('open');
             },
-            error: function () {
+            error: function() {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -739,7 +313,7 @@ $(function () {
         });
     });
 
-    $(document.body).on('click', "a.desbloquear", function (event) {
+    $(document.body).on('click', "a.desbloquear", function(event) {
         event.preventDefault();
         var
             $this = $(this),
@@ -753,10 +327,10 @@ $(function () {
             cache: true,
             //data: $formEditar.serialize(),
             //processData: false,
-            success: function (data) {
+            success: function(data) {
                 actions.desbloquear.dialog.html(data).dialog('open');
             },
-            error: function () {
+            error: function() {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -770,21 +344,20 @@ $(function () {
         autoOpen: false,
         title: 'Desbloquear Projeto',
         width: '810px',
-        modal: true,
+        modal: false,
         buttons: {
-            'Salvar': function () {
+            'Salvar': function() {
                 $.ajax({
                     url: base_url + '/projeto/gerencia/desbloquear/format/json',
                     dataType: 'html',
                     type: 'POST',
                     async: true,
                     cache: true,
-                    data: {
-                        'idprojeto': $('#idprojeto').val(),
-                        'desjustificativa': $('#desjustificativa').val()
+                    data: { 'idprojeto':$('#idprojeto').val(),
+                            'desjustificativa':$('#desjustificativa').val()
                     },
                     //processData: false,
-                    success: function (data) {
+                    success: function(data) {
 //                        actions.desbloquear.dialog.html(data).dialog('open');
                         $.pnotify({
                             text: 'Projeto desbloqueado com sucesso.',
@@ -793,7 +366,7 @@ $(function () {
                         });
                         grid.trigger("reloadGrid");
                     },
-                    error: function () {
+                    error: function() {
                         $.pnotify({
                             text: 'Falha ao enviar a requisição',
                             type: 'error',
@@ -803,181 +376,110 @@ $(function () {
                 });
                 $(this).dialog('close');
             },
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             }
         }
     });
-
-    function formatadorSituacao(cellvalue, options, rowObject) {
-        var situacao = rowObject[17];
-        return situacao;
+      function formatadorSituacao(cellvalue, options, rowObject)
+    {
+        var situacao = rowObject[16];
+         return situacao;
 
     }
 
-    function formatadorLink(cellvalue, options, rowObject) {
+    function formatadorLink(cellvalue, options, rowObject)
+    {
         var r = rowObject,
-            params = '',
-            url = {
-                editar: base_url + '/projeto/tap/informacoesiniciais',
-                imprimir_plano: base_url + '/projeto/planoprojeto/imprimir',
-                imprimir_tap: base_url + '/projeto/tap/imprimir',
-                arquivo: base_url + '/projeto/gerencia/editar-arquivo',
-                cronograma: base_url + '/projeto/cronograma/index',
-                projeto: base_url + '/projeto/tap/index',
-                desbloqueio: base_url + '/projeto/gerencia/desbloquear',
-                configurar: base_url + '/projeto/gerencia/configurar',
-                clonarprojeto: base_url + '/projeto/gerencia/clonarprojeto',
-                excluirprojeto: base_url + '/projeto/gerencia/excluirprojeto',
-                restaurarprojeto: base_url + '/projeto/gerencia/restaurarprojeto',
-            };
+                params = '',
+                url = {
+//            editar: base_url + '/projeto/tap/informacoesiniciais',
+            editar: base_url + '/projeto/tap/informacoesiniciais',
+            imprimir_plano: base_url + '/projeto/planoprojeto/imprimir',
+            imprimir_tap: base_url + '/projeto/tap/imprimir',
+            arquivo: base_url + '/projeto/gerencia/editar-arquivo',
+            cronograma: base_url + '/projeto/cronograma/index',
+            projeto: base_url + '/projeto/tap/index',
+            desbloqueio: base_url + '/projeto/gerencia/desbloquear'
+        };
+        params = '/idprojeto/' + r[14];
 
-        params = '/idprojeto/' + r[15];
+        //console.log(r[16]);
 
-        $return = '<a target="_blank" class="btn actionfrm detalhar" title="Imprimir PLANO DE PROJETO" data-id="' + cellvalue + '" href="' + url.imprimir_plano + params + '"><i class="icon-print"></i></a>' +
-            '<a target="_blank" class="btn actionfrm detalhar" title="Imprimir TERMO DE ABERTURA DE PROJETO (TAP)" data-id="' + cellvalue + '" href="' + url.imprimir_tap + params + '"><i class="icon-print"></i></a>' +
-            '<a class="btn actionfrm clonarprojeto" title="Clonar Projeto" data-id="' + cellvalue + '" href="' + url.clonarprojeto + params + '"><i class="icon-random"></i></a>' + '' +
-            '<a class="btn actionfrm ' + (r[21] == 8 ? 'restaurarprojeto' : 'excluirprojeto') + '" title="' + (r[21] == 8 ? 'Recuperar' : 'Excluir') + ' Projeto" data-id="' + cellvalue + '" href="' + (r[21] == 8 ? url.restaurarprojeto : url.excluirprojeto) + params + '"><i class="' + (r[21] == 8 ? 'icon-repeat' : 'icon-trash') + '" ></i></a>' + '\n' +
-            '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar TAP" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
-            '<a target="_self" class="btn actionfrm editar" title="Gerenciar" data-id="' + cellvalue + '" href="' + url.projeto + params + '"><i class="icon-wrench"></i></a>' +
-            '<a data-target="#dialog-configurar" class="btn actionfrm configurar" title="Configurar Permiss&otilde;es" data-id="' + cellvalue + '" href="' + url.configurar + params + '"><i class="icon-cog"></i></a>';
-
-        /* if(r[17]){
-         $return += '<a class="btn actionfrm editar disabled" title="Editar TAP" href="#"><i class="icon-edit"></i></a>' +
-         '<a class="btn actionfrm editar disabled" title="Gerenciar" href="#"><i class="icon-wrench"></i></a>'+
-         '<a data-target="#dialog-desbloquear" class="btn actionfrm desbloquear" title="Projeto Bloqueado" data-id="' + cellvalue + '" href="' + url.desbloqueio + params + '"><i class="icon-folder-close"></i></a>';
-         }else{
-
-         $return += '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar TAP" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
-         '<a target="_self" class="btn actionfrm editar" title="Gerenciar" data-id="' + cellvalue + '" href="' + url.projeto + params + '"><i class="icon-wrench"></i></a>'+
-         '<a class="btn actionfrm disabled" title="Projeto Ativo" data-id="" href=""><i class=" icon-folder-open"></i></a>';
-         }*/
-        //console.log(r[17]);
-
+        $return =  '<a target="_blank" class="btn actionfrm detalhar" title="Imprimir PLANO DE PROJETO" data-id="' + cellvalue + '" href="' + url.imprimir_plano + params + '"><i class="icon-print"></i></a>' +
+                   '<a target="_blank" class="btn actionfrm detalhar" title="Imprimir TERMO DE ABERTURA DE PROJETO (TAP)" data-id="' + cellvalue + '" href="' + url.imprimir_tap + params + '"><i class="icon-print"></i></a>'+ '\n' + 
+                   '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar TAP" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
+                   '<a target="_self" class="btn actionfrm editar" title="Gerenciar" data-id="' + cellvalue + '" href="' + url.projeto + params + '"><i class="icon-wrench"></i></a>';
+        
+       /* if(r[16]){
+            $return += '<a class="btn actionfrm editar disabled" title="Editar TAP" href="#"><i class="icon-edit"></i></a>' +
+                       '<a class="btn actionfrm editar disabled" title="Gerenciar" href="#"><i class="icon-wrench"></i></a>'+            
+                       '<a data-target="#dialog-desbloquear" class="btn actionfrm desbloquear" title="Projeto Bloqueado" data-id="' + cellvalue + '" href="' + url.desbloqueio + params + '"><i class="icon-folder-close"></i></a>';
+        }else{      
+        
+            $return += '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar TAP" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
+                       '<a target="_self" class="btn actionfrm editar" title="Gerenciar" data-id="' + cellvalue + '" href="' + url.projeto + params + '"><i class="icon-wrench"></i></a>'+
+                       '<a class="btn actionfrm disabled" title="Projeto Ativo" data-id="" href=""><i class=" icon-folder-open"></i></a>';
+        }*/
+        //console.log(r[16]);
+        
         /*if(r[8].length > 1){
-         $return += '<a target="_self" class="btn actionfrm cronograma" title="Cronograma" data-id="' + cellvalue + '" href="' + url.cronograma + params + '"><i class="icon-list"></i></a>';
-         }*/
+            $return += '<a target="_self" class="btn actionfrm cronograma" title="Cronograma" data-id="' + cellvalue + '" href="' + url.cronograma + params + '"><i class="icon-list"></i></a>';
+        }*/
 
-
+        
+            
         return $return;
-
+                
     }
 
-    function formatadorLinkExclui(cellvalue, options, rowObject) {
-        var r = rowObject,
-            params = '',
-            url = {
-                exclui: base_url + '/projeto/tap/informacoesiniciais'
-            };
-        params = '/idprojeto/' + r[15];
-        var exclui = r[17];
-        if (exclui) {
-            //console.log('true');
-            //console.log(exclui);
-            $return = '<a class="btn btn-success permissao-toggle" title="Revogar" data-id="' + cellvalue + '" href="' + url.exclui + params + '"><i class="icon-ok icon-white "></i></a>\n';
-        } else {
-            $return = '<a class="btn btn-danger permissao-toggle" title="Conceder" data-id="' + cellvalue + '" href="' + url.exclui + params + '"><i class="icon-off icon-white "></i></a>\n';
-            //console.log('false');
-            //console.log(exclui);
-        }
+//    function formatadorImg(cellvalue, options, rowObject)
+//    {
+//    	var path = base_url + '/img/ico_verde.gif';
+//    	return '<img src="'+ path +'" />';
+//    }
 
-
-        return $return;
-
-    }
-
-    function formatadorImgPrazo(cellvalue, options, rowObject) {
+    function formatadorImgPrazo(cellvalue, options, rowObject)
+    {
+//      var path = base_url + '/img/ico_verde.gif';
+//      return '<img src="' + path + '" />';
         var retorno = '-';
 
-        if (rowObject[12] >= rowObject[16]) {
-            var retorno = '<span class="badge badge-important" title=' + rowObject[12] + '>P</span>';
-        } else if (rowObject[12] > 0) {
-            var retorno = '<span class="badge badge-warning" title=' + rowObject[12] + '>P</span>';
+        if (rowObject[11] >= rowObject[15]) {
+            var retorno = '<span class="badge badge-important" title=' + rowObject[11] + '>P</span>';
+        } else if (rowObject[11] > 0) {
+            var retorno = '<span class="badge badge-warning" title=' + rowObject[11] + '>P</span>';
         } else {
-            var retorno = '<span class="badge badge-success" title=' + rowObject[12] + '>P</span>';
+            var retorno = '<span class="badge badge-success" title=' + rowObject[11] + '>P</span>';
         }
 
-        if (rowObject[12] === "-")
-            return rowObject[12];
+        if (rowObject[11] === "-")
+            return rowObject[11];
 
         return retorno;
     }
 
-    function formatadorImgRisco(cellvalue, options, rowObject) {
+    function formatadorImgRisco(cellvalue, options, rowObject)
+    {
         var retorno = '-';
 
-        if (rowObject[13] === '1') {
-            var retorno = '<span class="badge badge-success" title="Baixo">Baixo</span>';
-        } else if (rowObject[13] === '2') {
-            var retorno = '<span class="badge badge-warning" title="Médio">Médio</span>';
-        } else if (rowObject[13] === '3') {
-            var retorno = '<span class="badge badge-important" title="Alto">Alto</span>';
+        if (rowObject[12] === '1') {
+            var retorno = '<span class="badge badge-success">R</span>';
+        } else if (rowObject[12] === '2') {
+            var retorno = '<span class="badge badge-warning">R</span>';
+        } else if (rowObject[12] === '3') {
+            var retorno = '<span class="badge badge-important">R</span>';
         }
 
         return retorno;
     }
 
-    function formatadorImgAtrazo(cellvalue, options, rowObject) {
-        var retorno = '<span class="badge badge-' + rowObject[19] + '" title=' + rowObject[11] + '>' + rowObject[11] + '</span>';
 
-        return retorno;
-    }
+  
 
-    function verificaTamanhoTextoPrograma(str, width, brk) {
-        brk = brk || '\n';
-        width = 15;
-
-        if (!str) {
-            return str;
-        }
-        var regex = '.{1,' + width + '}(\\s|$)' + '|\\S+?(\\s|$)';
-        var array = str.match(RegExp(regex, 'g'));
-        var frase = "";
-
-        for (var i = 0; i < array.length; i++) {
-            frase += array[i] + "\n";
-        }
-        ;
-        var retorno = "<div style='white-space:initial'>" + frase + "</div>";
-        return retorno;
-    }
-
-    function verificaTamanhoTextoProjeto(str, width, brk) {
-
-        brk = brk || '\n';
-        width = 36;
-
-        if (!str) {
-            return str;
-        }
-        var regex = '.{1,' + width + '}(\\s|$)' + '|\\S+?(\\s|$)';
-        var array = str.match(RegExp(regex, 'g'));
-        var frase = "";
-
-        for (var i = 0; i < array.length; i++) {
-            frase += array[i] + "\n";
-        }
-        ;
-        var retorno = "<div style='white-space:initial'>" + frase + "</div>";
-        return retorno;
-    }
-
-    function formatadorLinkEditar(cellvalue, options, rowObject) {
-        var r = rowObject,
-            params = '',
-            url = {
-                editar: base_url + '/projeto/tap/index'
-            };
-        params = '/idprojeto/' + r[15];
-        var editar = r[17];
-        $return = '<a title="Editar" ' +
-            'style="text-decoration: none; color: #0b83d1;" onMouseOver="this.style.textDecoration=\'underline\'; this.style.color = \'#1e395b\';" ' +
-            'onMouseOut="this.style.textDecoration=\'none\'; this.style.color = \'#0b83d1\';" href="' + url.editar + params + '" >' + r[1] + '</a>\n';
-        return verificaTamanhoTextoPrograma($return, null, null);
-    }
 
     //'Sigla', 'Nome', 'Responsavel-1', 'Responsavel-2', 'Mapa', 'Situação', 'Logo', 'Operações'
-    colNames = ['Programa', 'Projeto', 'Gerente', 'Escritório Responsável', 'Código', 'Publicado', 'Início', 'Término Meta', 'Término Tendência', 'Previsto', 'Concluído', 'Atraso', 'Prazo', 'Risco', 'Último Relatório', 'Situação'/*, ''*//*, 'Operações'*/];
+    colNames = ['Programa', 'Projeto', 'Gerente', 'Codigo', 'Publicado', 'Início', 'Término Meta', 'Termino Tendencia', 'Previsto', 'Concluído', 'Atraso', 'Prazo', 'Risco', 'Últim. Acompanhamento', 'Situação','Operações'];
     colModel = [
         {
             name: 'nomprograma',
@@ -985,103 +487,85 @@ $(function () {
             align: 'center',
             width: 25,
             hidden: false,
-            search: false,
-            formatter: verificaTamanhoTextoPrograma
+            search: false
         }, {
             name: 'nomprojeto',
             index: 'nomprojeto',
             align: 'center',
-            width: 55,
+            width: 60,
             hidden: false,
-            search: false,
-            //formatter:verificaTamanhoTextoProjeto
-            //formatter:'showlink',
-            formatter: formatadorLinkEditar
-
-            //formatoptions:{baseLinkUrl:base_url + '/projeto/tap/informacoesiniciais/idprojeto/' + $('#idprojeto').val()}
+            search: false
         }, {
             name: 'idgerenteprojeto',
             index: 'idgerenteprojeto',
             align: 'center',
-            width: 50,
-            hidden: false,
-            search: false,
-            formatter: verificaTamanhoTextoProjeto
-        }, {
-            name: 'nomescritorio',
-            index: 'nomescritorio',
-            align: 'center',
-            width: 23,
+            width: 60,
             hidden: false,
             search: false
         }, {
             name: 'nomcodigo',
             index: 'nomcodigo',
             align: 'center',
-            width: 50,
+            width: 60,
             hidden: true,
             search: false
         }, {
             name: 'flapublicado',
             index: 'flapublicado',
             align: 'center',
-            width: 16,
+            width: 20,
             search: true,
             //formatter: formatadorSituacao
         }, {
             name: 'datinicio',
             index: 'datinicio',
             align: 'center',
-            width: 18,
-            search: true
-        }, {
-            name: 'datfim',
-            index: 'datfim',
-            align: 'center',
-            width: 18,
+            width: 20,
             search: true
         }, {
             name: 'datfimplano',
             index: 'datfimplano',
             align: 'center',
-            width: 18,
+            width: 20,
+            search: true
+        }, {
+            name: 'datfim',
+            index: 'datfim',
+            align: 'center',
+            width: 20,
             search: true
         }, {
             name: 'previsto',
             index: 'previsto',
-            align: 'center',
-            width: 14,
+            width: 15,
             search: false,
             sortable: false
         }, {
             name: 'concluido',
             index: 'concluido',
-            align: 'center',
-            width: 16,
+            width: 15,
             search: false,
             sortable: false
         }, {
             name: 'atraso',
             index: 'atraso',
-            width: 17,
+            width: 15,
             align: 'center',
             search: false,
             sortable: false,
-            hidden: false,
-            formatter: formatadorImgAtrazo
+            hidden: true
         }, {
             name: 'prazo',
             index: 'prazo',
-            width: 14,
+            width: 15,
             align: 'center',
             search: false,
             sortable: false,
-            hidden: true,
-            //formatter: formatadorImgPrazo
+            formatter: formatadorImgPrazo
         }, {
             name: 'Risco',
             index: 'Risco',
-            width: 13,
+            width: 15,
             align: 'center',
             search: false,
             sortable: false,
@@ -1089,54 +573,44 @@ $(function () {
         }, {
             name: 'ultimoacompanhamento',
             index: 'ultimoacompanhamento',
-            width: 16,
-            align: 'center',
-            search: true,
-            sortable: true
-        }, {
+            width: 28,
+            search: false,
+            sortable: false
+        }, { 
             name: 'situacao',
             index: 'situacao',
             align: 'center',
-            width: 22,
+            width: 30,
             search: true,
             formatter: formatadorSituacao
-        }/*, {
-         name: 'domstatusprojeto',
-         index: 'domstatusprojeto',
-         align: 'center',
-         width: 16,
-         search: true,
-         sortable: false,
-         formatter: formatadorLinkExclui
-         }*/
-        /*, {
+        }
+        ,{
             name: 'id',
             index: 'id',
-            width: 60,
+            width: 33,
             search: false,
             sortable: false,
             formatter: formatadorLink
-        }*/
-    ];
-
+        }];
+//1210
     grid = jQuery("#list2").jqGrid({
         //caption: "Documentos",
         url: base_url + "/projeto/gerencia/pesquisarjson",
         datatype: "json",
         mtype: 'post',
-        width: '990',
-        height: '200px',
+        width: '1000',
+        height: '300px',
         colNames: colNames,
         colModel: colModel,
         rownumbers: true,
-        rowNum: 20,
+        rowNum: 50,
         rowList: [20, 50, 100],
         pager: '#pager2',
         sortname: 'nomprojeto',
         viewrecords: true,
         sortorder: "asc",
-        gridComplete: function () {
-            //console.log('teste');
+        gridComplete: function() {
+            // console.log('teste');
             //$("a.actionfrm").tooltip();
         }
     });
@@ -1152,13 +626,7 @@ $(function () {
 
     grid.jqGrid('setLabel', 'rn', 'Ord');
 
-    // ## Formata o Título do Grid da Gerência ###########
-    $(".ui-jqgrid-sortable").css('white-space', 'normal');
-    $(".ui-jqgrid-sortable").css('height', 'auto');
-    $("tr.ui-jqgrid-labels").css('vertical-align', 'top');
-    // ###################################################
-
-    actions.pesquisar.form.on('submit', function (e) {
+    actions.pesquisar.form.on('submit', function(e) {
 
         e.preventDefault();
         grid.setGridParam({
@@ -1170,42 +638,6 @@ $(function () {
     });
 
     $("#accordion").accordion();
-
+    
     resizeGrid();
-
-    var
-        $form = $("form#form-clonarprojeto");
-
-    $form.validate({
-        errorClass: 'error',
-        validClass: 'success',
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    /**
-     * Responsividade
-     */
-    function resizeGridHeight() {
-        var /*regionCenter = $('.region-center'),*/
-            parentHeight = $('#rodape').offset().top - 181, /*regionCenter.outerHeight(),*/
-            headerHeight = $('.ui-jqgrid-hdiv').outerHeight(),
-            footerHeight = $('.ui-jqgrid-pager.ui-corner-bottom').outerHeight(),
-            buttonsHeight = $('.form-actions-mini').outerHeight(),
-            bodyHeight = parentHeight
-                - headerHeight
-                - footerHeight
-                - buttonsHeight
-                // - (parseInt(regionCenter.css('padding').replace(/px/g, '')) * 2)
-                - (parseInt($('.form-actions-mini').css('margin').replace(/[px ]/g, '')) * 2);
-        $('.ui-jqgrid-bdiv').css({
-            'height': bodyHeight
-        });
-    }
-
-    resizeGridHeight();
-    $(window).on('resize', function () {
-        resizeGridHeight();
-    });
 });

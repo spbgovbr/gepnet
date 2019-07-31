@@ -9,7 +9,7 @@
 class Default_Model_DbTable_Risco extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'tb_risco';
+    protected $_name    = 'tb_risco';
     protected $_primary = array('idrisco');
     protected $_dependentTables = array();
     protected $_referenceMap = array();

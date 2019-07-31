@@ -7,12 +7,12 @@
 $frmAttr = $this->form->getAttribs();
 ?>
 <script>
-    $('.mask-cel').mask("(99) 9999-9999?9").focusout(function () {
+    $('.mask-cel').mask("(99) 9999-9999?9").focusout(function(){
         var phone, element;
         element = $(this);
         element.unmask();
         phone = element.val().replace(/\D/g, '');
-        if (phone.length > 10) {
+        if(phone.length > 10) {
             element.mask("(99) 99999-999?9");
         } else {
             element.mask("(99) 9999-9999?9");
@@ -27,7 +27,7 @@ $frmAttr = $this->form->getAttribs();
         language: 'pt-BR'
     });
 
-    $("body").delegate(".datemask-BR", "focusin", function () {
+    $("body").delegate(".datemask-BR", "focusin", function() {
         $(this).mask('99/99/9999');
     });
 </script>
@@ -142,10 +142,10 @@ $frmAttr = $this->form->getAttribs();
                         <?php echo $this->form->descontatoexterno; ?>
                     </div>
                     <!--<div class="span3">
-                        <?php /*echo $this->form->identidadeexterna; */ ?>
+                        <?php /*echo $this->form->identidadeexterna; */?>
                     </div>
                     <div class="span1">
-                        <?php /*echo $this->form->adicionar; */ ?>
+                        <?php /*echo $this->form->adicionar; */?>
                     </div>-->
                 </div>
                 <div class="row">
@@ -188,8 +188,7 @@ $frmAttr = $this->form->getAttribs();
                                 <?php foreach ($this->dados as $data) : ?>
                                     <tr>
                                         <td>
-                                            <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado'
-                                               data-id="<?php echo $data->identidadeexterna ?>">
+                                            <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado' data-id="<?php echo $data->identidadeexterna ?>" >
                                                 <i class='icon-trash'></i>
                                             </a>
                                         </td>
@@ -201,19 +200,14 @@ $frmAttr = $this->form->getAttribs();
                                 </tbody>
                             <?php else: ?>
                                 <tbody id="tabela" style="display: none;"></tbody>
-                                <div id="nenhumregistro" class="span4 alert alert-danger">Nenhuma entidade vinculada.
-                                </div>
+                                <div id="nenhumregistro" class="span4 alert alert-danger">Nenhuma entidade vinculada. </div>
                             <?php endif; ?>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 190px;">
-                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-            </div>
-        </div>
+
     </form>
 </div>
 

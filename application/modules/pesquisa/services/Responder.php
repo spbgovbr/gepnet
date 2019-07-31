@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
-{
+class Pesquisa_Service_Responder extends App_Service_ServiceAbstract {
 
     public $_mapper = null;
     protected $_form = null;
@@ -23,10 +22,10 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     /**
      * Retorna o form da referente a pesquisa
-     *
+     * 
      * @param type $params
      * @return Pesquisa_Form_ResponderPesquisa
      */
@@ -35,7 +34,7 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
         $this->_form = $this->dinamicFormPesquisa($params);
         return $this->_form;
     }
-
+    
     public function retornaPesquisasResponderGrid($params)
     {
         try {
@@ -54,31 +53,31 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
     {
         $form = $this->getFormPesquisa(array('idpesquisa' => $idpesquisa));
         if ($form->isValid($params)) {
-            $serviceResultado = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
+            $serviceResultado =  App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
             $result = $serviceResultado->salvarResultadoPesquisa($form->getValues());
             //Zend_Debug::dump($result);exit;
             return $result;
         } else {
             $this->errors = $form->getMessages();
             return false;
-
-
+            
+            
         }
     }
-
+    
     public function salvarPesquisaRespondidaExterna($idpesquisa, $params)
     {
         $form = $this->getFormPesquisa(array('idpesquisa' => $idpesquisa));
         if ($form->isValid($params)) {
-            $serviceResultado = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
+            $serviceResultado =  App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
 
             $result = $serviceResultado->salvarResultadoPesquisaExterna($form->getValues());
             return $result;
         } else {
             $this->errors = $form->getMessages();
             return false;
-
-
+            
+            
         }
     }
 
@@ -119,11 +118,7 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                                 'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
                                 'filters' => array('StringTrim', 'StripTags'),
                                 'validators' => array(
-                                    array(
-                                        'NotEmpty',
-                                        false,
-                                        array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                    ),
+                                    array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))), 
                                     array('StringLength', false, array(0, 3))
                                 ),
                                 'attribs' => array(
@@ -141,24 +136,19 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
 
                             break;
                         case Pesquisa_Model_Frase::MULTIPLA_ESCOLHA:
-                            $formResponder->addElement('multiCheckbox',
-                                'idfrasepesquisa_' . $questao['idfrasepesquisa'], array(
-                                    'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
-                                    'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                    'filters' => array('StringTrim', 'StripTags'),
-                                    'validators' => array(
-                                        array(
-                                            'NotEmpty',
-                                            false,
-                                            array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                        ),
-                                    ),
-                                    'attribs' => array(
-                                        'class' => 'span',
-                                        'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                        'placeholder' => 'Selecione a opção'
-                                    ),
-                                ));
+                            $formResponder->addElement('multiCheckbox', 'idfrasepesquisa_' . $questao['idfrasepesquisa'], array(
+                                'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
+                                'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                'filters' => array('StringTrim', 'StripTags'),
+                                'validators' => array(
+                                    array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))), 
+                                ),
+                                'attribs' => array(
+                                    'class' => 'span',
+                                    'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                    'placeholder' => 'Selecione a opção'
+                                ),
+                            ));
                             //armazena a opcao do combo
                             $arrOptions[$questao['idrespostapesquisa']] = $questao['desresposta'];
                             //armazena o elemento que necessita do combo
@@ -172,13 +162,9 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                                 'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
                                 'filters' => array('StringTrim', 'StripTags'),
                                 'validators' => array(
-                                    array(
-                                        'NotEmpty',
-                                        false,
-                                        array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                    ),
+                                    array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))),
                                     array('StringLength', false, array(0, 255))
-                                ),
+                                    ),
                                 'attribs' => array(
                                     'class' => 'span',
                                     'maxlength' => '255',
@@ -189,28 +175,23 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                             ));
                             break;
                         case Pesquisa_Model_Frase::TEXTO:
-                            $formResponder->addElement('textarea', 'idfrasepesquisa_' . $questao['idfrasepesquisa'],
-                                array(
-                                    'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
-                                    'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                    'filters' => array('StringTrim', 'StripTags'),
-                                    'validators' => array(
-                                        array(
-                                            'NotEmpty',
-                                            false,
-                                            array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                        ),
-                                        array('StringLength', false, array(0, 255))
-                                    ),
-                                    'attribs' => array(
-                                        'class' => 'span',
-                                        'maxlength' => '255',
-                                        'data-rule-maxlength' => 255,
-                                        'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                        'placeholder' => 'Informe a resposta',
-                                        'rows' => 8
-                                    ),
-                                ));
+                            $formResponder->addElement('textarea', 'idfrasepesquisa_' . $questao['idfrasepesquisa'], array(
+                                'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
+                                'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                'filters' => array('StringTrim', 'StripTags'),
+                                'validators' => array(
+                                    array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))),
+                                    array('StringLength', false, array(0, 255))
+                                ),
+                                'attribs' => array(
+                                    'class' => 'span',
+                                    'maxlength' => '255',
+                                    'data-rule-maxlength' => 255,
+                                    'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                    'placeholder' => 'Informe a resposta',
+                                    'rows' => 8
+                                ),
+                            ));
                             break;
                         case Pesquisa_Model_Frase::NUMERO:
                             $formResponder->addElement('text', 'idfrasepesquisa_' . $questao['idfrasepesquisa'], array(
@@ -218,13 +199,9 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                                 'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
                                 'filters' => array('StringTrim', 'StripTags'),
                                 'validators' => array(
-                                    array(
-                                        'NotEmpty',
-                                        false,
-                                        array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                    ),
-                                    array('StringLength', false, array(0, 255)),
-                                    array('Digits'),
+                                     array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))),
+                                     array('StringLength', false, array(0, 255)),
+                                     array('Digits'),
                                 ),
                                 'attribs' => array(
                                     'class' => 'span',
@@ -242,17 +219,9 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                                 'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
                                 'filters' => array('StringTrim', 'StripTags'),
                                 'validators' => array(
-                                    array(
-                                        'NotEmpty',
-                                        false,
-                                        array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                    ),
+                                    array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))), 
                                     array('StringLength', false, array(0, 10)),
-                                    array(
-                                        'Date',
-                                        false,
-                                        array('messages' => array('dateInvalidDate' => 'Data inválida.'))
-                                    ),
+                                    array('Date', false, array('messages' => array('dateInvalidDate' => 'Data inválida.'))),
                                 ),
                                 'attribs' => array(
                                     'class' => 'span mask-date',
@@ -265,27 +234,22 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                             ));
                             break;
                         case Pesquisa_Model_Frase::UF:
-                            $formResponder->addElement('select', 'idfrasepesquisa_' . $questao['idfrasepesquisa'],
-                                array(
-                                    'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
-                                    'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                    'filters' => array('StringTrim', 'StripTags'),
-                                    'validators' => array(
-                                        array('StringLength', 'options' => array(0, 2)),
-                                        array(
-                                            'NotEmpty',
-                                            false,
-                                            array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))
-                                        ),
-                                    ),
-                                    'attribs' => array(
-                                        'class' => 'span',
-                                        'maxlength' => '2',
-                                        'data-rule-maxlength' => 2,
-                                        'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
-                                        'placeholder' => 'Selecione a opção'
-                                    ),
-                                ));
+                            $formResponder->addElement('select', 'idfrasepesquisa_' . $questao['idfrasepesquisa'], array(
+                                'label' => $questao['numordempergunta'] . ' - ' . $questao['desfrase'],
+                                'required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                'filters' => array('StringTrim', 'StripTags'),
+                                'validators' => array(
+                                     array('StringLength', 'options' => array(0, 2)),
+                                     array('NotEmpty',false, array('messages' => array('isEmpty' => 'Campo de preenchimento obrigatório.'))),
+                                ),
+                                'attribs' => array(
+                                    'class' => 'span',
+                                    'maxlength' => '2',
+                                    'data-rule-maxlength' => 2,
+                                    'data-rule-required' => $questao['obrigatoriedade'] == 'S' ? true : false,
+                                    'placeholder' => 'Selecione a opção'
+                                ),
+                            ));
 
                             //armazena a opcao do combo
                             //Zend_Debug::dump($pesquisa);exit;
@@ -322,9 +286,9 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                 ),
             ));
             $formResponder->getElement('submit')
-                ->removeDecorator('label')
-                ->removeDecorator('HtmlTag')
-                ->removeDecorator('Wrapper');
+                    ->removeDecorator('label')
+                    ->removeDecorator('HtmlTag')
+                    ->removeDecorator('Wrapper');
 
             $formResponder->addElement('button', 'reset', array(
                 'ignore' => true,
@@ -336,9 +300,9 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
                 ),
             ));
             $formResponder->getElement('reset')
-                ->removeDecorator('label')
-                ->removeDecorator('HtmlTag')
-                ->removeDecorator('Wrapper');
+                    ->removeDecorator('label')
+                    ->removeDecorator('HtmlTag')
+                    ->removeDecorator('Wrapper');
 
             //alimenta o form com o id do questionario
             $formResponder->setLegend($pesquisa[0]['nomquestionario']);
@@ -348,7 +312,6 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
             $this->error = App_Service_ServiceAbstract::ERRO_GENERICO;
         }
     }
-
     /**
      * Verifica se a pesquisa ja foi respondida pelo usuário
      * @return boolean
@@ -357,7 +320,7 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
     {
         try {
             $result = $this->_mapper->existsRespostaPesquisaByCpf($params);
-            if ($result) {
+            if($result){
                 return true;
             } else {
                 return false;
@@ -366,7 +329,7 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
             echo $exc->getMessage();
         }
     }
-
+    
     /**
      * Resgata os dados do usuario autenticado via LDAP e verifica se ja respondeu a pesquisa informada
      * @param array $params
@@ -378,12 +341,12 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
         $auth->setStorage(new Zend_Auth_Storage_Session('ldap_pesquisa'));
         $dataUser = $auth->getIdentity();
         $cpfLdap = $dataUser['data_user']['cpf'][0];
-
+        
         $params['cpf'] = $cpfLdap;
-
+        
         return $this->cpfRespondeuPesquisa($params);
     }
-
+    
     /**
      * Resgata os dados do usuario autenticado via SISEG e verifica se ja respondeu a pesquisa informada
      * @param array $params
@@ -394,5 +357,5 @@ class Pesquisa_Service_Responder extends App_Service_ServiceAbstract
         $params['cpf'] = $this->auth->cpf;
         return $this->cpfRespondeuPesquisa($params);
     }
-
+    
 }

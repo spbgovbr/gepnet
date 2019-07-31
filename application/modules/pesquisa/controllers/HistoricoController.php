@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_HistoricoController extends Zend_Controller_Action
-{
+class Pesquisa_HistoricoController extends Zend_Controller_Action {
 
     public function listarAction()
     {
@@ -15,7 +14,7 @@ class Pesquisa_HistoricoController extends Zend_Controller_Action
         $paginator = $service->retornaHistoricoPesquisasGrid($this->_request->getParams());
         $this->_helper->json->sendJson($paginator->toJqgrid());
     }
-
+    
 //    public function relatorioPercentualAction() 
 //    {   $request = $this->_request;
 //        if($request->isPost()) {

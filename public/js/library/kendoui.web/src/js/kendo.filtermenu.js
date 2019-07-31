@@ -14,11 +14,11 @@ kendo_module({
     id: "filtermenu",
     name: "Filtering Menu",
     category: "framework",
-    depends: ["datepicker", "numerictextbox", "dropdownlist"],
+    depends: [ "datepicker", "numerictextbox", "dropdownlist" ],
     advanced: true
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         proxy = $.proxy,
@@ -35,62 +35,62 @@ kendo_module({
         Widget = ui.Widget;
 
     var booleanTemplate =
-        '<div>' +
-        '<div class="k-filter-help-text">#=messages.info#</div>' +
-        '<label>' +
-        '<input type="radio" data-#=ns#bind="checked: filters[0].value" value="true" name="filters[0].value"/>' +
-        '#=messages.isTrue#' +
-        '</label>' +
-        '<label>' +
-        '<input type="radio" data-#=ns#bind="checked: filters[0].value" value="false" name="filters[0].value"/>' +
-        '#=messages.isFalse#' +
-        '</label>' +
-        '<div>' +
-        '<button type="submit" class="k-button">#=messages.filter#</button>' +
-        '<button type="reset" class="k-button">#=messages.clear#</button>' +
-        '</div>' +
-        '</div>';
+            '<div>' +
+                '<div class="k-filter-help-text">#=messages.info#</div>'+
+                '<label>'+
+                    '<input type="radio" data-#=ns#bind="checked: filters[0].value" value="true" name="filters[0].value"/>' +
+                    '#=messages.isTrue#' +
+                '</label>' +
+                '<label>'+
+                    '<input type="radio" data-#=ns#bind="checked: filters[0].value" value="false" name="filters[0].value"/>' +
+                    '#=messages.isFalse#' +
+                '</label>' +
+                '<div>' +
+                '<button type="submit" class="k-button">#=messages.filter#</button>'+
+                '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                '</div>' +
+            '</div>';
 
     var defaultTemplate =
-        '<div>' +
-        '<div class="k-filter-help-text">#=messages.info#</div>' +
-        '<select data-#=ns#bind="value: filters[0].operator" data-#=ns#role="dropdownlist">' +
-        '#for(var op in operators){#' +
-        '<option value="#=op#">#=operators[op]#</option>' +
-        '#}#' +
-        '</select>' +
-        '#if(values){#' +
-        '<select data-#=ns#bind="value:filters[0].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
-        '</select>' +
-        '#}else{#' +
-        '<input data-#=ns#bind="value:filters[0].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""# />' +
-        '#}#' +
-        '#if(extra){#' +
-        '<select class="k-filter-and" data-#=ns#bind="value: logic" data-#=ns#role="dropdownlist">' +
-        '<option value="and">#=messages.and#</option>' +
-        '<option value="or">#=messages.or#</option>' +
-        '</select>' +
-        '<select data-#=ns#bind="value: filters[1].operator" data-#=ns#role="dropdownlist">' +
-        '#for(var op in operators){#' +
-        '<option value="#=op#">#=operators[op]#</option>' +
-        '#}#' +
-        '</select>' +
-        '#if(values){#' +
-        '<select data-#=ns#bind="value:filters[1].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
-        '</select>' +
-        '#}else{#' +
-        '<input data-#=ns#bind="value: filters[1].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""#/>' +
-        '#}#' +
-        '#}#' +
-        '<div>' +
-        '<button type="submit" class="k-button">#=messages.filter#</button>' +
-        '<button type="reset" class="k-button">#=messages.clear#</button>' +
-        '</div>' +
-        '</div>';
+            '<div>' +
+                '<div class="k-filter-help-text">#=messages.info#</div>'+
+                '<select data-#=ns#bind="value: filters[0].operator" data-#=ns#role="dropdownlist">'+
+                    '#for(var op in operators){#'+
+                        '<option value="#=op#">#=operators[op]#</option>' +
+                    '#}#'+
+                '</select>'+
+                '#if(values){#' +
+                    '<select data-#=ns#bind="value:filters[0].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
+                    '</select>' +
+                '#}else{#' +
+                    '<input data-#=ns#bind="value:filters[0].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""# />'+
+                '#}#' +
+                '#if(extra){#'+
+                    '<select class="k-filter-and" data-#=ns#bind="value: logic" data-#=ns#role="dropdownlist">'+
+                        '<option value="and">#=messages.and#</option>'+
+                        '<option value="or">#=messages.or#</option>'+
+                    '</select>'+
+                    '<select data-#=ns#bind="value: filters[1].operator" data-#=ns#role="dropdownlist">'+
+                        '#for(var op in operators){#'+
+                            '<option value="#=op#">#=operators[op]#</option>'+
+                        '#}#'+
+                    '</select>'+
+                    '#if(values){#' +
+                        '<select data-#=ns#bind="value:filters[1].value" data-#=ns#text-field="text" data-#=ns#value-field="value" data-#=ns#source=\'#=kendo.stringify(values).replace(/\'/g,"&\\#39;")#\' data-#=ns#role="dropdownlist" data-#=ns#option-label="#=messages.selectValue#">' +
+                        '</select>'+
+                    '#}else{#' +
+                        '<input data-#=ns#bind="value: filters[1].value" class="k-textbox" type="text" #=role ? "data-" + ns + "role=\'" + role + "\'" : ""#/>'+
+                    '#}#' +
+                '#}#'+
+                '<div>'+
+                '<button type="submit" class="k-button">#=messages.filter#</button>'+
+                '<button type="reset" class="k-button">#=messages.clear#</button>'+
+                '</div>'+
+            '</div>';
 
     function removeFiltersForField(expression, field) {
         if (expression.filters) {
-            expression.filters = $.grep(expression.filters, function (filter) {
+            expression.filters = $.grep(expression.filters, function(filter) {
                 removeFiltersForField(filter, field);
                 if (filter.filters) {
                     return filter.filters.length;
@@ -116,7 +116,7 @@ kendo_module({
                 text = item.text || item.value || item;
                 value = item.value == null ? (item.text || item) : item.value;
 
-                result[idx] = {text: text, value: value};
+                result[idx] = { text: text, value: value };
             }
         }
         return result;
@@ -124,9 +124,9 @@ kendo_module({
 
 
     function clearFilter(filters, field) {
-        return $.grep(filters, function (expr) {
+        return $.grep(filters, function(expr) {
             if (expr.filters) {
-                expr.filters = $.grep(expr.filters, function (nested) {
+                expr.filters = $.grep(expr.filters, function(nested) {
                     return nested.field != field;
                 });
 
@@ -137,7 +137,7 @@ kendo_module({
     }
 
     var FilterMenu = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this,
                 type = "string",
                 operators,
@@ -170,8 +170,8 @@ kendo_module({
 
             that.model = that.dataSource.reader.model;
 
-            that._parse = function (value) {
-                return value + "";
+            that._parse = function(value) {
+                 return value + "";
             };
 
             if (that.model && that.model.fields) {
@@ -197,8 +197,8 @@ kendo_module({
                 break;
             }
 
-            that._defaultFilter = function () {
-                return {field: that.field, operator: initial || "eq", value: ""};
+            that._defaultFilter = function() {
+                return { field: that.field, operator: initial || "eq", value: "" };
             };
 
             that._refreshHandler = proxy(that.refresh, that);
@@ -212,7 +212,7 @@ kendo_module({
             }
         },
 
-        _init: function () {
+        _init: function() {
             var that = this,
                 options = that.options,
                 operators = that.operators || {},
@@ -258,36 +258,36 @@ kendo_module({
             if (setUI) {
                 that.form.find(".k-textbox")
                     .removeClass("k-textbox")
-                    .each(function () {
+                    .each(function() {
                         ui($(this));
                     });
             }
 
             that.form
-                .find("[" + kendo.attr("role") + "=numerictextbox]")
-                .removeClass("k-textbox")
-                .end()
-                .find("[" + kendo.attr("role") + "=datetimepicker]")
-                .removeClass("k-textbox")
-                .end()
-                .find("[" + kendo.attr("role") + "=timepicker]")
-                .removeClass("k-textbox")
-                .end()
-                .find("[" + kendo.attr("role") + "=datepicker]")
-                .removeClass("k-textbox");
+                 .find("[" + kendo.attr("role") + "=numerictextbox]")
+                 .removeClass("k-textbox")
+                 .end()
+                 .find("[" + kendo.attr("role") + "=datetimepicker]")
+                 .removeClass("k-textbox")
+                 .end()
+                 .find("[" + kendo.attr("role") + "=timepicker]")
+                 .removeClass("k-textbox")
+                 .end()
+                 .find("[" + kendo.attr("role") + "=datepicker]")
+                 .removeClass("k-textbox");
 
             that.refresh();
 
-            that.trigger(INIT, {field: that.field, container: that.form});
+            that.trigger(INIT, { field: that.field, container: that.form });
         },
 
-        refresh: function () {
+        refresh: function() {
             var that = this,
-                expression = that.dataSource.filter() || {filters: [], logic: "and"};
+                expression = that.dataSource.filter() || { filters: [], logic: "and" };
 
             that.filterModel = kendo.observable({
                 logic: "and",
-                filters: [that._defaultFilter(), that._defaultFilter()]
+                filters: [ that._defaultFilter(), that._defaultFilter()]
             });
 
             if (that.form) {
@@ -302,7 +302,7 @@ kendo_module({
             }
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -321,7 +321,7 @@ kendo_module({
             }
         },
 
-        _bind: function (expression) {
+        _bind: function(expression) {
             var that = this,
                 filters = expression.filters,
                 idx,
@@ -339,7 +339,7 @@ kendo_module({
 
                     currentFilter = filterModel.filters[current];
                     if (!currentFilter) {
-                        filterModel.filters.push({field: that.field});
+                        filterModel.filters.push({ field: that.field });
                         currentFilter = filterModel.filters[current];
                     }
                     currentFilter.set("value", that._parse(filter.value));
@@ -355,18 +355,18 @@ kendo_module({
             return found;
         },
 
-        _merge: function (expression) {
+        _merge: function(expression) {
             var that = this,
                 logic = expression.logic || "and",
                 filters = expression.filters,
                 filter,
-                result = that.dataSource.filter() || {filters: [], logic: "and"},
+                result = that.dataSource.filter() || { filters:[], logic: "and" },
                 idx,
                 length;
 
             removeFiltersForField(result, that.field);
 
-            filters = $.grep(filters, function (filter) {
+            filters = $.grep(filters, function(filter) {
                 return filter.value !== "" && filter.value != null;
             });
 
@@ -380,7 +380,7 @@ kendo_module({
                     expression.filters = filters;
 
                     if (result.logic !== "and") {
-                        result.filters = [{logic: result.logic, filters: result.filters}];
+                        result.filters = [ { logic: result.logic, filters: result.filters }];
                         result.logic = "and";
                     }
 
@@ -398,7 +398,7 @@ kendo_module({
             return result;
         },
 
-        filter: function (expression) {
+        filter: function(expression) {
             expression = this._merge(expression);
 
             if (expression.filters.length) {
@@ -406,11 +406,11 @@ kendo_module({
             }
         },
 
-        clear: function () {
+        clear: function() {
             var that = this,
-                expression = that.dataSource.filter() || {filters: []};
+                expression = that.dataSource.filter() || { filters:[] };
 
-            expression.filters = $.grep(expression.filters, function (filter) {
+            expression.filters = $.grep(expression.filters, function(filter) {
                 if (filter.filters) {
                     filter.filters = clearFilter(filter.filters, that.field);
 
@@ -427,7 +427,7 @@ kendo_module({
             that.dataSource.filter(expression);
         },
 
-        _submit: function (e) {
+        _submit: function(e) {
             var that = this;
 
             e.preventDefault();
@@ -437,12 +437,12 @@ kendo_module({
             that.popup.close();
         },
 
-        _reset: function () {
+        _reset: function() {
             this.clear();
             this.popup.close();
         },
 
-        _click: function (e) {
+        _click: function(e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -453,10 +453,10 @@ kendo_module({
             this.popup.toggle();
         },
 
-        _open: function () {
+        _open: function() {
             var popup;
 
-            $(".k-filter-menu").not(this.form).each(function () {
+            $(".k-filter-menu").not(this.form).each(function() {
                 popup = $(this).data(POPUP);
                 if (popup) {
                     popup.close();
@@ -464,17 +464,17 @@ kendo_module({
             });
         },
 
-        _activate: function () {
+        _activate: function() {
             this.form.find(":focusable:first").focus();
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             if (e.keyCode == kendo.keys.ESC) {
                 this.popup.close();
             }
         },
 
-        events: [INIT],
+        events: [ INIT ],
 
         options: {
             name: "FilterMenu",

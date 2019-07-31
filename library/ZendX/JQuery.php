@@ -32,12 +32,12 @@ require_once "Zend/Json.php";
  * @package    ZendX_JQuery
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
+  */
 class ZendX_JQuery
 {
     /**
      * Current default supported jQuery library version with ZendX_JQuery
-     *
+     * 
      * @const string
      */
     const DEFAULT_JQUERY_VERSION = "1.3.2";
@@ -88,17 +88,17 @@ class ZendX_JQuery
      * @see ZendX_JQuery_Helper_JQuery::setRenderMode
      * @const Integer
      */
-    const RENDER_LIBRARY = 1;
-    const RENDER_SOURCES = 2;
-    const RENDER_STYLESHEETS = 4;
-    const RENDER_JAVASCRIPT = 8;
-    const RENDER_JQUERY_ON_LOAD = 16;
-    const RENDER_ALL = 255;
+    const RENDER_LIBRARY         = 1;
+    const RENDER_SOURCES         = 2;
+    const RENDER_STYLESHEETS     = 4;
+    const RENDER_JAVASCRIPT      = 8;
+    const RENDER_JQUERY_ON_LOAD  = 16;
+    const RENDER_ALL             = 255;
 
     /**
      * jQuery-enable a view instance
      *
-     * @param Zend_View_Interface $view
+     * @param  Zend_View_Interface $view
      * @return void
      */
     public static function enableView(Zend_View_Interface $view)
@@ -111,15 +111,15 @@ class ZendX_JQuery
     /**
      * jQuery-enable a form instance
      *
-     * @param Zend_Form $form
+     * @param  Zend_Form $form
      * @return void
      */
     public static function enableForm(Zend_Form $form)
     {
         $form->addPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
-            ->addPrefixPath('ZendX_JQuery_Form_Element', 'ZendX/JQuery/Form/Element', 'element')
-            ->addElementPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
-            ->addDisplayGroupPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator');
+             ->addPrefixPath('ZendX_JQuery_Form_Element', 'ZendX/JQuery/Form/Element', 'element')
+             ->addElementPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
+             ->addDisplayGroupPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator');
 
         foreach ($form->getSubForms() as $subForm) {
             self::enableForm($subForm);
@@ -136,9 +136,9 @@ class ZendX_JQuery
      * Take care of using the Zend_Json_Encoder to alleviate problems with the json_encode
      * magic key mechanism as of now.
      *
-     * @param mixed $value
-     * @return mixed
      * @see Zend_Json::encode
+     * @param  mixed $value
+     * @return mixed
      */
     public static function encodeJson($value)
     {
@@ -146,7 +146,7 @@ class ZendX_JQuery
             return '{}';
         }
 
-        if (!class_exists('Zend_Json')) {
+        if(!class_exists('Zend_Json')) {
             /**
              * @see Zend_Json
              */

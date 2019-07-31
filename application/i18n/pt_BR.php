@@ -1,18 +1,18 @@
 <?php
 
-// Tradução para o Português por Nivaldo Arruda - nivaldo@gmail.com
+// Tradu��o para o Portugu�s por Nivaldo Arruda - nivaldo@gmail.com
 $portugues = array();
-$portugues['isEmpty'] = 'Este campo não pode ser vazio';
+$portugues['isEmpty']= 'Este campo não pode ser vazio';
 $portugues['stringEmpty'] = "'%value%' é uma string vazia";
 $portugues['noRecordFound'] = "Um registro com o valor '%value%' não foi encontrado";
 $portugues['recordFound'] = "Um registro com o valor '%value%' foi encontrado";
 
 // Email
-$portugues['emailAddressInvalid'] = 'Não é um email válido no formato nome@servidor';
-$portugues['emailAddressInvalidFormat'] = 'Não é um email válido no formato nome@servidor';
+$portugues['emailAddressInvalid'] = 'Não um email válido no formato nome@servidor';
+$portugues['emailAddressInvalidFormat'] = 'Não um email válido no formato nome@servidor';
 
 //hostname
-$portugues['hostnameIpAddressNotAllowed'] = "'%value%' Parece ser um endereço de IP, mas endereços de IP não são permitidos";
+$portugues['hostnameIpAddressNotAllowed']  = "'%value%' Parece ser um endereço de IP, mas endereços de IP não são permitidos";
 $portugues['hostnameUnknownTld'] = "'%value%' parece ser um DNS, mas não foi possivel validar o TLD";
 $portugues['hostnameDashCharacter'] = "'%value%' parece ser um DNS, mas contém um 'dash' (-) em uma posição inválida";
 $portugues['hostnameInvalidHostnameSchema'] = "'%value%' parece ser um DNS, mas não foi possível comparar com o schema para o TLD '%tld%'";
@@ -23,7 +23,7 @@ $portugues['hostnameLocalNameNotAllowed'] = "'%value%' parece ser o nome de uma 
 
 //identical
 
-$portugues['notSame'] = "A comparação não coincide.";
+$portugues['notSame'] = "Comparação não bate";
 $portugues['missingToken'] = "Não foi fornecido parâmetros para teste";
 
 //greater then
@@ -74,3 +74,4 @@ $portugues['stringLengthTooLong'] = "'%value%' é maior que  %max% (tamanho maxi
 
 //$portugues[''] = "";
 return $portugues;
+?>

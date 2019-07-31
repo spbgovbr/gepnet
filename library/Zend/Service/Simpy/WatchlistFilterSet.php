@@ -47,7 +47,7 @@ class Zend_Service_Simpy_WatchlistFilterSet implements IteratorAggregate
     /**
      * Adds a filter to the set
      *
-     * @param Zend_Service_Simpy_WatchlistFilter $filter Filter to be added
+     * @param  Zend_Service_Simpy_WatchlistFilter $filter Filter to be added
      * @return void
      */
     public function add(Zend_Service_Simpy_WatchlistFilter $filter)

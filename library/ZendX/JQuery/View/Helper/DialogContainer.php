@@ -39,19 +39,19 @@ class ZendX_JQuery_View_Helper_DialogContainer extends ZendX_JQuery_View_Helper_
      * Create a jQuery UI Dialog filled with the given content
      *
      * @link   http://docs.jquery.com/UI/Dialog
-     * @param string $id
-     * @param string $content
-     * @param array $params
-     * @param array $attribs
+     * @param  string $id
+     * @param  string $content
+     * @param  array $params
+     * @param  array $attribs
      * @return string
      */
-    public function dialogContainer($id, $content, $params = array(), $attribs = array())
-    {
+	public function dialogContainer($id, $content, $params=array(), $attribs=array())
+	{
         if (!array_key_exists('id', $attribs)) {
             $attribs['id'] = $id;
         }
 
-        if (count($params) > 0) {
+        if(count($params) > 0) {
             $params = ZendX_JQuery::encodeJson($params);
         } else {
             $params = "{}";
@@ -65,10 +65,10 @@ class ZendX_JQuery_View_Helper_DialogContainer extends ZendX_JQuery_View_Helper_
         $this->jquery->addOnLoad($js);
 
         $html = '<div'
-            . $this->_htmlAttribs($attribs)
-            . '>'
-            . $content
-            . '</div>';
+              . $this->_htmlAttribs($attribs)
+              . '>'
+              . $content
+              . '</div>';
         return $html;
-    }
+	}
 }

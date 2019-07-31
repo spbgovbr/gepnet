@@ -1,3 +1,4 @@
+
 function selectRow(row) {
     //console.log(row);
     $('.input-selecionado')
@@ -6,28 +7,28 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function () {
+$(function() {
     $.pnotify.defaults.history = false;
-
+    
     var $form = $("form#form-avaliacao");
 
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function ($form) {
-            enviar_ajax("/evento/avaliacaoservidor/cadastrar/format/json", "form#form-avaliacao", function (data) {
+        submitHandler: function($form) {
+            enviar_ajax("/evento/avaliacaoservidor/cadastrar/format/json", "form#form-avaliacao", function(data) {
                 if (data.success) {
                     $("#resetbutton").trigger('click');
                 }
             });
         }
     });
-
-    $('#voltar').click(function () {
+    
+    $('#voltar').click( function(){
         window.location.href = base_url + '/evento/avaliacaoservidor/index';
     });
-
-    $(document.body).on('click', ".pessoa-button", function (event) {
+    
+    $(document.body).on('click',".pessoa-button", function(event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -36,21 +37,22 @@ $(function () {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function (html) {
+                success: function(html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click', function () {
+                .on('click',function() {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function () {
+                    $(".grid-append").slideDown('fast', function(){
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });
                 });
-        }
+        } 
     });
+
 
 
 });

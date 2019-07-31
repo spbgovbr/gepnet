@@ -77,7 +77,7 @@ class Zend_Feed_Writer_Entry
     /**
      * Set a single author
      *
-     * @param int $index
+     * @param  int $index
      * @return string|null
      */
     public function addAuthor($name, $email = null, $uri = null)
@@ -109,10 +109,10 @@ class Zend_Feed_Writer_Entry
                 }
                 $author['uri'] = $name['uri'];
             }
-            /**
-             * @deprecated
-             * Array notation (above) is preferred and will be the sole supported input from ZF 2.0
-             */
+        /**
+         * @deprecated
+         * Array notation (above) is preferred and will be the sole supported input from ZF 2.0
+         */
         } else {
             if (empty($name['name']) || !is_string($name['name'])) {
                 require_once 'Zend/Feed/Exception.php';
@@ -144,7 +144,7 @@ class Zend_Feed_Writer_Entry
      */
     public function addAuthors(array $authors)
     {
-        foreach ($authors as $author) {
+        foreach($authors as $author) {
             $this->addAuthor($author);
         }
     }
@@ -295,11 +295,11 @@ class Zend_Feed_Writer_Entry
      */
     public function setCommentCount($count)
     {
-        if (!is_numeric($count) || (int)$count < 0) {
+        if ( !is_numeric($count) || (int) $count < 0) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "count" must be a non-empty integer number');
         }
-        $this->_data['commentCount'] = (int)$count;
+        $this->_data['commentCount'] = (int) $count;
     }
 
     /**
@@ -330,7 +330,7 @@ class Zend_Feed_Writer_Entry
         if (!isset($link['type']) || !in_array($link['type'], array('atom', 'rss', 'rdf'))) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Invalid parameter: "type" must be one'
-                . ' of "atom", "rss" or "rdf"');
+            . ' of "atom", "rss" or "rdf"');
         }
         if (!isset($this->_data['commentFeedLinks'])) {
             $this->_data['commentFeedLinks'] = array();
@@ -547,8 +547,8 @@ class Zend_Feed_Writer_Entry
         if (!isset($category['term'])) {
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('Each category must be an array and '
-                . 'contain at least a "term" element containing the machine '
-                . ' readable category name');
+            . 'contain at least a "term" element containing the machine '
+            . ' readable category name');
         }
         if (isset($category['scheme'])) {
             if (empty($category['scheme'])
@@ -557,7 +557,7 @@ class Zend_Feed_Writer_Entry
             ) {
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('The Atom scheme or RSS domain of'
-                    . ' a category must be a valid URI');
+                . ' a category must be a valid URI');
             }
         }
         if (!isset($this->_data['categories'])) {
@@ -686,8 +686,8 @@ class Zend_Feed_Writer_Entry
     /**
      * Method overloading: call given method on first extension implementing it
      *
-     * @param string $method
-     * @param array $args
+     * @param  string $method
+     * @param  array $args
      * @return mixed
      * @throws Zend_Feed_Exception if no extensions implements the method
      */

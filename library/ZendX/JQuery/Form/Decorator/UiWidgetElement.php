@@ -71,7 +71,7 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
     public function getElementAttribs()
     {
         if (null === $this->_attribs) {
-            if ($this->_attribs = parent::getElementAttribs()) {
+            if($this->_attribs = parent::getElementAttribs()) {
                 if (array_key_exists('jQueryParams', $this->_attribs)) {
                     $this->setJQueryParams($this->_attribs['jQueryParams']);
                     unset($this->_attribs['jQueryParams']);
@@ -85,20 +85,20 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
     /**
      * Set a single jQuery option parameter
      *
-     * @param string $key
-     * @param mixed $value
+     * @param  string $key
+     * @param  mixed $value
      * @return ZendX_JQuery_Form_Decorator_UiWidgetElement
      */
     public function setJQueryParam($key, $value)
     {
-        $this->_jQueryParams[(string)$key] = $value;
+        $this->_jQueryParams[(string) $key] = $value;
         return $this;
     }
 
     /**
      * Set jQuery option parameters
      *
-     * @param array $params
+     * @param  array $params
      * @return ZendX_JQuery_Form_Decorator_UiWidgetElement
      */
     public function setJQueryParams(array $params)
@@ -110,13 +110,13 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
     /**
      * Retrieve a single jQuery option parameter
      *
-     * @param string $key
+     * @param  string $key
      * @return mixed|null
      */
     public function getJQueryParam($key)
     {
         $this->getElementAttribs();
-        $key = (string)$key;
+        $key = (string) $key;
         if (array_key_exists($key, $this->_jQueryParams)) {
             return $this->_jQueryParams[$key];
         }
@@ -138,7 +138,7 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
     /**
      * Render an jQuery UI Widget element using its associated view helper
      *
-     * @param string $content
+     * @param  string $content
      * @return string
      * @throws Zend_Form_Decorator_Exception if element or view are not registered
      */
@@ -151,16 +151,16 @@ class ZendX_JQuery_Form_Decorator_UiWidgetElement
             throw new Zend_Form_Decorator_Exception('UiWidgetElement decorator cannot render without a registered view object');
         }
 
-        if (method_exists($element, 'getJQueryParams')) {
+        if(method_exists($element, 'getJQueryParams')) {
             $this->setJQueryParams($element->getJQueryParams());
         }
         $jQueryParams = $this->getJQueryParams();
 
-        $helper = $this->getHelper();
+        $helper    = $this->getHelper();
         $separator = $this->getSeparator();
-        $value = $this->getValue($element);
-        $attribs = $this->getElementAttribs();
-        $name = $element->getFullyQualifiedName();
+        $value     = $this->getValue($element);
+        $attribs   = $this->getElementAttribs();
+        $name      = $element->getFullyQualifiedName();
 
         $id = $element->getId();
         $attribs['id'] = $id;

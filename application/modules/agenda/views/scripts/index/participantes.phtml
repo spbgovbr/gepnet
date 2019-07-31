@@ -1,6 +1,7 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'));
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+;
 
 $frmAttr = $this->form->getAttribs();
 //Zend_Debug::dump($this->dados); exit;
@@ -37,49 +38,49 @@ $frmAttr = $this->form->getAttribs();
             </div>
         </div>
         <div class="row">
-            <div class="container-pessoa">
-                <div class="span3">
-                    <div class="control-group">
-                        <?php echo $this->form->nomparticipante->renderLabel(); ?>
-                        <div class="controls">
-                            <div class="input-prepend ">
-                                <?php echo $this->form->pessoabutton; ?>
-                                <?php echo $this->form->nomparticipante->renderViewHelper(); ?>
-                                <?php echo $this->form->idpessoa; ?>
+                <div class="container-pessoa">
+                    <div class="span3">
+                        <div class="control-group">
+                            <?php echo $this->form->nomparticipante->renderLabel(); ?>
+                            <div class="controls">
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->nomparticipante->renderViewHelper(); ?>
+                                    <?php echo $this->form->idpessoa; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!--<div class="span">
+                <!--<div class="span">
                                         <label class="control-label optional" for="nomparteinteressada">Nome</label>
                                     <?php //echo $this->formSelect('nomparteinteressada', null, null, App_Service::getService('Default_Service_Pessoa')->fetchPairs());  ?>
                                     </div>-->
+                <!--<div class="span">-->
+                    <?php //echo $this->form->nomfuncao; ?>
+                <!--</div>-->
+                <!--<div class="span">
+                    <label class="control-label optional" for="dessituacao">Situação</label>
+                    <input type="text" id="dessituacao" name="dessituacao" class="span2">
+                </div>-->
             <!--<div class="span">-->
-            <?php //echo $this->form->nomfuncao; ?>
+                <!--                                            <label class="control-label optional" for="domnivelinfluencia">Nível de Influência</label>
+                                                            <select id="domnivelinfluencia" name="domnivelinfluencia" class="span1">
+                                                                <option value="Baixo">Baixo</option>
+                                                                <option value="Médio">Médio</option>
+                                                                <option value="Alto">Alto</option>
+                                                            </select>-->
+                    <?php //echo $this->form->domnivelinfluencia; ?>
             <!--</div>-->
-            <!--<div class="span">
-                <label class="control-label optional" for="dessituacao">Situação</label>
-                <input type="text" id="dessituacao" name="dessituacao" class="span2">
-            </div>-->
-            <!--<div class="span">-->
-            <!--                                            <label class="control-label optional" for="domnivelinfluencia">Nível de Influência</label>
-                                                        <select id="domnivelinfluencia" name="domnivelinfluencia" class="span1">
-                                                            <option value="Baixo">Baixo</option>
-                                                            <option value="Médio">Médio</option>
-                                                            <option value="Alto">Alto</option>
-                                                        </select>-->
-            <?php //echo $this->form->domnivelinfluencia; ?>
-            <!--</div>-->
-            <div class="span" style="margin-top: 22px">
-                <input id="idagenda" type="hidden" value="<?php echo $this->idagenda; ?>" name="idagenda">
-                <!--<button class="btn" type="button" id="btn-adicionar">Adicionar</button>-->
-                <?php echo $this->form->adicionar; ?>
-            </div>
+                <div class="span" style="margin-top: 22px">
+                    <input id="idagenda" type="hidden" value="<?php echo $this->idagenda; ?>" name="idagenda">
+                    <!--<button class="btn" type="button" id="btn-adicionar">Adicionar</button>-->
+                    <?php echo $this->form->adicionar; ?>
+                </div>
         </div>
         <div class="grid-append span12" style="display: none;">
-            <!--<div class="span2 actions-pesquisar" style="float:left;">-->
+        <!--<div class="span2 actions-pesquisar" style="float:left;">-->
         </div>
     </form>
     <div id="listagemInteressados">
@@ -101,8 +102,7 @@ $frmAttr = $this->form->getAttribs();
                 <?php foreach ($this->dados as $data) : ?>
                     <tr>
                         <td>
-                            <a class='btn actionfrm excluir excluirparticipantebutton' title='Excluir Participante'
-                               data-id="<?php echo $data->idpessoa; ?>" data-agenda="<?php echo $this->idagenda; ?>">
+                            <a class='btn actionfrm excluir excluirparticipantebutton' title='Excluir Participante' data-id="<?php echo $data->idpessoa; ?>" data-agenda="<?php echo $this->idagenda; ?>" >
                                 <i class='icon-trash'></i>
                             </a>
                         </td>
@@ -113,7 +113,7 @@ $frmAttr = $this->form->getAttribs();
                             <?php echo $data->desemail; ?>
                         </td>
                         <!--<td>
-                            <a class='btn actionfrm email enviaremailbutton' title='Enviar Email' data-id="<?php /*echo $data->idpessoa; */ ?>" data-agenda="<?php /*echo $this->idagenda; */ ?>" >
+                            <a class='btn actionfrm email enviaremailbutton' title='Enviar Email' data-id="<?php /*echo $data->idpessoa; */?>" data-agenda="<?php /*echo $this->idagenda; */?>" >
                                 <i class='icon-envelope'></i>
                             </a>
                         </td>-->
@@ -122,10 +122,9 @@ $frmAttr = $this->form->getAttribs();
                 <?php endforeach; ?>
                 </tbody>
             </table>
-            <div id="nenhumregistro" class="alert alert-block" style="display: none">Nenhum registro encontrado</div>
+            <div id="nenhumregistro" class="alert alert-block" style="display: none">Nenhum registro encontrado </div>
         <?php else: ?>
-            <table id="tabelaInteressados" class="table table-bordered table-hover table-striped span10"
-                   style="display: none">
+            <table id="tabelaInteressados" class="table table-bordered table-hover table-striped span10" style="display: none">
                 <colgroup>
                     <col style="width: 10px">
                     <col style="width: 100px">
@@ -139,13 +138,11 @@ $frmAttr = $this->form->getAttribs();
                 <tbody>
                 </tbody>
             </table>
-            <div id="nenhumregistro" class="alert alert-danger">Nenhum registro encontrado</div>
+            <div id="nenhumregistro" class="alert alert-danger">Nenhum registro encontrado </div>
         <?php endif; ?>
     </div>
 </div>
 <input type="hidden" id="agenda" value="<?php echo $this->idagenda; ?>">
-<div class="row">
-    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
-        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-    </div>
-</div>
+
+
+

@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
-{
+class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract {
 
     public $_mapper = null;
     protected $_form = null;
@@ -35,10 +34,10 @@ class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     /**
      * Retorna as Perguntas cadastradas
-     *
+     * 
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
@@ -49,7 +48,7 @@ class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -71,7 +70,7 @@ class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
     {
         $form = $this->getFormPergunta();
 
-        if ($form->isValid($dados)) {
+        if ( $form->isValid($dados) ) {
             $model = new Pesquisa_Model_Frase();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
@@ -79,7 +78,7 @@ class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
             try {
                 $model->idpergunta = $this->_mapper->insert($model);
                 return $model;
-            } catch (Exception $exc) {
+            } catch ( Exception $exc ) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
                 return false;
             }
@@ -92,7 +91,7 @@ class Pesquisa_Service_Pergunta extends App_Service_ServiceAbstract
     public function update($params)
     {
         $form = $this->getFormPergunta();
-        if ($form->isValid($params)) {
+        if ( $form->isValid($params) ) {
             $model = new Pesquisa_Model_Frase($form->getValidValues($params));
             try {
                 $retorno = $this->_mapper->update($model);

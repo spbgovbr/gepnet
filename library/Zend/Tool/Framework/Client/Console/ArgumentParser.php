@@ -49,7 +49,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
      *
      * @var Zend_Tool_Framework_Manifest_Repository
      */
-    protected $_manifestRepository = null;
+      protected $_manifestRepository = null;
 
     /**
      * @var Zend_Tool_Framework_Client_Request
@@ -65,7 +65,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
      * @var array
      */
     protected $_argumentsOriginal = null;
-    protected $_argumentsWorking = null;
+    protected $_argumentsWorking  = null;
     /**#@-*/
 
     /**
@@ -102,7 +102,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
 
         // set manifest repository, request, response for easy access
         $this->_manifestRepository = $this->_registry->getManifestRepository();
-        $this->_request = $this->_registry->getRequest();
+        $this->_request  = $this->_registry->getRequest();
         $this->_response = $this->_registry->getResponse();
         return $this;
     }
@@ -125,7 +125,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         $helpResponseOptions = array();
 
         // check to see if the first cli arg is the script name
-        if ($this->_argumentsWorking[0] == $_SERVER['SCRIPT_NAME']) {
+        if ($this->_argumentsWorking[0] == $_SERVER['SCRIPT_NAME' ]) {
             array_shift($this->_argumentsWorking);
         }
 
@@ -163,7 +163,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             $helpResponseOptions = array_merge(
                 $helpResponseOptions,
                 array('actionName' => $this->_request->getActionName())
-            );
+                );
         }
 
         /* @TODO Action Parameter Requirements */
@@ -176,8 +176,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             if ($this->_help) {
                 $this->_createHelpResponse($helpResponseOptions);
             } else {
-                $this->_createHelpResponse(array_merge($helpResponseOptions,
-                    array('error' => 'A provider is required.')));
+                $this->_createHelpResponse(array_merge($helpResponseOptions, array('error' => 'A provider is required.')));
             }
             return;
         }
@@ -196,14 +195,14 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             $helpResponseOptions = array_merge(
                 $helpResponseOptions,
                 array('providerName' => $this->_request->getProviderName())
-            );
+                );
         }
 
         if ($this->_helpKnownSpecialty) {
             $helpResponseOptions = array_merge(
                 $helpResponseOptions,
                 array('specialtyName' => $this->_request->getSpecialtyName())
-            );
+                );
         }
 
         // if there are arguments on the command line, lets process them as provider options
@@ -219,11 +218,8 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             } else {
                 $this->_createHelpResponse(array_merge(
                     $helpResponseOptions,
-                    array(
-                        'error' => 'Unknown arguments left on the command line: ' . implode(' ',
-                                $this->_argumentsWorking)
-                    )
-                ));
+                    array('error' => 'Unknown arguments left on the command line: ' . implode(' ', $this->_argumentsWorking))
+                    ));
             }
             return;
         }
@@ -245,10 +241,10 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
     protected function _parseGlobalPart()
     {
         $getoptOptions = array();
-        $getoptOptions['help|h'] = 'HELP';
+        $getoptOptions['help|h']    = 'HELP';
         $getoptOptions['verbose|v'] = 'VERBOSE';
         $getoptOptions['pretend|p'] = 'PRETEND';
-        $getoptOptions['debug|d'] = 'DEBUG';
+        $getoptOptions['debug|d']   = 'DEBUG';
         $getoptParser = new Zend_Console_Getopt($getoptOptions, $this->_argumentsWorking, array('parseAll' => false));
 
         // @todo catch any exceptions here
@@ -262,7 +258,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             } elseif ($option == 'verbose') {
                 $this->_request->setVerbose(true);
             } else {
-                $property = '_' . $option;
+                $property = '_'.$option;
                 $this->{$property} = true;
             }
         }
@@ -288,18 +284,18 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         $actionSearchCriteria = array(
-            'type' => 'Tool',
-            'name' => 'actionName',
-            'value' => $consoleActionName,
+            'type'       => 'Tool',
+            'name'       => 'actionName',
+            'value'      => $consoleActionName,
             'clientName' => 'console'
-        );
+            );
 
         // is the action name valid?
         $actionMetadata = $this->_manifestRepository->getMetadata($actionSearchCriteria);
 
         // check for normalized names as well (all lower, no separators)
         if (!$actionMetadata) {
-            $actionSearchCriteria['name'] = 'normalizedActionName';
+            $actionSearchCriteria['name']  = 'normalizedActionName';
             $actionSearchCriteria['value'] = strtolower(str_replace(array('-', '_'), '', $consoleActionName));
             $actionSearchCriteria['clientName'] = 'all';
             $actionMetadata = $this->_manifestRepository->getMetadata($actionSearchCriteria);
@@ -341,18 +337,18 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         $providerSearchCriteria = array(
-            'type' => 'Tool',
-            'name' => 'providerName',
-            'value' => $consoleProviderName,
+            'type'       => 'Tool',
+            'name'       => 'providerName',
+            'value'      => $consoleProviderName,
             'clientName' => 'console'
-        );
+            );
 
         // get the cli provider names from the manifest
         $providerMetadata = $this->_manifestRepository->getMetadata($providerSearchCriteria);
 
         // check for normalized names as well (all lower, no separators)
         if (!$providerMetadata) {
-            $providerSearchCriteria['name'] = 'normalizedProviderName';
+            $providerSearchCriteria['name']  = 'normalizedProviderName';
             $providerSearchCriteria['value'] = strtolower(str_replace(array('-', '_'), '', $consoleProviderName));
             $providerSearchCriteria['clientName'] = 'all';
             $providerMetadata = $this->_manifestRepository->getMetadata($providerSearchCriteria);
@@ -362,7 +358,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception(
                 'Provider \'' . $consoleProviderFull . '\' is not a valid provider.'
-            );
+                );
         }
 
         $this->_helpKnownProvider = true;
@@ -374,19 +370,18 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         $providerSpecialtySearchCriteria = array(
-            'type' => 'Tool',
-            'name' => 'specialtyName',
-            'value' => $consoleSpecialtyName,
+            'type'         => 'Tool',
+            'name'         => 'specialtyName',
+            'value'        => $consoleSpecialtyName,
             'providerName' => $providerMetadata->getProviderName(),
-            'clientName' => 'console'
-        );
+            'clientName'   => 'console'
+            );
 
         $providerSpecialtyMetadata = $this->_manifestRepository->getMetadata($providerSpecialtySearchCriteria);
 
         if (!$providerSpecialtyMetadata) {
             $providerSpecialtySearchCriteria['name'] = 'normalizedSpecialtyName';
-            $providerSpecialtySearchCriteria['value'] = strtolower(str_replace(array('-', '_'), '',
-                $consoleSpecialtyName));
+            $providerSpecialtySearchCriteria['value'] = strtolower(str_replace(array('-', '_'), '', $consoleSpecialtyName));
             $providerSpecialtySearchCriteria['clientName'] = 'all';
             $providerSpecialtyMetadata = $this->_manifestRepository->getMetadata($providerSpecialtySearchCriteria);
         }
@@ -395,7 +390,7 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             require_once 'Zend/Tool/Framework/Client/Exception.php';
             throw new Zend_Tool_Framework_Client_Exception(
                 'Provider \'' . $consoleSpecialtyName . '\' is not a valid specialty.'
-            );
+                );
         }
 
         $this->_helpKnownSpecialty = true;
@@ -416,20 +411,20 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
         }
 
         $searchParams = array(
-            'type' => 'Tool',
-            'providerName' => $this->_request->getProviderName(),
-            'actionName' => $this->_request->getActionName(),
+            'type'          => 'Tool',
+            'providerName'  => $this->_request->getProviderName(),
+            'actionName'    => $this->_request->getActionName(),
             'specialtyName' => $this->_request->getSpecialtyName(),
-            'clientName' => 'console'
-        );
+            'clientName'    => 'console'
+            );
 
         $actionableMethodLongParamsMetadata = $this->_manifestRepository->getMetadata(
             array_merge($searchParams, array('name' => 'actionableMethodLongParams'))
-        );
+            );
 
         $actionableMethodShortParamsMetadata = $this->_manifestRepository->getMetadata(
             array_merge($searchParams, array('name' => 'actionableMethodShortParams'))
-        );
+            );
 
         $paramNameShortValues = $actionableMethodShortParamsMetadata->getValue();
 
@@ -446,10 +441,10 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
             // process ParameterInfo into array for command line option matching
             if ($parameterInfo['type'] == 'string' || $parameterInfo['type'] == 'bool') {
                 $optionConfig .= $paramNameShortValues[$parameterNameLong]
-                    . (($parameterInfo['optional']) ? '-' : '=') . 's';
+                               . (($parameterInfo['optional']) ? '-' : '=') . 's';
             } elseif (in_array($parameterInfo['type'], array('int', 'integer', 'float'))) {
                 $optionConfig .= $paramNameShortValues[$parameterNameLong]
-                    . (($parameterInfo['optional']) ? '-' : '=') . 'i';
+                               . (($parameterInfo['optional']) ? '-' : '=') . 'i';
             } else {
                 $optionConfig .= $paramNameShortValues[$parameterNameLong] . '-s';
             }
@@ -459,8 +454,8 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
 
             // process ParameterInfo into array for command line WORD (argument) matching
             $wordArguments[$parameterInfo['position']]['parameterName'] = $parameterInfo['name'];
-            $wordArguments[$parameterInfo['position']]['optional'] = $parameterInfo['optional'];
-            $wordArguments[$parameterInfo['position']]['type'] = $parameterInfo['type'];
+            $wordArguments[$parameterInfo['position']]['optional']      = $parameterInfo['optional'];
+            $wordArguments[$parameterInfo['position']]['type']          = $parameterInfo['type'];
 
             // keep a translation of console to canonical names
             $longParamCanonicalNames[$consoleParameterNameLong] = $parameterNameLong;
@@ -493,12 +488,11 @@ class Zend_Tool_Framework_Client_Console_ArgumentParser implements Zend_Tool_Fra
 
         if ($wordStack && $wordArguments) {
             for ($wordIndex = 1; $wordIndex <= count($wordArguments); $wordIndex++) {
-                if (!array_key_exists($wordIndex - 1, $wordStack) || !array_key_exists($wordIndex, $wordArguments)) {
+                if (!array_key_exists($wordIndex-1, $wordStack) || !array_key_exists($wordIndex, $wordArguments)) {
                     break;
                 }
-                $this->_request->setProviderParameter($wordArguments[$wordIndex]['parameterName'],
-                    $wordStack[$wordIndex - 1]);
-                unset($wordStack[$wordIndex - 1]);
+                $this->_request->setProviderParameter($wordArguments[$wordIndex]['parameterName'], $wordStack[$wordIndex-1]);
+                unset($wordStack[$wordIndex-1]);
             }
         }
 

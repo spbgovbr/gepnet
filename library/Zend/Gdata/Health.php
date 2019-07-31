@@ -100,13 +100,11 @@ class Zend_Gdata_Health extends Zend_Gdata
     private $_useH9Sandbox = false;
 
     public static $namespaces =
-        array(
-            'ccr' => 'urn:astm-org:CCR',
-            'batch' => 'http://schemas.google.com/gdata/batch',
-            'h9m' => 'http://schemas.google.com/health/metadata',
-            'gAcl' => 'http://schemas.google.com/acl/2007',
-            'gd' => 'http://schemas.google.com/g/2005'
-        );
+        array('ccr' => 'urn:astm-org:CCR',
+              'batch' => 'http://schemas.google.com/gdata/batch',
+              'h9m' => 'http://schemas.google.com/health/metadata',
+              'gAcl' => 'http://schemas.google.com/acl/2007',
+              'gd' => 'http://schemas.google.com/g/2005');
 
     /**
      * Create Zend_Gdata_Health object
@@ -142,13 +140,12 @@ class Zend_Gdata_Health extends Zend_Gdata
      * @param string $id The profile ID
      * @return Zend_Gdata_Health Provides a fluent interface
      */
-    public function setProfileID($id)
-    {
+    public function setProfileID($id) {
         $this->_profileID = $id;
         return $this;
     }
 
-    /**
+     /**
      * Retrieves the list of profiles associated with the user's ClientLogin
      * credentials.
      *
@@ -163,14 +160,12 @@ class Zend_Gdata_Health extends Zend_Gdata
                 'Profiles list feed is only available when using ClientLogin');
         }
 
-        if ($query === null) {
+        if($query === null)  {
             $uri = self::CLIENTLOGIN_PROFILELIST_FEED_URI;
+        } else if ($query instanceof Zend_Gdata_Query) {
+            $uri = $query->getQueryUrl();
         } else {
-            if ($query instanceof Zend_Gdata_Query) {
-                $uri = $query->getQueryUrl();
-            } else {
-                $uri = $query;
-            }
+            $uri = $query;
         }
 
         // use correct feed for /h9 or /health
@@ -200,17 +195,13 @@ class Zend_Gdata_Health extends Zend_Gdata
 
         if ($query instanceof Zend_Gdata_Query) {
             $uri = $query->getQueryUrl();
+        } else if ($this->_httpClient->getClientLoginToken() !== null &&
+                   $query == null) {
+            $uri = self::CLIENTLOGIN_PROFILE_FEED_URI . '/' . $this->getProfileID();
+        } else if ($query === null) {
+            $uri = self::AUTHSUB_PROFILE_FEED_URI;
         } else {
-            if ($this->_httpClient->getClientLoginToken() !== null &&
-                $query == null) {
-                $uri = self::CLIENTLOGIN_PROFILE_FEED_URI . '/' . $this->getProfileID();
-            } else {
-                if ($query === null) {
-                    $uri = self::AUTHSUB_PROFILE_FEED_URI;
-                } else {
-                    $uri = $query;
-                }
-            }
+            $uri = $query;
         }
 
         // use correct feed for /h9 or /health
@@ -233,12 +224,10 @@ class Zend_Gdata_Health extends Zend_Gdata
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'Query must not be null');
+        } else if ($query instanceof Zend_Gdata_Query) {
+            $uri = $query->getQueryUrl();
         } else {
-            if ($query instanceof Zend_Gdata_Query) {
-                $uri = $query->getQueryUrl();
-            } else {
-                $uri = $query;
-            }
+            $uri = $query;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Health_ProfileEntry');
     }

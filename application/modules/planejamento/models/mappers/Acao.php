@@ -17,30 +17,30 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Planejamento_Model_Acao $model)
     {
-        $model->idacao = $this->maxVal('idacao');
-        $model->numseq = $this->maxVal('numseq');
+        $model->idacao          = $this->maxVal('idacao');
+        $model->numseq          = $this->maxVal('numseq');
 //        $model->idcadastrador   = '30605';
         $auth = Zend_Auth::getInstance();
         if ($auth->hasIdentity()) {
             $model->idcadastrador = $auth->getIdentity()->idpessoa;
         }
         $data = array(
-            "idacao" => $model->idacao,
-            "idobjetivo" => $model->idobjetivo,
-            "nomacao" => $model->nomacao,
+            "idacao"        => $model->idacao,
+            "idobjetivo"    => $model->idobjetivo,
+            "nomacao"       => $model->nomacao,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => new Zend_Db_Expr("now()"),
-            "flaativo" => $model->flaativo,
-            "desacao" => $model->desacao,
-            "idescritorio" => $model->idescritorio,
-            "numseq" => $model->numseq,
+            "datcadastro"   => new Zend_Db_Expr("now()"),
+            "flaativo"      => $model->flaativo,
+            "desacao"       => $model->desacao,
+            "idescritorio"  => $model->idescritorio,
+            "numseq"        => $model->numseq,
         );
 //        $this->getDbTable()->insert($data);
         try {
-            $retorno = $this->getDbTable()->insert($data);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$retorno = $this->getDbTable()->insert($data);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
@@ -55,26 +55,26 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
         $data = array(
 //            "idacao"        => $model->idacao,
 //            "idobjetivo"    => $model->idobjetivo,
-            "nomacao" => $model->nomacao,
+            "nomacao"       => $model->nomacao,
 //            "idcadastrador" => $model->idcadastrador,
 //            "datcadastro"   => $model->datcadastro,
-            "flaativo" => $model->flaativo,
-            "desacao" => $model->desacao,
-            "idescritorio" => $model->idescritorio,
+            "flaativo"      => $model->flaativo,
+            "desacao"       => $model->desacao,
+            "idescritorio"  => $model->idescritorio,
 //            "numseq"        => $model->numseq,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
-
+        
         try {
-            $pks = array(
-                "idacao" => $model->idacao,
-            );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
-            //$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
-            $retorno = $this->getDbTable()->update($data, $where);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$pks     = array(
+                    "idacao" => $model->idacao,
+        	);
+        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+        	//$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
+        	$retorno = $this->getDbTable()->update($data, $where);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
@@ -82,12 +82,12 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Planejamento_Form_Acao);
     }
-
-
+    
+    
     public function fetchPairs()
     {
-        $sql = " SELECT idacao, nomacao FROM agepnet200.tb_acao order by nomacao asc";
-        return $this->_db->fetchPairs($sql);
+    	$sql = " SELECT idacao, nomacao FROM agepnet200.tb_acao order by nomacao asc";
+    	return $this->_db->fetchPairs($sql);
     }
 
     /**
@@ -97,8 +97,8 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
      * @return \Zend_Paginator | array
      */
     public function pesquisar($params, $paginator = false)
-    {
-        $sql = "
+    {   
+    	$sql    = "
                     SELECT 
                             a.nomacao,
                             (SELECT p.nompessoa FROM agepnet200.tb_pessoa p WHERE p.idpessoa = a.idcadastrador) as idcadastrador,
@@ -117,44 +117,44 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
                     WHERE 
                             1=1
     		";
-
+    	
 //            Zend_Debug::dump($params);
 //    	$params = array_filter($params);
-        if (isset($params['nomacao'])) {
-            $nomacao = strtoupper($params['nomacao']);
-            $sql .= " AND upper(nomacao) LIKE '%{$nomacao}%'";
-        }
-        if (isset($params['idobjetivo'])) {
-            $idobjetivo = $params['idobjetivo'];
-            $sql .= " AND a.idobjetivo = {$idobjetivo} ";
-        }
-
-        if (isset($params['sidx'])) {
+    	if ( isset($params['nomacao']) ) {
+    		$nomacao = strtoupper($params['nomacao']);
+    		$sql .= " AND upper(nomacao) LIKE '%{$nomacao}%'";
+    	}
+        if ( isset($params['idobjetivo']) ) {
+    		$idobjetivo = $params['idobjetivo'];
+    		$sql .= " AND a.idobjetivo = {$idobjetivo} ";
+    	}
+        
+        if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        //Zend_Debug::dump($sql);exit;
-
-        if ($paginator) {
-            $page = (isset($params['page'])) ? $params['page'] : 1;
-            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
-            $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
-            $paginator->setItemCountPerPage($limit);
-            $paginator->setCurrentPageNumber($page);
-            return $paginator;
-        }
-
-        $resultado = $this->_db->fetchAll($sql);
+    	//Zend_Debug::dump($sql);exit;
+    	
+    	if ( $paginator ) {
+    		$page      = (isset($params['page'])) ? $params['page'] : 1;
+    		$limit     = (isset($params['rows'])) ? $params['rows'] : 20;
+    		$paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
+    		$paginator->setItemCountPerPage($limit);
+    		$paginator->setCurrentPageNumber($page);
+    		return $paginator;
+    	}
+    	
+    	$resultado = $this->_db->fetchAll($sql);
 //     	Zend_Debug::dump($resultado);exit;
-        return $resultado;
+    	return $resultado;
     }
-
+    
     /**
      * @param array $params
      * @return array
      */
     public function getById($params)
     {
-        $sql = "
+    	$sql = "
                     SELECT 
                             a.idacao,
                             a.idobjetivo,
@@ -170,19 +170,19 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
                     WHERE
                             a.idacao = :idacao
             ";
-
-        $resultado = $this->_db->fetchRow($sql, array('idacao' => $params['idacao']));
-        $processo = new Planejamento_Model_Acao($resultado);
-        return $processo;
+    
+    	$resultado       = $this->_db->fetchRow($sql, array('idacao' => $params['idacao']));
+    	$processo        = new Planejamento_Model_Acao($resultado);
+    	return $processo;
     }
-
+    
     /**
      * @param array $params
      * @return array
      */
     public function getByIdDetalhar($params)
     {
-        $sql = "    
+    	$sql = "    
                     SELECT 
                             a.idacao,
                             a.idobjetivo,
@@ -201,49 +201,36 @@ class Planejamento_Model_Mapper_Acao extends App_Model_Mapper_MapperAbstract
                     WHERE
                             a.idacao = :idacao
             ";
-
-        $resultado = $this->_db->fetchRow($sql, array('idacao' => $params['idacao']));
-        $processo = new Planejamento_Model_Acao($resultado);
-        return $processo;
+   
+    	$resultado       = $this->_db->fetchRow($sql, array('idacao' => $params['idacao']));
+    	$processo        = new Planejamento_Model_Acao($resultado);
+    	return $processo;
     }
 
-    public function getByObjetivo($params, $model = false)
-    {
-
+    public function getByObjetivo($params, $model = false){
+        
         $sql = "SELECT
                     idacao,
                     nomacao,
                     idobjetivo,
                     idescritorio
                 FROM agepnet200.tb_acao
-                WHERE idobjetivo = :idobjetivo 
-                ORDER BY nomacao ";
-
+                WHERE idobjetivo = :idobjetivo ";
+        
         $resultado = $this->_db->fetchAll($sql, array('idobjetivo' => $params['idobjetivo']));
-
-        if ($model) {
+        
+        if($model){
             $collection = new App_Model_Collection();
             $collection->setDomainClass('Planejamento_Model_Acao');
-            foreach ($resultado as $r) {
-                $o = new Planejamento_Model_Acao($r);
-                $collection[] = $o;
+            foreach( $resultado as $r)
+            {
+                    $o = new Planejamento_Model_Acao($r);
+                    $collection[] = $o;
             }
             return $collection;
         }
         return $resultado;
     }
-
-
-    public function fetchPairsByObjetivo($params)
-    {
-        $sql = "SELECT idacao, nomacao FROM agepnet200.tb_acao
-                WHERE flaativo = 'S' AND idobjetivo in (:idobjetivo) 
-                ORDER BY nomacao asc";
-        return $this->_db->fetchPairs($sql, array(
-            'idobjetivo' => $params['idobjetivo']
-        ));
-    }
-
 
 }
 

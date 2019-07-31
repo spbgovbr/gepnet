@@ -1,10 +1,10 @@
-$(function () {
+$(function() {
 
     $.pnotify.defaults.history = false;
 
     var
-        $form = $("form#form-status-report");
-    url_cadastrar = base_url + "/projeto/relatorio/add/format/json";
+            $form = $("form#form-status-report");
+            url_cadastrar = base_url + "/projeto/relatorio/add/format/json";
 
     $form.validate({
         errorClass: 'error',
@@ -16,18 +16,18 @@ $(function () {
 ////                }
 //            });
 //        }
-        submitHandler: function (form) {
+        submitHandler: function(form) {
             var options = {
                 url: url_cadastrar,
                 dataType: 'json',
                 type: 'POST',
-                success: function (data) {
-                    if (typeof data.msg.text != 'string') {
+                success: function(data) {
+                    if(typeof data.msg.text != 'string'){
                         $.formErrors(data.msg.text);
                         return;
                     }
                     $.pnotify(data.msg);
-                    if (data.success) {
+                    if(data.success){
                         $("#resetbutton").trigger('click');
                     }
                 }
@@ -36,7 +36,7 @@ $(function () {
             $form.ajaxSubmit(options);
         }
     });
-
+    
 //    $(".pessoa-button").on('click', function(event) {
 //        event.preventDefault();
 //        $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');

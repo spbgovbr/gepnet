@@ -18,10 +18,10 @@ class Default_Model_Mapper_Entidadeexterna extends App_Model_Mapper_MapperAbstra
     public function insert(Default_Model_Entidadeexterna $model)
     {
         $data = array(
-            "identidadeexterna" => $model->identidadeexterna,
+            "identidadeexterna"  => $model->identidadeexterna,
             "nomentidadeexterna" => $model->nomentidadeexterna,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
+            "idcadastrador"      => $model->idcadastrador,
+            "datcadastro"        => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,12 +35,12 @@ class Default_Model_Mapper_Entidadeexterna extends App_Model_Mapper_MapperAbstra
     public function update(Default_Model_Entidadeexterna $model)
     {
         $data = array(
-            "identidadeexterna" => $model->identidadeexterna,
+            "identidadeexterna"  => $model->identidadeexterna,
             "nomentidadeexterna" => $model->nomentidadeexterna,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
+            "idcadastrador"      => $model->idcadastrador,
+            "datcadastro"        => $model->datcadastro,
         );
-
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

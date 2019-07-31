@@ -1,16 +1,16 @@
 <?php
 
-class Pesquisa_RespostaController extends Zend_Controller_Action
-{
+class Pesquisa_RespostaController extends Zend_Controller_Action {
 
     public function init()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('cadastrar', 'json')
-            ->addActionContext('editar', 'json')
-            ->addActionContext('excluir', 'json')
-            ->addActionContext('detalhar', 'json')
-            ->initContext();
+                ->addActionContext('editar', 'json')
+                ->addActionContext('excluir', 'json')
+                ->addActionContext('detalhar', 'json')
+                ->initContext()
+        ;
     }
 
     public function listarAction()
@@ -36,7 +36,7 @@ class Pesquisa_RespostaController extends Zend_Controller_Action
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
             if ($this->_request->isXmlHttpRequest()) {
@@ -67,7 +67,7 @@ class Pesquisa_RespostaController extends Zend_Controller_Action
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
             if ($this->_request->isXmlHttpRequest()) {

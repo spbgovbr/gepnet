@@ -82,10 +82,10 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
         $decorators = $this->getDecorators();
         if (empty($decorators)) {
             $this->addDecorator('File')
-                ->addDecorator('Errors')
-                ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
-                ->addDecorator('HtmlTag', array('tag' => 'dd'))
-                ->addDecorator('Label', array('tag' => 'dt'));
+                 ->addDecorator('Errors')
+                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
+                 ->addDecorator('HtmlTag', array('tag' => 'dd'))
+                 ->addDecorator('Label', array('tag' => 'dt'));
         }
         return $this;
     }
@@ -93,8 +93,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Set plugin loader
      *
-     * @param Zend_Loader_PluginLoader_Interface $loader
-     * @param string $type
+     * @param  Zend_Loader_PluginLoader_Interface $loader
+     * @param  string $type
      * @return Zend_Form_Element_File
      */
     public function setPluginLoader(Zend_Loader_PluginLoader_Interface $loader, $type)
@@ -112,7 +112,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Get Plugin Loader
      *
-     * @param string $type
+     * @param  string $type
      * @return Zend_Loader_PluginLoader_Interface
      */
     public function getPluginLoader($type)
@@ -137,9 +137,9 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add prefix path for plugin loader
      *
-     * @param string $prefix
-     * @param string $path
-     * @param string $type
+     * @param  string $prefix
+     * @param  string $path
+     * @param  string $type
      * @return Zend_Form_Element_File
      */
     public function addPrefixPath($prefix, $path, $type = null)
@@ -151,8 +151,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
 
         if (empty($type)) {
             $pluginPrefix = rtrim($prefix, '_') . '_Transfer_Adapter';
-            $pluginPath = rtrim($path, DIRECTORY_SEPARATOR) . '/Transfer/Adapter/';
-            $loader = $this->getPluginLoader(self::TRANSFER_ADAPTER);
+            $pluginPath   = rtrim($path, DIRECTORY_SEPARATOR) . '/Transfer/Adapter/';
+            $loader       = $this->getPluginLoader(self::TRANSFER_ADAPTER);
             $loader->addPrefixPath($pluginPrefix, $pluginPath);
             return parent::addPrefixPath($prefix, $path, null);
         }
@@ -165,7 +165,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Set transfer adapter
      *
-     * @param string|Zend_File_Transfer_Adapter_Abstract $adapter
+     * @param  string|Zend_File_Transfer_Adapter_Abstract $adapter
      * @return Zend_Form_Element_File
      */
     public function setTransferAdapter($adapter)
@@ -174,7 +174,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             $this->_adapter = $adapter;
         } elseif (is_string($adapter)) {
             $loader = $this->getPluginLoader(self::TRANSFER_ADAPTER);
-            $class = $loader->load($adapter);
+            $class  = $loader->load($adapter);
             $this->_adapter = new $class;
         } else {
             require_once 'Zend/Form/Element/Exception.php';
@@ -207,9 +207,9 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add Validator; proxy to adapter
      *
-     * @param string|Zend_Validate_Interface $validator
-     * @param bool $breakChainOnFailure
-     * @param mixed $options
+     * @param  string|Zend_Validate_Interface $validator
+     * @param  bool $breakChainOnFailure
+     * @param  mixed $options
      * @return Zend_Form_Element_File
      */
     public function addValidator($validator, $breakChainOnFailure = false, $options = array())
@@ -224,7 +224,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add multiple validators at once; proxy to adapter
      *
-     * @param array $validators
+     * @param  array $validators
      * @return Zend_Form_Element_File
      */
     public function addValidators(array $validators)
@@ -239,7 +239,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add multiple validators at once, overwriting; proxy to adapter
      *
-     * @param array $validators
+     * @param  array $validators
      * @return Zend_Form_Element_File
      */
     public function setValidators(array $validators)
@@ -254,12 +254,12 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Retrieve validator by name; proxy to adapter
      *
-     * @param string $name
+     * @param  string $name
      * @return Zend_Validate_Interface|null
      */
     public function getValidator($name)
     {
-        $adapter = $this->getTransferAdapter();
+        $adapter    = $this->getTransferAdapter();
         return $adapter->getValidator($name);
     }
 
@@ -282,7 +282,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Remove validator by name; proxy to adapter
      *
-     * @param string $name
+     * @param  string $name
      * @return Zend_Form_Element_File
      */
     public function removeValidator($name)
@@ -311,8 +311,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add Filter; proxy to adapter
      *
-     * @param string|array $filter Type of filter to add
-     * @param string|array $options Options to set for the filter
+     * @param  string|array $filter  Type of filter to add
+     * @param  string|array $options Options to set for the filter
      * @return Zend_Form_Element_File
      */
     public function addFilter($filter, $options = null)
@@ -326,7 +326,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Add Multiple filters at once; proxy to adapter
      *
-     * @param array $filters
+     * @param  array $filters
      * @return Zend_Form_Element_File
      */
     public function addFilters(array $filters)
@@ -340,7 +340,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Sets a filter for the class, erasing all previous set; proxy to adapter
      *
-     * @param string|array $filter Filter to set
+     * @param  string|array $filter Filter to set
      * @return Zend_Form_Element_File
      */
     public function setFilters(array $filters)
@@ -354,7 +354,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Retrieve individual filter; proxy to adapter
      *
-     * @param string $name
+     * @param  string $name
      * @return Zend_Filter_Interface|null
      */
     public function getFilter($name)
@@ -382,7 +382,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Remove an individual filter; proxy to adapter
      *
-     * @param string $name
+     * @param  string $name
      * @return Zend_Form_Element_File
      */
     public function removeFilter($name)
@@ -409,8 +409,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Validate upload
      *
-     * @param string $value File, can be optional, give null to validate all files
-     * @param mixed $context
+     * @param  string $value   File, can be optional, give null to validate all files
+     * @param  mixed  $context
      * @return bool
      */
     public function isValid($value, $context = null)
@@ -419,7 +419,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             return true;
         }
 
-        $adapter = $this->getTransferAdapter();
+        $adapter    = $this->getTransferAdapter();
         $translator = $this->getTranslator();
         if ($translator !== null) {
             $adapter->setTranslator($translator);
@@ -434,7 +434,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             }
         }
 
-        if ($adapter->isValid($this->getName())) {
+        if($adapter->isValid($this->getName())) {
             $this->_validated = true;
             return true;
         }
@@ -497,7 +497,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Set the upload destination
      *
-     * @param string $path
+     * @param  string $path
      * @return Zend_Form_Element_File
      */
     public function setDestination($path)
@@ -519,8 +519,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Get the final filename
      *
-     * @param string $value (Optional) Element or file to return
-     * @param boolean $path (Optional) Return also the path, defaults to true
+     * @param  string  $value (Optional) Element or file to return
+     * @param  boolean $path  (Optional) Return also the path, defaults to true
      * @return string
      */
     public function getFileName($value = null, $path = true)
@@ -535,7 +535,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Get internal file informations
      *
-     * @param string $value (Optional) Element or file to return
+     * @param  string $value (Optional) Element or file to return
      * @return array
      */
     public function getFileInfo($value = null)
@@ -555,12 +555,12 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
      */
     public function setMultiFile($count)
     {
-        if ((integer)$count < 2) {
+        if ((integer) $count < 2) {
             $this->setIsArray(false);
             $this->_counter = 1;
         } else {
             $this->setIsArray(true);
-            $this->_counter = (integer)$count;
+            $this->_counter = (integer) $count;
         }
 
         return $this;
@@ -604,7 +604,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Sets the maximum file size of the form
      *
-     * @param integer $size
+     * @param  integer $size
      * @return integer
      */
     public function setMaxFileSize($size)
@@ -613,14 +613,12 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
         $max = $this->_convertIniToInteger(trim(ini_get('upload_max_filesize')));
 
         if (($max > -1) && ($size > $max)) {
-            trigger_error("Your 'upload_max_filesize' config setting limits the maximum filesize to '$max'. You tried to set '$size'.",
-                E_USER_NOTICE);
+            trigger_error("Your 'upload_max_filesize' config setting limits the maximum filesize to '$max'. You tried to set '$size'.", E_USER_NOTICE);
             $size = $max;
         }
 
         if (($ini > -1) && ($size > $ini)) {
-            trigger_error("Your 'post_max_size' config setting limits the maximum filesize to '$ini'. You tried to set '$size'.",
-                E_USER_NOTICE);
+            trigger_error("Your 'post_max_size' config setting limits the maximum filesize to '$ini'. You tried to set '$size'.", E_USER_NOTICE);
             $size = $ini;
         }
 
@@ -631,14 +629,14 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Converts a ini setting to a integer value
      *
-     * @param string $setting
+     * @param  string $setting
      * @return integer
      */
     private function _convertIniToInteger($setting)
     {
         if (!is_numeric($setting)) {
             $type = strtoupper(substr($setting, -1));
-            $setting = (integer)substr($setting, 0, -1);
+            $setting = (integer) substr($setting, 0, -1);
 
             switch ($type) {
                 case 'K' :
@@ -658,7 +656,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
             }
         }
 
-        return (integer)$setting;
+        return (integer) $setting;
     }
 
     /**
@@ -670,7 +668,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
      */
     public function setValueDisabled($flag)
     {
-        $this->_valueDisabled = (bool)$flag;
+        $this->_valueDisabled = (bool) $flag;
         return $this;
     }
 
@@ -715,7 +713,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Disallow setting the value
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return Zend_Form_Element_File
      */
     public function setValue($value)
@@ -726,7 +724,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Set translator object for localization
      *
-     * @param Zend_Translate|null $translator
+     * @param  Zend_Translate|null $translator
      * @return Zend_Form_Element_File
      */
     public function setTranslator($translator = null)
@@ -761,14 +759,14 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     /**
      * Indicate whether or not translation should be disabled
      *
-     * @param bool $flag
+     * @param  bool $flag
      * @return Zend_Form_Element_File
      */
     public function setDisableTranslator($flag)
     {
         $adapter = $this->getTransferAdapter();
         $adapter->setDisableTranslator($flag);
-        $this->_translatorDisabled = (bool)$flag;
+        $this->_translatorDisabled = (bool) $flag;
 
         return $this;
     }
@@ -855,7 +853,7 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
      * Render form element
      * Checks for decorator interface to prevent errors
      *
-     * @param Zend_View_Interface $view
+     * @param  Zend_View_Interface $view
      * @return string
      */
     public function render(Zend_View_Interface $view = null)
@@ -883,8 +881,8 @@ class Zend_Form_Element_File extends Zend_Form_Element_Xhtml
     protected function _getErrorMessages()
     {
         $translator = $this->getTranslator();
-        $messages = $this->getErrorMessages();
-        $value = $this->getFileName();
+        $messages   = $this->getErrorMessages();
+        $value      = $this->getFileName();
         foreach ($messages as $key => $message) {
             if (null !== $translator) {
                 $message = $translator->translate($message);

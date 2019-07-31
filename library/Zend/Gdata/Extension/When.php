@@ -49,12 +49,9 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
     protected $_valueString = null;
     protected $_endTime = null;
 
-    public function __construct(
-        $startTime = null,
-        $endTime = null,
-        $valueString = null,
-        $reminders = null
-    ) {
+    public function __construct($startTime = null, $endTime = null,
+            $valueString = null, $reminders = null)
+    {
         parent::__construct();
         $this->_startTime = $startTime;
         $this->_endTime = $endTime;
@@ -77,7 +74,7 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
         if ($this->_reminders !== null) {
             foreach ($this->_reminders as $reminder) {
                 $element->appendChild(
-                    $reminder->getDOM($element->ownerDocument));
+                        $reminder->getDOM($element->ownerDocument));
             }
         }
         return $element;
@@ -92,9 +89,9 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
                 $reminder->transferFromDOM($child);
                 $this->_reminders[] = $reminder;
                 break;
-            default:
-                parent::takeChildFromDOM($child);
-                break;
+        default:
+            parent::takeChildFromDOM($child);
+            break;
         }
     }
 
@@ -117,11 +114,11 @@ class Zend_Gdata_Extension_When extends Zend_Gdata_Extension
 
     public function __toString()
     {
-        if ($this->_valueString) {
+        if ($this->_valueString)
             return $this->_valueString;
-        } else {
+        else {
             return 'Starts: ' . $this->getStartTime() . ' ' .
-                'Ends: ' . $this->getEndTime();
+                   'Ends: ' .  $this->getEndTime();
         }
     }
 

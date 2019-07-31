@@ -9,20 +9,20 @@
 class Default_Model_DbTable_Permissaoperfil extends Zend_Db_Table_Abstract
 {
 
-    protected $_schema = 'agepnet200';
-    protected $_name = 'tb_permissaoperfil';
-    protected $_primary = array(1 => 'idpermissaoperfil');
+    protected $_schema          = 'agepnet200';
+    protected $_name            = 'tb_permissaoperfil';
+    protected $_primary         = array(1 => 'idpermissaoperfil');
     protected $_dependentTables = array();
-    protected $_referenceMap = array(
-        'Perfil' => array(
+    protected $_referenceMap    = array(
+        'Perfil'    => array(
             'refTableClass' => 'tb_perfil',
-            'columns' => 'idperfil',
-            'refColumns' => 'idperfil'
+            'columns'       => 'idperfil',
+            'refColumns'    => 'idperfil'
         ),
         'Permissao' => array(
             'refTableClass' => 'tb_permissao',
-            'columns' => 'idpermissao',
-            'refColumns' => 'idpermissao'
+            'columns'       => 'idpermissao',
+            'refColumns'    => 'idpermissao'
         )
     );
 

@@ -73,7 +73,7 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
     /**
      * __construct() - Instance constructor, needed to get iterators, etc
      *
-     * @param string $namespace
+     * @param  string $namespace
      * @return void
      */
     public function __construct()
@@ -104,7 +104,7 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
      * setNamespace() - change the namespace messages are added to, useful for
      * per action controller messaging between requests
      *
-     * @param string $namespace
+     * @param  string $namespace
      * @return Zend_Controller_Action_Helper_FlashMessenger Provides a fluent interface
      */
     public function setNamespace($namespace = 'default')
@@ -127,7 +127,7 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
     /**
      * addMessage() - Add a message to flash message
      *
-     * @param string $message
+     * @param  string $message
      * @return Zend_Controller_Action_Helper_FlashMessenger Provides a fluent interface
      */
     public function addMessage($message)
@@ -256,7 +256,7 @@ class Zend_Controller_Action_Helper_FlashMessenger extends Zend_Controller_Actio
     /**
      * Strategy pattern: proxy to addMessage()
      *
-     * @param string $message
+     * @param  string $message
      * @return void
      */
     public function direct($message)

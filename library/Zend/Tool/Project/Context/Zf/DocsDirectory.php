@@ -54,8 +54,7 @@ class Zend_Tool_Project_Context_Zf_DocsDirectory extends Zend_Tool_Project_Conte
         return 'DocsDirectory';
     }
 
-    public function create()
-    {
+    public function create(){
         parent::create();
     }
 

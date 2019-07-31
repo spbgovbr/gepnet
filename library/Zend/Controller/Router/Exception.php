@@ -32,6 +32,5 @@ require_once 'Zend/Controller/Exception.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Controller_Router_Exception extends Zend_Controller_Exception
-{
-}
+{}
 

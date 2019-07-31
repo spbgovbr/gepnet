@@ -369,8 +369,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:albumid attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoAlbumId
+     * @return string The requested attribute.
      */
     public function getGphotoAlbumId()
     {
@@ -392,8 +392,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:id attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoId
+     * @return string The requested attribute.
      */
     public function getGphotoId()
     {
@@ -415,8 +415,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:version attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoVersion
+     * @return string The requested attribute.
      */
     public function getGphotoVersion()
     {
@@ -438,8 +438,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:width attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoWidth
+     * @return string The requested attribute.
      */
     public function getGphotoWidth()
     {
@@ -461,8 +461,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:height attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoHeight
+     * @return string The requested attribute.
      */
     public function getGphotoHeight()
     {
@@ -484,8 +484,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:size attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoSize
+     * @return string The requested attribute.
      */
     public function getGphotoSize()
     {
@@ -507,8 +507,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:client attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoClient
+     * @return string The requested attribute.
      */
     public function getGphotoClient()
     {
@@ -530,8 +530,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:checksum attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoChecksum
+     * @return string The requested attribute.
      */
     public function getGphotoChecksum()
     {
@@ -553,8 +553,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:timestamp attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoTimestamp
+     * @return string The requested attribute.
      */
     public function getGphotoTimestamp()
     {
@@ -576,8 +576,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:commentCount attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoCommentCount
+     * @return string The requested attribute.
      */
     public function getGphotoCommentCount()
     {
@@ -599,8 +599,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's gphoto:commentingEnabled attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoCommentingEnabled
+     * @return string The requested attribute.
      */
     public function getGphotoCommentingEnabled()
     {
@@ -622,8 +622,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's exif:tags attribute.
      *
-     * @return string The requested attribute.
      * @see setExifTags
+     * @return string The requested attribute.
      */
     public function getExifTags()
     {
@@ -645,8 +645,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's georss:where attribute.
      *
-     * @return string The requested attribute.
      * @see setGeoRssWhere
+     * @return string The requested attribute.
      */
     public function getGeoRssWhere()
     {
@@ -668,8 +668,8 @@ class Zend_Gdata_Photos_PhotoEntry extends Zend_Gdata_Media_Entry
     /**
      * Get the value for this element's media:group attribute.
      *
-     * @return string The requested attribute.
      * @see setMediaGroup
+     * @return string The requested attribute.
      */
     public function getMediaGroup()
     {

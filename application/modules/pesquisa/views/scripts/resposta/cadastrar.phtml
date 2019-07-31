@@ -1,10 +1,11 @@
 <script>
 
-    $(function () {
+    $(function() {
         $.pnotify.defaults.history = false;
     });
 
-    function resetFormResposta() {
+    function resetFormResposta()
+    {
         $("#form-resposta :input").not('#idfrase').val('');
     }
 
@@ -18,28 +19,23 @@
         <form id="<?php echo $frmAttrPergunta['id']; ?>"
               name="<?php echo $frmAttrPergunta['id']; ?>"
               action="<?php echo $this->formResposta->getAction(); ?>"
-              method="<?php echo $frmAttrPergunta['method']; ?>">
-            <?php echo $this->formResposta->idfrase ?>
-            <div class="row-fluid">
+              method="<?php echo $frmAttrPergunta['method']; ?>">    
+              <?php echo $this->formResposta->idfrase ?>
+            <div class="row-fluid">                                                                       
                 <div class="span">
                     <?php echo $this->formResposta->desresposta ?>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid"> 
                 <div class="span3">
                     <?php echo $this->formResposta->numordem ?>
                 </div>
             </div>
-            <div class="row-fluid">
+            <div class="row-fluid"> 
                 <div class="span2">
-                    <?php echo $this->formResposta->flaativo ?>
+                    <?php echo $this->formResposta->flaativo ?>                
                 </div>
             </div>
         </form>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 190px;">
-        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
     </div>
 </div>

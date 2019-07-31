@@ -1,106 +1,106 @@
 <?php echo $this->partial('_partials/relatorio-cabecalho.phtml'); ?>
 <div id="content">
-    <?php if (count($this->mudanca) > 0):
-        foreach ($this->mudanca as $mudanca):
-            ?>
-            <div align="left" class="span4" style="margin-top: 60px">
-                <h5>1. SOLICITA&Ccedil;&Atilde;O DE MUDAN&Ccedil;A</h5>
-            </div>
-            <div align="left" class="span4">
-                <h5>1.1 PROJETO</h5>
-            </div>
-            <div align="center" style="margin-top: 20px">
-                <table class="table table-bordered table-hover table-striped span10">
-                    <colgroup>
-                        <col style="width: 50px; background-color: #CCC;">
-                        <col style="width: 100px;">
-                    </colgroup>
-                    <tr>
-                        <td>C&Oacute;DIGO DO PROJETO</td>
-                        <td><?php echo $this->projeto->nomcodigo; ?></td>
-                    </tr>
-                    <tr>
-                        <td>T&Iacute;TULO DO PROJETO</td>
-                        <td><?php echo $this->projeto->nomprojeto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>GERENTE DE PROJETO</td>
-                        <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>GERENTE ADJUNTO</td>
-                        <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>PATROCINADOR</td>
-                        <td><?php echo $this->projeto->nompatrocinador; ?></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div align="left" class="span4">
-                <h5>1.2 MUDAN&Ccedil;A</h5>
-            </div>
-            <div align="center" style="page-break-after: always;margin-top: 20px;">
-
-                <table class="table table-bordered table-hover table-striped span10">
-                    <colgroup>
-                        <col style="width: 50px; border:1px solid #000; background-color: #CCC; ">
-                        <col style="width: 100px;">
-                    </colgroup>
-                    <tr>
-                        <td>DATA DA SOLICITA&Ccedil;&Atilde;O</td>
-                        <td><?php echo $this->dateBr($mudanca['datsolicitacao']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>TIPO DE MUDAN&Ccedil;A</td>
-                        <td><?php echo $mudanca['dsmudanca']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>SOLICITANTE</td>
-                        <td><?php echo $mudanca['nomsolicitante']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>APROVADA?</td>
-                        <td><?php echo $mudanca['flaaprovada']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>DATA DA DECIS&Atilde;O</td>
-                        <td><?php echo $this->dateBr($mudanca['datdecisao']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>DESCRI&Ccedil;&Atilde;O</td>
-                        <td><?php echo $mudanca['desmudanca']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>JUSTIFICATIVA</td>
-                        <td><?php echo $mudanca['desjustificativa']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>PARECER DO ESCRIT&Oacute;RIO</td>
-                        <td><?php echo $mudanca['despareceregp']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>PARECER DOS APROVADORES</td>
-                        <td><?php echo $mudanca['despareceraprovadores']; ?></td>
-                    </tr>
-                </table>
-                <div align="left" class="span4">
-                    <h5>1.3 APROVA&Ccedil;&Atilde;O</h5>
-                </div>
-                <table>
-                    <tr>
-                        <td style="width: 150px;">______________________________________</td>
-                        <td style="">______________________________________</td>
-                        <td style="">&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td> Aprovado por</td>
-                        <td> Assinatura</td>
-                        <td> Data da aprova&ccedil;&atilde;o</td>
-                    </tr>
-                </table>
-            </div>
-        <?php endforeach;
-    endif; ?>
+<?php if(count($this->mudanca) > 0):
+        foreach($this->mudanca as $mudanca):
+ ?>
+    <div align="left" class="span4" style="margin-top: 60px">
+        <h5>1. SOLICITA&Ccedil;&Atilde;O DE MUDAN&Ccedil;A</h5>
+    </div>
+    <div align="left" class="span4">
+        <h5>1.1 PROJETO</h5>
+    </div>
+    <div align="center" style="margin-top: 20px">
+        <table class="table table-bordered table-hover table-striped span10">
+            <colgroup>
+                <col style="width: 50px; background-color: #CCC;">
+                <col style="width: 100px;">
+            </colgroup>
+                <tr>
+                    <td>C&Oacute;DIGO DO PROJETO</td>
+                    <td><?= $this->projeto->nomcodigo; ?></td>
+                </tr>
+                <tr>
+                    <td>T&Iacute;TULO DO PROJETO</td>
+                    <td><?= $this->projeto->nomprojeto; ?></td>
+                </tr>
+                <tr>
+                    <td>GERENTE DE PROJETO</td>
+                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
+                </tr>
+                <tr>
+                    <td>GERENTE ADJUNTO</td>
+                    <td><?= $this->projeto->nomgerenteadjunto; ?></td>
+                </tr>
+                <tr>
+                    <td>PATROCINADOR</td>
+                    <td><?= $this->projeto->nompatrocinador; ?></td>
+                </tr> 
+        </table>
+    </div>
+    
+    <div align="left" class="span4">
+        <h5>1.2 MUDAN&Ccedil;A</h5>
+    </div>
+    <div align="center" style="page-break-after: always;margin-top: 20px;">
+        
+        <table class="table table-bordered table-hover table-striped span10">
+            <colgroup>
+                <col style="width: 50px; border:1px solid #000; background-color: #CCC; ">
+                <col style="width: 100px;">
+            </colgroup>
+                <tr>
+                    <td>DATA DA SOLICITA&Ccedil;&Atilde;O</td>
+                    <td><?= $this->dateBr($mudanca['datsolicitacao']); ?></td>
+                </tr>
+                <tr >
+                    <td>TIPO DE MUDAN&Ccedil;A</td>
+                    <td><?=  $mudanca['dsmudanca']; ?></td>
+                </tr>
+                <tr>
+                    <td>SOLICITANTE</td>
+                    <td><?=  $mudanca['nomsolicitante']; ?></td>
+                </tr>
+                <tr>
+                    <td>APROVADA?</td>
+                    <td><?=  $mudanca['flaaprovada']; ?></td>
+                </tr>
+                <tr>
+                    <td>DATA DA DECIS&Atilde;O</td>
+                    <td><?=  $this->dateBr($mudanca['datdecisao']); ?></td>
+                </tr> 
+                <tr>
+                    <td>DESCRI&Ccedil;&Atilde;O</td>
+                    <td><?=  $mudanca['desmudanca']; ?></td>
+                </tr> 
+                <tr>
+                    <td>JUSTIFICATIVA</td>
+                    <td><?=  $mudanca['desjustificativa']; ?></td>
+                </tr> 
+                <tr>
+                    <td>PARECER DO ESCRIT&Oacute;RIO</td>
+                    <td><?=  $mudanca['despareceregp']; ?></td>
+                </tr> 
+                <tr>
+                    <td>PARECER DOS APROVADORES</td>
+                    <td><?=  $mudanca['despareceraprovadores']; ?></td>
+                </tr> 
+        </table>
+        <div align="left" class="span4">
+            <h5>1.3 APROVA&Ccedil;&Atilde;O</h5>
+        </div>
+        <table>
+            <tr>
+                <td style="width: 150px;">______________________________________</td>
+                <td style="">______________________________________</td>
+                <td style="">&nbsp;&nbsp;/&nbsp;&nbsp;/&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+                <td> Aprovado por </td>
+                <td> Assinatura </td>
+                <td> Data da aprova&ccedil;&atilde;o </td>
+            </tr>
+        </table>
+    </div>
+    <?php endforeach; 
+          endif; ?>
 </div>

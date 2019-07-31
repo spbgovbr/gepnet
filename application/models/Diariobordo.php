@@ -8,14 +8,14 @@
 class Default_Model_Diariobordo extends App_Model_ModelAbstract
 {
 
-    public $iddiariobordo = null;
-    public $idprojeto = null;
+    public $iddiariobordo  = null;
+    public $idprojeto      = null;
     public $datdiariobordo = null;
-    public $domreferencia = null;
-    public $domsemafaro = null;
+    public $domreferencia  = null;
+    public $domsemafaro    = null;
     public $desdiariobordo = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
+    public $idcadastrador  = null;
+    public $datcadastro    = null;
 
 }
 

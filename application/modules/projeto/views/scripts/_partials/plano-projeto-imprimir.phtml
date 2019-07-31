@@ -1,30 +1,16 @@
-<?php echo $this->partial('_partials/relatorio-cabecalho.phtml');
-
-$service = new Projeto_Service_Gerencia();
-
-if (!is_object($this->projeto)) {
-    $arProjeto = $this->projeto;
-    $this->projeto = $service->retornaProjetoPorId($this->projeto);
-} else {
-    $arProjeto = array('idprojeto' => $this->projeto->idprojeto);
-}
-
-$projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
-
-
-?>
+<?php echo $this->partial('_partials/relatorio-cabecalho.phtml'); ?>
 <div id="content">
     <div align="center" style="margin-top: 170px">
         PLANO DE GERENCIAMENTO DO PROJETO
     </div>
     <div align="center" style="margin-top: 40px">
-        <?php echo $this->projeto->nomcodigo; ?>
+        <?= $this->projeto->nomcodigo; ?>
     </div>
     <div align="center" style="margin-top: 40px">
-        <?php echo $this->projeto->nomprojeto; ?>
+        <?= $this->projeto->nomprojeto; ?>
     </div>
     <div align="center" style="margin-top: 40px">
-        <?php echo $this->projeto->desprojeto; ?>
+        <?= $this->projeto->desprojeto; ?>
     </div>
 
     <div align="left" style="page-break-before: always; margin-top: 60px">
@@ -37,26 +23,26 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-            <tr>
-                <td>C&Oacute;DIGO DO PROJETO</td>
-                <td><?php echo $this->projeto->nomcodigo; ?></td>
-            </tr>
-            <tr>
-                <td>T&Iacute;TULO DO PROJETO</td>
-                <td><?php echo $this->projeto->nomprojeto; ?></td>
-            </tr>
-            <tr>
-                <td>GERENTE DE PROJETO</td>
-                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
-            </tr>
-            <tr>
-                <td>GERENTE ADJUNTO</td>
-                <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
-            </tr>
-            <tr>
-                <td>PATROCINADOR</td>
-                <td><?php echo $this->projeto->nompatrocinador; ?></td>
-            </tr>
+                <tr>
+                    <td>C&Oacute;DIGO DO PROJETO</td>
+                    <td><?= $this->projeto->nomcodigo; ?></td>
+                </tr>
+                <tr>
+                    <td>T&Iacute;TULO DO PROJETO</td>
+                    <td><?= $this->projeto->nomprojeto; ?></td>
+                </tr>
+                <tr>
+                    <td>GERENTE DE PROJETO</td>
+                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
+                </tr>
+                <tr>
+                    <td>GERENTE ADJUNTO</td>
+                    <td><?= $this->projeto->nomgerenteadjunto; ?></td>
+                </tr>
+                <tr>
+                    <td>PATROCINADOR</td>
+                    <td><?= $this->projeto->nompatrocinador; ?></td>
+                </tr> 
             </tbody>
         </table>
     </div>
@@ -71,8 +57,7 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
         <h5>1.2 DICION&Aacute;RIO DA EAP E CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O (QUALIDADE)</h5>
     </div>
     <div align="center" style="margin-top: 20px">
-        <table class=""
-               style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+        <table class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
             <colgroup>
                 <col style="width: 2px">
                 <col style="width: 35px">
@@ -81,31 +66,30 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 50px">
             </colgroup>
             <thead>
-            <tr class=""
-                style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                <td>ID</td>
-                <td>IDENTIFICA&Ccedil;&Atilde;O EAP</td>
-                <td>DESCRI&Ccedil;&Atilde;O</td>
-                <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O/DESVIO ACEIT&Aacute;VEL (QUALIDADE)</td>
-                <td>RESPONS&Aacute;VEL</td>
-            </tr>
+                <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                    <td>ID</td>
+                    <td>IDENTIFICA&Ccedil;&Atilde;O EAP</td>
+                    <td>DESCRI&Ccedil;&Atilde;O</td>
+                    <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O/DESVIO ACEIT&Aacute;VEL (QUALIDADE)</td>
+                    <td>RESPONS&Aacute;VEL</td>
+                </tr>
             </thead>
             <tbody>
-            <?php
-            foreach ($this->projeto->grupos->getIterator() as $grupo):
-                foreach ($grupo->entregas as $entrega):
-                    ?>
-                    <tr>
-                        <td><?php echo $entrega->idatividadecronograma; ?></td>
-                        <td><?php echo $entrega->nomatividadecronograma; ?></td>
-                        <td><?php echo $entrega->desobs; ?></td>
-                        <td><?php echo $entrega->descriterioaceitacao; ?></td>
-                        <td><?php echo $entrega->nomparteinteressada; ?></td>
-                    </tr>
                 <?php
+                foreach ($this->projeto->grupos->getIterator() as $grupo):
+                    foreach ($grupo->entregas as $entrega):
+                        ?>
+                        <tr>
+                            <td><?= $entrega->idatividadecronograma; ?></td>
+                            <td><?= $entrega->nomatividadecronograma; ?></td>
+                            <td><?= $entrega->desobs; ?></td>
+                            <td><?= $entrega->descriterioaceitacao; ?></td>
+                            <td><?= $entrega->nomparteinteressada; ?></td>
+                        </tr>
+                        <?php
+                    endforeach;
                 endforeach;
-            endforeach;
-            ?>
+                ?>
             </tbody>
         </table>
     </div>
@@ -114,7 +98,7 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
         <h5>1.3 N&Atilde;O ESCOPO (O QUE N&Atilde;O SER&Aacute; FEITO)</h5>
     </div>
     <div align="left">
-        <?php echo $this->projeto->desnaoescopo; ?>
+        <?= $this->projeto->desnaoescopo; ?>
     </div>
 
     <div align="left" class="span4" style="page-break-before: always; margin-top: 60px">
@@ -125,183 +109,180 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
     </div>
 
 
-    <table class=""
-           style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+
+    <table class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
         <thead>
-        <tr class=""
-            style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-            <td colspan="7"><?php echo $this->projeto->nomprojeto; ?></td>
-        </tr>
-        <tr class=""
-            style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-            <td>Grupo/Entrega/Atividade</td>
-            <td>(P) Base Line (data)</td>
-            <td>Custo</td>
-            <td>In&iacute;cio</td>
-            <td>Fim</td>
-            <td>%</td>
-            <td>Respons&aacute;vel</td>
-        </tr>
+            <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                <td colspan="7"><?= $this->projeto->nomprojeto; ?></td>
+            </tr>
+            <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                <td>Grupo/Entrega/Atividade</td>
+                <td>(P) Base Line (data)</td>
+                <td>Custo</td>
+                <td>In&iacute;cio</td>
+                <td>Fim</td>
+                <td>%</td>
+                <td>Respons&aacute;vel</td>
+            </tr>
         </thead>
         <tbody>
 
-        <?php
-        $i = 0;
-        foreach ($this->projeto->grupos as $grupo):
-            if (empty($grupo->idatividadecronograma) == false):
-                ?>
+            <?php
+            $i = 0;
+            foreach ($this->projeto->grupos as $grupo):
+                if (empty($grupo->idatividadecronograma) == false):
+                    ?>
 
-                <tr class=""
-                    style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                    <td>
-                        <ol>
-                            <li>
-                                <b><?php echo $grupo->nomatividadecronograma; ?></b>
-                                <ol>
-                                    <?php foreach ($grupo->entregas as $entrega): ?>
-                                        <li><?php echo $entrega->nomatividadecronograma; ?></li>
-                                        <ol>
-                                            <?php foreach ($entrega->atividades as $atividade): ?>
-                                                <li><?php echo $atividade->nomatividadecronograma; ?></li>
-                                            <?php endforeach; ?>
-                                        </ol>
-                                    <?php endforeach; ?>
-                                </ol>
-                            </li>
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
-                            <h6><?php
-                                if ($grupo->datiniciobaseline):
-                                    echo $grupo->datiniciobaseline->format('d/m/Y') . " a " . $grupo->datfimbaseline->format('d/m/Y') . "<BR>";
-                                else:
-                                    echo " - <BR>";
-                                endif
-                                ?>
-                            </h6><br>
+                    <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                        <td>
                             <ol>
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <?php
-                                    if ($entrega->datiniciobaseline):
-                                        echo $entrega->datiniciobaseline->format('d/m/Y') . " a " . $entrega->datfimbaseline->format('d/m/Y') . "<BR>";
+                                <li>
+                                    <b><?= $grupo->nomatividadecronograma; ?></b>
+                                    <ol>
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                            <li><?= $entrega->nomatividadecronograma; ?></li>
+                                            <ol>
+                                                <?php foreach ($entrega->atividades as $atividade): ?>
+                                                    <li><?= $atividade->nomatividadecronograma; ?></li>
+                                                <?php endforeach; ?>
+                                            </ol>
+                                        <?php endforeach; ?> 
+                                    </ol>
+                                </li>
+                            </ol>
+                        </td>
+                        <td>
+                            <ol>
+                                <h6><?php
+                                    if ($grupo->datiniciobaseline):
+                                        echo $grupo->datiniciobaseline->format('d/m/Y') . " a " . $grupo->datfimbaseline->format('d/m/Y') . "<BR>";
                                     else:
-                                        echo " - <br>";
+                                        echo " - <BR>";
                                     endif
                                     ?>
-                                    <ol>
+                                </h6><br>
+                                <ol>
+                                    <?php foreach ($grupo->entregas as $entrega): ?>
                                         <?php
-                                        foreach ($entrega->atividades as $atividade):
-                                            if ($atividade->datiniciobaseline->format('d/m/Y')):
-                                                echo $atividade->datiniciobaseline->format('d/m/Y') . " a " . $atividade->datfimbaseline->format('d/m/Y') . "<br>";
-                                            else:
-                                                echo " - <br>";
-                                            endif;
-                                        endforeach;
+                                        if ($entrega->datiniciobaseline):
+                                            echo $entrega->datiniciobaseline->format('d/m/Y') . " a " . $entrega->datfimbaseline->format('d/m/Y') . "<BR>";
+                                        else:
+                                            echo " - <br>";
+                                        endif
                                         ?>
-                                    </ol>
-                                <?php endforeach; ?>
+                                        <ol>
+                                            <?php
+                                            foreach ($entrega->atividades as $atividade):
+                                                if ($atividade->datiniciobaseline->format('d/m/Y')):
+                                                    echo $atividade->datiniciobaseline->format('d/m/Y') . " a " . $atividade->datfimbaseline->format('d/m/Y') . "<br>";
+                                                else:
+                                                    echo " - <br>";
+                                                endif;
+                                            endforeach;
+                                            ?>
+                                        </ol>
+                                    <?php endforeach; ?> 
+                                </ol>
                             </ol>
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
+                        </td>
+                        <td>
+                            <ol>
 
-                            <?php echo $grupo->getCusto(); ?><br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <?php echo $entrega->getCusto(); ?><br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?php echo $atividade->vlratividade; ?><br>
+                                    <?= $grupo->getCusto(); ?><br>
+                                <ol type="a">
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                            <?= $entrega->getCusto(); ?><br>
+                                        <ol type="i">
+                                            <?php foreach ($entrega->atividades as $atividade): ?>
+                                            <?= $atividade->vlratividade; ?><br>
                                         <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?>
+                                        </ol>
+                                        <?php endforeach; ?> 
+                                </ol>
+
                             </ol>
+                        </td>
+                        <td>
+                            <ol>
 
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
+                                <br>
+                                <ol type="a">
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                        <br>
+                                        <ol type="i">
+                                            <?php foreach ($entrega->atividades as $atividade): ?>
+                                                <?= $atividade->datinicio->format('d/m/Y'); ?><br>
+                                             <?php endforeach; ?>
+                                        </ol>
+                                        <?php endforeach; ?> 
+                                </ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?php echo $atividade->datinicio->format('d/m/Y'); ?><br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?>
                             </ol>
+                        </td>
+                        <td>
+                            <ol>
 
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
+                                <br>
+                                <ol type="a">
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                        <br>
+                                        <ol type="i">
+                                            <?php foreach ($entrega->atividades as $atividade): ?>
+                                                <?= $atividade->datfim->format('d/m/Y'); ?><br>
+                                            <?php endforeach; ?>
+                                        </ol>
+                                        <?php endforeach; ?> 
+                                </ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?php echo $atividade->datfim->format('d/m/Y'); ?><br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?>
                             </ol>
+                        </td>
+                        <td>
+                            <ol>
 
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
+                                <br>
+                                <ol type="a">
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                        <br>
+                                        <ol type="i">
+                                            <?php foreach ($entrega->atividades as $atividade): ?>
+                                                <?= $atividade->numpercentualconcluido; ?>%<br>
+                                            <?php endforeach; ?>
+                                        </ol>
+                                        <?php endforeach; ?> 
+                                </ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?php echo $atividade->numpercentualconcluido; ?>%<br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?>
                             </ol>
+                        </td>
+                        <td>
+                            <ol>
 
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
+                                <br>
+                                <ol type="a">
+                                        <?php foreach ($grupo->entregas as $entrega): ?>
+                                        <br>
+                                        <ol type="i">
+                                            <?php foreach ($entrega->atividades as $atividade): ?>
+                                                resp<br>
+                                            <?php endforeach; ?>
+                                        </ol>
+                                        <?php endforeach; ?> 
+                                </ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            resp<br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?>
                             </ol>
+                        </td>
 
-                        </ol>
-                    </td>
-
-                </tr>
+                    </tr>
+                    <?php
+                    $i++;
+                else:
+                    ?>
+                    <tr>
+                        <td colspan="7">Nenhum registro encontrado.</td>
+                    </tr>
                 <?php
-                $i++;
-            else:
-                ?>
-                <tr>
-                    <td colspan="7">Nenhum registro encontrado.</td>
-                </tr>
-            <?php
-            endif;
-        endforeach;
-        ?>
+                endif;
+            endforeach;
+            ?>
 
         </tbody>
     </table>
@@ -313,8 +294,7 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
         <h5>3.1 EQUIPE DO PROJETO</h5>
     </div>
     <div align="center" style="margin-top: 20px">
-        <table class=""
-               style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+        <table class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
             <colgroup>
                 <col style="width: 2px">
                 <col style="width: 35px">
@@ -323,35 +303,34 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 50px">
             </colgroup>
             <thead>
-            <tr class=""
-                style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                <td>NOME</td>
-                <td>MATR&Iacute;CULA</td>
-                <td>FUN&Ccedil;&Atilde;O NO PROJETO</td>
-                <td>TELEFONE</td>
-                <td>E-MAIL</td>
-            </tr>
+                <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                    <td>NOME</td>
+                    <td>MATR&Iacute;CULA</td>
+                    <td>FUN&Ccedil;&Atilde;O NO PROJETO</td>
+                    <td>TELEFONE</td>
+                    <td>E-MAIL</td>
+                </tr>
             </thead>
             <tbody>
-            <?php
-            foreach ($this->projeto->partes->getIterator() as $parte):
-                if (empty($parte->idparteinteressada) == false):
-                    ?>
-                    <tr>
-                        <td><?php echo $parte->nomparteinteressada; ?></td>
-                        <td><?php echo '&nbsp;' ?></td>
-                        <td><?php echo $parte->nomfuncao; ?></td>
-                        <td><?php echo $parte->destelefone; ?></td>
-                        <td><?php echo $parte->desemail; ?></td>
-                    </tr>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="5">Nenhum registro encontrado.</td>
-                    </tr>
                 <?php
-                endif;
-            endforeach;
-            ?>
+                foreach ($this->projeto->partes->getIterator() as $parte):
+                    if (empty($parte->idparteinteressada) == false):
+                        ?>
+                        <tr>
+                            <td><?= $parte->nomparteinteressada; ?></td>
+                            <td><?= '&nbsp;' ?></td>
+                            <td><?= $parte->nomfuncao; ?></td>
+                            <td><?= $parte->destelefone; ?></td>
+                            <td><?= $parte->desemail; ?></td>
+                        </tr>
+    <?php else: ?>
+                        <tr>
+                            <td colspan="5">Nenhum registro encontrado.</td>
+                        </tr>
+                    <?php
+                    endif;
+                endforeach;
+                ?>
             </tbody>
         </table>
     </div>
@@ -363,8 +342,7 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
         <h5>4.1 MATRIZ DE COMUNICA&Ccedil;&Atilde;O </h5>
     </div>
     <div align="center" style="margin-top: 20px">
-        <table class=""
-               style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+        <table class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
             <colgroup>
                 <col style="width: 2px">
                 <col style="width: 35px">
@@ -373,35 +351,34 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 50px">
             </colgroup>
             <thead>
-            <tr class=""
-                style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                <td>O QUE SER&Aacute; INFORMADO</td>
-                <td>QUEM SER&Aacute; INFORMADO</td>
-                <td>QUAL A ORIGEM</td>
-                <td>QUAL A FREQU&Ecirc;NCIA</td>
-                <td>COMO SER&Aacute; TRANSMITIDA</td>
-                <td>ONDE SER&Aacute; ARMAZENADA</td>
-                <td>QUEM SER&Aacute; O RESPONSÁVEL</td>
-            </tr>
+                <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                    <td>O QUE SER&Aacute; INFORMADO</td>
+                    <td>QUEM SER&Aacute; INFORMADO</td>
+                    <td>QUAL A ORIGEM</td>
+                    <td>QUAL A FREQU&Ecirc;NCIA</td>
+                    <td>COMO SER&Aacute; TRANSMITIDA</td>
+                    <td>ONDE SER&Aacute; ARMAZENADA</td>
+                    <td>QUEM SER&Aacute; O RESPONSÁVEL</td>
+                </tr>
             </thead>
             <tbody>
-            <?php if (empty($this->projeto->comunicacao->idcomunicacao) == false): ?>
-                <tr>
-                    <td><?php echo $this->projeto->comunicacao->desinformacao; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->desinformado; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->desorigem; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->desfrequencia; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->destransmissao; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->desarmazenamento; ?></td>
-                    <td><?php echo $this->projeto->comunicacao->nomresponsavel; ?></td>
-                </tr>
-            <?php else: ?>
-                <tr>
-                    <td colspan="7">Nenhum registro encontrado.</td>
-                </tr>
-            <?php
-            endif;
-            ?>
+<?php if (empty($this->projeto->comunicacao->idcomunicacao) == false): ?>
+                    <tr>
+                        <td><?= $this->projeto->comunicacao->desinformacao; ?></td>
+                        <td><?= $this->projeto->comunicacao->desinformado; ?></td>
+                        <td><?= $this->projeto->comunicacao->desorigem; ?></td>
+                        <td><?= $this->projeto->comunicacao->desfrequencia; ?></td>
+                        <td><?= $this->projeto->comunicacao->destransmissao; ?></td>
+                        <td><?= $this->projeto->comunicacao->desarmazenamento; ?></td>
+                        <td><?= $this->projeto->comunicacao->nomresponsavel; ?></td>
+                    </tr>
+<?php else: ?>
+                    <tr>
+                        <td colspan="7">Nenhum registro encontrado.</td>
+                    </tr>
+                <?php
+                endif;
+                ?>
             </tbody>
         </table>
     </div>
@@ -410,11 +387,10 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
         <h5>5. PLANO DE RISCOS</h5>
     </div>
     <div align="left" class="span4">
-        <h5>5.1 MATRIZ DE RISCOS </h5>
+        <h5>5.1 MATRIZ DE RISCOS  </h5>
     </div>
     <div align="center" style="margin-top: 20px">
-        <table class=""
-               style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+        <table class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
             <colgroup>
                 <col style="width: 2px">
                 <col style="width: 35px">
@@ -423,29 +399,28 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 50px">
             </colgroup>
             <thead>
-            <tr class=""
-                style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                <td>RISCO</td>
-                <td>PxI</td>
-                <td>CONTRAMEDIDA</td>
-                <td>DESCRI&Ccedil;&Atilde;O</td>
-            </tr>
+                <tr class="" style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+                    <td>RISCO</td>
+                    <td>PxI</td>
+                    <td>CONTRAMEDIDA</td>
+                    <td>DESCRI&Ccedil;&Atilde;O</td>
+                </tr>
             </thead>
             <tbody>
-            <?php if (empty($this->projeto->risco->idrisco) == false): ?>
-                <tr>
-                    <td><?php echo $this->projeto->risco->desrisco; ?></td>
-                    <td><?php echo $this->projeto->risco->domcorrisco; ?></td>
-                    <td><?php echo $this->projeto->risco->domtratamento; ?></td>
-                    <td><?php echo $this->projeto->risco->descontramedida; ?></td>
-                </tr>
-            <?php else: ?>
-                <tr>
-                    <td colspan="4">Nenhum registro encontrado.</td>
-                </tr>
-            <?php
-            endif;
-            ?>
+<?php if (empty($this->projeto->risco->idrisco) == false): ?>
+                    <tr>
+                        <td><?= $this->projeto->risco->desrisco; ?></td>
+                        <td><?= $this->projeto->risco->domcorrisco; ?></td>
+                        <td><?= $this->projeto->risco->domtratamento; ?></td>
+                        <td><?= $this->projeto->risco->descontramedida; ?></td>
+                    </tr>
+<?php else: ?>
+                    <tr>
+                        <td colspan="4">Nenhum registro encontrado.</td>
+                    </tr>
+                <?php
+                endif;
+                ?>
             </tbody>
         </table>
     </div>
@@ -461,16 +436,16 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 15px">
             </colgroup>
             <tbody style="text-align: center">
-            <tr style="vertical-align: bottom">
-                <td><?php echo $this->projeto->nompatrocinador; ?></td>
-                <td>____________________________________________________________________</td>
-                <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-            </tr>
-            <tr style="vertical-align: top">
-                <td><b>Patrocinador</b></td>
-                <td><b>Assinatura</b></td>
-                <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
-            </tr>
+                <tr style="vertical-align: bottom">
+                    <td><?= $this->projeto->nompatrocinador; ?></td>
+                    <td>____________________________________________________________________</td>
+                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                </tr>
+                <tr style="vertical-align: top">
+                    <td><b>Patrocinador</b></td>
+                    <td><b>Assinatura</b></td>
+                    <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -486,16 +461,16 @@ $projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
                 <col style="width: 15px">
             </colgroup>
             <tbody style="text-align: center">
-            <tr style="vertical-align: bottom">
-                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
-                <td>____________________________________________________________________</td>
-                <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-            </tr>
-            <tr style="vertical-align: top">
-                <td><b>Gerente de Projeto</b></td>
-                <td><b>Assinatura</b></td>
-                <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
-            </tr>
+                <tr style="vertical-align: bottom">
+                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
+                    <td>____________________________________________________________________</td>
+                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                </tr>
+                <tr style="vertical-align: top">
+                    <td><b>Gerente de Projeto</b></td>
+                    <td><b>Assinatura</b></td>
+                    <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+                </tr>
             </tbody>
         </table>
     </div>

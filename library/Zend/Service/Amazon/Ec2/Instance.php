@@ -87,7 +87,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      *
      * Launching public images without a key pair ID will leave them inaccessible.
      *
-     * @param array $options An array that contins the options to start an instance.
+     * @param array $options                        An array that contins the options to start an instance.
      *                                              Required Values:
      *                                                imageId string        ID of the AMI with which to launch instances.
      *                                              Optional Values:
@@ -108,15 +108,15 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
     public function run(array $options)
     {
         $_defaultOptions = array(
-            'minCount' => 1,
-            'maxCount' => 1,
+            'minCount'  => 1,
+            'maxCount'  => 1,
             'instanceType' => Zend_Service_Amazon_Ec2_Instance::SMALL
         );
 
         // set / override the defualt optoins if they are not passed into the array;
         $options = array_merge($_defaultOptions, $options);
 
-        if (!isset($options['imageId'])) {
+        if(!isset($options['imageId'])) {
             require_once 'Zend/Service/Amazon/Ec2/Exception.php';
             throw new Zend_Service_Amazon_Ec2_Exception('No Image Id Provided');
         }
@@ -128,44 +128,44 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $params['MinCount'] = $options['minCount'];
         $params['MaxCount'] = $options['maxCount'];
 
-        if (isset($options['keyName'])) {
+        if(isset($options['keyName'])) {
             $params['KeyName'] = $options['keyName'];
         }
 
-        if (is_array($options['securityGroup']) && !empty($options['securityGroup'])) {
-            foreach ($options['securityGroup'] as $k => $name) {
-                $params['SecurityGroup.' . ($k + 1)] = $name;
+        if(is_array($options['securityGroup']) && !empty($options['securityGroup'])) {
+            foreach($options['securityGroup'] as $k=>$name) {
+                $params['SecurityGroup.' . ($k+1)] = $name;
             }
-        } elseif (isset($options['securityGroup'])) {
+        } elseif(isset($options['securityGroup'])) {
             $params['SecurityGroup.1'] = $options['securityGroup'];
         }
 
-        if (isset($options['userData'])) {
+        if(isset($options['userData'])) {
             $params['UserData'] = base64_encode($options['userData']);
         }
 
-        if (isset($options['instanceType'])) {
+        if(isset($options['instanceType'])) {
             $params['InstanceType'] = $options['instanceType'];
         }
 
-        if (isset($options['placement'])) {
+        if(isset($options['placement'])) {
             $params['Placement.AvailabilityZone'] = $options['placement'];
         }
 
-        if (isset($options['kernelId'])) {
+        if(isset($options['kernelId'])) {
             $params['KernelId'] = $options['kernelId'];
         }
 
-        if (isset($options['ramdiskId'])) {
+        if(isset($options['ramdiskId'])) {
             $params['RamdiskId'] = $options['ramdiskId'];
         }
 
-        if (isset($options['blockDeviceVirtualName']) && isset($options['blockDeviceName'])) {
+        if(isset($options['blockDeviceVirtualName']) && isset($options['blockDeviceName'])) {
             $params['BlockDeviceMapping.n.VirtualName'] = $options['blockDeviceVirtualName'];
             $params['BlockDeviceMapping.n.DeviceName'] = $options['blockDeviceName'];
         }
 
-        if (isset($options['monitor']) && $options['monitor'] === true) {
+        if(isset($options['monitor']) && $options['monitor'] === true) {
             $params['Monitoring.Enabled'] = true;
         }
 
@@ -178,14 +178,14 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $return['ownerId'] = $xpath->evaluate('string(//ec2:ownerId/text())');
 
         $gs = $xpath->query('//ec2:groupSet/ec2:item');
-        foreach ($gs as $gs_node) {
+        foreach($gs as $gs_node) {
             $return['groupSet'][] = $xpath->evaluate('string(ec2:groupId/text())', $gs_node);
             unset($gs_node);
         }
         unset($gs);
 
         $is = $xpath->query('//ec2:instancesSet/ec2:item');
-        foreach ($is as $is_node) {
+        foreach($is as $is_node) {
             $item = array();
 
             $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $is_node);
@@ -222,7 +222,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      * Recently terminated instances might appear in the returned results.
      * This interval is usually less than one hour.
      *
-     * @param string|array $instaceId Set of instances IDs of which to get the status.
+     * @param string|array $instaceId       Set of instances IDs of which to get the status.
      * @param boolean                       Ture to ignore Terminated Instances.
      * @return array
      */
@@ -231,11 +231,11 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'DescribeInstances';
 
-        if (is_array($instanceId) && !empty($instanceId)) {
-            foreach ($instanceId as $k => $name) {
-                $params['InstanceId.' . ($k + 1)] = $name;
+        if(is_array($instanceId) && !empty($instanceId)) {
+            foreach($instanceId as $k=>$name) {
+                $params['InstanceId.' . ($k+1)] = $name;
             }
-        } elseif ($instanceId) {
+        } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
 
@@ -248,18 +248,15 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $return = array();
         $return['instances'] = array();
 
-        foreach ($nodes as $node) {
-            if ($xpath->evaluate('string(ec2:instancesSet/ec2:item/ec2:instanceState/ec2:code/text())',
-                    $node) == 48 && $ignoreTerminated) {
-                continue;
-            }
+        foreach($nodes as $node) {
+            if($xpath->evaluate('string(ec2:instancesSet/ec2:item/ec2:instanceState/ec2:code/text())', $node) == 48 && $ignoreTerminated) continue;
             $item = array();
 
             $item['reservationId'] = $xpath->evaluate('string(ec2:reservationId/text())', $node);
             $item['ownerId'] = $xpath->evaluate('string(ec2:ownerId/text())', $node);
 
             $gs = $xpath->query('ec2:groupSet/ec2:item', $node);
-            foreach ($gs as $gs_node) {
+            foreach($gs as $gs_node) {
                 $item['groupSet'][] = $xpath->evaluate('string(ec2:groupId/text())', $gs_node);
                 unset($gs_node);
             }
@@ -267,23 +264,19 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
             $is = $xpath->query('ec2:instancesSet/ec2:item', $node);
 
-            foreach ($is as $is_node) {
+            foreach($is as $is_node) {
 
                 $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $is_node);
                 $item['imageId'] = $xpath->evaluate('string(ec2:imageId/text())', $is_node);
-                $item['instanceState']['code'] = $xpath->evaluate('string(ec2:instanceState/ec2:code/text())',
-                    $is_node);
-                $item['instanceState']['name'] = $xpath->evaluate('string(ec2:instanceState/ec2:name/text())',
-                    $is_node);
+                $item['instanceState']['code'] = $xpath->evaluate('string(ec2:instanceState/ec2:code/text())', $is_node);
+                $item['instanceState']['name'] = $xpath->evaluate('string(ec2:instanceState/ec2:name/text())', $is_node);
                 $item['privateDnsName'] = $xpath->evaluate('string(ec2:privateDnsName/text())', $is_node);
                 $item['dnsName'] = $xpath->evaluate('string(ec2:dnsName/text())', $is_node);
                 $item['keyName'] = $xpath->evaluate('string(ec2:keyName/text())', $is_node);
-                $item['productCode'] = $xpath->evaluate('string(ec2:productCodesSet/ec2:item/ec2:productCode/text())',
-                    $is_node);
+                $item['productCode'] = $xpath->evaluate('string(ec2:productCodesSet/ec2:item/ec2:productCode/text())', $is_node);
                 $item['instanceType'] = $xpath->evaluate('string(ec2:instanceType/text())', $is_node);
                 $item['launchTime'] = $xpath->evaluate('string(ec2:launchTime/text())', $is_node);
-                $item['availabilityZone'] = $xpath->evaluate('string(ec2:placement/ec2:availabilityZone/text())',
-                    $is_node);
+                $item['availabilityZone'] = $xpath->evaluate('string(ec2:placement/ec2:availabilityZone/text())', $is_node);
                 $item['kernelId'] = $xpath->evaluate('string(ec2:kernelId/text())', $is_node);
                 $item['ramediskId'] = $xpath->evaluate('string(ec2:ramediskId/text())', $is_node);
                 $item['amiLaunchIndex'] = $xpath->evaluate('string(ec2:amiLaunchIndex/text())', $is_node);
@@ -306,7 +299,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      * Recently terminated instances might appear in the returned results.
      * This interval is usually less than one hour.
      *
-     * @param string $imageId The imageId used to start the Instance.
+     * @param string $imageId               The imageId used to start the Instance.
      * @param boolean                       Ture to ignore Terminated Instances.
      * @return array
      */
@@ -316,10 +309,8 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $return = array();
 
-        foreach ($arrInstances['instances'] as $instance) {
-            if ($instance['imageId'] !== $imageId) {
-                continue;
-            }
+        foreach($arrInstances['instances'] as $instance) {
+            if($instance['imageId'] !== $imageId) continue;
             $return[] = $instance;
         }
 
@@ -332,7 +323,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      *
      * Terminated instances will remain visible after termination (approximately one hour).
      *
-     * @param string|array $instanceId One or more instance IDs returned.
+     * @param string|array $instanceId      One or more instance IDs returned.
      * @return array
      */
     public function terminate($instanceId)
@@ -340,11 +331,11 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'TerminateInstances';
 
-        if (is_array($instanceId) && !empty($instanceId)) {
-            foreach ($instanceId as $k => $name) {
-                $params['InstanceId.' . ($k + 1)] = $name;
+        if(is_array($instanceId) && !empty($instanceId)) {
+            foreach($instanceId as $k=>$name) {
+                $params['InstanceId.' . ($k+1)] = $name;
             }
-        } elseif ($instanceId) {
+        } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
 
@@ -354,7 +345,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $nodes = $xpath->query('//ec2:instancesSet/ec2:item');
 
         $return = array();
-        foreach ($nodes as $node) {
+        foreach($nodes as $node) {
             $item = array();
 
             $item['instanceId'] = $xpath->evaluate('string(ec2:instanceId/text())', $node);
@@ -376,7 +367,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      * This operation is asynchronous; it only queues a request to reboot the specified instance(s). The operation
      * will succeed if the instances are valid and belong to the user. Requests to reboot terminated instances are ignored.
      *
-     * @param string|array $instanceId One or more instance IDs.
+     * @param string|array $instanceId  One or more instance IDs.
      * @return boolean
      */
     public function reboot($instanceId)
@@ -384,11 +375,11 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $params = array();
         $params['Action'] = 'RebootInstances';
 
-        if (is_array($instanceId) && !empty($instanceId)) {
-            foreach ($instanceId as $k => $name) {
-                $params['InstanceId.' . ($k + 1)] = $name;
+        if(is_array($instanceId) && !empty($instanceId)) {
+            foreach($instanceId as $k=>$name) {
+                $params['InstanceId.' . ($k+1)] = $name;
             }
-        } elseif ($instanceId) {
+        } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
 
@@ -406,7 +397,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      * Instance console output is buffered and posted shortly after instance boot, reboot, and termination.
      * Amazon EC2 preserves the most recent 64 KB output which will be available for at least one hour after the most recent post.
      *
-     * @param string $instanceId An instance ID
+     * @param string $instanceId       An instance ID
      * @return array
      */
     public function consoleOutput($instanceId)
@@ -435,8 +426,8 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
      * This feature is useful when an AMI owner is providing support and wants to
      * verify whether a user's instance is eligible.
      *
-     * @param string $productCode The product code to confirm.
-     * @param string $instanceId The instance for which to confirm the product code.
+     * @param string $productCode           The product code to confirm.
+     * @param string $instanceId            The instance for which to confirm the product code.
      * @return array|boolean                An array if the product code is attached to the instance, false if it is not.
      */
     public function confirmProduct($productCode, $instanceId)
@@ -451,7 +442,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         $result = $xpath->evaluate('string(//ec2:result/text())');
 
-        if ($result === "true") {
+        if($result === "true") {
             $return['result'] = true;
             $return['ownerId'] = $xpath->evaluate('string(//ec2:ownerId/text())');
 
@@ -462,21 +453,21 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
     }
 
     /**
-     * Turn on Amazon CloudWatch Monitoring for an instance or a list of instances
-     *
-     * @param array|string $instanceId The instance or list of instances you want to enable monitoring for
-     * @return array
-     */
+    * Turn on Amazon CloudWatch Monitoring for an instance or a list of instances
+    *
+    * @param array|string $instanceId           The instance or list of instances you want to enable monitoring for
+    * @return array
+    */
     public function monitor($instanceId)
     {
         $params = array();
         $params['Action'] = 'MonitorInstances';
 
-        if (is_array($instanceId) && !empty($instanceId)) {
-            foreach ($instanceId as $k => $name) {
-                $params['InstanceId.' . ($k + 1)] = $name;
+        if(is_array($instanceId) && !empty($instanceId)) {
+            foreach($instanceId as $k=>$name) {
+                $params['InstanceId.' . ($k+1)] = $name;
             }
-        } elseif ($instanceId) {
+        } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
 
@@ -487,7 +478,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $items = $xpath->query('//ec2:instancesSet/ec2:item');
 
         $arrReturn = array();
-        foreach ($items as $item) {
+        foreach($items as $item) {
             $i = array();
             $i['instanceid'] = $xpath->evaluate('string(//ec2:instanceId/text())', $item);
             $i['monitorstate'] = $xpath->evaluate('string(//ec2:monitoring/ec2:state/text())');
@@ -497,23 +488,22 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
 
         return $arrReturn;
     }
-
     /**
-     * Turn off Amazon CloudWatch Monitoring for an instance or a list of instances
-     *
-     * @param array|string $instanceId The instance or list of instances you want to disable monitoring for
-     * @return array
-     */
+    * Turn off Amazon CloudWatch Monitoring for an instance or a list of instances
+    *
+    * @param array|string $instanceId           The instance or list of instances you want to disable monitoring for
+    * @return array
+    */
     public function unmonitor($instanceId)
     {
         $params = array();
         $params['Action'] = 'UnmonitorInstances';
 
-        if (is_array($instanceId) && !empty($instanceId)) {
-            foreach ($instanceId as $k => $name) {
-                $params['InstanceId.' . ($k + 1)] = $name;
+        if(is_array($instanceId) && !empty($instanceId)) {
+            foreach($instanceId as $k=>$name) {
+                $params['InstanceId.' . ($k+1)] = $name;
             }
-        } elseif ($instanceId) {
+        } elseif($instanceId) {
             $params['InstanceId.1'] = $instanceId;
         }
 
@@ -524,7 +514,7 @@ class Zend_Service_Amazon_Ec2_Instance extends Zend_Service_Amazon_Ec2_Abstract
         $items = $xpath->query('//ec2:instancesSet/ec2:item');
 
         $arrReturn = array();
-        foreach ($items as $item) {
+        foreach($items as $item) {
             $i = array();
             $i['instanceid'] = $xpath->evaluate('string(//ec2:instanceId/text())', $item);
             $i['monitorstate'] = $xpath->evaluate('string(//ec2:monitoring/ec2:state/text())');

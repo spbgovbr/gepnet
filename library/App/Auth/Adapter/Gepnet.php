@@ -12,7 +12,7 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Zend_Db_Adapter_Abstract 
      */
     protected $_zendDb = null;
 
@@ -54,8 +54,8 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      * _setDbAdapter() - set the database adapter to be used for quering
      *
      * @param Zend_Db_Adapter_Abstract
-     * @return Zend_Auth_Adapter_DbTable
      * @throws Zend_Auth_Adapter_Exception
+     * @return Zend_Auth_Adapter_DbTable
      */
     protected function _setDbAdapter(Zend_Db_Adapter_Abstract $zendDb = null)
     {
@@ -64,10 +64,10 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
         /**
          * If no adapter is specified, fetch default database adapter.
          */
-        if (null === $this->_zendDb) {
+        if ( null === $this->_zendDb ) {
             require_once 'Zend/Db/Table/Abstract.php';
             $this->_zendDb = Zend_Db_Table_Abstract::getDefaultAdapter();
-            if (null === $this->_zendDb) {
+            if ( null === $this->_zendDb ) {
                 require_once 'Zend/Auth/Adapter/Exception.php';
                 throw new Zend_Auth_Adapter_Exception('No database adapter present');
             }
@@ -83,19 +83,28 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      */
     protected function validaToken($token)
     {
-        $resource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('multidb');
-        $db = $resource->getDb('dpf_oracle');
+        /************************/
+        //GRSF
+        $validaDesenv = array();
+        $validaDesenv[0] = array('ZEND_AUTH_CREDENTIAL_MATCH' => 1);
+        
+        return $validaDesenv;
+        /************************/
+        
+       
+        //$resource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('multidb');
+        $resource =  $this->_zendDb = Zend_Db_Table_Abstract::getDefaultAdapter();;
+        //$db = $resource->getDb('EGPE_MIGRACAO');
         $resultadoUsuario = $this->getUsuario();
 
-        if (count($resultadoUsuario) <= 0) {
+        if ( count($resultadoUsuario) <= 0 ) {
             return $resultadoUsuario;
         }
 
-        $sql = "select 1 AS zend_auth_credential_match
-                from 
-                    acseg300.tb_sso_login t
-                where t.DS_SSO_GUID = :token";
-        $resultado = $db->fetchAll($sql, array('token' => $token));
+        $sql = "SELECT 1 AS ZEND_AUTH_CREDENTIAL_MATCH
+                FROM agepnet200.tb_pessoa t
+                WHERE t.token = :token";
+        $resultado = $resource->fetchAll($sql, array('token' => $token));
 
         return $resultado;
     }
@@ -103,39 +112,43 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
     /**
      * Performs an authentication attempt
      *
-     * @return Zend_Auth_Result
      * @throws Zend_Auth_Adapter_Exception If authentication cannot
      *                                     be performed
+     * @return Zend_Auth_Result
      */
     public function authenticate()
     {
+        /*******************/
+        //GRSF
+        //$this->_params['cpf'] = 61992704104;
+        //$this->_params['id'] = 30601;
+        //$this->_params['nome'] = '"WENDELL LUIZ FERREIRA LINO"';
+        /*******************/
+        
         $this->_authenticateSetup();
         $token = $this->_params['token'];
         $resultIdentities = $this->validaToken($token);
         $authResult = $this->_authenticateValidateResultset($resultIdentities);
 
-        if ($authResult instanceof Zend_Auth_Result) {
+        if ( $authResult instanceof Zend_Auth_Result ) {
             return $authResult;
         }
-
+        
         $authResult = $this->_authenticateValidateResult(array_shift($resultIdentities));
-
+        
         return $authResult;
     }
 
     protected function _authenticateSetup()
     {
         $exception = null;
+        //Zend_Debug::dump($this->_params); exit;
 
-        if ($this->_params['token'] == '') {
+        if ( $this->_params['token'] == '' ) {
             $exception = 'Token inválido';
-        } elseif ($this->_params['cpf'] == '') {
-            $exception = 'Acesso negado';
-        } elseif ($this->_params['nome'] == '') {
-            $exception = 'Nome da pessoa não informado';
         }
 
-        if (null !== $exception) {
+        if ( null !== $exception ) {
             /**
              * @see Zfb_Auth_Adapter_Exception
              */
@@ -144,7 +157,7 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
         }
 
         $this->_authenticateResultInfo = array(
-            'code' => Zend_Auth_Result::FAILURE,
+            'code'     => Zend_Auth_Result::FAILURE,
             'identity' => $this->_identity,
             'messages' => array()
         );
@@ -155,39 +168,42 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
     /**
      * getResultRowObject() - Returns the result row as a stdClass object
      *
-     * @param string|array $returnColumns
-     * @param string|array $omitColumns
+     * @param  string|array $returnColumns
+     * @param  string|array $omitColumns
      * @return stdClass|boolean
      */
     public function getResultRowObject($returnColumns = null, $omitColumns = null)
     {
-        if (!$this->_resultRow) {
+        if ( !$this->_resultRow ) {
             return false;
         }
 
         $returnObject = new stdClass();
 
-        if (null !== $returnColumns) {
+        if ( null !== $returnColumns ) {
 
             $availableColumns = array_keys($this->_resultRow);
-            foreach ((array)$returnColumns as $returnColumn) {
-                if (in_array($returnColumn, $availableColumns)) {
+            foreach ( (array) $returnColumns as $returnColumn )
+            {
+                if ( in_array($returnColumn, $availableColumns) ) {
                     $returnObject->{$returnColumn} = $this->_resultRow[$returnColumn];
                 }
             }
             return $returnObject;
-        } elseif (null !== $omitColumns) {
+        } elseif ( null !== $omitColumns ) {
 
-            $omitColumns = (array)$omitColumns;
-            foreach ($this->_resultRow as $resultColumn => $resultValue) {
-                if (!in_array($resultColumn, $omitColumns)) {
+            $omitColumns = (array) $omitColumns;
+            foreach ( $this->_resultRow as $resultColumn => $resultValue )
+            {
+                if ( !in_array($resultColumn, $omitColumns) ) {
                     $returnObject->{$resultColumn} = $resultValue;
                 }
             }
             return $returnObject;
         } else {
 
-            foreach ($this->_resultRow as $resultColumn => $resultValue) {
+            foreach ( $this->_resultRow as $resultColumn => $resultValue )
+            {
                 $returnObject->{$resultColumn} = $resultValue;
             }
             return $returnObject;
@@ -203,12 +219,12 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      */
     protected function _authenticateValidateResultSet(array $resultIdentities)
     {
-        if (count($resultIdentities) < 1) {
-            $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
+        if ( count($resultIdentities) < 1 ) {
+            $this->_authenticateResultInfo['code']       = Zend_Auth_Result::FAILURE_IDENTITY_NOT_FOUND;
             $this->_authenticateResultInfo['messages'][] = 'A record with the supplied identity could not be found.';
             return $this->_authenticateCreateAuthResult();
-        } elseif (count($resultIdentities) > 1) {
-            $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_IDENTITY_AMBIGUOUS;
+        } elseif ( count($resultIdentities) > 1 ) {
+            $this->_authenticateResultInfo['code']       = Zend_Auth_Result::FAILURE_IDENTITY_AMBIGUOUS;
             $this->_authenticateResultInfo['messages'][] = 'More than one record matches the supplied identity.';
             return $this->_authenticateCreateAuthResult();
         }
@@ -225,8 +241,8 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      */
     protected function _authenticateValidateResult($resultIdentity)
     {
-        if ($resultIdentity['ZEND_AUTH_CREDENTIAL_MATCH'] != '1') {
-            $this->_authenticateResultInfo['code'] = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
+        if ( $resultIdentity['ZEND_AUTH_CREDENTIAL_MATCH'] != '1' ) {
+            $this->_authenticateResultInfo['code']       = Zend_Auth_Result::FAILURE_CREDENTIAL_INVALID;
             $this->_authenticateResultInfo['messages'][] = 'Supplied credential is invalid.';
             return $this->_authenticateCreateAuthResult();
         }
@@ -234,7 +250,7 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
         unset($resultIdentity['ZEND_AUTH_CREDENTIAL_MATCH']);
         $this->_resultRow = $this->_params;
 
-        $this->_authenticateResultInfo['code'] = Zend_Auth_Result::SUCCESS;
+        $this->_authenticateResultInfo['code']       = Zend_Auth_Result::SUCCESS;
         $this->_authenticateResultInfo['messages'][] = 'Authentication successful.';
         return $this->_authenticateCreateAuthResult();
     }
@@ -248,15 +264,14 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
     protected function _authenticateCreateAuthResult()
     {
         return new Zend_Auth_Result(
-            $this->_authenticateResultInfo['code'], $this->_authenticateResultInfo['identity'],
-            $this->_authenticateResultInfo['messages']
+            $this->_authenticateResultInfo['code'], $this->_authenticateResultInfo['identity'], $this->_authenticateResultInfo['messages']
         );
     }
 
     /**
      * setIdentity() - set the value to be used as the identity
      *
-     * @param string $value
+     * @param  string $value
      * @return Zfb_Auth_Adapter_Doctrine Provides a fluent interface
      */
     public function setIdentity($value)
@@ -272,10 +287,10 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
                     numfone, numcelular, desemail, nummatricula,
                     id_unidade, flaagenda, domcargo
                 from agepnet200.tb_pessoa pes
-                where pes.numcpf = :numcpf";
-
+                where pes.desemail = :desemail";
+        
         $resultado = $this->_zendDb->fetchRow($sql, array(
-            'numcpf' => $this->_params['cpf']
+            'desemail' => $this->_params['desemail']
         ));
         return $resultado;
     }

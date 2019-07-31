@@ -1,6 +1,7 @@
 <?php
 
 
+
 $hhtml = '
 <htmlpageheader name="myHTMLHeaderOdd" style="display:none">
 <div style="background-color:#BBEEFF" align="center"><b>&nbsp;{PAGENO}&nbsp;</b></div>
@@ -21,7 +22,7 @@ $html = '
 //==============================================================
 include("../mpdf.php");
 
-$mpdf = new mPDF('c', 'A4');
+$mpdf=new mPDF('c','A4'); 
 
 $mpdf->WriteHTML($hhtml);
 

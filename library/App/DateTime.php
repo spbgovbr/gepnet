@@ -18,7 +18,7 @@ class App_DateTime extends DateTime
         parent::__construct();
         return DateTime::createFromFormat($format, $data);
     }
-
+    
     public function toString($format)
     {
         return $this->format($format);

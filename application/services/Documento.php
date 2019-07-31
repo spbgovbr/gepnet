@@ -16,12 +16,12 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract
+     * @var Zend_Db_Adapter_Abstract 
      */
     protected $_db = null;
 
     /**
-     * @var array
+     * @var array 
      */
     public $errors = array();
 
@@ -58,13 +58,8 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     public function getFormEditarArquivo()
     {
         $form = $this->_getForm('Default_Form_Documento', array(
-            'submit',
-            'reset',
-            'flaativo',
-            'desobs',
-            'datdocumento',
-            'idtipodocumento',
-            'nomdocumento'
+            'submit', 'reset', 'flaativo', 'desobs', 'datdocumento',
+            'idtipodocumento', 'nomdocumento'
         ));
         $form->setAttrib('id', 'form-documento-arquivo');
         return $form;
@@ -76,11 +71,11 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
         $form = $this->getForm();
         $this->_db->beginTransaction();
 
-        if ($form->isValidPartial($dados)) {
+        if ( $form->isValidPartial($dados) ) {
             $descaminho = $form->getElement('descaminho');
             $descaminho->setValueDisabled(true);
 
-            if (!$descaminho->receive()) {
+            if ( !$descaminho->receive() ) {
                 $this->_db->rollBack();
 //                $this->errors = $form->getErrors();
                 $this->errors = $form->getMessages();
@@ -88,9 +83,27 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
             }
 
             $fileName = $this->renomearArquivo($descaminho);
-            $model = new Default_Model_Documento($form->getValues());
+            /*
+            $extension      = pathinfo($descaminho->getFileName('descaminho'), PATHINFO_EXTENSION);
+            $uniqueToken    = md5(uniqid(mt_rand(), true));
+            $format         = 'file_%s_%s.%s';
+            //$newFileName    = $id . '.' . $extn;
+            $newFileName    = sprintf($format, $extension, $uniqueToken, $extension);
+            $uploadfilepath = $descaminho->getDestination() . DIRECTORY_SEPARATOR . $newFileName;
+            //Zend_Debug::dump($uploadfilepath);
+            //exit;
+
+            $filterRename = new Zend_Filter_File_Rename(array(
+                'target'    => $uploadfilepath,
+                'overwrite' => true
+            ));
+            $filterRename->filter($descaminho->getFileName('descaminho'));
+            */
+            $model             = new Default_Model_Documento($form->getValues());
             $model->descaminho = $fileName;
-            $id = $this->_mapper->insert($model);
+            $id                = $this->_mapper->insert($model);
+            //$model->iddocumento = $id;
+            //$this->_mapper->update($model);
             $this->_db->commit();
 
             return $id;
@@ -102,16 +115,17 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
 
     private function renomearArquivo(Zend_Form_Element_File $file)
     {
-        $extension = pathinfo($file->getFileName('descaminho'), PATHINFO_EXTENSION);
-        $uniqueToken = md5(uniqid(mt_rand(), true));
-        $format = 'file_%s_%s.%s';
-        $newFileName = sprintf($format, $extension, $uniqueToken, $extension);
+        $extension      = pathinfo($file->getFileName('descaminho'), PATHINFO_EXTENSION);
+        $uniqueToken    = md5(uniqid(mt_rand(), true));
+        $format         = 'file_%s_%s.%s';
+        //$newFileName    = $id . '.' . $extn;
+        $newFileName    = sprintf($format, $extension, $uniqueToken, $extension);
         $uploadfilepath = $file->getDestination() . DIRECTORY_SEPARATOR . $newFileName;
         //Zend_Debug::dump($uploadfilepath);
         //exit;
 
         $filterRename = new Zend_Filter_File_Rename(array(
-            'target' => $uploadfilepath,
+            'target'    => $uploadfilepath,
             'overwrite' => true
         ));
         $filterRename->filter($file->getFileName('descaminho'));
@@ -119,15 +133,15 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
         $form = $this->getFormEditar();
-        if ($form->isValid($dados)) {
-            $model = new Default_Model_Documento($form->getValues());
+        if ( $form->isValid($dados) ) {
+            $model   = new Default_Model_Documento($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -144,14 +158,39 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     public function editarArquivo($dados)
     {
 
-        $form = $this->getFormEditarArquivo();
+        $form    = $this->getFormEditarArquivo();
         $retorno = false;
-        if ($form->isValid($dados)) {
+        if ( $form->isValid($dados) ) {
 
 //            var_dump($dados);exit;
             $descaminho = $form->getElement('descaminho');
-            $model = new Default_Model_Documento($form->getValues());
+            /*
+            $descaminho->setValueDisabled(true);
+            */
+            $model      = new Default_Model_Documento($form->getValues());
             $fileName = $this->renomearArquivo($descaminho);
+            /*
+            $extn           = pathinfo($descaminho->getFileName('descaminho'), PATHINFO_EXTENSION);
+            $newFileName    = $model->iddocumento . '.' . $extn;
+            $uploadfilepath = $descaminho->getDestination() . DIRECTORY_SEPARATOR . $newFileName;
+            //Zend_Debug::dump($uploadfilepath); exit;
+
+
+            $descaminho->addFilter('Rename', array(
+                'target'    => $uploadfilepath,
+                'overwrite' => true
+                ), 'descaminho');
+
+            if ( !$descaminho->receive() ) {
+                return false;
+            }
+
+            $filterRename      = new Zend_Filter_File_Rename(array(
+                'target'    => $uploadfilepath,
+                'overwrite' => true
+            ));
+            $filterRename->filter($descaminho->getFileName('descaminho'));
+            */
             //Envia para o servidor
             //Zend_Debug::dump($uploadfilepath);
             //exit;
@@ -167,7 +206,7 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $dados
      */
     public function excluir($dados)
@@ -175,7 +214,7 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
         try {
             //$model = new Default_Model_Documento($dados);
             return $this->_mapper->delete($dados);
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -192,7 +231,7 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $params
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
@@ -200,7 +239,7 @@ class Default_Service_Documento extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ($paginator) {
+        if ( $paginator ) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);

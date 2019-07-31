@@ -1,31 +1,60 @@
-<?php
-header("Cache-Control: no-cache, must-revalidate");
-?>
-
 <style type="text/css">
-
-    /* .table td {
-         width: 100%;
+    
+    .table td {
+        width: 100%;
+        border:0.1mm solid #220044 !important;
+        background-clip: border-box;
+    }
+    
+    ol{
          border:0.1mm solid #220044 !important;
-         background-clip: border-box;
-     }
-
-     ol{
-          border:0.1mm solid #220044 !important;
-         background-clip: border-box;
- }*/
+        background-clip: border-box;
+}
 </style>
 
 <div align="center" style="margin-top: 170px">
     PLANO DE GERENCIAMENTO DO PROJETO
 </div>
 <div align="center" style="margin-top: 40px">
-    <?php echo $this->projeto['nomcodigo']; ?>
+    <?= $this->projetos->nomcodigo; ?>
 </div>
 <div align="center" style="margin-top: 40px">
-    <?php echo $this->projeto['nomprojeto']; ?>
+    <?= $this->projetos->nomprojeto; ?>
 </div>
 <div align="center" style="margin-top: 40px">
-    <?php echo $this->projeto['desprojeto']; ?>
+    <?= $this->projetos->desprojeto; ?>
 </div>
-<div align="left" style="page-break-before: always; margin-top: 60px"></div>
+
+<div align="left" style="page-break-before: always; margin-top: 60px">
+    <h5>RESUMO DO PROJETO</h5>
+</div>
+<div align="center" style="margin-top: 20px">
+    <table class="table table-bordered table-hover table-striped span10">
+        <colgroup>
+            <col style="width: 50px">
+            <col style="width: 100px">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td>C&Oacute;DIGO DO PROJETO</td>
+                <td><?= $this->projetos->nomcodigo; ?></td>
+            </tr>
+            <tr>
+                <td>T&Iacute;TULO DO PROJETO</td>
+                <td><?= $this->projetos->nomprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>PATROCINADOR</td>
+                <td><?= $this->projetos->nompatrocinador; ?></td>
+            </tr> 
+            <tr>
+                <td>GERENTE DE PROJETO</td>
+                <td><?= $this->projetos->nomgerenteprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE ADJUNTO</td>
+                <td><?= $this->projetos->nomgerenteadjunto; ?></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

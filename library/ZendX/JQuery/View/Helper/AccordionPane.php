@@ -28,12 +28,12 @@ require_once "UiWidgetPane.php";
 /**
  * jQuery Accordion Pane, goes with Accordion Container
  *
- * @uses       ZendX_JQuery_View_Helper_AccordionContainer
+ * @uses 	   ZendX_JQuery_View_Helper_AccordionContainer
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
+  */
 class ZendX_JQuery_View_Helper_AccordionPane extends ZendX_JQuery_View_Helper_UiWidgetPane
 {
     /**
@@ -44,19 +44,19 @@ class ZendX_JQuery_View_Helper_AccordionPane extends ZendX_JQuery_View_Helper_Ui
      * specified with no arguments, the helper returns itsself as object making
      * it possible to use {@link captureStart()} and {@link captureEnd()} methods.
      *
-     * @param string $id
-     * @param string $content
-     * @param array $options
+     * @param  string $id
+     * @param  string $content
+     * @param  array  $options
      * @return string|ZendX_JQuery_View_Helper_AccordionPane
      */
-    public function accordionPane($id = null, $content = '', array $options = array())
+    public function accordionPane($id=null, $content='', array $options=array())
     {
-        if (0 === func_num_args()) {
+        if(0 === func_num_args()) {
             return $this;
         }
 
         $name = '';
-        if (isset($options['title'])) {
+        if(isset($options['title'])) {
             $name = $options['title'];
             unset($options['title']);
         }
@@ -71,9 +71,9 @@ class ZendX_JQuery_View_Helper_AccordionPane extends ZendX_JQuery_View_Helper_Ui
      * @param string $id
      * @param string $name
      * @param string $content
-     * @param array $options
+     * @param array  $options
      */
-    protected function _addPane($id, $name, $content, array $options = array())
+    protected function _addPane($id, $name, $content, array $options=array())
     {
         $this->view->accordionContainer()->addPane($id, $name, $content, $options);
     }

@@ -8,11 +8,11 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function () {
+$(function() {
     //$("ul").find('li').removeClass('disabled').addClass('enabled');
     $('ul').find('a').unbind('click');
-
-    $('ul').find('a').on("click", function (e) {
+    
+    $('ul').find('a').on("click", function(e) {
         e.preventDefault();
     });
 
@@ -23,28 +23,28 @@ $(function () {
         language: 'pt-BR'
     });
 
-    $("#resetbutton").click(function () {
+    $("#resetbutton").click(function() {
         //$('.container-importar').slideToggle();
         $("#importar").select2('data', null);
     });
 
     var
-        $form = $("form#form-gerencia"),
-        url_cadastrar = base_url + "/projeto/tap/add/format/json";
+            $form = $("form#form-gerencia"),
+            url_cadastrar = base_url + "/projeto/tap/add/format/json";
 
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function (form) {
-            enviar_ajax("/projeto/tap/add/format/json", "form#form-gerencia", function (data) {
+        submitHandler: function(form) {
+            enviar_ajax("/projeto/tap/add/format/json", "form#form-gerencia", function(data) {
                 if (data.success) {
                     window.location.href = base_url + "/projeto/tap/informacoesiniciais/idprojeto/" + data.dados.idprojeto;
                 }
             });
         }
     });
-
-    $(".pessoa-button").on('click', function (event) {
+    
+    $(".pessoa-button").on('click', function(event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -53,20 +53,20 @@ $(function () {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function (html) {
+                success: function(html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click', function () {
+                .on('click',function() {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function () {
+                    $(".grid-append").slideDown('fast', function(){
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });
                 });
-        }
+        } 
     });
 });
 

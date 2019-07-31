@@ -28,12 +28,12 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
 /**
  * jQuery Accordion View Helper
  *
- * @uses       Zend_Json
+ * @uses 	   Zend_Json
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- */
+  */
 class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Helper_UiWidget
 {
     /**
@@ -49,17 +49,17 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
     /**
      * Add Accordion Pane for the Accordion-Id
      *
-     * @param string $id
-     * @param string $name
-     * @param string $content
+     * @param  string $id
+     * @param  string $name
+     * @param  string $content
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
-    public function addPane($id, $name, $content, array $options = array())
+    public function addPane($id, $name, $content, array $options=array())
     {
-        if (!isset($this->_panes[$id])) {
+        if(!isset($this->_panes[$id])) {
             $this->_panes[$id] = array();
         }
-        if (strlen($name) == 0 && isset($options['title'])) {
+        if(strlen($name) == 0 && isset($options['title'])) {
             $name = $options['title'];
         }
         $this->_panes[$id][] = array('name' => $name, 'content' => $content, 'options' => $options);
@@ -74,28 +74,28 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      * for an accordion.
      *
      * @link   http://docs.jquery.com/UI/Accordion
-     * @param string $id
-     * @param array $params
-     * @param array $attribs
+     * @param  string $id
+     * @param  array  $params
+     * @param  array  $attribs
      * @return string|ZendX_JQuery_View_Helper_AccordionContainer
      */
-    public function accordionContainer($id = null, array $params = array(), array $attribs = array())
+    public function accordionContainer($id=null, array $params=array(), array $attribs=array())
     {
-        if (0 === func_num_args()) {
+        if(0 === func_num_args()) {
             return $this;
         }
 
-        if (!isset($attribs['id'])) {
+        if(!isset($attribs['id'])) {
             $attribs['id'] = $id;
         }
 
         $html = "";
-        if (isset($this->_panes[$id])) {
-            foreach ($this->_panes[$id] AS $element) {
-                $html .= sprintf($this->getElementHtmlTemplate(), $element['name'], $element['content']) . PHP_EOL;
+        if(isset($this->_panes[$id])) {
+            foreach($this->_panes[$id] AS $element) {
+                $html .= sprintf($this->getElementHtmlTemplate(), $element['name'], $element['content']).PHP_EOL;
             }
 
-            if (count($params) > 0) {
+            if(count($params) > 0) {
                 $params = ZendX_JQuery::encodeJson($params);
             } else {
                 $params = "{}";
@@ -114,24 +114,24 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
     }
 
     /**
-     * @param array $attribs
-     * @param string $html
+     * @param  array $attribs
+     * @param  string $html
      * @return string
      */
     protected function getAccordionTemplate($attribs, $html)
     {
-        if (version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
+        if(version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
             $html = '<div'
-                . $this->_htmlAttribs($attribs)
-                . '>' . PHP_EOL
-                . $html
-                . '</div>' . PHP_EOL;
+                  . $this->_htmlAttribs($attribs)
+                  . '>'.PHP_EOL
+                  . $html
+                  . '</div>'.PHP_EOL;
         } else {
             $html = '<ul'
-                . $this->_htmlAttribs($attribs)
-                . '>' . PHP_EOL
-                . $html
-                . '</ul>' . PHP_EOL;
+                  . $this->_htmlAttribs($attribs)
+                  . '>'.PHP_EOL
+                  . $html
+                  . '</ul>'.PHP_EOL;
         }
         return $html;
     }
@@ -141,8 +141,8 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      */
     protected function getElementHtmlTemplate()
     {
-        if ($this->_elementHtmlTemplate == null) {
-            if (version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
+        if($this->_elementHtmlTemplate == null) {
+            if(version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
                 $this->_elementHtmlTemplate = '<h3><a href="#">%s</a></h3><div>%s</div>';
             } else {
                 $this->_elementHtmlTemplate = '<li class="ui-accordion-group"><a href="#" class="ui-accordion-header">%s</a><div class="ui-accordion-content">%s</div></li>';
@@ -154,12 +154,12 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
     /**
      * Set the accordion element template
      *
-     * @param string $htmlTemplate
+     * @param  string $htmlTemplate
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
     public function setElementHtmlTemplate($htmlTemplate)
     {
-        if (substr_count($htmlTemplate, '%s') != 2) {
+        if(substr_count($htmlTemplate, '%s') != 2) {
             require_once "ZendX/JQuery/View/Exception.php";
             throw new ZendX_JQuery_View_Exception(
                 "Accordion Container HTML Template requires two sprintf() string replace markers '%s'."

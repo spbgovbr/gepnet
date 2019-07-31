@@ -1,48 +1,42 @@
 <div class="row">
 
-    <!--    <div class="portlet portlet-cinza span8">
+        <div class="portlet portlet-cinza span8">
             <h3> Objeto </h3>
-            <div class="content"> <?php //echo $this->licao->desprojeto ?> </div>
+            <div class="content"> <?php echo $this->licao->desprojeto ?> </div>
         </div>
         <div class="portlet portlet-cinza span8">
             <h3> Objetivo </h3>
-            <div class="content"> <?php //echo $this->licao->desobjetivo ?> </div>
+            <div class="content"> <?php echo $this->licao->desobjetivo ?> </div>
         </div>
-    -->
-    <div class="portlet portlet-cinza span8">
-        <h3>Associado a </h3>
-        <div class="content">
-            <?php echo $this->licao->nomassociada; ?>
-        </div>
-    </div>
+
     <div class="portlet portlet-cinza span8">
         <h3>Entrega </h3>
         <div class="content">
-            <?php echo $this->licao->nomatividadecronograma; ?>
+            <?= $this->licao->nomatividadecronograma; ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span4">
         <h3>Resultados Obtidos</h3>
         <div class="content">
-            <?php echo $this->licao->desresultadosobtidos; ?>
+            <?= $this->licao->desresultadosobtidos; ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span4">
         <h3>Pontos Fortes</h3>
         <div class="content">
-            <?php echo $this->licao->despontosfortes; ?>
+            <?= $this->licao->despontosfortes; ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span4">
         <h3>Pontos Fracos / Dificuldades Encontradas</h3>
         <div class="content">
-            <?php echo $this->licao->despontosfracos; ?>
+            <?= $this->licao->despontosfracos; ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span4">
         <h3>Sugest&otilde;es para um projeto semelhante</h3>
         <div class="content">
-            <?php echo $this->licao->dessugestoes; ?>
+            <?= $this->licao->dessugestoes; ?>
         </div>
     </div>
 </div>

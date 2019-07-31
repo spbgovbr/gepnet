@@ -9,7 +9,7 @@
 class Default_Model_DbTable_Acordoentidadeexterna extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'tb_acordoentidadeexterna';
+    protected $_name    = 'tb_acordoentidadeexterna';
     protected $_primary = array(
         'idacordo',
         'identidadeexterna'
@@ -17,14 +17,14 @@ class Default_Model_DbTable_Acordoentidadeexterna extends Zend_Db_Table_Abstract
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Acordo' => array(
-            'refTableClass' => 'tb_acordo',
-            'columns' => 'idacordo',
-            'refColumns' => 'idacordo'
+            'refTableClass'   => 'tb_acordo',
+            'columns'         => 'idacordo',
+            'refColumns'      => 'idacordo'
         ),
         'Entidadeexterna' => array(
             'refTableClass' => 'tb_entidadeexterna',
-            'columns' => 'identidadeexterna',
-            'refColumns' => 'identidadeexterna'
+            'columns'       => 'identidadeexterna',
+            'refColumns'    => 'identidadeexterna'
         )
     );
 

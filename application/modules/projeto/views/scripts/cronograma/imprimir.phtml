@@ -1,533 +1,247 @@
 <?php
-header("Expires: Tue, 03 Jul 2001 06:00:00 GMT");
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
-header("Connection: close");
-
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
     ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
     ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/index.css'))
-    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/comentario.css'))
-    ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/tabela-cron.css'));
+;
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/calcularTempo.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/projeto/cronograma/cronograma.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/projeto/cronograma/grupo.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/projeto/cronograma/entrega.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/atividade.js'), 'text/javascript');
-
+    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/atividade.js'), 'text/javascript')
+;
 ?>
 <div class="region-west">
     <?php
-    echo $this->partial('_partials/menu-projeto.phtml',
-        array('ativo' => 'cronograma', 'idprojeto' => $this->idprojeto));
+    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'eap', 'idprojeto' => $this->idprojeto));
     ?>
 </div>
-<div class="region-center">
-    <div d="dados-projeto" class="row affix-top" style="top: 0px;">
-        <?php
-        echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->conteudo['projeto']));
-        ?></div>
+
+<div class="region-center">  
+    
     <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>">
-    <input type="hidden" name="feriadosfixos" id="feriadosfixos" value="<?php echo $this->feriadosfixos; ?>">
-    <input type="hidden" name="numcriteriofarol" id="numcriteriofarol" value="">
-    <div data-spy="affix" data-offset-top="200">
-        <div class="btn-toolbar">
-            <a class="btn btn-imprimir-cronograma-pdf" title="Imprimir Cronograma PDF"
-               href="<?php echo $this->baseUrl('/projeto/cronograma/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>"
-               target="_blank"><i class="icon-download-alt"></i></a>
+    
+    <div id="dados-projeto"></div>
+    <div class="row" data-spy="affix" data-offset-top="200">
+        <div class="toolbar-cronograma">
+            <div class="btn-toolbar">
+                <a class="btn btn-imprimir-cronograma-pdf" title="Imprimir Cronograma PDF" href="<?php echo $this->baseUrl('/projeto/cronograma/imprimir-pdf/idprojeto/' . $this->idprojeto); ?>" target="_blank"><i class="icon-download-alt"></i></a>
+            </div>
         </div>
     </div>
 
-    <div class="TableCSS table-responsive">
-        <table id="tabCron" border="0" class="table-striped table-hover table-condensed">
-            <thead>
-            <tr style="border:1px solid #ccc; border-left:1px solid #ccc; display: table-row">
-                <th rowspan="2" colspan="2" style="width: 4% !important;">
-                    <i class="icon-info-sign" title="Operações"/>
-                </th>
-                <th rowspan="2" style="width: 3% !important; border:1px solid #ccc; border-left:1px solid #ccc;">Seq.
-                </th>
-                <th rowspan="2" colspan="4" style="width: 22% !important;">Grupo/Entrega/Atividade</th>
-                <th rowspan="2" style="width: 6% !important; border:1px solid #ccc; border-left:1px solid #ccc;">(<abbr
-                            title="Predecessoras">P</abbr>)
-                </th>
-                <th colspan="3" style="width: 13% !important; border:1px solid #ccc; border-left:1px solid #ccc;">
-                    Planejado
-                </th>
-                <th rowspan="2" style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">Custo
-                </th>
-                <th colspan="4" style="width: 16% !important; border:1px solid #ccc; border-left:1px solid #ccc;">
-                    Realizado
-                </th>
-                <th rowspan="2" style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">(<abbr
-                            title="Percentual de conclusão">%</abbr>)
-                </th>
-                <th rowspan="2" style="width: 15% !important; border:1px solid #ccc; border-left:1px solid #ccc;">
-                    Respons&aacute;vel
-                </th>
-                <th rowspan="2" style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">
-                    Atraso
-                </th>
-                <th rowspan="2" style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">Coment&aacute;rios</th>
-            </tr>
-            <tr style="border:1px solid #ccc; border-left:1px solid #ccc; display: table-row">
-                <th style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc; ">In&iacute;cio</th>
-                <th style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">Fim</th>
-                <th style="width: 3% !important; border:1px solid #ccc; border-left:1px solid #ccc;">(<abbr
-                            title="Quantidade de dias da base line">D/P</abbr>)
-                </th>
-                <th style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">In&iacute;cio</th>
-                <th style="width: 5% !important; border:1px solid #ccc; border-left:1px solid #ccc;">Fim</th>
-                <th style="width: 3% !important; border:1px solid #ccc; border-left:1px solid #ccc;">(<abbr
-                            title="Folga">F</abbr>)
-                </th>
-                <th style="width: 3% !important; border:1px solid #ccc; border-left:1px solid #ccc;">(<abbr
-                            title="Quantidade de dias realizados">D/R</abbr>)
-                </th>
-            </tr>
-            <?php if (count($this->conteudo['cronograma']) > 0): ?>
-            <tr style="font-weight: bold; border-bottom:none">
-                <td colspan="8" style="width: 34% !important;"><i
-                            class="icon-folder-open"></i>&nbsp;<?php echo $this->conteudo['projeto']['nomprojeto']; ?>
-                </td>
-                <td style="text-align: center;width: 5% !important;"><?php echo $this->conteudo['projeto']['datiniciobaseline']; ?></td>
-                <td style="text-align: center;width: 5% !important;"><?php echo $this->conteudo['projeto']['datfimbaseline']; ?></td>
-                <td style="text-align: center !important;width: 3% !important;"><?php echo $this->conteudo['projeto']['numdiasbaseline']; ?></td>
-                <td style="text-align: right !important;width: 5% !important;"><?php echo (!empty($this->conteudo['projeto']['vlratividadet']) && $this->conteudo['projeto']['vlratividadet'] > 0) ? mb_substr($this->conteudo['projeto']['vlratividadet'],
-                            0, -2) . '.' . mb_substr($this->conteudo['projeto']['vlratividadet'], -2) : number_format(0,
-                        2); ?></td>
-                <td style="text-align: center !important;width: 5% !important;"><?php echo $this->conteudo['projeto']['datinicioReal']; ?></td>
-                <td style="text-align: center !important;width: 5% !important;"><?php echo $this->conteudo['projeto']['datfimReal']; ?></td>
-                <td style="width: 3% !important;">&nbsp;</td>
-                <td style="text-align: center !important;width: 3% !important;"><?php echo number_format($this->conteudo['projeto']['numdiasrealizados'],
-                        0); ?></td>
-                <td style="text-align: center;width: 5% !important;"><?php echo number_format($this->conteudo['projeto']['numpercentualconcluido'],
-                        0); ?></td>
-                <td style="width: 15% !important;">&nbsp;</td>
-                <td style="text-align: center;width: 5% !important;"><span
-                            class="badge badge-<?php echo $this->conteudo['projeto']['descricaoPrazo']; ?>"
-                            title="<?php echo $this->conteudo['projeto']['prazoEmDias']; ?> dias"><?php echo $this->conteudo['projeto']['prazoEmDias']; ?> dias</span>
-                    </span></td>
-                <td style="width: 5% !important;">&nbsp;</td>
-            </tr>
-            </thead>
-        </table>
-        <div class="bodycontainer scrollable"
-             style="width: 100% !important; margin: 0; padding: 0; overflow-y: scroll; ">
-            <table class="table table-hover table-condensed table-scrollable" style="margin: 0; padding: 0;">
-                <tbody>
-                <?php foreach ($this->conteudo['cronograma'] as $item):
-                    $item['descricaoconclusao'] = "";
-                    $numDiasReais = 0;
-                    $numDiasPlanejada = 0;
-                    $countPredecessoras = 0;
-                    $item['contPredecessoras'] = 0;
-                    $atraso = $item['atraso'];
-
-                    $farol = $item['domcoratraso'];
-
-                    if (isset($item['predecessoras']) && !empty($item['predecessoras']) && $item['predecessoras'] != "{NULL}") {
-                        if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) {
-                            $result = explode("&&&&&", $item['predecessoras']);
-                            $item['contPredecessoras'] = count($result);
-                            $predecess = array();
-                            foreach ($result as $array):
-                                $arraynumPredecessora = explode("#-#", $array);
-                                $predecess[] = $arraynumPredecessora[0];
-                            endforeach;
-                            $item['listaPredecessoras'] = implode(';', $predecess);
-                        } else {
-                            $arraynumPredecessora = explode("#-#", $item['predecessoras']);
-                            $item['listaPredecessoras'] = $arraynumPredecessora[0];
-                            $item['contPredecessoras'] = 1;
-                        }
-                    }
-
-                    $hoje = new DateTime('now');
-                    $item['descricaoconclusao'] = 'item-em-dia';
-
-                    if ($item['numpercentualconcluido'] == 100.00) {
-                        $item['descricaoconclusao'] = 'item-concluido';
-                    } else {
-                        if (!empty($item['datfim']) && $item['domtipoatividade'] == 3 ||
-                            (!empty($item['datfim'])) && $item['domtipoatividade'] == 4) {
-                            $dtFim = DateTime::createFromFormat('d/m/Y', $item['datfim']);
-                            if ($dtFim < $hoje) {
-                                $item['descricaoconclusao'] = 'item-atrasado';
-                            }
-                        }
-                    }
-
-                    if ((($item['domtipoatividade'] == 3)
-                            || ($item['domtipoatividade'] == 4)) && $item['flacancelada'] == 'S') {
-                        $item['descricaoconclusao'] = 'item-cancelado';
-                    }
-
-                    switch ($item['domtipoatividade']) :
-                        case 1: ?>
-                            <tr>
-                                <td style="text-align: center; width: 3% !important;"><?php echo $item['numseq']; ?></td>
-                                <td style="width: 2% !important;" class="colapseGrupo"
-                                    data-value="<?php echo $item['pai']; ?>"><i class="icon-folder-open"/></td>
-                                <td colspan="3"
-                                    style="width: 20% !important;text-align: justify !important;"><?php echo $item['nomatividadecronograma']; ?></td>
-                                <td style="width: 6% !important;">&nbsp;</td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datiniciobaseline']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datfimbaseline']; ?></td>
-                                <td style="text-align: center !important; width: 3% !important;"><?php echo $item['numdiasbaseline']; ?></td>
-                                <td style="text-align: right !important; width: 5% !important;"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
-                                            0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0,
-                                        2); ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datinicio']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datfim']; ?></td>
-                                <td style="width: 3% !important;">&nbsp;</td>
-                                <td style="text-align: center !important; width: 3% !important;"><?php echo $item['numdiasrealizados']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo number_format($item['numpercentualconcluido'],
-                                        0); ?></td>
-                                <td style="width: 15% !important;text-align: justify !important;"><?php echo $item['nomparteinteressada']; ?></td>
-                                <td style="text-align: center; width: 5% !important;"><span
-                                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
-                                                    0) == 100) ? "" : $farol; ?>"
-                                            title="<?php echo $atraso; ?> dias"><?php echo $atraso; ?> dias</span></td>
-                                <td style="width: 5% !important;">
-                                    <a class=""
-                                       data-target="#dialog-comentario"
-                                       data-text="<?php echo $item['idatividadecronograma']; ?>"
-                                       title="<?php echo $item['cont_comentario']; ?> Comentário(s)"
-                                       href="#">
-                                        <?php if ($item['cont_comentario'] == 0): ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments.png') ?>"/>
-                                        <?php else: ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments_blak.png') ?>"/>
-                                        <?php endif; ?>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            <?php
-                            $countGrupo = isset($countGrupo) ? $countGrupo : 0;
-                            $countGrupo++;
-                            break;
-                        case 2 : ?>
-                            <tr class="nivelPai-<?php echo $item['pai']; ?>">
-                                <td style="text-align: center"><?php echo $item['numseq']; ?></td>
-                                <td style="width: 2% !important;">&nbsp;</td>
-                                <td class="colapseEntrega" style="width: 2% !important;"
-                                    data-value="<?php echo $item['idatividadecronograma']; ?>"><i class="icon-tag"/>
-                                </td>
-                                <td colspan="2"
-                                    style="width: 18% !important;text-align: justify !important;"><?php echo $item['nomatividadecronograma']; ?></td>
-                                <td style="width: 6% !important;">&nbsp;</td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datiniciobaseline']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datfimbaseline']; ?></td>
-                                <td style="text-align: center !important; width: 3%"><?php echo $item['numdiasbaseline']; ?></td>
-                                <td style="text-align: right !important;  width: 5% !important;"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
-                                            0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0,
-                                        2); ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datinicio']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo $item['datfim']; ?></td>
-                                <td style="width: 3% !important;">&nbsp;</td>
-                                <td style="text-align: center !important; width: 3% !important;"><?php echo $item['numdiasrealizados']; ?></td>
-                                <td style="text-align: center !important; width: 5% !important;"><?php echo number_format($item['numpercentualconcluido'],
-                                        0); ?></td>
-                                <td style="width: 15% !important;text-align: justify !important;"><?php echo $item['nomparteinteressada']; ?></td>
-                                <td style="text-align: center; width: 5% !important;"><span
-                                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
-                                                    0) == 100) ? "" : $farol; ?>"
-                                            title="<?php echo $atraso; ?> dias"><?php echo $atraso; ?> dias</span>
-                                </td>
-                                <td style="width: 5% !important;">
-                                    <a class=""
-                                       data-target="#dialog-comentario"
-                                       data-text="<?php echo $item['idatividadecronograma']; ?>"
-                                       title="<?php echo $item['cont_comentario']; ?> Comentário(s)"
-                                       href="#">
-                                        <?php if ($item['cont_comentario'] == 0): ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments.png') ?>"/>
-                                        <?php else: ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments_blak.png') ?>"/>
-                                        <?php endif; ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php
-                            $countEntrega = isset($countEntrega) ? $countEntrega : 0;
-                            $countEntrega++;
-                            break;
-                        case 3: ?>
-                            <!--                data-dados='{"flashowhide": "{{flashowhide}}"}'-->
-                            <tr class="item-cronograma <?php echo $item['descricaoconclusao']; ?> nivelPai-<?php echo $item['pai']; ?> nivelEntrega-<?php echo $item['idgrupo']; ?>">
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numseq']; ?></td>
-                                <td style="width: 2% !important;">&nbsp;</td>
-                                <td style="width: 2% !important;">&nbsp;</td>
-                                <td style="width: 2% !important;"><i class="icon-list-alt"/></td>
-                                <td style="width: 16% !important;text-align: justify !important;"><?php echo $item['nomatividadecronograma']; ?></td>
-                                <td style="text-align: left;width: 6% !important;">
-                                    <?php if (!empty($item['predecessoras']) && $item['predecessoras'] != "{NULL}") : ?>
-                                        <a class="btn btn-mini btn-link dropdown-toggle" title="Predecessoras"
-                                           data-toggle="dropdown" href="#">
-                                            <?php
-                                            $result = null;
-                                            $predecess = array();
-
-                                            if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
-                                                $result = explode("&&&&&", $item['predecessoras']);
-                                                foreach ($result as $array):
-                                                    $arraynumPredecessora = explode("#-#", $array);
-                                                    $predecess[] = $arraynumPredecessora[1];
-                                                endforeach;
-                                                echo implode(', ', $predecess);
-                                            else :
-                                                $predecess = explode("#-#", $item['predecessoras']);
-                                                echo $predecess[1];
-                                            endif;
-                                            ?>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <?php if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
-                                                $result = explode("&&&&&", $item['predecessoras']);
-                                                foreach ($result as $array):
-                                                    $arrayPredecessora = explode("#-#", $array); ?>
-                                                    <li>
-                                                        <a href="#"><?php echo $arrayPredecessora[1] . " - " . $arrayPredecessora[2] . " - " . $arrayPredecessora[3] . " à " . $arrayPredecessora[4]; ?></a>
-                                                    </li>
-                                                <?php endforeach;
-                                            else :
-                                                $predecessoras = explode("#-#", $item['predecessoras']); ?>
-                                                <li>
-                                                    <a href="#"><?php echo $predecessoras[1] . " - " . $predecessoras[2] . " - " . $predecessoras[3] . " à " . $predecessoras[4]; ?></a>
-                                                </li>
-                                            <?php endif; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                </td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datiniciobaseline']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datfimbaseline']; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numdiasbaseline']; ?></td>
-                                <td style="text-align: right !important;width: 5% !important;"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
-                                            0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0,
-                                        2); ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datinicio']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datfim']; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo "(" . $item['numfolga'] . ")"; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numdiasrealizados']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo number_format($item['numpercentualconcluido'],
-                                        0); ?></td>
-                                <td style="width: 15% !important;text-align: justify !important;"><?php echo $item['nomparteinteressada']; ?></td>
-                                <td style="text-align: center;width: 5% !important;"><span
-                                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
-                                                    0) == 100) ? "" : $farol; ?>"
-                                            title="<?php echo $atraso; ?> dias"><?php echo $atraso; ?> dias</span>
-                                </td>
-                                <td style="width: 5% !important;">
-                                    <a class=""
-                                       data-target="#dialog-comentario"
-                                       data-text="<?php echo $item['idatividadecronograma']; ?>"
-                                       title="<?php echo $item['cont_comentario']; ?> Comentário(s)"
-                                       href="#">
-                                        <?php if ($item['cont_comentario'] == 0): ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments.png') ?>"/>
-                                        <?php else: ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments_blak.png') ?>"/>
-                                        <?php endif; ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php
-                            $countAtividade = isset($countAtividade) ? $countAtividade : 0;
-                            $countAtividade++;
-                            break;
-                        case 4: ?>
-                            <!--                data-dados='{"flashowhide": "{{flashowhide}}"}'-->
-                            <tr class="item-cronograma <?php echo $item['descricaoconclusao'] ?> nivelPai-<?php echo $item['pai']; ?> nivelEntrega-<?php echo $item['idgrupo']; ?>">
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numseq']; ?></td>
-                                <td style="width: 2% !important;">&nbsp;</td>
-                                <td style="width: 2% !important;">&nbsp;</td>
-                                <td style="width: 2% !important;"><i class="icon-flag"/></td>
-                                <td style="width: 16% !important;text-align: justify !important;"><?php echo $item['nomatividadecronograma']; ?></td>
-                                <td style="text-align: left;width: 6% !important;">
-                                    <?php if (!empty($item['predecessoras']) && $item['predecessoras'] != "{NULL}") : ?>
-                                        <a class="btn btn-mini btn-link dropdown-toggle" title="Predecessoras"
-                                           data-toggle="dropdown" href="#">
-                                            <?php
-                                            $result = null;
-                                            $predecess = array();
-
-                                            if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
-                                                $result = explode("&&&&&", $item['predecessoras']);
-                                                foreach ($result as $array):
-                                                    $arraynumPredecessora = explode("#-#", $array);
-                                                    $predecess[] = $arraynumPredecessora[1];
-                                                endforeach;
-                                                echo implode(', ', $predecess);
-                                            else :
-                                                $predecess = explode("#-#", $item['predecessoras']);
-                                                echo $predecess[1];
-                                            endif;
-                                            ?>
-                                            <span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <?php if (is_numeric(strpos($item['predecessoras'], '&&&&&'))) :
-                                                $result = explode("&&&&&", $item['predecessoras']);
-                                                foreach ($result as $array):
-                                                    $arrayPredecessora = explode("#-#", $array); ?>
-                                                    <li>
-                                                        <a href="#"><?php echo $arrayPredecessora[1] . " - " . $arrayPredecessora[2] . " - " . $arrayPredecessora[3] . " à " . $arrayPredecessora[4]; ?></a>
-                                                    </li>
-                                                <?php endforeach;
-                                            else :
-                                                $predecessoras = explode("#-#", $item['predecessoras']); ?>
-                                                <li>
-                                                    <a href="#"><?php echo $predecessoras[1] . " - " . $predecessoras[2] . " - " . $predecessoras[3] . " à " . $predecessoras[4]; ?></a>
-                                                </li>
-                                            <?php endif; ?>
-                                        </ul>
-                                    <?php endif; ?>
-                                </td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datiniciobaseline']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datfimbaseline']; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numdiasbaseline']; ?></td>
-                                <td style="text-align: right !important;width: 5% !important;"><?php echo (!empty($item['vlratividade']) && $item['vlratividade'] > 0) ? mb_substr($item['vlratividade'],
-                                            0, -2) . '.' . mb_substr($item['vlratividade'], -2) : number_format(0,
-                                        2); ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datinicio']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo $item['datfim']; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo "(" . $item['numfolga'] . ")"; ?></td>
-                                <td style="text-align: center !important;width: 3% !important;"><?php echo $item['numdiasrealizados']; ?></td>
-                                <td style="text-align: center !important;width: 5% !important;"><?php echo number_format($item['numpercentualconcluido'],
-                                        0); ?></td>
-                                <td style="width: 15% !important;text-align: justify !important;"><?php echo $item['nomparteinteressada']; ?></td>
-                                <td style="text-align: center;width: 5% !important;"><span
-                                            class="badge badge-<?php echo (number_format($item['numpercentualconcluido'],
-                                                    0) == 100) ? "" : $farol; ?>"
-                                            title="<?php echo $atraso; ?> dias">
-                                                <?php echo $atraso; ?> dias</span>
-                                    </span>
-                                </td>
-                                <td style="width: 5% !important;">
-                                    <a class=""
-                                       data-target="#dialog-comentario"
-                                       data-text="<?php echo $item['idatividadecronograma']; ?>"
-                                       title="<?php echo $item['cont_comentario']; ?> Comentário(s)"
-                                       href="#">
-                                        <?php if ($item['cont_comentario'] == 0): ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments.png') ?>"/>
-                                        <?php else: ?>
-                                            <img id="img<?php echo $item['idatividadecronograma']; ?>"
-                                                 src="<?php echo $this->baseUrl('/img/comments_blak.png') ?>"/>
-                                        <?php endif; ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php
-                            $countAtividade++;
-                            break;
-                    endswitch;
-                    ?>
-                <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-        <?php else : ?>
-            <tr>
-                <td colspan="20">Não existe cronograma cadastrado.</td>
-            </tr>
-        <?php endif; ?>
-        <table class="table table-hover table-striped table-condensed">
-            <tfoot>
-            <tr>
-                <td colspan="20"><?php echo $countGrupo; ?>&nbsp;Grupo(s), <?php echo $countEntrega; ?>&nbsp;Entrega(s)
-                    e <?php echo $countAtividade; ?>&nbsp;Atividades.
-                </td>
-            </tr>
-            </tfoot>
-        </table>
+    <table id="cronograma-titulos" class="table table-hover table-striped table-condensed">
+        <tr>
+             <td>
+                <div class="row">
+                    <div class="cron-radio" style="margin-left: 25px !important">#</div>
+                    <div class="nome-grupo" style="width: 280px !important;">Grupo/Entrega/Atividade</div>
+                    <div class="cron-perdecessoras" style="padding-left: 20px;">(<abbr title="Predecessoras">P</abbr>)</div>
+                    <div class="cron-datas"style="margin-left: -30px;">Baseline(Planejado)</div>
+                    <div class="cron-dias">(<abbr title="Quantidade de dias da base line">D/P</abbr> )</div>
+                    <div class="cron-custo">Custo</div>
+                    <div class="cron-datas-reais">In&iacute;cio/Fim(Realizado)</div>
+                    <div class="cron-datas" style="width: 40px !important; margin-left : 0px; padding-left: 10px;">(<abbr title="Quantidade de dias realizados">D/R</abbr> )</div>
+                    <div class="cron-percentual" style="width: 40px !important; padding-left: 40px;"><abbr title="Percentual de conclusão">%</abbr></div>
+                    <div class="cron-responsavel" style="margin-left: 4px;">Respons&aacute;vel</div>
+                    <div class="cron-info" style="margin-left: 42px;">Farol</div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="container-grupo"  style="height: 100%; overflow-y: scroll;">
+        
     </div>
-
-    <script type="text/x-handlebars-template"></script>
-    <div class="mensagens">
-        <div id="dialog-AtivPredecexcluir" style="display: none">
-            <div class="alert alert-block" style="font-size: 14px !important;">
-                <h4 style="color:#000006 !important">ATEN&Ccedil;&Atilde;O</h4>
-                <p>
-                    Essa atividade é uma predecessora.<br/>
-                    Por favor retire o vínculo com a outra atividade para excluí-la.
-                </p>
+</div>
+<div class="region-east">
+    
+</div>
+<script id="tpl-atividade" type="text/x-handlebars-template">
+    <div class="atividade" id="at{{idatividadecronograma}}" data-date="{{datiniciobaseline}}">
+        <div class="item-cronograma {{retornaDescricaoConclusao}}">
+            {{#compare domtipoatividade "eq" "3"}}
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-atividade" value="{{idatividadecronograma}}" data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+                </div>
+                <div class="nome-atividade" style="width: 280px !important;">
+                    <div class="container-atividade" style="width: 250px !important;">
+                        <i class="icon-list-alt"></i> {{nomatividadecronograma}}
+                    </div>
+                </div>
+            {{else}}
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma item-marco" data-group=".btn-group-atividade" value="{{idatividadecronograma}}" data-dados='{"numpercentualconcluido": "{{numpercentualconcluido}}", "datinicio": "{{datinicio}}", "datfim": "{{datfim}}", "idgrupo": "{{idgrupo}}", "numdiasrealizados": "{{numdiasrealizados}}" }'>
+                </div>
+                <div class="nome-atividade" style="width: 280px !important;">
+                    <div class="container-atividade" style="width: 280px !important;">
+                        <i class="icon-flag"></i> {{nomatividadecronograma}}
+                    </div>
+                </div>
+            {{/compare}}
+            <div class="cron-perdecessoras">
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -50px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} à {{datfim}}
+            </div>
+            <div class="cron-percentual">
+                {{numdiasrealizados}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{prazo}}">{{prazo}}</span>
             </div>
         </div>
-        <div id="dialog-Predecessoraexcluir" style="display: none">
-            <div class="alert alert-block" style="font-size: 14px !important;">
-                <h4>Aviso!</h4>
-                <p>Essa atividade é sucessora de outra. Tem certeza que deseja excluí-la?</P>
-            </div>
-        </div>
-
-        <div id="dados-cronograma-projeto" style="height: 20px;"></div>
-        <div class="container-grupo"></div>
-        <script type="text/x-handlebars-template"></script>
-        <div class="mensagens">
-            <div id="dialog-AtivPredecexcluir" style="display: none">
-                <div class="alert alert-block" style="font-size: 14px !important;">
-                    <h4 style="color:#000006 !important">ATEN&Ccedil;&Atilde;O</h4>
-                    <p>
-                        Esta atividade é predecessora de outra(s) atividade(s) no cronograma.<br/>
-                        Para concluir esta operação remova o(s) vínculo(s) entre as atividades.
-                    </p>
+          {{#if predecessoras.length}}
+            {{#each predecessoras}}
+                <div class="item-cronograma {{retornaDescricaoConclusao}}">
+                <div class="cron-radio">
                 </div>
-            </div>
-            <div id="dialog-Predecessoraexcluir" style="display: none">
-                <div class="alert alert-block" style="font-size: 14px !important;">
-                    <h4>Aviso!</h4>
-                    <p>Essa atividade é Predecessora de uma ou mais atividades.
-                        Ao confirmar esta operação essa atividade será desvinculada da(s) demais sucessora(s).
-                        Você tem certeza que deseja excluir?</P>
+                    <div class="nome-predecessora">
+                        <div class="container-atividade">
+                            (<abbr title="Predecessoras">P</abbr>)
+                            {{nomatividadecronograma}} 
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div id="dialog-excluir" style="display: none">
-                <div class="alert alert-block" style="font-size: 14px !important;">
-                    <h4>Aviso!</h4>
-                    <p>Tem certeza que deseja excluir essa atividade?</P>
-                </div>
-            </div>
-        </div>
-        <div id="dialog-excluir-entrega" style="display: none"></div>
-        <div id="dialog-excluir-grupo" style="display: none"></div>
-        <div id="dialog-grupo" style="display: none"></div>
-        <div id="dialog-entrega" style="display: none"></div>
-        <div id="dialog-atividade" style="display: none"></div>
-        <div id="dialog-marco" style="display: none"></div>
-        <div id="dialog-atualizar-baseline" style="display: none"></div>
-        <div id="dialog-atualizar-baseline-ativ" style="display: none"></div>
-        <?php echo $this->partial('_partials/cron-form-atividade-marco.phtml', array('form' => $this->formMarco)); ?>
+            {{/each}}
+        {{/if}}
     </div>
+</script>
+<script id="tpl-grupo" type="text/x-handlebars-template">
+    {{#each grupos}}
+        <div class="row grupo" id="gr{{idatividadecronograma}}">
+            <div class="item-cronograma">
+                <div class="cron-radio">
+                    <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-grupo" value="{{idatividadecronograma}}">
+                </div>
+                <div class="nome-grupo" style="width: 280px !important;">
+                    <i class="icon-folder-open"></i> {{nomatividadecronograma}}
+                </div>
+                <div class="cron-perdecessoras">
+                    
+                </div>
+                <div class="cron-datas" style="width: 140px !important; margin-left :-10px;">
+                    {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+                </div>
+                <div class="cron-dias">
+                    {{diasbaseline}}
+                </div>
+                <div class="cron-custo">
+                    {{vlratividade}}
+                </div>
+                <div class="cron-datas-reais">
+                    {{datinicio}} &agrave; {{datfim}}
+                </div>
+                <div class="cron-percentual">
+                {{diasreal}}
+                </div>
+                <div class="cron-percentual">
+                    {{numpercentualconcluido}}%
+                </div>
+                <div class="cron-responsavel">
+                    
+                </div>
+                <div class="cron-info">
+                </div>
+            </div>
+            <div class="container-entrega">
+                {{#each entregas}}
+                    {{> helperEntrega}}
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+    <div class="rodape-cronograma row span7 affix-bottom"> {{contGrupo}} grupo(s), {{contEntrega}} entrega(s) e {{contAtividade}} atividade(s) </div>
+</script>
+<script id="tpl-entrega" type="text/x-handlebars-template">
+    <div class="entrega" id="en{{idatividadecronograma}}">
+        <div class="item-cronograma">
+            <div class="cron-radio">
+                <input type="radio" name="item_cronograma" class="input-item-cronograma" data-group=".btn-group-entrega" value="{{idatividadecronograma}}">
+            </div>
+            <div class="nome-entrega">
+                <i class="icon-tag"></i> {{nomatividadecronograma}}
+            </div>
+            <div class="cron-perdecessoras">
+                
+            </div>
+            <div class="cron-datas" style="width: 140px !important; margin-left: -80px;">
+                {{datiniciobaseline}} &agrave; {{datfimbaseline}}
+            </div>
+            <div class="cron-dias">
+                {{diasbaseline}}
+            </div>
+            <div class="cron-custo">
+                {{vlratividade}}
+            </div>
+            <div class="cron-datas-reais">
+                {{datinicio}} &agrave; {{datfim}}
+            </div>
+            <div class="cron-percentual">
+               {{diasreal}}
+            </div>
+            <div class="cron-percentual">
+                {{numpercentualconcluido}}%
+            </div>
+            <div class="cron-responsavel">
+                <abbr title="{{desemail}}">{{nomparteinteressada}}</abbr>
+            </div>
+            <div class="cron-info">
+                <span class="badge badge-{{descricaoprazo}}" title="{{dias}}">{{prazo}}</span>
+            </div>
+        </div>
+        <div class="container-atividade" style="display: block; width: 100%; clear: both;">
+            {{#each atividades}}
+                {{> helperAtividade}}
+            {{/each}}
+        </div>
+    </div>
+</script>
+<script id="tpl-predecessora" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}" data-idatividadepredecessora="{{idatividadepredecessora}}">
+        </td>
+        <td>{{datinicio}} a {{datfim}} - {{nomatividadecronograma}}</td>
+    </tr>
+</script>
+<script id="tpl-predecessora-editar" type="text/x-handlebars-template">
+    <tr>
+        <td>
+            <a class="btn btn-mini remover-predecessora" href="#"><i class="icon-trash"></i></a>
+            <input type="hidden" class="idpredecessora" name="idpredecessora[]" value="{{idatividadecronograma}}">
+        </td>
+        <td>{{nomatividadecronograma}}</td>
+    </tr>
+</script>

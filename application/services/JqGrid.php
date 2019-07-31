@@ -10,11 +10,11 @@ class Default_Service_JqGrid extends App_Service_ServiceAbstract
     {
         //$this->_mapper = new Default_Model_Mapper_Documento();
     }
-
+    
     public function toJqgrid()
     {
         $request = Zend_Controller_Front::getInstance()->getRequest();
-
+        
         // Pass the current page number to paginator
         $this->_paginator->setCurrentPageNumber($request->getParam('page', 1));
         //Zend_Debug::dump($this->_paginator);exit;
@@ -29,8 +29,10 @@ class Default_Service_JqGrid extends App_Service_ServiceAbstract
         $grid->records = $this->_paginator->getTotalItemCount();
         $grid->rows = array();
 
-        foreach ($rows as $k => $row) {
-            if (isset($row['id'])) {
+        foreach ($rows as $k => $row)
+        {
+            if (isset($row['id']))
+            {
                 $grid->rows[$k]['id'] = $row['id'];
             }
 

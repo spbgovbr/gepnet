@@ -3,13 +3,18 @@
     <nav>
         <projeto>
             <label>Projeto</label>
-            <module>projeto</module>
-            <controller>gerencia</controller>
-            <action>index</action>
             <resource>projeto:gerencia</resource>
             <privilege>index</privilege>
             <uri>#</uri>
             <pages>
+                <novo>
+                    <label>Novo</label>
+                    <module>projeto</module>
+                    <controller>tap</controller>
+                    <action>add</action>
+                    <resource>projeto:tap</resource>
+                    <privilege>add</privilege>
+                </novo>
                 <pesquisar>
                     <label>Gerenciar</label>
                     <module>projeto</module>
@@ -18,37 +23,43 @@
                     <resource>projeto:gerencia</resource>
                     <privilege>index</privilege>
                 </pesquisar>
-                <criar>
-                    <label>Criar</label>
-                    <resource>projeto:tap</resource>
-                    <privilege>add</privilege>
-                    <uri>#</uri>
-                    <pages>
-                        <novo>
-                            <label>Novo</label>
-                            <module>projeto</module>
-                            <controller>tap</controller>
-                            <action>add</action>
-                            <resource>projeto:tap</resource>
-                            <privilege>add</privilege>
-                        </novo>
-                        <gerenciar>
-                            <label>Clonar</label>
-                            <module>projeto</module>
-                            <controller>gerencia</controller>
-                            <action>clonar</action>
-                            <resource>projeto:gerencia</resource>
-                            <privilege>clonar</privilege>
-                            <visible>1</visible>
-                        </gerenciar>
-                    </pages>
-                </criar>
-                <tap>
-                    <label>TAP</label>
-                    <resource>projeto:tap</resource>
+                <statusreport>
+                    <label>Status Report</label>
+                    <module>projeto</module>
+                    <controller>statusreport</controller>
+                    <action>index</action>
+                    <resource>projeto:statusreport</resource>
                     <privilege>index</privilege>
+                </statusreport>
+                <relatoriocronograma>
+                    <label>Relatório - Cronograma</label>
+                    <module>projeto</module>
+                    <controller>cronograma</controller>
+                    <action>relatorio-cronograma</action>
+                    <resource>projeto:cronograma</resource>
+                    <privilege>relatorio-cronograma</privilege>
+                    <visible>1</visible>
+                </relatoriocronograma>
+            </pages>
+        </projeto>
+       
+        <tap>
+            <label>Projeto</label>
+            <module>projeto</module>
+            <controller>tap</controller>
+            <action>add</action>
+            <resource>projeto:tap</resource>
+            <privilege>add</privilege>
+            <visible>0</visible>
+            <pages>
+                <projeto>
+                    <label>TAP</label>
+                    <module>projeto</module>
+                    <controller>tap</controller>
+                    <action>index</action>
+                    <resource>projeto:tap</resource>
+                     <privilege>index</privilege>
                     <uri>#</uri>
-                    <visible>0</visible>
                     <pages>
                         <informacoesiniciais>
                             <label>Informações Iniciais</label>
@@ -57,7 +68,6 @@
                             <action>informacoesiniciais</action>
                             <resource>projeto:tap</resource>
                             <privilege>informacoesiniciais</privilege>
-                            <uri>#</uri>
                             <visible>0</visible>
                         </informacoesiniciais>
                         <informacoestecnicas>
@@ -78,29 +88,21 @@
                             <privilege>resumodoprojeto</privilege>
                             <visible>0</visible>
                         </resumodoprojeto>
+                        <partesinteressadas>
+                            <label>Partes Interessadas</label>
+                            <module>projeto</module>
+                            <controller>tap</controller>
+                            <action>partesinteressadas</action>
+                            <resource>projeto:tap</resource>
+                            <privilege>partesinteressadas</privilege>
+                            <visible>0</visible>
+                        </partesinteressadas>
                     </pages>
-                </tap>
-                <relatoriocronograma>
-                    <label>Relatório - Cronograma</label>
-                    <module>projeto</module>
-                    <controller>cronograma</controller>
-                    <action>relatorio-cronograma</action>
-                    <resource>projeto:cronograma</resource>
-                    <privilege>relatorio-cronograma</privilege>
-                    <visible>1</visible>
-                </relatoriocronograma>
-                <configurar>
-                    <label>Configurar</label>
-                    <module>projeto</module>
-                    <controller>gerencia</controller>
-                    <action>configurar</action>
-                    <resource>projeto:gerencia</resource>
-                    <privilege>configurar</privilege>
-                    <visible>0</visible>
-                </configurar>
+                </projeto>
             </pages>
-        </projeto>
-
+        </tap>
+        
+        
         <processo>
             <label>Processo</label>
             <resource>processo:index</resource>
@@ -125,11 +127,6 @@
                 </gerenciar>
                 <projeto>
                     <label>Projeto</label>
-                    <module>processo</module>
-                    <controller>projeto</controller>
-                    <action>index</action>
-                    <resource>processo:projeto</resource>
-                    <privilege>index</privilege>
                     <uri>#</uri>
                     <pages>
                         <cadastrar>
@@ -138,7 +135,7 @@
                             <controller>projeto</controller>
                             <action>add</action>
                             <resource>processo:projeto</resource>
-                            <privilege>add</privilege>
+                             <privilege>add</privilege>
                             <visible>1</visible>
                         </cadastrar>
                         <gerenciar>
@@ -147,14 +144,15 @@
                             <controller>projeto</controller>
                             <action>index</action>
                             <resource>processo:projeto</resource>
-                            <privilege>index</privilege>
+                             <privilege>index</privilege>
                             <visible>1</visible>
                         </gerenciar>
                     </pages>
                 </projeto>
             </pages>
         </processo>
-
+        
+        
         <planejamento>
             <label>Planejamento</label>
             <resource>planejamento:index</resource>
@@ -163,11 +161,7 @@
             <pages>
                 <portfolio>
                     <label>Portfólio</label>
-                    <module>planejamento</module>
-                    <controller>portfolio</controller>
-                    <action>index</action>
-                    <resource>planejamento:portfolio</resource>
-                    <privilege>index</privilege>
+                    <uri>#</uri>
                     <visible>1</visible>
                     <pages>
                         <cadastrar>
@@ -205,7 +199,7 @@
                     <controller>index</controller>
                     <action>index</action>
                     <resource>planejamento:index</resource>
-                    <privilege>index</privilege>
+                     <privilege>index</privilege>
                     <pages>
                         <gerenciar>
                             <label>Ação</label>
@@ -213,7 +207,7 @@
                             <controller>acao</controller>
                             <action>index</action>
                             <resource>planejamento:acao</resource>
-                            <privilege>index</privilege>
+                             <privilege>index</privilege>
                             <visible>0</visible>
                         </gerenciar>
                         <acao>
@@ -222,114 +216,20 @@
                             <controller>acao</controller>
                             <action>add</action>
                             <resource>planejamento:acao</resource>
-                            <privilege>acao</privilege>
+                             <privilege>acao</privilege>
                             <visible>0</visible>
                         </acao>
                     </pages>
                 </objetivo>
             </pages>
         </planejamento>
-        <diagnostico>
-            <label>Diagnóstico</label>
-            <resource>diagnostico:diagnostico</resource>
-            <privilege>index</privilege>
-            <uri>#</uri>
-            <pages>
-                <diagnostico>
-                    <label>Diagnóstico</label>
-                    <resource>diagnostico:diagnostico</resource>
-                    <privilege>index</privilege>
-                    <uri>#</uri>
-                    <pages>
-                        <gerenciar>
-                            <label>Gerenciar</label>
-                            <module>diagnostico</module>
-                            <controller>diagnostico</controller>
-                            <action>index</action>
-                            <resource>diagnostico:diagnostico</resource>
-                            <privilege>index</privilege>
-                            <visible>1</visible>
-                        </gerenciar>
-                        <novo>
-                            <label>Novo</label>
-                            <module>diagnostico</module>
-                            <controller>diagnostico</controller>
-                            <action>add</action>
-                            <resource>diagnostico:diagnostico</resource>
-                            <privilege>add</privilege>
-                            <visible>1</visible>
-                            <id>geraSequence</id>
-                        </novo>
-                        <clonar>
-                            <label>Clonar</label>
-                            <module>diagnostico</module>
-                            <controller>diagnostico</controller>
-                            <action>clonar</action>
-                            <resource>diagnostico:diagnostico</resource>
-                            <privilege>clonar</privilege>
-                            <visible>1</visible>
-                        </clonar>
-                    </pages>
-                </diagnostico>
-                <questionatio>
-                    <label>Questionário</label>
-                    <resource>diagnostico:questionario</resource>
-                    <privilege>index</privilege>
-                    <uri>#</uri>
-                    <pages>
-                        <gerenciar>
-                            <label>Gerenciar</label>
-                            <module>diagnostico</module>
-                            <controller>questionario</controller>
-                            <action>index</action>
-                            <resource>diagnostico:questionario</resource>
-                            <privilege>index</privilege>
-                            <visible>1</visible>
-                        </gerenciar>
-                        <novo>
-                            <label>Novo</label>
-                            <module>diagnostico</module>
-                            <controller>questionario</controller>
-                            <action>add</action>
-                            <resource>diagnostico:questionario</resource>
-                            <privilege>add</privilege>
-                            <visible>1</visible>
-                        </novo>
-                        <clonar>
-                            <label>Clonar</label>
-                            <module>diagnostico</module>
-                            <controller>questionario</controller>
-                            <action>lista-clonar</action>
-                            <resource>diagnostico:questionario</resource>
-                            <privilege>lista-clonar</privilege>
-                            <visible>1</visible>
-                        </clonar>
-                    </pages>
-                </questionatio>
-                <estatistica>
-                    <label>Resultados</label>
-                    <resource>diagnostico:estatistica</resource>
-                    <privilege>resumo</privilege>
-                    <uri>#</uri>
-                    <pages>
-                        <gerenciar>
-                            <label>Resumo</label>
-                            <module>diagnostico</module>
-                            <controller>estatistica</controller>
-                            <action>resumo</action>
-                            <resource>diagnostico:estatistica</resource>
-                            <privilege>resumo</privilege>
-                            <visible>1</visible>
-                        </gerenciar>
-                    </pages>
-                </estatistica>
-            </pages>
-        </diagnostico>
+        
+        
         <atividade>
             <label>Atividade pessoal</label>
             <resource>pessoal:atividade</resource>
             <privilege>index</privilege>
-            <uri>#</uri>
+            <uri>#</uri>    
             <pages>
                 <cadastrar>
                     <label>Cadastrar</label>
@@ -337,7 +237,7 @@
                     <controller>atividade</controller>
                     <action>add</action>
                     <resource>pessoal:atividade</resource>
-                    <privilege>add</privilege>
+                     <privilege>add</privilege>
                 </cadastrar>
                 <gerenciar>
                     <label>Gerenciar</label>
@@ -345,21 +245,21 @@
                     <controller>atividade</controller>
                     <action>index</action>
                     <resource>pessoal:atividade</resource>
-                    <privilege>index</privilege>
+                     <privilege>index</privilege>
                 </gerenciar>
-
+                
                 <relatorio>
                     <label>Relatório</label>
                     <module>pessoal</module>
                     <controller>atividade</controller>
                     <action>index</action>
                     <resource>pessoal:atividade</resource>
-                    <privilege>index</privilege>
+                     <privilege>index</privilege>
                 </relatorio>
             </pages>
         </atividade>
-
-
+        
+        
         <pesquisa>
             <label>Pesquisa</label>
             <resource>pesquisa:pesquisa</resource>
@@ -372,7 +272,7 @@
                     <controller>pergunta</controller>
                     <action>listar</action>
                     <resource>pesquisa:pergunta</resource>
-                    <privilege>listar</privilege>
+                     <privilege>listar</privilege>
                 </pergunta>
                 <questionario>
                     <label>Questionário</label>
@@ -380,16 +280,12 @@
                     <controller>questionario</controller>
                     <action>listar</action>
                     <resource>pesquisa:questionario</resource>
-                    <privilege>listar</privilege>
-                </questionario>
+                     <privilege>listar</privilege>
+                </questionario>                
                 <pesquisa>
                     <label>Pesquisa</label>
-                    <module>pesquisa</module>
-                    <controller>pesquisa</controller>
-                    <action>listar</action>
-                    <resource>pesquisa:pesquisa</resource>
-                    <privilege>listar</privilege>
                     <visible>1</visible>
+                    <uri>#</uri>
                     <pages>
                         <publicar>
                             <label>Publicar</label>
@@ -397,7 +293,7 @@
                             <controller>pesquisa</controller>
                             <action>listar</action>
                             <resource>pesquisa:pesquisa</resource>
-                            <privilege>listar</privilege>
+                             <privilege>listar</privilege>
                             <visible>1</visible>
                         </publicar>
                         <gerenciar>
@@ -406,7 +302,7 @@
                             <controller>pesquisa</controller>
                             <action>gerenciar-pesquisas</action>
                             <resource>pesquisa:pesquisa</resource>
-                            <privilege>gerenciar-pesquisas</privilege>
+                             <privilege>gerenciar-pesquisas</privilege>
                             <visible>1</visible>
                         </gerenciar>
                         <responder>
@@ -425,7 +321,7 @@
                             <action>listar</action>
                             <resource>pesquisa:relatorio</resource>
                             <privilege>listar</privilege>
-                            <visible>1</visible>
+                            <visible>1</visible>                            
                         </relatorio>
                         <historico>
                             <label>Histórico</label>
@@ -434,43 +330,19 @@
                             <action>listar</action>
                             <resource>pesquisa:historico</resource>
                             <privilege>listar</privilege>
-                            <visible>1</visible>
+                            <visible>1</visible>                            
                         </historico>
                     </pages>
-                </pesquisa>
+                </pesquisa>                
             </pages>
         </pesquisa>
-
+        
         <relatorio>
             <label>Relatórios</label>
             <resource>relatorio:risco</resource>
             <privilege>index</privilege>
             <uri>#</uri>
             <pages>
-                <aceite>
-                    <label>Aceite</label>
-                    <module>relatorio</module>
-                    <controller>aceite</controller>
-                    <action>index</action>
-                    <resource>relatorio:aceite</resource>
-                    <privilege>index</privilege>
-                </aceite>
-                <diariobordo>
-                    <label>Diário</label>
-                    <module>relatorio</module>
-                    <controller>diariobordo</controller>
-                    <action>index</action>
-                    <resource>relatorio:diariobordo</resource>
-                    <privilege>index</privilege>
-                </diariobordo>
-                <licao>
-                    <label>Lição</label>
-                    <module>relatorio</module>
-                    <controller>licao</controller>
-                    <action>index</action>
-                    <resource>relatorio:licao</resource>
-                    <privilege>index</privilege>
-                </licao>
                 <risco>
                     <label>Risco</label>
                     <module>relatorio</module>
@@ -478,10 +350,10 @@
                     <action>index</action>
                     <resource>relatorio:risco</resource>
                     <privilege>index</privilege>
-                </risco>
+                </risco>                                
             </pages>
         </relatorio>
-
+        
         <cadastro>
             <label>Cadastros</label>
             <resource>cadastro:index</resource>
@@ -490,19 +362,20 @@
             <pages>
                 <pessoa>
                     <label>Pessoa</label>
-                    <module>cadastro</module>
-                    <controller>pessoa</controller>
-                    <action>index</action>
-                    <resource>cadastro:pessoa</resource>
-                    <privilege>index</privilege>
+                    <uri>#</uri>
+                    <pages>
+                        <gerenciar>
+                            <label>Gerenciar</label>
+                            <module>cadastro</module>
+                            <controller>pessoa</controller>
+                            <action>index</action>
+                            <resource>cadastro:pessoa</resource>
+                            <privilege>index</privilege>
+                        </gerenciar>
+                    </pages>
                 </pessoa>
                 <escritorio>
                     <label>Escritório</label>
-                    <module>cadastro</module>
-                    <controller>escritorio</controller>
-                    <action>index</action>
-                    <resource>cadastro:escritorio</resource>
-                    <privilege>index</privilege>
                     <uri>#</uri>
                     <pages>
                         <cadastrar>
@@ -525,11 +398,6 @@
                 </escritorio>
                 <programa>
                     <label>Programa</label>
-                    <module>cadastro</module>
-                    <controller>programa</controller>
-                    <action>index</action>
-                    <resource>cadastro:programa</resource>
-                    <privilege>index</privilege>
                     <uri>#</uri>
                     <pages>
                         <cadastrar>
@@ -552,11 +420,6 @@
                 </programa>
                 <documento>
                     <label>Documento</label>
-                    <module>cadastro</module>
-                    <controller>documento</controller>
-                    <action>index</action>
-                    <resource>cadastro:documento</resource>
-                    <privilege>index</privilege>
                     <uri>#</uri>
                     <pages>
                         <cadastrar>
@@ -581,11 +444,6 @@
                 </documento>
                 <setor>
                     <label>Setor</label>
-                    <module>cadastro</module>
-                    <controller>setor</controller>
-                    <action>index</action>
-                    <resource>cadastro:setor</resource>
-                    <privilege>index</privilege>
                     <uri>#</uri>
                     <pages>
                         <cadastrar>
@@ -610,7 +468,7 @@
                 </setor>
             </pages>
         </cadastro>
-
+        
         <acordocooperacao>
             <label>Acordo Cooperação</label>
             <resource>acordocooperacao:entidadeexterna</resource>
@@ -636,7 +494,8 @@
                 </gerenciar>
             </pages>
         </acordocooperacao>
-
+        
+        
         <evento>
             <label>Grandes Eventos</label>
             <resource>evento:grandeseventos</resource>
@@ -670,8 +529,8 @@
                 </avaliacao>
             </pages>
         </evento>
-
-
+        
+        
         <agenda>
             <label>Agenda</label>
             <resource>agenda:index</resource>
@@ -689,7 +548,7 @@
                 </index>
             </pages>
         </agenda>
-
+        
         <seguranca>
             <label>Segurança</label>
             <module>cadastro</module>
@@ -745,7 +604,7 @@
                         </gerenciar>
                     </pages>
                 </perfilpessoa>
-
+                
                 <permissao>
                     <label>Permissões</label>
                     <module>cadastro</module>
@@ -755,8 +614,8 @@
                     <privilege>index</privilege>
                     <visible>0</visible>
                 </permissao>
-
-
+                
+                
                 <pessoa>
                     <label>Pessoa</label>
                     <module>cadastro</module>
@@ -774,14 +633,14 @@
                             <resource>cadastro:pessoa</resource>
                             <privilege>add</privilege>
                         </cadastrar>
-                        <!--<gerenciar>-->
-                        <!--<label>Gerenciar</label>-->
-                        <!--<module>cadastro</module>-->
-                        <!--<controller>pessoa</controller>-->
-                        <!--<action>index</action>-->
-                        <!--<resource>cadastro:pessoa</resource>-->
-                        <!--<privilege>index</privilege>-->
-                        <!--</gerenciar>-->
+                        <gerenciar>
+                            <label>Gerenciar</label>
+                            <module>cadastro</module>
+                            <controller>pessoa</controller>
+                            <action>index</action>
+                            <resource>cadastro:pessoa</resource>
+                            <privilege>index</privilege>
+                        </gerenciar>
                     </pages>
                 </pessoa>
             </pages>

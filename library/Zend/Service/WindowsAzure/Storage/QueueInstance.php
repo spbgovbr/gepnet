@@ -37,8 +37,8 @@ require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  *
- * @property string $Name                     Name of the queue
- * @property array $Metadata                 Key/value pairs of meta data
+ * @property string  $Name                     Name of the queue
+ * @property array   $Metadata                 Key/value pairs of meta data
  * @property integer $ApproximateMessageCount  The approximate number of messages in the queue
  */
 class Zend_Service_WindowsAzure_Storage_QueueInstance
@@ -47,14 +47,14 @@ class Zend_Service_WindowsAzure_Storage_QueueInstance
     /**
      * Constructor
      *
-     * @param string $name Name
-     * @param array $metadata Key/value pairs of meta data
+     * @param string $name          Name
+     * @param array  $metadata      Key/value pairs of meta data
      */
     public function __construct($name, $metadata = array())
     {
         $this->_data = array(
-            'name' => $name,
-            'metadata' => $metadata,
+            'name'         => $name,
+            'metadata'     => $metadata,
             'approximatemessagecount' => 0
         );
     }

@@ -24,7 +24,7 @@ class Projeto_Service_DiarioBordo extends App_Service_ServiceAbstract
         $this->_form = new Projeto_Form_DiarioBordo();
         return $this->_form;
     }
-
+    
     public function getFormPesquisar()
     {
         $this->_form = new Projeto_Form_DiarioBordoPesquisar();
@@ -47,14 +47,14 @@ class Projeto_Service_DiarioBordo extends App_Service_ServiceAbstract
     public function getById($params)
     {
         $diario = $this->_mapper->getById($params);
-        return $diario;
+        return $diario;        
     }
-
+    
     public function insert($dados)
     {
         $form = $this->getFormDiario();
 
-        if ($form->isValid($dados)) {
+        if ( $form->isValid($dados) ) {
             $model = new Projeto_Model_Diariobordo();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
@@ -69,7 +69,7 @@ class Projeto_Service_DiarioBordo extends App_Service_ServiceAbstract
     public function update($params)
     {
         $form = $this->getFormDiario();
-        if ($form->isValid($params)) {
+        if ( $form->isValid($params) ) {
             $model = new Projeto_Model_Diariobordo($form->getValidValues($params));
             $model->idalterador = $this->auth->idpessoa;
             $retorno = $this->_mapper->update($model);
@@ -81,22 +81,17 @@ class Projeto_Service_DiarioBordo extends App_Service_ServiceAbstract
     }
 
     public function excluir($params)
-    {
+    {        
         try {
             return $this->_mapper->delete($params);
-        } catch (Zend_Db_Statement_Exception $exc) {
-            if ($exc->getCode() == 23503) {
+        } catch ( Zend_Db_Statement_Exception $exc ) {
+            if ( $exc->getCode() == 23503 ) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_VIOLACAO_FK_CODE_23503;
             }
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $this->errors = $exc->getMessage();
             return false;
         }
-    }
-
-    public function copiaDiarioByProjeto($dados)
-    {
-        return $this->_mapper->copiaDiarioByProjeto($dados);
     }
 
 }

@@ -1,75 +1,75 @@
 production:
-  phpSettings:
-    display_startup_errors: false
-    display_errors: false
-    date:
-      timezone: "America/Sao_Paulo"
-  includePaths:
-    library: APPLICATION_PATH/../library
-  bootstrap:
-    path: APPLICATION_PATH/Bootstrap.php
-    class: "Bootstrap"
-  appnamespace: "Application"
-  autoloadernamespaces:
-    app: "App"
-    zfdebug: "ZFDebug"
-    bvb: "Bvb"
-    preceptor: "Preceptor"
-    zendx: "ZendX"
-  resources:
-    locale:
-      default: "pt_BR"
-      locale:
-        force: true
-    frontController:
-      controllerDirectory: APPLICATION_PATH/controllers
-      moduleDirectory: APPLICATION_PATH/modules
-      defaultModule: "default"
-      env: APPLICATION_ENV
-      params:
-        displayExceptions: false
-    modules:
-    db:
-      adapter: "pdo_mysql"
-      params:
-        username: "root"
-        password: ""
-        dbname: "choppdobrado"
-        host: "localhost"
-        date_format: "YYYY-MM-ddTHH:mm:ss"
-        isDefaultTableAdapter: true
-    log:
-      stream:
-        writerName: "Stream"
-        writerParams:
-          stream: APPLICATION_PATH "/../logs/application.log"
-    view:
-      encoding: "UTF-8"
-      doctype: "HTML4_STRICT"
-      language: "pt-br"
-      contentType: "text/html;charset=utf-8"
-      helperPath:
-        App_View_Helper: "App/View/Helper"
-    layout:
-      layoutPath: APPLICATION_PATH "/layouts/scripts/"
-      layout: "default"
-      pluginClass: "App_Controller_Plugin_LayoutSwitcher"
-
+      phpSettings:
+        display_startup_errors: false
+        display_errors: false
+        date:
+          timezone : "America/Sao_Paulo"
+      includePaths:
+        library: APPLICATION_PATH/../library
+      bootstrap:
+        path: APPLICATION_PATH/Bootstrap.php
+        class: "Bootstrap"
+      appnamespace: "Application"
+      autoloadernamespaces:
+        app: "App"
+        zfdebug: "ZFDebug"
+        bvb: "Bvb"
+        preceptor: "Preceptor"
+        zendx: "ZendX"
+      resources:
+        locale:
+          default: "pt_BR"
+          locale:
+            force: true
+        frontController:
+          controllerDirectory: APPLICATION_PATH/controllers
+          moduleDirectory: APPLICATION_PATH/modules
+          defaultModule: "default"
+          env: APPLICATION_ENV
+          params:
+            displayExceptions: false
+        modules:
+        db:
+          adapter: "pdo_mysql"
+          params:
+            username : "root"
+            password : ""
+            dbname : "xxxxxx"
+            host : "localhost"
+            date_format : "YYYY-MM-ddTHH:mm:ss"
+            isDefaultTableAdapter : true
+        log:
+          stream :
+            writerName : "Stream"
+            writerParams:
+              stream: APPLICATION_PATH "/../logs/application.log"
+        view:
+          encoding: "UTF-8"
+          doctype : "HTML4_STRICT"
+          language : "pt-br"
+          contentType : "text/html;charset=utf-8"
+          helperPath:
+            App_View_Helper : "App/View/Helper"
+        layout:
+          layoutPath : APPLICATION_PATH "/layouts/scripts/"
+          layout : "default"
+          pluginClass : "App_Controller_Plugin_LayoutSwitcher"   
+     
 staging:
-  _extends: production
-
+      _extends: production
+     
 testing:
-  _extends: production
-  phpSettings:
-    display_startup_errors: true
-    display_errors: true
-
+      _extends: production
+      phpSettings:
+        display_startup_errors: true
+        display_errors: true
+     
 development:
-  _extends: production
-  phpSettings:
-    display_startup_errors: true
-    display_errors: true
-  resources:
-    frontController:
-      params:
-        displayExceptions: true
+      _extends: production
+      phpSettings:
+        display_startup_errors: true
+        display_errors: true
+      resources:
+        frontController:
+          params:
+            displayExceptions: true

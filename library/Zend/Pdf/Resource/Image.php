@@ -46,10 +46,9 @@ abstract class Zend_Pdf_Resource_Image extends Zend_Pdf_Resource
     {
         parent::__construct('');
 
-        $this->_resource->dictionary->Type = new Zend_Pdf_Element_Name('XObject');
+        $this->_resource->dictionary->Type    = new Zend_Pdf_Element_Name('XObject');
         $this->_resource->dictionary->Subtype = new Zend_Pdf_Element_Name('Image');
     }
-
     /**
      * get the height in pixels of the image
      *

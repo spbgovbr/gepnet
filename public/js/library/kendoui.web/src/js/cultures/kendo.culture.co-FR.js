@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["co-FR"] = {
         name: "co-FR",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $", "n $"],
+                pattern: ["-n $","n $"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["dumenica", "luni", "marti", "mercuri", "ghjovi", "venderi", "sabbatu"],
-                    namesAbbr: ["dum.", "lun.", "mar.", "mer.", "ghj.", "ven.", "sab."],
-                    namesShort: ["du", "lu", "ma", "me", "gh", "ve", "sa"]
+                    names: ["dumenica","luni","marti","mercuri","ghjovi","venderi","sabbatu"],
+                    namesAbbr: ["dum.","lun.","mar.","mer.","ghj.","ven.","sab."],
+                    namesShort: ["du","lu","ma","me","gh","ve","sa"]
                 },
                 months: {
-                    names: ["ghjennaghju", "ferraghju", "marzu", "aprile", "maghju", "ghjunghju", "lugliu", "aostu", "settembre", "ottobre", "nuvembre", "dicembre", ""],
-                    namesAbbr: ["ghje", "ferr", "marz", "apri", "magh", "ghju", "lugl", "aost", "sett", "otto", "nuve", "dice", ""]
+                    names: ["ghjennaghju","ferraghju","marzu","aprile","maghju","ghjunghju","lugliu","aostu","settembre","ottobre","nuvembre","dicembre",""],
+                    namesAbbr: ["ghje","ferr","marz","apri","magh","ghju","lugl","aost","sett","otto","nuve","dice",""]
                 },
                 AM: [""],
                 PM: [""],

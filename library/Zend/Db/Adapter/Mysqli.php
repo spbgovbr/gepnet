@@ -64,22 +64,22 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      * @var array Associative array of datatypes to values 0, 1, or 2.
      */
     protected $_numericDataTypes = array(
-        Zend_Db::INT_TYPE => Zend_Db::INT_TYPE,
+        Zend_Db::INT_TYPE    => Zend_Db::INT_TYPE,
         Zend_Db::BIGINT_TYPE => Zend_Db::BIGINT_TYPE,
-        Zend_Db::FLOAT_TYPE => Zend_Db::FLOAT_TYPE,
-        'INT' => Zend_Db::INT_TYPE,
-        'INTEGER' => Zend_Db::INT_TYPE,
-        'MEDIUMINT' => Zend_Db::INT_TYPE,
-        'SMALLINT' => Zend_Db::INT_TYPE,
-        'TINYINT' => Zend_Db::INT_TYPE,
-        'BIGINT' => Zend_Db::BIGINT_TYPE,
-        'SERIAL' => Zend_Db::BIGINT_TYPE,
-        'DEC' => Zend_Db::FLOAT_TYPE,
-        'DECIMAL' => Zend_Db::FLOAT_TYPE,
-        'DOUBLE' => Zend_Db::FLOAT_TYPE,
-        'DOUBLE PRECISION' => Zend_Db::FLOAT_TYPE,
-        'FIXED' => Zend_Db::FLOAT_TYPE,
-        'FLOAT' => Zend_Db::FLOAT_TYPE
+        Zend_Db::FLOAT_TYPE  => Zend_Db::FLOAT_TYPE,
+        'INT'                => Zend_Db::INT_TYPE,
+        'INTEGER'            => Zend_Db::INT_TYPE,
+        'MEDIUMINT'          => Zend_Db::INT_TYPE,
+        'SMALLINT'           => Zend_Db::INT_TYPE,
+        'TINYINT'            => Zend_Db::INT_TYPE,
+        'BIGINT'             => Zend_Db::BIGINT_TYPE,
+        'SERIAL'             => Zend_Db::BIGINT_TYPE,
+        'DEC'                => Zend_Db::FLOAT_TYPE,
+        'DECIMAL'            => Zend_Db::FLOAT_TYPE,
+        'DOUBLE'             => Zend_Db::FLOAT_TYPE,
+        'DOUBLE PRECISION'   => Zend_Db::FLOAT_TYPE,
+        'FIXED'              => Zend_Db::FLOAT_TYPE,
+        'FLOAT'              => Zend_Db::FLOAT_TYPE
     );
 
     /**
@@ -207,13 +207,13 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         $desc = array();
 
         $row_defaults = array(
-            'Length' => null,
-            'Scale' => null,
-            'Precision' => null,
-            'Unsigned' => null,
-            'Primary' => false,
+            'Length'          => null,
+            'Scale'           => null,
+            'Precision'       => null,
+            'Unsigned'        => null,
+            'Primary'         => false,
             'PrimaryPosition' => null,
-            'Identity' => false
+            'Identity'        => false
         );
         $i = 1;
         $p = 1;
@@ -225,26 +225,20 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
             if (preg_match('/^((?:var)?char)\((\d+)\)/', $row['Type'], $matches)) {
                 $row['Type'] = $matches[1];
                 $row['Length'] = $matches[2];
-            } else {
-                if (preg_match('/^decimal\((\d+),(\d+)\)/', $row['Type'], $matches)) {
-                    $row['Type'] = 'decimal';
-                    $row['Precision'] = $matches[1];
-                    $row['Scale'] = $matches[2];
-                } else {
-                    if (preg_match('/^float\((\d+),(\d+)\)/', $row['Type'], $matches)) {
-                        $row['Type'] = 'float';
-                        $row['Precision'] = $matches[1];
-                        $row['Scale'] = $matches[2];
-                    } else {
-                        if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row['Type'], $matches)) {
-                            $row['Type'] = $matches[1];
-                            /**
-                             * The optional argument of a MySQL int type is not precision
-                             * or length; it is only a hint for display width.
-                             */
-                        }
-                    }
-                }
+            } else if (preg_match('/^decimal\((\d+),(\d+)\)/', $row['Type'], $matches)) {
+                $row['Type'] = 'decimal';
+                $row['Precision'] = $matches[1];
+                $row['Scale'] = $matches[2];
+            } else if (preg_match('/^float\((\d+),(\d+)\)/', $row['Type'], $matches)) {
+                $row['Type'] = 'float';
+                $row['Precision'] = $matches[1];
+                $row['Scale'] = $matches[2];
+            } else if (preg_match('/^((?:big|medium|small|tiny)?int)\((\d+)\)/', $row['Type'], $matches)) {
+                $row['Type'] = $matches[1];
+                /**
+                 * The optional argument of a MySQL int type is not precision
+                 * or length; it is only a hint for display width.
+                 */
             }
             if (strtoupper($row['Key']) == 'PRI') {
                 $row['Primary'] = true;
@@ -257,20 +251,20 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
                 ++$p;
             }
             $desc[$this->foldCase($row['Field'])] = array(
-                'SCHEMA_NAME' => null, // @todo
-                'TABLE_NAME' => $this->foldCase($tableName),
-                'COLUMN_NAME' => $this->foldCase($row['Field']),
-                'COLUMN_POSITION' => $i,
-                'DATA_TYPE' => $row['Type'],
-                'DEFAULT' => $row['Default'],
-                'NULLABLE' => (bool)($row['Null'] == 'YES'),
-                'LENGTH' => $row['Length'],
-                'SCALE' => $row['Scale'],
-                'PRECISION' => $row['Precision'],
-                'UNSIGNED' => $row['Unsigned'],
-                'PRIMARY' => $row['Primary'],
+                'SCHEMA_NAME'      => null, // @todo
+                'TABLE_NAME'       => $this->foldCase($tableName),
+                'COLUMN_NAME'      => $this->foldCase($row['Field']),
+                'COLUMN_POSITION'  => $i,
+                'DATA_TYPE'        => $row['Type'],
+                'DEFAULT'          => $row['Default'],
+                'NULLABLE'         => (bool) ($row['Null'] == 'YES'),
+                'LENGTH'           => $row['Length'],
+                'SCALE'            => $row['Scale'],
+                'PRECISION'        => $row['Precision'],
+                'UNSIGNED'         => $row['Unsigned'],
+                'PRIMARY'          => $row['Primary'],
                 'PRIMARY_POSITION' => $row['PrimaryPosition'],
-                'IDENTITY' => $row['Identity']
+                'IDENTITY'         => $row['Identity']
             );
             ++$i;
         }
@@ -298,22 +292,21 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
         }
 
         if (isset($this->_config['port'])) {
-            $port = (integer)$this->_config['port'];
+            $port = (integer) $this->_config['port'];
         } else {
             $port = null;
         }
 
         $this->_connection = mysqli_init();
 
-        if (!empty($this->_config['driver_options'])) {
-            foreach ($this->_config['driver_options'] as $option => $value) {
-                if (is_string($option)) {
+        if(!empty($this->_config['driver_options'])) {
+            foreach($this->_config['driver_options'] as $option=>$value) {
+                if(is_string($option)) {
                     // Suppress warnings here
                     // Ignore it if it's not a valid constant
                     $option = @constant(strtoupper($option));
-                    if ($option === null) {
+                    if($option === null)
                         continue;
-                    }
                 }
                 mysqli_options($this->_connection, $option, $value);
             }
@@ -352,7 +345,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      */
     public function isConnected()
     {
-        return ((bool)($this->_connection instanceof mysqli));
+        return ((bool) ($this->_connection instanceof mysqli));
     }
 
     /**
@@ -371,7 +364,7 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     /**
      * Prepare a statement and return a PDOStatement-like object.
      *
-     * @param string $sql SQL query
+     * @param  string  $sql  SQL query
      * @return Zend_Db_Statement_Mysqli
      */
     public function prepare($sql)
@@ -406,15 +399,15 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
      *
      * MySQL does not support sequences, so $tableName and $primaryKey are ignored.
      *
-     * @param string $tableName OPTIONAL Name of table.
-     * @param string $primaryKey OPTIONAL Name of primary key column.
+     * @param string $tableName   OPTIONAL Name of table.
+     * @param string $primaryKey  OPTIONAL Name of primary key column.
      * @return string
      * @todo Return value should be int?
      */
     public function lastInsertId($tableName = null, $primaryKey = null)
     {
         $mysqli = $this->_connection;
-        return (string)$mysqli->insert_id;
+        return (string) $mysqli->insert_id;
     }
 
     /**
@@ -542,15 +535,15 @@ class Zend_Db_Adapter_Mysqli extends Zend_Db_Adapter_Abstract
     /**
      * Retrieve server version in PHP style
      *
-     * @return string
+     *@return string
      */
     public function getServerVersion()
     {
         $this->_connect();
         $version = $this->_connection->server_version;
-        $major = (int)($version / 10000);
-        $minor = (int)($version % 10000 / 100);
-        $revision = (int)($version % 100);
+        $major = (int) ($version / 10000);
+        $minor = (int) ($version % 10000 / 100);
+        $revision = (int) ($version % 100);
         return $major . '.' . $minor . '.' . $revision;
     }
 }

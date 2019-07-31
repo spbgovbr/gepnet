@@ -68,8 +68,8 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
      * SimpleXMLElement, but it can be an XML string or a DOMNode as
      * well) that contains the contents of the entry.
      *
-     * @param string $uri
-     * @param SimpleXMLElement|DOMNode|string $element
+     * @param  string $uri
+     * @param  SimpleXMLElement|DOMNode|string  $element
      * @return void
      * @throws Zend_Feed_Exception
      */
@@ -111,8 +111,7 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
             } else {
                 $doc = new DOMDocument('1.0', 'utf-8');
                 if ($this->_rootNamespace !== null) {
-                    $element = $doc->createElementNS(Zend_Feed::lookupNamespace($this->_rootNamespace),
-                        $this->_rootElement);
+                    $element = $doc->createElementNS(Zend_Feed::lookupNamespace($this->_rootNamespace), $this->_rootElement);
                 } else {
                     $element = $doc->createElement($this->_rootElement);
                 }

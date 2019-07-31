@@ -24,27 +24,27 @@ class Cadastro_Bootstrap extends Zend_Application_Module_Bootstrap
         //Zend_Debug::dump('passou');
         //new Zend_
         $autoloader = new Zend_Loader_Autoloader_Resource(array(
-            'namespace' => 'Cadastro',
-            'basePath' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'cadastro',
-            'resourceTypes' => array(
-                'form' => array(
-                    'path' => 'forms',
-                    'namespace' => 'Form'
-                ),
-                'model' => array(
-                    'path' => 'models',
-                    'namespace' => 'Model',
-                ),
-                'mapper' => array(
-                    'path' => 'models/mappers',
-                    'namespace' => 'Model_Mapper',
-                ),
-                'service' => array(
-                    'path' => 'services',
-                    'namespace' => 'Service',
-                ),
-            )
-        ));
+                'namespace'     => 'Cadastro',
+                'basePath'      => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . 'cadastro',
+                'resourceTypes' => array(
+                    'form' => array(
+                        'path'      => 'forms',
+                        'namespace' => 'Form'
+                    ),
+                    'model'     => array(
+                        'path'      => 'models',
+                        'namespace' => 'Model',
+                    ),
+                    'mapper'    => array(
+                        'path'      => 'models/mappers',
+                        'namespace' => 'Model_Mapper',
+                    ),
+                    'service'   => array(
+                        'path'      => 'services',
+                        'namespace' => 'Service',
+                    ),
+                )
+            ));
         //$autoloader->addResourceType('Form', 'forms/', 'Form');
         //$autoloader->addResourceType('mapper', 'models/mappers', 'Model_Mapper');
         return $autoloader;
@@ -55,7 +55,7 @@ class Cadastro_Bootstrap extends Zend_Application_Module_Bootstrap
      *
      * @return void
      */
-
+    
     protected function _initServices()
     {
         $config = new Zend_Config($this->getOptions());
@@ -63,5 +63,5 @@ class Cadastro_Bootstrap extends Zend_Application_Module_Bootstrap
             new Default_Service_InjectionContainer($config), 'Default_Service_'
         );
     }
-
+    
 }

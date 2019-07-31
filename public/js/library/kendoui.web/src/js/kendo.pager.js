@@ -14,11 +14,11 @@ kendo_module({
     id: "pager",
     name: "Pager",
     category: "framework",
-    depends: ["data"],
+    depends: [ "data" ],
     advanced: true
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         Widget = ui.Widget,
@@ -35,7 +35,7 @@ kendo_module({
         iconTemplate = kendo.template('<a href="\\#" title="#=text#" class="k-link"><span class="k-icon #= className #">#=text#</span></a>');
 
     function button(template, idx, text, numeric) {
-        return template({
+        return template( {
             idx: idx,
             text: text,
             ns: kendo.ns,
@@ -51,11 +51,11 @@ kendo_module({
     }
 
     function update(element, selector, page, disabled) {
-        element.find(selector)
-            .parent()
-            .attr(kendo.attr("page"), page)
-            .attr("tabindex", -1)
-            .toggleClass("k-state-disabled", disabled);
+       element.find(selector)
+              .parent()
+              .attr(kendo.attr("page"), page)
+              .attr("tabindex", -1)
+              .toggleClass("k-state-disabled", disabled);
     }
 
     function first(element, page) {
@@ -74,8 +74,8 @@ kendo_module({
         update(element, LAST, totalPages, page >= totalPages);
     }
 
-    var Pager = Widget.extend({
-        init: function (element, options) {
+    var Pager = Widget.extend( {
+        init: function(element, options) {
             var that = this, page, totalPages;
 
             Widget.fn.init.call(that, element, options);
@@ -110,17 +110,17 @@ kendo_module({
                 that.list = that.element.find(".k-pager-numbers");
 
                 if (!that.list.length) {
-                    that.list = $('<ul class="k-pager-numbers k-reset" />').appendTo(that.element);
+                   that.list = $('<ul class="k-pager-numbers k-reset" />').appendTo(that.element);
                 }
             }
 
             if (options.input) {
                 if (!that.element.find(".k-pager-input").length) {
-                    that.element.append('<span class="k-pager-input k-label">' +
-                        options.messages.page +
-                        '<input class="k-textbox">' +
-                        kendo.format(options.messages.of, totalPages) +
-                        '</span>');
+                   that.element.append('<span class="k-pager-input k-label">'+
+                       options.messages.page +
+                       '<input class="k-textbox">' +
+                       kendo.format(options.messages.of, totalPages) +
+                       '</span>');
                 }
 
                 that.element.on(KEYDOWN + NS, ".k-pager-input input", proxy(that._keydown, that));
@@ -140,12 +140,12 @@ kendo_module({
                 }
             }
 
-            if (options.pageSizes) {
-                if (!that.element.find(".k-pager-sizes").length) {
-                    $('<span class="k-pager-sizes k-label"><select/>' + options.messages.itemsPerPage + "</span>")
+            if (options.pageSizes){
+                if (!that.element.find(".k-pager-sizes").length){
+                     $('<span class="k-pager-sizes k-label"><select/>' + options.messages.itemsPerPage + "</span>")
                         .appendTo(that.element)
                         .find("select")
-                        .html($.map($.isArray(options.pageSizes) ? options.pageSizes : [5, 10, 20], function (page) {
+                        .html($.map($.isArray(options.pageSizes) ? options.pageSizes : [5,10,20], function(page){
                             return "<option>" + page + "</option>";
                         }).join(""))
                         .end()
@@ -155,7 +155,7 @@ kendo_module({
                 that.element.find(".k-pager-sizes select").val(that.pageSize());
 
                 if (kendo.ui.DropDownList) {
-                    that.element.find(".k-pager-sizes select").show().kendoDropDownList();
+                   that.element.find(".k-pager-sizes select").show().kendoDropDownList();
                 }
 
                 that.element.on(CHANGE + NS, ".k-pager-sizes select", proxy(that._change, that));
@@ -177,7 +177,7 @@ kendo_module({
             }
 
             that.element
-                .on(CLICK + NS, "a", proxy(that._click, that))
+                .on(CLICK + NS , "a", proxy(that._click, that))
                 .addClass("k-pager-wrap k-widget");
 
             if (options.autoBind) {
@@ -187,7 +187,7 @@ kendo_module({
             kendo.notify(that);
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -226,7 +226,7 @@ kendo_module({
             }
         },
 
-        setDataSource: function (dataSource) {
+        setDataSource: function(dataSource) {
             var that = this;
 
             that.dataSource.unbind(CHANGE, that._refreshHandler);
@@ -238,7 +238,7 @@ kendo_module({
             }
         },
 
-        refresh: function (e) {
+        refresh: function(e) {
             var that = this,
                 idx,
                 end,
@@ -279,7 +279,7 @@ kendo_module({
                 }
 
                 if (html === "") {
-                    html = that.selectTemplate({text: 0});
+                    html = that.selectTemplate({ text: 0 });
                 }
 
                 that.list.html(html);
@@ -290,7 +290,7 @@ kendo_module({
                     html = kendo.format(options.messages.display,
                         (page - 1) * pageSize + 1, // first item in the page
                         Math.min(page * pageSize, total), // last item in the page
-                        total);
+                    total);
                 } else {
                     html = options.messages.empty;
                 }
@@ -330,7 +330,7 @@ kendo_module({
             }
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             if (e.keyCode === kendo.keys.ENTER) {
                 var input = this.element.find(".k-pager-input").find("input"),
                     page = parseInt(input.val(), 10);
@@ -345,21 +345,21 @@ kendo_module({
             }
         },
 
-        _refreshClick: function (e) {
+        _refreshClick: function(e) {
             e.preventDefault();
 
             this.dataSource.read();
         },
 
-        _change: function (e) {
+        _change: function(e) {
             var pageSize = parseInt(e.currentTarget.value, 10);
 
-            if (!isNaN(pageSize)) {
-                this.dataSource.pageSize(pageSize);
+            if (!isNaN(pageSize)){
+               this.dataSource.pageSize(pageSize);
             }
         },
 
-        _click: function (e) {
+        _click: function(e) {
             var target = $(e.currentTarget);
 
             e.preventDefault();
@@ -369,19 +369,19 @@ kendo_module({
             }
         },
 
-        totalPages: function () {
+        totalPages: function() {
             return Math.ceil((this.dataSource.total() || 0) / this.pageSize());
         },
 
-        pageSize: function () {
+        pageSize: function() {
             return this.dataSource.pageSize() || this.dataSource.total();
         },
 
-        page: function (page) {
+        page: function(page) {
             if (page !== undefined) {
                 this.dataSource.page(page);
 
-                this.trigger(CHANGE, {index: page});
+                this.trigger(CHANGE, { index: page });
             } else {
                 if (this.dataSource.total() > 0) {
                     return this.dataSource.page();

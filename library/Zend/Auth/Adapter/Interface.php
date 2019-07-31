@@ -39,8 +39,8 @@ interface Zend_Auth_Adapter_Interface
     /**
      * Performs an authentication attempt
      *
-     * @return Zend_Auth_Result
      * @throws Zend_Auth_Adapter_Exception If authentication cannot be performed
+     * @return Zend_Auth_Result
      */
     public function authenticate();
 }

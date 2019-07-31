@@ -8,16 +8,16 @@
 class Agenda_Model_Agenda extends App_Model_ModelAbstract
 {
 
-    public $idagenda = null;
-    public $desassunto = null;
-    public $datagenda = null;
-    public $desagenda = null;
+    public $idagenda      = null;
+    public $desassunto    = null;
+    public $datagenda     = null;
+    public $desagenda     = null;
     public $idcadastrador = null;
-    public $datcadastro = null;
-    public $hragendada = null;
-    public $deslocal = null;
+    public $datcadastro   = null;
+    public $hragendada    = null;
+    public $deslocal      = null;
     public $flaenviaemail = null;
-    public $idescritorio = null;
+    public $idescritorio  = null;
 
     //Join Pessoaagenda
     public $participantes = null;
@@ -28,19 +28,18 @@ class Agenda_Model_Agenda extends App_Model_ModelAbstract
     //Join Pessoa
     public $nomcadastrador = null;
 
-    public function formPopulate()
-    {
+    public function formPopulate(){
         return array(
-            'idagenda' => $this->idagenda,
-            'desassunto' => $this->desassunto,
-            'datagenda' => $this->datagenda->toString('d/m/Y'),
-            'desagenda' => $this->desagenda,
-            'datcadastro' => $this->datcadastro,
+            'idagenda'      => $this->idagenda,
+            'desassunto'    => $this->desassunto,
+            'datagenda'     => $this->datagenda->toString('d/m/Y'),
+            'desagenda'     => $this->desagenda,
+            'datcadastro'   => $this->datcadastro,
 //            'hragendada'    => $this->hragendada,
-            'deslocal' => $this->deslocal,
+            'deslocal'      => $this->deslocal,
             'flaenviaemail' => $this->flaenviaemail,
-            'idescritorio' => $this->idescritorio,
-            'nomescritorio' => $this->nomescritorio,
+            'idescritorio'  => $this->idescritorio,
+            'nomescritorio'  => $this->nomescritorio,
             'nomcadastrador' => $this->nomcadastrador,
         );
 

@@ -34,7 +34,7 @@ class App_ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine extends ZFDebug_Contro
      */
     public function __construct(array $options = array())
     {
-        if (!isset($options['manager']) || !count($options['manager'])) {
+        if(!isset($options['manager']) || !count($options['manager'])) {
             if (Doctrine_Manager::getInstance()) {
                 $options['manager'] = Doctrine_Manager::getInstance();
             }
@@ -63,16 +63,15 @@ class App_ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine extends ZFDebug_Contro
      */
     public function getTab()
     {
-        if (!$this->_profilers) {
+        if (!$this->_profilers)
             return 'No Profiler';
-        }
 
         foreach ($this->_profilers as $profiler) {
             $time = 0;
             foreach ($profiler as $event) {
                 $time += $event->getElapsedSecs();
             }
-            $profilerInfo[] = $profiler->count() . ' in ' . round($time * 1000, 2) . ' ms';
+            $profilerInfo[] = $profiler->count() . ' in ' . round($time*1000, 2)  . ' ms';
         }
         $html = implode(' / ', $profilerInfo);
 
@@ -86,31 +85,30 @@ class App_ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine extends ZFDebug_Contro
      */
     public function getPanel()
     {
-        if (!$this->_profilers) {
+        if (!$this->_profilers)
             return '';
-        }
 
         $html = '<h4>Database queries</h4>';
-
+        
         foreach ($this->_profilers as $name => $profiler) {
-            $html .= '<h4>Connection ' . $name . '</h4><ol>';
-            foreach ($profiler as $event) {
-                if (in_array($event->getName(), array('query', 'execute', 'exec'))) {
-                    $info = htmlspecialchars($event->getQuery());
-                } else {
-                    $info = '<em>' . htmlspecialchars($event->getName()) . '</em>';
-                }
+                $html .= '<h4>Connection '.$name.'</h4><ol>';
+                foreach ($profiler as $event) {
+                    if (in_array($event->getName(), array('query', 'execute', 'exec'))) {
+                        $info = htmlspecialchars($event->getQuery());
+                    } else {
+                        $info = '<em>' . htmlspecialchars($event->getName()) . '</em>';
+                    }
 
-                $html .= '<li><strong>[' . round($event->getElapsedSecs() * 1000, 2) . ' ms]</strong> ';
-                $html .= $info;
-
-                $params = $event->getParams();
-                if (!empty($params)) {
-                    $html .= '<ul><em>bindings:</em> <li>' . implode('</li><li>', $params) . '</li></ul>';
+                    $html .= '<li><strong>[' . round($event->getElapsedSecs()*1000, 2) . ' ms]</strong> ';
+                    $html .= $info;
+                
+                    $params = $event->getParams();
+                    if(!empty($params)) {
+                        $html .= '<ul><em>bindings:</em> <li>'. implode('</li><li>', $params) . '</li></ul>';
+                    }
+                    $html .= '</li>';
                 }
-                $html .= '</li>';
-            }
-            $html .= '</ol>';
+                $html .= '</ol>';
         }
 
         return $html;

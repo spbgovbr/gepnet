@@ -1,7 +1,7 @@
-perfilpessoa = (function () {
+perfilpessoa = (function() {
     var
         urlChangeFlag = base_url + '/cadastro/perfilpessoa/trocarsituacao/format/json'
-    idperfilpessoa = null,
+        idperfilpessoa = null,
         dados = [],
         types = {
             deny: 'deny',
@@ -20,11 +20,13 @@ perfilpessoa = (function () {
             inativar: 'icon-off'
         };
 
-    setFromArray = function (arr) {
+    setFromArray = function(arr)
+    {
         this.dados = arr;
     };
 
-    clearDados = function () {
+    clearDados = function()
+    {
         this.dados = [];
     };
 
@@ -37,84 +39,91 @@ perfilpessoa = (function () {
         return in_array(perm, this.dados);
     };*/
 
-    allow = function (idperfilpessoa) {
+    allow = function(idperfilpessoa)
+    {
         this.setPermission(this.urlChangeFlag, idperfilpessoa, 'S');
     };
 
-    deny = function (idperfilpessoa) {
-        this.setPermission(this.urlChangeFlag, idperfilpessoa, 'N');
+    deny = function(idperfilpessoa)
+    {
+        this.setPermission(this.urlChangeFlag,idperfilpessoa, 'N');
     };
 
-    setIcon = function (btn, type) {
+    setIcon = function(btn, type)
+    {
         //console.log(btn);
         btn.find('i').removeClass(perfilpessoa.iconClass.ativar);
         btn.find('i').removeClass(perfilpessoa.iconClass.inativar);
-        if (type === this.types.allow) {
-            btn.find('i').addClass(perfilpessoa.iconClass.ativar);
+        if(type === this.types.allow){
+        btn.find('i').addClass(perfilpessoa.iconClass.ativar);
             return;
         }
         btn.find('i').addClass(perfilpessoa.iconClass.inativar);
         return;
     },
 
-        setButton = function (btn, type) {
-            btn.removeClass(perfilpessoa.buttonClass.success);
-            btn.removeClass(perfilpessoa.buttonClass.danger);
-            if (type === perfilpessoa.types.allow) {
-                btn.addClass(perfilpessoa.buttonClass.success);
-                btn.attr('title', perfilpessoa.buttonTitle.danger);
-                btn.data('permission', perfilpessoa.types.deny);
-                return;
-            }
-            btn.addClass(perfilpessoa.buttonClass.danger);
-            btn.attr('title', perfilpessoa.buttonTitle.success);
-            btn.data('permission', perfilpessoa.types.allow);
+    setButton = function(btn, type)
+    {
+        btn.removeClass(perfilpessoa.buttonClass.success);
+        btn.removeClass(perfilpessoa.buttonClass.danger);
+        if(type === perfilpessoa.types.allow){
+            btn.addClass(perfilpessoa.buttonClass.success);
+            btn.attr('title',perfilpessoa.buttonTitle.danger);
+            btn.data('permission',perfilpessoa.types.deny);
             return;
-        },
+        }
+        btn.addClass(perfilpessoa.buttonClass.danger);
+        btn.attr('title',perfilpessoa.buttonTitle.success);
+        btn.data('permission',perfilpessoa.types.allow);
+        return;
+    },
 
-        toggle = function (btn) {
-            tipo = btn.data('permission');
-            id = btn.data('id');
+    toggle = function(btn)
+    {
+        tipo = btn.data('permission');
+        id = btn.data('id');
+        
+        if(tipo === this.types.allow){
+            this.allow(id);
+        } else {
+            this.deny(id);
+        }
 
-            if (tipo === this.types.allow) {
-                this.allow(id);
-            } else {
-                this.deny(id);
+        this.setButton(btn, tipo);
+        this.setIcon(btn, tipo);
+        this.idperfilpessoa = id;
+    },
+
+    setPermission = function(url, idperfilpessoa, flag)
+    {
+      $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'POST',
+            data: {
+                'idperfilpessoa': idperfilpessoa,
+                'flaativo': flag
+            },
+            success: function(data) {
+                grid.trigger("reloadGrid");
+                $.pnotify_remove_all();
+                $.pnotify(data.msg);
+
+            },
+            error: function() {
+                $.pnotify_remove_all();
+                $.pnotify({
+                    text: 'Falha ao enviar a requisição',
+                    type: 'error',
+                    hide: true
+                });
             }
+        });
+    };
+    
 
-            this.setButton(btn, tipo);
-            this.setIcon(btn, tipo);
-            this.idperfilpessoa = id;
-        },
-
-        setPermission = function (url, idperfilpessoa, flag) {
-            $.ajax({
-                url: url,
-                dataType: 'json',
-                type: 'POST',
-                data: {
-                    'idperfilpessoa': idperfilpessoa,
-                    'flaativo': flag
-                },
-                success: function (data) {
-                    grid.trigger("reloadGrid");
-                    $.pnotify_remove_all();
-                    $.pnotify(data.msg);
-
-                },
-                error: function () {
-                    $.pnotify_remove_all();
-                    $.pnotify({
-                        text: 'Falha ao enviar a requisição',
-                        type: 'error',
-                        hide: true
-                    });
-                }
-            });
-        };
-
-
-    init = function () {
+    init = function()
+    {
         //this.loadPermissions();
     };
 
@@ -122,7 +131,7 @@ perfilpessoa = (function () {
         urlChangeFlag: urlChangeFlag,
         idperfilpessoa: idperfilpessoa,
         dados: dados,
-        types: types,
+        types:types,
         iconClass: iconClass,
         buttonClass: buttonClass,
         buttonTitle: buttonTitle,
@@ -156,7 +165,7 @@ function in_array(needle, haystack, argStrict) {
     // *     example 4: in_array(1, ['1', '2', '3'], true);
     // *     returns 4: false
     var key = '',
-        strict = !!argStrict;
+            strict = !!argStrict;
 
     if (strict) {
         for (key in haystack) {

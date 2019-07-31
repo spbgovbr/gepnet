@@ -18,12 +18,12 @@ class Default_Model_Mapper_Elementodespesa extends App_Model_Mapper_MapperAbstra
     public function insert(Default_Model_Elementodespesa $model)
     {
         $data = array(
-            "idelementodespesa" => $model->idelementodespesa,
-            "idoficial" => $model->idoficial,
+            "idelementodespesa"  => $model->idelementodespesa,
+            "idoficial"          => $model->idoficial,
             "nomelementodespesa" => $model->nomelementodespesa,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "numseq" => $model->numseq,
+            "idcadastrador"      => $model->idcadastrador,
+            "datcadastro"        => $model->datcadastro,
+            "numseq"             => $model->numseq,
         );
         $this->getDbTable()->insert($data);
     }
@@ -37,38 +37,27 @@ class Default_Model_Mapper_Elementodespesa extends App_Model_Mapper_MapperAbstra
     public function update(Default_Model_Elementodespesa $model)
     {
         $data = array(
-            "idelementodespesa" => $model->idelementodespesa,
-            "idoficial" => $model->idoficial,
+            "idelementodespesa"  => $model->idelementodespesa,
+            "idoficial"          => $model->idoficial,
             "nomelementodespesa" => $model->nomelementodespesa,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "numseq" => $model->numseq,
+            "idcadastrador"      => $model->idcadastrador,
+            "datcadastro"        => $model->datcadastro,
+            "numseq"             => $model->numseq,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
     {
         return $this->_getForm(Default_Form_Elementodespesa);
     }
-
-    public function fetchPairs()
-    {
-
-        $sql = "SELECT idelementodespesa, nomelementodespesa
+    
+    public function fetchPairs(){
+      
+        $sql   = "SELECT idelementodespesa, nomelementodespesa
                 FROM agepnet200.tb_elementodespesa ";
 
         return $this->_db->fetchPairs($sql);
-
-    }
-
-    public function getById($params)
-    {
-
-        $sql = "SELECT idelementodespesa, nomelementodespesa
-                FROM agepnet200.tb_elementodespesa where idelementodespesa = :idelementodespesa ";
-
-        $resultado = $this->_db->fetchRow($sql, array('idelementodespesa' => $params['idelementodespesa']));
-        return $resultado;
-
+    
     }
 }

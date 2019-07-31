@@ -47,7 +47,7 @@ class Zend_Service_Simpy_TagSet implements IteratorAggregate
     /**
      * Constructor to initialize the object with data
      *
-     * @param DOMDocument $doc Parsed response from a GetTags operation
+     * @param  DOMDocument $doc Parsed response from a GetTags operation
      * @return void
      */
     public function __construct(DOMDocument $doc)

@@ -21,12 +21,12 @@ class Projeto_Model_Mapper_Aceiteatividadecronograma extends App_Model_Mapper_Ma
             $model->idaceiteativcronograma = $this->maxVal('idaceiteativcronograma');
 
             $data = array(
-                "idaceiteativcronograma" => $model->idaceiteativcronograma,
-                "identrega" => $model->identrega,
-                "idprojeto" => $model->idprojeto,
-                "idaceite" => $model->idaceite,
-                "idmarco" => $model->idmarco,
-                "aceito" => $model->aceito
+                "idaceiteativcronograma"    => $model->idaceiteativcronograma,
+                "identrega"                 => $model->identrega,
+                "idprojeto"                 => $model->idprojeto,
+                "idaceite"                  => $model->idaceite,
+                "idmarco"                   => $model->idmarco,
+                "aceito"                    => $model->aceito
             );
 
             $data = array_filter($data);
@@ -36,7 +36,7 @@ class Projeto_Model_Mapper_Aceiteatividadecronograma extends App_Model_Mapper_Ma
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
 
-        } catch (Exception $exc) {
+        }  catch (Exception $exc){
             throw $exc;
         }
     }
@@ -44,55 +44,53 @@ class Projeto_Model_Mapper_Aceiteatividadecronograma extends App_Model_Mapper_Ma
     /**
      * Set the property
      *
-     * @param Projeto_Model_Aceiteatividadecronograma
-     * @return
+     * @param  Projeto_Model_Aceiteatividadecronograma
+     * @return 
      */
     public function update(Projeto_Model_Aceiteatividadecronograma $model)
     {
         $data = array(
-            //"idaceiteativcronograma"    => $model->idaceiteativcronograma,
-            "identrega" => $model->identrega,
-            //"idprojeto"                 => $model->idprojeto,
-            "idaceite" => $model->idaceite,
-            "idmarco" => $model->idmarco,
-            "aceito" => $model->aceito,
-            "idpesaceitou" => "",
-            "dataceitacao" => ""
+            "idaceiteativcronograma"    => $model->idaceiteativcronograma,
+            "identrega"                 => $model->identrega,
+            "idprojeto"                 => $model->idprojeto,
+            "idaceite"                  => $model->idaceite,
+            "idmarco"                   => $model->idmarco,
+            "aceito"                    => $model->aceito
         );
-        if (($model->aceito == "S") && (isset($model->idpesaceitou))) {
-            $data["idpesaceitou"] = $model->idpesaceitou;
-            $data["dataceitacao"] = new Zend_Db_Expr("now()");
+
+        if($model->aceito=="S"){
+            $complemento = array('idpesaceitou' => $model->idpesaceitou, 'dataceitacao' => new Zend_Db_Expr("now()"));
+            array_push($data,$complemento);
         }
         $data = array_filter($data);
+        //Zend_Debug::dump($data);exit;
         try {
-            $pks = array(
-                "idaceiteativcronograma" => $model->idaceiteativcronograma,
-            );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
-            $retorno = $this->getDbTable()->update($data, $where);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$pks     = array(
+        			"idaceiteativcronograma" => $model->idaceiteativcronograma,
+        	);
+        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+        	$retorno = $this->getDbTable()->update($data, $where);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 
-    public function delete($params)
-    {
+    public function delete($params){
         try {
             $pks = array(
                 "idaceiteativcronograma" => $params['idaceiteativcronograma'],
             );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
             $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             throw $exc;
             //exit;
         }
     }
 
-    public function getById($params)
-    {
+    public function getById($params) {
         $idaceite = $params['idaceite'];
         $idprojeto = $params['idprojeto'];
         $sql = "SELECT
@@ -116,6 +114,8 @@ class Projeto_Model_Mapper_Aceiteatividadecronograma extends App_Model_Mapper_Ma
                      LEFT JOIN agepnet200.tb_atividadecronograma acm on acm.idatividadecronograma = aac.idmarco
                                and acm.idprojeto = aac.idprojeto
                 WHERE aac.idaceite = $idaceite and aac.idprojeto = $idprojeto ";
+
+        //Zend_Debug::dump($sql);exit;
 
         $resultado = $this->_db->fetchRow($sql);
 

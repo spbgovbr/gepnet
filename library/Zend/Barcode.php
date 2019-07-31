@@ -46,11 +46,11 @@ class Zend_Barcode
      * If the first argument is of type Zend_Config, it is assumed to contain
      * all parameters, and the second argument is ignored.
      *
-     * @param mixed $barcode String name of barcode class, or Zend_Config object.
-     * @param mixed $renderer String name of renderer class
-     * @param mixed $barcodeConfig OPTIONAL; an array or Zend_Config object with barcode parameters.
-     * @param mixed $rendererConfig OPTIONAL; an array or Zend_Config object with renderer parameters.
-     * @param boolean $automaticRenderError OPTIONAL; set the automatic rendering of exception
+     * @param  mixed $barcode         String name of barcode class, or Zend_Config object.
+     * @param  mixed $renderer        String name of renderer class
+     * @param  mixed $barcodeConfig   OPTIONAL; an array or Zend_Config object with barcode parameters.
+     * @param  mixed $rendererConfig  OPTIONAL; an array or Zend_Config object with renderer parameters.
+     * @param  boolean $automaticRenderError  OPTIONAL; set the automatic rendering of exception
      * @return Zend_Barcode
      * @throws Zend_Barcode_Exception
      */
@@ -70,20 +70,20 @@ class Zend_Barcode
                 $rendererConfig = $barcode->rendererParams->toArray();
             }
             if (isset($barcode->renderer)) {
-                $renderer = (string)$barcode->renderer;
+                $renderer = (string) $barcode->renderer;
             }
             if (isset($barcode->barcodeParams)) {
                 $barcodeConfig = $barcode->barcodeParams->toArray();
             }
             if (isset($barcode->barcode)) {
-                $barcode = (string)$barcode->barcode;
+                $barcode = (string) $barcode->barcode;
             } else {
                 $barcode = null;
             }
         }
 
         try {
-            $barcode = self::makeBarcode($barcode, $barcodeConfig);
+            $barcode  = self::makeBarcode($barcode, $barcodeConfig);
             $renderer = self::makeRenderer($renderer, $rendererConfig);
         } catch (Zend_Exception $e) {
             $renderable = ($e instanceof Zend_Barcode_Exception) ? $e->isRenderable() : false;
@@ -104,8 +104,8 @@ class Zend_Barcode
     /**
      * Barcode Constructor
      *
-     * @param mixed $barcode String name of barcode class, or Zend_Config object.
-     * @param mixed $barcodeConfig OPTIONAL; an array or Zend_Config object with barcode parameters.
+     * @param mixed $barcode        String name of barcode class, or Zend_Config object.
+     * @param mixed $barcodeConfig  OPTIONAL; an array or Zend_Config object with barcode parameters.
      * @return Zend_Barcode_Object
      */
     public static function makeBarcode($barcode, $barcodeConfig = array())
@@ -123,7 +123,7 @@ class Zend_Barcode
                 $barcodeConfig = $barcode->barcodeParams->toArray();
             }
             if (isset($barcode->barcode)) {
-                $barcode = (string)$barcode->barcode;
+                $barcode = (string) $barcode->barcode;
             } else {
                 $barcode = null;
             }
@@ -167,7 +167,7 @@ class Zend_Barcode
 
         $barcodeName = strtolower($barcodeNamespace . '_' . $barcode);
         $barcodeName = str_replace(' ', '_', ucwords(
-            str_replace('_', ' ', $barcodeName)
+            str_replace( '_', ' ', $barcodeName)
         ));
 
         /*
@@ -203,8 +203,8 @@ class Zend_Barcode
     /**
      * Renderer Constructor
      *
-     * @param mixed $renderer String name of renderer class, or Zend_Config object.
-     * @param mixed $rendererConfig OPTIONAL; an array or Zend_Config object with renderer parameters.
+     * @param mixed $renderer           String name of renderer class, or Zend_Config object.
+     * @param mixed $rendererConfig     OPTIONAL; an array or Zend_Config object with renderer parameters.
      * @return Zend_Barcode_Renderer
      */
     public static function makeRenderer($renderer = 'image', $rendererConfig = array())
@@ -222,7 +222,7 @@ class Zend_Barcode
                 $rendererConfig = $renderer->rendererParams->toArray();
             }
             if (isset($renderer->renderer)) {
-                $renderer = (string)$renderer->renderer;
+                $renderer = (string) $renderer->renderer;
             }
         }
         if ($rendererConfig instanceof Zend_Config) {
@@ -269,7 +269,7 @@ class Zend_Barcode
 
         $rendererName = strtolower($rendererNamespace . '_' . $renderer);
         $rendererName = str_replace(' ', '_', ucwords(
-            str_replace('_', ' ', $rendererName)
+            str_replace( '_', ' ', $rendererName)
         ));
 
         /*

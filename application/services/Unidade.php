@@ -10,7 +10,7 @@ class Default_Service_Unidade extends App_Service_ServiceAbstract
      */
     protected $_mapper;
     /**
-     * @var array
+     * @var array 
      */
     public $errors = array();
 
@@ -23,15 +23,10 @@ class Default_Service_Unidade extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     public function fetchPairs()
     {
         return $this->_mapper->fetchPairs();
-    }
-
-    public function listUnidadePrincipal()
-    {
-        return $this->_mapper->listUnidadePrincipal();
     }
 }
 

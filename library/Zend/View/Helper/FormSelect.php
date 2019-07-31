@@ -61,19 +61,15 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
      *
      * @return string The select tag and options XHTML.
      */
-    public function formSelect(
-        $name,
-        $value = null,
-        $attribs = null,
-        $options = null,
-        $listsep = "<br />\n"
-    ) {
+    public function formSelect($name, $value = null, $attribs = null,
+        $options = null, $listsep = "<br />\n")
+    {
         $info = $this->_getInfo($name, $value, $attribs, $options, $listsep);
         extract($info); // name, id, value, attribs, options, listsep, disable
 
         // force $value to array so we can compare multiple values to multiple
         // options; also ensure it's a string for comparison purposes.
-        $value = array_map('strval', (array)$value);
+        $value = array_map('strval', (array) $value);
 
         // check if element may have multiple values
         $multiple = '';
@@ -108,17 +104,17 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
 
         // Build the surrounding select element first.
         $xhtml = '<select'
-            . ' name="' . $this->view->escape($name) . '"'
-            . ' id="' . $this->view->escape($id) . '"'
-            . $multiple
-            . $disabled
-            . $this->_htmlAttribs($attribs)
-            . ">\n    ";
+                . ' name="' . $this->view->escape($name) . '"'
+                . ' id="' . $this->view->escape($id) . '"'
+                . $multiple
+                . $disabled
+                . $this->_htmlAttribs($attribs)
+                . ">\n    ";
 
         // build the list of options
-        $list = array();
+        $list       = array();
         $translator = $this->getTranslator();
-        foreach ((array)$options as $opt_value => $opt_label) {
+        foreach ((array) $options as $opt_value => $opt_label) {
             if (is_array($opt_label)) {
                 $opt_disable = '';
                 if (is_array($disable) && in_array($opt_value, $disable)) {
@@ -128,11 +124,11 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
                     $opt_value = $translator->translate($opt_value);
                 }
                 $opt_id = ' id="' . $this->view->escape($id) . '-optgroup-'
-                    . $this->view->escape($opt_value) . '"';
+                        . $this->view->escape($opt_value) . '"';
                 $list[] = '<optgroup'
-                    . $opt_disable
-                    . $opt_id
-                    . ' label="' . $this->view->escape($opt_value) . '">';
+                        . $opt_disable
+                        . $opt_id
+                        . ' label="' . $this->view->escape($opt_value) .'">';
                 foreach ($opt_label as $val => $lab) {
                     $list[] = $this->_build($val, $lab, $value, $disable);
                 }
@@ -153,7 +149,7 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
      *
      * @param string $value Options Value
      * @param string $label Options Label
-     * @param array $selected The option value(s) to mark as 'selected'
+     * @param array  $selected The option value(s) to mark as 'selected'
      * @param array|bool $disable Whether the select is disabled, or individual options are
      * @return string Option Tag XHTML
      */
@@ -164,11 +160,11 @@ class Zend_View_Helper_FormSelect extends Zend_View_Helper_FormElement
         }
 
         $opt = '<option'
-            . ' value="' . $this->view->escape($value) . '"'
-            . ' label="' . $this->view->escape($label) . '"';
+             . ' value="' . $this->view->escape($value) . '"'
+             . ' label="' . $this->view->escape($label) . '"';
 
         // selected?
-        if (in_array((string)$value, $selected)) {
+        if (in_array((string) $value, $selected)) {
             $opt .= ' selected="selected"';
         }
 

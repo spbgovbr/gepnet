@@ -33,7 +33,7 @@ require_once "ZendX/JQuery.php";
 /**
  * jQuery Ui Widget Base class
  *
- * @uses       ZendX_JQuery_View_Helper_JQuery_Container
+ * @uses 	   ZendX_JQuery_View_Helper_JQuery_Container
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
@@ -51,7 +51,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidget extends Zend_View_Helper_HtmlEl
     /**
      * Set view and enable jQuery Core and UI libraries
      *
-     * @param Zend_View_Interface $view
+     * @param  Zend_View_Interface $view
      * @return ZendX_JQuery_View_Helper_Widget
      */
     public function setView(Zend_View_Interface $view)
@@ -59,7 +59,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidget extends Zend_View_Helper_HtmlEl
         parent::setView($view);
         $this->jquery = $this->view->jQuery();
         $this->jquery->enable()
-            ->uiEnable();
+                     ->uiEnable();
         return $this;
     }
 
@@ -71,14 +71,14 @@ abstract class ZendX_JQuery_View_Helper_UiWidget extends Zend_View_Helper_HtmlEl
      * @param Array $attribs
      * @return Array $attribs
      */
-    protected function _prepareAttributes($id, $value, $attribs)
-    {
-        if (!isset($attribs['id'])) {
+	protected function _prepareAttributes($id, $value, $attribs)
+	{
+        if(!isset($attribs['id'])) {
             $attribs['id'] = $id;
         }
-        $attribs['name'] = $id;
-        $attribs['value'] = (string)$value;
+        $attribs['name']  = $id;
+        $attribs['value'] = (string) $value;
 
         return $attribs;
-    }
+	}
 }

@@ -1,86 +1,43 @@
-<?php
-$this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
-//->appendStylesheet($this->baseUrl('/css/app/projeto/termoaceite/add.css')) /*SAPS 110567*/
-//;
 
-$this->headScript()->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'),
-    'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/app/projeto/termoaceite/add.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/termoaceite/index.js'), 'text/javascript');
+<div class="content"> 
+    <form id="form-aceite-editar"
+            name="form-aceite-editar"
+            action="<?php echo $this->form->getAction(); ?>"
+            method="post">
+    <?php  ?>
+        <input type="hidden" name="idprojeto" value="<?php echo $this->idprojeto ?>"/>
+        <input type="hidden" name="idaceiteativcronograma" value="<?php echo $this->idaceiteativcronograma ?>"/>
+     <?php echo $this->form->idaceite; ?> 
+        <div class="row">
+            <div class="span6">
+                <?php echo $this->form->identrega; ?>
+            </div>
+            <div class="span4">
+                <?php echo $this->form->flaaceite; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span6">
+                <?php echo $this->form->idmarco; ?>
+            </div>
+        </div>
 
-$frmAttr = $this->form->getAttribs();
-?>
-<div class="region-center">
-    <div class="ui-dialog-content ui-widget-content">
-        <form id="<?php echo $frmAttr['id']; ?>"
-              name="<?php echo $frmAttr['id']; ?>"
-              action="<?php echo $this->form->getAction(); ?>"
-              method="<?php echo $frmAttr['method']; ?>">
-            <?php ?>
-            <input type="hidden" name="idprojeto" value="<?php echo $this->idprojeto ?>"/>
-            <input type="hidden" name="nomresponsavel"
-                   value="<?php echo(isset($this->aceite->nomresponsavel) ? $this->aceite->nomresponsavel : "") ?>"/>
-            <input type="hidden" name="idaceiteativcronograma" value="<?php echo $this->idaceiteativcronograma ?>"/>
-            <?php echo $this->form->idaceite; ?>
-            <div class="row">
-                <div class="span6">
-                    <?php echo $this->form->identrega; ?>
-                </div>
-                <div class="span4">
-                    <?php echo $this->form->flaaceite; ?>
-                </div>
+        <div class="row dados-entrega">
+            <div class="span6 well well-small">
+                <p class="descricao-entrega"> Descri&ccedil;&atilde;o Entrega: <span> <?php echo $this->aceite->desobs; ?> </span> </p>
+                <p class="criterio-aceitacao"> Crit&eacute;rio de Aceita&ccedil;&atilde;o: <span> <?php echo $this->aceite->descriterioaceitacao; ?> </span> </p>
+                <p class="responsavel">  Respons&aacute;vel: <span> <?php echo $this->aceite->nomresponsavel; ?> </span></p>
             </div>
-            <div class="row" style="display: none">
-                <div class="span6">
-                    <?php echo $this->form->idmarco; ?>
-                </div>
-            </div>
-
-            <div class="row dados-entrega">
-                <div class="span6 well well-small">
-                    <p class="grupo"> Grupo:
-                        <span> <?php echo $this->aceite->grupo; ?> </span></p>
-                    <p class="descricao-entrega"> Descri&ccedil;&atilde;o Entrega:
-                        <span> <?php echo $this->aceite->desobs; ?> </span></p>
-
-                    <p class="criterio-aceitacao"> Crit&eacute;rio de Aceita&ccedil;&atilde;o:
-                        <span> <?php echo $this->aceite->descriterioaceitacao; ?> </span></p>
-
-                    <p class="responsavel-entrega"> Respons&aacute;vel pela entrega:
-                        <span> <?php echo $this->aceite->nomparteinteressadaentrega; ?> </span></p>
-                    <p class="responsavel"> Respons&aacute;vel pelo aceite:
-                        <span> <?php echo $this->aceite->nomresponsavel; ?> </span></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <?php echo $this->form->desprodutoservico; ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="span6">
-                    <?php echo $this->form->desparecerfinal; ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 20px;">
-                    (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
-                    obrigatório
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="row">
+           <div class="span6">
+                <?php echo $this->form->desprodutoservico; ?>
+           </div>
+        </div>
+        <div class="row">
+           <div class="span6">
+                <?php echo $this->form->desparecerfinal; ?>
+           </div>
+        </div>
+  </form>
 </div>

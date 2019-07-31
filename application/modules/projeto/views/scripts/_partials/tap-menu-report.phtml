@@ -2,11 +2,11 @@
 $infoIni = ($this->dados == 'informacoesiniciais') ? 'active' : "";
 $infoTec = ($this->dados == 'informacoestecnicas') ? 'active' : "";
 $resumo = ($this->dados == 'resumodoprojeto') ? 'active' : "";
-$assintaura = ($this->dados == 'assinadocumento') ? 'active' : "";
+$parte = ($this->dados == 'partesinteressadas') ? 'active' : "";
 ?>
 <ul class="nav nav-pills">
-    <li class="<?php echo $infoIni ?>"><a class="link" href="#" onclick="visualizar('ii')">Informações Iniciais</a></li>
+    <li class="<?php echo $infoIni ?>"><a class="link" href="#" onclick="visualizar('ii')" >Informações Iniciais</a></li>
     <li class="<?php echo $infoTec ?>"><a class="link" href="#" onclick="visualizar('it')">Informações Técnicas</a></li>
-    <li class="<?php echo $resumo ?>"><a class="link" href="#" onclick="visualizar('rp')">Resumo do Projeto</a></li>
-    <li class="<?php echo $assintaura ?>"><a class="link" href="#" onclick="visualizar('pi')">Assinaturas</a></li>
+    <li class="<?php echo $resumo ?>"><a class="link" href="#"  onclick="visualizar('rp')">Resumo do Projeto</a></li>
+    <li class="<?php echo $parte ?>"><a class="link" href="#"   onclick="visualizar('pi')">Partes Interessadas</a></li>
 </ul>

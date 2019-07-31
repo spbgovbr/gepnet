@@ -1,7 +1,7 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/glyphicons/glyphicons.css'))
-    ->appendStylesheet($this->baseUrl('/css/menu-lateral.css'));
+        ->appendStylesheet($this->baseUrl('/css/glyphicons/glyphicons.css'))
+;
 
 $params = array('idprojeto' => $this->idprojeto);
 ?>
@@ -9,111 +9,64 @@ $params = array('idprojeto' => $this->idprojeto);
 <ul class="liabc <?php echo $this->ativo ?>">
     <!-- Iniciação -->
     <?php if ($this->allowed('projeto', 'tap', 'informacoesiniciais')): ?>
-        <li class="tap abertura"><a
-                    href="<?php echo $this->baseUrl('/projeto/tap/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="TAP - Termo de Abertura do Projeto" data-placement="right"><i class="glyphicons-tap"></i>
-                <span>TAP</span></a></li>
+        <li class="tap abertura"><a href="<?php echo $this->baseUrl('/projeto/tap/index/idprojeto/' . $this->idprojeto) ; ?>" title="TAP - Termo de Abertura do Projeto" data-placement="right"><i class="glyphicons-tap"></i> <span>TAP</span></a></li>
     <?php endif; ?>
 
     <!-- Planejamento / Execução -->
     <?php if ($this->allowed('projeto', 'eap', 'index')): ?>
-        <li class="pgp eap"><a href="<?php echo $this->baseUrl('/projeto/eap/index/idprojeto/' . $this->idprojeto) ?>"
-                               title="EAP - Estrutura Analítica do Projeto" data-placement="right"><i
-                        class="glyphicons-eap"></i> <span>EAP</span></a></li>
+        <li class="pgp eap"><a href="<?php echo $this->baseUrl('/projeto/eap/index/idprojeto/' . $this->idprojeto) ?>" title="EAP - Estrutura Analítica do Projeto" data-placement="right"><i class="glyphicons-eap"></i> <span>EAP</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'cronograma', 'index')): ?>
-        <li class="pgp cronograma"><a
-                    href="<?php echo $this->baseUrl('/projeto/cronograma/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Cronograma" data-placement="right"><i class="glyphicons-cronograma"></i>
-                <span>Cronograma</span></a></li>
+        <li class="pgp cronograma"><a href="<?php echo $this->baseUrl('/projeto/cronograma/index/idprojeto/' . $this->idprojeto); ?>" title="Cronograma" data-placement="right"><i class="glyphicons-cronograma"></i> <span>Cronograma</span></a></li>
     <?php endif; ?>
-
     <?php if ($this->allowed('projeto', 'gantt', 'visualizar')): ?>
-        <li class="pgp gantt"><a
-                    href="<?php echo $this->baseUrl('/projeto/gantt/visualizar/idprojeto/' . $this->idprojeto); ?>"
-                    title="GANTT" data-placement="right"><i class="glyphicons-gantt"></i> <span>GANTT</span></a></li>
+        <li class="pgp gantt"><a href="<?php echo $this->baseUrl('/projeto/gantt/visualizar/idprojeto/' . $this->idprojeto); ?>" title="GANTT" data-placement="right"><i class="glyphicons-gantt"></i> <span>GANTT</span></a></li>
     <?php endif; ?>
-
     <?php if ($this->allowed('projeto', 'rh', 'listar')): ?>
-        <li class="pgp rh"><a href="<?php echo $this->baseUrl('/projeto/rh/listar/idprojeto/' . $this->idprojeto); ?>"
-                              title="RH - Partes interessadas" data-placement="right"><i class="glyphicons-rh"></i>
-                <span>RH</span></a></li>
+        <li class="pgp rh"><a href="<?php echo $this->baseUrl('/projeto/rh/listar/idprojeto/' . $this->idprojeto); ?>" title="RH - Recursos Humanos" data-placement="right"><i class="glyphicons-rh"></i> <span>RH</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'comunicacao', 'listar')): ?>
-        <li class="pgp comunicacao"><a
-                    href="<?php echo $this->baseUrl('/projeto/comunicacao/listar/idprojeto/' . $this->idprojeto); ?>"
-                    title="Comunicação" data-placement="right"><i class="glyphicons-comunicacao"></i>
-                <span>Comunicação</span></a></li>
+        <li class="pgp comunicacao"><a href="<?php echo $this->baseUrl('/projeto/comunicacao/listar/idprojeto/' . $this->idprojeto); ?>" title="Comunicação" data-placement="right"><i class="glyphicons-comunicacao"></i> <span>Comunicação</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'risco', 'listar')): ?>
-        <li class="pgp riscos"><a
-                    href="<?php echo $this->baseUrl('/projeto/risco/listar/idprojeto/' . $this->idprojeto); ?>"
-                    title="Riscos" data-placement="right"><i class="glyphicons-riscos"></i> <span>Riscos</span></a></li>
+        <li class="pgp riscos"><a href="<?php echo $this->baseUrl('/projeto/risco/listar/idprojeto/' . $this->idprojeto); ?>" title="Riscos" data-placement="right"><i class="glyphicons-riscos"></i> <span>Riscos</span></a></li>
     <?php endif; ?>
 
     <!-- Monitoramento / Controle e Excução -->
     <?php if ($this->allowed('projeto', 'atareuniao', 'listar')): ?>
-        <li class="mc ata"><a
-                    href="<?php echo $this->baseUrl('/projeto/atareuniao/listar/idprojeto/' . $this->idprojeto); ?>"
-                    title="Ata" data-placement="right"><i class="glyphicons-ata"></i> <span>Ata</span></a></li>
+        <li class="mc ata"><a href="<?php echo $this->baseUrl('/projeto/atareuniao/listar/idprojeto/' . $this->idprojeto); ?>" title="Ata" data-placement="right"><i class="glyphicons-ata"></i> <span>Ata</span></a></li>
     <?php endif; ?>
-    <?php if ($this->allowed('projeto', 'cronograma', 'index')): ?>
-        <li class="mc r3g"><a href="<?php echo $this->baseUrl('/projeto/r3g/index/idprojeto/' . $this->idprojeto); ?>"
-                              title="R3G - Imprevistos e Contramedidas" data-placement="right"><i
-                        class="glyphicons-r3g"></i> <span>R3G</span></a></li>
+    <?php if ($this->allowed('projeto', 'r3g', 'index')): ?>
+        <li class="mc r3g"><a href="<?php echo $this->baseUrl('/projeto/r3g/index/idprojeto/' . $this->idprojeto); ?>" title="R3G - Imprevistos e Contramedidas" data-placement="right"><i class="glyphicons-r3g"></i> <span>R3G</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'diario', 'listar')): ?>
-        <li class="mc diario"><a
-                    href="<?php echo $this->baseUrl('/projeto/diario/listar/idprojeto/' . $this->idprojeto); ?>"
-                    title="Diário" data-placement="right"><i class="glyphicons-diario"></i> <span>Diário</span></a></li>
+        <li class="mc diario"><a href="<?php echo $this->baseUrl('/projeto/diario/listar/idprojeto/' . $this->idprojeto); ?>" title="Diário" data-placement="right"><i class="glyphicons-diario"></i> <span>Diário</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'solicitacaomudanca', 'index')): ?>
-        <li class="mc mudancas"><a
-                    href="<?php echo $this->baseUrl('/projeto/solicitacaomudanca/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Mudanças" data-placement="right"><i class="glyphicons-mudancas"></i>
-                <span>Mudanças</span></a></li>
+        <li class="mc mudancas"><a href="<?php echo $this->baseUrl('/projeto/solicitacaomudanca/index/idprojeto/' . $this->idprojeto); ?>" title="Mudanças" data-placement="right"><i class="glyphicons-mudancas"></i> <span>Mudanças</span></a></li>
     <?php endif; ?>
-    <?php if ($this->allowed('projeto', 'cronograma', 'index')): ?>
-        <li class="mc rud"><a href="<?php echo $this->baseUrl('/projeto/rud/index/idprojeto/' . $this->idprojeto); ?>"
-                              title="RUD - Repositório Único de Documentos" data-placement="right"><i
-                        class="glyphicons-rud"></i> <span>RUD</span></a></li>
+    <?php if ($this->allowed('projeto', 'rud', 'index')): ?>
+        <li class="mc rud"><a href="<?php echo $this->baseUrl('/projeto/rud/index/idprojeto/' . $this->idprojeto); ?>" title="RUD - Repositório Único de Documentos" data-placement="right"><i class="glyphicons-rud"></i> <span>RUD</span></a></li>
     <?php endif; ?>
-    <?php if ($this->allowed('projeto', 'cronograma', 'index')): ?>
-        <li class="mc relatorio"><a
-                    href="<?php echo $this->baseUrl('/projeto/relatorio/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Relatório" data-placement="right"><i class="glyphicons-relatorio"></i> <span>Relatório</span></a>
-        </li>
+    <?php if ($this->allowed('projeto', 'relatorio', 'index')): ?>
+        <li class="mc relatorio"><a href="<?php echo $this->baseUrl('/projeto/relatorio/index/idprojeto/' . $this->idprojeto) ; ?>" title="Relatório" data-placement="right"><i class="glyphicons-relatorio"></i> <span>Relatório</span></a></li>
     <?php endif; ?>
     <?php if ($this->allowed('projeto', 'termoaceite', 'index')): ?>
-        <li class="mc aceite"><a
-                    href="<?php echo $this->baseUrl('/projeto/termoaceite/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Aceite" data-placement="right"><i class="glyphicons-aceite"></i> <span>Aceite</span></a></li>
+        <li class="mc aceite"><a href="<?php echo $this->baseUrl('/projeto/termoaceite/index/idprojeto/' . $this->idprojeto) ; ?>" title="Aceite" data-placement="right"><i class="glyphicons-aceite"></i> <span>Aceite</span></a></li>
     <?php endif; ?>
 
     <!-- Encerramento -->
     <?php if ($this->allowed('projeto', 'licao', 'index')): ?>
-        <li class="tep licoes"><a
-                    href="<?php echo $this->baseUrl('/projeto/licao/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Lições" data-placement="right"><i class="glyphicons-licoes"></i> <span>Lições</span></a></li>
+        <li class="tep licoes"><a href="<?php echo $this->baseUrl('/projeto/licao/index/idprojeto/' . $this->idprojeto) ; ?>" title="Lições" data-placement="right"><i class="glyphicons-licoes"></i> <span>Lições</span></a></li>
     <?php endif; ?>
-    <?php if ($this->allowed('projeto', 'tep', 'editar')): ?>
-        <li class="tep termoenc"><a
-                    href="<?php echo $this->baseUrl('/projeto/tep/editar/idprojeto/' . $this->idprojeto); ?>"
-                    title="TEP - Termo de Encerramento do Projeto" data-placement="right"><i
-                        class="glyphicons-termoenc"></i> <span>TEP</span></a></li>
+    <?php if ($this->allowed('projeto', 'tep', 'index')): ?>
+        <li class="tep encerramento"><a href="<?php echo $this->baseUrl('/projeto/tep/editar/idprojeto/' . $this->idprojeto) ; ?>" title="TEP - Termo de Encerramento do Projeto" data-placement="right"><i class="glyphicons-tep"></i> <span>TEP</span></a></li>
     <?php endif; ?>
-    <?php if ($this->allowed('projeto', 'linhatempo', 'index')): ?>
-        <li class="tep linhatempo"><a
-                    href="<?php echo $this->baseUrl('/projeto/linhatempo/index/idprojeto/' . $this->idprojeto); ?>"
-                    title="Linha do Tempo" data-placement="right"><i class="glyphicons-linhatempo"></i> <span>Linha do Tempo</span></a>
-        </li>
-    <?php endif; ?>
-
 </ul>
 
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $("ul.liabc li a").tooltip({container: 'body'});
-        innerLayout.sizePane("west", 45);
+        innerLayout.sizePane("west", 60);
     });
 </script>

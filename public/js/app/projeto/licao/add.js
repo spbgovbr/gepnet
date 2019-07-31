@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
 
     $.pnotify.defaults.history = false;
 
@@ -8,8 +8,8 @@ $(function () {
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function ($form) {
-            enviar_ajax("/projeto/licao/cadastrar/format/json", "form#form-licao", function (data) {
+        submitHandler: function($form) {
+            enviar_ajax("/projeto/licao/cadastrar/format/json", "form#form-licao", function(data) {
                 if (data.success) {
                     $("#resetbutton").trigger('click');
                 }

@@ -1,25 +1,22 @@
-var keycloakAction = function (url) {
-    window.location.href = url;
-};
-
-function enviar_ajax(url, form, callback) {
+function enviar_ajax(url, form, callback)
+{
     $.ajax({
         url: base_url + url,
         dataType: 'json',
         type: 'POST',
         data: $(form).serialize(),
         //processData:false,
-        success: function (data) {
+        success: function(data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
             }
             $.pnotify(data.msg);
-            if (callback && typeof (callback) === "function") {
+            if (callback && typeof(callback) === "function") {
                 callback(data);
             }
         },
-        error: function () {
+        error: function() {
             $.pnotify({
                 text: 'Falha ao enviar a requisição',
                 type: 'error',
@@ -29,21 +26,21 @@ function enviar_ajax(url, form, callback) {
     });
 };
 
-$(function () {
+$(function() {
 
     $.pnotify.defaults.history = false;
-
-    $(document).ajaxStart(function () {
+    
+    $(document).ajaxStart(function() {
         $("div#ajax-indicator").show();
-    }).ajaxStop(function () {
+    }).ajaxStop(function() {
         $("div#ajax-indicator").hide();
     });
-
-    $.formErrors = function (data) {
-        $.each(data, function (element, errors) {
+    
+    $.formErrors = function(data) {
+        $.each(data, function(element, errors) {
             //var ul = $("<ul>").attr("class", "errors help-inline");
             var ul = $("<ul>").attr("class", "errors");
-            $.each(errors, function (name, message) {
+            $.each(errors, function(name, message) {
                 ul.append($("<li>").text(message));
             });
             $("#" + element).parent().find('ul').remove();
@@ -51,64 +48,56 @@ $(function () {
         });
     }
 
-    $("a.link_sair").click(function () {
-
+    $("a.link_sair").click(function() {
         var url = "/index/logout";
-
-        if (undefined === base_url) {
-            var base_url = "";
-        }
-
         $.ajax({
             url: base_url + url,
             dataType: 'json',
             type: 'GET',
-            success: function (data) {
-                keycloakAction(data.redirect);
+            //data: $(form).serialize(),
+            //processData:false,
+            success: function(data) {
+                location.href= base_url + "/index/index"
             },
-            error: function () {
-                keycloakAction('index');
+            error: function() {
+                window.close();
             }
         });
         return false;
     });
-
     $('#dialog-perfil').dialog({
         autoOpen: false,
         title: 'Mudar Perfil',
         width: '550px',
         modal: false,
-        open: function (event, ui) {
+        open: function(event, ui) {
             $("#idperfil").select2();
         },
-        close: function (event, ui) {
+        close: function(event, ui) {
 //$dialogEditar.empty();
         },
         buttons: {
-            'Fechar': function () {
+            'Fechar': function() {
                 $(this).dialog('close');
             },
-            'Enviar': function () {
+            'Enviar': function() {
 //console.log('submit');
 //$formEditar.on('submit');
                 $("form#form-perfil").trigger('submit');
             }
         }
     });
-    $('#form-perfil').submit(function (event) {
+    $('#form-perfil').submit(function(event) {
         event.preventDefault();
         var url = '/index/mudar-perfil/format/json',
-            $this = $(this);
-
-        //console.log(base_url);
-        //console.log($this.serialize())  ;      
+                $this = $(this);
         $.ajax({
             url: base_url + url,
             dataType: 'json',
             type: 'POST',
             data: $this.serialize(),
             //processData:false,
-            success: function (data) {
+            success: function(data) {
                 if (typeof data.msg.text !== 'string') {
                     $.formErrors(data.msg.text);
                     return;
@@ -116,7 +105,7 @@ $(function () {
                 $.pnotify(data.msg);
                 location.href = base_url + '/index/boas-vindas';
             },
-            error: function () {
+            error: function() {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -125,7 +114,7 @@ $(function () {
             }
         });
     });
-    $("a.link_perfil").click(function () {
+    $("a.link_perfil").click(function() {
         $('#dialog-perfil').dialog('open');
     });
 });

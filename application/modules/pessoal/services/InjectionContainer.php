@@ -1,6 +1,6 @@
 <?php
 
-class Pessoal_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
+class Pessoal_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -19,5 +19,5 @@ class Pessoal_Service_InjectionContainer extends App_Service_InjectionContainerA
         $this->_config = $config;
     }
 
-
+    
 }

@@ -85,7 +85,7 @@ class Zend_Tool_Framework_Provider_Repository
      */
     public function setProcessOnAdd($processOnAdd = true)
     {
-        $this->_processOnAdd = (bool)$processOnAdd;
+        $this->_processOnAdd = (bool) $processOnAdd;
         return $this;
     }
 
@@ -110,7 +110,8 @@ class Zend_Tool_Framework_Provider_Repository
         // if a provider by the given name already exist, and its not set as overwritable, throw exception
         if (!$overwriteExistingProvider &&
             (array_key_exists($providerName, $this->_unprocessedProviders)
-                || array_key_exists($providerName, $this->_providers))) {
+                || array_key_exists($providerName, $this->_providers)))
+        {
             require_once 'Zend/Tool/Framework/Provider/Exception.php';
             throw new Zend_Tool_Framework_Provider_Exception('A provider by the name ' . $providerName
                 . ' is already registered and $overrideExistingProvider is set to false.');
@@ -131,7 +132,7 @@ class Zend_Tool_Framework_Provider_Repository
         if ($providerOrClassName instanceof Zend_Tool_Framework_Provider_Interface) {
             $targetProviderClassName = get_class($providerOrClassName);
         } else {
-            $targetProviderClassName = (string)$providerOrClassName;
+            $targetProviderClassName = (string) $providerOrClassName;
         }
 
         if (!$processedOnly) {
@@ -180,7 +181,7 @@ class Zend_Tool_Framework_Provider_Repository
 
             // add to the appropraite place
             $this->_providerSignatures[$providerName] = $providerSignature;
-            $this->_providers[$providerName] = $providerSignature->getProvider();
+            $this->_providers[$providerName]          = $providerSignature->getProvider();
 
             if ($provider instanceof Zend_Tool_Framework_Provider_Initializable) {
                 $provider->initialize();
@@ -263,10 +264,10 @@ class Zend_Tool_Framework_Provider_Repository
         $className = get_class($provider);
         $providerName = $className;
         if (strpos($providerName, '_') !== false) {
-            $providerName = substr($providerName, strrpos($providerName, '_') + 1);
+            $providerName = substr($providerName, strrpos($providerName, '_')+1);
         }
         if (substr($providerName, -8) == 'Provider') {
-            $providerName = substr($providerName, 0, strlen($providerName) - 8);
+            $providerName = substr($providerName, 0, strlen($providerName)-8);
         }
         return $providerName;
     }

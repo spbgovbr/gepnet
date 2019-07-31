@@ -43,8 +43,8 @@ class Zend_Cache_Backend
      */
     protected $_directives = array(
         'lifetime' => 3600,
-        'logging' => false,
-        'logger' => null
+        'logging'  => false,
+        'logger'   => null
     );
 
     /**
@@ -57,9 +57,9 @@ class Zend_Cache_Backend
     /**
      * Constructor
      *
-     * @param array $options Associative array of options
-     * @return void
+     * @param  array $options Associative array of options
      * @throws Zend_Cache_Exception
+     * @return void
      */
     public function __construct(array $options = array())
     {
@@ -71,15 +71,13 @@ class Zend_Cache_Backend
     /**
      * Set the frontend directives
      *
-     * @param array $directives Assoc of directives
-     * @return void
+     * @param  array $directives Assoc of directives
      * @throws Zend_Cache_Exception
+     * @return void
      */
     public function setDirectives($directives)
     {
-        if (!is_array($directives)) {
-            Zend_Cache::throwException('Directives parameter must be an array');
-        }
+        if (!is_array($directives)) Zend_Cache::throwException('Directives parameter must be an array');
         while (list($name, $value) = each($directives)) {
             if (!is_string($name)) {
                 Zend_Cache::throwException("Incorrect option name : $name");
@@ -97,10 +95,10 @@ class Zend_Cache_Backend
     /**
      * Set an option
      *
-     * @param string $name
-     * @param mixed $value
-     * @return void
+     * @param  string $name
+     * @param  mixed  $value
      * @throws Zend_Cache_Exception
+     * @return void
      */
     public function setOption($name, $value)
     {
@@ -119,7 +117,7 @@ class Zend_Cache_Backend
      * if $specificLifetime is not false, the given specific life time is used
      * else, the global lifetime is used
      *
-     * @param int $specificLifetime
+     * @param  int $specificLifetime
      * @return int Cache life time
      */
     public function getLifetime($specificLifetime)
@@ -135,8 +133,8 @@ class Zend_Cache_Backend
      *
      * DEPRECATED : use getCapabilities() instead
      *
-     * @return boolean
      * @deprecated
+     * @return boolean
      */
     public function isAutomaticCleaningAvailable()
     {
@@ -182,7 +180,7 @@ class Zend_Cache_Backend
             }
         }
         // Attemp to detect by creating a temporary file
-        $tempFile = tempnam(md5(uniqid(rand(), true)), '');
+        $tempFile = tempnam(md5(uniqid(rand(), TRUE)), '');
         if ($tempFile) {
             $dir = realpath(dirname($tempFile));
             unlink($tempFile);
@@ -220,8 +218,8 @@ class Zend_Cache_Backend
      * is available.
      * Create a default log object if none is set.
      *
-     * @return void
      * @throws Zend_Cache_Exception
+     * @return void
      */
     protected function _loggerSanity()
     {
@@ -248,9 +246,9 @@ class Zend_Cache_Backend
     /**
      * Log a message at the WARN (4) priority.
      *
-     * @param string $message
-     * @return void
+     * @param  string $message
      * @throws Zend_Cache_Exception
+     * @return void
      */
     protected function _log($message, $priority = 4)
     {

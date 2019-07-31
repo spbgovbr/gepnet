@@ -66,24 +66,9 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      *
      * @var array
      */
-    protected static $_supportedMhashAlgorithms = array(
-        'adler32',
-        ' crc32',
-        'crc32b',
-        'gost',
-        'haval128',
-        'haval160',
-        'haval192',
-        'haval256',
-        'md4',
-        'md5',
-        'ripemd160',
-        'sha1',
-        'sha256',
-        'tiger',
-        'tiger128',
-        'tiger160'
-    );
+    protected static $_supportedMhashAlgorithms = array('adler32',' crc32', 'crc32b', 'gost',
+            'haval128', 'haval160', 'haval192', 'haval256', 'md4', 'md5', 'ripemd160',
+            'sha1', 'sha256', 'tiger', 'tiger128', 'tiger160');
 
     /**
      * Constants representing the output mode of the hash algorithm
@@ -186,7 +171,8 @@ class Zend_Crypt_Hmac extends Zend_Crypt
      */
     protected static function _getMhashDefinition($hashAlgorithm)
     {
-        for ($i = 0; $i <= mhash_count(); $i++) {
+        for ($i = 0; $i <= mhash_count(); $i++)
+        {
             $types[mhash_get_hash_name($i)] = $i;
         }
         return $types[strtoupper($hashAlgorithm)];

@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["iu"] = {
         name: "iu",
         numberFormat: {
@@ -18,17 +18,17 @@
             decimals: 2,
             ",": ",",
             ".": ".",
-            groupSize: [3, 0],
+            groupSize: [3,0],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
-                groupSize: [3, 0],
+                groupSize: [3,0],
                 symbol: "%"
             },
             currency: {
-                pattern: ["($n)", "$n"],
+                pattern: ["($n)","$n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Naattiinguja", "Naggajjau", "Aippiq", "Pingatsiq", "Sitammiq", "Tallirmiq", "Sivataarvik"],
-                    namesAbbr: ["Nat", "Nag", "Aip", "Pi", "Sit", "Tal", "Siv"],
-                    namesShort: ["N", "N", "A", "P", "S", "T", "S"]
+                    names: ["Naattiinguja","Naggajjau","Aippiq","Pingatsiq","Sitammiq","Tallirmiq","Sivataarvik"],
+                    namesAbbr: ["Nat","Nag","Aip","Pi","Sit","Tal","Siv"],
+                    namesShort: ["N","N","A","P","S","T","S"]
                 },
                 months: {
-                    names: ["Jaannuari", "Viivvuari", "Maatsi", "Iipuri", "Mai", "Juuni", "Julai", "Aaggiisi", "Sitipiri", "Utupiri", "Nuvipiri", "Tisipiri", ""],
-                    namesAbbr: ["Jan", "Viv", "Mas", "Ipu", "Mai", "Jun", "Jul", "Agi", "Sii", "Uut", "Nuv", "Tis", ""]
+                    names: ["Jaannuari","Viivvuari","Maatsi","Iipuri","Mai","Juuni","Julai","Aaggiisi","Sitipiri","Utupiri","Nuvipiri","Tisipiri",""],
+                    namesAbbr: ["Jan","Viv","Mas","Ipu","Mai","Jun","Jul","Agi","Sii","Uut","Nuv","Tis",""]
                 },
-                AM: ["AM", "am", "AM"],
-                PM: ["PM", "pm", "PM"],
+                AM: ["AM","am","AM"],
+                PM: ["PM","pm","PM"],
                 patterns: {
                     d: "d/MM/yyyy",
                     D: "ddd, MMMM dd,yyyy",

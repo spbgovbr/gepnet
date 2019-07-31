@@ -73,8 +73,8 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
     /**
      * Set entry comment feed links
      *
-     * @param DOMDocument $dom
-     * @param DOMElement $root
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setCommentFeedLinks(DOMDocument $dom, DOMElement $root)

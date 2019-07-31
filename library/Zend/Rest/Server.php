@@ -111,12 +111,12 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Set XML encoding
      *
-     * @param string $encoding
+     * @param  string $encoding
      * @return Zend_Rest_Server
      */
     public function setEncoding($encoding)
     {
-        $this->_encoding = (string)$encoding;
+        $this->_encoding = (string) $encoding;
         return $this;
     }
 
@@ -169,9 +169,9 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Implement Zend_Server_Interface::handle()
      *
-     * @param array $request
-     * @return string|void
+     * @param  array $request
      * @throws Zend_Rest_Server_Exception
+     * @return string|void
      */
     public function handle($request = false)
     {
@@ -217,8 +217,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                     $result = false;
                     if (count($calling_args) < count($func_args)) {
                         require_once 'Zend/Rest/Server/Exception.php';
-                        $result = $this->fault(new Zend_Rest_Server_Exception('Invalid Method Call to ' . $this->_method . '. Missing argument(s): ' . implode(', ',
-                                $missing_args) . '.'), 400);
+                        $result = $this->fault(new Zend_Rest_Server_Exception('Invalid Method Call to ' . $this->_method . '. Missing argument(s): ' . implode(', ', $missing_args) . '.'), 400);
                     }
 
                     if (!$result && $this->_functions[$this->_method] instanceof Zend_Server_Reflection_Method) {
@@ -236,8 +235,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                         }
                     } elseif (!$result) {
                         try {
-                            $result = call_user_func_array($this->_functions[$this->_method]->getName(),
-                                $calling_args); //$this->_functions[$this->_method]->invokeArgs($calling_args);
+                            $result = call_user_func_array($this->_functions[$this->_method]->getName(), $calling_args); //$this->_functions[$this->_method]->invokeArgs($calling_args);
                         } catch (Exception $e) {
                             $result = $this->fault($e);
                         }
@@ -288,7 +286,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
         }
 
         return $response;
-    }
+     }
 
     /**
      * Implement Zend_Server_Interface::setClass()
@@ -322,13 +320,13 @@ class Zend_Rest_Server implements Zend_Server_Interface
 
         $method = $function->getName();
 
-        $dom = new DOMDocument('1.0', $this->getEncoding());
+        $dom    = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
-            $root = $dom->createElement($class);
+            $root   = $dom->createElement($class);
             $method = $dom->createElement($method);
             $root->appendChild($method);
         } else {
-            $root = $dom->createElement($method);
+            $root   = $dom->createElement($method);
             $method = $root;
         }
         $root->setAttribute('generator', 'zend');
@@ -337,7 +335,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
 
         $this->_structValue($struct, $dom, $method);
 
-        $struct = (array)$struct;
+        $struct = (array) $struct;
         if (!isset($struct['status'])) {
             $status = $dom->createElement('status', 'success');
             $method->appendChild($status);
@@ -359,7 +357,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
      */
     protected function _structValue($struct, DOMDocument $dom, DOMElement $parent)
     {
-        $struct = (array)$struct;
+        $struct = (array) $struct;
 
         foreach ($struct as $key => $value) {
             if ($value === false) {
@@ -368,7 +366,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
                 $value = 1;
             }
 
-            if (ctype_digit((string)$key)) {
+            if (ctype_digit((string) $key)) {
                 $key = 'key_' . $key;
             }
 
@@ -466,11 +464,11 @@ class Zend_Rest_Server implements Zend_Server_Interface
 
         $dom = new DOMDocument('1.0', $this->getEncoding());
         if ($class) {
-            $xml = $dom->createElement($class);
+            $xml       = $dom->createElement($class);
             $xmlMethod = $dom->createElement($method);
             $xml->appendChild($xmlMethod);
         } else {
-            $xml = $dom->createElement($method);
+            $xml       = $dom->createElement($method);
             $xmlMethod = $xml;
         }
         $xml->setAttribute('generator', 'zend');
@@ -523,7 +521,7 @@ class Zend_Rest_Server implements Zend_Server_Interface
     public function addFunction($function, $namespace = '')
     {
         if (!is_array($function)) {
-            $function = (array)$function;
+            $function = (array) $function;
         }
 
         foreach ($function as $func) {
@@ -549,8 +547,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Implement Zend_Server_Interface::loadFunctions()
      *
-     * @param array $functions
      * @todo Implement
+     * @param array $functions
      */
     public function loadFunctions($functions)
     {
@@ -559,8 +557,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Implement Zend_Server_Interface::setPersistence()
      *
-     * @param int $mode
      * @todo Implement
+     * @param int $mode
      */
     public function setPersistence($mode)
     {
@@ -569,8 +567,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Call a static class method and return the result
      *
-     * @param string $class
-     * @param array $args
+     * @param  string $class
+     * @param  array $args
      * @return mixed
      */
     protected function _callStaticMethod($class, array $args)
@@ -586,8 +584,8 @@ class Zend_Rest_Server implements Zend_Server_Interface
     /**
      * Call an instance method of an object
      *
-     * @param string $class
-     * @param array $args
+     * @param  string $class
+     * @param  array $args
      * @return mixed
      * @throws Zend_Rest_Server_Exception For invalid class name
      */
@@ -602,9 +600,9 @@ class Zend_Rest_Server implements Zend_Server_Interface
         } catch (Exception $e) {
             require_once 'Zend/Rest/Server/Exception.php';
             throw new Zend_Rest_Server_Exception('Error instantiating class ' . $class .
-                ' to invoke method ' . $this->_functions[$this->_method]->getName() .
-                ' (' . $e->getMessage() . ') ',
-                500, $e);
+                                                 ' to invoke method ' . $this->_functions[$this->_method]->getName() .
+                                                 ' (' . $e->getMessage() . ') ',
+                                                 500, $e);
         }
 
         try {

@@ -94,7 +94,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
                 $response = $client->request('DELETE');
             }
             $httpStatus = $response->getStatus();
-            switch ((int)$httpStatus / 100) {
+            switch ((int) $httpStatus / 100) {
                 // Success
                 case 2:
                     return true;
@@ -130,7 +130,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * the server has generated: an id, an updated time, and its new
      * link rel="edit".
      *
-     * @param string $postUri Location to POST for creating new entries.
+     * @param  string $postUri Location to POST for creating new entries.
      * @return void
      * @throws Zend_Feed_Exception
      */
@@ -151,10 +151,8 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
             $client = Zend_Feed::getHttpClient();
             $client->setUri($editUri);
             if (Zend_Feed::getHttpMethodOverride()) {
-                $client->setHeaders(array(
-                    'X-HTTP-Method-Override: PUT',
-                    'Content-Type: ' . self::CONTENT_TYPE
-                ));
+                $client->setHeaders(array('X-HTTP-Method-Override: PUT',
+                    'Content-Type: ' . self::CONTENT_TYPE));
                 $client->setRawData($this->saveXML());
                 $response = $client->request('POST');
             } else {
@@ -189,7 +187,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
                  */
                 require_once 'Zend/Feed/Exception.php';
                 throw new Zend_Feed_Exception('Expected response code 201, got '
-                    . $response->getStatus());
+                                              . $response->getStatus());
             }
         }
 
@@ -223,7 +221,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
              */
             require_once 'Zend/Feed/Exception.php';
             throw new Zend_Feed_Exception('No root <feed> element found in server response:'
-                . "\n\n" . $client->responseBody);
+                                          . "\n\n" . $client->responseBody);
         }
 
         if ($this->_element->parentNode) {
@@ -248,7 +246,7 @@ class Zend_Feed_Entry_Atom extends Zend_Feed_Entry_Abstract
      * $elt->link(): returns the value of the link tag.
      * $elt->link('self'): returns the href from the first <link rel="self"> in the entry.
      *
-     * @param string $rel The "rel" attribute to look for.
+     * @param  string $rel The "rel" attribute to look for.
      * @return mixed
      */
     public function link($rel = null)

@@ -68,12 +68,9 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
      * @param string $startMemberId (optional) Value for the
      *          startMemberId property.
      */
-    public function __construct(
-        $domain = null,
-        $groupId = null,
-        $memberId = null,
-        $startMemberId = null
-    ) {
+    public function __construct($domain = null, $groupId = null, $memberId = null,
+            $startMemberId = null)
+    {
         parent::__construct($domain);
         $this->setGroupId($groupId);
         $this->setMemberId($memberId);
@@ -83,9 +80,9 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
     /**
      * Set the group id to query for.
      *
+     * @see getGroupId
      * @param string $value The group id to filter search results by, or null to
      *              disable.
-     * @see getGroupId
      */
     public function setGroupId($value)
     {
@@ -111,9 +108,9 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
      * matching this value will be returned in search results. Set to
      * null to disable filtering by member id.
      *
+     * @see getMemberId
      * @param string $value The member id to filter search results by, or null to
      *              disable.
-     * @see getMemberId
      */
     public function setMemberId($value)
     {
@@ -153,9 +150,9 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
      * Get the first username which should be displayed when retrieving
      * a list of users.
      *
+     * @see setStartUsername
      * @return string The first username to be returned, or null if
      *          disabled.
-     * @see setStartUsername
      */
     public function getStartMemberId()
     {
@@ -182,7 +179,7 @@ class Zend_Gdata_Gapps_MemberQuery extends Zend_Gdata_Gapps_Query
         } else {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'groupId must not be null');
+                    'groupId must not be null');
         }
 
         $uri .= '/member';

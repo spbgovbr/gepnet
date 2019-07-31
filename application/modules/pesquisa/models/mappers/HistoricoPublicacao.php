@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Model_Mapper_HistoricoPublicacao extends App_Model_Mapper_MapperAbstract
-{
+class Pesquisa_Model_Mapper_HistoricoPublicacao extends App_Model_Mapper_MapperAbstract {
 
     /**
      * Set the property
@@ -43,8 +42,8 @@ class Pesquisa_Model_Mapper_HistoricoPublicacao extends App_Model_Mapper_MapperA
                 INNER JOIN agepnet200.tb_questionario_pesquisa tqp ON tqp.idpesquisa = tp.idpesquisa
                 INNER JOIN agepnet200.tb_pessoa tpp ON tpp.idpessoa = th.idpespublicou
                 LEFT JOIN agepnet200.tb_pessoa tpe ON tpe.idpessoa =  th.idpesencerrou
-                LEFT JOIN  public.vw_comum_unidade vwp ON vwp.id_unidade = tpp.id_unidade
-                LEFT JOIN  public.vw_comum_unidade vwe ON vwe.id_unidade = tpe.id_unidade
+                --LEFT JOIN  public.vw_comum_unidade vwp ON vwp.id_unidade = tpp.id_unidade
+                --LEFT JOIN  public.vw_comum_unidade vwe ON vwe.id_unidade = tpe.id_unidade
             WHERE 1 = 1
             ";
 
@@ -67,8 +66,7 @@ class Pesquisa_Model_Mapper_HistoricoPublicacao extends App_Model_Mapper_MapperA
         }
         //data de publicacao
         if (isset($params['datpublicacao']) && $params['datpublicacao'] != "") {
-            $sql .= $this->_db->quoteInto(" AND th.datpublicacao >= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ",
-                $params['datpublicacao'] . ' 00:00:00');
+            $sql .= $this->_db->quoteInto(" AND th.datpublicacao >= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ", $params['datpublicacao'] . ' 00:00:00');
         }
         //Publicada
         if (isset($params['situacao']) && $params['situacao'] == Pesquisa_Model_Pesquisa::PUBLICADO) {
@@ -79,6 +77,7 @@ class Pesquisa_Model_Mapper_HistoricoPublicacao extends App_Model_Mapper_MapperA
             $sql .= " AND th.datpublicacao < th.datencerramento ";
         }
         $sql .= " ORDER BY th.idpesquisa, th.idhistoricopublicacao ";
+        //$sql .= ' order by ' . $params['sidx'] . ' ' . $params['sord'];
 
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;

@@ -1,135 +1,66 @@
 <?php
-
-header("Cache-Control: no-cache, must-revalidate");
-
-
-$service = new Projeto_Service_Gerencia();
-
-if (!is_object($this->projeto)) {
-    $arProjeto = $this->projeto;
-    $this->projeto = $service->retornaProjetoPorId($this->projeto);
-} else {
-    $arProjeto = array('idprojeto' => $this->projeto->idprojeto);
-}
-
-$projetoDadosValidos = $service->retornaProjetoPorIdObjeto($arProjeto);
-
-$style = isset($arProjeto['pdf']) ? ' style="font-size: 8px !important;"' : '';
+/**
+ * @var Projeto_Model_Gerencia $this->projeto
+ */
 ?>
 <div class="accordion" id="accordion2">
     <div class="accordion-group">
         <div class="accordion-heading">
             <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
                 <?php echo $this->projeto->nomcodigo; ?> - <?php echo $this->projeto->nomprojeto; ?>
-                <i id="img" class="icon-plus"></i>
             </a>
         </div>
         <div id="collapseOne" class="accordion-body collapse">
             <div class="accordion-inner">
-                <strong>Resumo do projeto</strong>
-                <table class="table table-striped table-bordered table-price" id="cabProjeto"<?php echo $style; ?>>
+                <table class="table table-striped table-bordered table-price">
                     <colgroup>
                         <col style="width: 50px;">
-                        <col style="width: 280px;">
+                        <col style="width: 300px;">
                         <col style="width: 50px;">
-                        <col style="width: 220px;">
+                        <col style="width: 200px;">
                         <col style="width: 50px;">
                         <col style="width: 50px;">
-                        <col style="width: 120px;">
-                        <col style="width: 110px;">
+                        <col style="width: 100px;">
                         <col style="width: 50px;">
-                        <col style="width: 20px;">
+                        <col style="width: 50px;">
                     </colgroup>
                     <tr>
-                        <th>Patroci.:</th>
+                        <th>Patrocinador:</th>
                         <td><?php echo $this->projeto->patrocinador->nompessoa; ?></td>
                         <th>Meta:</th>
-                        <td><?php echo $this->projeto->datinicio->toString('d/m/Y'); ?>
-                            a <?php echo $this->projeto->datfim->toString('d/m/Y'); ?>
-                            - <?php echo $this->projeto->retornaMetaEmDias(); ?> dias
-                        </td>
-                        <th>% concluído planejado:</th>
-                        <td><span id="spanPrevisto"><?php echo $projetoDadosValidos->numpercentualprevisto; ?>%</span>
-                        </td>
-                        <th>&Uacute;ltimo Relat&oacute;rio:</th>
-                        <td>
-                            <span id="spanUltimoRelatorio"><?php echo(@trim($this->projeto->ultimoStatusReport->datacompanhamento) != "" ? $this->projeto->ultimoStatusReport->datacompanhamento->toString('d/m/Y') : ""); ?></span>
-                        </td>
-                        <th>Atraso:<br/></th>
-                        <td><span id="spanAtraso"
-                                  class="badge badge-<?php echo (int)$projetoDadosValidos->numpercentualconcluido == 100 ? "" : $projetoDadosValidos->domcoratraso; ?>"><?php echo $this->projeto->retornaPrazoEmDias(); ?> dias</span>
-                        </td>
+                        <td>(<?php echo $this->projeto->retornaMetaEmDias(); ?>.dias) <?php echo $this->projeto->datinicio->toString('d/m/Y'); ?> &agrave; <?php echo $this->projeto->datfim->toString('d/m/Y'); ?></td>
+                        <th>Previsto:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->numpercentualprevisto; ?>%</td>
+                        <th>Ultimo Acompanhamento:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->datacompanhamento; ?></td>
+                        <th>Prazo atual:</th>
+                        <td><span class="badge badge-<?php echo $this->projeto->retornaDescricaoPrazo(); ?>"><?php echo $this->projeto->retornaPrazoEmDias(); ?> dias</span></td>
                     </tr>
                     <tr>
                         <th>Gerente:</th>
                         <td><?php echo $this->projeto->gerenteprojeto->nompessoa; ?></td>
                         <th>Tendência:</th>
-                        <td>
-                            <span id="spanTendencia"><?php echo $this->projeto->datinicio->toString('d/m/Y'); ?> a <?php echo $this->projeto->ultimoStatusReport->datfimprojetotendencia->toString('d/m/Y'); ?>  -  <?php echo $this->projeto->retornaTendenciaEmDias(); ?> dias</span>
-                        </td>
-                        <th>% concluído realizado:</th>
-                        <td><span id="spanConcluido"><?php echo $projetoDadosValidos->numpercentualconcluido; ?>%</span>
-                        </td>
+                        <td>(<?php echo $this->projeto->retornaTendenciaEmDias(); ?>.dias) Termino em: <?php echo $this->projeto->ultimoStatusReport->datfimprojetotendencia; ?></td>
+                        <th>Concluído:</th>
+                        <td><?php echo $this->projeto->ultimoStatusReport->numpercentualconcluido; ?>%</td>
                         <th>Status:</th>
-                        <td>
-                            <span id="spanStatus"><strong><?php echo $this->projeto->ultimoStatusReport->nomdomstatusprojeto; ?></strong></span>
-                        </td>
+                        <td><?php echo $this->projeto->ultimoStatusReport->domstatusprojeto; ?></td>
                         <th>Risco:</th>
-                        <td><span id="spanRisco"
-                                  class="badge badge-<?php echo $this->projeto->retornaDescricaoRisco(); ?>"><?php echo $this->projeto->ultimoStatusReport->nomdomcorrisco; ?></span>
-                        </td>
+                        <td><span class="badge badge-<?php echo $this->projeto->retornaDescricaoRisco(); ?>">Risco</span></td>
                     </tr>
                     <tr>
-                        <th>Adjunto:</th>
+                        <th>Gerente Adjunto:</th>
                         <td><?php echo $this->projeto->gerenteadjunto->nompessoa; ?></td>
                         <th>Alinhamento Estratégico:</th>
-                        <td colspan=""><?php echo $this->projeto->objetivo->nomobjetivo, ' <br /> ', $this->projeto->acao->nomacao; ?></td>
-                        <th>% de Marcos Concluído do Projeto:</th>
-                        <td colspan=""><?php echo $projetoDadosValidos->numpercentualconcluidomarco . "%"; ?></td>
-                        <th>Nº do Processo:</th>
-                        <td colspan=""><?php echo $this->projeto->maskSei($this->projeto->numprocessosei,
-                                '#####.######/####-##'); ?></td>
+                        <td colspan="3"><?php echo $this->projeto->objetivo->nomobjetivo, ' <br /> ', $this->projeto->acao->nomacao ; ?></td>
                         <th>Natureza:</th>
-                        <td colspan="<?php echo ($this->projeto->flacopa == 'S') ? 2 : 1; ?>"><?php echo isset($this->projeto->natureza->nomnatureza) ? $this->projeto->natureza->nomnatureza : ''; ?></td>
-                        <?php if ($this->projeto->flacopa == 'S'): ?>
-                            <td><span class="label label-info">Projeto da Copa de 2014</span></td>
+                        <td colspan="<?php echo ($this->projeto->flacopa == 'S') ? 2 : 3; ?>"><?php echo isset($this->projeto->natureza->nomnatureza)? $this->projeto->natureza->nomnatureza : '' ; ?></td>
+                        <?php if($this->projeto->flacopa == 'S'): ?>
+                            <td><span class="label label-info">Projeto dos Grandes Eventos</span></td>
                         <?php endif; ?>
                     </tr>
-                    <tr>
-                        <th>Ativ. não iniciadas:</th>
-                        <td>
-                            <?php
-                            echo ((int)$projetoDadosValidos->qtdeatividadenaoiniciada) . ' atividade(s) (' . $projetoDadosValidos->numpercentualnaoiniciado . '%)';
-                            ?>
-                        </td>
-                        <th>Atividades iniciadas:</th>
-                        <td>
-                            <?php
-                            echo ((int)$projetoDadosValidos->qtdeatividadeiniciada) . ' atividade(s) (' . $projetoDadosValidos->numpercentualiniciado . '%)';
-                            ?>
-                        </td>
-                        <th>Atividades concluídas:</th>
-                        <td>
-                            <?php
-                            echo ((int)$projetoDadosValidos->qtdeatividadeconcluida) . ' atividade(s) (' . $projetoDadosValidos->numpercentualatividadeconcluido . '%)';
-                            ?>
-                        </td>
-                        <th></th>
-                        <td></td>
-                        <th></th>
-                        <td></td>
-                    </tr>
                 </table>
-
-                <!--
-                : PF_06 - Implantação da Gestão por Competências
-                Patroci.:	LUIZ FERNANDO CORREA 	Meta:(500.d)	01/06/2009 à 14/10/2010 	Previsto:	100% 	Ult.Foto:	17/02/2011 	Prazo:	[207]
-                Gerente:	ANISIO SOARES VIEIRA 	Tendência:	09/05/2011 (707.d) 	Concluído:	92%
-                Em Andamento
-                Risco:
-                Adjunto:	JORGEVAL SILVA COSTA 	Alinhamento Estratégico:	02 - Valorizar o Servidor
-                - 01 - Gestão por Competência 	Natureza:	ESTRUTURAÇÃO ORGANIZACIONAL
-                -->
+                                             
             </div>
         </div>
     </div>

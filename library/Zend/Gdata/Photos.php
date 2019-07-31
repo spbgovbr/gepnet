@@ -155,27 +155,21 @@ class Zend_Gdata_Photos extends Zend_Gdata
                 $location->setUser($userName);
             }
             $uri = $location->getQueryUrl();
-        } else {
-            if ($location instanceof Zend_Gdata_Query) {
-                if ($userName !== null) {
-                    $location->setUser($userName);
-                }
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location !== null) {
-                    $uri = $location;
-                } else {
-                    if ($userName !== null) {
-                        $uri = self::PICASA_BASE_FEED_URI . '/' .
-                            self::DEFAULT_PROJECTION . '/' . self::USER_PATH . '/' .
-                            $userName;
-                    } else {
-                        $uri = self::PICASA_BASE_FEED_URI . '/' .
-                            self::DEFAULT_PROJECTION . '/' . self::USER_PATH . '/' .
-                            self::DEFAULT_USER;
-                    }
-                }
+        } else if ($location instanceof Zend_Gdata_Query) {
+            if ($userName !== null) {
+                $location->setUser($userName);
             }
+            $uri = $location->getQueryUrl();
+        } else if ($location !== null) {
+            $uri = $location;
+        } else if ($userName !== null) {
+            $uri = self::PICASA_BASE_FEED_URI . '/' .
+                self::DEFAULT_PROJECTION . '/' . self::USER_PATH . '/' .
+                $userName;
+        } else {
+            $uri = self::PICASA_BASE_FEED_URI . '/' .
+                self::DEFAULT_PROJECTION . '/' . self::USER_PATH . '/' .
+                self::DEFAULT_USER;
         }
 
         return parent::getFeed($uri, 'Zend_Gdata_Photos_UserFeed');
@@ -195,18 +189,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('feed');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('feed');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getFeed($uri, 'Zend_Gdata_Photos_AlbumFeed');
     }
@@ -228,17 +218,13 @@ class Zend_Gdata_Photos extends Zend_Gdata
             $uri = self::PICASA_BASE_FEED_URI . '/' .
                 self::DEFAULT_PROJECTION . '/' .
                 self::COMMUNITY_SEARCH_PATH;
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('feed');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('feed');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getFeed($uri, 'Zend_Gdata_Photos_PhotoFeed');
     }
@@ -256,18 +242,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('entry');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('entry');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Photos_UserEntry');
     }
@@ -285,18 +267,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('entry');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('entry');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Photos_AlbumEntry');
     }
@@ -314,18 +292,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('entry');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('entry');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Photos_PhotoEntry');
     }
@@ -343,18 +317,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('entry');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('entry');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Photos_TagEntry');
     }
@@ -372,18 +342,14 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($location === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'Location must not be null');
+                    'Location must not be null');
+        } else if ($location instanceof Zend_Gdata_Photos_UserQuery) {
+            $location->setType('entry');
+            $uri = $location->getQueryUrl();
+        } else if ($location instanceof Zend_Gdata_Query) {
+            $uri = $location->getQueryUrl();
         } else {
-            if ($location instanceof Zend_Gdata_Photos_UserQuery) {
-                $location->setType('entry');
-                $uri = $location->getQueryUrl();
-            } else {
-                if ($location instanceof Zend_Gdata_Query) {
-                    $uri = $location->getQueryUrl();
-                } else {
-                    $uri = $location;
-                }
-            }
+            $uri = $location;
         }
         return parent::getEntry($uri, 'Zend_Gdata_Photos_CommentEntry');
     }
@@ -432,7 +398,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($uri === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'URI must not be null');
+                    'URI must not be null');
         }
         $newEntry = $this->insertEntry($photo, $uri, 'Zend_Gdata_Photos_PhotoEntry');
         return $newEntry;
@@ -458,7 +424,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($uri === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'URI must not be null');
+                    'URI must not be null');
         }
         $newEntry = $this->insertEntry($tag, $uri, 'Zend_Gdata_Photos_TagEntry');
         return $newEntry;
@@ -485,7 +451,7 @@ class Zend_Gdata_Photos extends Zend_Gdata
         if ($uri === null) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                'URI must not be null');
+                    'URI must not be null');
         }
         $newEntry = $this->insertEntry($comment, $uri, 'Zend_Gdata_Photos_CommentEntry');
         return $newEntry;

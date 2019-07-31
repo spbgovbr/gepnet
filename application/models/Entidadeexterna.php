@@ -8,10 +8,10 @@
 class Default_Model_Entidadeexterna extends App_Model_ModelAbstract
 {
 
-    public $identidadeexterna = null;
+    public $identidadeexterna  = null;
     public $nomentidadeexterna = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
+    public $idcadastrador      = null;
+    public $datcadastro        = null;
 
 }
 

@@ -16,8 +16,8 @@ class App_Mask_TelefoneCelular
      * DDD.DDD.DDD-DD
      */
 
-    const PATTERN = '/([\d]{2})([\d]{4})([\d]{4})/';
-    const PATTERN_SP = '/([\d]{2})([\d]{4})([\d]{5})/';
+    const PATTERN     = '/([\d]{2})([\d]{4})([\d]{4})/';
+    const PATTERN_SP  = '/([\d]{2})([\d]{4})([\d]{5})/';
     const REPLACEMENT = '($1) $2-$3';
 
     public $valor;
@@ -29,17 +29,17 @@ class App_Mask_TelefoneCelular
 
     public function _()
     {
-        return (string)$this;
+        return (string) $this;
     }
 
     public function __toString()
     {
-        $valor = $this->valor;
-        $filtros = new Zend_Filter();
+        $valor         = $this->valor;
+        $filtros       = new Zend_Filter();
         $filtros
             ->addFilter(new Zend_Filter_Digits());
         $valorFiltrado = $filtros->filter($valor);
-        if (strlen($valorFiltrado) == 10) {
+        if ( strlen($valorFiltrado) == 10 ) {
             return preg_replace(self::PATTERN, self::REPLACEMENT, $valorFiltrado);
         }
         return preg_replace(self::PATTERN_SP, self::REPLACEMENT, $valorFiltrado);

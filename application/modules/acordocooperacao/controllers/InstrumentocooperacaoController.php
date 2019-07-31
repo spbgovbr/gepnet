@@ -25,7 +25,7 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $service = new Acordocooperacao_Service_Acordo();
         $this->view->acordo = $service->getByIdDetalhar($this->_request->getParams());
 //        Zend_Debug::dump($this->view->acordo); exit;
-        if ($this->view->acordo->descaminho) {
+        if($this->view->acordo->descaminho){
             $this->view->anexo = $service->retornaAnexo($this->view->acordo);
         }
     }
@@ -36,39 +36,40 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $form = $service->getForm();
         $success = false;
 
-        if ($this->_request->isPost()) {
+        if($this->_request->isPost()){
             $dados = $this->_request->getPost();
-            if ($form->isValid($dados)) {
+            if($form->isValid($dados)){
                 $instrumento = $service->inserir($dados);
-                if ($instrumento) {
+                if($instrumento){
                     $success = true;
-                    $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
+                    $msg     = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
                 } else {
                     $msg = $service->getErrors();
                 }
             } else {
+                Zend_Debug::dump($form->getAttrib('max'));exit;
 
-                $msg = $form->getErrorMessages();
-                //App_Service_ServiceAbstract::REGISTROS_OBRIGATORIOS;
+                $msg = $form-> getErrorMessages();
+                    //App_Service_ServiceAbstract::REGISTROS_OBRIGATORIOS;
             }
         }
 
 
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            if ($this->_request->isXmlHttpRequest()) {
+            if($this->_request->isXmlHttpRequest()){
 
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text' => $msg,
-                    'type' => ($success) ? 'success' : 'error',
-                    'hide' => true,
-                    'closer' => true,
+                    'text'    => $msg,
+                    'type'    => ($success) ? 'success' : 'error',
+                    'hide'    => true,
+                    'closer'  => true,
                     'sticker' => false
                 );
             } else {
 
-                if ($success) {
+                if($success){
                     $this->_helper->_redirector->gotoSimpleAndExit('add', 'instrumentocooperacao', 'acordocooperacao');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -83,12 +84,12 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $serviceEntidadeExterna = new Acordocooperacao_Service_Entidadeexterna();
         $form = $service->getFormEditar();
         $success = false;
-        if ($this->_request->isPost()) {
+        if($this->_request->isPost()){
             $dados = $this->_request->getPost();
             $instrumento = $service->update($dados);
-            if ($instrumento) {
+            if($instrumento){
                 $success = true;
-                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -98,7 +99,7 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
             $entidades = $serviceEntidadeExterna->retornaEntidadesExternas($this->_request->getParams());
 //            Zend_Debug::dump($entidades); exit;
 //            Zend_Debug::dump($instrumento); exit;
-            if ($instrumento['descaminho']) {
+            if($instrumento['descaminho']){
                 $this->view->anexo = $service->retornaAnexo($instrumento);
             }
             $form->populate($instrumento);
@@ -108,19 +109,18 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
 
         $this->view->form = $form;
         if ($this->_request->isPost()) {
-            if ($this->_request->isXmlHttpRequest()) {
+            if($this->_request->isXmlHttpRequest()){
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text' => $msg,
-                    'type' => ($success) ? 'success' : 'error',
-                    'hide' => true,
-                    'closer' => true,
+                    'text'    => $msg,
+                    'type'    => ($success) ? 'success' : 'error',
+                    'hide'    => true,
+                    'closer'  => true,
                     'sticker' => false
                 );
             } else {
-                if ($success) {
-                    $this->_helper->_redirector->gotoSimpleAndExit('index', 'instrumentocooperacao',
-                        'acordocooperacao');
+                if($success){
+                    $this->_helper->_redirector->gotoSimpleAndExit('index', 'instrumentocooperacao', 'acordocooperacao');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
                 $this->_helper->_redirector->gotoSimpleAndExit('in', 'log', 'default');
@@ -138,8 +138,7 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
     }
 
 
-    public function downloadAction()
-    {
+    public function downloadAction(){
         $dados = $this->_request->getParams();
 //        print "<PRE>";
 //        $project = strstr($dados['file'],'-',true);
@@ -155,13 +154,13 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $file = $service->getDownloadConfig($dados);
 
 //        var_dump($dados);
-        $filename = str_replace(" ", "-", basename($file->path));
+        $filename = str_replace(" ","-",basename($file->path));
 //        var_dump(str_replace(" ","-",basename($file->path)));
 //        var_dump(mime_content_type ($file->path)); exit;
 
         header('Content-Description: File Transfer');
-        header('Content-Type: ' . mime_content_type($file->path));
-        header('Content-Disposition: attachment; filename=' . $filename);
+        header('Content-Type: '.mime_content_type ($file->path));
+        header('Content-Disposition: attachment; filename='.$filename);
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

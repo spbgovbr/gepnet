@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["nso"] = {
         name: "nso",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-%n", "%n"],
+                pattern: ["-%n","%n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["$-n", "$ n"],
+                pattern: ["$-n","$ n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Lamorena", "Mošupologo", "Labobedi", "Laboraro", "Labone", "Labohlano", "Mokibelo"],
-                    namesAbbr: ["Lam", "Moš", "Lbb", "Lbr", "Lbn", "Lbh", "Mok"],
-                    namesShort: ["L", "M", "L", "L", "L", "L", "M"]
+                    names: ["Lamorena","Mošupologo","Labobedi","Laboraro","Labone","Labohlano","Mokibelo"],
+                    namesAbbr: ["Lam","Moš","Lbb","Lbr","Lbn","Lbh","Mok"],
+                    namesShort: ["L","M","L","L","L","L","M"]
                 },
                 months: {
-                    names: ["Pherekgong", "Hlakola", "Mopitlo", "Moranang", "Mosegamanye", "Ngoatobošego", "Phuphu", "Phato", "Lewedi", "Diphalana", "Dibatsela", "Manthole", ""],
-                    namesAbbr: ["Pher", "Hlak", "Mop", "Mor", "Mos", "Ngwat", "Phup", "Phat", "Lew", "Dip", "Dib", "Man", ""]
+                    names: ["Pherekgong","Hlakola","Mopitlo","Moranang","Mosegamanye","Ngoatobošego","Phuphu","Phato","Lewedi","Diphalana","Dibatsela","Manthole",""],
+                    namesAbbr: ["Pher","Hlak","Mop","Mor","Mos","Ngwat","Phup","Phat","Lew","Dip","Dib","Man",""]
                 },
-                AM: ["AM", "am", "AM"],
-                PM: ["PM", "pm", "PM"],
+                AM: ["AM","am","AM"],
+                PM: ["PM","pm","PM"],
                 patterns: {
                     d: "yyyy/MM/dd",
                     D: "dd MMMM yyyy",

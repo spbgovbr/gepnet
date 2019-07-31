@@ -15,10 +15,10 @@ kendo_module({
     name: "Calendar",
     category: "web",
     description: "The Calendar widget renders a graphical calendar that supports navigation and selection.",
-    depends: ["core"]
+    depends: [ "core" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         support = kendo.support,
         ui = kendo.ui,
@@ -31,8 +31,8 @@ kendo_module({
         getCulture = kendo.getCulture,
         transitions = kendo.support.transitions,
         transitionOrigin = transitions ? transitions.css + "transform-origin" : "",
-        cellTemplate = template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link" href="\\#" data-#=data.ns#value="#=data.dateString#">#=data.value#</a></td>', {useWithBlock: false}),
-        emptyCellTemplate = template('<td role="gridcell">&nbsp;</td>', {useWithBlock: false}),
+        cellTemplate = template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link" href="\\#" data-#=data.ns#value="#=data.dateString#">#=data.value#</a></td>', { useWithBlock: false }),
+        emptyCellTemplate = template('<td role="gridcell">&nbsp;</td>', { useWithBlock: false }),
         browser = kendo.support.browser,
         isIE8 = browser.msie && browser.version < 9,
         ns = ".kendoCalendar",
@@ -77,7 +77,7 @@ kendo_module({
         };
 
     var Calendar = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this, value, id;
 
             Widget.fn.init.call(that, element, options);
@@ -94,22 +94,22 @@ kendo_module({
             that._footer(that.footer);
 
             id = element
-                .addClass("k-widget k-calendar")
-                .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE, CELLSELECTOR, mousetoggle)
-                .on(KEYDOWN_NS, "table.k-content", proxy(that._move, that))
-                .on(CLICK, CELLSELECTOR, function (e) {
-                    var link = e.currentTarget.firstChild;
+                    .addClass("k-widget k-calendar")
+                    .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE, CELLSELECTOR, mousetoggle)
+                    .on(KEYDOWN_NS, "table.k-content", proxy(that._move, that))
+                    .on(CLICK, CELLSELECTOR, function(e) {
+                        var link = e.currentTarget.firstChild;
 
-                    if (link.href.indexOf("#") != -1) {
-                        e.preventDefault();
-                    }
+                        if (link.href.indexOf("#") != -1) {
+                            e.preventDefault();
+                        }
 
-                    that._click($(link));
-                })
-                .on("mouseup" + ns, function () {
-                    that._focusView(that.options.focusOnNav !== false);
-                })
-                .attr(ID);
+                        that._click($(link));
+                    })
+                    .on("mouseup" + ns, function() {
+                        that._focusView(that.options.focusOnNav !== false);
+                    })
+                    .attr(ID);
 
             if (id) {
                 that._cellID = id + "_cell_selected";
@@ -121,12 +121,12 @@ kendo_module({
             that._index = views[options.start];
             that._current = new DATE(+restrictValue(value, options.min, options.max));
 
-            that._addClassProxy = function () {
+            that._addClassProxy = function() {
                 that._active = true;
                 that._cell.addClass(FOCUSED);
             };
 
-            that._removeClassProxy = function () {
+            that._removeClassProxy = function() {
                 that._active = false;
                 that._cell.removeClass(FOCUSED);
             };
@@ -144,9 +144,9 @@ kendo_module({
             dates: [],
             url: "",
             culture: "",
-            footer: "",
-            format: "",
-            month: {},
+            footer : "",
+            format : "",
+            month : {},
             start: MONTH,
             depth: MONTH,
             animation: {
@@ -168,13 +168,13 @@ kendo_module({
             NAVIGATE
         ],
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             normalize(options);
 
             Widget.fn.setOptions.call(this, options);
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this,
                 today = that._today;
 
@@ -192,37 +192,37 @@ kendo_module({
             Widget.fn.destroy.call(that);
         },
 
-        current: function () {
+        current: function() {
             return this._current;
         },
 
-        view: function () {
+        view: function() {
             return this._view;
         },
 
-        focus: function (table) {
+        focus: function(table) {
             table = table || this._table;
             this._bindTable(table);
             table.focus();
         },
 
-        min: function (value) {
+        min: function(value) {
             return this._option(MIN, value);
         },
 
-        max: function (value) {
+        max: function(value) {
             return this._option("max", value);
         },
 
-        navigateToPast: function () {
+        navigateToPast: function() {
             this._navigate(PREVARROW, -1);
         },
 
-        navigateToFuture: function () {
+        navigateToFuture: function() {
             this._navigate(NEXTARROW, 1);
         },
 
-        navigateUp: function () {
+        navigateUp: function() {
             var that = this,
                 index = that._index;
 
@@ -233,10 +233,10 @@ kendo_module({
             that.navigate(that._current, ++index);
         },
 
-        navigateDown: function (value) {
+        navigateDown: function(value) {
             var that = this,
-                index = that._index,
-                depth = that.options.depth;
+            index = that._index,
+            depth = that.options.depth;
 
             if (!value) {
                 return;
@@ -253,7 +253,7 @@ kendo_module({
             that.navigate(value, --index);
         },
 
-        navigate: function (value, view) {
+        navigate: function(value, view) {
             view = isNaN(view) ? views[view] : view;
 
             var that = this,
@@ -341,13 +341,13 @@ kendo_module({
             that._changeView = true;
         },
 
-        value: function (value) {
+        value: function(value) {
             var that = this,
-                view = that._view,
-                options = that.options,
-                old = that._view,
-                min = options.min,
-                max = options.max;
+            view = that._view,
+            options = that.options,
+            old = that._view,
+            min = options.min,
+            max = options.max;
 
             if (value === undefined) {
                 return that._value;
@@ -373,7 +373,7 @@ kendo_module({
             }
         },
 
-        _move: function (e) {
+        _move: function(e) {
             var that = this,
                 options = that.options,
                 key = e.keyCode,
@@ -446,7 +446,7 @@ kendo_module({
             return that._current;
         },
 
-        _animate: function (options) {
+        _animate: function(options) {
             var that = this,
                 from = options.from,
                 to = options.to,
@@ -471,7 +471,7 @@ kendo_module({
             }
         },
 
-        _horizontal: function (from, to, future) {
+        _horizontal: function(from, to, future) {
             var that = this,
                 active = that._active,
                 horizontal = that.options.animation.horizontal,
@@ -479,7 +479,7 @@ kendo_module({
                 viewWidth = from.outerWidth();
 
             if (effects && effects.indexOf(SLIDE) != -1) {
-                from.add(to).css({width: viewWidth});
+                from.add(to).css({ width: viewWidth });
 
                 from.wrap("<div/>");
 
@@ -497,7 +497,7 @@ kendo_module({
 
                 extend(horizontal, {
                     effects: SLIDE + ":" + (future ? "right" : LEFT),
-                    complete: function () {
+                    complete: function() {
                         from.remove();
                         to.unwrap();
 
@@ -511,7 +511,7 @@ kendo_module({
             }
         },
 
-        _vertical: function (from, to) {
+        _vertical: function(from, to) {
             var that = this,
                 vertical = that.options.animation.vertical,
                 effects = vertical.effects,
@@ -535,7 +535,7 @@ kendo_module({
                 from.kendoStop(true, true).kendoAnimate({
                     effects: "fadeOut",
                     duration: 600,
-                    complete: function () {
+                    complete: function() {
                         from.remove();
 
                         to.css({
@@ -554,14 +554,14 @@ kendo_module({
             }
         },
 
-        _cellByDate: function (value) {
+        _cellByDate: function(value) {
             return this._table.find("td:not(." + OTHERMONTH + ")")
-                .filter(function () {
-                    return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
-                });
+                       .filter(function() {
+                           return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
+                       });
         },
 
-        _class: function (className, value) {
+        _class: function(className, value) {
             var that = this,
                 id = that._cellID,
                 cell = that._cell;
@@ -572,12 +572,12 @@ kendo_module({
             }
 
             cell = that._table
-                .find("td:not(." + OTHERMONTH + ")")
-                .removeClass(className)
-                .filter(function () {
-                    return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
-                })
-                .attr(ARIA_SELECTED, true);
+                       .find("td:not(." + OTHERMONTH + ")")
+                       .removeClass(className)
+                       .filter(function() {
+                          return $(this.firstChild).attr(kendo.attr(VALUE)) === value;
+                       })
+                       .attr(ARIA_SELECTED, true);
 
             if (className === FOCUSED && !that._active && that.options.focusOnNav !== false) {
                 className = "";
@@ -601,7 +601,7 @@ kendo_module({
                 .on(BLUR, this._removeClassProxy);
         },
 
-        _click: function (link) {
+        _click: function(link) {
             var that = this,
                 options = that.options,
                 currentValue = new Date(+that._current),
@@ -616,7 +616,7 @@ kendo_module({
             that.navigateDown(restrictValue(currentValue, options.min, options.max));
         },
 
-        _focus: function (value) {
+        _focus: function(value) {
             var that = this,
                 view = that._view;
 
@@ -628,13 +628,13 @@ kendo_module({
             }
         },
 
-        _focusView: function (active, table) {
+        _focusView: function(active, table) {
             if (active) {
                 this.focus(table);
             }
         },
 
-        _footer: function (template) {
+        _footer: function(template) {
             var that = this,
                 today = getToday(),
                 element = that.element,
@@ -651,46 +651,37 @@ kendo_module({
             }
 
             that._today = footer.show()
-                .find(".k-link")
-                .html(template(today))
-                .attr("title", kendo.toString(today, "D", that.options.culture));
+                                .find(".k-link")
+                                .html(template(today))
+                                .attr("title", kendo.toString(today, "D", that.options.culture));
 
             that._toggle();
         },
 
-        _header: function () {
+        _header: function() {
             var that = this,
-                element = that.element,
-                active = that.options.focusOnNav !== false,
-                links;
+            element = that.element,
+            active = that.options.focusOnNav !== false,
+            links;
 
             if (!element.find(".k-header")[0]) {
                 element.html('<div class="k-header">' +
-                    '<a href="#" role="button" class="k-link k-nav-prev"><span class="k-icon k-i-arrow-w"></span></a>' +
-                    '<a href="#" role="button" aria-live="assertive" aria-atomic="true" class="k-link k-nav-fast"></a>' +
-                    '<a href="#" role="button" class="k-link k-nav-next"><span class="k-icon k-i-arrow-e"></span></a>' +
-                    '</div>');
+                             '<a href="#" role="button" class="k-link k-nav-prev"><span class="k-icon k-i-arrow-w"></span></a>' +
+                             '<a href="#" role="button" aria-live="assertive" aria-atomic="true" class="k-link k-nav-fast"></a>' +
+                             '<a href="#" role="button" class="k-link k-nav-next"><span class="k-icon k-i-arrow-e"></span></a>' +
+                             '</div>');
             }
 
             links = element.find(".k-link")
-                .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE + " " + FOCUS_WITH_NS + " " + BLUR, mousetoggle)
-                .click(false);
+                           .on(MOUSEENTER_WITH_NS + " " + MOUSELEAVE + " " + FOCUS_WITH_NS + " " + BLUR, mousetoggle)
+                           .click(false);
 
-            that._title = links.eq(1).on(CLICK, function () {
-                that._focusView(active);
-                that.navigateUp();
-            });
-            that[PREVARROW] = links.eq(0).on(CLICK, function () {
-                that._focusView(active);
-                that.navigateToPast();
-            });
-            that[NEXTARROW] = links.eq(2).on(CLICK, function () {
-                that._focusView(active);
-                that.navigateToFuture();
-            });
+            that._title = links.eq(1).on(CLICK, function() { that._focusView(active); that.navigateUp(); });
+            that[PREVARROW] = links.eq(0).on(CLICK, function() { that._focusView(active); that.navigateToPast(); });
+            that[NEXTARROW] = links.eq(2).on(CLICK, function() { that._focusView(active); that.navigateToFuture(); });
         },
 
-        _navigate: function (arrow, modifier) {
+        _navigate: function(arrow, modifier) {
             var that = this,
                 index = that._index + 1,
                 currentValue = new DATE(+that._current);
@@ -708,7 +699,7 @@ kendo_module({
             }
         },
 
-        _option: function (option, value) {
+        _option: function(option, value) {
             var that = this,
                 options = that.options,
                 selectedValue = +that._value,
@@ -744,7 +735,7 @@ kendo_module({
             that._toggle();
         },
 
-        _toggle: function (toggle) {
+        _toggle: function(toggle) {
             var that = this,
                 options = that.options,
                 link = that._today;
@@ -768,7 +759,7 @@ kendo_module({
             }
         },
 
-        _todayClick: function (e) {
+        _todayClick: function(e) {
             var that = this,
                 depth = views[that.options.depth],
                 today = getToday();
@@ -785,7 +776,7 @@ kendo_module({
             that.trigger(CHANGE);
         },
 
-        _templates: function () {
+        _templates: function() {
             var that = this,
                 options = that.options,
                 footer = options.footer,
@@ -794,12 +785,12 @@ kendo_module({
                 empty = month.empty;
 
             that.month = {
-                content: template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link#=data.linkClass#" href="#=data.url#" ' + kendo.attr("value") + '="#=data.dateString#" title="#=data.title#">' + (content || "#=data.value#") + '</a></td>', {useWithBlock: !!content}),
-                empty: template('<td role="gridcell">' + (empty || "&nbsp;") + "</td>", {useWithBlock: !!empty})
+                content: template('<td#=data.cssClass# role="gridcell"><a tabindex="-1" class="k-link#=data.linkClass#" href="#=data.url#" ' + kendo.attr("value") + '="#=data.dateString#" title="#=data.title#">' + (content || "#=data.value#") + '</a></td>', { useWithBlock: !!content }),
+                empty: template('<td role="gridcell">' + (empty || "&nbsp;") + "</td>", { useWithBlock: !!empty })
             };
 
             if (footer !== false) {
-                that.footer = template(footer || '#= kendo.toString(data,"D","' + options.culture + '") #', {useWithBlock: false});
+                that.footer = template(footer || '#= kendo.toString(data,"D","' + options.culture +'") #', { useWithBlock: false });
             }
         }
     });
@@ -819,7 +810,7 @@ kendo_module({
             calendarInfo = calendarInfo || kendo.culture().calendar;
 
             var firstDay = calendarInfo.firstDay,
-                firstVisibleDay = new DATE(date.getFullYear(), date.getMonth(), 0, date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
+            firstVisibleDay = new DATE(date.getFullYear(), date.getMonth(), 0, date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds());
 
             while (firstVisibleDay.getDay() != firstDay) {
                 calendar.setTime(firstVisibleDay, -1 * MS_PER_DAY);
@@ -830,38 +821,38 @@ kendo_module({
 
         setTime: function (date, time) {
             var tzOffsetBefore = date.getTimezoneOffset(),
-                resultDATE = new DATE(date.getTime() + time),
-                tzOffsetDiff = resultDATE.getTimezoneOffset() - tzOffsetBefore;
+            resultDATE = new DATE(date.getTime() + time),
+            tzOffsetDiff = resultDATE.getTimezoneOffset() - tzOffsetBefore;
 
             date.setTime(resultDATE.getTime() + tzOffsetDiff * MS_PER_MINUTE);
         },
         views: [{
             name: MONTH,
-            title: function (date, min, max, culture) {
+            title: function(date, min, max, culture) {
                 return getCalendarInfo(culture).months.names[date.getMonth()] + " " + date.getFullYear();
             },
-            content: function (options) {
+            content: function(options) {
                 var that = this,
-                    idx = 0,
-                    min = options.min,
-                    max = options.max,
-                    date = options.date,
-                    dates = options.dates,
-                    format = options.format,
-                    culture = options.culture,
-                    navigateUrl = options.url,
-                    hasUrl = navigateUrl && dates[0],
-                    currentCalendar = getCalendarInfo(culture),
-                    firstDayIdx = currentCalendar.firstDay,
-                    days = currentCalendar.days,
-                    names = shiftArray(days.names, firstDayIdx),
-                    shortNames = shiftArray(days.namesShort, firstDayIdx),
-                    start = calendar.firstVisibleDay(date, currentCalendar),
-                    firstDayOfMonth = that.first(date),
-                    lastDayOfMonth = that.last(date),
-                    toDateString = that.toDateString,
-                    today = new DATE(),
-                    html = '<table tabindex="0" role="grid" class="k-content" cellspacing="0"><thead><tr role="row">';
+                idx = 0,
+                min = options.min,
+                max = options.max,
+                date = options.date,
+                dates = options.dates,
+                format = options.format,
+                culture = options.culture,
+                navigateUrl = options.url,
+                hasUrl = navigateUrl && dates[0],
+                currentCalendar = getCalendarInfo(culture),
+                firstDayIdx = currentCalendar.firstDay,
+                days = currentCalendar.days,
+                names = shiftArray(days.names, firstDayIdx),
+                shortNames = shiftArray(days.namesShort, firstDayIdx),
+                start = calendar.firstVisibleDay(date, currentCalendar),
+                firstDayOfMonth = that.first(date),
+                lastDayOfMonth = that.last(date),
+                toDateString = that.toDateString,
+                today = new DATE(),
+                html = '<table tabindex="0" role="grid" class="k-content" cellspacing="0"><thead><tr role="row">';
 
                 for (; idx < 7; idx++) {
                     html += '<th scope="col" title="' + names[idx] + '">' + shortNames[idx] + '</th>';
@@ -881,7 +872,7 @@ kendo_module({
                     content: options.content,
                     empty: options.empty,
                     setter: that.setDate,
-                    build: function (date) {
+                    build: function(date) {
                         var cssClass = [],
                             day = date.getDay(),
                             linkClass = "",
@@ -918,10 +909,10 @@ kendo_module({
                     }
                 });
             },
-            first: function (date) {
+            first: function(date) {
                 return calendar.firstDayOfMonth(date);
             },
-            last: function (date) {
+            last: function(date) {
                 var last = new DATE(date.getFullYear(), date.getMonth() + 1, 0),
                     first = calendar.firstDayOfMonth(date),
                     timeOffset = Math.abs(last.getTimezoneOffset() - first.getTimezoneOffset());
@@ -932,12 +923,12 @@ kendo_module({
 
                 return last;
             },
-            compare: function (date1, date2) {
+            compare: function(date1, date2) {
                 var result,
-                    month1 = date1.getMonth(),
-                    year1 = date1.getFullYear(),
-                    month2 = date2.getMonth(),
-                    year2 = date2.getFullYear();
+                month1 = date1.getMonth(),
+                year1 = date1.getFullYear(),
+                month2 = date2.getMonth(),
+                year2 = date2.getFullYear();
 
                 if (year1 > year2) {
                     result = 1;
@@ -949,7 +940,7 @@ kendo_module({
 
                 return result;
             },
-            setDate: function (date, value) {
+            setDate: function(date, value) {
                 var hours = date.getHours();
                 if (value instanceof DATE) {
                     date.setFullYear(value.getFullYear(), value.getMonth(), value.getDate());
@@ -958,184 +949,184 @@ kendo_module({
                 }
                 adjustDST(date, hours);
             },
-            toDateString: function (date) {
+            toDateString: function(date) {
                 return date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
             }
         },
-            {
-                name: "year",
-                title: function (date) {
-                    return date.getFullYear();
-                },
-                content: function (options) {
-                    var namesAbbr = getCalendarInfo(options.culture).months.namesAbbr,
-                        toDateString = this.toDateString,
-                        min = options.min,
-                        max = options.max;
+        {
+            name: "year",
+            title: function(date) {
+                return date.getFullYear();
+            },
+            content: function(options) {
+                var namesAbbr = getCalendarInfo(options.culture).months.namesAbbr,
+                toDateString = this.toDateString,
+                min = options.min,
+                max = options.max;
 
-                    return view({
-                        min: new DATE(min.getFullYear(), min.getMonth(), 1),
-                        max: new DATE(max.getFullYear(), max.getMonth(), 1),
-                        start: new DATE(options.date.getFullYear(), 0, 1),
-                        setter: this.setDate,
-                        build: function (date) {
-                            return {
-                                value: namesAbbr[date.getMonth()],
-                                ns: kendo.ns,
-                                dateString: toDateString(date),
-                                cssClass: ""
-                            };
-                        }
-                    });
-                },
-                first: function (date) {
-                    return new DATE(date.getFullYear(), 0, date.getDate());
-                },
-                last: function (date) {
-                    return new DATE(date.getFullYear(), 11, date.getDate());
-                },
-                compare: function (date1, date2) {
-                    return compare(date1, date2);
-                },
-                setDate: function (date, value) {
-                    var month,
-                        hours = date.getHours();
+                return view({
+                    min: new DATE(min.getFullYear(), min.getMonth(), 1),
+                    max: new DATE(max.getFullYear(), max.getMonth(), 1),
+                    start: new DATE(options.date.getFullYear(), 0, 1),
+                    setter: this.setDate,
+                    build: function(date) {
+                        return {
+                            value: namesAbbr[date.getMonth()],
+                            ns: kendo.ns,
+                            dateString: toDateString(date),
+                            cssClass: ""
+                        };
+                    }
+                });
+            },
+            first: function(date) {
+                return new DATE(date.getFullYear(), 0, date.getDate());
+            },
+            last: function(date) {
+                return new DATE(date.getFullYear(), 11, date.getDate());
+            },
+            compare: function(date1, date2){
+                return compare(date1, date2);
+            },
+            setDate: function(date, value) {
+                var month,
+                    hours = date.getHours();
 
-                    if (value instanceof DATE) {
-                        month = value.getMonth();
+                if (value instanceof DATE) {
+                    month = value.getMonth();
 
-                        date.setFullYear(value.getFullYear(), month, date.getDate());
+                    date.setFullYear(value.getFullYear(), month, date.getDate());
 
-                        if (month !== date.getMonth()) {
-                            date.setDate(0);
-                        }
-                    } else {
-                        month = date.getMonth() + value;
+                    if (month !== date.getMonth()) {
+                        date.setDate(0);
+                    }
+                } else {
+                    month = date.getMonth() + value;
 
-                        date.setMonth(month);
+                    date.setMonth(month);
 
-                        if (month > 11) {
-                            month -= 12;
-                        }
-
-                        if (month > 0 && date.getMonth() != month) {
-                            date.setDate(0);
-                        }
+                    if (month > 11) {
+                        month -= 12;
                     }
 
-                    adjustDST(date, hours);
-                },
-                toDateString: function (date) {
-                    return date.getFullYear() + "/" + date.getMonth() + "/1";
-                }
-            },
-            {
-                name: "decade",
-                title: function (date, min, max) {
-                    return title(date, min, max, 10);
-                },
-                content: function (options) {
-                    var year = options.date.getFullYear(),
-                        toDateString = this.toDateString;
-
-                    return view({
-                        start: new DATE(year - year % 10 - 1, 0, 1),
-                        min: new DATE(options.min.getFullYear(), 0, 1),
-                        max: new DATE(options.max.getFullYear(), 0, 1),
-                        setter: this.setDate,
-                        build: function (date, idx) {
-                            return {
-                                value: date.getFullYear(),
-                                ns: kendo.ns,
-                                dateString: toDateString(date),
-                                cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
-                            };
-                        }
-                    });
-                },
-                first: function (date) {
-                    var year = date.getFullYear();
-                    return new DATE(year - year % 10, date.getMonth(), date.getDate());
-                },
-                last: function (date) {
-                    var year = date.getFullYear();
-                    return new DATE(year - year % 10 + 9, date.getMonth(), date.getDate());
-                },
-                compare: function (date1, date2) {
-                    return compare(date1, date2, 10);
-                },
-                setDate: function (date, value) {
-                    setDate(date, value, 1);
-                },
-                toDateString: function (date) {
-                    return date.getFullYear() + "/0/1";
-                }
-            },
-            {
-                name: CENTURY,
-                title: function (date, min, max) {
-                    return title(date, min, max, 100);
-                },
-                content: function (options) {
-                    var year = options.date.getFullYear(),
-                        min = options.min.getFullYear(),
-                        max = options.max.getFullYear(),
-                        toDateString = this.toDateString,
-                        minYear = min,
-                        maxYear = max;
-
-                    minYear = minYear - minYear % 10;
-                    maxYear = maxYear - maxYear % 10;
-
-                    if (maxYear - minYear < 10) {
-                        maxYear = minYear + 9;
+                    if (month > 0 && date.getMonth() != month) {
+                        date.setDate(0);
                     }
-
-                    return view({
-                        start: new DATE(year - year % 100 - 10, 0, 1),
-                        min: new DATE(minYear, 0, 1),
-                        max: new DATE(maxYear, 0, 1),
-                        setter: this.setDate,
-                        build: function (date, idx) {
-                            var start = date.getFullYear(),
-                                end = start + 9;
-
-                            if (start < min) {
-                                start = min;
-                            }
-
-                            if (end > max) {
-                                end = max;
-                            }
-
-                            return {
-                                ns: kendo.ns,
-                                value: start + " - " + end,
-                                dateString: toDateString(date),
-                                cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
-                            };
-                        }
-                    });
-                },
-                first: function (date) {
-                    var year = date.getFullYear();
-                    return new DATE(year - year % 100, date.getMonth(), date.getDate());
-                },
-                last: function (date) {
-                    var year = date.getFullYear();
-                    return new DATE(year - year % 100 + 99, date.getMonth(), date.getDate());
-                },
-                compare: function (date1, date2) {
-                    return compare(date1, date2, 100);
-                },
-                setDate: function (date, value) {
-                    setDate(date, value, 10);
-                },
-                toDateString: function (date) {
-                    var year = date.getFullYear();
-                    return (year - year % 10) + "/0/1";
                 }
-            }]
+
+                adjustDST(date, hours);
+            },
+            toDateString: function(date) {
+                return date.getFullYear() + "/" + date.getMonth() + "/1";
+            }
+        },
+        {
+            name: "decade",
+            title: function(date, min, max) {
+                return title(date, min, max, 10);
+            },
+            content: function(options) {
+                var year = options.date.getFullYear(),
+                toDateString = this.toDateString;
+
+                return view({
+                    start: new DATE(year - year % 10 - 1, 0, 1),
+                    min: new DATE(options.min.getFullYear(), 0, 1),
+                    max: new DATE(options.max.getFullYear(), 0, 1),
+                    setter: this.setDate,
+                    build: function(date, idx) {
+                        return {
+                            value: date.getFullYear(),
+                            ns: kendo.ns,
+                            dateString: toDateString(date),
+                            cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
+                        };
+                    }
+                });
+            },
+            first: function(date) {
+                var year = date.getFullYear();
+                return new DATE(year - year % 10, date.getMonth(), date.getDate());
+            },
+            last: function(date) {
+                var year = date.getFullYear();
+                return new DATE(year - year % 10 + 9, date.getMonth(), date.getDate());
+            },
+            compare: function(date1, date2) {
+                return compare(date1, date2, 10);
+            },
+            setDate: function(date, value) {
+                setDate(date, value, 1);
+            },
+            toDateString: function(date) {
+                return date.getFullYear() + "/0/1";
+            }
+        },
+        {
+            name: CENTURY,
+            title: function(date, min, max) {
+                return title(date, min, max, 100);
+            },
+            content: function(options) {
+                var year = options.date.getFullYear(),
+                min = options.min.getFullYear(),
+                max = options.max.getFullYear(),
+                toDateString = this.toDateString,
+                minYear = min,
+                maxYear = max;
+
+                minYear = minYear - minYear % 10;
+                maxYear = maxYear - maxYear % 10;
+
+                if (maxYear - minYear < 10) {
+                    maxYear = minYear + 9;
+                }
+
+                return view({
+                    start: new DATE(year - year % 100 - 10, 0, 1),
+                    min: new DATE(minYear, 0, 1),
+                    max: new DATE(maxYear, 0, 1),
+                    setter: this.setDate,
+                    build: function(date, idx) {
+                        var start = date.getFullYear(),
+                            end = start + 9;
+
+                        if (start < min) {
+                            start = min;
+                        }
+
+                        if (end > max) {
+                            end = max;
+                        }
+
+                        return {
+                            ns: kendo.ns,
+                            value: start + " - " + end,
+                            dateString: toDateString(date),
+                            cssClass: idx === 0 || idx == 11 ? OTHERMONTHCLASS : ""
+                        };
+                    }
+                });
+            },
+            first: function(date) {
+                var year = date.getFullYear();
+                return new DATE(year - year % 100, date.getMonth(), date.getDate());
+            },
+            last: function(date) {
+                var year = date.getFullYear();
+                return new DATE(year - year % 100 + 99, date.getMonth(), date.getDate());
+            },
+            compare: function(date1, date2) {
+                return compare(date1, date2, 100);
+            },
+            setDate: function(date, value) {
+                setDate(date, value, 10);
+            },
+            toDateString: function(date) {
+                var year = date.getFullYear();
+                return (year - year % 10) + "/0/1";
+            }
+        }]
     };
 
     function title(date, min, max, modular) {
@@ -1171,7 +1162,7 @@ kendo_module({
             empty = options.empty || emptyCellTemplate,
             html = options.html || '<table tabindex="0" role="grid" class="k-content k-meta-view" cellspacing="0"><tbody><tr role="row">';
 
-        for (; idx < length; idx++) {
+        for(; idx < length; idx++) {
             if (idx > 0 && idx % cellsPerRow === 0) {
                 html += '</tr><tr role="row">';
             }
@@ -1188,7 +1179,7 @@ kendo_module({
 
     function compare(date1, date2, modifier) {
         var year1 = date1.getFullYear(),
-            start = date2.getFullYear(),
+            start  = date2.getFullYear(),
             end = start,
             result = 0;
 
@@ -1211,7 +1202,7 @@ kendo_module({
         return new DATE(today.getFullYear(), today.getMonth(), today.getDate());
     }
 
-    function restrictValue(value, min, max) {
+    function restrictValue (value, min, max) {
         var today = getToday();
 
         if (value) {
@@ -1243,7 +1234,7 @@ kendo_module({
         $(this).toggleClass(HOVER, MOUSEENTER.indexOf(e.type) > -1 || e.type == FOCUS);
     }
 
-    function prevent(e) {
+    function prevent (e) {
         e.preventDefault();
     }
 
@@ -1279,7 +1270,7 @@ kendo_module({
     }
 
     function inArray(date, dates) {
-        for (var i = 0, length = dates.length; i < length; i++) {
+        for(var i = 0, length = dates.length; i < length; i++) {
             if (date === +dates[i]) {
                 return true;
             }
@@ -1290,15 +1281,15 @@ kendo_module({
     function isEqualDatePart(value1, value2) {
         if (value1) {
             return value1.getFullYear() === value2.getFullYear() &&
-                value1.getMonth() === value2.getMonth() &&
-                value1.getDate() === value2.getDate();
+                   value1.getMonth() === value2.getMonth() &&
+                   value1.getDate() === value2.getDate();
         }
 
         return false;
     }
 
     calendar.isEqualDatePart = isEqualDatePart;
-    calendar.makeUnselectable = makeUnselectable;
+    calendar.makeUnselectable =  makeUnselectable;
     calendar.restrictValue = restrictValue;
     calendar.isInRange = isInRange;
     calendar.normalize = normalize;

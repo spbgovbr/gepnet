@@ -228,8 +228,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:nickname attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoNickname
+     * @return string The requested attribute.
      */
     public function getGphotoNickname()
     {
@@ -251,8 +251,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:thumbnail attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoThumbnail
+     * @return string The requested attribute.
      */
     public function getGphotoThumbnail()
     {
@@ -274,8 +274,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:quotacurrent attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoQuotaCurrent
+     * @return string The requested attribute.
      */
     public function getGphotoQuotaCurrent()
     {
@@ -297,8 +297,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:quotalimit attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoQuotaLimit
+     * @return string The requested attribute.
      */
     public function getGphotoQuotaLimit()
     {
@@ -320,8 +320,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:maxPhotosPerAlbum attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoMaxPhotosPerAlbum
+     * @return string The requested attribute.
      */
     public function getGphotoMaxPhotosPerAlbum()
     {
@@ -343,8 +343,8 @@ class Zend_Gdata_Photos_UserEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:user attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoUser
+     * @return string The requested attribute.
      */
     public function getGphotoUser()
     {

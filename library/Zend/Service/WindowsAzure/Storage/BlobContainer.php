@@ -40,7 +40,7 @@ require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
  * @property string $Name          Name of the container
  * @property string $Etag          Etag of the container
  * @property string $LastModified  Last modified date of the container
- * @property array $Metadata      Key/value pairs of meta data
+ * @property array  $Metadata      Key/value pairs of meta data
  */
 class Zend_Service_WindowsAzure_Storage_BlobContainer
 {
@@ -54,29 +54,28 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
     /**
      * Constructor
      *
-     * @param string $name Name
-     * @param string $etag Etag
-     * @param string $lastModified Last modified date
-     * @param array $metadata Key/value pairs of meta data
+     * @param string $name          Name
+     * @param string $etag          Etag
+     * @param string $lastModified  Last modified date
+     * @param array  $metadata      Key/value pairs of meta data
      */
     public function __construct($name, $etag, $lastModified, $metadata = array())
     {
         $this->_data = array(
-            'name' => $name,
-            'etag' => $etag,
+            'name'         => $name,
+            'etag'         => $etag,
             'lastmodified' => $lastModified,
-            'metadata' => $metadata
+            'metadata'     => $metadata
         );
     }
 
     /**
      * Magic overload for setting properties
      *
-     * @param string $name Name of the property
-     * @param string $value Value to set
+     * @param string $name     Name of the property
+     * @param string $value    Value to set
      */
-    public function __set($name, $value)
-    {
+    public function __set($name, $value) {
         if (array_key_exists(strtolower($name), $this->_data)) {
             $this->_data[strtolower($name)] = $value;
             return;
@@ -88,10 +87,9 @@ class Zend_Service_WindowsAzure_Storage_BlobContainer
     /**
      * Magic overload for getting properties
      *
-     * @param string $name Name of the property
+     * @param string $name     Name of the property
      */
-    public function __get($name)
-    {
+    public function __get($name) {
         if (array_key_exists(strtolower($name), $this->_data)) {
             return $this->_data[strtolower($name)];
         }

@@ -91,12 +91,8 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         $bodyLines = 0;
         $message = $this->_protocol->top($id, $bodyLines, true);
 
-        return new $this->_messageClass(array(
-            'handler' => $this,
-            'id' => $id,
-            'headers' => $message,
-            'noToplines' => $bodyLines < 1
-        ));
+        return new $this->_messageClass(array('handler' => $this, 'id' => $id, 'headers' => $message,
+                                              'noToplines' => $bodyLines < 1));
     }
 
     /*
@@ -169,8 +165,8 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
         }
 
         $this->_has['fetchPart'] = false;
-        $this->_has['top'] = null;
-        $this->_has['uniqueid'] = null;
+        $this->_has['top']       = null;
+        $this->_has['uniqueid']  = null;
 
         if ($params instanceof Zend_Mail_Protocol_Pop3) {
             $this->_protocol = $params;
@@ -185,10 +181,10 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             throw new Zend_Mail_Storage_Exception('need at least user in params');
         }
 
-        $host = isset($params->host) ? $params->host : 'localhost';
+        $host     = isset($params->host)     ? $params->host     : 'localhost';
         $password = isset($params->password) ? $params->password : '';
-        $port = isset($params->port) ? $params->port : null;
-        $ssl = isset($params->ssl) ? $params->ssl : false;
+        $port     = isset($params->port)     ? $params->port     : null;
+        $ssl      = isset($params->ssl)      ? $params->ssl      : false;
 
         $this->_protocol = new Zend_Mail_Protocol_Pop3();
         $this->_protocol->connect($host, $port, $ssl);
@@ -222,7 +218,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
      * you should be careful and use a uniqueid as parameter if possible to
      * identify the message.
      *
-     * @param int $id number of message
+     * @param  int $id number of message
      * @return null
      * @throws Zend_Mail_Protocol_Exception
      */
@@ -291,10 +287,10 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
      * Special handling for hasTop and hasUniqueid. The headers of the first message is
      * retrieved if Top wasn't needed/tried yet.
      *
-     * @param string $var
+     * @see Zend_Mail_Storage_Abstract:__get()
+     * @param  string $var
      * @return string
      * @throws Zend_Mail_Storage_Exception
-     * @see Zend_Mail_Storage_Abstract:__get()
      */
     public function __get($var)
     {
@@ -308,7 +304,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
                 // need to make a real call, because not all server are honest in their capas
                 try {
                     $this->_protocol->top(1, 0, false);
-                } catch (Zend_Mail_Exception $e) {
+                } catch(Zend_Mail_Exception $e) {
                     // ignoring error
                 }
             }
@@ -320,7 +316,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
             $id = null;
             try {
                 $id = $this->_protocol->uniqueid(1);
-            } catch (Zend_Mail_Exception $e) {
+            } catch(Zend_Mail_Exception $e) {
                 // ignoring error
             }
             $this->_has['uniqueid'] = $id ? true : false;

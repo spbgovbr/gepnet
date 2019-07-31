@@ -63,7 +63,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
     ) {
         return $requestUrl;
     }
-
+    
     /**
      * Sign request headers with credentials
      *
@@ -74,7 +74,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
      * @param boolean $forTableStorage Is the request for table storage?
      * @param string $resourceType Resource type
      * @param string $requiredPermission Required permission
-     * @param mixed $rawData Raw post data
+     * @param mixed  $rawData Raw post data
      * @return array Array of headers
      */
     public function signRequestHeaders(
@@ -91,7 +91,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
         if (!$forTableStorage) {
             throw new Zend_Service_WindowsAzure_Credentials_Exception('The Windows Azure SDK for PHP does not support SharedKeyLite authentication on blob or queue storage. Use SharedKey authentication instead.');
         }
-
+        
         // Determine path
         if ($this->_usePathStyleUri) {
             $path = substr($path, strpos($path, '/'));
@@ -101,7 +101,7 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
         $queryString = $this->_prepareQueryStringForSigning($queryString);
 
         // Build canonicalized resource string
-        $canonicalizedResource = '/' . $this->_accountName;
+        $canonicalizedResource  = '/' . $this->_accountName;
         if ($this->_usePathStyleUri) {
             $canonicalizedResource .= '/' . $this->_accountName;
         }
@@ -118,46 +118,46 @@ class Zend_Service_WindowsAzure_Credentials_SharedKeyLite
             $requestDate = gmdate('D, d M Y H:i:s', time()) . ' GMT'; // RFC 1123
         }
 
-        // Create string to sign
-        $stringToSign = array();
-        $stringToSign[] = $requestDate; // Date
-        $stringToSign[] = $canonicalizedResource;                    // Canonicalized resource
-        $stringToSign = implode("\n", $stringToSign);
-        $signString = base64_encode(hash_hmac('sha256', $stringToSign, $this->_accountKey, true));
+		// Create string to sign
+		$stringToSign   = array();
+    	$stringToSign[] = $requestDate; // Date
+    	$stringToSign[] = $canonicalizedResource;		 			// Canonicalized resource
+    	$stringToSign   = implode("\n", $stringToSign);
+    	$signString     = base64_encode(hash_hmac('sha256', $stringToSign, $this->_accountKey, true));
 
-        // Sign request
-        $headers[Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::PREFIX_STORAGE_HEADER . 'date'] = $requestDate;
-        $headers['Authorization'] = 'SharedKeyLite ' . $this->_accountName . ':' . $signString;
-
-        // Return headers
-        return $headers;
-    }
-
-    /**
-     * Prepare query string for signing
-     *
-     * @param string $value Original query string
-     * @return string        Query string for signing
-     */
-    protected function _prepareQueryStringForSigning($value)
-    {
-        // Check for 'comp='
-        if (strpos($value, 'comp=') === false) {
-            // If not found, no query string needed
-            return '';
-        } else {
-            // If found, make sure it is the only parameter being used
-            if (strlen($value) > 0 && strpos($value, '?') === 0) {
-                $value = substr($value, 1);
-            }
-
-            // Split parts
-            $queryParts = explode('&', $value);
-            foreach ($queryParts as $queryPart) {
-                if (strpos($queryPart, 'comp=') !== false) {
-                    return '?' . $queryPart;
-                }
-            }
+    	// Sign request
+    	$headers[Zend_Service_WindowsAzure_Credentials_CredentialsAbstract::PREFIX_STORAGE_HEADER . 'date'] = $requestDate;
+    	$headers['Authorization'] = 'SharedKeyLite ' . $this->_accountName . ':' . $signString;
+    	
+    	// Return headers
+    	return $headers;
+	}
+	
+	/**
+	 * Prepare query string for signing
+	 *
+	 * @param  string $value Original query string
+	 * @return string        Query string for signing
+	 */
+	protected function _prepareQueryStringForSigning($value)
+	{
+	    // Check for 'comp='
+	    if (strpos($value, 'comp=') === false) {
+	        // If not found, no query string needed
+	        return '';
+	    } else {
+	        // If found, make sure it is the only parameter being used
+    		if (strlen($value) > 0 && strpos($value, '?') === 0) {
+    			$value = substr($value, 1);
+    		}
+    		
+    		// Split parts
+    		$queryParts = explode('&', $value);
+    		foreach ($queryParts as $queryPart) {
+    		    if (strpos($queryPart, 'comp=') !== false) {
+    		        return '?' . $queryPart;
+    		    }
+    		}
 
             // Should never happen...
             return '';

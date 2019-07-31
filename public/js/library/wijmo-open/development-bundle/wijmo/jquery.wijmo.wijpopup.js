@@ -22,13 +22,13 @@
     "use strict";
     $.fn.extend({
         getBounds: function () {
-            return $.extend({}, $(this).offset(), {width: $(this).outerWidth(true), height: $(this).outerHeight(true)});
+            return $.extend({}, $(this).offset(), { width: $(this).outerWidth(true), height: $(this).outerHeight(true) });
         },
 
         setBounds: function (bounds) {
-            $(this).css({'left': bounds.left, 'top': bounds.top})
-                .width(bounds.width)
-                .height(bounds.height);
+            $(this).css({ 'left': bounds.left, 'top': bounds.top })
+				.width(bounds.width)
+				.height(bounds.height);
             return this;
         },
 
@@ -137,9 +137,7 @@
         _init: function () {
             if (!!this.options.ensureOutermost) {
                 var root = $('form');
-                if (root.length === 0) {
-                    root = $(document.body);
-                }
+                if (root.length === 0) { root = $(document.body); }
                 this.element.appendTo(root);
             }
 
@@ -157,23 +155,17 @@
             if (key === 'autoHide') {
                 var visible = this.isVisible();
                 this.hide();
-                if (visible) {
-                    this.show();
-                }
+                if (visible) { this.show(); }
             }
         },
 
         destroy: function () {
             $.Widget.prototype.destroy.apply(this, arguments);
-            if (this.isVisible()) {
-                this.hide();
-            }
+            if (this.isVisible()) { this.hide(); }
 
             if ($.browser.msie && ($.browser.version < 7)) {
                 jFrame = this.element.data('backframe.wijpopup');
-                if (!jFrame) {
-                    jFrame.remove();
-                }
+                if (!jFrame) { jFrame.remove(); }
             }
 
             var self = this;
@@ -191,35 +183,31 @@
         isAnimating: function () {
             return !!this.element.data("animating.wijpopup");
         },
-
-        _pushQueue: function () {
-            var $win = $(window), arr = $win.data('wijPopupQueue'), len;
-            if (!arr) {
-                arr = new Array();
-                $win.data('wijPopupQueue', arr);
-            }
-
-            return arr.push(this);
-        },
+		
+		_pushQueue: function(){
+			var $win = $(window), arr = $win.data('wijPopupQueue'), len;
+			if (!arr){
+				arr = new Array();
+				$win.data('wijPopupQueue', arr);
+			}
+			
+			return arr.push(this);
+		},
 
         show: function (position) {
             /// <summary>Popups the element.  Position is an optional argument, it is the options object used in jquery.ui.position.</summary>
             this._setPosition(position);
-            if (this.isVisible()) {
-                return;
-            }
+            if (this.isVisible()) { return; }
 
-            if (this._trigger('showing') === false) {
-                return;
-            }
+            if (this._trigger('showing') === false) { return; }
 
-            var self = this;
+			var self = this;
             if (this.options.autoHide) {
-                if (this._pushQueue() === 1) {
-                    $(document).bind('mouseup.wijpopup', function (e) {
-                        self._onDocMouseUp(e);
-                    });
-                }
+				if (this._pushQueue() === 1){
+					$(document).bind('mouseup.wijpopup', function(e){
+						self._onDocMouseUp(e);
+					});
+				}
             }
 
             var effect = this.options.showEffect || "show";
@@ -238,7 +226,7 @@
                 this._showCompleted();
             }
         },
-
+		
         _showCompleted: function () {
             this.element.removeData("animating.wijpopup");
             this.element.data('visible.wijpopup', true);
@@ -257,13 +245,9 @@
 
         hide: function () {
             /// <summary>Hides the element.</summary>
-            if (!this.isVisible()) {
-                return;
-            }
+            if (!this.isVisible()) { return; }
 
-            if (this._trigger('hiding') === false) {
-                return;
-            }
+            if (this._trigger('hiding') === false) { return; }
 
             //$(document).unbind('mouseup.wijpopup');
 
@@ -290,57 +274,54 @@
             }
 
             this.element.removeData("animating.wijpopup")
-                .unbind('move.wijpopup');
+				.unbind('move.wijpopup');
 
             if ($.browser.msie && ($.browser.version < 7)) {
                 var jFrame = this.element.data('backframe.wijpopup');
-                if (jFrame) {
-                    jFrame.hide();
-                }
+                if (jFrame) { jFrame.hide(); }
             }
 
             this._trigger('hidden');
         },
 
         _onDocMouseUp: function (e) {
-            var $win = $(window),
-                $srcElement = $(e.target ? e.target : e.srcElement),
-                arr = $win.data('wijPopupQueue'),
-                wijPop;
-
-            if ($srcElement.parents().hasClass('wijmo-wijcombobox-list') || $srcElement.parents().hasClass('wijmo-wijcalendar')) {
-                return;
-            }
-
-            if (!!arr) {
-                while (wijPop = arr.pop()) {
-                    if (wijPop.isVisible()) {
-                        if (!!wijPop.options.autoHide) {
-                            if ($srcElement.get(0) != wijPop.element.get(0) && $srcElement.parents().index(wijPop.element) < 0) {
-                                wijPop.hide();
-                            } else {
-                                arr.push(wijPop);
-                            }
-
-                            break;
-                        }
-                    } else {
-                        break;
-                    }
-                }
-
-                if (arr.length === 0) {
-                    $(document).unbind('mouseup.wijpopup');
-                }
-            }
+			var $win = $(window), 
+				$srcElement = $(e.target ? e.target : e.srcElement),
+				arr = $win.data('wijPopupQueue'), 
+				wijPop;
+				
+			if ($srcElement.parents().hasClass('wijmo-wijcombobox-list') || $srcElement.parents().hasClass('wijmo-wijcalendar')){
+				return;
+			}
+			
+			if (!!arr){
+				while( wijPop = arr.pop()) {
+					if (wijPop.isVisible()) {
+						if (!!wijPop.options.autoHide){
+							if ($srcElement.get(0) != wijPop.element.get(0) && $srcElement.parents().index(wijPop.element) < 0) { 
+								wijPop.hide(); 
+							}else{
+								arr.push(wijPop);
+							}
+							
+							break;
+						}
+					} else {
+						break;
+					}
+				}
+				
+				if (arr.length === 0){
+					$(document).unbind('mouseup.wijpopup');
+				}
+			}
         },
 
         _onMove: function (e) {
             var jFrame = this.element.data('backframe.wijpopup');
             if (jFrame) {
                 this.element.before(jFrame);
-                jFrame.css({
-                    'top': this.element.css('top'),
+                jFrame.css({ 'top': this.element.css('top'),
                     'left': this.element.css('left')
                 });
             }
@@ -351,24 +332,21 @@
                 var jFrame = this.element.data('backframe.wijpopup');
                 if (!jFrame) {
                     jFrame = jQuery('<iframe/>')
-                        .css({
-                            'position': 'absolute',
-                            'display': 'none',
-                            'filter': 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)'
-                        }).attr({
-                            'src': 'javascript:\'<html></html>\';',
-                            'scrolling': 'no',
-                            'frameborder': '0',
-                            'tabIndex ': -1
-                        });
+						.css({ 'position': 'absolute',
+						    'display': 'none',
+						    'filter': 'progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=0)'
+						}).attr({ 'src': 'javascript:\'<html></html>\';',
+						    'scrolling': 'no',
+						    'frameborder': '0',
+						    'tabIndex ': -1
+						});
 
                     this.element.before(jFrame);
                     this.element.data('backframe.wijpopup', jFrame);
                     this.element.bind('move.wijpopup', $.proxy(this._onMove, this));
                 }
                 jFrame.setBounds(this.element.getBounds());
-                jFrame.css({
-                    'display': 'block',
+                jFrame.css({ 'display': 'block',
                     'left': this.element.css('left'),
                     'top': this.element.css('top'),
                     'z-index': this.element.css('z-index') - 1
@@ -388,9 +366,7 @@
             var visible = this.element.is(':visible');
             this.element.show();
             this.element.position($.extend({}, this.options.position, position ? position : {}));
-            if (!visible) {
-                this.element.hide();
-            }
+            if (!visible) { this.element.hide(); }
 
             this._addBackgroundIFrame();
             var zIndex = 1000;

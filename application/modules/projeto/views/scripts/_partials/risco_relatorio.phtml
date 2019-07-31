@@ -1,181 +1,177 @@
 <?php
-/**para exibir o relatorio na view copie todo o codigo para a view imprimir.phtml,
- * na controller habilite o layout relatorio e na service comente a saida do pdf
- * Não esqueca de remover depois o fonte do view imprimir.phtml para nao gerar
+/**para exibir o relatorio na view copie todo o codigo para a view imprimir.phtml, 
+ * na controller habilite o layout relatorio e na service comente a saida do pdf 
+ * Não esqueca de remover depois o fonte do view imprimir.phtml para nao gerar 
  * erro no adobe reader
- *
+ * 
  * Não de enter para identar o codigo dentro da tag <pre>.
  */
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
 ?>
 
 <div class="region-center">
     <div class="portlet">
-        <div class="content">
-            <div class="row">
-                <div class="content">
-                    <?php
+        <div class="content">            
+            <div class="row">              
+                    <div class="content">
+                        <?php
+                        
+                        $initRisco = true;
+                        $idrisco = $this->imprimir[0]['idrisco'];
 
-                    $initRisco = true;
-                    $idrisco = $this->imprimir[0]['idrisco'];
+                        $initContramedida = true;
+                        $idcontramedida = $this->imprimir[0]['idcontramedida'];
+                        $tatalizadorRisco = 0;
+                        $totalizadorContramedida = 0;
 
-                    $initContramedida = true;
-                    $idcontramedida = $this->imprimir[0]['idcontramedida'];
-                    $tatalizadorRisco = 0;
-                    $totalizadorContramedida = 0;
+                        foreach ( $this->imprimir as $risco ) : ?>
 
-                    foreach ($this->imprimir as $risco) : ?>
-
-                    <?php if ($idrisco != $risco['idrisco'] || $initRisco == true) : ?>
-                    <?php
-                    //se NAO for o primeiro risco fecha o risco anterior antes de comecar o novo
-                    if ($initRisco == false): ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div class="portlet portlet-cinza">
-                <div class="title">Risco: <?php echo $risco['norisco']; ?></div>
-                <div class="content">
-                    <div class="row" style="margin-left: 10px;">
-                        <div style="float: left; white-space: nowrap; width: 20%; padding-bottom: 3px;">
-                            <div><b>Data de Detecção:</b> <?php echo $risco['datdeteccao']; ?></div>
-                        </div>
-                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                            <div><b>Origem:</b> <?php echo $risco['desorigemrisco']; ?> </div>
-                        </div>
-                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                            <div><b>Etapa:</b> <?php echo $risco['dsetapa']; ?> </div>
-                        </div>
-                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                            <div><b>Tipo:</b> <?php echo $risco['dstiporisco']; ?> </div>
-                        </div>
-                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                            <div><b>Risco:</b> <?php echo $risco['domcorrisco']; ?> </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                            <div><b>Tratamento:</b> <?php echo $risco['domtratamento']; ?> </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                            <div><b>Descrição:</b>
-                                <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['desrisco']; ?></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                            <div><b>Causa:</b>
-                                <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['descausa']; ?></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" style="margin-left: 10px;">
-                        <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                            <div><b>Consequência:</b>
-                                <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['desconsequencia']; ?></pre>
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <?php
-                    $initRisco = false;
-                    $idrisco = $risco['idrisco'];
-                    $tatalizadorRisco++;
-                    endif; ?>
-
-                    <?php
-                    //se existir a contramedida monta e popula
-                    if ($risco['idcontramedida'] != ""):
-                        //se for a primeira contramedida ou uma nova monta estrutura
-                        if ($idcontramedida != $risco['idcontramedida'] || $initContramedida == true) : ?>
-                            <div class="portlet portlet-azul portlet-verde">
-                                <div class="title">Contramedida: <?php echo $risco['nocontramedida']; ?></div>
-                                <div class="content">
-                                    <div class="row" style="margin-left: 10px;">
-                                        <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                                            <div><b>Descrição:</b>
-                                                <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['descontramedida']; ?></pre>
+                            <?php if ( $idrisco != $risco['idrisco'] || $initRisco == true ) : ?>                                 
+                                   <?php                                    
+                                   //se NAO for o primeiro risco fecha o risco anterior antes de comecar o novo
+                                   if($initRisco == false):?>
+                                            </div>
+                                      </div>
+                                   <?php endif;?>
+                                 
+                                <div class="portlet portlet-cinza">
+                                    <div class="title">Risco: <?php echo $risco['norisco']; ?></div>
+                                    <div class="content">
+                                        <div class="row" style="margin-left: 10px;">
+                                            <div style="float: left; white-space: nowrap; width: 20%; padding-bottom: 3px;">
+                                                <div><b>Data de Detecção:</b> <?php echo $risco['datdeteccao']; ?></div>
+                                            </div>
+                                            <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                <div><b>Origem:</b> <?php echo $risco['desorigemrisco']; ?> </div>
+                                            </div>
+                                            <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                <div><b>Etapa:</b> <?php echo $risco['dsetapa']; ?> </div>
+                                            </div>
+                                            <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                <div><b>Tipo:</b> <?php echo $risco['dstiporisco']; ?> </div>
+                                            </div>
+                                            <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                <div><b>Risco:</b> <?php echo $risco['domcorrisco']; ?> </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row" style="margin-left: 10px;">
-                                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                                            <div><b>Prazo:</b> <?php echo $risco['datprazocontramedida']; ?> </div>
-                                        </div>
-                                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                                            <div>
-                                                <b>Tendência/Real:</b> <?php echo $risco['datprazocontramedidaatraso']; ?>
+                                        <div class="row"  style="margin-left: 10px;">
+                                            <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                <div><b>Tratamento:</b> <?php echo $risco['domtratamento']; ?> </div>
                                             </div>
                                         </div>
-                                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                                            <div><b>Tipo:</b> <?php echo $risco['notipocontramedida']; ?> </div>
+                                        <div class="row"  style="margin-left: 10px;">
+                                            <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                <div><b>Descrição:</b>
+                                                    <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['desrisco']; ?></pre></div>
+                                            </div>
                                         </div>
-                                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                                            <div><b>Status:</b> <?php echo $risco['domstatuscontramedida']; ?> </div>
+                                        <div class="row"  style="margin-left: 10px;">
+                                            <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                <div><b>Causa:</b>
+                                                    <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['descausa']; ?></pre>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
-                                            <div><b>Tipo:</b> <?php echo $risco['flacontramedidaefetiva']; ?> </div>
+                                        <div class="row"  style="margin-left: 10px;">
+                                            <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                <div><b>Consequência:</b>
+                                                    <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['desconsequencia']; ?></pre>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="row" style="margin-left: 10px;">
-                                        <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                                            <div><b>Responsável:</b> <?php echo $risco['desresponsavel']; ?> </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <br/>
+                                <?php
+                                $initRisco = false; 
+                                $idrisco = $risco['idrisco']; 
+                                $tatalizadorRisco++; 
+                                endif; ?>
 
                             <?php
-                            $initContramedida = false;
-                            $idcontramedida = $risco['idcontramedida'];
-                            $totalizadorContramedida++;
-                        endif; ?>
-                    <?php else: //se nao existir contramedida monta mensagem?>
-
-                        <div class="portlet portlet-azul portlet-verde">
-                            <div class="title">Contramedida</div>
-                            <div class="content">
-                                <div class="row" style="margin-left: 10px;">
-                                    <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
-                                        <div>Não existem contramedidas registradas para esse risco.</div>
+                                //se existir a contramedida monta e popula
+                                if($risco['idcontramedida'] != "" ):
+                                //se for a primeira contramedida ou uma nova monta estrutura
+                                if ( $idcontramedida != $risco['idcontramedida'] || $initContramedida == true ) : ?>
+                                 <div class="portlet portlet-azul portlet-verde">
+                                    <div class="title">Contramedida: <?php echo $risco['nocontramedida']; ?></div>
+                                        <div class="content">
+                                            <div class="row"  style="margin-left: 10px;">
+                                                <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                    <div><b>Descrição:</b> 
+                                                        <pre style="background-color: #FFFFFF; border: none; font-family: helvetica; font-size: 12px; page-break-inside: auto;"><?php echo $risco['descontramedida']; ?></pre>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <div class="row"  style="margin-left: 10px;">
+                                                <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                    <div><b>Prazo:</b> <?php echo $risco['datprazocontramedida']; ?> </div>
+                                                </div>
+                                                <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                    <div><b>Tendência/Real:</b> <?php echo $risco['datprazocontramedidaatraso']; ?> </div>
+                                                </div>
+                                                <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                    <div><b>Tipo:</b> <?php echo $risco['notipocontramedida']; ?> </div>
+                                                </div>
+                                                <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                    <div><b>Status:</b> <?php echo $risco['domstatuscontramedida']; ?> </div>
+                                                </div>
+                                                <div style="float: left; white-space: nowrap;  width: 20%; padding-bottom: 3px;">
+                                                    <div><b>Tipo:</b> <?php echo $risco['flacontramedidaefetiva']; ?> </div>
+                                                </div>
+                                            </div>
+                                            <div class="row"  style="margin-left: 10px;">
+                                                <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                    <div><b>Responsável:</b> <?php echo $risco['desresponsavel']; ?> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 </div>
+                                        
+                            <?php
+                                $initContramedida = false; 
+                                $idcontramedida = $risco['idcontramedida']; 
+                                $totalizadorContramedida++; 
+                                endif;?>
+                            <?php else: //se nao existir contramedida monta mensagem?>
+                                
+                                <div class="portlet portlet-azul portlet-verde">
+                                    <div class="title">Contramedida</div>
+                                        <div class="content">
+                                            <div class="row"  style="margin-left: 10px;">
+                                                <div style="float: left; white-space: nowrap;  width: 100%; padding-bottom: 3px;">
+                                                    <div>Não existem contramedidas registradas para esse risco.</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                        
+                            <?php endif;?>
+                        <?php endforeach; ?>
+                                        
+                                <!--fecha risco-->  
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-
-                    <!--fecha risco-->
-                </div>
+                                <!--fecha risco-->  
+                    </div>
             </div>
-            <!--fecha risco-->
         </div>
+        <?php  //se for imprimir tudo insere totalizador
+        if($this->print == 'all'):?>
+        <div class="pagination-centered"><h4>Totalizador<h4></div>
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><b>Total de riscos: </b><?php echo $tatalizadorRisco; ?></td>
+                </tr>
+                <tr>
+                    <td><b>Total de contra-medidas: </b><?php echo $totalizadorContramedida;?></td>
+                </tr>
+            </tbody>
+        </table>
+        <?php endif; ?>
     </div>
-</div>
-<?php //se for imprimir tudo insere totalizador
-if ($this->print == 'all'):?>
-    <div class="pagination-centered">
-        <h4>Totalizador<h4>
-    </div>
-    <table class="table">
-        <tbody>
-        <tr>
-            <td><b>Total de riscos: </b><?php echo $tatalizadorRisco; ?></td>
-        </tr>
-        <tr>
-            <td><b>Total de contra-medidas: </b><?php echo $totalizadorContramedida; ?></td>
-        </tr>
-        </tbody>
-    </table>
-<?php endif; ?>
-</div>
 </div>
 
 

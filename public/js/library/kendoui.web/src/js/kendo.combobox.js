@@ -15,10 +15,10 @@ kendo_module({
     name: "ComboBox",
     category: "web",
     description: "The ComboBox widget allows the selection from pre-defined values or entering a new value.",
-    depends: ["list"]
+    depends: [ "list" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         List = ui.List,
@@ -47,16 +47,16 @@ kendo_module({
         proxy = $.proxy;
 
     var ComboBox = Select.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this, text;
 
             that.ns = ns;
 
-            options = $.isArray(options) ? {dataSource: options} : options;
+            options = $.isArray(options) ? { dataSource: options } : options;
 
             Select.fn.init.call(that, element, options);
 
-            that._focusHandler = function () {
+            that._focusHandler = function() {
                 that.input.focus();
             };
 
@@ -129,7 +129,7 @@ kendo_module({
             animation: {}
         },
 
-        events: [
+        events:[
             "open",
             "close",
             CHANGE,
@@ -139,7 +139,7 @@ kendo_module({
             "cascade"
         ],
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             Select.fn.setOptions.call(this, options);
 
             this._template();
@@ -147,7 +147,7 @@ kendo_module({
             this._aria();
         },
 
-        current: function (li) {
+        current: function(li) {
             var that = this,
                 current = that._current;
 
@@ -162,7 +162,7 @@ kendo_module({
             Select.fn.current.call(that, li);
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             that.input.off(ns);
@@ -172,7 +172,7 @@ kendo_module({
             Select.fn.destroy.call(that);
         },
 
-        _editable: function (options) {
+        _editable: function(options) {
             var that = this,
                 disable = options.disable,
                 readonly = options.readonly,
@@ -187,24 +187,20 @@ kendo_module({
                     .on(HOVEREVENTS, that._toggleHover);
 
                 input.removeAttr(DISABLED)
-                    .removeAttr(READONLY)
-                    .attr(ARIA_DISABLED, false)
-                    .attr(ARIA_READONLY, false);
+                     .removeAttr(READONLY)
+                     .attr(ARIA_DISABLED, false)
+                     .attr(ARIA_READONLY, false);
 
-                arrow.on(CLICK, function () {
-                    that.toggle();
-                })
-                    .on(MOUSEDOWN, function (e) {
-                        e.preventDefault();
-                    });
+                arrow.on(CLICK, function() { that.toggle(); })
+                     .on(MOUSEDOWN, function(e) { e.preventDefault(); });
 
                 that.input
                     .on("keydown" + ns, proxy(that._keydown, that))
-                    .on("focus" + ns, function () {
+                    .on("focus" + ns, function() {
                         wrapper.addClass(FOCUSED);
                         that._placeholder(false);
                     })
-                    .on("blur" + ns, function () {
+                    .on("blur" + ns, function() {
                         wrapper.removeClass(FOCUSED);
                         clearTimeout(that._typing);
 
@@ -224,13 +220,13 @@ kendo_module({
                     .removeClass(disable ? DEFAULT : STATEDISABLED);
 
                 input.attr(DISABLED, disable)
-                    .attr(READONLY, readonly)
-                    .attr(ARIA_DISABLED, disable)
-                    .attr(ARIA_READONLY, readonly);
+                     .attr(READONLY, readonly)
+                     .attr(ARIA_DISABLED, disable)
+                     .attr(ARIA_READONLY, readonly);
             }
         },
 
-        open: function () {
+        open: function() {
             var that = this,
                 serverFiltering = that.dataSource.options.serverFiltering;
 
@@ -248,7 +244,7 @@ kendo_module({
             }
         },
 
-        refresh: function () {
+        refresh: function() {
             var that = this,
                 ul = that.ul[0],
                 options = that.options,
@@ -318,7 +314,7 @@ kendo_module({
             that.trigger("dataBound");
         },
 
-        search: function (word) {
+        search: function(word) {
             word = typeof word === "string" ? word : this.text();
             var that = this,
                 length = word.length,
@@ -345,7 +341,7 @@ kendo_module({
             }
         },
 
-        suggest: function (word) {
+        suggest: function(word) {
             var that = this,
                 element = that.input[0],
                 value = that.text(),
@@ -411,7 +407,7 @@ kendo_module({
                     loweredText = loweredText.toLowerCase();
                 }
 
-                that._select(function (data) {
+                that._select(function(data) {
                     data = textAccessor(data);
 
                     if (ignoreCase) {
@@ -433,13 +429,13 @@ kendo_module({
             }
         },
 
-        toggle: function (toggle) {
+        toggle: function(toggle) {
             var that = this;
 
             that._toggle(toggle);
         },
 
-        value: function (value) {
+        value: function(value) {
             var that = this,
                 idx;
 
@@ -473,7 +469,7 @@ kendo_module({
             }
         },
 
-        _accept: function (li) {
+        _accept: function(li) {
             var that = this;
 
             if (li) {
@@ -484,7 +480,7 @@ kendo_module({
             }
         },
 
-        _custom: function (value) {
+        _custom: function(value) {
             var that = this,
                 element = that.element,
                 custom = that._option;
@@ -507,7 +503,7 @@ kendo_module({
             that._selectedValue = value;
         },
 
-        _filter: function (word) {
+        _filter: function(word) {
             var that = this,
                 options = that.options,
                 dataSource = that.dataSource,
@@ -551,7 +547,7 @@ kendo_module({
             that._hideBusy();
         },
 
-        _highlight: function (li) {
+        _highlight: function(li) {
             var that = this, idx;
 
             if (li === undefined || li === null) {
@@ -574,7 +570,7 @@ kendo_module({
             return idx;
         },
 
-        _input: function () {
+        _input: function() {
             var that = this,
                 element = that.element.removeClass("k-input")[0],
                 accessKey = element.accessKey,
@@ -591,7 +587,7 @@ kendo_module({
 
             if (!input[0]) {
                 wrapper.append('<span tabindex="-1" unselectable="on" class="k-dropdown-wrap k-state-default"><input ' + name + 'class="k-input" type="text" autocomplete="off"/><span tabindex="-1" unselectable="on" class="k-select"><span unselectable="on" class="k-icon k-i-arrow-s">select</span></span></span>')
-                    .append(that.element);
+                       .append(that.element);
 
                 input = wrapper.find(SELECTOR);
             }
@@ -603,16 +599,16 @@ kendo_module({
             }
 
             input.addClass(element.className)
-                .val(element.value)
-                .css({
+                 .val(element.value)
+                 .css({
                     width: "100%",
                     height: element.style.height
-                })
-                .attr({
-                    "role": "combobox",
-                    "aria-expanded": false
-                })
-                .show();
+                 })
+                 .attr({
+                     "role": "combobox",
+                     "aria-expanded": false
+                 })
+                 .show();
 
             if (placeholderSupported) {
                 input.attr("placeholder", that.options.placeholder);
@@ -626,17 +622,17 @@ kendo_module({
             that._focused = that.input = input;
             that._inputWrapper = $(wrapper[0].firstChild);
             that._arrow = wrapper.find(".k-icon")
-                .attr({
-                    "role": "button",
-                    "tabIndex": -1
-                });
+                                 .attr({
+                                     "role": "button",
+                                     "tabIndex": -1
+                                 });
 
             if (element.id) {
                 that._arrow.attr("aria-controls", that.ul[0].id);
             }
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             var that = this,
                 key = e.keyCode;
 
@@ -645,11 +641,11 @@ kendo_module({
             clearTimeout(that._typing);
 
             if (key != keys.TAB && !that._move(e)) {
-                that._search();
+               that._search();
             }
         },
 
-        _placeholder: function (show) {
+        _placeholder: function(show) {
             if (placeholderSupported) {
                 return;
             }
@@ -680,10 +676,10 @@ kendo_module({
             }
         },
 
-        _search: function () {
+        _search: function() {
             var that = this;
 
-            that._typing = setTimeout(function () {
+            that._typing = setTimeout(function() {
                 var value = that.text();
                 if (that._prev !== value) {
                     that._prev = value;
@@ -692,7 +688,7 @@ kendo_module({
             }, that.options.delay);
         },
 
-        _select: function (li) {
+        _select: function(li) {
             var that = this,
                 text,
                 value,
@@ -723,7 +719,7 @@ kendo_module({
             }
         },
 
-        _wrapper: function () {
+        _wrapper: function() {
             var that = this,
                 element = that.element,
                 wrapper = element.parent();
@@ -734,11 +730,11 @@ kendo_module({
             }
 
             that.wrapper = wrapper.addClass("k-widget k-combobox k-header")
-                .addClass(element[0].className)
-                .css("display", "");
+                                  .addClass(element[0].className)
+                                  .css("display", "");
         },
 
-        _clearSelection: function (parent, isFiltered) {
+        _clearSelection: function(parent, isFiltered) {
             var that = this,
                 hasValue = parent._selectedValue || parent.value(),
                 custom = hasValue && parent.selectedIndex === -1;

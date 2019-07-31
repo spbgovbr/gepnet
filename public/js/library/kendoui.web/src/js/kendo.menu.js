@@ -15,7 +15,7 @@ kendo_module({
     name: "Menu",
     category: "web",
     description: "The Menu widget displays hierarchical data as a multi-level menu.",
-    depends: ["popup"]
+    depends: [ "popup" ]
 });
 
 (function ($, undefined) {
@@ -71,24 +71,24 @@ kendo_module({
             ),
             group: template(
                 "<ul class='#= groupCssClass(group) #'#= groupAttributes(group) # role='menu' aria-hidden='true'>" +
-                "#= renderItems(data) #" +
+                    "#= renderItems(data) #" +
                 "</ul>"
             ),
             itemWrapper: template(
                 "<#= tag(item) # class='#= textClass(item) #'#= textAttributes(item) #>" +
-                "#= image(item) ##= sprite(item) ##= text(item) #" +
-                "#= arrow(data) #" +
+                    "#= image(item) ##= sprite(item) ##= text(item) #" +
+                    "#= arrow(data) #" +
                 "</#= tag(item) #>"
             ),
             item: template(
                 "<li class='#= wrapperCssClass(group, item) #' role='menuitem' #=item.items ? \"aria-haspopup='true'\": \"\"#" +
-                "#=item.enabled === false ? \"aria-disabled='true'\" : ''#>" +
-                "#= itemWrapper(data) #" +
-                "# if (item.items) { #" +
-                "#= subGroup({ items: item.items, menu: menu, group: { expanded: item.expanded } }) #" +
-                "# } else if (item.content || item.contentUrl) { #" +
-                "#= renderContent(data) #" +
-                "# } #" +
+                    "#=item.enabled === false ? \"aria-disabled='true'\" : ''#>" +
+                    "#= itemWrapper(data) #" +
+                    "# if (item.items) { #" +
+                    "#= subGroup({ items: item.items, menu: menu, group: { expanded: item.expanded } }) #" +
+                    "# } else if (item.content || item.contentUrl) { #" +
+                    "#= renderContent(data) #" +
+                    "# } #" +
                 "</li>"
             ),
             image: template("<img class='k-image' alt='' src='#= imageUrl #' />"),
@@ -113,7 +113,7 @@ kendo_module({
                     result += " k-first";
                 }
 
-                if (index == group.length - 1) {
+                if (index == group.length-1) {
                     result += " k-last";
                 }
 
@@ -124,15 +124,15 @@ kendo_module({
                 return result;
             },
 
-            textClass: function () {
+            textClass: function() {
                 return LINK;
             },
 
-            textAttributes: function (item) {
+            textAttributes: function(item) {
                 return item.url ? " href='" + item.url + "'" : "";
             },
 
-            arrowClass: function (item, group) {
+            arrowClass: function(item, group) {
                 var result = "k-icon";
 
                 if (group.horizontal) {
@@ -144,39 +144,39 @@ kendo_module({
                 return result;
             },
 
-            text: function (item) {
+            text: function(item) {
                 return item.encoded === false ? item.text : kendo.htmlEncode(item.text);
             },
 
-            tag: function (item) {
+            tag: function(item) {
                 return item.url ? "a" : "span";
             },
 
-            groupAttributes: function (group) {
+            groupAttributes: function(group) {
                 return group.expanded !== true ? " style='display:none'" : "";
             },
 
-            groupCssClass: function () {
+            groupCssClass: function() {
                 return "k-group";
             },
 
-            content: function (item) {
+            content: function(item) {
                 return item.content ? item.content : "&nbsp;";
             }
         };
 
     function getEffectDirection(direction, root) {
-        direction = direction.split(" ")[!root + 0] || direction;
+        direction = direction.split(" ")[!root+0] || direction;
         return direction.replace("top", "up").replace("bottom", "down");
     }
 
     function parseDirection(direction, root, isRtl) {
-        direction = direction.split(" ")[!root + 0] || direction;
-        var output = {origin: ["bottom", (isRtl ? "right" : "left")], position: ["top", (isRtl ? "right" : "left")]},
+        direction = direction.split(" ")[!root+0] || direction;
+        var output = { origin: ["bottom", (isRtl ? "right" : "left")], position: ["top", (isRtl ? "right" : "left")] },
             horizontal = /left|right/.test(direction);
 
         if (horizontal) {
-            output.origin = ["top", direction];
+            output.origin = [ "top", direction ];
             output.position[1] = kendo.directions[direction].reverse;
         } else {
             output.origin[0] = direction;
@@ -197,7 +197,7 @@ kendo_module({
         }
     }
 
-    function updateItemClasses(item) {
+    function updateItemClasses (item) {
         item = $(item);
 
         item.addClass("k-item")
@@ -227,9 +227,7 @@ kendo_module({
         if (!item.children("." + LINK).length) {
             item
                 .contents()      // exclude groups, real links, templates and empty text nodes
-                .filter(function () {
-                    return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue)));
-                })
+                .filter(function() { return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue))); })
                 .wrapAll("<span class='" + LINK + "'/>");
         }
 
@@ -237,7 +235,7 @@ kendo_module({
         updateFirstLast(item);
     }
 
-    function updateArrow(item) {
+    function updateArrow (item) {
         item = $(item);
 
         item.find("> .k-link > [class*=k-i-arrow]").remove();
@@ -252,7 +250,7 @@ kendo_module({
             });
     }
 
-    function updateFirstLast(item) {
+    function updateFirstLast (item) {
         item = $(item);
 
         item.filter(".k-first:not(:first-child)").removeClass(FIRST);
@@ -262,7 +260,7 @@ kendo_module({
     }
 
     var Menu = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this;
 
             Widget.fn.init.call(that, element, options);
@@ -283,18 +281,18 @@ kendo_module({
             that._focusProxy = proxy(that._focusHandler, that);
 
             element.on(POINTERDOWN, that._focusProxy)
-                .on(CLICK + NS, disabledSelector, false)
-                .on(CLICK + NS, itemSelector, proxy(that._click, that))
-                .on("keydown" + NS, proxy(that._keydown, that))
-                .on("focus" + NS, proxy(that._focus, that))
-                .on("focus" + NS, ".k-content", proxy(that._focus, that))
-                .on(POINTERDOWN + " " + MOUSEDOWN + NS, ".k-content", proxy(that._preventClose, that))
-                .on("blur" + NS, proxy(that._removeHoverItem, that))
-                .on("blur" + NS, "[tabindex]", proxy(that._checkActiveElement, that))
-                .on(MOUSEENTER + NS, itemSelector, proxy(that._mouseenter, that))
-                .on(MOUSELEAVE + NS, itemSelector, proxy(that._mouseleave, that))
-                .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS + " " +
-                    MOUSEDOWN + NS + " " + CLICK + NS, linkSelector, proxy(that._toggleHover, that));
+                   .on(CLICK + NS, disabledSelector, false)
+                   .on(CLICK + NS, itemSelector, proxy(that._click , that))
+                   .on("keydown" + NS, proxy(that._keydown, that))
+                   .on("focus" + NS, proxy(that._focus, that))
+                   .on("focus" + NS, ".k-content", proxy(that._focus, that))
+                   .on(POINTERDOWN + " " + MOUSEDOWN + NS, ".k-content", proxy(that._preventClose, that))
+                   .on("blur" + NS, proxy(that._removeHoverItem, that))
+                   .on("blur" + NS, "[tabindex]", proxy(that._checkActiveElement, that))
+                   .on(MOUSEENTER + NS, itemSelector, proxy(that._mouseenter, that))
+                   .on(MOUSELEAVE + NS, itemSelector, proxy(that._mouseleave, that))
+                   .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS + " " +
+                       MOUSEDOWN + NS + " " + CLICK + NS, linkSelector, proxy(that._toggleHover, that));
 
             if (options.openOnClick) {
                 that.clicked = false;
@@ -336,7 +334,7 @@ kendo_module({
             hoverDelay: 100
         },
 
-        _initData: function (options) {
+        _initData: function(options) {
             var that = this;
 
             if (options.dataSource) {
@@ -345,7 +343,7 @@ kendo_module({
             }
         },
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             var animation = this.options.animation;
 
             this._animations(options);
@@ -359,7 +357,7 @@ kendo_module({
             Widget.fn.setOptions.call(this, options);
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -448,25 +446,25 @@ kendo_module({
                 };
 
             if (referenceItem && !parent.length) {
-                parent = $(Menu.renderGroup({group: groupData})).appendTo(referenceItem);
+                parent = $(Menu.renderGroup({ group: groupData })).appendTo(referenceItem);
             }
 
             if (plain || $.isArray(item)) { // is JSON
-                items = $.map(plain ? [item] : item, function (value, idx) {
-                    if (typeof value === "string") {
-                        return $(value);
-                    } else {
-                        return $(Menu.renderItem({
-                            group: groupData,
-                            item: extend(value, {index: idx})
-                        }));
-                    }
-                });
+                items = $.map(plain ? [ item ] : item, function (value, idx) {
+                            if (typeof value === "string") {
+                                return $(value);
+                            } else {
+                                return $(Menu.renderItem({
+                                    group: groupData,
+                                    item: extend(value, { index: idx })
+                                }));
+                            }
+                        });
             } else {
                 items = $(item);
                 groups = items.find("> ul")
-                    .addClass("k-group")
-                    .attr("role", "menu");
+                                .addClass("k-group")
+                                .attr("role", "menu");
 
                 items = items.filter("li");
 
@@ -475,7 +473,7 @@ kendo_module({
                 });
             }
 
-            return {items: items, group: parent};
+            return { items: items, group: parent };
         },
 
         remove: function (element) {
@@ -523,14 +521,14 @@ kendo_module({
             }
 
             element.siblings()
-                .find(">.k-popup:visible,>.k-animation-container>.k-popup:visible")
-                .each(function () {
-                    var popup = $(this).data("kendoPopup");
+                   .find(">.k-popup:visible,>.k-animation-container>.k-popup:visible")
+                   .each(function () {
+                       var popup = $(this).data("kendoPopup");
 
-                    if (popup) {
-                        popup.close();
-                    }
-                });
+                       if (popup) {
+                           popup.close();
+                       }
+                   });
 
             element.each(function () {
                 var li = $(this);
@@ -540,9 +538,9 @@ kendo_module({
                 li.data(TIMER, setTimeout(function () {
                     var ul = li.find(".k-group:first:hidden"), popup;
 
-                    if (ul[0] && that.trigger(OPEN, {item: li[0]}) === false) {
+                    if (ul[0] && that.trigger(OPEN, { item: li[0] }) === false) {
                         li.data(ZINDEX, li.css(ZINDEX));
-                        li.css(ZINDEX, that.nextItemZIndex++);
+                        li.css(ZINDEX, that.nextItemZIndex ++);
 
                         popup = ul.data(KENDOPOPUP);
                         var root = li.parent().hasClass(MENU),
@@ -553,25 +551,21 @@ kendo_module({
 
                         if (!popup) {
                             popup = ul.kendoPopup({
-                                activate: function () {
-                                    that.trigger(ACTIVATE, {item: this.wrapper.parent()});
-                                },
-                                deactivate: function () {
-                                    that.trigger(DEACTIVATE, {item: this.wrapper.parent()});
-                                },
+                                activate: function() { that.trigger(ACTIVATE, { item: this.wrapper.parent() }); },
+                                deactivate: function() { that.trigger(DEACTIVATE, { item: this.wrapper.parent() }); },
                                 origin: directions.origin,
                                 position: directions.position,
                                 collision: options.popupCollision !== undefined ? options.popupCollision : (parentHorizontal ? "fit" : "fit flip"),
                                 anchor: li,
                                 appendTo: li,
                                 animation: {
-                                    open: extend(true, {effects: openEffects}, options.animation.open),
+                                    open: extend(true, { effects: openEffects }, options.animation.open),
                                     close: options.animation.close
                                 },
                                 close: function (e) {
                                     var li = e.sender.wrapper.parent();
 
-                                    if (!that.trigger(CLOSE, {item: li[0]})) {
+                                    if (!that.trigger(CLOSE, { item: li[0] })) {
                                         li.css(ZINDEX, li.data(ZINDEX));
                                         li.removeData(ZINDEX);
 
@@ -637,7 +631,7 @@ kendo_module({
             });
         },
 
-        _toggleHover: function (e) {
+        _toggleHover: function(e) {
             var target = $(kendo.eventTarget(e) || e.target).closest(allItemsSelector),
                 isEnter = e.type == MOUSEENTER || MOUSEDOWN.indexOf(e.type) !== -1;
 
@@ -648,19 +642,19 @@ kendo_module({
             this._removeHoverItem();
         },
 
-        _preventClose: function () {
+        _preventClose: function() {
             if (!this.options.closeOnClick) {
                 this._closurePrevented = true;
             }
         },
 
-        _checkActiveElement: function (e) {
+        _checkActiveElement: function(e) {
             var that = this,
                 hoverItem = $(this._hoverItem()[0] || (e ? e.currentTarget : {})),
                 target = that._findRootParent(hoverItem)[0];
 
             if (!this._closurePrevented) {
-                setTimeout(function () {
+                setTimeout(function() {
                     if (!document.hasFocus() || (!contains(target, kendo._activeElement()) && e && !contains(target, e.currentTarget))) {
                         that.close(target);
                     }
@@ -670,7 +664,7 @@ kendo_module({
             this._closurePrevented = false;
         },
 
-        _removeHoverItem: function () {
+        _removeHoverItem: function() {
             var oldHoverItem = this._hoverItem();
 
             if (oldHoverItem && oldHoverItem.hasClass(FOCUSEDSTATE)) {
@@ -679,20 +673,20 @@ kendo_module({
             }
         },
 
-        _updateClasses: function () {
+        _updateClasses: function() {
             var element = this.element,
                 items;
 
             element.addClass("k-widget k-reset k-header " + MENU).addClass(MENU + "-" + this.options.orientation);
 
             element.find("li > ul")
-                .addClass("k-group")
-                .attr("role", "menu")
-                .attr("aria-hidden", element.is(":visible"))
-                .end()
-                .find("li > div")
-                .addClass("k-content")
-                .attr("tabindex", "-1"); // Capture the focus before the Menu
+                   .addClass("k-group")
+                   .attr("role", "menu")
+                   .attr("aria-hidden", element.is(":visible"))
+                   .end()
+                   .find("li > div")
+                   .addClass("k-content")
+                   .attr("tabindex", "-1"); // Capture the focus before the Menu
 
             items = element.find("> li,.k-group > li");
 
@@ -758,7 +752,7 @@ kendo_module({
                 return;
             }
 
-            if (!e.handled && that.trigger(SELECT, {item: element[0]}) && !formNode) { // We shouldn't stop propagation and shoudn't prevent form elements.
+            if (!e.handled && that.trigger(SELECT, { item: element[0] }) && !formNode) { // We shouldn't stop propagation and shoudn't prevent form elements.
                 e.preventDefault();
             }
 
@@ -838,7 +832,7 @@ kendo_module({
             }
 
             if (!hoverItem) {
-                hoverItem = that._oldHoverItem = that._hoverItem();
+                hoverItem  = that._oldHoverItem = that._hoverItem();
             }
 
             belongsToVertical = that._itemBelongsToVertival(hoverItem);
@@ -857,10 +851,7 @@ kendo_module({
             } else if (key == keys.ENTER || key == keys.SPACEBAR) {
                 target = hoverItem.children(".k-link");
                 if (target.length > 0) {
-                    that._click({
-                        target: target[0], preventDefault: function () {
-                        }
-                    });
+                    that._click({ target: target[0], preventDefault: function () {} });
                     that._moveHover(hoverItem, that._findRootParent(hoverItem));
                 }
             } else if (key == keys.TAB) {
@@ -876,7 +867,7 @@ kendo_module({
             }
         },
 
-        _hoverItem: function () {
+        _hoverItem: function() {
             return this.wrapper.find(".k-item.k-state-hover,.k-item.k-state-focused").filter(":visible");
         },
 
@@ -1065,9 +1056,9 @@ kendo_module({
             }, 200);
         },
 
-        _animations: function (options) {
+        _animations: function(options) {
             if (options && ("animation" in options) && !options.animation) {
-                options.animation = {open: {effects: {}}, close: {hide: true, effects: {}}};
+                options.animation = { open: { effects: {} }, close: { hide: true, effects: {} } };
             }
         }
 
@@ -1076,7 +1067,7 @@ kendo_module({
     // client-side rendering
     extend(Menu, {
         renderItem: function (options) {
-            options = extend({menu: {}, group: {}}, options);
+            options = extend({ menu: {}, group: {} }, options);
 
             var empty = templates.empty,
                 item = options.item;
@@ -1093,17 +1084,17 @@ kendo_module({
 
         renderGroup: function (options) {
             return templates.group(extend({
-                renderItems: function (options) {
+                renderItems: function(options) {
                     var html = "",
                         i = 0,
                         items = options.items,
                         len = items ? items.length : 0,
-                        group = extend({length: len}, options.group);
+                        group = extend({ length: len }, options.group);
 
                     for (; i < len; i++) {
                         html += Menu.renderItem(extend(options, {
                             group: group,
-                            item: extend({index: i}, items[i])
+                            item: extend({ index: i }, items[i])
                         }));
                     }
 

@@ -19,11 +19,11 @@ class Default_Model_Mapper_Perfilpessoa extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idperfilpessoa" => $model->idperfilpessoa,
-            "idperfil" => $model->idperfil,
-            "idescritorio" => $model->idescritorio,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
+            "idperfil"       => $model->idperfil,
+            "idescritorio"   => $model->idescritorio,
+            "flaativo"       => $model->flaativo,
+            "idcadastrador"  => $model->idcadastrador,
+            "datcadastro"    => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -38,54 +38,29 @@ class Default_Model_Mapper_Perfilpessoa extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idperfilpessoa" => $model->idperfilpessoa,
-            "idperfil" => $model->idperfil,
-            "idescritorio" => $model->idescritorio,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
+            "idperfil"       => $model->idperfil,
+            "idescritorio"   => $model->idescritorio,
+            "flaativo"       => $model->flaativo,
+            "idcadastrador"  => $model->idcadastrador,
+            "datcadastro"    => $model->datcadastro,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
     {
         return $this->_getForm(Default_Form_Perfilpessoa);
     }
-
-    public function permissaoStatusReport($params)
-    {
-
-        $sql = "SELECT count(perm.idpermissao) as total
-                FROM agepnet200.tb_permissao perm
-                INNER JOIN agepnet200.tb_recurso r on r.idrecurso=perm.idrecurso and r.ds_recurso in(:controller) 
-                WHERE perm.no_permissao in(:action) and tipo in('G') ";
-
-        $resultado = $this->_db->fetchRow($sql,
-            array('controller' => $params['controller'], 'action' => $params['action']));
-        return ((int)$resultado['total'] > 0 ? true : false);
-    }
-
-    public function permitirAction($params)
-    {
-        $sql = "SELECT count(pp.idperfil) as total 
-                FROM agepnet200.tb_permissaoperfil pp 
-                INNER JOIN agepnet200.tb_permissao perm on perm.idpermissao=pp.idpermissao and perm.no_permissao in(:action)
-                INNER JOIN agepnet200.tb_recurso r on r.idrecurso=perm.idrecurso and r.ds_recurso in(:controller) 
-                WHERE pp.idperfil=7";
-
-        $resultado = $this->_db->fetchRow($sql,
-            array('controller' => $params['controller'], 'action' => $params['action']));
-        return ((int)$resultado['total'] > 0 ? true : false);
-    }
-
-
-    /**
+    
+     /**
      *
      * @param array $params
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
-    public function pesquisar($params, $idperfil, $idescritorio, $paginator = false)
-    {
+    public function pesquisar($params,$idperfil,$idescritorio, $paginator = false) {
+        //Zend_Debug::dump($idperfil);
+        //exit;
         $sql = "
                     SELECT 	
                                     pess.nompessoa as nompessoa,
@@ -107,26 +82,26 @@ class Default_Model_Mapper_Perfilpessoa extends App_Model_Mapper_MapperAbstract
                                     and perf.idperfil = perfp.idperfil
                                     and esc.idescritorio = perfp.idescritorio
                                     ";
-
+        
         if (isset($idperfil) && $idperfil <> 1) {
-            $sql .= "and perfp.idescritorio = " . $idescritorio . "";
+           $sql .= "and perfp.idescritorio = ".$idescritorio."";
         }
         $params = array_filter($params);
         if (isset($params['nompessoa'])) {
             $nompessoa = strtoupper($params['nompessoa']);
             $sql .= " AND upper(pess.nompessoa) LIKE '%{$nompessoa}%'";
         }
-        if (isset($params['idescritorio'])) {
+        if(isset($params['idescritorio'])){
             $sql .= " AND perfp.idescritorio = {$params['idescritorio']}";
         }
-        if (isset($params['idperfil'])) {
+        if(isset($params['idperfil'])){
             $sql .= " AND perfp.idperfil = {$params['idperfil']}";
         }
-        if (isset($params['flaativo'])) {
+        if(isset($params['flaativo'])){
             $sql .= " AND perfp.flaativo = '{$params['flaativo']}' ";
         }
-
-        if (isset($params['sidx'])) {
+        
+        if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
 
@@ -141,45 +116,45 @@ class Default_Model_Mapper_Perfilpessoa extends App_Model_Mapper_MapperAbstract
 
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
-
+        
     }
-
+    
     public function associarPerfil(Default_Model_Perfilpessoa $model)
     {
         try {
             $model->idperfilpessoa = $this->maxVal('idperfilpessoa');
             $data = array(
-                "idperfilpessoa" => (int)$model->idperfilpessoa,
-                "idperfil" => (int)$model->idperfil,
-                "idescritorio" => (int)$model->idescritorio,
-                "flaativo" => 'S',
-                "idcadastrador" => (int)$model->idcadastrador,
-                "datcadastro" => new Zend_Db_Expr("now()"),
-                "idpessoa" => (int)$model->idpessoa,
+                "idperfilpessoa"    => $model->idperfilpessoa,
+                "idperfil"          => $model->idperfil,
+                "idescritorio"      => $model->idescritorio,
+                "flaativo"          => 'S',
+                "idcadastrador"     => $model->idcadastrador,
+                "datcadastro"       => new Zend_Db_Expr("now()"),
+                "idpessoa"          => $model->idpessoa,
             );
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             throw $exc;
         }
     }
-
+    
     public function updateSituacao(Default_Model_Perfilpessoa $model)
     {
         $data = array(
             "idperfilpessoa" => $model->idperfilpessoa,
-            "flaativo" => $model->flaativo
+            "flaativo"       => $model->flaativo
         );
-
+        
         try {
-            $pks = array(
-                "idperfilpessoa" => $model->idperfilpessoa,
-            );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
-            $retorno = $this->getDbTable()->update($data, $where);
-            return $retorno;
-        } catch (Exception $exc) {
-            throw $exc;
+        	$pks     = array(
+        			"idperfilpessoa" => $model->idperfilpessoa,
+        	);
+        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+        	$retorno = $this->getDbTable()->update($data, $where);
+        	return $retorno;
+        } catch ( Exception $exc ) {
+        	throw $exc;
         }
     }
 

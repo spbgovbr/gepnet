@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["ha-Latn"] = {
         name: "ha-Latn",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n %", "n %"],
+                pattern: ["-n %","n %"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["$-n", "$ n"],
+                pattern: ["$-n","$ n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Lahadi", "Litinin", "Talata", "Laraba", "Alhamis", "Juma\u0027a", "Asabar"],
-                    namesAbbr: ["Lah", "Lit", "Tal", "Lar", "Alh", "Jum", "Asa"],
-                    namesShort: ["L", "L", "T", "L", "A", "J", "A"]
+                    names: ["Lahadi","Litinin","Talata","Laraba","Alhamis","Juma\u0027a","Asabar"],
+                    namesAbbr: ["Lah","Lit","Tal","Lar","Alh","Jum","Asa"],
+                    namesShort: ["L","L","T","L","A","J","A"]
                 },
                 months: {
-                    names: ["Januwaru", "Febreru", "Maris", "Afrilu", "Mayu", "Yuni", "Yuli", "Agusta", "Satumba", "Oktocba", "Nuwamba", "Disamba", ""],
-                    namesAbbr: ["Jan", "Feb", "Mar", "Afr", "May", "Yun", "Yul", "Agu", "Sat", "Okt", "Nuw", "Dis", ""]
+                    names: ["Januwaru","Febreru","Maris","Afrilu","Mayu","Yuni","Yuli","Agusta","Satumba","Oktocba","Nuwamba","Disamba",""],
+                    namesAbbr: ["Jan","Feb","Mar","Afr","May","Yun","Yul","Agu","Sat","Okt","Nuw","Dis",""]
                 },
-                AM: ["Safe", "safe", "SAFE"],
-                PM: ["Yamma", "yamma", "YAMMA"],
+                AM: ["Safe","safe","SAFE"],
+                PM: ["Yamma","yamma","YAMMA"],
                 patterns: {
                     d: "d/M/yyyy",
                     D: "dddd, MMMM dd, yyyy",

@@ -178,12 +178,12 @@ class Zend_Soap_Server implements Zend_Server_Interface
      *
      * Allows setting options as an associative array of option => value pairs.
      *
-     * @param array|Zend_Config $options
+     * @param  array|Zend_Config $options
      * @return Zend_Soap_Server
      */
     public function setOptions($options)
     {
-        if ($options instanceof Zend_Config) {
+        if($options instanceof Zend_Config) {
             $options = $options->toArray();
         }
 
@@ -210,8 +210,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
                     $this->setWsdl($value);
                     break;
                 case 'featues':
-                    trigger_error(__METHOD__ . ': the option "featues" is deprecated as of 1.10.x and will be removed with 2.0.0; use "features" instead',
-                        E_USER_NOTICE);
+                    trigger_error(__METHOD__ . ': the option "featues" is deprecated as of 1.10.x and will be removed with 2.0.0; use "features" instead', E_USER_NOTICE);
                 case 'features':
                     $this->setSoapFeatures($value);
                     break;
@@ -254,11 +253,11 @@ class Zend_Soap_Server implements Zend_Server_Interface
             $options['uri'] = $this->_uri;
         }
 
-        if (null !== $this->_features) {
+        if(null !== $this->_features) {
             $options['features'] = $this->_features;
         }
 
-        if (null !== $this->_wsdlCache) {
+        if(null !== $this->_wsdlCache) {
             $options['cache_wsdl'] = $this->_wsdlCache;
         }
 
@@ -268,7 +267,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Set encoding
      *
-     * @param string $encoding
+     * @param  string $encoding
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception with invalid encoding argument
      */
@@ -296,7 +295,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Set SOAP version
      *
-     * @param int $version One of the SOAP_1_1 or SOAP_1_2 constants
+     * @param  int $version One of the SOAP_1_1 or SOAP_1_2 constants
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception with invalid soap version argument
      */
@@ -324,7 +323,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Check for valid URN
      *
-     * @param string $urn
+     * @param  string $urn
      * @return true
      * @throws Zend_Soap_Server_Exception on invalid URN
      */
@@ -344,7 +343,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      *
      * Actor is the actor URI for the server.
      *
-     * @param string $actor
+     * @param  string $actor
      * @return Zend_Soap_Server
      */
     public function setActor($actor)
@@ -369,7 +368,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      *
      * URI in SoapServer is actually the target namespace, not a URI; $uri must begin with 'urn:'.
      *
-     * @param string $uri
+     * @param  string $uri
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception with invalid uri argument
      */
@@ -393,7 +392,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Set classmap
      *
-     * @param array $classmap
+     * @param  array $classmap
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception for any invalid class in the class map
      */
@@ -433,7 +432,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Set wsdl
      *
-     * @param string $wsdl URI or path to a WSDL
+     * @param string $wsdl  URI or path to a WSDL
      * @return Zend_Soap_Server
      */
     public function setWsdl($wsdl)
@@ -455,7 +454,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Set the SOAP Feature options.
      *
-     * @param string|int $feature
+     * @param  string|int $feature
      * @return Zend_Soap_Server
      */
     public function setSoapFeatures($feature)
@@ -499,7 +498,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
      *
      * @param array|string $function Function name, array of function names to attach,
      * or SOAP_FUNCTIONS_ALL to attach all functions
-     * @param string $namespace Ignored
+     * @param  string $namespace Ignored
      * @return Zend_Soap_Server
      * @throws Zend_Soap_Server_Exception on invalid functions
      */
@@ -586,12 +585,12 @@ class Zend_Soap_Server implements Zend_Server_Interface
      */
     public function setObject($object)
     {
-        if (!is_object($object)) {
+        if(!is_object($object)) {
             require_once 'Zend/Soap/Server/Exception.php';
-            throw new Zend_Soap_Server_Exception('Invalid object argument (' . gettype($object) . ')');
+            throw new Zend_Soap_Server_Exception('Invalid object argument ('.gettype($object).')');
         }
 
-        if (isset($this->_object)) {
+        if(isset($this->_object)) {
             require_once 'Zend/Soap/Server/Exception.php';
             throw new Zend_Soap_Server_Exception('An object has already been registered with this soap server instance');
         }
@@ -620,7 +619,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
             $functions = get_class_methods($this->_object);
         }
 
-        return array_merge((array)$this->_functions, $functions);
+        return array_merge((array) $this->_functions, $functions);
     }
 
     /**
@@ -692,7 +691,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
             }
 
             $dom = new DOMDocument();
-            if (strlen($xml) == 0 || !$dom->loadXML($xml)) {
+            if(strlen($xml) == 0 || !$dom->loadXML($xml)) {
                 require_once 'Zend/Soap/Server/Exception.php';
                 throw new Zend_Soap_Server_Exception('Invalid XML');
             }
@@ -760,7 +759,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
     protected function _getSoap()
     {
         $options = $this->getOptions();
-        $server = new SoapServer($this->_wsdl, $options);
+        $server  = new SoapServer($this->_wsdl, $options);
 
         if (!empty($this->_functions)) {
             $server->addFunction($this->_functions);
@@ -825,7 +824,7 @@ class Zend_Soap_Server implements Zend_Server_Interface
         $soap = $this->_getSoap();
 
         ob_start();
-        if ($setRequestException instanceof Exception) {
+        if($setRequestException instanceof Exception) {
             // Send SOAP fault message if we've catched exception
             $soap->fault("Sender", $setRequestException->getMessage());
         } else {
@@ -866,19 +865,19 @@ class Zend_Soap_Server implements Zend_Server_Interface
     /**
      * Register a valid fault exception
      *
-     * @param string|array $class Exception class or array of exception classes
+     * @param  string|array $class Exception class or array of exception classes
      * @return Zend_Soap_Server
      */
     public function registerFaultException($class)
     {
-        $this->_faultExceptions = array_merge($this->_faultExceptions, (array)$class);
+        $this->_faultExceptions = array_merge($this->_faultExceptions, (array) $class);
         return $this;
     }
 
     /**
      * Deregister a fault exception from the fault exception stack
      *
-     * @param string $class
+     * @param  string $class
      * @return boolean
      */
     public function deregisterFaultException($class)
@@ -912,8 +911,8 @@ class Zend_Soap_Server implements Zend_Server_Interface
      * {@Link registerFaultException()}.
      *
      * @link   http://www.w3.org/TR/soap12-part1/#faultcodes
-     * @param string|Exception $fault
-     * @param string $code SOAP Fault Codes
+     * @param  string|Exception $fault
+     * @param  string $code SOAP Fault Codes
      * @return SoapFault
      */
     public function fault($fault = null, $code = "Receiver")
@@ -922,26 +921,22 @@ class Zend_Soap_Server implements Zend_Server_Interface
             $class = get_class($fault);
             if (in_array($class, $this->_faultExceptions)) {
                 $message = $fault->getMessage();
-                $eCode = $fault->getCode();
-                $code = empty($eCode) ? $code : $eCode;
+                $eCode   = $fault->getCode();
+                $code    = empty($eCode) ? $code : $eCode;
             } else {
                 $message = 'Unknown error';
             }
-        } elseif (is_string($fault)) {
+        } elseif(is_string($fault)) {
             $message = $fault;
         } else {
             $message = 'Unknown error';
         }
 
         $allowedFaultModes = array(
-            'VersionMismatch',
-            'MustUnderstand',
-            'DataEncodingUnknown',
-            'Sender',
-            'Receiver',
-            'Server'
+            'VersionMismatch', 'MustUnderstand', 'DataEncodingUnknown',
+            'Sender', 'Receiver', 'Server'
         );
-        if (!in_array($code, $allowedFaultModes)) {
+        if(!in_array($code, $allowedFaultModes)) {
             $code = "Receiver";
         }
 

@@ -7,62 +7,41 @@ class Projeto_AtareuniaoController extends Zend_Controller_Action
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('cadastrar', 'json')
-            ->addActionContext('editar', 'json')
-            ->addActionContext('excluir', 'json')
-            ->initContext();
-        $servicePerfilPessoa = new Default_Service_Perfilpessoa();
-        $dadosEntrada = array(
-            "idprojeto" => $this->_request->getParam('idprojeto'),
-            "controller" => strtolower($this->_request->getControllerName()),
-            "action" => strtolower($this->_request->getActionName()),
-        );
-        //Zend_Debug::dump($servicePerfilPessoa->isValidaControllerAction($dadosEntrada));exit;
-        if (!$servicePerfilPessoa->isValidaControllerAction($dadosEntrada)) {
-            $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => 'Acesso negado...'));
-            $this->_helper->_redirector->gotoSimpleAndExit('forbidden', 'error', 'projeto');
-        }
+                ->addActionContext('editar', 'json')
+                ->addActionContext('excluir', 'json')
+                ->initContext()
+        ;
     }
 
     public function indexAction()
     {
-
+        
     }
 
     public function imprimirAction()
     {
         $serviceGerencia = App_Service_ServiceAbstract::getService('Projeto_Service_Gerencia');
+        //$serviceAta = App_Service_ServiceAbstract::getService('Default_Service_Ata');
         $serviceAtaProjeto = App_Service_ServiceAbstract::getService('Projeto_Service_Ata');
+        
         $opcao = $this->_request->getParam('print');
-        switch ($opcao) {
+        switch ( $opcao) {
             case 'one':
-                $this->view->imprimir = $serviceAtaProjeto->retornaAtaImprimir($this->_request->getParams());
-                $html = $this->view->render('/_partials/ata-reuniao-imprimir-one.phtml');
-                break;
+                    $this->view->imprimir = $serviceAtaProjeto->retornaAtaImprimir($this->_request->getParams());
+                    $html = $this->view->render('/_partials/ata-reuniao-imprimir-one.phtml');
+                    break;
             case 'all':
-                $this->view->imprimir = $serviceAtaProjeto->imprmimirTodasAtas($this->_request->getParams());
-                $html = $this->view->render('/_partials/ata-reuniao-imprimir-all.phtml');
-                break;
+                    $this->view->imprimir = $serviceAtaProjeto->imprmimirTodasAtas($this->_request->getParams());
+                    $html = $this->view->render('/_partials/ata-reuniao-imprimir-all.phtml');
+                    break;
             default:
-                $this->view->projeto = $serviceGerencia->retornaProjetoPorId($this->_request->getParams());
-                $html = $this->view->render('/_partials/ata-reuniao-imprimir.phtml');
-                break;
+                    $this->view->projeto = $serviceGerencia->retornaProjetoPorId($this->_request->getParams());
+                    $html = $this->view->render('/_partials/ata-reuniao-imprimir.phtml');
+                    break;
         }
         $this->_helper->layout->disableLayout();
         $serviceImprimir = App_Service_ServiceAbstract::getService('Default_Service_Impressao');
         $serviceImprimir->gerarPdf($html);
-    }
-
-    public function imprimirWordAction()
-    {
-        $serviceAtaProjeto = App_Service_ServiceAbstract::getService('Projeto_Service_Ata');
-        $projetoAta = $serviceAtaProjeto->imprmimirTodasAtas($this->_request->getParams());
-        $this->view->imprimir = $projetoAta;
-        $this->_helper->layout->disableLayout();
-
-        header("Content-type: application/vnd.ms-word");
-        header("Content-Type: application/force-download; charset=UTF-8");
-        header("Cache-Control: no-store, no-cache");
-        header("Content-disposition: inline; filename=ataReuniaoProjeto" . $this->_request->getParam('idprojeto') . ".doc");
     }
 
     public function listarAction()
@@ -80,23 +59,17 @@ class Projeto_AtareuniaoController extends Zend_Controller_Action
         $request = $this->getRequest();
         $success = false;
 
-        if ($request->isPost()) {
+        if ( $request->isPost() ) {
             $ata = $service->insert($request->getPost());
-            if ($ata) {
+            if ( $ata ) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'N'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $request->getPost()['idprojeto'];
-                $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
-            if ($this->_request->isXmlHttpRequest()) {
-                $this->view->ata = is_object($ata) ? get_object_vars($ata) : null;
+            if ( $this->_request->isXmlHttpRequest() ) {
+                $this->view->ata = is_object($ata) ? get_object_vars($ata) : NULL;
                 $this->view->success = $success;
                 $this->view->msg = array(
                     'text' => $msg,
@@ -119,23 +92,17 @@ class Projeto_AtareuniaoController extends Zend_Controller_Action
         $request = $this->getRequest();
         $success = false;
 
-        if ($request->isPost()) {
+        if ( $request->isPost() ) {
             $ata = $service->update($request->getPost());
-            if ($ata) {
+            if ( $ata ) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'A'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $request->getPost()["idprojeto"]; // Projeto que sofreu a ação.
-                $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
-            if ($this->_request->isXmlHttpRequest()) {
-                $this->view->ata = is_object($ata) ? get_object_vars($ata) : null;
+            if ( $this->_request->isXmlHttpRequest() ) {
+                $this->view->ata = is_object($ata) ? get_object_vars($ata) : NULL;
                 $this->view->success = $success;
                 $this->view->msg = array(
                     'text' => $msg,
@@ -161,23 +128,16 @@ class Projeto_AtareuniaoController extends Zend_Controller_Action
         $ata = $service->getByIdDetalhar($request->getParams());
         $this->view->ata = $ata;
 
-        if ($request->isPost()) {
-            $idProjeto = $ata->idprojeto;
+        if ( $request->isPost() ) {
             $ata = $service->excluir($request->getParams());
-            if ($ata) {
+            if ( $ata ) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                /** Cadastra na linha do tempo (auditoria). */
-                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
-                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
-                $dados['tpacao'] = 'E'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $idProjeto;
-                $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_EXCLUIDO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
-            if ($this->_request->isXmlHttpRequest()) {
+            if ( $this->_request->isXmlHttpRequest() ) {
                 $this->view->success = $success;
                 $this->view->msg = array(
                     'text' => $msg,

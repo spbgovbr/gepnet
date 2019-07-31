@@ -1,237 +1,125 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+;
 
 $frmAttr = $this->form->getAttribs();
 ?>
-<script>
-    $(document).ready(function () {
-        $.pnotify.defaults.history = false;
 
-        //limitadores de campo textarea
-        $("body").delegate("#desatividadeconcluida", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesConcluida');
-        });
-        $("body").delegate("#desatividadeandamento", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesAndamento');
-        });
-        $("body").delegate("#desmotivoatraso", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesAtraso');
-        });
-
-        $("body").delegate("#descontramedida", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesContramedida');
-        });
-
-        $("body").delegate("#desirregularidade", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesIrregularidade');
-        });
-
-        $("body").delegate("#desrisco", "focusin", function () {
-            var max = 4000;
-            //var max = $(this).attr('data-rule-maxlength');
-            $(this).limit(max, '#contDesRisco');
-        });
-        $("#numprocessosei2").mask("99999.999999/9999-99", {reverse: true});
-
-        if ($("#idmarco option:selected").val() == "") {
-            $('#idmarco').html("Não há marco cadastrado.");
-            $("#idmarco").append('<option value="1">Não há marco cadastrado.</option>');
-        }
-    });
-</script>
 <form id="<?php echo $frmAttr['id']; ?>"
       name="<?php echo $frmAttr['id']; ?>"
       action="<?php echo $this->form->getAction(); ?>"
       method="<?php echo $frmAttr['method']; ?>">
-
-    <div class="row" style="margin-top: 20px; margin-left: 1px;">
-        <div class="span2">
-            <?php echo $this->form->flaaprovado; ?>
-        </div>
-        <div class="span2">
-            <?php echo $this->form->pgpassinado; ?>
-        </div>
-        <div class="span2">
-            <?php echo $this->form->tepassinado; ?>
-        </div>
-        <div class="span3" id="numcei">
-            <label class="control-label">Nº do processo</label>
-            <input type="text" name="numprocessosei" id="numprocessosei2"
-                   value="<?php echo $this->numProcessoSei ?>"/>
-        </div>
-    </div>
     <div class="row" style="margin-top: 20px; margin-left: 1px;">
         <div class="span3">
             <p>Status</p>
-            <?php
-            switch ($this->statusreport->domstatusprojeto) {
-                case 1 :
-                    echo "<p>Proposta</p>";
-                    break;
-                case 2:
-                    echo "<p>Em andamento</p>";
-                    break;
-                case 3:
-                    echo "<p>Concluído</p>";
-                    break;
-                case 4:
-                    echo "<p>Paralisado</p>";
-                    break;
-                case 5:
-                    echo "<p>Cancelado</p>";
-                    break;
-                case 7:
-                    echo "<p>Em alteração</p>";
-                    break;
-                case 8:
-                    echo "<p>Excluído</p>";
-                    break;
-            }
-            ?>
+            <?php 
+                switch ($this->statusreport->domstatusprojeto){
+                    case 1 :
+                        echo "<p>Proposta</p>";
+                        break;
+                    case 2:
+                        echo "<p>Em andamento</p>";
+                        break;
+                    case 3:
+                        echo "<p>Concluído</p>";
+                        break;
+                    case 4:
+                        echo "<p>Paralisado</p>";
+                        break;
+                    case 5:
+                        echo "<p>Cancelado</p>";
+                        break;
+                    case 7:
+                        echo "<p>Em alteração</p>";
+                        break;
+                } 
+?>
         </div>
         <div class="span3">
-            <label>Data do Relatório</label>
-            <?php echo $this->statusreport->datcadastro->toString('d/m/Y'); ?>
-            <input type="hidden" id="datacompanhamento" name="datacompanhamento"
-                   value="<?php echo $this->statusreport->datcadastro->toString('Y-m-d H:m:s'); ?>">
+            <label>Data Acompanhamento</label>
+            <?= $this->statusreport->datcadastro->toString('d/m/Y'); ?>
+            <input type="hidden" id="datacompanhamento" name="datacompanhamento" value="<?= $this->statusreport->datcadastro->toString('d/m/Y'); ?>">
         </div>
         <div class="span3">
-            <label>% Concluído Planejado</label>
-            <?php
-            $planejado = $this->statusreport->numpercentualprevisto;
-            if ($planejado == "0.00") {
-                echo '0';
-            } else {
-                echo $planejado . "%";
-            }
-            ?>
-            <input type="hidden" id="numpercentualprevisto" name="numpercentualprevisto"
-                   value="<?php echo $this->statusreport->numpercentualprevisto; ?>">
+            <label>Previsto</label>
+            <?= $this->statusreport->numpercentualprevisto . "%"; ?>
+            <input type="hidden" id="numpercentualprevisto" name="numpercentualprevisto" value="<?= $this->statusreport->numpercentualprevisto; ?>">
         </div>
         <div class="span2">
-            <label>% Concluído Realizado</label>
-            <?php
-            $realizado = $this->statusreport->numpercentualconcluido;
-            if ($realizado == "0.00") {
-                echo '0';
-            } else {
-                echo $realizado . "%";
-            }
-            ?>
-            <input type="hidden" id="numpercentualconcluido" name="numpercentualconcluido"
-                   value="<?php echo $this->statusreport->numpercentualconcluido; ?>">
+            <label>Concluído</label>
+            <?= $this->statusreport->numpercentualconcluido . "%"; ?>
+            <input type="hidden" id="numpercentualconcluido" name="numpercentualconcluido" value="<?= $this->statusreport->numpercentualconcluido; ?>">
         </div>
     </div>
     <div class="row" style=" margin-left: 1px;">
         <div class="span3">
-            <label class="control-label">Próximo Marco</label>
-            <select name="idmarco" id="idmarco" readonly='true'>
-                <option value="<?php echo $this->proximoMarco->idatividadecronograma; ?>"><?php echo $this->esc($this->proximoMarco->nomatividadecronograma); ?></option>
-            </select>
+            <?= $this->form->idmarco; ?>
         </div>
         <div class="span1">
-            <?php echo $this->semaforo; ?>
+            <?= $this->semaforo; ?>
         </div>
         <div class="span3">
-            <?php echo $this->form->datfimprojetotendencia; ?>
+            <?= $this->form->datfimprojetotendencia; ?>
         </div>
         <div class="span3">
-            <?php echo $this->form->domcorrisco; ?>
+            <?= $this->form->domcorrisco; ?>
         </div>
     </div>
     <div class="row" style="margin-top: 20px; margin-left: 1px;">
         <div class="span5">
-            <?php echo $this->form->desandamentoprojeto; ?>
-            <strong style="display: none;">Restam <span id="contDesAndamentoProj" style="color: red"></span> caracteres
-                a serem digitados.</strong>
-        </div>
-    </div>
-    <div class="row" style="margin-top: 20px; margin-left: 1px;">
-        <div class="span5">
-            <label>Atividades Concluídas no
-                Período: <?php echo $this->periodo['datainiperiodo'] . ' a ' . $this->periodo['datafinperiodo']; ?> </label>
             <?php echo $this->form->desatividadeconcluida; ?>
-            <strong style="display: none;">Restam <span id="contDesConcluida" style="color: red"></span> caracteres a
-                serem digitados.</strong>
         </div>
         <div class="span5">
-            <label>Atividades em Andamento até: <?php echo $this->periodo['datafinperiodo']; ?> </label>
             <?php echo $this->form->desatividadeandamento; ?>
-            <strong style="display: none;">Restam <span id="contDesAndamento" style="color: red"></span> caracteres a
-                serem digitados.</strong>
         </div>
     </div>
     <div class="row" style="margin-left: 1px;">
         <div class="span5">
             <?php echo $this->form->desmotivoatraso; ?>
-            <strong style="display: none;">Restam <span id="contDesAtraso" style="color: red"></span> caracteres a serem
-                digitados.</strong>
         </div>
         <div class="span5">
             <?php echo $this->form->descontramedida; ?>
-            <strong style="display: none;">Restam <span id="contDesContramedida" style="color: red"></span> caracteres a
-                serem digitados.</strong>
         </div>
     </div>
     <div class="row" style="margin-left: 1px;">
         <div class="span5">
             <?php echo $this->form->desirregularidade; ?>
-            <strong style="display: none;">Restam <span id="contDesIrregularidade" style="color: red"></span> caracteres
-                a serem digitados.</strong>
         </div>
         <div class="span5">
             <?php echo $this->form->desrisco; ?>
-            <strong style="display: none;">Restam <span id="contDesRisco" style="color: red"></span> caracteres a serem
-                digitados.</strong>
         </div>
     </div>
-    <?php if ($this->anexo) { ?>
-        <div class="row" style="margin-left: 1px;">
-            <div class="span5">
-                <a target="_blank" class="btn" href="<?php echo $this->anexo; ?>">VISUALIZAR PDF</a>
-            </div>
+    <?php if($this->anexo){ ?>
+    <div class="row" style="margin-left: 1px;">
+        <div class="span5">
+            <a target="_blank" class="btn" href="<?php echo $this->anexo;?>">VISUALIZAR PDF</a>
         </div>
+    </div>
     <?php } ?>
     <div class="row" style="margin-left: 1px;">
         <div class="span5">
             <?php echo $this->form->descaminho; ?>
         </div>
     </div>
-    <?php echo $this->form->idprojeto; ?>
-    <?php echo $this->form->idstatusreport; ?>
-    <div class="row">
-        <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 20px;">
-            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
-        </div>
-    </div>
+     <?php echo $this->form->idprojeto; ?>
+     <?php echo $this->form->idstatusreport; ?>
 </form>
 
 

@@ -32,7 +32,7 @@ class Planejamento_Service_InjectionContainer extends App_Service_InjectionConta
 
         return $service;
     }
-
+    
     /**
      * Retorna Acao servico
      *
@@ -46,7 +46,7 @@ class Planejamento_Service_InjectionContainer extends App_Service_InjectionConta
 
         return $service;
     }
-
+    
     /**
      * Retorna Escritorio servico
      *

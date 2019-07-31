@@ -1,9 +1,8 @@
 <?php
-
 class App_Generator_Php_Form_Element_Property
 {
     /**
-     * @var string
+     * @var string 
      */
     public $fieldName;
     /**

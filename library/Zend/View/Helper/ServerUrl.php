@@ -59,23 +59,21 @@ class Zend_View_Helper_ServerUrl
                 $scheme = 'https';
                 break;
             default:
-                $scheme = 'http';
+            $scheme = 'http';
         }
         $this->setScheme($scheme);
 
         if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])) {
             $this->setHost($_SERVER['HTTP_HOST']);
-        } else {
-            if (isset($_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'])) {
-                $name = $_SERVER['SERVER_NAME'];
-                $port = $_SERVER['SERVER_PORT'];
+        } else if (isset($_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT'])) {
+            $name = $_SERVER['SERVER_NAME'];
+            $port = $_SERVER['SERVER_PORT'];
 
-                if (($scheme == 'http' && $port == 80) ||
-                    ($scheme == 'https' && $port == 443)) {
-                    $this->setHost($name);
-                } else {
-                    $this->setHost($name . ':' . $port);
-                }
+            if (($scheme == 'http' && $port == 80) ||
+                ($scheme == 'https' && $port == 443)) {
+                $this->setHost($name);
+            } else {
+                $this->setHost($name . ':' . $port);
             }
         }
     }
@@ -84,7 +82,7 @@ class Zend_View_Helper_ServerUrl
      * View helper entry point:
      * Returns the current host's URL like http://site.com
      *
-     * @param string|boolean $requestUri [optional] if true, the request URI
+     * @param  string|boolean $requestUri  [optional] if true, the request URI
      *                                     found in $_SERVER will be appended
      *                                     as a path. If a string is given, it
      *                                     will be appended as a path. Default
@@ -95,12 +93,10 @@ class Zend_View_Helper_ServerUrl
     {
         if ($requestUri === true) {
             $path = $_SERVER['REQUEST_URI'];
+        } else if (is_string($requestUri)) {
+            $path = $requestUri;
         } else {
-            if (is_string($requestUri)) {
-                $path = $requestUri;
-            } else {
-                $path = '';
-            }
+            $path = '';
         }
 
         return $this->getScheme() . '://' . $this->getHost() . $path;
@@ -119,7 +115,7 @@ class Zend_View_Helper_ServerUrl
     /**
      * Sets host
      *
-     * @param string $host new host
+     * @param  string $host                new host
      * @return Zend_View_Helper_ServerUrl  fluent interface, returns self
      */
     public function setHost($host)
@@ -141,7 +137,7 @@ class Zend_View_Helper_ServerUrl
     /**
      * Sets scheme (typically http or https)
      *
-     * @param string $scheme new scheme (typically http or https)
+     * @param  string $scheme              new scheme (typically http or https)
      * @return Zend_View_Helper_ServerUrl  fluent interface, returns self
      */
     public function setScheme($scheme)

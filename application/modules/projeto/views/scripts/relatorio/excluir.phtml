@@ -1,25 +1,27 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+;
 
 $frmAttr = $this->form->getAttribs();
+//Zend_Debug::dump($this->statusreport);
+//exit;
 ?>
 
 <form id="<?php echo $frmAttr['id']; ?>"
@@ -28,87 +30,30 @@ $frmAttr = $this->form->getAttribs();
       method="<?php echo $frmAttr['method']; ?>">
     <div class="span11" style="margin-top: 20px; margin-left: 15px;">
 
-        <div class="row">
-            <div class="portlet portlet-cinza span4">
-                <h3>TAP assinado?</h3>
-                <div class="content">
-                    <?php
-                    if ($this->statusreport->flaaprovado == 2) {
-                        echo 'Não';
-                    } else {
-                        echo 'Sim';
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>PGP assinado?</h3>
-                <div class="content">
-                    <?php
-                    if ($this->statusreport->pgpassinado == 'N') {
-                        echo 'Não';
-                    } else {
-                        echo 'Sim';
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>TEP assinado?</h3>
-                <div class="content">
-                    <?php
-                    if ($this->statusreport->tepassinado == 'N') {
-                        echo 'Não';
-                    } else {
-                        echo 'Sim';
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="portlet portlet-cinza span2">
-                <h3>Nº do processo</h3>
-                <div class="content">
-                    <?php echo $this->numProcessoSei; ?>
-                </div>
-            </div>
-        </div>
+
         <div class="row">
             <div class="portlet portlet-azul span4">
                 <h3>Status Projeto</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->nomstatusprojeto; ?>
+                    <?= $this->statusreport->nomstatusprojeto; ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span2">
                 <h3>Data Acompanhamento</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->datcadastro->toString('d/m/Y'); ?>
+                    <?= $this->statusreport->datcadastro->toString('d/m/Y'); ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span2">
                 <h3>Previsto</h3>
                 <div class="content">
-                    <?php
-                    $planejado = $this->statusreport->numpercentualprevisto;
-                    if ($planejado == "0.00") {
-                        echo '0';
-                    } else {
-                        echo $planejado . "%";
-                    }
-                    ?>
+                    <?= $this->statusreport->numpercentualprevisto . "%"; ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span2">
                 <h3>Concluído</h3>
                 <div class="content">
-                    <?php
-                    $realizado = $this->statusreport->numpercentualconcluido;
-                    if ($realizado == "0.00") {
-                        echo '0';
-                    } else {
-                        echo $realizado . "%";
-                    }
-                    ?>
+                    <?= $this->statusreport->numpercentualconcluido . "%"; ?>
                 </div>
             </div>
         </div>
@@ -116,10 +61,7 @@ $frmAttr = $this->form->getAttribs();
             <div class="portlet portlet-cinza span4">
                 <h3>Próximo Marco</h3>
                 <div class="content">
-                    <?php
-                    $marco = $this->statusreport->nomproximomarco;
-                    echo $marco = $marco ? $marco : "Não há marco cadastrado.";
-                    ?>
+                    <?= $this->statusreport->nomproximomarco; ?>
                 </div>
             </div>
             <!-- <div class="portlet portlet-cinza span2">
@@ -131,42 +73,27 @@ $frmAttr = $this->form->getAttribs();
             <div class="portlet portlet-cinza span2">
                 <h3>Tendência do Projeto</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->datcadastro->toString('d/m/Y'); ?>
+                    <?= $this->statusreport->datcadastro->toString('d/m/Y'); ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span2">
                 <h3>Risco Atual do Projeto</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->nomrisco; ?>
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-left: -30px;">
-            <div class="portlet portlet-cinza span5">
-                <h3>Considerações gerais sobre o andamento do projeto</h3>
-                <div class="content">
-                    <?php
-                    if ($this->statusreport->desandamentoprojeto != null) {
-                        echo preg_replace("/\r\n|\r|\n/", '<br/>', $this->statusreport->desandamentoprojeto);
-                    } else {
-                        echo 'Não há considerações.';
-                    }
-                    ?>
+                    <?= $this->statusreport->nomrisco; ?>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="portlet portlet-cinza span5">
-                <h3>Atividades Concluídas no
-                    Período: <?php echo $this->periodo['datainiperiodo'] . ' a ' . $this->periodo['datafinperiodo']; ?>  </h3>
+                <h3>Atividades Concluídas no Período</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->desatividadeconcluida; ?>
+                    <?= $this->statusreport->desatividadeconcluida; ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span5">
-                <h3>Atividades em Andamento até: <?php echo $this->periodo['datafinperiodo']; ?> </h3>
+                <h3>Atividades em Andamento no Período</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->desatividadeandamento; ?>
+                    <?= $this->statusreport->desatividadeandamento; ?>
                 </div>
             </div>
         </div>
@@ -174,13 +101,13 @@ $frmAttr = $this->form->getAttribs();
             <div class="portlet portlet-cinza span5">
                 <h3>Motivo de Atraso no Prazo Final do Projeto</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->desmotivoatraso; ?>
+                    <?= $this->statusreport->desmotivoatraso; ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span5">
                 <h3>Contramedidas (R3G)</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->descontramedida; ?>
+                    <?= $this->statusreport->descontramedida; ?>
                 </div>
             </div>
         </div>
@@ -188,19 +115,19 @@ $frmAttr = $this->form->getAttribs();
             <div class="portlet portlet-cinza span5">
                 <h3>Irregularidades</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->desirregularidade; ?>
+                    <?= $this->statusreport->desirregularidade; ?>
                 </div>
             </div>
             <div class="portlet portlet-cinza span5">
                 <h3>Riscos</h3>
                 <div class="content">
-                    <?php echo $this->statusreport->desrisco; ?>
+                    <?= $this->statusreport->desrisco; ?>
                 </div>
             </div>
         </div>
 
-        <?php echo $this->form->idprojeto; ?>
-        <?php echo $this->form->idstatusreport; ?>
+    <?php echo $this->form->idprojeto; ?>
+    <?php echo $this->form->idstatusreport; ?>
 </form>
 
 

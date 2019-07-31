@@ -1,6 +1,7 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'));
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+;
 /*
   $this->headScript()
   ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
@@ -49,12 +50,6 @@ $frmAttr = $this->form->getAttribs();
                     <?php echo $this->form->idacao; ?>
                     <?php echo $this->form->submit; ?>
                     <?php echo $this->form->reset; ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
-                    (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
-                    obrigatório
                 </div>
             </div>
         </div>

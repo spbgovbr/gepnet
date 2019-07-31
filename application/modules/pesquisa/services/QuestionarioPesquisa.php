@@ -1,7 +1,6 @@
 <?php
 
-class Pesquisa_Service_QuestionarioPesquisa extends App_Service_ServiceAbstract
-{
+class Pesquisa_Service_QuestionarioPesquisa extends App_Service_ServiceAbstract {
 
     public $_mapper = null;
     protected $_form = null;
@@ -23,29 +22,29 @@ class Pesquisa_Service_QuestionarioPesquisa extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
-    public function inserirQuestionarioPesquisa($params)
+    
+    public function inserirQuestionarioPesquisa($params) 
     {
         $questionarioPesquisa = new Pesquisa_Model_QuestionarioPesquisa();
-
-        $questionarioPesquisa->nomquestionario = $params['nomquestionario'];
-        $questionarioPesquisa->idpesquisa = $params['idpesquisa'];
-        $questionarioPesquisa->idescritorio = $params['idescritorio'];
-        $questionarioPesquisa->idcadastrador = $params['idcadastrador'];
+        
+        $questionarioPesquisa->nomquestionario  = $params['nomquestionario'];
+        $questionarioPesquisa->idpesquisa       = $params['idpesquisa'];
+        $questionarioPesquisa->idescritorio     = $params['idescritorio'];
+        $questionarioPesquisa->idcadastrador    = $params['idcadastrador'];
         $questionarioPesquisa->tipoquestionario = $params['tipoquestionario'];
-        $questionarioPesquisa->desobservacao = $params['desobservacao'];
-        $questionarioPesquisa->datcadastro = $params['datcadastro'];
+        $questionarioPesquisa->desobservacao    = $params['desobservacao'];
+        $questionarioPesquisa->datcadastro      = $params['datcadastro'];
         $idquestionariopesquisa = $this->_mapper->insert($questionarioPesquisa);
-
+        
         return $idquestionariopesquisa;
     }
-
+    
     public function retornaQuestionarioByPesquisa($params)
     {
         $questionario = $this->_mapper->retornaQuestionarioByPesquisa($params);
         return $questionario;
     }
-
+    
     public function isDuplicada($params)
     {
         try {
@@ -55,7 +54,7 @@ class Pesquisa_Service_QuestionarioPesquisa extends App_Service_ServiceAbstract
             } else {
                 return false;
             }
-        } catch (Exception $exc) {
+        } catch (Exception $exc){
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return true;
         }

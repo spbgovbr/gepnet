@@ -35,7 +35,7 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
     {
         return $this->_getForm('Projeto_Form_ComunicacaoInserir');
     }
-
+    
     /**
      * @return Projeto_Form_ComunicacaoEdit
      */
@@ -43,7 +43,7 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
     {
         return $this->_getForm('Projeto_Form_ComunicacaoEdit');
     }
-
+    
     /**
      * @return Projeto_Form_ComunicacaoPesquisar
      */
@@ -62,33 +62,13 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
         return $this->_mapper->getById($params);
     }
 
-    public function getComunicacaoByIdParteInteressada($params)
-    {
-        return $this->_mapper->getByIdFromParteInteressada($params);
-    }
-
-    public function getByIdComunicacaoProjetoResponsavel($params)
-    {
-        return $this->_mapper->getByIdComunicacaoProjetoResponsavel($params);
-    }
-
-    public function updateComunicacaoByProjetoResponsavel($params)
-    {
-        return $this->_mapper->updateComunicacaoByProjetoResponsavel($params);
-    }
-
-    public function excluirComunicacaoByProjetoResponsavel($params)
-    {
-        return $this->_mapper->excluirComunicacaoByProjetoResponsavel($params);
-    }
-
     public function insert($data)
     {
         $form = $this->getFormComunicacaoInserir();
 
-        if ($form->isValid($data)) {
+        if ( $form->isValid($data) ) {
             $model = new Projeto_Model_Comunicacao($form->getValues());
-            $model->setDatcadastro();
+            $model->setDatcadastro(); 
             $model->setIdcadastrador($this->auth->idpessoa);
             $result = $this->_mapper->insert($model);
             return $result;
@@ -102,7 +82,7 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
     {
         $form = $this->getFormComunicacaoEdit();
 
-        if ($form->isValid($data)) {
+        if ( $form->isValid($data) ) {
             $model = new Projeto_Model_Comunicacao($form->getValues());
             $model->setIdcadastrador($this->auth->idpessoa);
             $result = $this->_mapper->update($model);
@@ -122,7 +102,6 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
     {
         return $this->_mapper->retornaPorProjeto($params);
     }
-
     public function retornaComunicacaoPorIdProjeto($params)
     {
         return $this->_mapper->retornaComunicacaoPorIdProjeto($params);
@@ -131,7 +110,7 @@ class Projeto_Service_Comunicacao extends App_Service_ServiceAbstract
     public function getGridComunicacao($params, $paginator)
     {
         $result = $this->_mapper->retornaPorProjetoToGrid($params, $paginator);
-        if ($paginator) {
+        if ( $paginator ) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($result);
             return $service;

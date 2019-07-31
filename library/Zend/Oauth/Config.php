@@ -146,10 +146,10 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
      * @var Zend_Oauth_Token
      */
     protected $_token = null;
-
+    
     /**
      * Define the OAuth realm
-     *
+     * 
      * @var string
      */
     protected $_realm = null;
@@ -158,7 +158,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
      * Constructor; create a new object with an optional array|Zend_Config
      * instance containing initialising options.
      *
-     * @param array|Zend_Config $options
+     * @param  array|Zend_Config $options
      * @return void
      */
     public function __construct($options = null)
@@ -175,7 +175,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
      * Parse option array or Zend_Config instance and setup options using their
      * relevant mutators.
      *
-     * @param array|Zend_Config $options
+     * @param  array|Zend_Config $options
      * @return Zend_Oauth_Config
      */
     public function setOptions(array $options)
@@ -236,7 +236,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set consumer key
      *
-     * @param string $key
+     * @param  string $key
      * @return Zend_Oauth_Config
      */
     public function setConsumerKey($key)
@@ -258,7 +258,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set consumer secret
      *
-     * @param string $secret
+     * @param  string $secret
      * @return Zend_Oauth_Config
      */
     public function setConsumerSecret($secret)
@@ -286,7 +286,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set signature method
      *
-     * @param string $method
+     * @param  string $method
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception if unsupported signature method specified
      */
@@ -294,11 +294,8 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     {
         $method = strtoupper($method);
         if (!in_array($method, array(
-            'HMAC-SHA1',
-            'HMAC-SHA256',
-            'RSA-SHA1',
-            'PLAINTEXT'
-        ))
+                'HMAC-SHA1', 'HMAC-SHA256', 'RSA-SHA1', 'PLAINTEXT'
+            ))
         ) {
             require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception('Unsupported signature method: '
@@ -322,7 +319,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set request scheme
      *
-     * @param string $scheme
+     * @param  string $scheme
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception if invalid scheme specified, or if POSTBODY set when request method of GET is specified
      */
@@ -330,10 +327,10 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     {
         $scheme = strtolower($scheme);
         if (!in_array($scheme, array(
-            Zend_Oauth::REQUEST_SCHEME_HEADER,
-            Zend_Oauth::REQUEST_SCHEME_POSTBODY,
-            Zend_Oauth::REQUEST_SCHEME_QUERYSTRING,
-        ))
+                Zend_Oauth::REQUEST_SCHEME_HEADER,
+                Zend_Oauth::REQUEST_SCHEME_POSTBODY,
+                Zend_Oauth::REQUEST_SCHEME_QUERYSTRING,
+            ))
         ) {
             require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception(
@@ -365,7 +362,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set version
      *
-     * @param string $version
+     * @param  string $version
      * @return Zend_Oauth_Config
      */
     public function setVersion($version)
@@ -387,7 +384,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set callback URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -416,7 +413,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set site URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -445,7 +442,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set request token URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -480,7 +477,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set access token URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -515,7 +512,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set user authorization URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -527,7 +524,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set authorization URL
      *
-     * @param string $url
+     * @param  string $url
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid URLs
      */
@@ -572,7 +569,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set request method
      *
-     * @param string $method
+     * @param  string $method
      * @return Zend_Oauth_Config
      * @throws Zend_Oauth_Exception for invalid request methods
      */
@@ -580,11 +577,11 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     {
         $method = strtoupper($method);
         if (!in_array($method, array(
-            Zend_Oauth::GET,
-            Zend_Oauth::POST,
-            Zend_Oauth::PUT,
-            Zend_Oauth::DELETE,
-        ))
+                Zend_Oauth::GET,
+                Zend_Oauth::POST,
+                Zend_Oauth::PUT,
+                Zend_Oauth::DELETE,
+            ))
         ) {
             require_once 'Zend/Oauth/Exception.php';
             throw new Zend_Oauth_Exception('Invalid method: ' . $method);
@@ -606,7 +603,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set RSA public key
      *
-     * @param Zend_Crypt_Rsa_Key_Public $key
+     * @param  Zend_Crypt_Rsa_Key_Public $key
      * @return Zend_Oauth_Config
      */
     public function setRsaPublicKey(Zend_Crypt_Rsa_Key_Public $key)
@@ -628,7 +625,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set RSA private key
      *
-     * @param Zend_Crypt_Rsa_Key_Private $key
+     * @param  Zend_Crypt_Rsa_Key_Private $key
      * @return Zend_Oauth_Config
      */
     public function setRsaPrivateKey(Zend_Crypt_Rsa_Key_Private $key)
@@ -650,7 +647,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set OAuth token
      *
-     * @param Zend_Oauth_Token $token
+     * @param  Zend_Oauth_Token $token
      * @return Zend_Oauth_Config
      */
     public function setToken(Zend_Oauth_Token $token)
@@ -672,7 +669,7 @@ class Zend_Oauth_Config implements Zend_Oauth_Config_ConfigInterface
     /**
      * Set OAuth realm
      *
-     * @param string $realm
+     * @param  string $realm
      * @return Zend_Oauth_Config
      */
     public function setRealm($realm)

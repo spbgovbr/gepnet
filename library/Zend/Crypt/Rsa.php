@@ -88,7 +88,7 @@ class Zend_Crypt_Rsa
         if (isset($options['passPhrase'])) {
             $this->_passPhrase = $options['passPhrase'];
         }
-        foreach ($options as $option => $value) {
+        foreach ($options as $option=>$value) {
             switch ($option) {
                 case 'pemString':
                     $this->setPemString($value);
@@ -221,8 +221,8 @@ class Zend_Crypt_Rsa
         $details = openssl_pkey_get_details($resource);
         $publicKey = new Zend_Crypt_Rsa_Key_Public($details['key']);
         $return = new ArrayObject(array(
-            'privateKey' => $privateKey,
-            'publicKey' => $publicKey
+           'privateKey'=>$privateKey,
+           'publicKey'=>$publicKey
         ), ArrayObject::ARRAY_AS_PROPS);
         return $return;
     }

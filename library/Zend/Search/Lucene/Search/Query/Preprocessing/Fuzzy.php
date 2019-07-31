@@ -74,16 +74,16 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     /**
      * Class constructor.  Create a new preprocessing object for prase query.
      *
-     * @param string $word Non-tokenized word (query parser lexeme) to search.
-     * @param string $encoding Word encoding.
-     * @param string $fieldName Field name.
-     * @param float $minimumSimilarity minimum similarity
+     * @param string $word       Non-tokenized word (query parser lexeme) to search.
+     * @param string $encoding   Word encoding.
+     * @param string $fieldName  Field name.
+     * @param float  $minimumSimilarity minimum similarity
      */
     public function __construct($word, $encoding, $fieldName, $minimumSimilarity)
     {
-        $this->_word = $word;
+        $this->_word     = $word;
         $this->_encoding = $encoding;
-        $this->_field = $fieldName;
+        $this->_field    = $fieldName;
         $this->_minimumSimilarity = $minimumSimilarity;
     }
 
@@ -111,14 +111,14 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
             require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Fuzzy.php';
             foreach ($searchFields as $fieldName) {
                 $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy($this->_word,
-                    $this->_encoding,
-                    $fieldName,
-                    $this->_minimumSimilarity);
+                                                                                    $this->_encoding,
+                                                                                    $fieldName,
+                                                                                    $this->_minimumSimilarity);
 
                 $rewrittenSubquery = $subquery->rewrite($index);
 
-                if (!($rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Insignificant ||
-                    $rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Empty)) {
+                if ( !($rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Insignificant  ||
+                       $rewrittenSubquery instanceof Zend_Search_Lucene_Search_Query_Empty) ) {
                     $query->addSubquery($rewrittenSubquery);
                 }
 
@@ -196,7 +196,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
 
         if (count($tokens) == 1) {
             require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
             $query->setBoost($this->getBoost());
@@ -216,7 +216,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
     /**
      * Query specific matches highlighting
      *
-     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter Highlighter object (also contains doc for highlighting)
+     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter  Highlighter object (also contains doc for highlighting)
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
@@ -249,7 +249,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Fuzzy extends Zend_Search_Lu
         }
         if (count($tokens) == 1) {
             require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             require_once 'Zend/Search/Lucene/Search/Query/Fuzzy.php';
             $query = new Zend_Search_Lucene_Search_Query_Fuzzy($term, $this->_minimumSimilarity);
 

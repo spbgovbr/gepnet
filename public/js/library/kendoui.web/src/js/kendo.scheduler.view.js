@@ -15,10 +15,10 @@ kendo_module({
     name: "Scheduler View",
     category: "web",
     description: "The Scheduler Common View",
-    depends: ["core"]
+    depends: [ "core" ]
 });
 
-(function ($) {
+(function($) {
     var kendo = window.kendo,
         ui = kendo.ui,
         Widget = ui.Widget,
@@ -60,10 +60,10 @@ kendo_module({
         }
 
         return '<table ' + cellspacing() + ' class="' + $.trim('k-scheduler-table ' + (className || "")) + '">' +
-            '<tr>' +
-            tableRows.join("</tr><tr>") +
-            '</tr>' +
-            '</table>';
+               '<tr>' +
+                    tableRows.join("</tr><tr>") +
+               '</tr>' +
+               '</table>';
     }
 
     function timesHeader(columnLevelCount, allDaySlot, rowCount) {
@@ -80,7 +80,7 @@ kendo_module({
         }
 
         if (rowCount < 1) {
-            return $();
+           return $();
         }
 
         return $('<div class="k-scheduler-times">' + table(tableRows) + '</div>');
@@ -95,8 +95,8 @@ kendo_module({
             var th = [];
             var colspan = columnCount / level.length;
 
-            for (columnIndex = 0; columnIndex < level.length; columnIndex++) {
-                th.push('<th colspan="' + colspan + '" class="' + (level[columnIndex].className || "") + '">' + level[columnIndex].text + "</th>");
+            for (columnIndex = 0; columnIndex < level.length; columnIndex ++) {
+                th.push('<th colspan="' + colspan + '" class="' + (level[columnIndex].className || "")  + '">' + level[columnIndex].text + "</th>");
             }
 
             dateTableRows.push(th.join(""));
@@ -109,7 +109,7 @@ kendo_module({
             var td = [];
 
             for (columnIndex = 0; columnIndex < lastLevel.length; columnIndex++) {
-                td.push('<td class="' + (lastLevel[columnIndex].className || "") + '">&nbsp;</th>');
+                td.push('<td class="' + (lastLevel[columnIndex].className || "")  + '">&nbsp;</th>');
             }
 
             allDayTableRows.push(td.join(""));
@@ -117,10 +117,10 @@ kendo_module({
 
         return $(
             '<div class="k-scheduler-header k-state-default">' +
-            '<div class="k-scheduler-header-wrap">' +
-            table(dateTableRows) +
-            table(allDayTableRows, "k-scheduler-header-all-day") +
-            '</div>' +
+                '<div class="k-scheduler-header-wrap">' +
+                    table(dateTableRows) +
+                    table(allDayTableRows, "k-scheduler-header-all-day") +
+                '</div>' +
             '</div>'
         );
     }
@@ -160,21 +160,20 @@ kendo_module({
     function content() {
         return $(
             '<div class="k-scheduler-content">' +
-            '<table ' + cellspacing() + ' class="k-scheduler-table"/>' +
+                '<table ' + cellspacing() + ' class="k-scheduler-table"/>' +
             '</div>'
         );
     }
-
     var HINT = '<div class="k-marquee k-scheduler-marquee">' +
-        '<div class="k-marquee-color"></div>' +
-        '<div class="k-marquee-text">' +
-        '<div class="k-label-top"></div>' +
-        '<div class="k-label-bottom"></div>' +
-        '</div>' +
-        '</div>';
+                    '<div class="k-marquee-color"></div>' +
+                    '<div class="k-marquee-text">' +
+                        '<div class="k-label-top"></div>' +
+                        '<div class="k-label-bottom"></div>' +
+                    '</div>' +
+                '</div>';
 
     kendo.ui.SchedulerView = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             Widget.fn.init.call(this, element, options);
             this._scrollbar = kendo.support.scrollbar();
             isRtl = kendo.support.isRtl(element);
@@ -185,23 +184,23 @@ kendo_module({
             this._resourcesForGroups();
         },
 
-        dateForTitle: function () {
+        dateForTitle: function() {
             return kendo.format(this.options.selectedDateFormat, this.startDate(), this.endDate());
         },
 
-        move: function () {
+        move: function() {
             return false;
         },
 
-        moveToEvent: function () {
+        moveToEvent: function() {
             return false;
         },
 
-        isInRange: function (date) {
+        isInRange: function(date) {
             return this.startDate() <= date && date <= this.endDate();
         },
 
-        _createResizeHint: function (left, top, width, height) {
+        _createResizeHint: function(left, top, width, height) {
             return $(HINT).css({
                 left: left,
                 top: top,
@@ -210,17 +209,17 @@ kendo_module({
             });
         },
 
-        _removeResizeHint: function () {
+        _removeResizeHint: function() {
             this._resizeHint.remove();
             this._resizeHint = $();
         },
 
-        _removeMoveHint: function () {
+        _removeMoveHint: function() {
             this._moveHint.remove();
             this._moveHint = $();
         },
 
-        _scrollTo: function (element, container) {
+        _scrollTo: function(element, container) {
             var elementOffset = element.offsetTop,
                 elementOffsetDir = element.offsetHeight,
                 containerScroll = container.scrollTop,
@@ -228,21 +227,21 @@ kendo_module({
                 bottomDistance = elementOffset + elementOffsetDir,
                 result = 0;
 
-            if (containerScroll > elementOffset) {
-                result = elementOffset;
-            } else if (bottomDistance > (containerScroll + containerOffsetDir)) {
-                if (elementOffsetDir <= containerOffsetDir) {
-                    result = (bottomDistance - containerOffsetDir);
-                } else {
+                if (containerScroll > elementOffset) {
                     result = elementOffset;
+                } else if (bottomDistance > (containerScroll + containerOffsetDir)) {
+                    if (elementOffsetDir <= containerOffsetDir) {
+                        result = (bottomDistance - containerOffsetDir);
+                    } else {
+                        result = elementOffset;
+                    }
+                } else {
+                    result = containerScroll;
                 }
-            } else {
-                result = containerScroll;
-            }
-            container.scrollTop = result;
+                container.scrollTop = result;
         },
 
-        eventResources: function (event) {
+        eventResources: function(event) {
             var resources = [],
                 options = this.options;
 
@@ -282,11 +281,11 @@ kendo_module({
                     }
 
                     if (eventResource != null) {
-                        resources.push({
-                            text: kendo.getter(resource.dataTextField)(eventResource),
-                            value: value,
-                            color: kendo.getter(resource.dataColorField)(eventResource)
-                        });
+                       resources.push({
+                          text: kendo.getter(resource.dataTextField)(eventResource),
+                          value: value,
+                          color: kendo.getter(resource.dataColorField)(eventResource)
+                       });
                     }
                 }
 
@@ -294,7 +293,7 @@ kendo_module({
 
             return resources;
         },
-        createLayout: function (layout) {
+        createLayout: function(layout) {
             var allDayIndex = -1;
 
             if (!layout.rows) {
@@ -331,7 +330,7 @@ kendo_module({
             this._scroller();
         },
 
-        refreshLayout: function () {
+        refreshLayout: function() {
             var that = this,
                 toolbar = that.element.find(">.k-scheduler-toolbar"),
                 height = that.element.innerHeight(),
@@ -354,7 +353,7 @@ kendo_module({
             if (that.datesHeader && that.timesHeader) {
                 var datesHeaderRows = that.datesHeader.find("table:first tr");
 
-                that.timesHeader.find("tr").height(function (index) {
+                that.timesHeader.find("tr").height(function(index) {
                     $(this).height(datesHeaderRows.eq(index).height());
                 });
             }
@@ -367,7 +366,7 @@ kendo_module({
                 height -= that.footer.outerHeight();
             }
 
-            var isSchedulerHeightSet = function (el) {
+            var isSchedulerHeightSet = function(el) {
                 var initialHeight, newHeight;
                 if (el[0].style.height) {
                     return true;
@@ -412,7 +411,7 @@ kendo_module({
             }
         },
 
-        _topSection: function (columnLevels, allDaySlot, rowCount) {
+        _topSection: function(columnLevels, allDaySlot, rowCount) {
             this.timesHeader = timesHeader(columnLevels.length, allDaySlot, rowCount);
 
             var columnCount = columnLevels[columnLevels.length - 1].length;
@@ -422,7 +421,7 @@ kendo_module({
             return $("<tr>").append(this.timesHeader.add(this.datesHeader).wrap("<td>").parent());
         },
 
-        _bottomSection: function (columnLevels, rowLevels, rowCount) {
+        _bottomSection: function(columnLevels, rowLevels, rowCount) {
             this.times = times(rowLevels, rowCount);
 
             this.content = content(columnLevels[columnLevels.length - 1], rowLevels[rowLevels.length - 1]);
@@ -430,7 +429,7 @@ kendo_module({
             return $("<tr>").append(this.times.add(this.content).wrap("<td>").parent());
         },
 
-        _scroller: function () {
+        _scroller: function() {
             var that = this;
 
             this.content.bind("scroll" + NS, function () {
@@ -439,7 +438,7 @@ kendo_module({
             });
 
             var touchScroller = kendo.touchScroller(this.content, {
-                avoidScrolling: function (e) {
+                avoidScrolling: function(e) {
                     return $(e.event.target).closest(".k-event.k-state-selected").length > 0;
                 }
             });
@@ -450,14 +449,14 @@ kendo_module({
 
                 this.content = touchScroller.scrollElement;
 
-                touchScroller.movable.bind("change", function (e) {
+                touchScroller.movable.bind("change", function(e) {
                     that.datesHeader.find(">.k-scheduler-header-wrap").scrollLeft(-e.sender.x);
                     that.times.scrollTop(-e.sender.y);
                 });
             }
         },
 
-        _resourcesForGroups: function () {
+        _resourcesForGroups: function() {
             var result = [];
             var groups = this.options.group;
             var resources = this.options.resources;
@@ -477,14 +476,14 @@ kendo_module({
             this.groupedResources = result;
         },
 
-        _isGroupedByDate: function () {
+        _isGroupedByDate: function() {
             var groups = this.options.group;
             groups = groups && groups.resources ? groups.resources : [];
 
             return $.inArray("date", groups) > -1;
         },
 
-        _createColumnsLayout: function (resources, inner) {
+        _createColumnsLayout: function(resources, inner) {
             if (this._isGroupedByDate()) {
                 for (var idx = 0, length = inner.length; idx < length; idx++) {
                     inner[idx].columns = createLayoutConfiguration("columns", resources);
@@ -495,32 +494,32 @@ kendo_module({
             return createLayoutConfiguration("columns", resources, inner);
         },
 
-        _groupOrientation: function () {
+        _groupOrientation: function() {
             var groups = this.options.group;
             return groups && groups.resources ? groups.orientation : "horizontal";
         },
 
-        _isVerticallyGrouped: function () {
+        _isVerticallyGrouped: function() {
             return this.groupedResources.length && this._groupOrientation() === "vertical";
         },
 
-        _createRowsLayout: function (resources, inner) {
+        _createRowsLayout: function(resources, inner) {
             return createLayoutConfiguration("rows", resources, inner);
         },
 
-        selectionByElement: function () {
+        selectionByElement: function() {
             return null;
         },
 
-        clearSelection: function () {
+        clearSelection: function() {
             this.content.find(".k-state-selected").removeClass("k-state-selected");
         },
 
-        select: function () {
+        select: function() {
             //must be implemented by every SchedulerView
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             Widget.fn.destroy.call(this);
@@ -544,7 +543,7 @@ kendo_module({
             overlaps,
             endIndex;
 
-        for (idx = elements.length - 1; idx >= 0; idx--) {
+        for (idx = elements.length-1; idx >= 0; idx--) {
             index = rangeIndex(elements[idx]);
             startIndex = index.start;
             endIndex = index.end;
@@ -618,7 +617,7 @@ kendo_module({
             }
 
             if (!column) {
-                column = {start: eventRange.start, end: eventRange.end, events: []};
+                column = { start: eventRange.start, end: eventRange.end, events: [] };
                 columns.push(column);
             }
 

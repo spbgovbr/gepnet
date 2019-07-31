@@ -39,14 +39,15 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      *
      * Returns true on success, false on failure
      *
-     * @param string $filename
-     * @param Zend_Json_Server $server
+     * @param  string $filename
+     * @param  Zend_Json_Server $server
      * @return boolean
      */
     public static function saveSmd($filename, Zend_Json_Server $server)
     {
         if (!is_string($filename)
-            || (!file_exists($filename) && !is_writable(dirname($filename)))) {
+            || (!file_exists($filename) && !is_writable(dirname($filename))))
+        {
             return false;
         }
 
@@ -63,14 +64,15 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
      * On success, returns the cached SMD (a JSON string); an failure, returns
      * boolean false.
      *
-     * @param string $filename
+     * @param  string $filename
      * @return string|false
      */
     public static function getSmd($filename)
     {
         if (!is_string($filename)
             || !file_exists($filename)
-            || !is_readable($filename)) {
+            || !is_readable($filename))
+        {
             return false;
         }
 
@@ -85,7 +87,7 @@ class Zend_Json_Server_Cache extends Zend_Server_Cache
     /**
      * Delete a file containing a cached SMD
      *
-     * @param string $filename
+     * @param  string $filename
      * @return bool
      */
     public static function deleteSmd($filename)

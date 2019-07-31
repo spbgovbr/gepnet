@@ -29,4 +29,5 @@ class Zend_Feed_Reader_Collection extends ArrayObject
 {
 
 
+
 }

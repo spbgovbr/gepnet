@@ -2,20 +2,20 @@
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/cadastro/documento/add.js'), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/cadastro/documento/add.js'), 'text/javascript')
+;
 //echo $this->form;
 $frmAttr = $this->form->getAttribs();
 ?>
@@ -61,9 +61,7 @@ $frmAttr = $this->form->getAttribs();
                 </div>
                 <div class="span5">
                     <label class="control-label">Clique para abrir o arquivo</label>
-                    <a class="btn" title="Clique para abrir"
-                       href="<?php echo $this->documento->getUrlDocumento(); ?>"><i
-                                class="icon-file"></i> <?php echo $this->documento->nomdocumento; ?></a>
+                    <a class="btn" title="Clique para abrir" href="<?php echo $this->documento->getUrlDocumento(); ?>"><i class="icon-file"></i> <?php echo $this->documento->nomdocumento;?></a>
                 </div>
             </div>
         </div>

@@ -1,77 +1,33 @@
+/*SAPS 110567*/
+.ui-layout-pane {
+    overflow: hidden !important;
+}
+.ui-layout-pane-west{
+    overflow: auto !important;
+    width: 42px !important;
+}
+
+
 #accordion2, #cronograma-titulos {
     margin-bottom: 0 !important;
 }
 
-/*#tabCron {*/
-/*margin-left: 0px;*/
-/*width: auto;*/
-/*}*/
-
-/*tr, td {*/
-/*max-height: 5px;*/
-/*}*/
-/*/!*table#tabCron thead{ position: fixed; }*!/*/
-
-/*thead{*/
-/*font-weight: bold;*/
-/*/!*border: 1px solid #000000;*!/*/
-/*position: relative;*/
-/*font-family:"Helvetica Neue", Arial, "Lucida Grande", sans-serif;*/
-/*font-size: 12px;*/
-/*}*/
-
-/*tbody{*/
-/*/!*display: block;*!/*/
-/*width: auto;*/
-/*font-family:"Helvetica Neue", Arial, "Lucida Grande", sans-serif;*/
-/*font-size: 11px;*/
-/*}*/
-
-tfoot {
-    font-family: "Helvetica Neue", Arial, "Lucida Grande", sans-serif;
-    font-size: 12px;
+#cronograma-titulos {
     font-weight: bold;
+    width: 100%;
+    //overflow-x: hidden;
 }
 
-tr.alturaCorpo {
-    cursor: pointer;
-}
-
-/*#cronograma-titulos {*/
-/*font-weight: bold;*/
-/*/!*width: 1402px;*!/*/
-/*overflow-x: hidden;*/
-/*}*/
-
-/*#cronograma-titulos tbody tr td, .container-grupo {*/
-/*/!*width: 1402px;*!/*/
-/*overflow-x: hidden;*/
-/*display: block;*/
-/*}*/
-
-.tabulador {
-    margin-left: 4%;
-}
-
-.container-grupo-cabecalho {
-    /*width: 1402px;*/
-    overflow-x: hidden;
+#cronograma-titulos tbody tr td, .container-grupo {
+    width: 100%;
+    //overflow-x: hidden;
     display: block;
-    height: auto !important;
-    font-size: 11px !important;
-    font-weight: normal !important;
 }
-
 
 .item-cancelado * {
     color: #996699;
     text-decoration: line-through !important;
 }
-
-.region-center {
-    overflow-y: hidden !important;
-}
-
 
 .item-concluido {
     color: #A8A8A8;
@@ -98,97 +54,82 @@ input#e_datinicio, input#e_datfim {
 
 .toolbar-cronograma {
     float: left;
-    /*margin-left: 30px;*/
+    margin-left: 30px;
     min-height: 1px;
-    width: 100%;
-}
-
-.nome-entrega {
-    width: 19.5% !important;
-    margin-left: 0;
-    padding-left: 20px;
+    width: 97.7%;
 }
 
 .item-cronograma {
-    /*display: table;*/
-    border-bottom: 0px solid #dddddd !important;
-    padding: 2px 0 !important;
+    display: table; 
+    width: 100%; 
+    /*overflow: hidden;*/
 }
 
-.cron-responsavel, .cron-percentual, .cron-datas, .cron-datas-reais, .cron-numdias-realizados, .cron-custo, .cron-perdecessoras,
-.cron-dias, .cron-info, .cron-radio, .cron-nome-grupo, .nome-grupo, .nome-entrega, .nome-atividade, .cron-comentario {
+.cron-responsavel, .cron-percentual, .cron-datas,.cron-datas-reais, .cron-custo, .cron-perdecessoras,
+.cron-dias, .cron-info, .cron-radio, .cron-nome-grupo, .nome-grupo, .nome-entrega, .nome-atividade {
     float: left;
-    /*margin-left: 30px;*/
+    margin-left: 30px;
     min-height: 1px;
-    /*border: 1px solid ;*/
+    /*border: 1px solid red;*/
 }
 
-.cron-nome-grupo {
+.cron-nome-grupo{
     width: 340px !important;
 }
 
 .cron-responsavel {
-    width: 17% !important;
+    width: 90px !important;
 }
 
 .cron-percentual {
-    width: 3% !important;
+    width: 50px !important;
 }
 
 .cron-datas {
-    width: 12% !important;
+    width: 140px !important;
 }
 
 .cron-datas-reais {
-    width: 13% !important;
-}
-
-.cron-numdias-realizados {
-    width: 4% !important;
+    width: 180px !important;
 }
 
 .cron-custo {
-    width: 6% !important;
+    width: 60px !important;
 }
 
 .cron-perdecessoras {
-    width: 3% !important;
-}
-
-.cron-comentario {
-    width: 6%;
-    cursor: pointer;
+    width: 20px !important;
 }
 
 .cron-dias {
-    width: 3% !important;
+    width: 20px !important;
 }
 
 .cron-info {
-    width: 5% !important;
+    width: 40px !important;
 }
-
 .cron-radio {
-    width: 1.5% !important;
-    margin-left: 28px;
+    width: 20px !important;
 }
 
 .nome-grupo {
-    width: 21% !important;
+    width: 350px !important;
+    margin-left: 0;
 }
 
-/*.nome-entrega {*/
-/*width: 330px !important;*/
-/*margin-left: 0;*/
-/*padding-left: 20px;*/
-/*}*/
+.nome-entrega {
+    width: 330px !important;
+    margin-left: 0;
+    padding-left: 20px;
+}
 
 .nome-atividade {
-    width: 18% !important;
+    width: 310px !important;
+    margin-left: 0;
     padding-left: 40px;
 }
 
-.nome-predecessora {
+.nome-predecessora{
     width: 400px !important;
     margin-left: 0;
     padding-left: 115px;
@@ -196,10 +137,8 @@ input#e_datinicio, input#e_datfim {
 }
 
 .grupo {
-    border-bottom: 3px solid #f5f5f5;
-    margin-top: 2px;
-    margin-left: -1.8%;
-    font-size: 11px;
+    border-bottom: 5px solid #f5f5f5;
+    margin-top: 16px;
 }
 
 .span120px {
@@ -219,4 +158,3 @@ fieldset.pesquisar legend {
 fieldset.pesquisar .span120px {
     margin-left: 0;
 }
-

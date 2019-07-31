@@ -8,11 +8,10 @@
 class Projeto_Model_Tratamento extends App_Model_ModelAbstract
 {
 
-    public $idtratamento = null;
-    public $dstratamento = null;
+    public $idtratamento  = null;
+    public $dstratamento  = null;
     public $idcadastrador = null;
-    public $dtcadastro = null;
-    public $idtiporisco = null;
+    public $dtcadastro    = null;
 
 }
 

@@ -18,11 +18,11 @@ class Default_Model_Mapper_Natureza extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Natureza $model)
     {
         $data = array(
-            "idnatureza" => $model->idnatureza,
-            "nomnatureza" => $model->nomnatureza,
+            "idnatureza"    => $model->idnatureza,
+            "nomnatureza"   => $model->nomnatureza,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "flaativo" => $model->flaativo,
+            "datcadastro"   => $model->datcadastro,
+            "flaativo"      => $model->flaativo,
         );
         $this->getDbTable()->insert($data);
     }
@@ -36,12 +36,13 @@ class Default_Model_Mapper_Natureza extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Natureza $model)
     {
         $data = array(
-            "idnatureza" => $model->idnatureza,
-            "nomnatureza" => $model->nomnatureza,
+            "idnatureza"    => $model->idnatureza,
+            "nomnatureza"   => $model->nomnatureza,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "flaativo" => $model->flaativo,
+            "datcadastro"   => $model->datcadastro,
+            "flaativo"      => $model->flaativo,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
@@ -57,8 +58,7 @@ class Default_Model_Mapper_Natureza extends App_Model_Mapper_MapperAbstract
         return $this->_db->fetchPairs($sql);
     }
 
-    public function getById($params)
-    {
+    public function getById($params){
         $sql = "
             SELECT
                 idnatureza,
@@ -73,11 +73,11 @@ class Default_Model_Mapper_Natureza extends App_Model_Mapper_MapperAbstract
 
         $resultado = $this->_db->fetchRow($sql, array("idnatureza" => $params["idnatureza"]));
 
-        if (false == $resultado) {
+        if(false == $resultado){
             return false;
         }
 
-        return new Default_Model_Natureza($resultado);
+        return new Default_Model_Natureza($resultado) ;
     }
 }
 

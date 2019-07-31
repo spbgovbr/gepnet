@@ -18,10 +18,10 @@ class Projeto_Model_Mapper_Origemrisco extends App_Model_Mapper_MapperAbstract
     public function insert(Projeto_Model_Origemrisco $model)
     {
         $data = array(
-            "idorigemrisco" => $model->idorigemrisco,
+            "idorigemrisco"  => $model->idorigemrisco,
             "desorigemrisco" => $model->desorigemrisco,
-            "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "idcadastrador"  => $model->idcadastrador,
+            "dtcadastro"     => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,10 +35,10 @@ class Projeto_Model_Mapper_Origemrisco extends App_Model_Mapper_MapperAbstract
     public function update(Projeto_Model_Origemrisco $model)
     {
         $data = array(
-            "idorigemrisco" => $model->idorigemrisco,
+            "idorigemrisco"  => $model->idorigemrisco,
             "desorigemrisco" => $model->desorigemrisco,
-            "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "idcadastrador"  => $model->idcadastrador,
+            "dtcadastro"     => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
@@ -50,15 +50,15 @@ class Projeto_Model_Mapper_Origemrisco extends App_Model_Mapper_MapperAbstract
 
     public function fetchPairs($selecione = false)
     {
-        $sql = " SELECT idorigemrisco, desorigemrisco FROM agepnet200.tb_origemrisco order by idorigemrisco";
-
-        if ($selecione) {
-            $arrOrigemRisco = array('' => 'Selecione') + $this->_db->fetchPairs($sql);
+    	$sql = " SELECT idorigemrisco, desorigemrisco FROM agepnet200.tb_origemrisco order by idorigemrisco";
+        
+        if($selecione) {
+            $arrOrigemRisco = array(''=>'Selecione') +  $this->_db->fetchPairs($sql);
             return $arrOrigemRisco;
         }
-
-        return $this->_db->fetchPairs($sql);
+        
+    	return $this->_db->fetchPairs($sql);
     }
-
+    
 }
 

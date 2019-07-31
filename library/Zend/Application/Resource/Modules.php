@@ -45,7 +45,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
     /**
      * Constructor
      *
-     * @param mixed $options
+     * @param  mixed $options
      * @return void
      */
     public function __construct($options = null)
@@ -73,7 +73,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
         foreach ($modules as $module => $moduleDirectory) {
             $bootstrapClass = $this->_formatModuleName($module) . '_Bootstrap';
             if (!class_exists($bootstrapClass, false)) {
-                $bootstrapPath = dirname($moduleDirectory) . '/Bootstrap.php';
+                $bootstrapPath  = dirname($moduleDirectory) . '/Bootstrap.php';
                 if (file_exists($bootstrapPath)) {
                     $eMsgTpl = 'Bootstrap file found for module "%s" but bootstrap class "%s" not found';
                     include_once $bootstrapPath;
@@ -119,7 +119,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
         $bootstrap = $this->getBootstrap();
         $out = new ArrayObject(array(), ArrayObject::ARRAY_AS_PROPS);
 
-        foreach ($bootstraps as $module => $bootstrapClass) {
+        foreach($bootstraps as $module => $bootstrapClass) {
             $moduleBootstrap = new $bootstrapClass($bootstrap);
             $moduleBootstrap->bootstrap();
             $out[$module] = $moduleBootstrap;
@@ -141,7 +141,7 @@ class Zend_Application_Resource_Modules extends Zend_Application_Resource_Resour
     /**
      * Format a module name to the module class prefix
      *
-     * @param string $name
+     * @param  string $name
      * @return string
      */
     protected function _formatModuleName($name)

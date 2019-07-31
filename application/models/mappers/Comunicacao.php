@@ -18,18 +18,18 @@ class Default_Model_Mapper_Comunicacao extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Comunicacao $model)
     {
         $data = array(
-            "idcomunicacao" => $model->idcomunicacao,
-            "idprojeto" => $model->idprojeto,
-            "desinformacao" => $model->desinformacao,
-            "desinformado" => $model->desinformado,
-            "desorigem" => $model->desorigem,
-            "desfrequencia" => $model->desfrequencia,
-            "destransmissao" => $model->destransmissao,
+            "idcomunicacao"    => $model->idcomunicacao,
+            "idprojeto"        => $model->idprojeto,
+            "desinformacao"    => $model->desinformacao,
+            "desinformado"     => $model->desinformado,
+            "desorigem"        => $model->desorigem,
+            "desfrequencia"    => $model->desfrequencia,
+            "destransmissao"   => $model->destransmissao,
             "desarmazenamento" => $model->desarmazenamento,
-            "idresponsavel" => $model->idresponsavel,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "nomresponsavel" => $model->nomresponsavel,
+            "idresponsavel"    => $model->idresponsavel,
+            "idcadastrador"    => $model->idcadastrador,
+            "datcadastro"      => $model->datcadastro,
+            "nomresponsavel"   => $model->nomresponsavel,
         );
         $this->getDbTable()->insert($data);
     }
@@ -43,19 +43,20 @@ class Default_Model_Mapper_Comunicacao extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Comunicacao $model)
     {
         $data = array(
-            "idcomunicacao" => $model->idcomunicacao,
-            "idprojeto" => $model->idprojeto,
-            "desinformacao" => $model->desinformacao,
-            "desinformado" => $model->desinformado,
-            "desorigem" => $model->desorigem,
-            "desfrequencia" => $model->desfrequencia,
-            "destransmissao" => $model->destransmissao,
+            "idcomunicacao"    => $model->idcomunicacao,
+            "idprojeto"        => $model->idprojeto,
+            "desinformacao"    => $model->desinformacao,
+            "desinformado"     => $model->desinformado,
+            "desorigem"        => $model->desorigem,
+            "desfrequencia"    => $model->desfrequencia,
+            "destransmissao"   => $model->destransmissao,
             "desarmazenamento" => $model->desarmazenamento,
-            "idresponsavel" => $model->idresponsavel,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "nomresponsavel" => $model->nomresponsavel,
+            "idresponsavel"    => $model->idresponsavel,
+            "idcadastrador"    => $model->idcadastrador,
+            "datcadastro"      => $model->datcadastro,
+            "nomresponsavel"   => $model->nomresponsavel,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
@@ -83,7 +84,7 @@ class Default_Model_Mapper_Comunicacao extends App_Model_Mapper_MapperAbstract
         $resultado = $this->_db->fetchRow($sql, array('idcomunicacao' => $params['idcomunicacao']));
         return new Default_Model_Comunicacao($resultado);
     }
-
+    
     public function retornaPorProjeto($params)
     {
         $sql = "SELECT

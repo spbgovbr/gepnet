@@ -1,7 +1,8 @@
 <?php
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
 ?>
 <form id="atualizar-baseline-ativ"
       name="atualizar-baseline-ativ"
@@ -9,22 +10,20 @@ $this->headLink()
       method="post">
     <div class="alert alert-block" style="font-size: 14px !important;">
         <h4>Aviso!</h4>
-        Ao confirmar essa a&ccedil;&atilde;o, o sistema ir&aacute; copiar as datas IN&Iacute;CIO e FIM atual da
-        atividade
+        Ao confirmar essa a&ccedil;&atilde;o, o sistema ir&aacute; copiar as datas IN&Iacute;CIO e FIM atual da atividade
         para as datas IN&Iacute;CIO e FIM da BASE LINE.
         <br/>
         A Base Line atual da atividade ser&aacute; sobreposta.
         <br/><br/>
         Deseja realmente realizar essa opera&ccedil;&atilde;o?
     </div>
-
+    
     <div class="row">
         <div class="span5">
-            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->atividade['idprojeto']; ?>"/>
-            <input type="hidden" name="idatividadecronograma" id="idatividadecronograma"
-                   value="<?php echo $this->atividade['idatividadecronograma'] ?>"/>
-            <input type="hidden" name="datinicio" id="datinicio" value="<?php echo $this->atividade['datinicio'] ?>"/>
-            <input type="hidden" name="datfim" id="datfim" value="<?php echo $this->atividade['datfim'] ?>"/>
+            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->atividade['idprojeto']; ?>" />
+            <input type="hidden" name="idatividadecronograma" id="idatividadecronograma" value="<?php echo  $this->atividade['idatividadecronograma'] ?>" />
+            <input type="hidden" name="datinicio" id="datinicio" value="<?php echo  $this->atividade['datinicio'] ?>" />
+            <input type="hidden" name="datfim" id="datfim" value="<?php echo  $this->atividade['datfim'] ?>" />
         </div>
     </div>
 </form>

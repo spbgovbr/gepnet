@@ -1,5 +1,4 @@
 <?php
-
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
@@ -8,37 +7,32 @@ $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/app/projeto/cronograma/relatorioCronograma.css'));
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/relatorioCronograma.js'), 'text/javascript');
-$frmAttr = $this->form->getAttribs();
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/date.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/projeto/cronograma/relatorioCronograma.js'), 'text/javascript')
+            ;
+    $frmAttr = $this->form->getAttribs();
 ?>
 
 
-<div class="region-center">
-
+<div class="region-center" >
+    
     <div class="row">
         <div class="portlet portlet-marron span12">
             <div class="title">Relatório de Cronograma</div>
             <div class="content">
                 <form id="<?php echo $frmAttr['id']; ?>"
                       name="<?php echo $frmAttr['id']; ?>"
-                      action="<?php echo $this->baseUrl() ?>/projeto/cronograma/resultado-relatorio-cronograma"
+                      action="<?php echo $this->baseUrl()?>/projeto/cronograma/resultado-relatorio-cronograma"
                       method="<?php echo $frmAttr['method']; ?>">
-
+                   
                     <div class="row">
                         <div class="span3">
                             <?php echo $this->form->idprograma; ?>
@@ -53,20 +47,13 @@ $frmAttr = $this->form->getAttribs();
                             <?php echo $this->form->domstatusprojeto; ?>
                         </div>
                     </div>
-
+                    
                     <div class="row container-pessoa">
-
-                        <div class="span4">
+                        
+                        <div class="span3">
                             <?php echo $this->form->idprojetos; ?>
                         </div>
-                        <div class="span4">
-                            <?php echo $this->form->idnaturezas; ?>
-                        </div>
-                        <div class="span3">&nbsp;</div>
-                        <div class="span2">&nbsp;</div>
-                    </div>
-
-                    <div class="row container-pessoa">
+                        
                         <div class="span3">
                             <div class="control-group">
                                 <?php echo $this->form->nomresponsavel->renderLabel(); ?>
@@ -83,12 +70,11 @@ $frmAttr = $this->form->getAttribs();
                         <div class="span2">
                             <?php echo $this->form->statusatividade; ?>
                         </div>
-                        <div class="span3">&nbsp;</div>
                     </div>
                     <div class="row grid-append" style="display: none;">
                     </div>
-
-
+                    
+                    
                     <div class="row">
                         <fieldset class="pesquisar span4">
                             <legend>Período in&iacute;cio da Atividade</legend>
@@ -99,7 +85,7 @@ $frmAttr = $this->form->getAttribs();
                                 <?php echo $this->form->inicial_dtf; ?>
                             </div>
                         </fieldset>
-
+                        
                         <fieldset class="pesquisar span4">
                             <legend>Período fim da Atividade</legend>
                             <div class="span2 span120px">
@@ -123,11 +109,11 @@ $frmAttr = $this->form->getAttribs();
                             <div class="span1 tipo">
                                 <?php echo $this->form->tipomarco; ?>
                             </div>
-                        </fieldset>
+                         </fieldset>
                         <div class="row span4">
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="span3">
                             <div class="btn-group">
@@ -136,17 +122,17 @@ $frmAttr = $this->form->getAttribs();
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="nomprograma" value=""/>
-                    <input type="hidden" name="nomescritorio" value=""/>
-                    <input type="hidden" name="statusprojeto" value=""/>
-                    <input type="hidden" name="projetos" value=""/>
-                    <input type="hidden" name="nomstatusatividade" value=""/>
-                    <input type="hidden" name="nomelementodespesa" value=""/>
-                    <input type="hidden" name="nomresponsavel" value=""/>
-                    <input type="hidden" name="marco" value=""/>
-                    <input type="hidden" name="atividade" value=""/>
-                    <input type="hidden" name="entrega" value=""/>
-                    <input type="hidden" name="grupo" value=""/>
+                    <input type="hidden" name="nomprograma" value="" />   
+                    <input type="hidden" name="nomescritorio" value="" />   
+                    <input type="hidden" name="statusprojeto" value="" />   
+                    <input type="hidden" name="projetos" value="" />   
+                    <input type="hidden" name="nomstatusatividade" value="" />   
+                    <input type="hidden" name="nomelementodespesa" value="" />   
+                    <input type="hidden" name="nomresponsavel" value="" />   
+                    <input type="hidden" name="marco" value="" />   
+                    <input type="hidden" name="atividade" value="" />   
+                    <input type="hidden" name="entrega" value="" />   
+                    <input type="hidden" name="grupo" value="" />   
                 </form>
             </div>
         </div>

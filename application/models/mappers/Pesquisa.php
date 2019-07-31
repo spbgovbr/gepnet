@@ -18,14 +18,14 @@ class Default_Model_Mapper_Pesquisa extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Pesquisa $model)
     {
         $data = array(
-            "idpesquisa" => $model->idpesquisa,
-            "idquestionario" => $model->idquestionario,
+            "idpesquisa"       => $model->idpesquisa,
+            "idquestionario"   => $model->idquestionario,
             "idfraserespondeu" => $model->idfraserespondeu,
-            "desresposta" => $model->desresposta,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "datpesquisa" => $model->datpesquisa,
+            "desresposta"      => $model->desresposta,
+            "flaativo"         => $model->flaativo,
+            "idcadastrador"    => $model->idcadastrador,
+            "datcadastro"      => $model->datcadastro,
+            "datpesquisa"      => $model->datpesquisa,
         );
         $this->getDbTable()->insert($data);
     }
@@ -39,15 +39,16 @@ class Default_Model_Mapper_Pesquisa extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Pesquisa $model)
     {
         $data = array(
-            "idpesquisa" => $model->idpesquisa,
-            "idquestionario" => $model->idquestionario,
+            "idpesquisa"       => $model->idpesquisa,
+            "idquestionario"   => $model->idquestionario,
             "idfraserespondeu" => $model->idfraserespondeu,
-            "desresposta" => $model->desresposta,
-            "flaativo" => $model->flaativo,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "datpesquisa" => $model->datpesquisa,
+            "desresposta"      => $model->desresposta,
+            "flaativo"         => $model->flaativo,
+            "idcadastrador"    => $model->idcadastrador,
+            "datcadastro"      => $model->datcadastro,
+            "datpesquisa"      => $model->datpesquisa,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

@@ -27,33 +27,32 @@ class ZFDebug_Controller_Plugin_Debug_Plugin
      */
     protected function _cleanData($values)
     {
-        if (is_array($values)) {
+        if (is_array($values))
             ksort($values);
-        }
 
         $retVal = '<div class="pre">';
-        foreach ($values as $key => $value) {
+        foreach ($values as $key => $value)
+        {
             $key = htmlspecialchars($key);
             if (is_numeric($value)) {
-                $retVal .= $key . ' => ' . $value . '<br>';
-            } else {
-                if (is_string($value)) {
-                    $retVal .= $key . ' => \'' . htmlspecialchars($value) . '\'<br>';
-                } else {
-                    if (is_array($value)) {
-                        $retVal .= $key . ' => ' . self::_cleanData($value);
-                    } else {
-                        if (is_object($value)) {
-                            $retVal .= $key . ' => ' . get_class($value) . ' Object()<br>';
-                        } else {
-                            if (is_null($value)) {
-                                $retVal .= $key . ' => NULL<br>';
-                            }
-                        }
-                    }
-                }
+                $retVal .= $key.' => '.$value.'<br>';
+            }
+            else if (is_string($value)) {
+                $retVal .= $key.' => \''.htmlspecialchars($value).'\'<br>';
+            }
+            else if (is_array($value))
+            {
+                $retVal .= $key.' => '.self::_cleanData($value);
+            }
+            else if (is_object($value))
+            {
+                $retVal .= $key.' => '.get_class($value).' Object()<br>';
+            }
+            else if (is_null($value))
+            {
+                $retVal .= $key.' => NULL<br>';
             }
         }
-        return $retVal . '</div>';
+        return $retVal.'</div>';
     }
 }

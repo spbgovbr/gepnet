@@ -1,11 +1,19 @@
 $(document).ready(function () {
-    $("#desemail, #token").on('click', function () {
-        $(this).parent('div')
-            .removeClass('error')
-            .find(".error, .help-inline").fadeOut(500);
-    });
-    $("#resetbutton").on('click', function () {
-        $('.error').removeClass('error');
-        $(".error, .help-inline").fadeOut(500);
-    });
+    
+    $("#desemail").click(function(){
+        
+        $(".error").fadeOut(500);
+        
+    });   
+    $("#token").click(function(){
+        
+        $(".error").fadeOut(500);
+        
+    });   
+    $("#resetbutton").click(function(){
+        
+        $(".error").fadeOut(500);
+        
+    });   
+    
 });

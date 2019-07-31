@@ -1,12 +1,12 @@
 <style type="text/css">
-
+    
     table tr td {
-        border: 0.1mm solid #220044;
+        border:0.1mm solid #220044;
         background-clip: border-box;
     }
 </style>
 
-<div align="left" class="span4" style="margin-top: 60px">
+<div align="left" class="span4" style="page-break-before: always; margin-top: 60px">
     <h5>1.2 DICION&Aacute;RIO DA EAP E CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O (QUALIDADE)</h5>
 </div>
 <div align="center" style="margin-top: 20px">
@@ -19,28 +19,31 @@
             <col style="width: 50px">
         </colgroup>
         <thead>
-        <tr class="" style="width: 100%; border:0.1mm solid #220044; background-clip: border-box;">
-            <td>ID</td>
-            <td>IDENTIFICA&Ccedil;&Atilde;O EAP</td>
-            <td>DESCRI&Ccedil;&Atilde;O</td>
-            <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O/DESVIO ACEIT&Aacute;VEL (QUALIDADE)</td>
-            <td>RESPONS&Aacute;VEL</td>
-        </tr>
+            <tr class="" style="width: 100%; border:0.1mm solid #220044; background-clip: border-box;">
+                <td>ID</td>
+                <td>IDENTIFICA&Ccedil;&Atilde;O EAP</td>
+                <td>DESCRI&Ccedil;&Atilde;O</td>
+                <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O/DESVIO ACEIT&Aacute;VEL (QUALIDADE)</td>
+                <td>RESPONS&Aacute;VEL</td>
+            </tr>
         </thead>
         <tbody>
-        <?php
-        foreach ($this->cronograma as $entrega):
+            <?php
+            foreach ($this->projetos->grupos->getIterator() as $grupo):
+                foreach ($grupo->entregas->getIterator() as $entrega):
+                   // Zend_Debug::dump($grupo);die;
+                    ?>
+                    <tr>
+                        <td><?= $entrega->idatividadecronograma; ?></td>
+                        <td><?= $entrega->nomatividadecronograma; ?></td>
+                        <td><?= $entrega->desobs; ?></td>
+                        <td><?= $entrega->descriterioaceitacao; ?></td>
+                        <td><?= $entrega->parteinteressada->nomparteinteressada ?></td>
+                    </tr>
+                    <?php
+                endforeach;
+            endforeach;
             ?>
-            <tr>
-                <td><?php echo $entrega['numseq']; ?></td>
-                <td><?php echo $entrega['nomatividadecronograma']; ?></td>
-                <td><?php echo (!empty($entrega['desobs'])) ? $entrega['desobs'] : ""; ?></td>
-                <td><?php echo (!empty($entrega['descriterioaceitacao'])) ? $entrega['descriterioaceitacao'] : ""; ?></td>
-                <td><?php echo (!empty($entrega['nomparteinteressada'])) ? $entrega['nomparteinteressada'] : "" ?></td>
-            </tr>
-        <?php
-        endforeach;
-        ?>
         </tbody>
     </table>
 </div>
@@ -49,9 +52,5 @@
     <h5>1.3 N&Atilde;O ESCOPO (O QUE N&Atilde;O SER&Aacute; FEITO)</h5>
 </div>
 <div align="left">
-    <?php
-    if (is_object($this->projetos) && (!empty($$this->projetos->desnaoescopo))) :
-        echo nl2br($this->projetos->desnaoescopo);
-    endif;
-    ?>
+    <?= nl2br($this->projetos->desnaoescopo); ?>
 </div>

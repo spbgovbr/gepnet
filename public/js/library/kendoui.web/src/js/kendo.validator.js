@@ -15,10 +15,10 @@ kendo_module({
     name: "Validator",
     category: "web",
     description: "The Validator offers an easy way to do a client-side form validation.",
-    depends: ["core"]
+    depends: [ "core" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
         NS = ".kendoValidator",
@@ -34,13 +34,13 @@ kendo_module({
         FORM = "form",
         NOVALIDATE = "novalidate",
         proxy = $.proxy,
-        patternMatcher = function (value, pattern) {
+        patternMatcher = function(value, pattern) {
             if (typeof pattern === "string") {
                 pattern = new RegExp('^(?:' + pattern + ')$');
             }
             return pattern.test(value);
         },
-        matcher = function (input, selector, pattern) {
+        matcher = function(input, selector, pattern) {
             var value = input.val();
 
             if (input.filter(selector).length && value !== "") {
@@ -48,15 +48,15 @@ kendo_module({
             }
             return true;
         },
-        hasAttribute = function (input, name) {
-            if (input.length) {
+        hasAttribute = function(input, name) {
+            if (input.length)  {
                 return input[0].attributes[name] != null;
             }
             return false;
         };
 
     if (!kendo.ui.validator) {
-        kendo.ui.validator = {rules: {}, messages: {}};
+        kendo.ui.validator = { rules: {}, messages: {} };
     }
 
     function resolveRules(element) {
@@ -94,7 +94,7 @@ kendo_module({
     }
 
     var Validator = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this,
                 resolved = resolveRules(element);
 
@@ -130,19 +130,19 @@ kendo_module({
                 date: "{0} is not valid date"
             },
             rules: {
-                required: function (input) {
+                required: function(input) {
                     var checkbox = input.filter("[type=checkbox]").length && !input.is(":checked"),
                         value = input.val();
 
-                    return !(hasAttribute(input, "required") && (value === "" || !value || checkbox));
+                    return !(hasAttribute(input, "required") && (value === "" || !value  || checkbox));
                 },
-                pattern: function (input) {
+                pattern: function(input) {
                     if (input.filter("[type=text],[type=email],[type=url],[type=tel],[type=search],[type=password]").filter("[pattern]").length && input.val() !== "") {
                         return patternMatcher(input.val(), input.attr("pattern"));
                     }
                     return true;
                 },
-                min: function (input) {
+                min: function(input) {
                     if (input.filter(NUMBERINPUTSELECTOR + ",[" + kendo.attr("type") + "=number]").filter("[min]").length && input.val() !== "") {
                         var min = parseFloat(input.attr("min")) || 0,
                             val = kendo.parseFloat(input.val());
@@ -151,7 +151,7 @@ kendo_module({
                     }
                     return true;
                 },
-                max: function (input) {
+                max: function(input) {
                     if (input.filter(NUMBERINPUTSELECTOR + ",[" + kendo.attr("type") + "=number]").filter("[max]").length && input.val() !== "") {
                         var max = parseFloat(input.attr("max")) || 0,
                             val = kendo.parseFloat(input.val());
@@ -160,7 +160,7 @@ kendo_module({
                     }
                     return true;
                 },
-                step: function (input) {
+                step: function(input) {
                     if (input.filter(NUMBERINPUTSELECTOR + ",[" + kendo.attr("type") + "=number]").filter("[step]").length && input.val() !== "") {
                         var min = parseFloat(input.attr("min")) || 0,
                             step = parseFloat(input.attr("step")) || 1,
@@ -170,19 +170,19 @@ kendo_module({
 
                         if (decimals) {
                             raise = Math.pow(10, decimals);
-                            return (((val - min) * raise) % (step * raise)) / Math.pow(100, decimals) === 0;
+                            return (((val-min)*raise)%(step*raise)) / Math.pow(100, decimals) === 0;
                         }
-                        return ((val - min) % step) === 0;
+                        return ((val-min)%step) === 0;
                     }
                     return true;
                 },
-                email: function (input) {
+                email: function(input) {
                     return matcher(input, "[type=email],[" + kendo.attr("type") + "=email]", emailRegExp);
                 },
-                url: function (input) {
+                url: function(input) {
                     return matcher(input, "[type=url],[" + kendo.attr("type") + "=url]", urlRegExp);
                 },
-                date: function (input) {
+                date: function(input) {
                     if (input.filter("[type^=date],[" + kendo.attr("type") + "=date]").length && input.val() !== "") {
                         return kendo.parseDate(input.val(), input.attr(kendo.attr("format"))) !== null;
                     }
@@ -192,13 +192,13 @@ kendo_module({
             validateOnBlur: true
         },
 
-        destroy: function () {
+        destroy: function() {
             Widget.fn.destroy.call(this);
 
             this.element.off(NS);
         },
 
-        _submit: function (e) {
+        _submit: function(e) {
             if (!this.validate()) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
@@ -208,7 +208,7 @@ kendo_module({
             return true;
         },
 
-        _attachEvents: function () {
+        _attachEvents: function() {
             var that = this;
 
             if (that.element.is(FORM)) {
@@ -217,20 +217,20 @@ kendo_module({
 
             if (that.options.validateOnBlur) {
                 if (!that.element.is(INPUTSELECTOR)) {
-                    that.element.on(BLUR + NS, INPUTSELECTOR, function () {
+                    that.element.on(BLUR + NS, INPUTSELECTOR, function() {
                         that.validateInput($(this));
                     });
 
-                    that.element.on("click" + NS, CHECKBOXSELECTOR, function () {
+                    that.element.on("click" + NS, CHECKBOXSELECTOR, function() {
                         that.validateInput($(this));
                     });
                 } else {
-                    that.element.on(BLUR + NS, function () {
+                    that.element.on(BLUR + NS, function() {
                         that.validateInput(that.element);
                     });
 
                     if (that.element.is(CHECKBOXSELECTOR)) {
-                        that.element.on("click" + NS, function () {
+                        that.element.on("click" + NS, function() {
                             that.validateInput(that.element);
                         });
                     }
@@ -238,7 +238,7 @@ kendo_module({
             }
         },
 
-        validate: function () {
+        validate: function() {
             var that = this,
                 inputs,
                 idx,
@@ -261,7 +261,7 @@ kendo_module({
             return that.validateInput(that.element);
         },
 
-        validateInput: function (input) {
+        validateInput: function(input) {
             input = $(input);
 
             var that = this,
@@ -278,7 +278,7 @@ kendo_module({
             if (!valid) {
                 messageText = that._extractMessage(input, result.key);
                 that._errors[fieldName] = messageText;
-                var messageLabel = parseHtml(template({message: decode(messageText)}));
+                var messageLabel = parseHtml(template({ message: decode(messageText) }));
 
                 that._decorateMessageContainer(messageLabel, fieldName);
 
@@ -295,7 +295,7 @@ kendo_module({
             return valid;
         },
 
-        hideMessages: function () {
+        hideMessages: function() {
             var that = this,
                 className = "." + INVALIDMSG,
                 element = that.element;
@@ -307,7 +307,7 @@ kendo_module({
             }
         },
 
-        _findMessageContainer: function (fieldName) {
+        _findMessageContainer: function(fieldName) {
             var locators = kendo.ui.validator.messageLocators,
                 name,
                 containers = $(),
@@ -330,7 +330,7 @@ kendo_module({
             return containers;
         },
 
-        _decorateMessageContainer: function (container, fieldName) {
+        _decorateMessageContainer: function(container, fieldName) {
             var locators = kendo.ui.validator.messageLocators,
                 name;
 
@@ -344,7 +344,7 @@ kendo_module({
             container.attr("role", "alert");
         },
 
-        _extractMessage: function (input, ruleKey) {
+        _extractMessage: function(input, ruleKey) {
             var that = this,
                 customMessage = that.options.messages[ruleKey],
                 fieldName = input.attr(NAME);
@@ -354,20 +354,20 @@ kendo_module({
             return kendo.format(input.attr(kendo.attr(ruleKey + "-msg")) || input.attr("validationMessage") || input.attr("title") || customMessage || "", fieldName, input.attr(ruleKey));
         },
 
-        _checkValidity: function (input) {
+        _checkValidity: function(input) {
             var rules = this.options.rules,
                 rule;
 
             for (rule in rules) {
                 if (!rules[rule](input)) {
-                    return {valid: false, key: rule};
+                    return { valid: false, key: rule };
                 }
             }
 
-            return {valid: true};
+            return { valid: true };
         },
 
-        errors: function () {
+        errors: function() {
             var results = [],
                 errors = this._errors,
                 error;

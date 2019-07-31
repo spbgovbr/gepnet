@@ -18,10 +18,10 @@ class Default_Model_Mapper_Origemrisco extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Origemrisco $model)
     {
         $data = array(
-            "idorigemrisco" => $model->idorigemrisco,
+            "idorigemrisco"  => $model->idorigemrisco,
             "desorigemrisco" => $model->desorigemrisco,
-            "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "idcadastrador"  => $model->idcadastrador,
+            "dtcadastro"     => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,11 +35,12 @@ class Default_Model_Mapper_Origemrisco extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Origemrisco $model)
     {
         $data = array(
-            "idorigemrisco" => $model->idorigemrisco,
+            "idorigemrisco"  => $model->idorigemrisco,
             "desorigemrisco" => $model->desorigemrisco,
-            "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "idcadastrador"  => $model->idcadastrador,
+            "dtcadastro"     => $model->dtcadastro,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

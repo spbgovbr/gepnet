@@ -73,7 +73,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
     public function __construct($label = null)
     {
         $this->_label = $label;
-        if (!$this->_label) {
+        if(!$this->_label) {
             $this->_label = 'Zend_Db_Profiler_Firebug';
         }
     }
@@ -82,7 +82,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
      * Enable or disable the profiler.  If $enable is false, the profiler
      * is disabled and will not log any queries sent to it.
      *
-     * @param boolean $enable
+     * @param  boolean $enable
      * @return Zend_Db_Profiler Provides a fluent interface
      */
     public function setEnabled($enable)
@@ -94,7 +94,7 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
             if (!$this->_message) {
                 $this->_message = new Zend_Wildfire_Plugin_FirePhp_TableMessage($this->_label);
                 $this->_message->setBuffered(true);
-                $this->_message->setHeader(array('Time', 'Event', 'Parameters'));
+                $this->_message->setHeader(array('Time','Event','Parameters'));
                 $this->_message->setDestroy(true);
                 $this->_message->setOption('includeLineNumbers', false);
                 Zend_Wildfire_Plugin_FirePhp::getInstance()->send($this->_message);
@@ -115,9 +115,9 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
     /**
      * Intercept the query end and log the profiling data.
      *
-     * @param integer $queryId
-     * @return void
+     * @param  integer $queryId
      * @throws Zend_Db_Profiler_Exception
+     * @return void
      */
     public function queryEnd($queryId)
     {
@@ -133,11 +133,9 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
 
         $this->_totalElapsedTime += $profile->getElapsedSecs();
 
-        $this->_message->addRow(array(
-            (string)round($profile->getElapsedSecs(), 5),
-            $profile->getQuery(),
-            ($params = $profile->getQueryParams()) ? $params : null
-        ));
+        $this->_message->addRow(array((string)round($profile->getElapsedSecs(),5),
+                                      $profile->getQuery(),
+                                      ($params=$profile->getQueryParams())?$params:null));
 
         $this->updateMessageLabel();
     }
@@ -152,16 +150,12 @@ class Zend_Db_Profiler_Firebug extends Zend_Db_Profiler
         if (!$this->_message) {
             return;
         }
-        $this->_message->setLabel(str_replace(array(
-            '%label%',
-            '%totalCount%',
-            '%totalDuration%'
-        ),
-            array(
-                $this->_label,
-                $this->getTotalNumQueries(),
-                (string)round($this->_totalElapsedTime, 5)
-            ),
-            $this->_label_template));
+        $this->_message->setLabel(str_replace(array('%label%',
+                                                    '%totalCount%',
+                                                    '%totalDuration%'),
+                                              array($this->_label,
+                                                    $this->getTotalNumQueries(),
+                                                    (string)round($this->_totalElapsedTime,5)),
+                                              $this->_label_template));
     }
 }

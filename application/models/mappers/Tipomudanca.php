@@ -19,9 +19,9 @@ class Default_Model_Mapper_Tipomudanca extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idtipomudanca" => $model->idtipomudanca,
-            "dsmudanca" => $model->dsmudanca,
+            "dsmudanca"     => $model->dsmudanca,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -36,10 +36,11 @@ class Default_Model_Mapper_Tipomudanca extends App_Model_Mapper_MapperAbstract
     {
         $data = array(
             "idtipomudanca" => $model->idtipomudanca,
-            "dsmudanca" => $model->dsmudanca,
+            "dsmudanca"     => $model->dsmudanca,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

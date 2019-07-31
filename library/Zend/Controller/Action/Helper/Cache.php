@@ -169,16 +169,16 @@ class Zend_Controller_Action_Helper_Cache
         $stats = ob_get_status(true);
         foreach ($stats as $status) {
             if ($status['name'] == 'Zend_Cache_Frontend_Page::_flush'
-                || $status['name'] == 'Zend_Cache_Frontend_Capture::_flush') {
+            || $status['name'] == 'Zend_Cache_Frontend_Capture::_flush') {
                 $obStarted = true;
             }
         }
         if (!isset($obStarted) && isset($this->_caching[$controller]) &&
-            in_array($action, $this->_caching[$controller])) {
+        in_array($action, $this->_caching[$controller])) {
             $reqUri = $this->getRequest()->getRequestUri();
             $tags = array();
             if (isset($this->_tags[$controller][$action])
-                && !empty($this->_tags[$controller][$action])) {
+            && !empty($this->_tags[$controller][$action])) {
                 $tags = array_unique($this->_tags[$controller][$action]);
             }
             $extension = null;
@@ -195,8 +195,8 @@ class Zend_Controller_Action_Helper_Cache
      * is trapped in the Frontend classes. Will try to get this reversed for ZF 2.0
      * because it's a major annoyance to have IDs so restricted!
      *
-     * @param string $requestUri
      * @return string
+     * @param string $requestUri
      */
     protected function _encodeCacheId($requestUri)
     {
@@ -228,7 +228,7 @@ class Zend_Controller_Action_Helper_Cache
         }
         $front = Zend_Controller_Front::getInstance();
         if ($front->getParam('bootstrap')
-            && $front->getParam('bootstrap')->getResource('CacheManager')) {
+        && $front->getParam('bootstrap')->getResource('CacheManager')) {
             return $front->getParam('bootstrap')
                 ->getResource('CacheManager');
         }

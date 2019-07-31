@@ -1,4 +1,4 @@
-$(function () {
+$(function() {
     $.pnotify.defaults.history = false;
 
     $('.datepicker').datepicker({
@@ -6,64 +6,48 @@ $(function () {
         language: 'pt-BR'
     });
 
-    $("#resetbutton").click(function () {
+    $("#resetbutton").click(function() {
         //$('.container-importar').slideToggle();
         $("#importar").select2('data', null);
     });
 
     var
-        $form = $("form#form-gerencia"),
-        url_cadastrar = base_url + "/projeto/tap/informacoestecnicas/format/json";
+            $form = $("form#form-gerencia"),
+            url_cadastrar = base_url + "/projeto/tap/informacoestecnicas/format/json";
 
-    $form.on('submit', function (e) {
-        //$("form#form-gerencia").validate({});
-        if ($("form#form-gerencia").valid()) {
-            $("#submitbutton").prop("disabled", true);
-            var $return = false;
-            var options = {
-                url: url_cadastrar,
-                dataType: 'json',
-                type: 'POST',
-                success: function (data) {
-                    if (typeof data.msg.text != 'string') {
-                        $.formErrors(data.msg.text);
-                        $.pnotify({
-                            text: 'Falha ao enviar a requisição',
-                            type: 'error',
-                            hide: false
-                        });
-                        return;
-                    }
-                    if (data.success) {
-                        setTimeout(function () {
-                            $("#submitbutton").prop("disabled", false);
-                        }, 2000);
-                    }
-                    $.pnotify(data.msg);
-                },
-                error: function (data) {
-                    setTimeout(function () {
-                        $("#submitbutton").prop("disabled", false);
-                    }, 2000);
-                    $return = false;
+    $form.on('submit', function(e) {
+        var $return = false;
+        var options = {
+            url: url_cadastrar,
+            dataType: 'json',
+            type: 'POST',
+            success: function(data) {
+                if (typeof data.msg.text != 'string') {
+                    $.formErrors(data.msg.text);
                     $.pnotify({
                         text: 'Falha ao enviar a requisição',
                         type: 'error',
                         hide: false
                     });
-                },
-                timeout: 3000
+                    return;
+                }
+                $.pnotify(data.msg);
 
-            };
-            $form.ajaxSubmit(options);
-            return $return;
-        } else {
-            $("#submitbutton").prop("disabled", true);
-            setTimeout(function () {
-                $("#submitbutton").prop("disabled", false);
-            }, 2000);
-            return false;
-        }
+
+            },
+            error: function(data) {
+                $return = false;
+                $.pnotify({
+                    text: 'Falha ao enviar a requisição',
+                    type: 'error',
+                    hide: false
+                });
+            }
+
+
+        };
+        $form.ajaxSubmit(options);
+        return $return;
     });
 
 //    $.formErrors = function(data) {

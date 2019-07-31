@@ -124,13 +124,9 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      * @param string $ip
      * @param array|Zend_Config $params
      */
-    public function __construct(
-        $publicKey = null,
-        $privateKey = null,
-        $params = null,
-        $options = null,
-        $ip = null
-    ) {
+    public function __construct($publicKey = null, $privateKey = null,
+                                $params = null, $options = null, $ip = null)
+    {
         if ($publicKey !== null) {
             $this->setPublicKey($publicKey);
         }
@@ -141,10 +137,8 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 
         if ($ip !== null) {
             $this->setIp($ip);
-        } else {
-            if (isset($_SERVER['REMOTE_ADDR'])) {
-                $this->setIp($_SERVER['REMOTE_ADDR']);
-            }
+        } else if (isset($_SERVER['REMOTE_ADDR'])) {
+            $this->setIp($_SERVER['REMOTE_ADDR']);
         }
 
         if ($params !== null) {
@@ -379,7 +373,7 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
      *
      * This method uses the public key to fetch a recaptcha form.
      *
-     * @param null|string $name Base name for recaptcha form elements
+     * @param  null|string $name Base name for recaptcha form elements
      * @return string
      * @throws Zend_Service_ReCaptcha_Exception
      */
@@ -394,14 +388,14 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 
         $host = self::API_SERVER;
 
-        if ((bool)$this->_params['ssl'] === true) {
+        if ((bool) $this->_params['ssl'] === true) {
             $host = self::API_SECURE_SERVER;
         }
 
         $htmlBreak = '<br>';
         $htmlInputClosing = '>';
 
-        if ((bool)$this->_params['xhtml'] === true) {
+        if ((bool) $this->_params['xhtml'] === true) {
             $htmlBreak = '<br />';
             $htmlInputClosing = '/>';
         }
@@ -423,10 +417,10 @@ class Zend_Service_ReCaptcha extends Zend_Service_Abstract
 SCRIPT;
         }
         $challengeField = 'recaptcha_challenge_field';
-        $responseField = 'recaptcha_response_field';
+        $responseField  = 'recaptcha_response_field';
         if (!empty($name)) {
             $challengeField = $name . '[' . $challengeField . ']';
-            $responseField = $name . '[' . $responseField . ']';
+            $responseField  = $name . '[' . $responseField . ']';
         }
 
         $return = $reCaptchaOptions;
@@ -489,17 +483,15 @@ HTML;
         /* Fetch an instance of the http client */
         $httpClient = self::getHttpClient();
 
-        $postParams = array(
-            'privatekey' => $this->_privateKey,
-            'remoteip' => $this->_ip,
-            'challenge' => $challengeField,
-            'response' => $responseField
-        );
+        $postParams = array('privatekey' => $this->_privateKey,
+                            'remoteip'   => $this->_ip,
+                            'challenge'  => $challengeField,
+                            'response'   => $responseField);
 
         /* Make the POST and return the response */
         return $httpClient->setUri(self::VERIFY_SERVER)
-            ->setParameterPost($postParams)
-            ->request(Zend_Http_Client::POST);
+                          ->setParameterPost($postParams)
+                          ->request(Zend_Http_Client::POST);
     }
 
     /**

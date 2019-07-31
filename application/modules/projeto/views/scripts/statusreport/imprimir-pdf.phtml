@@ -1,52 +1,46 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+;
 
-//      echo $this->baseUrl('dompdf/dompdf_config.inc.php');
-//Zend_Debug::dump($url); die;
+  //      echo $this->baseUrl('dompdf/dompdf_config.inc.php');
+        //Zend_Debug::dump($url); die;
 ?>
 <div class='region-center'>
-    <?php
-    $autoloader = Zend_Loader_Autoloader::getInstance(); // assuming we're in a controller
+<?php
+    require_once '../library/MPDF57/mpdf.php';  
+    $autoloader = Zend_Loader_Autoloader::getInstance(); // assuming we're in a controller  
     $autoloader->pushAutoloader('MPDF57_autoload');
-    /**
-     * @var $dompdf App_Service_MPDF
-     */
-    $dompdf = new App_Service_MPDF();
-    $html =
-        $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto))
+    $dompdf = new mPDF();
+$html =
+      $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto)) 
         .
-        $this->partial('_partials/status-report-acompanhamento.phtml', array(
-            'acompanhamento' => $this->acompanhamento,
-            'entregasMarcos' => $this->entregasMarcos,
-            'proximoMarco' => $this->proximoMarco
-        ))
+        $this->partial('_partials/status-report-acompanhamento.phtml', array('acompanhamento' => $this->acompanhamento,'entregasMarcos' => $this->entregasMarcos,'proximoMarco' => $this->proximoMarco))
         .
-        $this->partial('_partials/status-report-entregas-marcos.phtml',
-            array('entregasMarcos' => $this->entregasMarcos));
-
-    // Instanciamos a classe
-    //$dompdf = new DOMPDF();
-    //
-    //// Passamos o conteúdo que será convertido para PDF
-    //$dompdf->load_html($html);
-    //
-    //// Definimos o tamanho do papel e
-    //// sua orientação (retrato ou paisagem)
-    //$dompdf->set_paper('A4','portrait');
-    //
-    //// O arquivo é convertido
-    //$dompdf->render();
-    //
-    //// Salvo no diretório temporário do sistema
-    //// e exibido para o usuário
-    //$dompdf->stream("StatusReport.pdf");
-    //return $dompdf;
-    ?>
-    <form method="post">
-        <input type="hidden" value="<?php echo $html; ?>"/>
+         $this->partial('_partials/status-report-entregas-marcos.phtml', array('entregasMarcos' => $this->entregasMarcos));
+        
+ // Instanciamos a classe
+//$dompdf = new DOMPDF();
+// 
+//// Passamos o conteúdo que será convertido para PDF
+//$dompdf->load_html($html);
+// 
+//// Definimos o tamanho do papel e
+//// sua orientação (retrato ou paisagem)
+//$dompdf->set_paper('A4','portrait');
+// 
+//// O arquivo é convertido
+//$dompdf->render();
+// 
+//// Salvo no diretório temporário do sistema
+//// e exibido para o usuário
+//$dompdf->stream("StatusReport.pdf");
+//return $dompdf;
+?>
+    <form  method="post">
+        <input type="hidden" value="<?php echo $html;?>"
     </form>
 </div>

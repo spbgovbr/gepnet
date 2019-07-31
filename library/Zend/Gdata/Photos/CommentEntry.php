@@ -150,8 +150,8 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:photoid attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoPhotoId
+     * @return string The requested attribute.
      */
     public function getGphotoPhotoId()
     {
@@ -173,8 +173,8 @@ class Zend_Gdata_Photos_CommentEntry extends Zend_Gdata_Entry
     /**
      * Get the value for this element's gphoto:id attribute.
      *
-     * @return string The requested attribute.
      * @see setGphotoId
+     * @return string The requested attribute.
      */
     public function getGphotoId()
     {

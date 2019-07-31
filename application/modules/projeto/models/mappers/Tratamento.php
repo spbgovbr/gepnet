@@ -18,11 +18,10 @@ class Projeto_Model_Mapper_Tratamento extends App_Model_Mapper_MapperAbstract
     public function insert(Projeto_Model_Tratamento $model)
     {
         $data = array(
-            "idtratamento" => $model->idtratamento,
-            "dstratamento" => $model->dstratamento,
+            "idtratamento"  => $model->idtratamento,
+            "dstratamento"  => $model->dstratamento,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
-            "idtiporisco" => $model->idtiporisco,
+            "dtcadastro"    => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -36,11 +35,10 @@ class Projeto_Model_Mapper_Tratamento extends App_Model_Mapper_MapperAbstract
     public function update(Projeto_Model_Tratamento $model)
     {
         $data = array(
-            "idtratamento" => $model->idtratamento,
-            "dstratamento" => $model->dstratamento,
+            "idtratamento"  => $model->idtratamento,
+            "dstratamento"  => $model->dstratamento,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
-            "idtiporisco" => $model->idtiporisco,
+            "dtcadastro"    => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
@@ -50,21 +48,10 @@ class Projeto_Model_Mapper_Tratamento extends App_Model_Mapper_MapperAbstract
         return $this->_getForm(Projeto_Form_Tratamento);
     }
 
-    public function fetchPairs($param = null)
+    public function fetchPairs()
     {
-        $param;
-        if (!empty($param) && isset($param)) {
-            $sql = " select * from agepnet200.tb_tratamento 
-                where idtiporisco in ($param, 3) 
-                order by dstratamento";
-        } else {
-            $sql = " select * from agepnet200.tb_tratamento 
-                    order by idtratamento";
-        }
-
-        $result = $this->_db->fetchAll($sql);
-
-        return $this->_db->fetchAll($sql);
+    	$sql = " SELECT idtiporisco, dstiporisco FROM agepnet200.tb_tiporisco order by dstiporisco asc";
+    	return $this->_db->fetchPairs($sql);
     }
-
 }
+

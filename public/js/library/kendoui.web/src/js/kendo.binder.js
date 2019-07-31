@@ -15,7 +15,7 @@ kendo_module({
     name: "MVVM",
     category: "framework",
     description: "Model View ViewModel (MVVM) is a design pattern which helps developers separate the Model (the data) from the View (the UI).",
-    depends: ["core", "data"]
+    depends: [ "core", "data" ]
 });
 
 (function ($, undefined) {
@@ -34,7 +34,7 @@ kendo_module({
         CHECKED = "checked",
         CHANGE = "change";
 
-    (function () {
+    (function() {
         var a = document.createElement("a");
         if (a.innerText !== undefined) {
             innerText = "innerText";
@@ -43,8 +43,8 @@ kendo_module({
         }
     })();
 
-    var Binding = Observable.extend({
-        init: function (parents, path) {
+    var Binding = Observable.extend( {
+        init: function(parents, path) {
             var that = this;
 
             Observable.fn.init.call(that);
@@ -56,12 +56,12 @@ kendo_module({
             that.dependencies[path] = true;
             that.observable = that.source instanceof Observable;
 
-            that._access = function (e) {
+            that._access = function(e) {
                 that.dependencies[e.field] = true;
             };
 
             if (that.observable) {
-                that._change = function (e) {
+                that._change = function(e) {
                     that.change(e);
                 };
 
@@ -69,7 +69,7 @@ kendo_module({
             }
         },
 
-        _parents: function () {
+        _parents: function() {
             var parents = this.parents;
             var value = this.get();
 
@@ -84,7 +84,7 @@ kendo_module({
             return parents;
         },
 
-        change: function (e) {
+        change: function(e) {
             var dependency,
                 ch,
                 field = e.field,
@@ -95,26 +95,26 @@ kendo_module({
             } else {
                 for (dependency in that.dependencies) {
                     if (dependency.indexOf(field) === 0) {
-                        ch = dependency.charAt(field.length);
+                       ch = dependency.charAt(field.length);
 
-                        if (!ch || ch === "." || ch === "[") {
+                       if (!ch || ch === "." || ch === "[") {
                             that.trigger(CHANGE, e);
                             break;
-                        }
+                       }
                     }
                 }
             }
         },
 
-        start: function (source) {
+        start: function(source) {
             source.bind("get", this._access);
         },
 
-        stop: function (source) {
+        stop: function(source) {
             source.unbind("get", this._access);
         },
 
-        get: function () {
+        get: function() {
 
             var that = this,
                 source = that.source,
@@ -177,7 +177,7 @@ kendo_module({
 
                 // Listen for changes in the parent object
                 source.unbind(CHANGE, that._change)
-                    .bind(CHANGE, that._change);
+                      .bind(CHANGE, that._change);
             }
 
             that.stop(that.source);
@@ -185,22 +185,22 @@ kendo_module({
             return result;
         },
 
-        set: function (value) {
+        set: function(value) {
             var that = this,
                 source = that.currentSource || that.source;
 
             source.set(that.path, value);
         },
 
-        destroy: function () {
+        destroy: function() {
             if (this.observable) {
                 this.source.unbind(CHANGE, this._change);
             }
         }
     });
 
-    var EventBinding = Binding.extend({
-        get: function () {
+    var EventBinding = Binding.extend( {
+        get: function() {
             var source = this.source,
                 path = this.path,
                 index = 0,
@@ -220,8 +220,8 @@ kendo_module({
         }
     });
 
-    var TemplateBinding = Binding.extend({
-        init: function (source, path, template) {
+    var TemplateBinding = Binding.extend( {
+        init: function(source, path, template) {
             var that = this;
 
             Binding.fn.init.call(that, source, path);
@@ -229,7 +229,7 @@ kendo_module({
             that.template = template;
         },
 
-        render: function (value) {
+        render: function(value) {
             var html;
 
             this.start(this.source);
@@ -243,42 +243,42 @@ kendo_module({
     });
 
     var Binder = Class.extend({
-        init: function (element, bindings, options) {
+        init: function(element, bindings, options) {
             this.element = element;
             this.bindings = bindings;
             this.options = options;
         },
 
-        bind: function (binding, attribute) {
+        bind: function(binding, attribute) {
             var that = this;
 
             binding = attribute ? binding[attribute] : binding;
 
-            binding.bind(CHANGE, function (e) {
+            binding.bind(CHANGE, function(e) {
                 that.refresh(attribute || e);
             });
 
             that.refresh(attribute);
         },
 
-        destroy: function () {
+        destroy: function() {
         }
     });
 
     binders.attr = Binder.extend({
-        refresh: function (key) {
+        refresh: function(key) {
             this.element.setAttribute(key, this.bindings.attr[key].get());
         }
     });
 
     binders.style = Binder.extend({
-        refresh: function (key) {
+        refresh: function(key) {
             this.element.style[key] = this.bindings.style[key].get() || "";
         }
     });
 
     binders.enabled = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             if (this.bindings.enabled.get()) {
                 this.element.removeAttribute("disabled");
             } else {
@@ -288,17 +288,17 @@ kendo_module({
     });
 
     binders.readonly = Binder.extend({
-        refresh: function () {
+       refresh: function() {
             if (this.bindings.readonly.get()) {
                 this.element.setAttribute("readonly", "readonly");
             } else {
                 this.element.removeAttribute("readonly");
             }
-        }
+       }
     });
 
     binders.disabled = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             if (this.bindings.disabled.get()) {
                 this.element.setAttribute("disabled", "disabled");
             } else {
@@ -308,12 +308,12 @@ kendo_module({
     });
 
     binders.events = Binder.extend({
-        init: function (element, bindings, options) {
+        init: function(element, bindings, options) {
             Binder.fn.init.call(this, element, bindings, options);
             this.handlers = {};
         },
 
-        refresh: function (key) {
+        refresh: function(key) {
             var element = $(this.element),
                 binding = this.bindings.events[key],
                 handler = this.handlers[key];
@@ -327,7 +327,7 @@ kendo_module({
             element.on(key, binding.source, handler);
         },
 
-        destroy: function () {
+        destroy: function() {
             var element = $(this.element),
                 handler;
 
@@ -338,7 +338,7 @@ kendo_module({
     });
 
     binders.text = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             var text = this.bindings.text.get();
 
             if (text == null) {
@@ -350,7 +350,7 @@ kendo_module({
     });
 
     binders.visible = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             if (this.bindings.visible.get()) {
                 this.element.style.display = "";
             } else {
@@ -360,7 +360,7 @@ kendo_module({
     });
 
     binders.invisible = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             if (!this.bindings.invisible.get()) {
                 this.element.style.display = "";
             } else {
@@ -370,13 +370,13 @@ kendo_module({
     });
 
     binders.html = Binder.extend({
-        refresh: function () {
+        refresh: function() {
             this.element.innerHTML = this.bindings.html.get();
         }
     });
 
     binders.value = Binder.extend({
-        init: function (element, bindings, options) {
+        init: function(element, bindings, options) {
             Binder.fn.init.call(this, element, bindings, options);
 
             this._change = proxy(this.change, this);
@@ -387,13 +387,13 @@ kendo_module({
             this._initChange = false;
         },
 
-        change: function () {
+        change: function() {
             this._initChange = this.eventName != CHANGE;
             this.bindings[VALUE].set(this.element.value);
             this._initChange = false;
         },
 
-        refresh: function () {
+        refresh: function() {
             if (!this._initChange) {
                 var value = this.bindings[VALUE].get();
 
@@ -407,17 +407,17 @@ kendo_module({
             this._initChange = false;
         },
 
-        destroy: function () {
+        destroy: function() {
             $(this.element).off(this.eventName, this._change);
         }
     });
 
     binders.source = Binder.extend({
-        init: function (element, bindings, options) {
+        init: function(element, bindings, options) {
             Binder.fn.init.call(this, element, bindings, options);
         },
 
-        refresh: function (e) {
+        refresh: function(e) {
             var that = this,
                 source = that.bindings.source.get();
 
@@ -436,7 +436,7 @@ kendo_module({
             }
         },
 
-        container: function () {
+        container: function() {
             var element = this.element;
 
             if (element.nodeName.toLowerCase() == "table") {
@@ -449,7 +449,7 @@ kendo_module({
             return element;
         },
 
-        template: function () {
+        template: function() {
             var options = this.options,
                 template = options.template,
                 nodeName = this.container().nodeName.toLowerCase();
@@ -476,13 +476,13 @@ kendo_module({
             return template;
         },
 
-        destroy: function () {
+        destroy: function() {
             var source = this.bindings.source.get();
 
             source.unbind(CHANGE, this._change);
         },
 
-        add: function (index, items) {
+        add: function(index, items) {
             var element = this.container(),
                 parents,
                 idx,
@@ -504,7 +504,7 @@ kendo_module({
             }
         },
 
-        remove: function (index, items) {
+        remove: function(index, items) {
             var idx, element = this.container();
 
             for (idx = 0; idx < items.length; idx++) {
@@ -514,7 +514,7 @@ kendo_module({
             }
         },
 
-        render: function () {
+        render: function() {
             var source = this.bindings.source.get(),
                 parents,
                 idx,
@@ -547,7 +547,8 @@ kendo_module({
                         bindElement(element.children[idx], source[idx], this.options.roles, [source[idx]].concat(parents));
                     }
                 }
-            } else {
+            }
+            else {
                 $(element).html(kendo.render(template, source));
             }
         }
@@ -555,13 +556,13 @@ kendo_module({
 
     binders.input = {
         checked: Binder.extend({
-            init: function (element, bindings, options) {
+            init: function(element, bindings, options) {
                 Binder.fn.init.call(this, element, bindings, options);
                 this._change = proxy(this.change, this);
 
                 $(this.element).change(this._change);
             },
-            change: function () {
+            change: function() {
                 var element = this.element;
                 var value = this.value();
 
@@ -588,7 +589,7 @@ kendo_module({
                 }
             },
 
-            refresh: function () {
+            refresh: function() {
                 var value = this.bindings[CHECKED].get(),
                     source = value,
                     element = this.element;
@@ -609,7 +610,7 @@ kendo_module({
                 }
             },
 
-            value: function () {
+            value: function() {
                 var element = this.element,
                     value = element.value;
 
@@ -619,7 +620,7 @@ kendo_module({
 
                 return value;
             },
-            destroy: function () {
+            destroy: function() {
                 $(this.element).off(CHANGE, this._change);
             }
         })
@@ -627,14 +628,14 @@ kendo_module({
 
     binders.select = {
         value: Binder.extend({
-            init: function (target, bindings, options) {
+            init: function(target, bindings, options) {
                 Binder.fn.init.call(this, target, bindings, options);
 
                 this._change = proxy(this.change, this);
                 $(this.element).change(this._change);
             },
 
-            change: function () {
+            change: function() {
                 var values = [],
                     element = this.element,
                     source,
@@ -683,7 +684,7 @@ kendo_module({
                     this.bindings[VALUE].set(values[0].get(field));
                 }
             },
-            refresh: function () {
+            refresh: function() {
                 var optionIndex,
                     element = this.element,
                     options = element.options,
@@ -720,21 +721,21 @@ kendo_module({
                     }
                 }
             },
-            destroy: function () {
+            destroy: function() {
                 $(this.element).off(CHANGE, this._change);
             }
         })
     };
 
     binders.widget = {
-        events: Binder.extend({
-            init: function (widget, bindings, options) {
+        events : Binder.extend({
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
                 this.widget = widget;
                 this.handlers = {};
             },
 
-            refresh: function (key) {
+            refresh: function(key) {
                 var binding = this.bindings.events[key],
                     handler = this.handlers[key];
 
@@ -744,7 +745,7 @@ kendo_module({
 
                 handler = binding.get();
 
-                this.handlers[key] = function (e) {
+                this.handlers[key] = function(e) {
                     e.data = binding.source;
 
                     handler(e);
@@ -757,7 +758,7 @@ kendo_module({
                 this.widget.bind(key, this.handlers[key]);
             },
 
-            destroy: function () {
+            destroy: function() {
                 var handler;
 
                 for (handler in this.handlers) {
@@ -767,22 +768,22 @@ kendo_module({
         }),
 
         checked: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
                 this._change = proxy(this.change, this);
                 this.widget.bind(CHANGE, this._change);
             },
-            change: function () {
+            change: function() {
                 this.bindings[CHECKED].set(this.value());
             },
 
-            refresh: function () {
+            refresh: function() {
                 this.widget.check(this.bindings[CHECKED].get() === true);
             },
 
-            value: function () {
+            value: function() {
                 var element = this.element,
                     value = element.value;
 
@@ -793,45 +794,45 @@ kendo_module({
                 return value;
             },
 
-            destroy: function () {
+            destroy: function() {
                 this.widget.unbind(CHANGE, this._change);
             }
         }),
 
         visible: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
             },
 
-            refresh: function () {
+            refresh: function() {
                 var visible = this.bindings.visible.get();
                 this.widget.wrapper[0].style.display = visible ? "" : "none";
             }
         }),
 
         invisible: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
             },
 
-            refresh: function () {
+            refresh: function() {
                 var invisible = this.bindings.invisible.get();
                 this.widget.wrapper[0].style.display = invisible ? "none" : "";
             }
         }),
 
         enabled: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
             },
 
-            refresh: function () {
+            refresh: function() {
                 if (this.widget.enable) {
                     this.widget.enable(this.bindings.enabled.get());
                 }
@@ -839,13 +840,13 @@ kendo_module({
         }),
 
         disabled: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
             },
 
-            refresh: function () {
+            refresh: function() {
                 if (this.widget.enable) {
                     this.widget.enable(!this.bindings.disabled.get());
                 }
@@ -853,7 +854,7 @@ kendo_module({
         }),
 
         source: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 var that = this;
 
                 Binder.fn.init.call(that, widget.element[0], bindings, options);
@@ -864,11 +865,11 @@ kendo_module({
                 that._itemChange = proxy(that.itemChange, that);
             },
 
-            itemChange: function (e) {
+            itemChange: function(e) {
                 bindElement(e.item[0], e.data, this._ns(e.ns), [e.data].concat(this.bindings.source._parents()));
             },
 
-            dataBinding: function () {
+            dataBinding: function() {
                 var idx,
                     length,
                     widget = this.widget,
@@ -879,16 +880,16 @@ kendo_module({
                 }
             },
 
-            _ns: function (ns) {
+            _ns: function(ns) {
                 ns = ns || kendo.ui;
-                var all = [kendo.ui, kendo.dataviz.ui, kendo.mobile.ui];
+                var all = [ kendo.ui, kendo.dataviz.ui, kendo.mobile.ui ];
                 all.splice($.inArray(ns, all), 1);
                 all.unshift(ns);
 
                 return kendo.rolesFromNamespaces(all);
             },
 
-            dataBound: function (e) {
+            dataBound: function(e) {
                 var idx,
                     length,
                     widget = this.widget,
@@ -911,7 +912,7 @@ kendo_module({
                 }
             },
 
-            refresh: function (e) {
+            refresh: function(e) {
                 var that = this,
                     source,
                     widget = that.widget;
@@ -939,7 +940,7 @@ kendo_module({
                 }
             },
 
-            destroy: function () {
+            destroy: function() {
                 var widget = this.widget;
 
                 widget.unbind("dataBinding", this._dataBinding);
@@ -949,7 +950,7 @@ kendo_module({
         }),
 
         value: Binder.extend({
-            init: function (widget, bindings, options) {
+            init: function(widget, bindings, options) {
                 Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                 this.widget = widget;
@@ -963,7 +964,7 @@ kendo_module({
                 this._initChange = false;
             },
 
-            change: function () {
+            change: function() {
                 var value = this.widget.value(),
                     field = this.options.dataValueField || this.options.dataTextField,
                     isArray = toString.call(value) === "[object Array]",
@@ -1025,13 +1026,13 @@ kendo_module({
                 this._initChange = false;
             },
 
-            refresh: function () {
+            refresh: function() {
 
                 if (!this._initChange) {
                     var field = this.options.dataValueField || this.options.dataTextField,
                         value = this.bindings.value.get(),
-                        idx = 0, length,
-                        values = [];
+                              idx = 0, length,
+                              values = [];
 
                     if (field) {
                         if (value instanceof ObservableArray) {
@@ -1049,14 +1050,14 @@ kendo_module({
                 this._initChange = false;
             },
 
-            destroy: function () {
+            destroy: function() {
                 this.widget.unbind(CHANGE, this._change);
             }
         }),
 
         multiselect: {
             value: Binder.extend({
-                init: function (widget, bindings, options) {
+                init: function(widget, bindings, options) {
                     Binder.fn.init.call(this, widget.element[0], bindings, options);
 
                     this.widget = widget;
@@ -1065,7 +1066,7 @@ kendo_module({
                     this._initChange = false;
                 },
 
-                change: function () {
+                change: function() {
                     var that = this,
                         value = that.bindings[VALUE].get(),
                         valuePrimitive = that.options.valuePrimitive,
@@ -1082,7 +1083,7 @@ kendo_module({
                     that._initChange = false;
                 },
 
-                refresh: function () {
+                refresh: function() {
                     if (!this._initChange) {
                         var field = this.options.dataValueField || this.options.dataTextField,
                             value = this.bindings.value.get(),
@@ -1106,7 +1107,7 @@ kendo_module({
                     }
                 },
 
-                destroy: function () {
+                destroy: function() {
                     this.widget.unbind(CHANGE, this._change);
                 }
 
@@ -1114,14 +1115,14 @@ kendo_module({
         }
     };
 
-    var BindingTarget = Class.extend({
-        init: function (target, options) {
+    var BindingTarget = Class.extend( {
+        init: function(target, options) {
             this.target = target;
             this.options = options;
             this.toDestroy = [];
         },
 
-        bind: function (bindings) {
+        bind: function(bindings) {
             var nodeName = this.target.nodeName.toLowerCase(),
                 key,
                 hasValue,
@@ -1154,7 +1155,7 @@ kendo_module({
             }
         },
 
-        applyBinding: function (name, bindings, specificBinders) {
+        applyBinding: function(name, bindings, specificBinders) {
             var binder = specificBinders[name] || binders[name],
                 toDestroy = this.toDestroy,
                 attribute,
@@ -1179,7 +1180,7 @@ kendo_module({
             }
         },
 
-        destroy: function () {
+        destroy: function() {
             var idx,
                 length,
                 toDestroy = this.toDestroy;
@@ -1190,8 +1191,8 @@ kendo_module({
         }
     });
 
-    var WidgetBindingTarget = BindingTarget.extend({
-        bind: function (bindings) {
+    var WidgetBindingTarget = BindingTarget.extend( {
+        bind: function(bindings) {
             var that = this,
                 binding,
                 hasValue = false,
@@ -1217,7 +1218,7 @@ kendo_module({
             }
         },
 
-        applyBinding: function (name, bindings, specificBinder) {
+        applyBinding: function(name, bindings, specificBinder) {
             var binder = specificBinder || binders.widget[name],
                 toDestroy = this.toDestroy,
                 attribute,
@@ -1333,13 +1334,7 @@ kendo_module({
             bind = parseBindings(bind.replace(whiteSpaceRegExp, ""));
 
             if (!target) {
-                options = kendo.parseOptions(element, {
-                    textField: "",
-                    valueField: "",
-                    template: "",
-                    valueUpdate: CHANGE,
-                    valuePrimitive: false
-                });
+                options = kendo.parseOptions(element, {textField: "", valueField: "", template: "", valueUpdate: CHANGE, valuePrimitive: false});
                 options.roles = roles;
                 target = new BindingTarget(element, options);
             }
@@ -1447,7 +1442,7 @@ kendo_module({
 
         dom = $(dom);
 
-        for (idx = 0, length = dom.length; idx < length; idx++) {
+        for (idx = 0, length = dom.length; idx < length; idx++ ) {
             unbindElementTree(dom[idx]);
         }
     }
@@ -1467,7 +1462,7 @@ kendo_module({
     kendo.data.Binder = Binder;
     kendo.notify = notify;
 
-    kendo.observable = function (object) {
+    kendo.observable = function(object) {
         if (!(object instanceof ObservableObject)) {
             object = new ObservableObject(object);
         }
@@ -1475,7 +1470,7 @@ kendo_module({
         return object;
     };
 
-    kendo.observableHierarchy = function (array) {
+    kendo.observableHierarchy = function(array) {
         var dataSource = kendo.data.HierarchicalDataSource.create(array);
 
         function recursiveRead(data) {

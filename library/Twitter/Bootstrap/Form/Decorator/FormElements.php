@@ -21,29 +21,29 @@ class Twitter_Bootstrap_Form_Decorator_FormElements extends Zend_Form_Decorator_
     /**
      * Render form elements
      *
-     * @param string $content
+     * @param  string $content
      * @return string
      */
     public function render($content)
     {
-        $form = $this->getElement();
+        $form    = $this->getElement();
         if ((!$form instanceof Zend_Form) && (!$form instanceof Zend_Form_DisplayGroup)) {
             return $content;
         }
 
-        $belongsTo = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
-        $displayGroups = ($form instanceof Zend_Form) ? $form->getDisplayGroups() : array();
-        $separator = $this->getSeparator();
-        $translator = $form->getTranslator();
-        $items = array();
-        $view = $form->getView();
+        $belongsTo      = ($form instanceof Zend_Form) ? $form->getElementsBelongTo() : null;
+        $displayGroups  = ($form instanceof Zend_Form) ? $form->getDisplayGroups() : array();
+        $separator      = $this->getSeparator();
+        $translator     = $form->getTranslator();
+        $items          = array();
+        $view           = $form->getView();
         foreach ($form as $item) {
             $item->setView($view)
-                ->setTranslator($translator);
+                 ->setTranslator($translator);
             if ($item instanceof Zend_Form_Element) {
                 foreach ($displayGroups as $group) {
                     $elementName = $item->getName();
-                    $element = $group->getElement($elementName);
+                    $element     = $group->getElement($elementName);
                     if ($element) {
                         // Element belongs to display group; only render in that
                         // context.
@@ -75,11 +75,11 @@ class Twitter_Bootstrap_Form_Decorator_FormElements extends Zend_Form_Decorator_
                 $class = $item->getAttrib('class');
                 $item->setAttrib('class', $class . ' disabled');
             }
-
+		
             // Check if the element is required
             if ($item instanceof Zend_Form_Element && $item->isRequired()) {
                 $item->setAttrib('required', 'required');
-            }
+            }	
 
             $items[] = $item->render();
 

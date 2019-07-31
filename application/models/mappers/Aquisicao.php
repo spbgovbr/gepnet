@@ -18,17 +18,17 @@ class Default_Model_Mapper_Aquisicao extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Aquisicao $model)
     {
         $data = array(
-            "idaquisicao" => $model->idaquisicao,
-            "idprojeto" => $model->idprojeto,
-            "identrega" => $model->identrega,
-            "descontrato" => $model->descontrato,
-            "desfornecedor" => $model->desfornecedor,
-            "numvalor" => $model->numvalor,
+            "idaquisicao"       => $model->idaquisicao,
+            "idprojeto"         => $model->idprojeto,
+            "identrega"         => $model->identrega,
+            "descontrato"       => $model->descontrato,
+            "desfornecedor"     => $model->desfornecedor,
+            "numvalor"          => $model->numvalor,
             "datprazoaquisicao" => $model->datprazoaquisicao,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "numquantidade" => $model->numquantidade,
-            "desaquisicao" => $model->desaquisicao,
+            "idcadastrador"     => $model->idcadastrador,
+            "datcadastro"       => $model->datcadastro,
+            "numquantidade"     => $model->numquantidade,
+            "desaquisicao"      => $model->desaquisicao,
         );
         $this->getDbTable()->insert($data);
     }
@@ -42,19 +42,19 @@ class Default_Model_Mapper_Aquisicao extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Aquisicao $model)
     {
         $data = array(
-            "idaquisicao" => $model->idaquisicao,
-            "idprojeto" => $model->idprojeto,
-            "identrega" => $model->identrega,
-            "descontrato" => $model->descontrato,
-            "desfornecedor" => $model->desfornecedor,
-            "numvalor" => $model->numvalor,
+            "idaquisicao"       => $model->idaquisicao,
+            "idprojeto"         => $model->idprojeto,
+            "identrega"         => $model->identrega,
+            "descontrato"       => $model->descontrato,
+            "desfornecedor"     => $model->desfornecedor,
+            "numvalor"          => $model->numvalor,
             "datprazoaquisicao" => $model->datprazoaquisicao,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => $model->datcadastro,
-            "numquantidade" => $model->numquantidade,
-            "desaquisicao" => $model->desaquisicao,
+            "idcadastrador"     => $model->idcadastrador,
+            "datcadastro"       => $model->datcadastro,
+            "numquantidade"     => $model->numquantidade,
+            "desaquisicao"      => $model->desaquisicao,
         );
-
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

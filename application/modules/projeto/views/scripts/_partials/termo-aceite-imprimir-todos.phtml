@@ -1,153 +1,109 @@
 <?php echo $this->partial('_partials/relatorio-cabecalho.phtml'); ?>
 
-<?php
-$ctPaginas = 1;
-if (count($this->aceite) > 0):
-    foreach ($this->aceite as $aceite): ?>
+<?php if(count($this->aceite) > 0 ):
+         foreach ($this->aceite as $aceite): ?>
 
-        <div id="content" style="border-bottom: 1px solid #ccc; padding-bottom: 30px;">
-            <div align="left" class="span4" style="margin-top: 60px">
-                <h5>1. TERMO DE ACEITE</h5>
-            </div>
-            <div align="left" class="span4">
-                <h5>1.1 PROJETO</h5>
-            </div>
-            <div align="center" style="margin-top: 20px">
-                <table class="table table-bordered table-hover table-striped span10">
-                    <colgroup>
-                        <col style="width: 50px">
-                        <col style="width: 100px">
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <td>C&Oacute;DIGO DO PROJETO</td>
-                        <td><?php echo $this->projeto->nomcodigo; ?></td>
-                    </tr>
-                    <tr>
-                        <td>T&Iacute;TULO DO PROJETO</td>
-                        <td><?php echo $this->projeto->nomprojeto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>GERENTE DE PROJETO</td>
-                        <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>GERENTE ADJUNTO</td>
-                        <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
-                    </tr>
-                    <tr>
-                        <td>PATROCINADOR</td>
-                        <td><?php echo $this->projeto->nompatrocinador; ?></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div align="left" class="span4">
-                <h5>1.2 ENTREGA ASSOCIADA</h5>
-            </div>
-            <div align="center" style="margin-top: 20px">
-                <table class="table table-bordered table-hover table-striped span10">
-                    <colgroup>
-                        <col style="width: 50px">
-                        <col style="width: 100px">
-                    </colgroup>
-                    <tbody>
-                    <tr>
-                        <td>GRUPO</td>
-                        <td><?php echo $aceite['grupo']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>ENTREGA</td>
-                        <td><?php echo $aceite['nomatividadecronograma']; ?></td>
-                    </tr>
-                    <!--                    <tr>
-                        <td>MARCO DA ENTREGA</td>
-                        <td><?php echo $aceite['nomarco']; ?></td>
-                    </tr>-->
-                    <tr>
-                        <td>DESCRI&Ccedil;&Atilde;O DA ENTREGA</td>
-                        <td><?php echo $aceite['desobs']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O</td>
-                        <td><?php echo $aceite['descriterioaceitacao']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>RESPONS&Aacute;VEL PELA ENTREGA</td>
-                        <td><?php echo $aceite['nomparteinteressadaentrega'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>RESPONS&Aacute;VEL PELO ACEITE</td>
-                        <td><?php echo $aceite['nomresponsavel'] ?></td>
-                    </tr>
-                    <tr>
-                        <td>PRODUTO OU SERVI&Ccedil;O ENTREGUE</td>
-                        <td><?php echo $aceite['desprodutoservico']; ?></td>
-                    </tr>
-                    <tr>
-                        <td>PARECER FINAL</td>
-                        <td><?php echo $aceite['desparecerfinal'] ?></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div align="left" class="span4">
-                <h5>1.3 APROVA&Ccedil;&Atilde;O </h5>
-            </div>
-            <div align="center" style="margin-top: 20px">
-                <table class="span10">
-                    <colgroup>
-                        <col style="width: 150px">
-                        <col style="width: 15px">
-                        <col style="width: 15px">
-                    </colgroup>
-                    <tbody style="text-align: center">
-                    <tr style="vertical-align: bottom">
-                        <!--<td><?php echo $this->projeto->nomgerenteprojeto; ?></td>-->
-                        <td><?php echo $aceite['nomresponsavel']; ?></td>
-                        <td>_________________________________________________________</td>
-                        <td style="text-align: center">/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-                    </tr>
-                    <tr style="vertical-align: top;">
-                        <!--<td><b>Gerente de Projeto</b></td>-->
-                        <td><b>RESPONS&Aacute;VEL PELO ACEITE</b></td>
-                        <td style="text-align: center"><b>Assinatura</b></td>
-                        <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <?php if (count($this->assinaturas) > 0) : ?>
+            <div id="content" style="border-bottom: 1px solid #ccc; padding-bottom: 30px;">
+                <div align="left" class="span4" style="margin-top: 60px">
+                    <h5>1. TERMO DE ACEITE</h5>
+                </div>
                 <div align="left" class="span4">
-                    <h5>1.4 ASSINATURA ELETR&Ocirc;NICA</h5><span style="font-size: 10px;">(Para validar a assinatura eletr&ocirc;nica acesse o endere&ccedil;o: <?php echo $this->url; ?>)</span>
+                    <h5>1.1 PROJETO</h5>
                 </div>
                 <div align="center" style="margin-top: 20px">
-                    <table border="1" class="span10" cellspacing="1" cellpadding="1">
+                    <table class="table table-bordered table-hover table-striped span10">
                         <colgroup>
-                            <col style="width: 150px">
-                            <col style="width: 15px">
-                            <col style="width: 150px">
+                            <col style="width: 50px">
+                            <col style="width: 100px">
                         </colgroup>
-                        <tbody style="text-align: center">
-                        <?php foreach ($this->assinaturas as $assinatura) : ?>
-                            <?php
-                            if ($assinatura['idaceite'] === $aceite['idaceite']) : ?>
-                                <tr style="vertical-align: bottom">
-                                    <td><?php echo $assinatura['nomparteinteressada']; ?></td>
-                                    <td><?php echo $assinatura['assinado']; ?></td>
-                                    <td><?php echo $assinatura['hashdoc']; ?></td>
-                                </tr>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
+                        <tbody>
+                            <tr>
+                                <td>C&Oacute;DIGO DO PROJETO</td>
+                                <td><?= $this->projeto->nomcodigo; ?></td>
+                            </tr>
+                            <tr>
+                                <td>T&Iacute;TULO DO PROJETO</td>
+                                <td><?= $this->projeto->nomprojeto; ?></td>
+                            </tr>
+                            <tr>
+                                <td>GERENTE DE PROJETO</td>
+                                <td><?= $this->projeto->nomgerenteprojeto; ?></td>
+                            </tr>
+                            <tr>
+                                <td>GERENTE ADJUNTO</td>
+                                <td><?= $this->projeto->nomgerenteadjunto; ?></td>
+                            </tr>
+                            <tr>
+                                <td>PATROCINADOR</td>
+                                <td><?= $this->projeto->nompatrocinador; ?></td>
+                            </tr> 
                         </tbody>
                     </table>
                 </div>
-            <?php endif; ?>
-        </div>
-        <?php echo($ctPaginas < (count($this->aceite)) ? "<div style=\"page-break-after: always;\"></div>" : "") ?>
-        <?php
-        $ctPaginas++;
-    endforeach;
-endif; ?>
+
+                <div align="left" class="span4">
+                    <h5>1.2 ENTREGA ASSOCIADA</h5>
+                </div>
+                <div align="center" style="margin-top: 20px">
+                    <table class="table table-bordered table-hover table-striped span10">
+                        <colgroup>
+                            <col style="width: 50px">
+                            <col style="width: 100px">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td>REFER&Ecirc;NCIA EAP</td>
+                                <td><?= $aceite['nomatividadecronograma']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>MARCO DA ENTREGA</td>
+                                <td><?= $aceite['idmarco']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>DESCRI&Ccedil;&Atilde;O DA ENTREGA</td>
+                                <td><?= $aceite['desobs']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>CRIT&Eacute;RIO DE ACEITA&Ccedil;&Atilde;O</td>
+                                <td><?= $aceite['descriterioaceitacao']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>RESPONS&Aacute;VEL</td>
+                                <td><?= $aceite['nomresponsavel'] ?></td>
+                            </tr>
+                            <tr>
+                                <td>PARECER FINAL</td>
+                                <td><?= $aceite['desparecerfinal'] ?></td>
+                            </tr> 
+                        </tbody>
+                    </table>
+                </div>
+
+                <div align="left" class="span4">
+                    <h5>1.3 APROVA&Ccedil;&Atilde;O </h5>
+                </div>
+                 <div align="center" style="margin-top: 20px">
+                    <table class="span10">
+                        <colgroup>
+                            <col style="width: 150px">
+                            <col style="width: 15px">
+                            <col style="width: 15px">
+                        </colgroup>
+                        <tbody style="text-align: center">
+                            <tr style="vertical-align: bottom">
+                                <td><?= $this->projeto->nomgerenteprojeto; ?></td>
+                                <td>_________________________________________________________</td>
+                                <td style="text-align: center">/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+                            </tr>
+                            <tr style="vertical-align: top;">
+                                <td><b>Gerente de Projeto</b></td>
+                                <td style="text-align: center"><b>Assinatura</b></td>
+                                <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div style="page-break-after: always"></div>
+<?php   endforeach; 
+    endif;

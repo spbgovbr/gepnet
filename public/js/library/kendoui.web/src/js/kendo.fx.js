@@ -15,10 +15,10 @@ kendo_module({
     name: "Effects",
     category: "framework",
     description: "Required for animation effects in all Kendo UI widgets.",
-    depends: ["core"]
+    depends: [ "core" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         fx = kendo.effects,
         each = $.each,
@@ -28,8 +28,8 @@ kendo_module({
         browser = support.browser,
         transforms = support.transforms,
         transitions = support.transitions,
-        scaleProperties = {scale: 0, scalex: 0, scaley: 0, scale3d: 0},
-        translateProperties = {translate: 0, translatex: 0, translatey: 0, translate3d: 0},
+        scaleProperties = { scale: 0, scalex: 0, scaley: 0, scale3d: 0 },
+        translateProperties = { translate: 0, translatex: 0, translatey: 0, translate3d: 0 },
         hasZoom = (typeof document.documentElement.style.zoom !== "undefined") && !transforms,
         matrix3dRegExp = /matrix3?d?\s*\(.*,\s*([\d\.\-]+)\w*?,\s*([\d\.\-]+)\w*?,\s*([\d\.\-]+)\w*?,\s*([\d\.\-]+)\w*?/i,
         cssParamsRegExp = /^(-?[\d\.\-]+)?[\w\s]*,?\s*(-?[\d\.\-]+)?[\w\s]*/i,
@@ -39,7 +39,7 @@ kendo_module({
         unitRegExp = /[xy]$/i,
         transformProps = ["perspective", "rotate", "rotatex", "rotatey", "rotatez", "rotate3d", "scale", "scalex", "scaley", "scalez", "scale3d", "skew", "skewx", "skewy", "translate", "translatex", "translatey", "translatez", "translate3d", "matrix", "matrix3d"],
         transform2d = ["rotate", "scale", "scalex", "scaley", "skew", "skewx", "skewy", "translate", "translatex", "translatey", "matrix"],
-        transform2units = {"rotate": "deg", scale: "", skew: "px", translate: "px"},
+        transform2units = { "rotate": "deg", scale: "", skew: "px", translate: "px" },
         cssPrefix = transforms.css,
         round = Math.round,
         BLANK = "",
@@ -113,10 +113,10 @@ kendo_module({
             }
         };
 
-    kendo.directions = directions;
+        kendo.directions = directions;
 
     extend($.fn, {
-        kendoStop: function (clearQueue, gotoEnd) {
+        kendoStop: function(clearQueue, gotoEnd) {
             if (transitions) {
                 return fx.stopQueue(this, clearQueue || false, gotoEnd || false);
             } else {
@@ -128,8 +128,8 @@ kendo_module({
     /* jQuery support for all transform animations (FF 3.5/3.6, Opera 10.x, IE9 */
 
     if (transforms && !transitions) {
-        each(transform2d, function (idx, value) {
-            $.fn[value] = function (val) {
+        each(transform2d, function(idx, value) {
+            $.fn[value] = function(val) {
                 if (typeof val == "undefined") {
                     return animationProperty(this, value);
                 } else {
@@ -160,7 +160,7 @@ kendo_module({
         };
     }
 
-    kendo.toggleClass = function (element, classes, options, add) {
+    kendo.toggleClass = function(element, classes, options, add) {
         if (classes) {
             classes = classes.split(" ");
 
@@ -172,12 +172,12 @@ kendo_module({
                 }, options);
 
                 element.css(TRANSITION, options.exclusive + " " + options.duration + "ms " + options.ease);
-                setTimeout(function () {
+                setTimeout(function() {
                     element.css(TRANSITION, "").css(HEIGHT);
                 }, options.duration); // TODO: this should fire a kendoAnimate session instead.
             }
 
-            each(classes, function (idx, value) {
+            each(classes, function(idx, value) {
                 element.toggleClass(value, add);
             });
         }
@@ -185,13 +185,13 @@ kendo_module({
         return element;
     };
 
-    kendo.parseEffects = function (input, mirror) {
+    kendo.parseEffects = function(input, mirror) {
         var effects = {};
 
         if (typeof input === "string") {
-            each(input.split(" "), function (idx, value) {
+            each(input.split(" "), function(idx, value) {
                 var redirectedEffect = !singleEffectRegExp.test(value),
-                    resolved = value.replace(oldEffectsRegExp, function (match, $1, $2) {
+                    resolved = value.replace(oldEffectsRegExp, function(match, $1, $2) {
                         return $1 + ":" + $2.toLowerCase();
                     }), // Support for old zoomIn/fadeOut style, now deprecated.
                     effect = resolved.split(":"),
@@ -205,7 +205,7 @@ kendo_module({
                 effects[effect[0]] = effectBody;
             });
         } else {
-            each(input, function (idx) {
+            each(input, function(idx) {
                 var direction = this.direction;
 
                 if (direction && mirror && !singleEffectRegExp.test(idx)) {
@@ -302,7 +302,7 @@ kendo_module({
 
     if (transitions) {
         extend(fx, {
-            transition: function (element, properties, options) {
+            transition: function(element, properties, options) {
                 var css,
                     delay = 0,
                     oldKeys = element.data("keys") || [],
@@ -319,7 +319,7 @@ kendo_module({
 
                 var stopTransitionCalled = false;
 
-                var stopTransition = function () {
+                var stopTransition = function() {
                     if (!stopTransitionCalled) {
                         stopTransitionCalled = true;
 
@@ -329,10 +329,10 @@ kendo_module({
                         }
 
                         element
-                            .removeData(ABORT_ID)
-                            .dequeue()
-                            .css(TRANSITION, "")
-                            .css(TRANSITION);
+                        .removeData(ABORT_ID)
+                        .dequeue()
+                        .css(TRANSITION, "")
+                        .css(TRANSITION);
 
                         options.complete.call(element);
                     }
@@ -368,7 +368,7 @@ kendo_module({
                 element.data(COMPLETE_CALLBACK, stopTransition);
             },
 
-            stopQueue: function (element, clearQueue, gotoEnd) {
+            stopQueue: function(element, clearQueue, gotoEnd) {
                 var cssValues,
                     taskKeys = element.data("keys"),
                     retainPosition = (!gotoEnd && taskKeys),
@@ -387,8 +387,8 @@ kendo_module({
                 }
 
                 return element
-                    .removeData("keys")
-                    .stop(clearQueue);
+                        .removeData("keys")
+                        .stop(clearQueue);
             }
         });
     }
@@ -427,7 +427,7 @@ kendo_module({
     }
 
     var EffectSet = kendo.Class.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this;
 
             that.element = element;
@@ -436,7 +436,7 @@ kendo_module({
             that.restore = [];
         },
 
-        run: function (effects) {
+        run: function(effects) {
             var that = this,
                 effect,
                 idx, jdx,
@@ -456,7 +456,7 @@ kendo_module({
 
             element.data("animating", true);
 
-            for (idx = 0; idx < length; idx++) {
+            for (idx = 0; idx < length; idx ++) {
                 effect = effects[idx];
 
                 effect.setReverse(options.reverse);
@@ -468,7 +468,7 @@ kendo_module({
 
                 children = effect.children();
 
-                for (jdx = 0, childrenLength = children.length; jdx < childrenLength; jdx++) {
+                for (jdx = 0, childrenLength = children.length; jdx < childrenLength; jdx ++) {
                     children[jdx].duration(options.duration).run();
                 }
             }
@@ -480,7 +480,7 @@ kendo_module({
 
             // Show the element initially
             if (!element.is(":visible")) {
-                extend(start, {display: element.data("olddisplay") || "block"});
+                extend(start, { display: element.data("olddisplay") || "block" });
             }
 
             if (transforms && !options.reset) {
@@ -498,9 +498,9 @@ kendo_module({
             }
 
             element.css(start)
-                .css(TRANSFORM); // Nudge
+                   .css(TRANSFORM); // Nudge
 
-            for (idx = 0; idx < length; idx++) {
+            for (idx = 0; idx < length; idx ++) {
                 effects[idx].setup();
             }
 
@@ -509,22 +509,22 @@ kendo_module({
             }
 
             element.data("targetTransform", end);
-            fx.animate(element, end, extend({}, options, {complete: deferred.resolve}));
+            fx.animate(element, end, extend({}, options, { complete: deferred.resolve }));
 
             return deferred.promise();
         },
 
-        stop: function () {
+        stop: function() {
             $(this.element).kendoStop(true, true);
         },
 
-        addRestoreProperties: function (restore) {
+        addRestoreProperties: function(restore) {
             var element = this.element,
                 value,
                 i = 0,
                 length = restore.length;
 
-            for (; i < length; i++) {
+            for (; i < length; i ++) {
                 value = restore[i];
 
                 this.restore.push(value);
@@ -535,16 +535,16 @@ kendo_module({
             }
         },
 
-        restoreCallback: function () {
+        restoreCallback: function() {
             var element = this.element;
 
-            for (var i = 0, length = this.restore.length; i < length; i++) {
+            for (var i = 0, length = this.restore.length; i < length; i ++) {
                 var value = this.restore[i];
                 element.css(value, element.data(value));
             }
         },
 
-        complete: function () {
+        complete: function() {
             var that = this,
                 idx = 0,
                 element = that.element,
@@ -566,7 +566,7 @@ kendo_module({
                 setTimeout($.proxy(this, "restoreCallback"), 0); // Again jQuery callback in IE8-
             }
 
-            for (; idx < length; idx++) {
+            for (; idx < length; idx ++) {
                 effects[idx].teardown();
             }
 
@@ -576,7 +576,7 @@ kendo_module({
         }
     });
 
-    fx.promise = function (element, options) {
+    fx.promise = function(element, options) {
         var effects = [],
             effectClass,
             effectSet = new EffectSet(element, options),
@@ -591,14 +591,14 @@ kendo_module({
             if (effectClass) {
                 effect = new effectClass(element, parsedEffects[effectName].direction);
                 effects.push(effect);
-            }
+           }
         }
 
         if (effects[0]) {
             effectSet.run(effects);
         } else { // Not sure how would an fx promise reach this state - means that you call kendoAnimate with no valid effects? Why?
             if (!element.is(":visible")) {
-                element.css({display: element.data("olddisplay") || "block"}).css("display");
+                element.css({ display: element.data("olddisplay") || "block" }).css("display");
             }
 
             if (options.init) {
@@ -610,13 +610,13 @@ kendo_module({
         }
     };
 
-    fx.transitionPromise = function (element, destination, options) {
+    fx.transitionPromise = function(element, destination, options) {
         fx.animateTo(element, destination, options);
         return element;
     };
 
     extend(fx, {
-        animate: function (elements, properties, options) {
+        animate: function(elements, properties, options) {
             var useTransition = options.transition !== false;
             delete options.transition;
 
@@ -624,21 +624,15 @@ kendo_module({
                 fx.transition(elements, properties, options);
             } else {
                 if (transforms) {
-                    elements.animate(strip3DTransforms(properties), {
-                        queue: false,
-                        show: false,
-                        hide: false,
-                        duration: options.duration,
-                        complete: options.complete
-                    }); // Stop animate from showing/hiding the element to be able to hide it later on.
+                    elements.animate(strip3DTransforms(properties), { queue: false, show: false, hide: false, duration: options.duration, complete: options.complete }); // Stop animate from showing/hiding the element to be able to hide it later on.
                 } else {
-                    elements.each(function () {
+                    elements.each(function() {
                         var element = $(this),
                             multiple = {};
 
-                        each(transformProps, function (idx, value) { // remove transforms to avoid IE and older browsers confusion
+                        each(transformProps, function(idx, value) { // remove transforms to avoid IE and older browsers confusion
                             var params,
-                                currentValue = properties ? properties[value] + " " : null; // We need to match
+                                currentValue = properties ? properties[value]+ " " : null; // We need to match
 
                             if (currentValue) {
                                 var single = properties;
@@ -646,7 +640,7 @@ kendo_module({
                                 if (value in scaleProperties && properties[value] !== undefined) {
                                     params = currentValue.match(cssParamsRegExp);
                                     if (transforms) {
-                                        extend(single, {scale: +params[0]});
+                                        extend(single, { scale: +params[0] });
                                     }
                                 } else {
                                     if (value in translateProperties && properties[value] !== undefined) {
@@ -679,31 +673,19 @@ kendo_module({
 
                                             if (isFixed) {
                                                 if (!isNaN(originalPosition.right)) {
-                                                    if (!isNaN(dX)) {
-                                                        extend(single, {right: originalPosition.right - dX});
-                                                    }
+                                                    if (!isNaN(dX)) { extend(single, { right: originalPosition.right - dX }); }
                                                 } else {
-                                                    if (!isNaN(dX)) {
-                                                        extend(single, {left: originalPosition.left + dX});
-                                                    }
+                                                    if (!isNaN(dX)) { extend(single, { left: originalPosition.left + dX }); }
                                                 }
 
                                                 if (!isNaN(originalPosition.bottom)) {
-                                                    if (!isNaN(dY)) {
-                                                        extend(single, {bottom: originalPosition.bottom - dY});
-                                                    }
+                                                    if (!isNaN(dY)) { extend(single, { bottom: originalPosition.bottom - dY }); }
                                                 } else {
-                                                    if (!isNaN(dY)) {
-                                                        extend(single, {top: originalPosition.top + dY});
-                                                    }
+                                                    if (!isNaN(dY)) { extend(single, { top: originalPosition.top + dY }); }
                                                 }
                                             } else {
-                                                if (!isNaN(dX)) {
-                                                    extend(single, {marginLeft: originalPosition.left + dX});
-                                                }
-                                                if (!isNaN(dY)) {
-                                                    extend(single, {marginTop: originalPosition.top + dY});
-                                                }
+                                                if (!isNaN(dX)) { extend(single, { marginLeft: originalPosition.left + dX }); }
+                                                if (!isNaN(dY)) { extend(single, { marginTop: originalPosition.top + dY }); }
                                             }
                                         }
                                     }
@@ -723,19 +705,13 @@ kendo_module({
                             delete multiple.scale;
                         }
 
-                        element.animate(multiple, {
-                            queue: false,
-                            show: false,
-                            hide: false,
-                            duration: options.duration,
-                            complete: options.complete
-                        }); // Stop animate from showing/hiding the element to be able to hide it later on.
+                        element.animate(multiple, { queue: false, show: false, hide: false, duration: options.duration, complete: options.complete }); // Stop animate from showing/hiding the element to be able to hide it later on.
                     });
                 }
             }
         },
 
-        animateTo: function (element, destination, options) {
+        animateTo: function(element, destination, options) {
             var direction,
                 commonParent = element.parents().filter(destination.parents()).first(),
                 originalOverflow;
@@ -746,7 +722,7 @@ kendo_module({
                 commonParent.css(OVERFLOW, "hidden");
             }
 
-            $.each(options.effects, function (name, definition) {
+            $.each(options.effects, function(name, definition) {
                 direction = direction || definition.direction;
             });
 
@@ -761,15 +737,13 @@ kendo_module({
                 }
             }
 
-            options.complete = browser.msie ? function () {
-                setTimeout(complete, 0);
-            } : complete;
+            options.complete = browser.msie ? function() { setTimeout(complete, 0); } : complete;
             options.previous = (options.reverse ? destination : element);
 
             options.reset = true; // Reset transforms if there are any.
 
             // execute callback only once, and hook up derived animations to previous view only once.
-            (options.reverse ? element : destination).each(function () {
+            (options.reverse ? element : destination).each(function() {
                 $(this).kendoAnimate(extend(true, {}, options));
                 options.complete = null;
                 options.previous = null;
@@ -778,7 +752,7 @@ kendo_module({
     });
 
     var Effect = kendo.Class.extend({
-        init: function (element, direction) {
+        init: function(element, direction) {
             var that = this;
             that.element = element;
             that._direction = direction;
@@ -791,40 +765,40 @@ kendo_module({
         },
 
 // Public API
-        reverse: function () {
+        reverse: function() {
             this._reverse = true;
             return this.run();
         },
 
-        play: function () {
+        play: function() {
             this._reverse = false;
             return this.run();
         },
 
-        add: function (additional) {
+        add: function(additional) {
             this._additionalEffects.push(additional);
             return this;
         },
 
-        direction: function (value) {
+        direction: function(value) {
             this._direction = value;
             return this;
         },
 
-        duration: function (duration) {
+        duration: function(duration) {
             this._duration = duration;
             return this;
         },
 
-        compositeRun: function () {
+        compositeRun: function() {
             var that = this,
-                effectSet = new EffectSet(that.element, {reverse: that._reverse, duration: that._duration}),
-                effects = that._additionalEffects.concat([that]);
+                effectSet = new EffectSet(that.element, { reverse: that._reverse, duration: that._duration }),
+                effects = that._additionalEffects.concat([ that ]);
 
             return effectSet.run(effects);
         },
 
-        run: function () {
+        run: function() {
             if (this._additionalEffects && this._additionalEffects[0]) {
                 return this.compositeRun();
             }
@@ -846,7 +820,7 @@ kendo_module({
 
             element.data("animating", true);
 
-            for (idx = 0; idx < length; idx++) {
+            for (idx = 0; idx < length; idx ++) {
                 value = restore[idx];
 
                 if (!element.data(value)) {
@@ -854,14 +828,14 @@ kendo_module({
                 }
             }
 
-            for (idx = 0; idx < childrenLength; idx++) {
+            for (idx = 0; idx < childrenLength; idx ++) {
                 children[idx].duration(that._duration).run();
             }
 
             that.prepare(start, end);
 
             if (!element.is(":visible")) {
-                extend(start, {display: element.data("olddisplay") || "block"});
+                extend(start, { display: element.data("olddisplay") || "block" });
             }
 
             if (transforms) {
@@ -883,17 +857,17 @@ kendo_module({
             that.setup();
 
             element.data("targetTransform", end);
-            fx.animate(element, end, {duration: that._duration, complete: deferred.resolve});
+            fx.animate(element, end, { duration: that._duration, complete: deferred.resolve });
 
             return deferred.promise();
         },
 
-        stop: function () {
+        stop: function() {
             var idx = 0,
                 children = this.children(),
                 childrenLength = children.length;
 
-            for (idx = 0; idx < childrenLength; idx++) {
+            for (idx = 0; idx < childrenLength; idx ++) {
                 children[idx].stop();
             }
 
@@ -901,16 +875,16 @@ kendo_module({
             return this;
         },
 
-        restoreCallback: function () {
+        restoreCallback: function() {
             var element = this.element;
 
-            for (var i = 0, length = this.restore.length; i < length; i++) {
+            for (var i = 0, length = this.restore.length; i < length; i ++) {
                 var value = this.restore[i];
                 element.css(value, element.data(value));
             }
         },
 
-        _complete: function () {
+        _complete: function() {
             var that = this,
                 element = that.element;
 
@@ -932,11 +906,11 @@ kendo_module({
         },
 
         /////////////////////////// Support for kendo.animate;
-        setOptions: function (options) {
+        setOptions: function(options) {
             extend(true, this.options, options);
         },
 
-        children: function () {
+        children: function() {
             return [];
         },
 
@@ -947,7 +921,7 @@ kendo_module({
         teardown: $.noop,
         directions: [],
 
-        setReverse: function (reverse) {
+        setReverse: function(reverse) {
             this._reverse = reverse;
             return this;
         }
@@ -963,12 +937,12 @@ kendo_module({
 
         fx[capitalize(name)] = effectClass;
 
-        fx.Element.prototype[name] = function (direction, opt1, opt2, opt3) {
+        fx.Element.prototype[name] = function(direction, opt1, opt2, opt3) {
             return new effectClass(this.element, direction, opt1, opt2, opt3);
         };
 
-        each(directions, function (idx, theDirection) {
-            fx.Element.prototype[name + capitalize(theDirection)] = function (opt1, opt2, opt3) {
+        each(directions, function(idx, theDirection) {
+            fx.Element.prototype[name + capitalize(theDirection)] = function(opt1, opt2, opt3) {
                 return new effectClass(this.element, theDirection, opt1, opt2, opt3);
             };
         });
@@ -980,7 +954,7 @@ kendo_module({
     createEffect("slideIn", {
         directions: FOUR_DIRECTIONS,
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 tmp,
                 element = that.element,
@@ -1008,21 +982,21 @@ kendo_module({
     createEffect("tile", {
         directions: FOUR_DIRECTIONS,
 
-        init: function (element, direction, previous) {
+        init: function(element, direction, previous) {
             Effect.prototype.init.call(this, element, direction);
-            this.options = {previous: previous};
+            this.options = { previous: previous };
         },
 
-        children: function () {
+        children: function() {
             var that = this,
                 reverse = that._reverse,
                 previous = that.options.previous,
                 dir = that._direction;
 
-            var children = [kendo.fx(that.element).slideIn(dir).setReverse(reverse)];
+            var children = [ kendo.fx(that.element).slideIn(dir).setReverse(reverse) ];
 
             if (previous) {
-                children.push(kendo.fx(previous).slideIn(directions[dir].reverse).setReverse(!reverse));
+                children.push( kendo.fx(previous).slideIn(directions[dir].reverse).setReverse(!reverse) );
             }
 
             return children;
@@ -1033,31 +1007,31 @@ kendo_module({
         createEffect(name, {
             directions: IN_OUT,
 
-            restore: [property],
+            restore: [ property ],
 
-            startValue: function (value) {
+            startValue: function(value) {
                 this._startValue = value;
                 return this;
             },
 
-            endValue: function (value) {
+            endValue: function(value) {
                 this._endValue = value;
                 return this;
             },
 
-            shouldHide: function () {
-                return (this._direction === "out") ? !this._reverse : this._reverse;
+            shouldHide: function() {
+               return (this._direction === "out") ? !this._reverse : this._reverse;
             },
 
-            _end: function () {
+            _end: function() {
                 return this._endValue || endValue;
             },
 
-            _start: function () {
+            _start: function() {
                 return this._startValue || 1;
             },
 
-            prepare: function (start, end) {
+            prepare: function(start, end) {
                 var that = this,
                     opacity = that.element.data(property),
                     out = that.shouldHide(),
@@ -1078,7 +1052,7 @@ kendo_module({
     createToggleEffect("zoom", "scale", 0.01);
 
     createEffect("slideMargin", {
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 element = that.element,
                 options = that.options,
@@ -1097,7 +1071,7 @@ kendo_module({
     });
 
     createEffect("slideTo", {
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 element = that.element,
                 options = that.options,
@@ -1118,9 +1092,9 @@ kendo_module({
     createEffect("expand", {
         directions: ["horizontal", "vertical"],
 
-        restore: [OVERFLOW],
+        restore: [ OVERFLOW ],
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 element = that.element,
                 options = that.options,
@@ -1143,25 +1117,23 @@ kendo_module({
             }
         },
 
-        shouldHide: function () {
-            return this._reverse;
+        shouldHide: function() {
+           return this._reverse;
         },
 
-        teardown: function () {
+        teardown: function() {
             var that = this,
                 element = that.element,
                 property = that._direction === "vertical" ? HEIGHT : WIDTH,
                 length = element.data(property);
 
             if (length == AUTO || length === BLANK) {
-                setTimeout(function () {
-                    element.css(property, AUTO).css(property);
-                }, 0); // jQuery animate complete callback in IE is called before the last animation step!
+                setTimeout(function() { element.css(property, AUTO).css(property); }, 0); // jQuery animate complete callback in IE is called before the last animation step!
             }
         }
     });
 
-    var TRANSFER_START_STATE = {position: "absolute", marginLeft: 0, marginTop: 0, scale: 1};
+    var TRANSFER_START_STATE = { position: "absolute", marginLeft: 0, marginTop: 0, scale: 1 };
     /**
      * Intersection point formulas are taken from here - http://zonalandeducation.com/mmts/intersections/intersectionOfTwoLines1/intersectionOfTwoLines1.html
      * Formula for a linear function from two points from here - http://demo.activemath.org/ActiveMath2/search/show.cmd?id=mbase://AC_UK_calculus/functions/ex_linear_equation_two_points
@@ -1169,17 +1141,17 @@ kendo_module({
      * The math and variables below MAY BE SIMPLIFIED (zeroes removed), but this would make the formula too cryptic.
      */
     createEffect("transfer", {
-        init: function (element, target) {
+        init: function(element, target) {
             this.element = element;
-            this.options = {target: target};
+            this.options = { target: target };
             this.restore = [];
         },
 
-        setup: function () {
+        setup: function() {
             this.element.appendTo(document.body);
         },
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 element = that.element,
                 options = that.options,
@@ -1236,10 +1208,10 @@ kendo_module({
     };
 
     var ROTATIONS = {
-        top: {start: "rotatex(0deg)", end: "rotatex(180deg)"},
-        bottom: {start: "rotatex(-180deg)", end: "rotatex(0deg)"},
-        left: {start: "rotatey(0deg)", end: "rotatey(-180deg)"},
-        right: {start: "rotatey(180deg)", end: "rotatey(0deg)"}
+        top:    { start: "rotatex(0deg)", end: "rotatex(180deg)" },
+        bottom: { start: "rotatex(-180deg)", end: "rotatex(0deg)" },
+        left:   { start: "rotatey(0deg)", end: "rotatey(-180deg)" },
+        right:  { start: "rotatey(180deg)", end: "rotatey(0deg)" }
     };
 
     function clipInHalf(container, direction) {
@@ -1252,12 +1224,12 @@ kendo_module({
     createEffect("turningPage", {
         directions: FOUR_DIRECTIONS,
 
-        init: function (element, direction, container) {
+        init: function(element, direction, container) {
             Effect.prototype.init.call(this, element, direction);
             this._container = container;
         },
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 reverse = that._reverse,
                 direction = reverse ? directions[that._direction].reverse : that._direction,
@@ -1266,7 +1238,7 @@ kendo_module({
             start.zIndex = 1;
 
             if (that._clipInHalf) {
-                start.clip = clipInHalf(that._container, kendo.directions[direction].reverse);
+               start.clip = clipInHalf(that._container, kendo.directions[direction].reverse);
             }
 
             start[BACKFACE] = HIDDEN;
@@ -1275,16 +1247,16 @@ kendo_module({
             start[TRANSFORM] = TRANSFORM_PERSPECTIVE + (reverse ? rotation.end : rotation.start);
         },
 
-        setup: function () {
+        setup: function() {
             this._container.append(this.element);
         },
 
-        face: function (value) {
+        face: function(value) {
             this._face = value;
             return this;
         },
 
-        shouldHide: function () {
+        shouldHide: function() {
             var that = this,
                 reverse = that._reverse,
                 face = that._face;
@@ -1292,12 +1264,12 @@ kendo_module({
             return (reverse && !face) || (!reverse && face);
         },
 
-        clipInHalf: function (value) {
+        clipInHalf: function(value) {
             this._clipInHalf = value;
             return this;
         },
 
-        temporary: function () {
+        temporary: function() {
             this.element.addClass('temp-page');
             return this;
         }
@@ -1306,14 +1278,14 @@ kendo_module({
     createEffect("staticPage", {
         directions: FOUR_DIRECTIONS,
 
-        init: function (element, direction, container) {
+        init: function(element, direction, container) {
             Effect.prototype.init.call(this, element, direction);
             this._container = container;
         },
 
         restore: ["clip"],
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             var that = this,
                 direction = that._reverse ? directions[that._direction].reverse : that._direction;
 
@@ -1322,7 +1294,7 @@ kendo_module({
             end.opacity = 1;
         },
 
-        shouldHide: function () {
+        shouldHide: function() {
             var that = this,
                 reverse = that._reverse,
                 face = that._face;
@@ -1330,7 +1302,7 @@ kendo_module({
             return (reverse && !face) || (!reverse && face);
         },
 
-        face: function (value) {
+        face: function(value) {
             this._face = value;
             return this;
         }
@@ -1339,14 +1311,14 @@ kendo_module({
     createEffect("pageturn", {
         directions: ["horizontal", "vertical"],
 
-        init: function (element, direction, face, back) {
+        init: function(element, direction, face, back) {
             Effect.prototype.init.call(this, element, direction);
             this.options = {};
             this.options.face = face;
             this.options.back = back;
         },
 
-        children: function () {
+        children: function() {
             var that = this,
                 options = that.options,
                 direction = that._direction === "horizontal" ? "left" : "top",
@@ -1371,7 +1343,7 @@ kendo_module({
             ];
         },
 
-        prepare: function (start, end) {
+        prepare: function(start, end) {
             start[PERSPECTIVE] = DEFAULT_PERSPECTIVE;
             start.transformStyle = "preserve-3d";
             // hack to trigger transition end.
@@ -1379,7 +1351,7 @@ kendo_module({
             end.opacity = 1;
         },
 
-        teardown: function () {
+        teardown: function() {
             this.element.find(".temp-page").remove();
         }
     });
@@ -1387,14 +1359,14 @@ kendo_module({
     createEffect("flip", {
         directions: ["horizontal", "vertical"],
 
-        init: function (element, direction, face, back) {
+        init: function(element, direction, face, back) {
             Effect.prototype.init.call(this, element, direction);
             this.options = {};
             this.options.face = face;
             this.options.back = back;
         },
 
-        children: function () {
+        children: function() {
             var that = this,
                 options = that.options,
                 direction = that._direction === "horizontal" ? "left" : "top",
@@ -1415,23 +1387,21 @@ kendo_module({
             ];
         },
 
-        prepare: function (start) {
+        prepare: function(start) {
             start[PERSPECTIVE] = DEFAULT_PERSPECTIVE;
             start.transformStyle = "preserve-3d";
         }
     });
 
-    var animationFrame = window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function (callback) {
-            setTimeout(callback, 1000 / 60);
-        };
+    var animationFrame  = window.requestAnimationFrame       ||
+                          window.webkitRequestAnimationFrame ||
+                          window.mozRequestAnimationFrame    ||
+                          window.oRequestAnimationFrame      ||
+                          window.msRequestAnimationFrame     ||
+                          function(callback){ setTimeout(callback, 1000 / 60); };
 
     var Animation = kendo.Class.extend({
-        init: function () {
+        init: function() {
             var that = this;
             that._tickProxy = proxy(that._tick, that);
             that._started = false;
@@ -1442,23 +1412,21 @@ kendo_module({
         onEnd: $.noop,
         onCancel: $.noop,
 
-        start: function () {
+        start: function() {
             if (!this.done()) {
                 this._started = true;
                 animationFrame(this._tickProxy);
             }
         },
 
-        cancel: function () {
+        cancel: function() {
             this._started = false;
             this.onCancel();
         },
 
-        _tick: function () {
+        _tick: function() {
             var that = this;
-            if (!that._started) {
-                return;
-            }
+            if (!that._started) { return; }
 
             that.tick();
 
@@ -1472,21 +1440,21 @@ kendo_module({
     });
 
     var Transition = Animation.extend({
-        init: function (options) {
+        init: function(options) {
             var that = this;
             extend(that, options);
             Animation.fn.init.call(that);
         },
 
-        done: function () {
+        done: function() {
             return this.timePassed() >= this.duration;
         },
 
-        timePassed: function () {
+        timePassed: function() {
             return Math.min(this.duration, (Date.now()) - this.startDate);
         },
 
-        moveTo: function (options) {
+        moveTo: function(options) {
             var that = this,
                 movable = that.movable;
 
@@ -1501,10 +1469,10 @@ kendo_module({
             that.start();
         },
 
-        _easeProxy: function (ease) {
+        _easeProxy: function(ease) {
             var that = this;
 
-            return function () {
+            return function() {
                 that.movable.moveAxis(that.axis, ease(that.timePassed(), that.initial, that.delta, that.duration));
             };
         }
@@ -1512,18 +1480,16 @@ kendo_module({
 
     extend(Transition, {
         easeOutExpo: function (t, b, c, d) {
-            return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+            return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
         },
 
         easeOutBack: function (t, b, c, d, s) {
             s = 1.70158;
-            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+            return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
         }
     });
 
-    fx.animationFrame = function (callback) {
-        animationFrame.call(window, callback);
-    };
+    fx.animationFrame = function(callback) { animationFrame.call(window, callback); };
     fx.Animation = Animation;
     fx.Transition = Transition;
     fx.createEffect = createEffect;

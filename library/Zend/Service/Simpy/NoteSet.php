@@ -47,7 +47,7 @@ class Zend_Service_Simpy_NoteSet implements IteratorAggregate
     /**
      * Constructor to initialize the object with data
      *
-     * @param DOMDocument $doc Parsed response from a GetNotes operation
+     * @param  DOMDocument $doc Parsed response from a GetNotes operation
      * @return void
      */
     public function __construct(DOMDocument $doc)

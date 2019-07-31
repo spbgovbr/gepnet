@@ -18,44 +18,44 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
     public function insert(Evento_Model_Eventoavaliacao $model)
     {
 
-        try {
-
+        try{
+            
             $model->ideventoavaliacao = $this->maxVal('ideventoavaliacao');
 
             $data = array(
-                "ideventoavaliacao" => $model->ideventoavaliacao,
-                "idevento" => $model->idevento,
-                "desdestaqueservidor" => $model->desdestaqueservidor,
-                "desobs" => $model->desobs,
-                "idavaliador" => $model->idavaliador,
-                "idavaliado" => $model->idavaliado,
-                "datcadastro" => new Zend_Db_Expr("now()"),
-                "numpontualidade" => $model->numpontualidade,
-                "numordens" => $model->numordens,
-                "numrespeitochefia" => $model->numrespeitochefia,
-                "numrespeitocolega" => $model->numrespeitocolega,
-                "numurbanidade" => $model->numurbanidade,
-                "numequilibrio" => $model->numequilibrio,
-                "numcomprometimento" => $model->numcomprometimento,
-                "numesforco" => $model->numesforco,
-                "numtrabalhoequipe" => $model->numtrabalhoequipe,
-                "numauxiliouequipe" => $model->numauxiliouequipe,
-                "numaceitousugestao" => $model->numaceitousugestao,
-                "numconhecimentonorma" => $model->numconhecimentonorma,
+                "ideventoavaliacao"      => $model->ideventoavaliacao,
+                "idevento"               => $model->idevento,
+                "desdestaqueservidor"    => $model->desdestaqueservidor,
+                "desobs"                 => $model->desobs,
+                "idavaliador"            => $model->idavaliador,
+                "idavaliado"             => $model->idavaliado,
+                "datcadastro"            => new Zend_Db_Expr("now()"),
+                "numpontualidade"        => $model->numpontualidade,
+                "numordens"              => $model->numordens,
+                "numrespeitochefia"      => $model->numrespeitochefia,
+                "numrespeitocolega"      => $model->numrespeitocolega,
+                "numurbanidade"          => $model->numurbanidade,
+                "numequilibrio"          => $model->numequilibrio,
+                "numcomprometimento"     => $model->numcomprometimento,
+                "numesforco"             => $model->numesforco,
+                "numtrabalhoequipe"      => $model->numtrabalhoequipe,
+                "numauxiliouequipe"      => $model->numauxiliouequipe,
+                "numaceitousugestao"     => $model->numaceitousugestao,
+                "numconhecimentonorma"   => $model->numconhecimentonorma,
                 "numalternativaproblema" => $model->numalternativaproblema,
-                "numiniciativa" => $model->numiniciativa,
-                "numtarefacomplexa" => $model->numtarefacomplexa,
-                "idtipoavaliacao" => $model->idtipoavaliacao,
-                "numnotaavaliador" => $model->numnotaavaliador,
-                "nummedia" => $model->nummedia,
-                "nummediafinal" => $model->nummediafinal,
-                "numtotalavaliado" => $model->numtotalavaliado,
+                "numiniciativa"          => $model->numiniciativa,
+                "numtarefacomplexa"      => $model->numtarefacomplexa,
+                "idtipoavaliacao"        => $model->idtipoavaliacao,
+                "numnotaavaliador"       => $model->numnotaavaliador,
+                "nummedia"               => $model->nummedia,
+                "nummediafinal"          => $model->nummediafinal,
+                "numtotalavaliado"       => $model->numtotalavaliado,
             );
             //var_dump($data); exit;
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-
-        } catch (exception $e) {
+            
+        }catch(exception $e){
             throw $e;
         }
     }
@@ -69,33 +69,33 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
     public function update(Evento_Model_Eventoavaliacao $model)
     {
         $data = array(
-            "ideventoavaliacao" => $model->ideventoavaliacao,
-            "idevento" => $model->idevento,
-            "desdestaqueservidor" => $model->desdestaqueservidor,
-            "desobs" => $model->desobs,
-            "idavaliador" => $model->idavaliador,
-            "idavaliado" => $model->idavaliado,
-            "numpontualidade" => $model->numpontualidade,
-            "numordens" => $model->numordens,
-            "numrespeitochefia" => $model->numrespeitochefia,
-            "numrespeitocolega" => $model->numrespeitocolega,
-            "numurbanidade" => $model->numurbanidade,
-            "numequilibrio" => $model->numequilibrio,
-            "numcomprometimento" => $model->numcomprometimento,
-            "numesforco" => $model->numesforco,
-            "numtrabalhoequipe" => $model->numtrabalhoequipe,
-            "numauxiliouequipe" => $model->numauxiliouequipe,
-            "numaceitousugestao" => $model->numaceitousugestao,
-            "numconhecimentonorma" => $model->numconhecimentonorma,
+            "ideventoavaliacao"      => $model->ideventoavaliacao,
+            "idevento"               => $model->idevento,
+            "desdestaqueservidor"    => $model->desdestaqueservidor,
+            "desobs"                 => $model->desobs,
+            "idavaliador"            => $model->idavaliador,
+            "idavaliado"             => $model->idavaliado,
+            "numpontualidade"        => $model->numpontualidade,
+            "numordens"              => $model->numordens,
+            "numrespeitochefia"      => $model->numrespeitochefia,
+            "numrespeitocolega"      => $model->numrespeitocolega,
+            "numurbanidade"          => $model->numurbanidade,
+            "numequilibrio"          => $model->numequilibrio,
+            "numcomprometimento"     => $model->numcomprometimento,
+            "numesforco"             => $model->numesforco,
+            "numtrabalhoequipe"      => $model->numtrabalhoequipe,
+            "numauxiliouequipe"      => $model->numauxiliouequipe,
+            "numaceitousugestao"     => $model->numaceitousugestao,
+            "numconhecimentonorma"   => $model->numconhecimentonorma,
             "numalternativaproblema" => $model->numalternativaproblema,
-            "numiniciativa" => $model->numiniciativa,
-            "numtarefacomplexa" => $model->numtarefacomplexa,
-            "domtipoavaliacao" => $model->domtipoavaliacao,
-            "numnotaavaliador" => $model->numnotaavaliador,
-            "nummedia" => $model->nummedia,
-            "nummediafinal" => $model->nummediafinal,
-            "numtotalavaliado" => $model->numtotalavaliado,
-            "idtipoavaliacao" => $model->idtipoavaliacao,
+            "numiniciativa"          => $model->numiniciativa,
+            "numtarefacomplexa"      => $model->numtarefacomplexa,
+            "domtipoavaliacao"       => $model->domtipoavaliacao,
+            "numnotaavaliador"       => $model->numnotaavaliador,
+            "nummedia"               => $model->nummedia,
+            "nummediafinal"          => $model->nummediafinal,
+            "numtotalavaliado"       => $model->numtotalavaliado,
+            "idtipoavaliacao"        => $model->idtipoavaliacao,
         );
 
         $data = array_filter($data);
@@ -109,6 +109,8 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
         } catch (Exception $exc) {
             throw $exc;
         }
+
+
 
 
         // $this->getDbTable()->update($data, array("id = ?" => $id));
@@ -160,14 +162,13 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
                 ";
 
         $resultado = $this->_db->fetchRow($sql, array(
-                'ideventoavaliacao' => $params['ideventoavaliacao']
-            )
+            'ideventoavaliacao' => $params['ideventoavaliacao'])
         );
         $retorno = new Evento_Model_Eventoavaliacao($resultado);
         return $retorno;
 
     }
-
+    
     public function pesquisar($params, $paginator = false)
     {
         $sql = "SELECT 
@@ -193,28 +194,28 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
                     and p1.idpessoa = a.idavaliado
                     and p2.idpessoa = a.idavaliador
                     ";
-
-
-        $params = array_filter($params);
-        if (isset($params['idevento'])) {
+        
+         
+         $params = array_filter($params);
+         if (isset($params['idevento'])) {
             $idevento = strtoupper($params['idevento']);
-            $sql .= " AND e.idevento = {$idevento}";
-        }
-        if (isset($params['idtipoavaliacao'])) {
-            $idtipoavaliacao = strtoupper($params['idtipoavaliacao']);
-            $sql .= " AND a.idtipoavaliacao = {$idtipoavaliacao}";
-        }
+            $sql .= " AND e.idevento = {$idevento}" ;
+         }
+         if (isset($params['idtipoavaliacao'])) {
+             $idtipoavaliacao = strtoupper($params['idtipoavaliacao']);
+             $sql .= " AND a.idtipoavaliacao = {$idtipoavaliacao}" ;
+         }
 
-        if (isset($params['nomavaliador'])) {
-            $nomavaliador = strtoupper($params['nomavaliador']);
-            $sql .= " AND upper(p2.nompessoa) LIKE '%{$nomavaliador}%'";
-        }
-
-        if (isset($params['sidx'])) {
+         if (isset($params['nomavaliador'])) {
+             $nomavaliador = strtoupper($params['nomavaliador']);
+             $sql .= " AND upper(p2.nompessoa) LIKE '%{$nomavaliador}%'";
+         }
+         
+         if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
         //var_dump($sql); exit;
-        if ($paginator) {
+          if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
@@ -225,7 +226,7 @@ class Evento_Model_Mapper_Eventoavaliacao extends App_Model_Mapper_MapperAbstrac
 
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
-
+        
     }
 
     public function getForm()

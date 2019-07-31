@@ -42,7 +42,7 @@ class Zend_Http_UserAgent_Features_Adapter_WurflApi
     /**
      * Get features from request
      *
-     * @param array $request $_SERVER variable
+     * @param  array $request $_SERVER variable
      * @return array
      */
     public static function getFromRequest($request, array $config)
@@ -70,19 +70,19 @@ class Zend_Http_UserAgent_Features_Adapter_WurflApi
         switch ($config['wurfl_api_version']) {
             case '1.0':
                 // Zend_Http_UserAgent::$config['wurfl_config_file'] must be an XML file
-                require_once($config['wurfl_lib_dir'] . 'WURFLManagerProvider.php');
+                require_once ($config['wurfl_lib_dir'] . 'WURFLManagerProvider.php');
                 $wurflManager = WURFL_WURFLManagerProvider::getWURFLManager(Zend_Http_UserAgent::$config['wurfl_config_file']);
                 break;
             case '1.1':
-                require_once($config['wurfl_lib_dir'] . 'Application.php');
+                require_once ($config['wurfl_lib_dir'] . 'Application.php');
                 if (!empty($config['wurfl_config_file'])) {
                     $wurflConfig = WURFL_Configuration_ConfigFactory::create($config['wurfl_config_file']);
                 } elseif (!empty($config['wurfl_config_array'])) {
-                    $c = $config['wurfl_config_array'];
-                    $wurflConfig = new WURFL_Configuration_InMemoryConfig();
+                    $c            = $config['wurfl_config_array'];
+                    $wurflConfig  = new WURFL_Configuration_InMemoryConfig();
                     $wurflConfig->wurflFile($c['wurfl']['main-file'])
-                        ->wurflPatch($c['wurfl']['patches'])
-                        ->persistence($c['persistence']['provider'], $c['persistence']['dir']);
+                                ->wurflPatch($c['wurfl']['patches'])
+                                ->persistence($c['persistence']['provider'], $c['persistence']['dir']);
                 }
 
                 $wurflManagerFactory = new WURFL_WURFLManagerFactory($wurflConfig);
@@ -96,7 +96,7 @@ class Zend_Http_UserAgent_Features_Adapter_WurflApi
                 ));
         }
 
-        $device = $wurflManager->getDeviceForHttpRequest(array_change_key_case($request, CASE_UPPER));
+        $device   = $wurflManager->getDeviceForHttpRequest(array_change_key_case($request, CASE_UPPER));
         $features = $device->getAllCapabilities();
         return $features;
     }

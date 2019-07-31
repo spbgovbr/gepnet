@@ -1,7 +1,6 @@
 <?php
 
-class Relatorio_Service_Risco extends App_Service_ServiceAbstract
-{
+class Relatorio_Service_Risco extends App_Service_ServiceAbstract {
 
     public $_mapper = null;
     protected $_form = null;
@@ -29,19 +28,19 @@ class Relatorio_Service_Risco extends App_Service_ServiceAbstract
     {
         return $this->errors;
     }
-
+    
     public function gerarRelatorio($params)
     {
         try {
             $form = $this->getFormPesquisar();
-            if ($form->isValid($params)) {
+            if($form->isValid($params)){
                 $result = $this->_mapper->relatorioRiscos($form->getValidValues($params));
                 return $result;
             } else {
                 $this->errors = $form->getErrors();
                 return false;
             }
-        } catch (Exception $exception) {
+        } catch (Exception $exception){
             $this->errors[] = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }

@@ -1,62 +1,62 @@
 <?php
-
 class App_Generator_Php_Form extends App_Generator_Php_Abstract
 {
     protected $_columnTypes = array(
-        'long' => 'text',
-        'number' => 'text',
-        'numeric' => 'text',
-        'integer' => 'text',
-        'int' => 'text',
-        'int4' => 'text',
-        'int2' => 'text',
-        'int8' => 'text',
-        'year' => 'text',
-        'smallint' => 'text',
-        'decimal' => 'text',
-        'float' => 'text',
-        'string' => 'text',
-        'varchar' => 'text',
-        'varchar2' => 'text',
-        'char' => 'text',
-        'bpchar' => 'text',
-        'tinytext' => 'textarea',
-        'mediumtext' => 'textarea',
-        'longtext' => 'textarea',
-        'text' => 'textarea',
-        'clob' => 'textarea',
-        'blob' => 'file',
-        'boolean' => 'text',
+        'long'      => 'text',
+        'number'    => 'text',
+        'numeric'   => 'text',
+        'integer'   => 'text',
+        'int'       => 'text',
+        'int4'      => 'text',
+        'int2'      => 'text',
+        'int8'      => 'text',
+        'year'      => 'text',
+        'smallint'  => 'text',
+        'decimal'   => 'text',
+        'float'     => 'text',
+        'string'    => 'text',
+        'varchar'   => 'text',
+        'varchar2'  => 'text',
+        'char'      => 'text',
+        'bpchar'    => 'text',
+        'tinytext'  => 'textarea',
+        'mediumtext'=> 'textarea',
+        'longtext'  => 'textarea',
+        'text'      => 'textarea',
+        'clob'      => 'textarea',
+        'blob'      => 'file',
+        'boolean'   => 'text',
         'timestamp' => 'text',
         'timestamptz' => 'text',
         'timestamp(6)' => 'text',
-        'time' => 'text',
-        'date' => 'text',
-        'enum' => 'select'
+        'time'      => 'text',
+        'date'      => 'text',
+        'enum'      => 'select'
     );
-
+    
     protected $translate;
     protected $_addcode = array();
-
+    
     /**
      * @param App_Generator_Php_Config $config
      * @return App_Generator_Php_Config
      */
-    public function _create(App_Generator_Php_Config $config)
+    public function _create(App_Generator_Php_Config $config) 
     {
         $this->_addcode = array();
-        // Zend_Debug::dump($metadata);exit;
+       // Zend_Debug::dump($metadata);exit;
         $classGen = new Zend_CodeGenerator_Php_Class();
         $classGen->setExtendedClass('App_Form_FormAbstract');
         $docblock = new Zend_CodeGenerator_Php_Docblock(array(
             'shortDescription' => 'Automatically generated data model',
-            'longDescription' => 'This class has been automatically generated' . strftime('%d-%m-%Y %H:%M')
+            'longDescription'  => 'This class has been automatically generated' . strftime('%d-%m-%Y %H:%M')
         ));
 
         $classGen->setName($config->className)
-            ->setDocblock($docblock);
+                ->setDocblock($docblock);
         $elements = '';
-        foreach ($config->metadata as $key => $meta) {
+        foreach ( $config->metadata as $key => $meta )
+        {
             $elements .= $this->generateElement($meta, $config);
         }
         //exit;
@@ -64,7 +64,7 @@ class App_Generator_Php_Form extends App_Generator_Php_Abstract
             ->setMethod(array(
                 'name' => 'init',
                 'body' => '
-                    ' . implode("\n", $this->_addcode) . '
+                    ' . implode("\n",$this->_addcode) . '
                     $this
                         ->setOptions(array(
                             "method"   => "post",
@@ -78,90 +78,80 @@ class App_Generator_Php_Form extends App_Generator_Php_Abstract
         return $classGen;
     }
 
-    public function generateElement($elemento, $config)
+    public function generateElement ($elemento, $config)
     {
         $inputType = 'text';
-        $dataType = $elemento['DATA_TYPE'];
+        $dataType  = $elemento['DATA_TYPE'];
         //Zend_Debug::dump($elemento);
-        if (in_array(strtolower($dataType), $this->_columnTypes)) {
+        if(in_array(strtolower($dataType), $this->_columnTypes)){
             $inputType = $this->_columnTypes[strtolower($dataType)];
         }
-
+        
         $prop = new App_Generator_Php_Form_Element_Property();
         $prop->fieldName = strtolower($elemento["COLUMN_NAME"]);
         $prop->fieldType = $inputType;
-        $prop->required = ($elemento["NULLABLE"]) ? 'false' : 'true';
-
-        if ($elemento['PRIMARY'] === true) {
+        $prop->required  = ($elemento["NULLABLE"])?'false':'true';
+        
+        if($elemento['PRIMARY'] === true){
             $prop->fieldType = 'hidden';
-        }
+        } 
         $retorno = $this->getClassRef($elemento, $config);
         //Zend_Debug::dump($retorno);
-        if ($retorno) {
+        if ($retorno){
             $prop->fieldType = 'select';
             $mapperName = '$mapper' . ucfirst($retorno['baseName']);
             $this->_addcode[$mapperName] = $mapperName . ' = new ' . $retorno['class'] . '();';
-            $prop->multiOptions = $mapperName . "->fetchPairs()";
-        }
+            $prop->multiOptions = $mapperName . "->fetchPairs()"; 
+        } 
         $prop->validators = $this->getElementValidators($elemento);
         $prop->filters = $this->getElementFilters($elemento);
         $generator = 'App_Generator_Php_Form_Element_' . ucfirst($prop->fieldType);
         //Zend_Debug::dump($elemento);
         //Zend_Debug::dump($prop);
-        return new $generator($prop, $config);
+        return new $generator($prop,$config);
     }
-
+    
     public function getClassRef($elemento, $config)
     {
-        foreach ($config->relations as $r) {
+        foreach ($config->relations as $r)
+        {
             //Zend_Debug::dump($r);
             $refTabclass = $this->camelize($r['refTableClass']);
-            if ($r['columns'] == $elemento["COLUMN_NAME"]) {
+            if($r['columns'] == $elemento["COLUMN_NAME"]){
                 return array(
-                    'class' => sprintf($config->prefix['mapper'], $config->moduleName, $refTabclass),
+                    'class'    => sprintf($config->prefix['mapper'],$config->moduleName,$refTabclass),
                     'baseName' => $refTabclass,
                 );
             }
         }
         return false;
     }
-
+    
     public function getElementFilters($elemento)
     {
-        return "'StringTrim','StripTags'";
+        return "'StringTrim','StripTags'"; 
     }
-
+    
     public function getElementValidators($elemento)
     {
         //Zend_Debug::dump($elemento);
         $dataType = strtolower($elemento['DATA_TYPE']);
         $v = array();
-        if ($elemento["NULLABLE"]) {
+        if ($elemento["NULLABLE"]){
             $v[] = "'NotEmpty'";
         }
-        if ($elemento['LENGTH'] && in_array($dataType, array(
-                'string',
-                'varchar',
-                'varchar2',
-                'clob',
-                'text',
-                'number',
-                'date',
-                'char',
-                'timestamp',
-                'timestamp(6)'
-            ))) {
+        if ($elemento['LENGTH'] && in_array($dataType, array('string','varchar','varchar2','clob','text','number','date','char','timestamp','timestamp(6)'))) {
             $v[] = "array('StringLength', false, array(0, " . $elemento['LENGTH'] . "))";
         }
         if ('email' === strtolower($elemento['COLUMN_NAME']) || 'emailaddress' === strtolower($elemento['COLUMN_NAME'])) {
             $v[] = "'EmailAddress'";
         }
-        return implode(',', $v);
+        return implode(',',$v);
     }
-
+    
     public function getElementConfiguration($field)
     {
-        switch ($field['type']) {
+         switch ($field['type']) {
             case 'set':
             case 'enum':
                 /**
@@ -223,7 +213,7 @@ class App_Generator_Php_Form extends App_Generator_Php_Abstract
             default:
                 $fieldType = 'text';
                 $filters[] = 'new Zend_Filter_StringTrim()';
-
+                
                 if ('datetime' == $field['type'] || 'timestamp' == $field['type']) {
                     $fieldConfigs[] = '->setValue(date("Y-m-d H:i:s"))';
                 } elseif ('date' == $field['type']) {

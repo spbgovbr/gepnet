@@ -73,8 +73,8 @@ class Zend_Feed_Writer_Extension_Content_Renderer_Entry
     /**
      * Set entry content
      *
-     * @param DOMDocument $dom
-     * @param DOMElement $root
+     * @param  DOMDocument $dom
+     * @param  DOMElement $root
      * @return void
      */
     protected function _setContent(DOMDocument $dom, DOMElement $root)

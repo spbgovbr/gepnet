@@ -105,15 +105,12 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
      * @param bool $includeIfNotAlreadyIncluded
      * @return Zend_CodeGenerator_Php_File
      */
-    public static function fromReflectedFileName(
-        $filePath,
-        $usePreviousCodeGeneratorIfItExists = true,
-        $includeIfNotAlreadyIncluded = true
-    ) {
+    public static function fromReflectedFileName($filePath, $usePreviousCodeGeneratorIfItExists = true, $includeIfNotAlreadyIncluded = true)
+    {
         $realpath = realpath($filePath);
 
         if ($realpath === false) {
-            if (($realpath = Zend_Reflection_File::findRealpathInIncludePath($filePath)) === false) {
+            if ( ($realpath = Zend_Reflection_File::findRealpathInIncludePath($filePath)) === false) {
                 require_once 'Zend/CodeGenerator/Php/Exception.php';
                 throw new Zend_CodeGenerator_Php_Exception('No file for ' . $realpath . ' was found.');
             }
@@ -161,8 +158,7 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
             $bodyReturn = array();
             for ($lineNum = 1; $lineNum <= count($bodyLines); $lineNum++) {
                 if ($lineNum == $classStartLine) {
-                    $bodyReturn[] = str_replace('?', $class->getName(),
-                        self::$_markerClass);  //'/* Zend_CodeGenerator_Php_File-ClassMarker: {' . $class->getName() . '} */';
+                    $bodyReturn[] = str_replace('?', $class->getName(), self::$_markerClass);  //'/* Zend_CodeGenerator_Php_File-ClassMarker: {' . $class->getName() . '} */';
                     $lineNum = $classEndLine;
                 } else {
                     $bodyReturn[] = $bodyLines[$lineNum - 1]; // adjust for index -> line conversion
@@ -180,8 +176,7 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
             $bodyReturn = array();
             for ($lineNum = 1; $lineNum <= count($bodyLines); $lineNum++) {
                 if ($lineNum == $docblock->getStartLine()) {
-                    $bodyReturn[] = str_replace('?', $class->getName(),
-                        self::$_markerDocblock);  //'/* Zend_CodeGenerator_Php_File-ClassMarker: {' . $class->getName() . '} */';
+                    $bodyReturn[] = str_replace('?', $class->getName(), self::$_markerDocblock);  //'/* Zend_CodeGenerator_Php_File-ClassMarker: {' . $class->getName() . '} */';
                     $lineNum = $docblock->getEndLine();
                 } else {
                     $bodyReturn[] = $bodyLines[$lineNum - 1]; // adjust for index -> line conversion
@@ -401,15 +396,15 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         $body = $this->getBody();
         if (preg_match('#/\* Zend_CodeGenerator_Php_File-(.*?)Marker#', $body)) {
             $output .= $body;
-            $body = '';
+            $body    = '';
         }
 
         // Add file docblock, if any
         if (null !== ($docblock = $this->getDocblock())) {
             $docblock->setIndentation('');
             $regex = preg_quote(self::$_markerDocblock, '#');
-            if (preg_match('#' . $regex . '#', $output)) {
-                $output = preg_replace('#' . $regex . '#', $docblock->generate(), $output, 1);
+            if (preg_match('#'.$regex.'#', $output)) {
+                $output  = preg_replace('#'.$regex.'#', $docblock->generate(), $output, 1);
             } else {
                 $output .= $docblock->generate() . self::LINE_FEED;
             }
@@ -433,13 +428,13 @@ class Zend_CodeGenerator_Php_File extends Zend_CodeGenerator_Php_Abstract
         $classes = $this->getClasses();
         if (!empty($classes)) {
             foreach ($classes as $class) {
-                if ($this->getDocblock() == $class->getDocblock()) {
+                if($this->getDocblock() == $class->getDocblock()) {
                     $class->setDocblock(null);
-                }
+                }                   
                 $regex = str_replace('?', $class->getName(), self::$_markerClass);
                 $regex = preg_quote($regex, '#');
-                if (preg_match('#' . $regex . '#', $output)) {
-                    $output = preg_replace('#' . $regex . '#', $class->generate(), $output, 1);
+                if (preg_match('#'.$regex.'#', $output)) {
+                    $output = preg_replace('#'.$regex.'#', $class->generate(), $output, 1);
                 } else {
                     $output .= $class->generate() . self::LINE_FEED;
                 }

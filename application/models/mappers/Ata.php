@@ -6,8 +6,7 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
-{
+class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract {
 
     /**
      * Set the property
@@ -15,8 +14,7 @@ class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
      * @param string $value
      * @return Default_Model_Ata
      */
-    public function insert(Default_Model_Ata $model)
-    {
+    public function insert(Default_Model_Ata $model) {
         $data = array(
             "idata" => $model->idata,
             "idprojeto" => $model->idprojeto,
@@ -41,8 +39,7 @@ class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
      * @param string $value
      * @return Default_Model_Ata
      */
-    public function update(Default_Model_Ata $model)
-    {
+    public function update(Default_Model_Ata $model) {
         $data = array(
             "idata" => $model->idata,
             "idprojeto" => $model->idprojeto,
@@ -58,15 +55,14 @@ class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
             "datcadastro" => $model->datcadastro,
             "desproximopasso" => $model->desproximopasso,
         );
+        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
-    public function getForm()
-    {
+    public function getForm() {
         return $this->_getForm(Default_Form_Ata);
     }
 
-    public function getById($params)
-    {
+    public function getById($params) {
         $sql = "SELECT
                     idata,
                     idprojeto,
@@ -87,8 +83,7 @@ class Default_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
         return new Default_Model_Ata($resultado);
     }
 
-    public function retornaPorProjeto($params)
-    {
+    public function retornaPorProjeto($params) {
         $sql = "SELECT
                     idata,
                     idprojeto,

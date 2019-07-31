@@ -1,16 +1,16 @@
 <?php
 
-class Pesquisa_PerguntaController extends Zend_Controller_Action
-{
+class Pesquisa_PerguntaController extends Zend_Controller_Action {
 
     public function init()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext->addActionContext('cadastrar', 'json')
-            ->addActionContext('editar', 'json')
-            ->addActionContext('excluir', 'json')
-            ->addActionContext('detalhar', 'json')
-            ->initContext();
+                ->addActionContext('editar', 'json')
+                ->addActionContext('excluir', 'json')
+                ->addActionContext('detalhar', 'json')
+                ->initContext()
+        ;
     }
 
     public function listarAction()
@@ -32,7 +32,7 @@ class Pesquisa_PerguntaController extends Zend_Controller_Action
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
             if ($this->_request->isXmlHttpRequest()) {
@@ -63,7 +63,7 @@ class Pesquisa_PerguntaController extends Zend_Controller_Action
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
-                $msg = $service->getErrors() ?: App_Service_ServiceAbstract::ERRO_GENERICO;
+                $msg = $service->getErrors() ? : App_Service_ServiceAbstract::ERRO_GENERICO;
             }
 
             if ($this->_request->isXmlHttpRequest()) {
@@ -116,10 +116,10 @@ class Pesquisa_PerguntaController extends Zend_Controller_Action
     {
         $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_Pergunta');
         $serviceResposta = App_Service_ServiceAbstract::getService('Pesquisa_Service_Resposta');
-
+        
         $respostas = $serviceResposta->getByIdPerguntaDetalhar($this->getRequest()->getParams());
         $perguntas = $service->getByIdDetalhar($this->getRequest()->getParams());
-
+        
         $this->view->pergunta = $perguntas;
         $this->view->resposta = $respostas;
     }

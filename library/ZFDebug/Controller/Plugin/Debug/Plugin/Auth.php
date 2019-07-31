@@ -57,9 +57,9 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
     /**
      * Create ZFDebug_Controller_Plugin_Debug_Plugin_Auth
      *
-     * @return void
-     * @var string $role
      * @var string $user
+     * @var string $role
+     * @return void
      */
     public function __construct(array $options = array())
     {
@@ -89,21 +89,22 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Auth implements ZFDebug_Controller_
      */
     public function getTab()
     {
-        $username = 'Not Authed';
-        $role = 'Unknown Role';
+    	$username = 'Not Authed';
+    	$role = 'Unknown Role';
 
-        if (!$this->_auth->hasIdentity()) {
-            return 'Not authorized';
-        }
-        $identity = $this->_auth->getIdentity();
-        if (is_object($identity)) {
-            $username = $this->_auth->getIdentity()->{$this->_user};
-            $role = $this->_auth->getIdentity()->{$this->_role};
-        } else {
-            $username = $this->_auth->getIdentity();
-            $role = '';
-        }
-        return "$username";
+    	if(!$this->_auth->hasIdentity()) {
+    	    return 'Not authorized';
+    	}
+    	$identity = $this->_auth->getIdentity();
+	    if (is_object($identity)) {
+    		$username = $this->_auth->getIdentity()->{$this->_user};
+    		$role = $this->_auth->getIdentity()->{$this->_role};
+    	} 
+    	else {
+    	    $username = $this->_auth->getIdentity();
+    		$role = '';
+    	}
+    	return "$username";
     }
 
     /**

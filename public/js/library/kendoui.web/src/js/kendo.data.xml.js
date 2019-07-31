@@ -14,11 +14,11 @@ kendo_module({
     id: "data.xml",
     name: "XML",
     category: "framework",
-    depends: ["core"],
+    depends: [ "core" ],
     hidden: true
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         isArray = $.isArray,
         isPlainObject = $.isPlainObject,
@@ -29,7 +29,7 @@ kendo_module({
         Class = kendo.Class;
 
     var XmlDataReader = Class.extend({
-        init: function (options) {
+        init: function(options) {
             var that = this,
                 total = options.total,
                 model = options.model,
@@ -41,11 +41,11 @@ kendo_module({
             if (model) {
                 if (isPlainObject(model)) {
                     if (model.fields) {
-                        each(model.fields, function (field, value) {
+                        each(model.fields, function(field, value) {
                             if (isPlainObject(value) && value.field) {
-                                value = extend(value, {field: that.getter(value.field)});
+                                value = extend(value, { field: that.getter(value.field) });
                             } else {
-                                value = {field: that.getter(value)};
+                                value = { field: that.getter(value) };
                             }
                             model.fields[field] = value;
                         });
@@ -54,7 +54,7 @@ kendo_module({
                     if (id) {
                         var idField = {};
 
-                        idField[that.xpathToMember(id, true)] = {field: that.getter(id)};
+                        idField[that.xpathToMember(id, true)] = { field : that.getter(id) };
                         model.fields = extend(idField, model.fields);
                         model.id = that.xpathToMember(id);
                     }
@@ -67,10 +67,10 @@ kendo_module({
             if (total) {
                 if (typeof total == "string") {
                     total = that.getter(total);
-                    that.total = function (data) {
+                    that.total = function(data) {
                         return parseInt(total(data), 10);
                     };
-                } else if (typeof total == "function") {
+                } else if (typeof total == "function"){
                     that.total = total;
                 }
             }
@@ -78,10 +78,10 @@ kendo_module({
             if (errors) {
                 if (typeof errors == "string") {
                     errors = that.getter(errors);
-                    that.errors = function (data) {
+                    that.errors = function(data) {
                         return errors(data) || null;
                     };
-                } else if (typeof errors == "function") {
+                } else if (typeof errors == "function"){
                     that.errors = errors;
                 }
             }
@@ -89,7 +89,7 @@ kendo_module({
             if (data) {
                 if (typeof data == "string") {
                     data = that.xpathToMember(data);
-                    that.data = function (value) {
+                    that.data = function(value) {
                         var result = that.evaluate(value, data),
                             modelInstance;
 
@@ -98,7 +98,7 @@ kendo_module({
                         if (that.model && model.fields) {
                             modelInstance = new that.model();
 
-                            return map(result, function (value) {
+                            return map(result, function(value) {
                                 if (value) {
                                     var record = {}, field;
 
@@ -121,7 +121,7 @@ kendo_module({
             if (typeof parse == "function") {
                 var xmlParse = that.parse;
 
-                that.parse = function (data) {
+                that.parse = function(data) {
                     var xml = parse.call(that, data);
                     return xmlParse.call(that, xml);
                 };
@@ -131,16 +131,16 @@ kendo_module({
                 that.serialize = serialize;
             }
         },
-        total: function (result) {
+        total: function(result) {
             return this.data(result).length;
         },
-        errors: function (data) {
+        errors: function(data) {
             return data ? data.errors : null;
         },
-        serialize: function (data) {
+        serialize: function(data) {
             return data;
         },
-        parseDOM: function (element) {
+        parseDOM: function(element) {
             var result = {},
                 parsedNode,
                 node,
@@ -186,7 +186,7 @@ kendo_module({
             return result;
         },
 
-        evaluate: function (value, expression) {
+        evaluate: function(value, expression) {
             var members = expression.split("."),
                 member,
                 result,
@@ -216,7 +216,7 @@ kendo_module({
             return value;
         },
 
-        parse: function (xml) {
+        parse: function(xml) {
             var documentElement,
                 tree,
                 result = {};
@@ -230,27 +230,27 @@ kendo_module({
             return result;
         },
 
-        xpathToMember: function (member, raw) {
+        xpathToMember: function(member, raw) {
             if (!member) {
                 return "";
             }
 
             member = member.replace(/^\//, "") // remove the first "/"
-                .replace(/\//g, "."); // replace all "/" with "."
+                           .replace(/\//g, "."); // replace all "/" with "."
 
             if (member.indexOf("@") >= 0) {
                 // replace @attribute with '["@attribute"]'
-                return member.replace(/\.?(@.*)/, raw ? '$1' : '["$1"]');
+                return member.replace(/\.?(@.*)/, raw? '$1':'["$1"]');
             }
 
             if (member.indexOf("text()") >= 0) {
                 // replace ".text()" with '["#text"]'
-                return member.replace(/(\.?text\(\))/, raw ? '#text' : '["#text"]');
+                return member.replace(/(\.?text\(\))/, raw? '#text':'["#text"]');
             }
 
             return member;
         },
-        getter: function (member) {
+        getter: function(member) {
             return getter(this.xpathToMember(member), true);
         }
     });

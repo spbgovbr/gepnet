@@ -17,14 +17,13 @@
 *
 */
 declare var $, angular;
-
+ 
 module wijmo.ng {
     interface TypeDef {
         type?: string;
         elementType?: TypeDef;
         properties?: Object;
     }
-
     function getTypeDefFromExample(value): TypeDef {
         if (value == null) return {};
 
@@ -47,7 +46,7 @@ module wijmo.ng {
         return meta;
     }
 
-    interface WidgetMetadata {
+   interface WidgetMetadata {
         inherits?: string;
         events?: Object;
         properties?: Object;
@@ -69,20 +68,17 @@ module wijmo.ng {
         }
 
         if (!derived) {
-            function Clazz() {
-            }
-
+            function Clazz() { }
             Clazz.prototype = proto;
             derived = new Clazz();
         }
-
+        
         if (newProperties) {
             $.extend(derived, newProperties);
         }
 
         return derived;
     }
-
     function safeApply(scope, data) {
         var phase = scope.$root.$$phase;
         if (phase !== '$apply' && phase !== '$digest') {
@@ -108,7 +104,6 @@ module wijmo.ng {
                     from.removeAttr(name);
                 }
             }
-
             from.children().each((_, child) => to.append(child));
             if (!to.children().length) {
                 to.text(from.text());
@@ -122,12 +117,11 @@ module wijmo.ng {
         prepareSubelement(element) {
             var clone = element.clone();
             var converted = this.moveContents(element, $(this.innerMarkupTemplate));
-            return {
+            return { 
                 element: clone,
                 link: this.services.$compile(converted)
             };
         }
-
         extractSubelements(element) {
             if (!this.selector) return;
             var e = $(element);
@@ -152,7 +146,6 @@ module wijmo.ng {
             }
             return map;
         }
-
         parse($node, typeDef: TypeDef, path: string) {
             var readNode = (node) => {
                 var $node = $(node),
@@ -180,9 +173,9 @@ module wijmo.ng {
                 match = value && /^{{(.+)}}$/.exec(value);
                 if (match) {
                     toRemove.push(node);
-                    this.bindings.push({
-                        path: (path && path + ".") + name,
-                        expression: match[1]
+                    this.bindings.push({ 
+                        path: (path && path + ".") + name, 
+                        expression: match[1] 
                     });
                     return;
                 }
@@ -199,7 +192,7 @@ module wijmo.ng {
                 text = node.nodeType === Node.TEXT_NODE ? (<Text>node).wholeText : (<Attr>node).value,
                 isArray = typeDef && typeDef.type === "array",
                 properties = typeDef && typeDef.properties,
-                // we need this lowercase name map because HTML IS NOT CASE-SENSITIVE! Chris said that.
+            // we need this lowercase name map because HTML IS NOT CASE-SENSITIVE! Chris said that.
                 map = properties && this.getNameMap(properties) || {},
                 toRemove: Node[] = [],
                 obj: Object,
@@ -261,7 +254,7 @@ module wijmo.ng {
             internalEventPrefix = "wijmo-angular";
 
             static mergeMetadata(widgetName: string, options) {
-                var fromOptions = {properties: getTypeDefFromExample(options).properties},
+                var fromOptions = { properties: getTypeDefFromExample(options).properties },
                     result = $.extend({}, fromOptions, widgetMetadata["base"]),
                     inheritanceStack = [],
                     parentName = widgetName;
@@ -271,11 +264,11 @@ module wijmo.ng {
                     parentName = widgetMetadata[parentName] && widgetMetadata[parentName].inherits;
                 } while (parentName);
 
-                angular.forEach(inheritanceStack, (name) => $.extend(true, result, widgetMetadata[name]));
+                angular.forEach(inheritanceStack, (name) =>  $.extend(true, result, widgetMetadata[name]));
                 return result;
             }
 
-            constructor(public widgetName: string, clazz: Function, public services: Services) {
+            constructor (public widgetName: string, clazz: Function, public services: Services) {
                 this.wijMetadata = DirectiveBase.mergeMetadata(widgetName, clazz.prototype.options);
                 this.eventPrefix = clazz.prototype.widgetEventPrefix || widgetName;
                 this.registerEvents();
@@ -285,7 +278,6 @@ module wijmo.ng {
                 var fullName = this.eventPrefix + name.toLowerCase() + "." + this.internalEventPrefix;
                 this.element.bind(fullName, handler);
             }
-
             registerEvents() {
                 // TODO: optimize this. No need to watch for all events if handlers are not specified
                 if (!this.wijMetadata.events) return;
@@ -300,21 +292,18 @@ module wijmo.ng {
 
             MarkupClass = Markup;
             innerMarkupSelector: string = null;
-
             createMarkup(elem, typeDef) {
                 return new Markup(elem[0], typeDef, this.innerMarkupSelector, this.services);
             }
-
             parseMarkup(elem) {
-                var markup = this.createMarkup(elem, {type: "object", properties: this.wijMetadata.properties});
+                var markup = this.createMarkup(elem, { type: "object", properties: this.wijMetadata.properties });
                 markup.options.dataSource = [];
                 return markup;
             }
 
             replace = true;
-
             compile(tElem, tAttrs, $compile) {
-                var newThis = <DirectiveBase>derive(this, {
+                var newThis = <DirectiveBase> derive(this, { 
                     markup: this.parseMarkup(tElem)
                 });
                 return $.proxy(newThis.link, newThis);
@@ -323,7 +312,6 @@ module wijmo.ng {
             // ---- after compilation -----
 
             markup: Markup;
-
             createInstance(scope, elem, attrs) {
                 // create a widget instance
                 var newElem = $(this.expectedTemplate).replaceAll(elem);
@@ -340,8 +328,8 @@ module wijmo.ng {
             }
 
             link(scope, elem, attrs) {
-                var newThis = <DirectiveBase>derive(this, {
-                    $scope: scope,
+                var newThis = <DirectiveBase> derive(this, { 
+                    $scope: scope, 
                     element: this.createInstance(scope, elem, attrs)
                 });
                 newThis.widget = newThis.element.data(this.widgetName);
@@ -387,7 +375,6 @@ module wijmo.ng {
 
         export class wijgrid extends DirectiveBase {
             expectedTemplate = "<table/>";
-
             parseMarkup(elem) {
                 var markup = super.parseMarkup(elem);
                 markup.options.data = [];
@@ -400,7 +387,7 @@ module wijmo.ng {
         }
 
         class TabsMarkup extends Markup {
-            constructor(node, typeDef: TypeDef, public services: Services) {
+            constructor (node, typeDef: TypeDef, public services: Services) {
                 super(node, typeDef, "tab", services);
             }
 
@@ -441,17 +428,16 @@ module wijmo.ng {
                 parentMetadata;
 
             return definitions[widgetName] ||
-                metadata && metadata.inherits && findDirectiveClass(metadata.inherits);
+                   metadata && metadata.inherits && findDirectiveClass(metadata.inherits);
         }
     }
 
     // define the wijmo module
     var wijModule = angular["module"]('wijmo', []);
-
     function registerDirective(widgetName: string, clazz, directiveName?: string) {
         var directiveClass = definitions.findDirectiveClass(widgetName) || definitions.DirectiveBase;
         wijModule.directive(directiveName || widgetName.toLowerCase(), function ($compile) {
-            return new directiveClass(widgetName, clazz, {$compile: $compile});
+            return new directiveClass(widgetName, clazz, { $compile: $compile });
         });
     }
 
@@ -485,7 +471,7 @@ module wijmo.ng {
                 "stop": {}
             },
             "properties": {
-                "value": {changeEvent: "change"},
+                "value": { changeEvent: "change" },
                 "values": {}
             }
         },
@@ -694,7 +680,7 @@ module wijmo.ng {
         "wijinputmask": {
             inherits: "wijinputcore",
             "properties": {
-                "text": {type: "string"}
+                "text": { type: "string" }
             }
         },
         "wijinputnumber": {
@@ -709,15 +695,15 @@ module wijmo.ng {
         },
         "wijgrid": {
             "properties": {
-                data: {changeEvent: "afterCellEdit"},
+                data: { changeEvent: "afterCellEdit" },
                 "columns": {
                     type: "array",
                     elementType: {
                         type: "object",
                         properties: {
-                            "dataKey": {type: "string"},
-                            "dataType": {type: "string"},
-                            "headerText": {type: "string"}
+                            "dataKey": { type: "string" },
+                            "dataType": { type: "string" },
+                            "headerText": { type: "string" }
                         }
                     }
                 }
@@ -774,8 +760,8 @@ module wijmo.ng {
                 "click": {}
             },
             "properties": {
-                "width": {type: "number"},
-                "height": {type: "number"}
+                "width": { type: "number" },
+                "height": { type: "number" }
             }
         },
         "wijcompositechart": {
@@ -799,7 +785,7 @@ module wijmo.ng {
         "wijpiechart": {
             inherits: "wijchartcore",
             "properties": {
-                "radius": {type: "number"}
+                "radius": { type: "number" }
             }
         },
         "wijtree": {
@@ -968,17 +954,17 @@ module wijmo.ng {
 
         "gcSpread": {
             properties: {
-                dataSource: {type: "array"},
-                sheetCount: {type: "number"},
+                dataSource: { type: "array" },
+                sheetCount: { type: "number" },
                 sheets: {
                     type: "array",
                     elementType: {
                         type: "object",
                         properties: {
-                            rowCount: {type: "number"},
-                            colCount: {type: "number"},
-                            defaultRowCount: {type: "number"},
-                            defaultColCount: {type: "number"},
+                            rowCount: { type: "number" },
+                            colCount: { type: "number" },
+                            defaultRowCount: { type: "number" },
+                            defaultColCount: { type: "number" },
                         }
                     }
                 }

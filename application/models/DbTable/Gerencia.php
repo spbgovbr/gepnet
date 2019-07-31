@@ -8,35 +8,35 @@
  */
 class Default_Model_DbTable_Gerencia extends Zend_Db_Table_Abstract
 {
-    protected $_schema = 'agepnet200';
-    protected $_name = 'tb_projeto';
+	protected $_schema  = 'agepnet200';
+    protected $_name    = 'tb_projeto';
     protected $_primary = array('idprojeto');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns' => 'idgerenteprojeto',
-            'refColumns' => 'idpessoa'
+            'columns'       => 'idgerenteprojeto',
+            'refColumns'    => 'idpessoa'
         ),
-        'Programa' => array(
-            'refTableClass' => 'tb_programa',
-            'columns' => 'idprograma',
-            'refColumns' => 'idprograma'
-        ),
-
-        'Setor' => array(
-            'refTableClass' => 'tb_setor',
-            'columns' => 'idsetor',
-            'refColumns' => 'idsetor'
-        ),
-
-        'Marco' => array(
+    		'Programa' => array(
+    				'refTableClass' => 'tb_programa',
+    				'columns'       => 'idprograma',
+    				'refColumns'    => 'idprograma'
+    		),
+    
+    		'Setor' => array(
+    				'refTableClass' => 'tb_setor',
+    				'columns'       => 'idsetor',
+    				'refColumns'    => 'idsetor'
+    		),
+    		
+        'Marco'         => array(
             'refTableClass' => 'tb_marco',
-            'columns' => 'idmarco',
-            'refColumns' => 'idmarco'
+            'columns'       => 'idmarco',
+            'refColumns'    => 'idmarco'
         )
-
-
+    	
+    		
     );
 
 }

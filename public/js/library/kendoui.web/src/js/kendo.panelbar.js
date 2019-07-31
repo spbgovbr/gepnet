@@ -15,10 +15,10 @@ kendo_module({
     name: "PanelBar",
     category: "web",
     description: "The PanelBar widget displays hierarchical data as a multi-level expandable panel bar.",
-    depends: ["core"]
+    depends: [ "core" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         keys = kendo.keys,
@@ -74,23 +74,23 @@ kendo_module({
             ),
             group: template(
                 "<ul role='group' aria-hidden='true' class='#= groupCssClass(group) #'#= groupAttributes(group) #>" +
-                "#= renderItems(data) #" +
+                    "#= renderItems(data) #" +
                 "</ul>"
             ),
             itemWrapper: template(
                 "<#= tag(item) # class='#= textClass(item, group) #' #= contentUrl(item) ##= textAttributes(item) #>" +
-                "#= image(item) ##= sprite(item) ##= text(item) #" +
-                "#= arrow(data) #" +
+                    "#= image(item) ##= sprite(item) ##= text(item) #" +
+                    "#= arrow(data) #" +
                 "</#= tag(item) #>"
             ),
             item: template(
                 "<li role='menuitem' #=aria(item)#class='#= wrapperCssClass(group, item) #'>" +
-                "#= itemWrapper(data) #" +
-                "# if (item.items) { #" +
-                "#= subGroup({ items: item.items, panelBar: panelBar, group: { expanded: item.expanded } }) #" +
-                "# } else if (item.content || item.contentUrl) { #" +
-                "#= renderContent(data) #" +
-                "# } #" +
+                    "#= itemWrapper(data) #" +
+                    "# if (item.items) { #" +
+                    "#= subGroup({ items: item.items, panelBar: panelBar, group: { expanded: item.expanded } }) #" +
+                    "# } else if (item.content || item.contentUrl) { #" +
+                    "#= renderContent(data) #" +
+                    "# } #" +
                 "</li>"
             ),
             image: template("<img class='k-image' alt='' src='#= imageUrl #' />"),
@@ -100,7 +100,7 @@ kendo_module({
         },
 
         rendering = {
-            aria: function (item) {
+            aria: function(item) {
                 var attr = "";
 
                 if (item.items || item.content || item.contentUrl) {
@@ -130,7 +130,7 @@ kendo_module({
                     result += " k-first";
                 }
 
-                if (index == group.length - 1) {
+                if (index == group.length-1) {
                     result += " k-last";
                 }
 
@@ -141,7 +141,7 @@ kendo_module({
                 return result;
             },
 
-            textClass: function (item, group) {
+            textClass: function(item, group) {
                 var result = LINK;
 
                 if (group.firstLevel) {
@@ -150,40 +150,40 @@ kendo_module({
 
                 return result;
             },
-            textAttributes: function (item) {
+            textAttributes: function(item) {
                 return item.url ? " href='" + item.url + "'" : "";
             },
-            arrowClass: function (item) {
+            arrowClass: function(item) {
                 var result = "k-icon";
 
                 result += item.expanded ? " k-i-arrow-n k-panelbar-collapse" : " k-i-arrow-s k-panelbar-expand";
 
                 return result;
             },
-            text: function (item) {
+            text: function(item) {
                 return item.encoded === false ? item.text : kendo.htmlEncode(item.text);
             },
-            tag: function (item) {
+            tag: function(item) {
                 return item.url || item.contentUrl ? "a" : "span";
             },
-            groupAttributes: function (group) {
+            groupAttributes: function(group) {
                 return group.expanded !== true ? " style='display:none'" : "";
             },
-            groupCssClass: function () {
+            groupCssClass: function() {
                 return "k-group k-panel";
             },
-            contentAttributes: function (content) {
+            contentAttributes: function(content) {
                 return content.item.expanded !== true ? " style='display:none'" : "";
             },
-            content: function (item) {
+            content: function(item) {
                 return item.content ? item.content : item.contentUrl ? "" : "&nbsp;";
             },
-            contentUrl: function (item) {
+            contentUrl: function(item) {
                 return item.contentUrl ? 'href="' + item.contentUrl + '"' : "";
             }
         };
 
-    function updateArrow(items) {
+    function updateArrow (items) {
         items = $(items);
 
         items.children(LINKSELECTOR).children(".k-icon").remove();
@@ -199,7 +199,7 @@ kendo_module({
             });
     }
 
-    function updateFirstLast(items) {
+    function updateFirstLast (items) {
         items = $(items);
 
         items.filter(".k-first:not(:first-child)").removeClass(FIRST);
@@ -209,7 +209,7 @@ kendo_module({
     }
 
     var PanelBar = Widget.extend({
-        init: function (element, options) {
+        init: function(element, options) {
             var that = this,
                 content;
 
@@ -231,19 +231,19 @@ kendo_module({
             that._animations(options);
 
             element
-                .on("click" + NS, clickableItems, function (e) {
+                .on("click" + NS, clickableItems, function(e) {
                     if (that._click($(e.currentTarget))) {
                         e.preventDefault();
                     }
                 })
-                .on(MOUSEENTER + NS + " " + MOUSELEAVE + NS, clickableItems, that._toggleHover)
+                .on(MOUSEENTER  + NS + " " + MOUSELEAVE + NS, clickableItems, that._toggleHover)
                 .on("click" + NS, disabledItems, false)
                 .on("keydown" + NS, $.proxy(that._keydown, that))
-                .on("focus" + NS, function () {
+                .on("focus" + NS, function() {
                     var item = that.select();
                     that._current(item[0] ? item : that._first());
                 })
-                .on("blur" + NS, function () {
+                .on("blur" + NS, function() {
                     that._current(null);
                 })
                 .attr("role", "menu");
@@ -279,7 +279,7 @@ kendo_module({
             expandMode: "multiple"
         },
 
-        destroy: function () {
+        destroy: function() {
             Widget.fn.destroy.call(this);
 
             this.element.off(NS);
@@ -287,7 +287,7 @@ kendo_module({
             kendo.destroy(this.element);
         },
 
-        _initData: function (options) {
+        _initData: function(options) {
             var that = this;
 
             if (options.dataSource) {
@@ -296,7 +296,7 @@ kendo_module({
             }
         },
 
-        setOptions: function (options) {
+        setOptions: function(options) {
             var animation = this.options.animation;
 
             this._animations(options);
@@ -331,7 +331,7 @@ kendo_module({
 
                     if (!useAnimation) {
                         animBackup = that.options.animation;
-                        that.options.animation = {expand: {effects: {}}, collapse: {hide: true, effects: {}}};
+                        that.options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
                     }
 
                     if (!that._triggerEvent(EXPAND, item)) {
@@ -362,7 +362,7 @@ kendo_module({
 
                     if (!useAnimation) {
                         animBackup = that.options.animation;
-                        that.options.animation = {expand: {effects: {}}, collapse: {hide: true, effects: {}}};
+                        that.options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
                     }
 
                     if (!that._triggerEvent(COLLAPSE, item)) {
@@ -505,11 +505,11 @@ kendo_module({
             });
         },
 
-        _first: function () {
+        _first: function() {
             return this.element.children(ACTIVEITEMSELECTOR).first();
         },
 
-        _last: function () {
+        _last: function() {
             var item = this.element.children(ACTIVEITEMSELECTOR).last(),
                 group = item.children(VISIBLEGROUP);
 
@@ -519,7 +519,7 @@ kendo_module({
             return item;
         },
 
-        _current: function (candidate) {
+        _current: function(candidate) {
             var that = this,
                 focused = that._focused,
                 id = that._itemId;
@@ -544,8 +544,8 @@ kendo_module({
                 id = candidate[0].id || id;
 
                 candidate.attr("id", id)
-                    .children(LINKSELECTOR)
-                    .addClass(FOCUSEDCLASS);
+                         .children(LINKSELECTOR)
+                         .addClass(FOCUSEDCLASS);
 
                 that.element.attr("aria-activedescendant", id);
             }
@@ -553,7 +553,7 @@ kendo_module({
             that._focused = candidate;
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             var that = this,
                 key = e.keyCode,
                 current = that._current();
@@ -580,7 +580,7 @@ kendo_module({
             }
         },
 
-        _nextItem: function (item) {
+        _nextItem: function(item) {
             if (!item) {
                 return this._first();
             }
@@ -607,7 +607,7 @@ kendo_module({
             return next;
         },
 
-        _prevItem: function (item) {
+        _prevItem: function(item) {
             if (!item) {
                 return this._last();
             }
@@ -655,20 +655,20 @@ kendo_module({
             };
 
             if (isReferenceItem && !parent.length) {
-                parent = $(PanelBar.renderGroup({group: groupData})).appendTo(referenceItem);
+                parent = $(PanelBar.renderGroup({ group: groupData })).appendTo(referenceItem);
             }
 
             if (plain || $.isArray(item)) { // is JSON
-                items = $.map(plain ? [item] : item, function (value, idx) {
-                    if (typeof value === "string") {
-                        return $(value);
-                    } else {
-                        return $(PanelBar.renderItem({
-                            group: groupData,
-                            item: extend(value, {index: idx})
-                        }));
-                    }
-                });
+                items = $.map(plain ? [ item ] : item, function (value, idx) {
+                            if (typeof value === "string") {
+                                return $(value);
+                            } else {
+                                return $(PanelBar.renderItem({
+                                    group: groupData,
+                                    item: extend(value, { index: idx })
+                                }));
+                            }
+                        });
 
                 if (isReferenceItem) {
                     referenceItem.attr(ARIA_EXPANDED, false);
@@ -678,10 +678,10 @@ kendo_module({
                 that._updateItemsClasses(items);
             }
 
-            return {items: items, group: parent};
+            return { items: items, group: parent };
         },
 
-        _toggleHover: function (e) {
+        _toggleHover: function(e) {
             var target = $(e.currentTarget);
 
             if (!target.parents("li." + DISABLEDCLASS).length) {
@@ -689,24 +689,22 @@ kendo_module({
             }
         },
 
-        _updateClasses: function () {
+        _updateClasses: function() {
             var that = this,
                 panels, items;
 
             panels = that.element
-                .find("li > ul")
-                .not(function () {
-                    return $(this).parentsUntil(".k-panelbar", "div").length;
-                })
-                .addClass("k-group k-panel")
-                .attr("role", "group");
+                         .find("li > ul")
+                         .not(function () { return $(this).parentsUntil(".k-panelbar", "div").length; })
+                         .addClass("k-group k-panel")
+                         .attr("role", "group");
 
             panels.parent()
-                .attr(ARIA_EXPANDED, false)
-                .not("." + ACTIVECLASS)
-                .children("ul")
-                .attr(ARIA_HIDDEN, true)
-                .hide();
+                  .attr(ARIA_EXPANDED, false)
+                  .not("." + ACTIVECLASS)
+                  .children("ul")
+                  .attr(ARIA_HIDDEN, true)
+                  .hide();
 
             items = that.element.add(panels).children();
 
@@ -715,16 +713,16 @@ kendo_module({
             updateFirstLast(items);
         },
 
-        _updateItemsClasses: function (items) {
+        _updateItemsClasses: function(items) {
             var length = items.length,
                 idx = 0;
 
-            for (; idx < length; idx++) {
+            for(; idx < length; idx++) {
                 this._updateItemClasses(items[idx], idx);
             }
         },
 
-        _updateItemClasses: function (item, index) {
+        _updateItemClasses: function(item, index) {
             var selected = this._selected,
                 contentUrls = this.options.contentUrls,
                 url = contentUrls && contentUrls[index],
@@ -743,8 +741,8 @@ kendo_module({
                 .addClass(IMAGE);
 
             link = item
-                .children("a")
-                .addClass(LINK);
+                    .children("a")
+                    .addClass(LINK);
 
             if (link[0]) {
                 link.attr("href", url); //url can be undefined
@@ -776,8 +774,8 @@ kendo_module({
             if (link[0]) {
                 if (selected) {
                     selected.removeAttr(ARIA_SELECTED)
-                        .children(SELECTEDSELECTOR)
-                        .removeClass(SELECTEDCLASS);
+                            .children(SELECTEDSELECTOR)
+                            .removeClass(SELECTEDCLASS);
                 }
 
                 link.addClass(SELECTEDCLASS);
@@ -792,9 +790,7 @@ kendo_module({
 
                 item
                     .contents()      // exclude groups, real links, templates and empty text nodes
-                    .filter(function () {
-                        return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue)));
-                    })
+                    .filter(function() { return (!this.nodeName.match(excludedNodesRegExp) && !(this.nodeType == 3 && !$.trim(this.nodeValue))); })
                     .wrapAll(wrapElement);
             }
 
@@ -866,7 +862,7 @@ kendo_module({
                 this._toggleGroup(childGroup, isVisible);
                 prevent = true;
             } else {
-                content = element.children("." + CONTENT);
+                content = element.children("."  + CONTENT);
 
                 if (content.length) {
                     prevent = true;
@@ -899,25 +895,23 @@ kendo_module({
                 .toggleClass(defaultState, visibility)
                 .toggleClass(ACTIVECLASS, !visibility)
                 .find("> .k-link > .k-icon")
-                .toggleClass("k-i-arrow-n", !visibility)
-                .toggleClass("k-panelbar-collapse", !visibility)
-                .toggleClass("k-i-arrow-s", visibility)
-                .toggleClass("k-panelbar-expand", visibility);
+                    .toggleClass("k-i-arrow-n", !visibility)
+                    .toggleClass("k-panelbar-collapse", !visibility)
+                    .toggleClass("k-i-arrow-s", visibility)
+                    .toggleClass("k-panelbar-expand", visibility);
 
             if (visibility) {
-                animation = extend(hasCollapseAnimation ? collapse
-                    : extend({reverse: true}, animation), {hide: true});
+                animation = extend( hasCollapseAnimation ? collapse
+                                    : extend({ reverse: true }, animation), { hide: true });
             } else {
-                animation = extend({
-                    complete: function (element) {
-                        that._triggerEvent(ACTIVATE, element.closest(ITEM));
-                    }
-                }, animation);
+                animation = extend( { complete: function (element) {
+                    that._triggerEvent(ACTIVATE, element.closest(ITEM));
+                } }, animation );
             }
 
             element
                 .kendoStop(true, true)
-                .kendoAnimate(animation);
+                .kendoAnimate( animation );
         },
 
         _collapseAllExpanded: function (item) {
@@ -933,17 +927,15 @@ kendo_module({
                 if (!(groups.is(VISIBLE) || groups.length === 0)) {
                     children = $(that.element).children();
                     children.find(GROUPS).add(children.find(CONTENTS))
-                        .filter(function () {
-                            return $(this).is(VISIBLE);
-                        })
-                        .each(function (index, content) {
-                            content = $(content);
+                            .filter(function () { return $(this).is(VISIBLE); })
+                            .each(function (index, content) {
+                                content = $(content);
 
-                            stopExpand = that._triggerEvent(COLLAPSE, content.closest(ITEM));
-                            if (!stopExpand) {
-                                that._toggleGroup(content, true);
-                            }
-                        });
+                                stopExpand = that._triggerEvent(COLLAPSE, content.closest(ITEM));
+                                if (!stopExpand) {
+                                    that._toggleGroup(content, true);
+                                }
+                            });
                 }
 
                 return stopExpand;
@@ -970,7 +962,7 @@ kendo_module({
 
                 error: function (xhr, status) {
                     statusIcon.removeClass("k-loading");
-                    if (that.trigger(ERROR, {xhr: xhr, status: status})) {
+                    if (that.trigger(ERROR, { xhr: xhr, status: status })) {
                         this.complete();
                     }
                 },
@@ -994,7 +986,7 @@ kendo_module({
 
                     that._toggleGroup(contentElement, isVisible);
 
-                    that.trigger(CONTENTLOAD, {item: element[0], contentElement: contentElement[0]});
+                    that.trigger(CONTENTLOAD, { item: element[0], contentElement: contentElement[0] });
                 }
             });
         },
@@ -1002,10 +994,10 @@ kendo_module({
         _triggerEvent: function (eventName, element) {
             var that = this;
 
-            return that.trigger(eventName, {item: element[0]});
+            return that.trigger(eventName, { item: element[0] });
         },
 
-        _updateSelected: function (link) {
+        _updateSelected: function(link) {
             var that = this,
                 element = that.element,
                 item = link.parent(ITEM),
@@ -1025,9 +1017,9 @@ kendo_module({
             that._current(item);
         },
 
-        _animations: function (options) {
+        _animations: function(options) {
             if (options && ("animation" in options) && !options.animation) {
-                options.animation = {expand: {effects: {}}, collapse: {hide: true, effects: {}}};
+                options.animation = { expand: { effects: {} }, collapse: { hide: true, effects: {} } };
             }
         }
 
@@ -1036,7 +1028,7 @@ kendo_module({
     // client-side rendering
     extend(PanelBar, {
         renderItem: function (options) {
-            options = extend({panelBar: {}, group: {}}, options);
+            options = extend({ panelBar: {}, group: {} }, options);
 
             var empty = templates.empty,
                 item = options.item;
@@ -1053,17 +1045,17 @@ kendo_module({
 
         renderGroup: function (options) {
             return templates.group(extend({
-                renderItems: function (options) {
+                renderItems: function(options) {
                     var html = "",
                         i = 0,
                         items = options.items,
                         len = items ? items.length : 0,
-                        group = extend({length: len}, options.group);
+                        group = extend({ length: len }, options.group);
 
                     for (; i < len; i++) {
                         html += PanelBar.renderItem(extend(options, {
                             group: group,
-                            item: extend({index: i}, items[i])
+                            item: extend({ index: i }, items[i])
                         }));
                     }
 

@@ -9,7 +9,7 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function () {
+$(function() {
     $.pnotify.defaults.history = false;
 
     //$(".select2").select2();
@@ -19,8 +19,8 @@ $(function () {
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function (form) {
-            enviar_ajax("/processo/index/add/format/json", "form#form-processo", function (data) {
+        submitHandler: function(form) {
+            enviar_ajax("/processo/index/add/format/json", "form#form-processo", function(data) {
                 if (data.success) {
                     $("#resetbutton").trigger('click');
                 }
@@ -29,7 +29,7 @@ $(function () {
         }
     });
 
-    $(".pessoa-button").on('click', function (event) {
+    $(".pessoa-button").on('click', function(event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -38,20 +38,20 @@ $(function () {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function (html) {
+                success: function(html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click', function () {
+                .on('click',function() {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function () {
+                    $(".grid-append").slideDown('fast', function(){
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });
                 });
-        }
+        } 
     });
 });
 /*

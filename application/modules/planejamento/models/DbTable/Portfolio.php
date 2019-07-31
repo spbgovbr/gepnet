@@ -8,20 +8,20 @@
  */
 class Planejamento_Model_DbTable_Portfolio extends Zend_Db_Table_Abstract
 {
-    protected $_schema = 'agepnet200';
-    protected $_name = 'tb_portfolio';
+    protected $_schema  = 'agepnet200';
+    protected $_name    = 'tb_portfolio';
     protected $_primary = array('idportfolio');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns' => 'idresponsavel',
-            'refColumns' => 'idpessoa'
+            'columns'       => 'idresponsavel',
+            'refColumns'    => 'idpessoa'
         ),
-        'Escritorio' => array(
+        'Escritorio'    => array(
             'refTableClass' => 'tb_escritorio',
-            'columns' => 'idescritorio',
-            'refColumns' => 'idescritorio'
+            'columns'       => 'idescritorio',
+            'refColumns'    => 'idescritorio'
         )
     );
 

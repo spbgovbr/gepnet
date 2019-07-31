@@ -15,10 +15,10 @@ kendo_module({
     name: "NumericTextBox",
     category: "web",
     description: "The NumericTextBox widget can format and display numeric, percentage or currency textbox.",
-    depends: ["core", "userevents"]
+    depends: [ "core", "userevents" ]
 });
 
-(function ($, undefined) {
+(function($, undefined) {
     var kendo = window.kendo,
         keys = kendo.keys,
         ui = kendo.ui,
@@ -50,74 +50,74 @@ kendo_module({
         NULL = null,
         proxy = $.proxy,
         decimals = {
-            190: ".",
-            188: ","
+            190 : ".",
+            188 : ","
         };
 
     var NumericTextBox = Widget.extend({
-        init: function (element, options) {
-            var that = this,
-                isStep = options && options.step !== undefined,
-                min, max, step, value, disabled;
+         init: function(element, options) {
+             var that = this,
+             isStep = options && options.step !== undefined,
+             min, max, step, value, disabled;
 
-            Widget.fn.init.call(that, element, options);
+             Widget.fn.init.call(that, element, options);
 
-            options = that.options;
-            element = that.element
-                .on("blur" + ns, proxy(that._focusout, that))
-                .attr("role", "spinbutton");
+             options = that.options;
+             element = that.element
+                           .on("blur" + ns, proxy(that._focusout, that))
+                           .attr("role", "spinbutton");
 
-            options.placeholder = options.placeholder || element.attr("placeholder");
+             options.placeholder = options.placeholder || element.attr("placeholder");
 
-            that._reset();
-            that._wrapper();
-            that._arrows();
-            that._input();
+             that._reset();
+             that._wrapper();
+             that._arrows();
+             that._input();
 
-            if (!kendo.support.mobileOS) {
-                that._text.on(FOCUS + ns, proxy(that._click, that));
-            } else {
-                that._text.on(TOUCHEND + ns + " " + FOCUS + ns, function (e) {
+             if (!kendo.support.mobileOS) {
+                 that._text.on(FOCUS + ns, proxy(that._click, that));
+             } else {
+                 that._text.on(TOUCHEND + ns + " " + FOCUS + ns, function(e) {
                     that._toggleText(false);
                     if (e.type === FOCUS) {
                         element.focus();
                     }
-                });
-            }
+                 });
+             }
 
-            min = that.min(element.attr("min"));
-            max = that.max(element.attr("max"));
-            step = that._parse(element.attr("step"));
+             min = that.min(element.attr("min"));
+             max = that.max(element.attr("max"));
+             step = that._parse(element.attr("step"));
 
-            if (options.min === NULL && min !== NULL) {
-                options.min = min;
-            }
+             if (options.min === NULL && min !== NULL) {
+                 options.min = min;
+             }
 
-            if (options.max === NULL && max !== NULL) {
-                options.max = max;
-            }
+             if (options.max === NULL && max !== NULL) {
+                 options.max = max;
+             }
 
-            if (!isStep && step !== NULL) {
-                options.step = step;
-            }
+             if (!isStep && step !== NULL) {
+                 options.step = step;
+             }
 
-            element.attr("aria-valuemin", options.min)
-                .attr("aria-valuemax", options.max);
+             element.attr("aria-valuemin", options.min)
+                    .attr("aria-valuemax", options.max);
 
-            options.format = extractFormat(options.format);
+             options.format = extractFormat(options.format);
 
-            value = options.value;
-            that.value(value !== NULL ? value : element.val());
+             value = options.value;
+             that.value(value !== NULL ? value : element.val());
 
-            disabled = element.is("[disabled]");
-            if (disabled) {
-                that.enable(false);
-            } else {
-                that.readonly(element.is("[readonly]"));
-            }
+             disabled = element.is("[disabled]");
+             if (disabled) {
+                 that.enable(false);
+             } else {
+                 that.readonly(element.is("[readonly]"));
+             }
 
-            kendo.notify(that);
-        },
+             kendo.notify(that);
+         },
 
         options: {
             name: "NumericTextBox",
@@ -138,7 +138,7 @@ kendo_module({
             SPIN
         ],
 
-        _editable: function (options) {
+        _editable: function(options) {
             var that = this,
                 element = that.element,
                 disable = options.disable,
@@ -163,13 +163,13 @@ kendo_module({
                     .attr(ARIA_DISABLED, false)
                     .attr(ARIA_READONLY, false);
 
-                that._upArrowEventHandler.bind("press", function (e) {
+                that._upArrowEventHandler.bind("press", function(e) {
                     e.preventDefault();
                     that._spin(1);
                     that._upArrow.addClass(SELECTED);
                 });
 
-                that._downArrowEventHandler.bind("press", function (e) {
+                that._downArrowEventHandler.bind("press", function(e) {
                     e.preventDefault();
                     that._spin(-1);
                     that._downArrow.addClass(SELECTED);
@@ -191,21 +191,21 @@ kendo_module({
             }
         },
 
-        readonly: function (readonly) {
+        readonly: function(readonly) {
             this._editable({
                 readonly: readonly === undefined ? true : readonly,
                 disable: false
             });
         },
 
-        enable: function (enable) {
+        enable: function(enable) {
             this._editable({
                 readonly: false,
                 disable: !(enable = enable === undefined ? true : enable)
             });
         },
 
-        destroy: function () {
+        destroy: function() {
             var that = this;
 
             that.element
@@ -225,19 +225,19 @@ kendo_module({
             Widget.fn.destroy.call(that);
         },
 
-        min: function (value) {
+        min: function(value) {
             return this._option("min", value);
         },
 
-        max: function (value) {
+        max: function(value) {
             return this._option("max", value);
         },
 
-        step: function (value) {
+        step: function(value) {
             return this._option("step", value);
         },
 
-        value: function (value) {
+        value: function(value) {
             var that = this, adjusted;
 
             if (value === undefined) {
@@ -255,15 +255,15 @@ kendo_module({
             that._old = that._value;
         },
 
-        focus: function () {
+        focus: function() {
             this._focusin();
         },
 
-        _adjust: function (value) {
+        _adjust: function(value) {
             var that = this,
-                options = that.options,
-                min = options.min,
-                max = options.max;
+            options = that.options,
+            min = options.min,
+            max = options.max;
 
             if (value === NULL) {
                 return value;
@@ -278,22 +278,22 @@ kendo_module({
             return value;
         },
 
-        _arrows: function () {
+        _arrows: function() {
             var that = this,
-                arrows,
-                _release = function () {
-                    clearTimeout(that._spinning);
-                    arrows.removeClass(SELECTED);
-                },
-                options = that.options,
-                spinners = options.spinners,
-                element = that.element;
+            arrows,
+            _release = function() {
+                clearTimeout( that._spinning );
+                arrows.removeClass(SELECTED);
+            },
+            options = that.options,
+            spinners = options.spinners,
+            element = that.element;
 
             arrows = element.siblings(".k-icon");
 
             if (!arrows[0]) {
                 arrows = $(buttonHtml("n", options.upArrowText) + buttonHtml("s", options.downArrowText))
-                    .insertAfter(element);
+                        .insertAfter(element);
 
                 arrows.wrapAll('<span class="k-select"/>');
             }
@@ -304,23 +304,23 @@ kendo_module({
             }
 
             that._upArrow = arrows.eq(0);
-            that._upArrowEventHandler = new kendo.UserEvents(that._upArrow, {release: _release});
+            that._upArrowEventHandler = new kendo.UserEvents(that._upArrow, { release: _release });
             that._downArrow = arrows.eq(1);
-            that._downArrowEventHandler = new kendo.UserEvents(that._downArrow, {release: _release});
+            that._downArrowEventHandler = new kendo.UserEvents(that._downArrow, { release: _release });
         },
 
-        _blur: function () {
+        _blur: function() {
             var that = this;
 
             that._toggleText(true);
             that._change(that.element.val());
         },
 
-        _click: function (e) {
+        _click: function(e) {
             var that = this;
 
             clearTimeout(that._focusing);
-            that._focusing = setTimeout(function () {
+            that._focusing = setTimeout(function() {
                 var input = e.target,
                     idx = caret(input)[0],
                     value = input.value.substring(0, idx),
@@ -352,7 +352,7 @@ kendo_module({
             });
         },
 
-        _change: function (value) {
+        _change: function(value) {
             var that = this;
 
             that._update(value);
@@ -367,18 +367,18 @@ kendo_module({
             }
         },
 
-        _culture: function (culture) {
+        _culture: function(culture) {
             return culture || getCulture(this.options.culture);
         },
 
-        _focusin: function () {
+        _focusin: function() {
             var that = this;
             that._inputWrapper.addClass(FOCUSED);
             that._toggleText(false);
             that.element[0].focus();
         },
 
-        _focusout: function () {
+        _focusout: function() {
             var that = this;
 
             clearTimeout(that._focusing);
@@ -386,7 +386,7 @@ kendo_module({
             that._blur();
         },
 
-        _format: function (format, culture) {
+        _format: function(format, culture) {
             var numberFormat = this._culture(culture).numberFormat;
 
             format = format.toLowerCase();
@@ -400,7 +400,7 @@ kendo_module({
             return numberFormat;
         },
 
-        _input: function () {
+        _input: function() {
             var that = this,
                 CLASSNAME = "k-formatted-value",
                 element = that.element.addClass(INPUT).show()[0],
@@ -427,7 +427,7 @@ kendo_module({
             that._text = text.addClass(element.className);
         },
 
-        _keydown: function (e) {
+        _keydown: function(e) {
             var that = this,
                 key = e.keyCode;
 
@@ -444,19 +444,19 @@ kendo_module({
             }
         },
 
-        _paste: function (e) {
+        _paste: function(e) {
             var that = this,
                 element = e.target,
                 value = element.value;
 
-            setTimeout(function () {
+            setTimeout(function() {
                 if (that._parse(element.value) === NULL) {
                     that._update(value);
                 }
             });
         },
 
-        _prevent: function (key, shiftKey) {
+        _prevent: function(key, shiftKey) {
             var that = this,
                 element = that.element[0],
                 value = element.value,
@@ -480,13 +480,14 @@ kendo_module({
                 (key > 32 && key < 37) ||
                 (key > 47 && key < 58) ||
                 (key > 95 && key < 106) ||
-                key == keys.INSERT ||
-                key == keys.DELETE ||
-                key == keys.LEFT ||
-                key == keys.RIGHT ||
-                key == keys.TAB ||
-                key == keys.BACKSPACE ||
-                key == keys.ENTER) {
+                 key == keys.INSERT ||
+                 key == keys.DELETE ||
+                 key == keys.LEFT ||
+                 key == keys.RIGHT ||
+                 key == keys.TAB ||
+                 key == keys.BACKSPACE ||
+                 key == keys.ENTER)
+            {
                 prevent = false;
                 if (shiftKey) {
                     number = parseInt(String.fromCharCode(key), 10);
@@ -515,7 +516,7 @@ kendo_module({
             return prevent;
         },
 
-        _option: function (option, value) {
+        _option: function(option, value) {
             var that = this,
                 options = that.options;
 
@@ -535,20 +536,20 @@ kendo_module({
                 .attr(option, value);
         },
 
-        _spin: function (step, timeout) {
+        _spin: function(step, timeout) {
             var that = this;
 
             timeout = timeout || 500;
 
-            clearTimeout(that._spinning);
-            that._spinning = setTimeout(function () {
+            clearTimeout( that._spinning );
+            that._spinning = setTimeout(function() {
                 that._spin(step, 50);
-            }, timeout);
+            }, timeout );
 
             that._step(step);
         },
 
-        _step: function (step) {
+        _step: function(step) {
             var that = this,
                 element = that.element,
                 value = that._parse(element.val()) || 0;
@@ -564,22 +565,22 @@ kendo_module({
             that.trigger(SPIN);
         },
 
-        _toggleHover: function (e) {
+        _toggleHover: function(e) {
             $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
         },
 
-        _toggleText: function (toggle) {
+        _toggleText: function(toggle) {
             var that = this;
 
             that._text.toggle(toggle);
             that.element.toggle(!toggle);
         },
 
-        _parse: function (value, culture) {
+        _parse: function(value, culture) {
             return parse(value, this._culture(culture), this.options.format);
         },
 
-        _update: function (value) {
+        _update: function(value) {
             var that = this,
                 options = that.options,
                 format = options.format,
@@ -616,14 +617,14 @@ kendo_module({
             that.element.val(value).attr("aria-valuenow", value);
         },
 
-        _placeholder: function (value) {
+        _placeholder: function(value) {
             this._text.val(value);
             if (!placeholderSupported && !value) {
                 this._text.val(this.options.placeholder);
             }
         },
 
-        _wrapper: function () {
+        _wrapper: function() {
             var that = this,
                 element = that.element,
                 DOMElement = element[0],
@@ -639,21 +640,21 @@ kendo_module({
             wrapper[0].style.cssText = DOMElement.style.cssText;
             DOMElement.style.width = "";
             that.wrapper = wrapper.addClass("k-widget k-numerictextbox")
-                .addClass(DOMElement.className)
-                .css("display", "");
+                                  .addClass(DOMElement.className)
+                                  .css("display", "");
 
             that._inputWrapper = $(wrapper[0].firstChild);
         },
 
-        _reset: function () {
+        _reset: function() {
             var that = this,
                 element = that.element,
                 formId = element.attr("form"),
                 form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
-                that._resetHandler = function () {
-                    setTimeout(function () {
+                that._resetHandler = function() {
+                    setTimeout(function() {
                         that.value(element[0].value);
                     });
                 };
@@ -691,10 +692,10 @@ kendo_module({
                     rangeDuplicated = rangeElement.duplicate(),
                     selectionStart, selectionEnd;
 
-                rangeElement.moveToBookmark(range.getBookmark());
-                rangeDuplicated.setEndPoint('EndToStart', rangeElement);
-                selectionStart = rangeDuplicated.text.length;
-                selectionEnd = selectionStart + rangeElement.text.length;
+                    rangeElement.moveToBookmark(range.getBookmark());
+                    rangeDuplicated.setEndPoint('EndToStart', rangeElement);
+                    selectionStart = rangeDuplicated.text.length;
+                    selectionEnd = selectionStart + rangeElement.text.length;
 
                 position = [selectionStart, selectionEnd];
             }

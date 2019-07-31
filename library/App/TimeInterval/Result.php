@@ -26,9 +26,9 @@ class App_TimeInterval_Result
 
     public function __construct($dias = 0, $horas = 0, $minutos = 0, $segundos = 0)
     {
-        $this->dias = $dias;
-        $this->horas = $horas;
-        $this->minutos = $minutos;
+        $this->dias     = $dias;
+        $this->horas    = $horas;
+        $this->minutos  = $minutos;
         $this->segundos = $segundos;
     }
 

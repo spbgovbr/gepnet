@@ -1,85 +1,79 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+;
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/pesquisa/responder/responder-pesquisa.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/app/pesquisa/responder/responder-pesquisa.js'), 'text/javascript')
+;
 
 ?>
 
-<?php if ($this->form):
-    $frmAttr = $this->form->getAttribs();
-    $class = "";
-    ?>
-    <div class="region-center">
-        <h4 class="pagination-centered"><?php echo $this->form->getLegend(); ?></h4>
-        <div class="row-fluid">
-            <div class="span5">
-                <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;"
-                     class="input-selecionado">
-                    <strong>Participante: </strong> <?php echo $this->user; ?>
-                </div>
+<?php if ($this->form): 
+        $frmAttr = $this->form->getAttribs();
+        $class = "";
+?>
+<div class="region-center">
+    <h4 class="pagination-centered"><?php echo  $this->form->getLegend();?></h4>
+    <div class="row-fluid"> 
+        <div class="span5">            
+            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
+                <strong>Participante: </strong> <?php echo $this->user; ?> 
             </div>
-        </div>
-        <div>
-            <form id="<?php echo $frmAttr['id']; ?>"
-                  name="<?php echo $frmAttr['id']; ?>"
-                  action="<?php echo $this->form->getAction(); ?>"
-                  method="<?php echo $frmAttr['method']; ?>">
-                <input type="hidden" name="idpesquisa" id="idpesquisa" value="<?php echo $this->idpesquisa; ?>">
-                <?php foreach ($this->form->getElements() as $element): ?>
-                    <?php
+        </div> 
+    </div>
+    <div>
+        <form id="<?php echo $frmAttr['id']; ?>"
+            name="<?php echo $frmAttr['id']; ?>"
+            action="<?php echo $this->form->getAction(); ?>"
+            method="<?php echo $frmAttr['method']; ?>">
+            <input type="hidden" name="idpesquisa" id="idpesquisa" value="<?php echo $this->idpesquisa;?>">
+            <?php foreach ($this->form->getElements() as $element): ?>
+                <?php 
                     // se for botao (salvar|limpar) pula para montar fora do loop
-                    if ($element instanceof Twitter_Bootstrap_Form_Element_Button) {
+                    if ($element instanceof Twitter_Bootstrap_Form_Element_Button) 
                         continue;
-                    }
                     //seta a class diferente para nao quebrar o layout
-                    if (
+                    if(
                         $element instanceof Twitter_Bootstrap_Form_Element_MultiCheckbox ||
                         $element instanceof Twitter_Bootstrap_Form_Element_Radio
-                    ) {
-                        $class = 'row';
-                    } else {
-                        $class = 'row-fluid';
-                    }
-                    ?>
-                    <div class="<?php echo $class ?>">
-                        <div class="span">
-                            <?php echo $element; ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-                <div class="row-fluid">
+                      )  $class = 'row'; else $class = 'row-fluid';
+                ?>
+                 <div class="<?php echo $class?>">
                     <div class="span">
-                        <br/>
-                        <?php echo $this->form->submit ?>
-                        <?php echo $this->form->reset ?>
-                        <a href="<?php echo $this->baseUrl('/pesquisa/responder/listar') ?>" class="btn">Voltar</a>
+                        <?php echo $element; ?>
                     </div>
                 </div>
-            </form>
+            <?php endforeach;  ?>
+                <div class="row-fluid">
+                   <div class="span">
+                       <br/>
+                       <?php echo $this->form->submit ?>
+                       <?php echo $this->form->reset ?>
+                       <a href="<?php echo $this->baseUrl('/pesquisa/responder/listar') ?>" class="btn">Voltar</a>
+                   </div>
+               </div>
+        </form>
+    </div>
+</div>
+<?php else :?>
+<div class="region-center">
+    <div class="row-fluid">
+        <div class="span alert alert-info">
+            <?php echo $this->message; ?>
         </div>
     </div>
-<?php else : ?>
-    <div class="region-center">
-        <div class="row-fluid">
-            <div class="span alert alert-info">
-                <?php echo $this->message; ?>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span">
-                <a href="<?php echo $this->baseUrl('/pesquisa/responder/listar') ?>" class="btn">Voltar</a>
-            </div>
+    <div class="row-fluid">
+        <div class="span">
+            <a href="<?php echo $this->baseUrl('/pesquisa/responder/listar') ?>" class="btn">Voltar</a>
         </div>
     </div>
+</div>
 <?php endif; ?>

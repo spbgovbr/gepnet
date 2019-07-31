@@ -38,7 +38,7 @@ class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
     /**
      * Constructor
      *
-     * @param array|Zend_Config $options
+     * @param  array|Zend_Config $options
      * @return void
      */
     public function __construct($options)
@@ -58,35 +58,35 @@ class Zend_Application_Module_Autoloader extends Zend_Loader_Autoloader_Resource
         $this->addResourceTypes(array(
             'dbtable' => array(
                 'namespace' => 'Model_DbTable',
-                'path' => 'models/DbTable',
+                'path'      => 'models/DbTable',
             ),
             'mappers' => array(
                 'namespace' => 'Model_Mapper',
-                'path' => 'models/mappers',
+                'path'      => 'models/mappers',
             ),
-            'form' => array(
+            'form'    => array(
                 'namespace' => 'Form',
-                'path' => 'forms',
+                'path'      => 'forms',
             ),
-            'model' => array(
+            'model'   => array(
                 'namespace' => 'Model',
-                'path' => 'models',
+                'path'      => 'models',
             ),
-            'plugin' => array(
+            'plugin'  => array(
                 'namespace' => 'Plugin',
-                'path' => 'plugins',
+                'path'      => 'plugins',
             ),
             'service' => array(
                 'namespace' => 'Service',
-                'path' => 'services',
+                'path'      => 'services',
             ),
             'viewhelper' => array(
                 'namespace' => 'View_Helper',
-                'path' => 'views/helpers',
+                'path'      => 'views/helpers',
             ),
             'viewfilter' => array(
                 'namespace' => 'View_Filter',
-                'path' => 'views/filters',
+                'path'      => 'views/filters',
             ),
         ));
         $this->setDefaultResourceType('model');

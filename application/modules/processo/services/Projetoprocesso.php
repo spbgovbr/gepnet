@@ -12,7 +12,7 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     protected $_mapper;
 
     /**
-     * @var array
+     * @var array 
      */
     public $errors = array();
 
@@ -26,7 +26,7 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
      */
     public function getForm()
     {
-        return $this->_getForm('Processo_Form_Projetoprocesso', array('datcadastro', 'idcadastrador'));
+        return $this->_getForm('Processo_Form_Projetoprocesso',array('datcadastro','idcadastrador'));
     }
 
     /**
@@ -50,9 +50,8 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     public function inserir($dados)
     {
         $form = $this->getForm();
-        if ($form->isValid($dados)) {
-            $dados = array_filter($dados);
-            $model = new Processo_Model_Projetoprocesso($dados);
+        if ( $form->isValid($dados) ) {
+            $model     = new Processo_Model_Projetoprocesso($form->getValues());
             $retorno = $this->_mapper->insert($model);
             return $retorno;
         } else {
@@ -62,15 +61,15 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $dados
      * @return boolean | array
      */
     public function update($dados)
     {
         $form = $this->getFormEditar();
-        if ($form->isValid($dados)) {
-            $model = new Processo_Model_Projetoprocesso($form->getValues());
+        if ( $form->isValid($dados) ) {
+			$model   = new Processo_Model_Projetoprocesso($form->getValues());
             //Zend_Debug::dump($model); exit;
             $retorno = $this->_mapper->update($model);
             return $retorno;
@@ -81,7 +80,7 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $dados
      */
     public function excluir($dados)
@@ -89,7 +88,7 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
         try {
             //$model = new Processo_Model_Documento($dados);
             return $this->_mapper->excluir($dados);
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -99,10 +98,10 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     {
         return $this->_mapper->getById($dados);
     }
-
+    
     public function getByIdDetalhar($dados)
     {
-        return $this->_mapper->getByIdDetalhar($dados);
+    	return $this->_mapper->getByIdDetalhar($dados);
     }
 
     public function getErrors()
@@ -110,8 +109,18 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
         return $this->errors;
     }
 
+    /*
+      public function retornaMensagemNumeroDoc($params)
+      {
+
+      $mprTipoDocumento = new Processo_Model_Mapper_Tipodoc($params);
+      $descricaoTipoDoc = $mprTipoDocumento->findById($model->tipodoc_cd_tipodoc);
+      $msg     = "USAR {$descricaoTipoDoc} Nº: <strong>{$model->nr_documento}</strong>";
+      }
+     */
+
     /**
-     *
+     * 
      * @param array $params
      * @param boolean $paginator
      * @return \Processo_Service_JqGrid | array
@@ -119,7 +128,7 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ($paginator) {
+        if ( $paginator ) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);
@@ -130,12 +139,12 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
 
     public function buscar($params, $paginator)
     {
-        return $this->buscarSetor($params, $paginator);
+    	 return $this->buscarSetor($params, $paginator);
     }
 
     public function importar($params)
     {
-        if ($params['tipo'] == 0) {
+        if ( $params['tipo'] == 0 ) {
             return $this->importarServidor($params);
         } else {
             return $this->importarColaborador($params);
@@ -143,22 +152,25 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
     }
 
     /**
-     *
+     * 
      * @param array $params
      * @param boolean $paginator
      * @return \Processo_Service_JqGrid | array
      */
     public function buscarSetor($params, $paginator)
     {
-        $paginador = $this->_mapper->buscarSetor($params, $paginator);
-        $response = array();
+        $paginador         = $this->_mapper->buscarSetor($params, $paginator);
+        $response          = array();
         $response['total'] = $paginador->getTotalItemCount();
-        foreach ($paginador as $d) {
-            $a = new stdClass();
-            $a->id = $d['id'];
-            $a->text = $d['text'];
+        foreach ( $paginador as $d )
+        {
+            $a                     = new stdClass();
+            $a->id                 = $d['id'];
+            $a->text               = $d['text'];
             $response['processos'][] = $a;
         }
+        //var_dump($response);
+        //exit;
         return $response;
     }
 
@@ -169,16 +181,22 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
      */
     public function importarServidor($params)
     {
-        $processo = $this->_mapper->getServidorById($params);
-        $id_servidor = array('id_servidor' => $processo->id_servidor);
-        $response = new stdClass();
-        $response->dados = null;
+        $processo            = $this->_mapper->getServidorById($params);
+        $id_servidor       = array('id_servidor' => $processo->id_servidor);
+        $response          = new stdClass();
+        $response->dados   = null;
         $response->success = false;
-        $date = date('d/m/Y H:i:s');
-        $response->dados = $processo->formPopulate();
-        $response->msg = "Usuario importado: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} em: {$date}.";
+        $date              = date('d/m/Y H:i:s');
+        $response->dados   = $processo->formPopulate();
+        $response->msg     = "Usuario importado: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} em: {$date}.";
         $response->success = true;
         return $response;
+        /*
+          if ( $this->_mapper->existeServidor($id_servidor) ) {
+          $response->msg   = "Usuario: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} já está cadastrado.";
+          return $response;
+          }
+         */
     }
 
     /**
@@ -188,15 +206,21 @@ class Processo_Service_Projetoprocesso extends App_Service_ServiceAbstract
      */
     public function importarColaborador($params)
     {
-        $processo = $this->_mapper->getColaboradorById($params);
-        $response = new stdClass();
-        $response->dados = null;
+        $processo            = $this->_mapper->getColaboradorById($params);
+        $response          = new stdClass();
+        $response->dados   = null;
         $response->success = false;
-        $date = date('d/m/Y H:i:s');
-        $response->dados = $processo->formPopulate();
-        $response->msg = "Usuario importado: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} em: {$date}.";
+        $date              = date('d/m/Y H:i:s');
+        $response->dados   = $processo->formPopulate();
+        $response->msg     = "Usuario importado: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} em: {$date}.";
         $response->success = true;
         return $response;
+        /*
+          if ( $this->_mapper->existeServidor($id_servidor) ) {
+          $response->msg   = "Usuario: {$processo->nomprocesso} - {$processo->getNumcpfMascarado()} já está cadastrado.";
+          return $response;
+          }
+         */
     }
 
     public function delete($id)

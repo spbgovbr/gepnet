@@ -8,19 +8,19 @@
 class Default_Model_Ata extends App_Model_ModelAbstract
 {
 
-    public $idata = null;
-    public $idprojeto = null;
-    public $desassunto = null;
-    public $datata = null;
-    public $hrreuniao = null;
-    public $deslocal = null;
-    public $desparticipante = null;
+    public $idata             = null;
+    public $idprojeto         = null;
+    public $desassunto        = null;
+    public $datata            = null;
+    public $hrreuniao         = null;
+    public $deslocal          = null;
+    public $desparticipante   = null;
     public $despontodiscutido = null;
-    public $desdecisao = null;
-    public $despontoatencao = null;
-    public $idcadastrador = null;
-    public $datcadastro = null;
-    public $desproximopasso = null;
+    public $desdecisao        = null;
+    public $despontoatencao   = null;
+    public $idcadastrador     = null;
+    public $datcadastro       = null;
+    public $desproximopasso   = null;
 
 }
 

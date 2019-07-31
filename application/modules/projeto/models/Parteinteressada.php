@@ -5,17 +5,7 @@
  *
  * This class has been automatically generated at "" @ 16-05-2013 17:22
  */
-class Projeto_Model_Parteinteressada extends App_Model_ModelAbstract
-{
-
-    const EDITAR = 1;
-    const VISUALIZAR = 2;
-    const GERENTE_PROJETO = 1;
-    const GERENTE_ADJUNTO = 2;
-    const DEMANDANTE = 3;
-    const PATROCINADOR = 4;
-    const PARTE_INTERESSADA = 5;
-    const EQUIPE_PROJETO = 6;
+class Projeto_Model_Parteinteressada extends App_Model_ModelAbstract {
 
     public $idparteinteressada = null;
     public $idprojeto = null;
@@ -28,26 +18,22 @@ class Projeto_Model_Parteinteressada extends App_Model_ModelAbstract
     public $idpessoainterna = null;
     public $nomparteinteressada = null;
     public $observacao = null;
-    public $tppermissao = null;
-    public $idparteinteressadafuncao = null;
-    public $status;
-
+    
     /**
-     * Trata os dados do form fora do padrão e popula o model. Ex: campotabelaexterno => campotabela
+     * Trata os dados do form fora do padrão e popula o model. Ex: campotabelaexterno => campotabela     
      * @return void
      */
-    public function setParteInteressadaExterna($dataForm)
+    public function setParteInteressadaExterna($dataForm) 
     {
         $arrData = array();
-        foreach ($dataForm as $key => $value) {
+        foreach ( $dataForm as $key => $value ) {
             $strElement = str_replace('externo', '', $key);
             $arrData[$strElement] = $value;
         }
         $this->setFromArray($arrData);
     }
 
-    public function formPopulate()
-    {
+    public function formPopulate() {
         return array(
             'idparteinteressada' => $this->idparteinteressada,
             'idprojeto' => $this->idprojeto,
@@ -59,9 +45,7 @@ class Projeto_Model_Parteinteressada extends App_Model_ModelAbstract
             'idcadastrador' => $this->idcadastrador,
             'datcadastro' => $this->datcadastro,
             'idpessoainterna' => $this->idpessoainterna,
-            'observacao' => $this->observacao,
-            'tppermissao' => $this->tppermissao,
-            'idparteinteressadafuncao' => $this->idparteinteressadafuncao,
+            'observacao' => $this->observacao
         );
     }
 

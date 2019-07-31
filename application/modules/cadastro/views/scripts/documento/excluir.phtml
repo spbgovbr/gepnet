@@ -2,10 +2,7 @@
     <div class="portlet portlet-azul span4">
         <h3>Nome do documento</h3>
         <div class="content">
-            <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array(
-                'action' => 'abrir',
-                'iddocumento' => $this->documento->iddocumento
-            )); ?>">
+            <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array('action' => 'abrir', 'iddocumento' => $this->documento->iddocumento)); ?>">
                 <i class="icon-file"></i> <?= $this->documento->nomdocumento; ?>
             </a>
         </div>
@@ -37,6 +34,6 @@
         </div>
     </div>
     <form method="post" action="" id="form-documento-excluir" name="form-documento-excluir">
-        <input type="hidden" name="iddocumento" id="iddocumento" value="<?php echo $this->documento->iddocumento; ?>"/>
+        <input type="hidden" name="iddocumento" id="iddocumento" value="<?php echo $this->documento->iddocumento; ?>" />
     </form>
 </div>

@@ -65,7 +65,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     {
         isset($options['base_path']) || $options['base_path'] = $_SERVER['DOCUMENT_ROOT'];
         isset($options['library']) || $options['library'] = null;
-
+        
         $this->_basePath = $options['base_path'];
         is_array($options['library']) || $options['library'] = array($options['library']);
         $this->_library = array_merge($options['library'], array('Zend', 'ZFDebug'));
@@ -100,13 +100,13 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
     {
         $included = $this->_getIncludedFiles();
         $html = '<h4>File Information</h4>';
-        $html .= count($included) . ' Files Included<br />';
+        $html .= count($included).' Files Included<br />';
         $size = 0;
         foreach ($included as $file) {
             $size += filesize($file);
         }
-        $html .= 'Total Size: ' . round($size / 1024, 1) . 'K<br />';
-
+        $html .= 'Total Size: '. round($size/1024, 1).'K<br />';
+        
         $html .= 'Basepath: ' . $this->_basePath . '<br />';
 
         $libraryFiles = array();
@@ -120,18 +120,19 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_File implements ZFDebug_Controller_
         foreach ($included as $file) {
             $file = str_replace($this->_basePath, '', $file);
             $inUserLib = false;
-            foreach ($this->_library as $key => $library) {
-                if ('' != $library && false !== strstr($file, $library)) {
-                    $libraryFiles[$key] .= $file . '<br />';
-                    $inUserLib = true;
-                }
-            }
-            if (!$inUserLib) {
-                $html .= $file . '<br />';
-            }
+        	foreach ($this->_library as $key => $library)
+        	{
+        		if('' != $library && false !== strstr($file, $library)) {
+        			$libraryFiles[$key] .= $file . '<br />';
+        			$inUserLib = TRUE;
+        		}
+        	}
+        	if (!$inUserLib) {
+    			$html .= $file . '<br />';
+        	}
         }
 
-        $html .= implode('', $libraryFiles);
+    	$html .= implode('', $libraryFiles);
 
         return $html;
     }

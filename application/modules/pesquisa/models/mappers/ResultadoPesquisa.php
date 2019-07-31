@@ -6,20 +6,20 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
     public function insert(Pesquisa_Model_ResultadoPesquisa $model)
     {
         $data = array(
-            "id" => $this->maxVal('id'),
-            "idresultado" => $model->idresultado,
-            "idfrasepesquisa" => $model->idfrasepesquisa,
-            "idquestionariopesquisa" => $model->idquestionariopesquisa,
-            "desresposta" => $model->desresposta,
-            "cpf" => $model->cpf,
-            "datcadastro" => $model->datcadastro,
+            "id"                        => $this->maxVal('id'),
+            "idresultado"               => $model->idresultado,
+            "idfrasepesquisa"           => $model->idfrasepesquisa,
+            "idquestionariopesquisa"    => $model->idquestionariopesquisa,
+            "desresposta"               => $model->desresposta,
+            "cpf"                       => $model->cpf,
+            "datcadastro"               => $model->datcadastro,
         );
         return $this->getDbTable()->insert($data);
     }
-
+    
     /**
      * Seleciona o maior idresultado referente ao questionario da pesquisa
-     *
+     * 
      * @param type $params
      * @return type
      * @throws Exception
@@ -34,11 +34,11 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     public function retornaResultadoPesquisaGrid($params)
     {
         $params = array_filter($params);
-
+        
         $sql = "SELECT DISTINCT
                     trp.idresultado, 
                     coalesce(tp.nompessoa, vwcp.nome) as nompessoa,
@@ -52,27 +52,25 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                     INNER JOIN agepnet200.tb_questionario_pesquisa tqp on tqp.idquestionariopesquisa = trp.idquestionariopesquisa
                     INNER JOIN agepnet200.tb_pesquisa tpq on tpq.idpesquisa = tqp.idpesquisa
                 WHERE 1 = 1 ";
-
+        
         $sql .= $this->_db->quoteInto('  AND tpq.idpesquisa = ? ', $params['idpesquisa']);
-
-        if (isset($params['nompessoa']) && $params['nompessoa'] != "") {
-            $sql .= $this->_db->quoteInto('  AND tp.nompessoa ilike ? ', "%" . $params['nompessoa'] . "%");
+        
+        if(isset($params['nompessoa']) && $params['nompessoa'] != "") {
+            $sql .= $this->_db->quoteInto('  AND tp.nompessoa ilike ? ', "%".$params['nompessoa']."%");
         }
-
-        if (isset($params['idresultado']) && $params['idresultado'] != "") {
+        
+        if(isset($params['idresultado']) && $params['idresultado'] != "") {
             $sql .= $this->_db->quoteInto('  AND trp.idresultado  = ? ', (int)$params['idresultado']);
         }
-
-        if (isset($params['datcadastroinicio']) && $params['datcadastroinicio'] != "") {
-            $sql .= $this->_db->quoteInto("  AND trp.datcadastro >= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ",
-                $params['datcadastroinicio'] . ' 00:00:00');
+        
+        if(isset($params['datcadastroinicio']) && $params['datcadastroinicio'] != "") {
+            $sql .= $this->_db->quoteInto("  AND trp.datcadastro >= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ", $params['datcadastroinicio'].' 00:00:00');
         }
-
-        if (isset($params['datcadastrofim']) && $params['datcadastrofim'] != "") {
-            $sql .= $this->_db->quoteInto("  AND trp.datcadastro <= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ",
-                $params['datcadastrofim'] . ' 23:59:59');
+        
+        if(isset($params['datcadastrofim']) && $params['datcadastrofim'] != "") {
+            $sql .= $this->_db->quoteInto("  AND trp.datcadastro <= to_timestamp(?, 'dd-mm-yyyy HH24:MI:SS') ", $params['datcadastrofim'].' 23:59:59');
         }
-
+       
         $sql .= ' order by ' . $params['sidx'] . ' ' . $params['sord'];
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;
@@ -85,11 +83,11 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     public function retornaResultadoByPessoa($params)
     {
         try {
-            $sql = 'SELECT 
+            $sql =  'SELECT 
                         tp.idpesquisa,
                         tqp.idquestionariopesquisa,
                         tqp.nomquestionario,
@@ -113,16 +111,16 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                                     AND trtp.idquestionariopesquisa =  tqp.idquestionariopesquisa
                                      AND (
                                             (
-                                                (tfp.domtipofrase = ' . Pesquisa_Model_Frase::UMA_ESCOLHA . '
-                                                 OR tfp.domtipofrase = ' . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . '
-                                                 OR tfp.domtipofrase = ' . Pesquisa_Model_Frase::UF . '
+                                                (tfp.domtipofrase = '.Pesquisa_Model_Frase::UMA_ESCOLHA.'
+                                                 OR tfp.domtipofrase = '.Pesquisa_Model_Frase::MULTIPLA_ESCOLHA.'
+                                                 OR tfp.domtipofrase = '.Pesquisa_Model_Frase::UF.'
                                                  ) AND trp.idrespostapesquisa::text = trtp.desresposta
                                             )
                                             OR
                                             ( 
-                                                tfp.domtipofrase <> ' . Pesquisa_Model_Frase::UMA_ESCOLHA . '
-                                                AND tfp.domtipofrase <> ' . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . '
-                                                AND tfp.domtipofrase <> ' . Pesquisa_Model_Frase::UF . ' 
+                                                tfp.domtipofrase <> '.Pesquisa_Model_Frase::UMA_ESCOLHA.'
+                                                AND tfp.domtipofrase <> '.Pesquisa_Model_Frase::MULTIPLA_ESCOLHA.'
+                                                AND tfp.domtipofrase <> '.Pesquisa_Model_Frase::UF.' 
                                                 AND trtp.desresposta IS NOT NULL)
                                             )                                    
                                     AND trtp.idresultado = :idresultado
@@ -132,9 +130,9 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                 ORDER BY tqfp.numordempergunta, tqfp.idfrasepesquisa, trp.numordem ';
 
             $bind = array(
-                'cpf' => $params['cpf'] == 'null' ? null : $params['cpf'],
-                'idpesquisa' => $params['idpesquisa'],
-                'idresultado' => $params['idresultado']
+                'cpf' => $params['cpf'] == 'null' ? NULL : $params['cpf'],
+                'idpesquisa' => $params['idpesquisa'], 
+                'idresultado'=>$params['idresultado']
             );
 
             return $this->_db->fetchAll($sql, $bind);
@@ -142,10 +140,10 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     /**
      * Retorna a pesquisa e o total de resposta de cada item da pergunta
-     *
+     * 
      * @param type $params
      * @return type
      * @throws Exception
@@ -153,9 +151,9 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
     public function retornaTotalRespostaQuestoesByPesquisa($params)
     {
         $params = array_filter($params);
-
+        
         try {
-            $sql = "SELECT
+            $sql =  "SELECT
                         tp.idpesquisa,			                        
                         tqp.nomquestionario,
                         tqp.idquestionariopesquisa,
@@ -182,7 +180,7 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                                     FROM agepnet200.tb_resultado_pesquisa rp
                                         INNER JOIN agepnet200.tb_frase_pesquisa fr ON fr.idfrasepesquisa = rp.idfrasepesquisa
                                     WHERE rp.idquestionariopesquisa = :idpesquisa 
-                                        AND fr.domtipofrase in(" . Pesquisa_Model_Frase::UMA_ESCOLHA . ", " . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . ", " . Pesquisa_Model_Frase::UF . ")					
+                                        AND fr.domtipofrase in(".Pesquisa_Model_Frase::UMA_ESCOLHA.", ".Pesquisa_Model_Frase::MULTIPLA_ESCOLHA.", ".Pesquisa_Model_Frase::UF.")					
                                     GROUP BY rp.idfrasepesquisa, rp.desresposta				
                                     ) r1 ON r1.idfrasepesquisa = tqfp.idfrasepesquisa AND trp.idrespostapesquisa::text = r1.desresposta	
 
@@ -193,7 +191,7 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                                     FROM agepnet200.tb_resultado_pesquisa trp
                                         INNER JOIN agepnet200.tb_frase_pesquisa tfp ON tfp.idfrasepesquisa = trp.idfrasepesquisa
                                     WHERE trp.idquestionariopesquisa = :idpesquisa 
-                                          AND tfp.domtipofrase NOT IN(" . Pesquisa_Model_Frase::UMA_ESCOLHA . ", " . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . "," . Pesquisa_Model_Frase::UF . ")
+                                          AND tfp.domtipofrase NOT IN(".Pesquisa_Model_Frase::UMA_ESCOLHA.", ".Pesquisa_Model_Frase::MULTIPLA_ESCOLHA.",".Pesquisa_Model_Frase::UF.")
                                     GROUP BY trp.idfrasepesquisa, tfp.domtipofrase				
                                     ) r2 ON r2.idfrasepesquisa = tqfp.idfrasepesquisa
                     WHERE tp.idpesquisa = :idpesquisa		
@@ -203,10 +201,10 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     /**
      * Retorna o total de pesquisas respondidas por idpesquisa
-     *
+     * 
      * @param array $params
      * @return dataset
      * @throws Exception
@@ -214,7 +212,7 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
     public function totalPesquisasRespondidasByIdpesquisa($params)
     {
         $params = array_filter($params);
-        try {
+        try{
             $sql = "SELECT 
                         COUNT(distinct idresultado) as total
                     FROM agepnet200.tb_resultado_pesquisa trp
@@ -225,17 +223,17 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     /**
      * Retorna todas a pesquisa e todas a suas respostas por idpesquisa
-     *
+     * 
      * @param array $params
      * @return type
      * @throws Exception
      */
     public function retornaPesquisasRespondidasByPesquisa($params)
     {
-        $sql = "SELECT DISTINCT
+            $sql = "SELECT DISTINCT
 			a1.idpesquisa,			
 			a1.nomquestionario,
 			a1.idquestionariopesquisa,
@@ -288,17 +286,17 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                             ORDER BY trtp.idresultado, tqfp.numordempergunta 
                     ) AS a1                    
                     ORDER BY idresultado, numordempergunta";
-
-        try {
+            
+        try {   
             return $this->_db->fetchAll($sql, array('idpesquisa' => $params['idpesquisa']));
         } catch (Exception $exc) {
             throw new Exception($exc->getMessage());
         }
     }
-
+    
     public function existsRespostaPesquisaByCpf($params)
     {
-        try {
+        try{
             $sql = "SELECT 
                         * 
                    FROM agepnet200.tb_pesquisa tp
@@ -308,10 +306,10 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                    AND trp.cpf = :cpf ";
 
             $bind = array(
-                'cpf' => $params['cpf'],
-                'idpesquisa' => $params['idpesquisa'],
-            );
-
+                    'cpf' => $params['cpf'],
+                    'idpesquisa' => $params['idpesquisa'], 
+                );
+        
             return $this->_db->fetchAll($sql, $bind);
         } catch (Exception $exc) {
             throw new Exception($exc->getMessage());

@@ -81,27 +81,25 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
      *     'match'   => matching pattern
      *     'replace' => replace with this
      *
-     * @param string|array $options
+     * @param  string|array $options
      * @return void
      */
     public function __construct($options = null)
     {
         if ($options instanceof Zend_Config) {
             $options = $options->toArray();
-        } else {
-            if (!is_array($options)) {
-                $options = func_get_args();
-                $temp = array();
-                if (!empty($options)) {
-                    $temp['match'] = array_shift($options);
-                }
-
-                if (!empty($options)) {
-                    $temp['replace'] = array_shift($options);
-                }
-
-                $options = $temp;
+        } else if (!is_array($options)) {
+            $options = func_get_args();
+            $temp    = array();
+            if (!empty($options)) {
+                $temp['match'] = array_shift($options);
             }
+
+            if (!empty($options)) {
+                $temp['replace'] = array_shift($options);
+            }
+
+            $options = $temp;
         }
 
         if (array_key_exists('match', $options)) {
@@ -160,7 +158,7 @@ class Zend_Filter_PregReplace implements Zend_Filter_Interface
     /**
      * Perform regexp replacement as filter
      *
-     * @param string $value
+     * @param  string $value
      * @return string
      */
     public function filter($value)

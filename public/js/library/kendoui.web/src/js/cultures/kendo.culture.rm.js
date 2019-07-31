@@ -10,7 +10,7 @@
 */
 
 
-﻿(function (window, undefined) {
+﻿(function( window, undefined ) {
     kendo.cultures["rm"] = {
         name: "rm",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n%", "n%"],
+                pattern: ["-n%","n%"],
                 decimals: 2,
                 ",": "'",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["$-n", "$ n"],
+                pattern: ["$-n","$ n"],
                 decimals: 2,
                 ",": "'",
                 ".": ".",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["dumengia", "glindesdi", "mardi", "mesemna", "gievgia", "venderdi", "sonda"],
-                    namesAbbr: ["du", "gli", "ma", "me", "gie", "ve", "so"],
-                    namesShort: ["du", "gli", "ma", "me", "gie", "ve", "so"]
+                    names: ["dumengia","glindesdi","mardi","mesemna","gievgia","venderdi","sonda"],
+                    namesAbbr: ["du","gli","ma","me","gie","ve","so"],
+                    namesShort: ["du","gli","ma","me","gie","ve","so"]
                 },
                 months: {
-                    names: ["schaner", "favrer", "mars", "avrigl", "matg", "zercladur", "fanadur", "avust", "settember", "october", "november", "december", ""],
-                    namesAbbr: ["schan", "favr", "mars", "avr", "matg", "zercl", "fan", "avust", "sett", "oct", "nov", "dec", ""]
+                    names: ["schaner","favrer","mars","avrigl","matg","zercladur","fanadur","avust","settember","october","november","december",""],
+                    namesAbbr: ["schan","favr","mars","avr","matg","zercl","fan","avust","sett","oct","nov","dec",""]
                 },
                 AM: [""],
                 PM: [""],

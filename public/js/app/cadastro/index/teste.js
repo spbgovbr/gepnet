@@ -1,34 +1,36 @@
-date = (function () {
-    interval = function (dataInicio, dataFim) {
-        var i = 0,
+date = (function (){
+    interval = function (dataInicio, dataFim)
+    {
+        var i = 0, 
             inicio = Date.parseExact(dataInicio, "dd/MM/yyyy"),
             fim = Date.parseExact(dataFim, "dd/MM/yyyy")
-        ;
-        if (inicio == null) {
+            ;
+        if(inicio == null){
             return 0;
         }
-
+        
         do {
             //console.log(inicio);
-            if (false === inicio.is().sunday() && false === inicio.is().saturday()) {
+            if( false === inicio.is().sunday() && false === inicio.is().saturday()){
                 i++;
             }
             inicio.addDays(1);
         }
-        while (false === inicio.equals(fim))
-        return i;
+        while( false === inicio.equals(fim) )
+        return i; 
     };
-
-    weekdaysBetween = function (startDate, endDate) {
-        var e = null, s = null, diffDays = 0, weeksBetween = 0, adjust = 0;
-
-        if (startDate == null) {
+    
+    weekdaysBetween = function (startDate, endDate) 
+    {
+        var e = null, s = null, diffDays = 0, weeksBetween = 0, adjust = 0 ;
+            
+        if(startDate == null){
             return 0;
         }
-
+        
         startDate = Date.parseExact(startDate, 'dd/MM/yyyy');
         endDate = Date.parseExact(endDate, 'dd/MM/yyyy');
-
+        
         if (startDate < endDate) {
             s = startDate;
             e = endDate;
@@ -45,25 +47,26 @@ date = (function () {
         } else if (s.getDay() == 6 && e.getDay() == 0) {
             adjust = 0;
         } else if (e.getDay() == 6 || e.getDay() == 0) {
-            adjust = 5 - s.getDay() + 1;
+            adjust = 5-s.getDay() +1;
         } else if (s.getDay() == 0 || s.getDay() == 6) {
-            adjust = e.getDay() - 1;
-        } else if (e.getDay() > s.getDay()) {
-            adjust = e.getDay() - s.getDay();
+            adjust = e.getDay() -1;
+        } else if (e.getDay() > s.getDay() ) {
+            adjust = e.getDay()-s.getDay();
         } else {
-            adjust = 5 + e.getDay() - s.getDay();
+            adjust = 5+e.getDay()-s.getDay();
         }
         return (weeksBetween * 5) + adjust;
     }
-
-    adicionarDiasUteis = function (data, dias) {
+        
+    adicionarDiasUteis = function (data, dias)
+    {
         var tam = dias, i = 0, total = dias,
             aux = Date.parseExact(data, "dd/MM/yyyy"),
             dataTotal = Date.parseExact(data, "dd/MM/yyyy")
-        ;
+            ;
 
         do {
-            if (aux.is().sunday() || aux.is().saturday()) {
+            if(aux.is().sunday() || aux.is().saturday()){
                 total = total + 1;
             }
             aux.addDays(1);
@@ -73,20 +76,22 @@ date = (function () {
         dataTotal.addDays(total);
         return dataTotal.toString('dd/MM/yyyy');
     };
-
-    proximoDiaUtil = function (data) {
+        
+    proximoDiaUtil = function(data)
+    {
         data = Date.parseExact(data, "dd/MM/yyyy");
-        if (false === data.is().sunday() && false === data.is().saturday()) {
+        if(false === data.is().sunday() && false === data.is().saturday()){
             return data.addDays(1).toString('dd/MM/yyyy');
         }
 
-        while (data.is().sunday() || data.is().saturday()) {
+        while( data.is().sunday() || data.is().saturday() )
+        {
             data.addDays(1);
         }
 
         return data.toString('dd/MM/yyyy');
     };
-
+        
     return {
         interval: interval,
         adicionarDiasUteis: adicionarDiasUteis,
@@ -95,9 +100,9 @@ date = (function () {
     };
 })();
 
-function _each(arr, fn /*function(element, index)*/, limit /*items per pass*/, callback) {
+function _each(arr, fn /*function(element, index)*/ , limit /*items per pass*/ , callback) {
     var count = 0,
-        len = arr.length;
+    len = arr.length;
 
     function run() {
         var d = limit;
@@ -112,31 +117,32 @@ function _each(arr, fn /*function(element, index)*/, limit /*items per pass*/, c
             }
         }
     }
-
     run();
 }
 
-projeto = (function () {
+projeto = (function (){
     this.current = {
         i: 0,
         f: 0
-    };
-
-    calcularIntervalos = function () {
-        $('.datai').each(function (i, val) {
-            var
-                $dataInicial = $(val),
-                $dataFinal = $(val).parent().parent().find('.dataf')
+    };   
+    
+    calcularIntervalos = function()
+    {
+        $('.datai').each(function(i,val){
+            var 
+            $dataInicial = $(val),
+            $dataFinal = $(val).parent().parent().find('.dataf')
             ;
 
             intervalo = date.interval($dataInicial.val(), $dataFinal.val());
-            $dataFinal.data('intervalo', intervalo);
+            $dataFinal.data('intervalo',intervalo);
         });
     };
-
-    atualizarDatas = function (btn) {
+    
+    atualizarDatas = function(btn)
+    {
         var $datai = null, $dataf = null, $linhas = null, $linhaAtual = null;
-
+        
         $linhaAtual = $(btn).closest('.linha');
         $datai = $linhaAtual.find('.datai');
         $dataf = $linhaAtual.find('.dataf');
@@ -144,155 +150,159 @@ projeto = (function () {
         current.i = $datai.val();
         current.f = $dataf.val();
         console.log($linhas.length);
-        _each($linhas, function (val, i) {
+        _each($linhas, function(val,i){
             //setTimeout(null, 10);
             var $linha = $(val), $dti = null, $dtf = null, intervalo = 0;
-
+                    
             $dti = $linha.find('.datai');
             $dtf = $linha.find('.dataf');
-
-            if ($dti.val() != '') {
+            
+            if($dti.val() != '') {
                 // Intervalo entre as datas
-                if (!$linha.data('intervalo')) {
+                if( !$linha.data('intervalo') ){
                     intervalo = date.weekdaysBetween($dti.val(), $dtf.val());
-                    $linha.data('intervalo', intervalo);
+                    $linha.data('intervalo',intervalo);
                 } else {
                     intervalo = $linha.data('intervalo');
                 }
                 // Data inicial
                 current.i = date.proximoDiaUtil(current.f);
                 $dti.val(current.i);
-
+                    
                 // Data Final
                 current.f = date.adicionarDiasUteis(current.i, intervalo);
                 $dtf.val(current.f);
             }
         }, 10);
-        /*
-            $linhas.each(function(val,i){
-                setTimeout(null, 10);
-                var 
-                    $linha = $(val),
-                    $dti = null,
-                    $dtf = null
-                    ;
-                        
-                $dti = $linha.find('.datai');
-                $dtf = $linha.find('.dataf');
-                
-                if($dti.val() != '') {
-                    // Intervalo entre as datas
-                    intervalo = date.interval($dti.val(), $dtf.val());
-                        
-                    // Data inicial
-                    current.i = date.proximoDiaUtil(current.f);
-                    $dti.val(current.i);
-                        
-                    // Data Final
-                    current.f = date.adicionarDiasUteis(current.i, intervalo);
-                    $dtf.val(current.f);
-                }
-            });
-            */
+    /*
+        $linhas.each(function(val,i){
+            setTimeout(null, 10);
+            var 
+                $linha = $(val),
+                $dti = null,
+                $dtf = null
+                ;
+                    
+            $dti = $linha.find('.datai');
+            $dtf = $linha.find('.dataf');
+            
+            if($dti.val() != '') {
+                // Intervalo entre as datas
+                intervalo = date.interval($dti.val(), $dtf.val());
+                    
+                // Data inicial
+                current.i = date.proximoDiaUtil(current.f);
+                $dti.val(current.i);
+                    
+                // Data Final
+                current.f = date.adicionarDiasUteis(current.i, intervalo);
+                $dtf.val(current.f);
+            }
+        });
+        */
     };
-
-    mostrarFerramentas = function (btn) {
+    
+    mostrarFerramentas = function(btn)
+    {
         var pai = $(btn).closest('.linha'), isCurrent = pai.is('.well-mini');
 
         $('.linha').removeClass('well-mini');
         $('.linha .container-tools').empty();
-        if (isCurrent) {
+        if(isCurrent){
             return;
         }
         var tools = $('.ferramentas .tools').clone(true);
         pai.addClass('well-mini').find('.container-tools').html(tools);
         slider();
     };
-
-    slider = function () {
+    
+    slider = function ()
+    {
         var s = null;
         s = $("#slider-range-min").slider({
             range: "min",
             value: 0,
             min: 0,
             max: 100,
-            slide: function (event, ui) {
-                $("#slider-value").text(ui.value);
-                $("#amount").val(ui.value);
+            slide: function( event, ui ) {
+                $( "#slider-value" ).text( ui.value );
+                $( "#amount" ).val( ui.value );
             }
         });
-        $("#slider-value").text(s.slider("value"));
-        $("#amount").val(s.slider("value"));
+        $( "#slider-value" ).text( s.slider( "value" ) );
+        $( "#amount" ).val( s.slider( "value" ) );  
     };
-
-    initDatas = function () {
-        $(".dataf").datepicker({
-            format: 'dd/mm/yyyy',
+    
+    initDatas = function()
+    {
+        $( ".dataf" ).datepicker({
+            format:'dd/mm/yyyy',
             language: 'pt-BR',
             showOn: "button",
             beforeShowDay: $.datepicker.noWeekends,
-            beforeShow: function (selectedDate, inst) {
-                var
-                    dti = $(inst.input).parent().parent().find('.datai').val(),
-                    dtf = $(inst.input).val(),
-                    intervalo = null;
-                intervalo = date.weekdaysBetween(dti, dtf);
-                data = date.adicionarDiasUteis(dti, intervalo);
-                $(this).datepicker("option", "minDate", data);
+            beforeShow: function( selectedDate, inst ) {
+                var 
+                dti = $(inst.input).parent().parent().find('.datai').val(),
+                dtf = $(inst.input).val(),
+                intervalo = null;
+                intervalo = date.weekdaysBetween(dti,dtf); 
+                data = date.adicionarDiasUteis(dti,intervalo);
+                $(this).datepicker( "option", "minDate", data);
             }
         });
 
-        $(".datai").datepicker({
-            format: 'dd/mm/yyyy',
+        $( ".datai" ).datepicker({
+            format:'dd/mm/yyyy',
             language: 'pt-BR',
             showOn: "button",
             beforeShowDay: $.datepicker.noWeekends,
-            beforeShow: function (selectedDate, inst) {
+            beforeShow: function( selectedDate, inst ) {
                 var val = null;
-                if ($(inst.input).parent().parent().prev().find('.dataf').length > 0) {
+                if($(inst.input).parent().parent().prev().find('.dataf').length > 0){
                     val = $(inst.input).parent().parent().prev().find('.dataf').val();
-                    $(this).datepicker("option", "minDate", date.proximoDiaUtil(val));
+                    $(this).datepicker( "option", "minDate", date.proximoDiaUtil(val) );
                 }
             }
         });
-
-        $(document.body).on('blur', '.datai, .dataf', function () {
+        
+        $(document.body).on('blur','.datai, .dataf',function(){
             console.log('mudou');
-            var
+            var 
                 $linhaAtual = null,
                 datai = '',
                 dataf = '',
                 intervalo = 0
-            ;
-
+                ;
+                
             $linhaAtual = $(this).closest('.linha');//.css('background','red');
             datai = $linhaAtual.find('.datai').val();
             dataf = $linhaAtual.find('.dataf').val();
             intervalo = date.weekdaysBetween(datai, dataf);
-            $linhaAtual.data('intervalo', intervalo);
+            $linhaAtual.data('intervalo',intervalo);
         });
     };
-
-    init = function () {
+    
+    init = function ()
+    {
         //console.log('init');
-        // console.log('weekdaysBetween: ' + weekdaysBetween(new Date(2013,4,6),new Date(2013,4,10)));
-        // console.log('date.interval: ' + date.interval('06/05/2013', '10/05/2013'));
+       // console.log('weekdaysBetween: ' + weekdaysBetween(new Date(2013,4,6),new Date(2013,4,10)));
+       // console.log('date.interval: ' + date.interval('06/05/2013', '10/05/2013'));
         initDatas();
-        $("button.btn-tools").click(function () {
+        $("button.btn-tools").click(function (){
             return mostrarFerramentas($(this));
         });
-        $(document.body).on('click', ".btn-aplicar", function () {
+        $(document.body).on('click',".btn-aplicar",function(){
             return atualizarDatas($(this));
         });
     };
-
+    
     return {
         init: init
     };
 })();
 
 
-$(function () {
+$(function (){
     projeto.init();
 });
 

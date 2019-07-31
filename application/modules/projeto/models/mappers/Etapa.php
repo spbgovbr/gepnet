@@ -18,10 +18,10 @@ class Projeto_Model_Mapper_Etapa extends App_Model_Mapper_MapperAbstract
     public function insert(Projeto_Model_Etapa $model)
     {
         $data = array(
-            "idetapa" => $model->idetapa,
-            "dsetapa" => $model->dsetapa,
+            "idetapa"       => $model->idetapa,
+            "dsetapa"       => $model->dsetapa,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,10 +35,10 @@ class Projeto_Model_Mapper_Etapa extends App_Model_Mapper_MapperAbstract
     public function update(Projeto_Model_Etapa $model)
     {
         $data = array(
-            "idetapa" => $model->idetapa,
-            "dsetapa" => $model->dsetapa,
+            "idetapa"       => $model->idetapa,
+            "dsetapa"       => $model->dsetapa,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
@@ -47,24 +47,15 @@ class Projeto_Model_Mapper_Etapa extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Projeto_Form_Etapa);
     }
-
+    
     public function fetchPairs($selecione = false)
     {
-        $sql = " SELECT idetapa, dsetapa FROM agepnet200.tb_etapa order by dsetapa asc";
-        if ($selecione) {
-            $arrEtapa = array('' => 'Selecione') + $this->_db->fetchPairs($sql);
+    	$sql = " SELECT idetapa, dsetapa FROM agepnet200.tb_etapa order by dsetapa asc";
+        if($selecione) {
+            $arrEtapa = array(''=>'Selecione') +  $this->_db->fetchPairs($sql);
             return $arrEtapa;
         }
-        return $this->_db->fetchPairs($sql);
-    }
-
-    public function getEtapaPgp($selecione = false, $idProjeto = false)
-    {
-        $sql = " select *
-                 from agepnet200.tb_etapa  
-                 where pgpassinado is not null order by dsetapa asc";
-
-        return $this->_db->fetchAll($sql);
+    	return $this->_db->fetchPairs($sql);
     }
 
 }

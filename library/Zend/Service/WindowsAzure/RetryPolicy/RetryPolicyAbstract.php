@@ -47,8 +47,8 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
     /**
      * Execute function under retry policy
      *
-     * @param string|array $function Function to execute
-     * @param array $parameters Parameters for function call
+     * @param string|array $function       Function to execute
+     * @param array        $parameters     Parameters for function call
      * @return mixed
      */
     public abstract function execute($function, $parameters = array());
@@ -66,8 +66,8 @@ abstract class Zend_Service_WindowsAzure_RetryPolicy_RetryPolicyAbstract
     /**
      * Create a Zend_Service_WindowsAzure_RetryPolicy_RetryN instance
      *
-     * @param int $count Number of retries
-     * @param int $intervalBetweenRetries Interval between retries (in milliseconds)
+     * @param int $count                    Number of retries
+     * @param int $intervalBetweenRetries   Interval between retries (in milliseconds)
      * @return Zend_Service_WindowsAzure_RetryPolicy_RetryN
      */
     public static function retryN($count = 1, $intervalBetweenRetries = 0)

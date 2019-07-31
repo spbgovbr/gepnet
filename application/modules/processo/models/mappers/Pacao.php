@@ -17,31 +17,31 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Processo_Model_PAcao $model)
     {
-        $model->id_p_acao = $this->maxVal('id_p_acao');
-        $model->numseq = $this->maxVal('numseq');
+        $model->id_p_acao     = $this->maxVal('id_p_acao');
+        $model->numseq        = $this->maxVal('numseq');
         $model->idcadastrador = '30605';
-        $data = array(
-            "id_p_acao" => $model->id_p_acao,
-            "idprojetoprocesso" => $model->idprojetoprocesso,
-            "nom_p_acao" => $model->nom_p_acao,
-            "des_p_acao" => $model->des_p_acao,
-            "datinicioprevisto" => new Zend_Db_Expr("to_date('" . $model->datinicioprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datinicioreal" => new Zend_Db_Expr("to_date('" . $model->datinicioreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
+        $data                 = array(
+            "id_p_acao"          => $model->id_p_acao,
+            "idprojetoprocesso"  => $model->idprojetoprocesso,
+            "nom_p_acao"         => $model->nom_p_acao,
+            "des_p_acao"         => $model->des_p_acao,
+            "datinicioprevisto"  => new Zend_Db_Expr("to_date('" . $model->datinicioprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datinicioreal"      => new Zend_Db_Expr("to_date('" . $model->datinicioreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
             "datterminoprevisto" => new Zend_Db_Expr("to_date('" . $model->datterminoprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datterminoreal" => new Zend_Db_Expr("to_date('" . $model->datterminoreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datterminoreal"     => new Zend_Db_Expr("to_date('" . $model->datterminoreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
             "idsetorresponsavel" => $model->idsetorresponsavel,
-            "flacancelada" => $model->flacancelada,
-            "idcadastrador" => $model->idcadastrador,
-            "datcadastro" => new Zend_Db_Expr("now()"),
-            "numseq" => $model->numseq,
-            "idresponsavel" => $model->idresponsavel,
+            "flacancelada"       => $model->flacancelada,
+            "idcadastrador"      => $model->idcadastrador,
+            "datcadastro"        => new Zend_Db_Expr("now()"),
+            "numseq"             => $model->numseq,
+            "idresponsavel"      => $model->idresponsavel,
         );
 //      $this->getDbTable()->insert($data);
 
         try {
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             throw $exc;
         }
     }
@@ -55,33 +55,33 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
     public function update(Processo_Model_PAcao $model)
     {
         $model->numseq = $this->maxVal('numseq');
-        $data = array(
-            "id_p_acao" => $model->id_p_acao,
-            "idprojetoprocesso" => $model->idprojetoprocesso,
-            "nom_p_acao" => $model->nom_p_acao,
-            "des_p_acao" => $model->des_p_acao,
-            "datinicioprevisto" => new Zend_Db_Expr("to_date('" . $model->datinicioprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datinicioreal" => new Zend_Db_Expr("to_date('" . $model->datinicioreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
+        $data          = array(
+            "id_p_acao"          => $model->id_p_acao,
+            "idprojetoprocesso"  => $model->idprojetoprocesso,
+            "nom_p_acao"         => $model->nom_p_acao,
+            "des_p_acao"         => $model->des_p_acao,
+            "datinicioprevisto"  => new Zend_Db_Expr("to_date('" . $model->datinicioprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datinicioreal"      => new Zend_Db_Expr("to_date('" . $model->datinicioreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
             "datterminoprevisto" => new Zend_Db_Expr("to_date('" . $model->datterminoprevisto->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datterminoreal" => new Zend_Db_Expr("to_date('" . $model->datterminoreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datterminoreal"     => new Zend_Db_Expr("to_date('" . $model->datterminoreal->toString('Y-m-d') . "','YYYY-MM-DD')"),
             "idsetorresponsavel" => $model->idsetorresponsavel,
-            "flacancelada" => $model->flacancelada,
+            "flacancelada"       => $model->flacancelada,
 //          "idcadastrador"      => $model->idcadastrador,
 //          "datcadastro"        => $model->datcadastro,
-            "numseq" => $model->numseq,
-            "idresponsavel" => $model->idresponsavel,
+            "numseq"             => $model->numseq,
+            "idresponsavel"      => $model->idresponsavel,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
 
         try {
-            $pks = array(
+            $pks     = array(
                 "id_p_acao" => $model->id_p_acao,
             );
-            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
             //$where = $this->_db->quoteInto('idpessoa = ?', $model->idpessoa);
             $retorno = $this->getDbTable()->update($data, $where);
             return $retorno;
-        } catch (Exception $exc) {
+        } catch ( Exception $exc ) {
             throw $exc;
         }
     }
@@ -125,26 +125,26 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
         $params = array_filter($params);
         //Zend_Debug::dump($sql);exit;
 
-        if (isset($params['idprojetoprocesso'])) {
+        if ( isset($params['idprojetoprocesso']) ) {
             $idprojetoprocesso = strtoupper($params['idprojetoprocesso']);
             $sql .= " AND idprojetoprocesso = {$idprojetoprocesso} ";
         }
-        if (isset($params['ipph'])) {
+        if ( isset($params['ipph']) ) {
             $ipph = strtoupper($params['ipph']);
             $sql .= " AND idprojetoprocesso = {$ipph} ";
         }
-        if (isset($params['nom_p_acao'])) {
+        if ( isset($params['nom_p_acao']) ) {
             $nom_p_acao = strtoupper($params['nom_p_acao']);
             $sql .= " AND nom_p_acao like '%{$nom_p_acao}%' ";
         }
-
-        if (isset($params['sidx'])) {
+        
+        if ( isset($params['sidx']) ) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-
-        if ($paginator) {
-            $page = (isset($params['page'])) ? $params['page'] : 1;
-            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
+        
+        if ( $paginator ) {
+            $page      = (isset($params['page'])) ? $params['page'] : 1;
+            $limit     = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
@@ -159,10 +159,9 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
     public function fetchCancelada()
     {
         $retorno = array(
-            '' => 'Selecione',
+            ''  => 'Selecione',
             '1' => 'Sim',
-            '2' => 'Não'
-        );
+            '2' => 'Não');
         return $retorno;
     }
 
@@ -203,7 +202,7 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
                     and pacao.id_p_acao = :id_p_acao ";
 
         $resultado = $this->_db->fetchRow($sql, array('id_p_acao' => $params['id_p_acao']));
-        $pacao = new Processo_Model_Pacao($resultado);
+        $pacao     = new Processo_Model_Pacao($resultado);
         return $pacao;
     }
 
@@ -239,7 +238,7 @@ class Processo_Model_Mapper_PAcao extends App_Model_Mapper_MapperAbstract
     			";
 
         $resultado = $this->_db->fetchRow($sql, array('id_p_acao' => $params['id_p_acao']));
-        $pacao = new Processo_Model_Pacao($resultado);
+        $pacao     = new Processo_Model_Pacao($resultado);
         return $pacao;
     }
 

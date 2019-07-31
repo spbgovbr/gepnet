@@ -134,8 +134,8 @@ interface Zend_Queue_Stomp_FrameInterface
     /**
      * Takes the current parameters and returns a Stomp Frame
      *
-     * @return string
      * @throws Zend_Queue_Exception
+     * @return string
      */
     public function toFrame();
 

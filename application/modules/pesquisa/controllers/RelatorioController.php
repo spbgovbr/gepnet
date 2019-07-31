@@ -1,11 +1,6 @@
 <?php
 
-class Pesquisa_RelatorioController extends Zend_Controller_Action
-{
-    /**
-     * @var $mpdf App_Service_MPDF
-     */
-    private $mpdf;
+class Pesquisa_RelatorioController extends Zend_Controller_Action {
 
     public function listarAction()
     {
@@ -19,11 +14,10 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
         $paginator = $service->retornaPesquisasRelatorioGrid($this->_request->getParams());
         $this->_helper->json->sendJson($paginator->toJqgrid());
     }
-
-    public function relatorioPercentualAction()
-    {
-        $request = $this->_request;
-        if ($request->isPost()) {
+    
+    public function relatorioPercentualAction() 
+    {   $request = $this->_request;
+        if($request->isPost()) {
             $params = $request->getParams();
             $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
             $totalPesquisas = $service->totalRespondidas($params);
@@ -31,11 +25,10 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
             $this->view->resultados = $service->relatorioPercentual($params);
         }
     }
-
-    public function relatorioTabeladoAction()
-    {
-        $request = $this->_request;
-        if ($request->isPost()) {
+    
+    public function relatorioTabeladoAction() 
+    {   $request = $this->_request;
+        if($request->isPost()) {
             $params = $request->getParams();
             $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
             $totalPesquisas = $service->totalRespondidas($params);
@@ -46,12 +39,11 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
             }
         }
     }
-
-    public function imprimirRelatorioAction()
-    {
-        $this->_helper->layout->disableLayout();
-        $request = $this->_request;
-        if ($request->isGet()) {
+    
+      public function imprimirRelatorioAction() {
+          $this->_helper->layout->disableLayout();
+          $request = $this->_request;
+        if($request->isGet()) {
             $params = $request->getParam('idpesquisa');
             $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
             $totalPesquisas = $service->totalRespondidas(array('idpesquisa' => $params));
@@ -59,9 +51,11 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
             $this->view->resultados = $service->relatorioPercentual(array('idpesquisa' => $params));
         }
         $relatorioPercentual = $this->view->render('relatorio/imprimir-relatorio.phtml');
-        $stylesheet = file_get_contents(APPLICATION_PATH . '/../library/MPDF57/examples/mpdfstyletables.css');
-        $css = file_get_contents(APPLICATION_PATH . '/../library/MPDF57/mpdf.css');
-        $this->mpdf = new App_Service_MPDF('UTF-8', 'A4', '', '', 20, 20, 20, 20, 20, 20);
+        define('_MPDF_PATH', '../library/MPDF57/');
+        include('../library/MPDF57/mpdf.php');
+        $stylesheet = file_get_contents('../library/MPDF57/examples/mpdfstyletables.css');
+        $css = file_get_contents('../library/MPDF57/mpdf.css');
+        $this->mpdf = new mPDF('UTF-8', 'A4', '', '', 20, 20, 20, 20, 20, 20);
         $this->mpdf->SetDisplayMode('fullpage', 'two');
         $this->mpdf->mirrorMargins = 1;
         $this->mpdf->WriteHTML($stylesheet, 1);
@@ -70,12 +64,10 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
         $this->mpdf->Output('document.pdf', 'I');
         exit();
     }
-
-    public function imprimirTabeladoAction()
-    {
-        $this->_helper->layout->disableLayout();
-        $request = $this->_request;
-        if ($request->isGet()) {
+      public function imprimirTabeladoAction() {
+          $this->_helper->layout->disableLayout();
+          $request = $this->_request;
+        if($request->isGet()) {
             $params = $request->getParam('idpesquisa');
             $service = App_Service_ServiceAbstract::getService('Pesquisa_Service_ResultadoPesquisa');
             $totalPesquisas = $service->totalRespondidas(array('idpesquisa' => $params));
@@ -86,9 +78,11 @@ class Pesquisa_RelatorioController extends Zend_Controller_Action
             }
         }
         $relatorioPercentual = $this->view->render('relatorio/imprimir-tabelado.phtml');
-        $stylesheet = file_get_contents(APPLICATION_PATH . '/../library/MPDF57/examples/mpdfstyletables.css');
-        $css = file_get_contents(APPLICATION_PATH . '/../library/MPDF57/mpdf.css');
-        $this->mpdf = new App_Service_MPDF('UTF-8', 'A4', '', '', 20, 20, 20, 20, 20, 20);
+        define('_MPDF_PATH', '../library/MPDF57/');
+        include('../library/MPDF57/mpdf.php');
+        $stylesheet = file_get_contents('../library/MPDF57/examples/mpdfstyletables.css');
+        $css = file_get_contents('../library/MPDF57/mpdf.css');
+        $this->mpdf = new mPDF('UTF-8', 'A4', '', '', 20, 20, 20, 20, 20, 20);
         $this->mpdf->SetDisplayMode('fullpage', 'two');
         $this->mpdf->mirrorMargins = 1;
         $this->mpdf->WriteHTML($stylesheet, 1);

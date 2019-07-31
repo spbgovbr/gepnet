@@ -18,10 +18,10 @@ class Acordocooperacao_Model_Mapper_Tipoacordo extends App_Model_Mapper_MapperAb
     public function insert(Default_Model_Tipoacordo $model)
     {
         $data = array(
-            "idtipoacordo" => $model->idtipoacordo,
-            "dsacordo" => $model->dsacordo,
+            "idtipoacordo"  => $model->idtipoacordo,
+            "dsacordo"      => $model->dsacordo,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -35,10 +35,10 @@ class Acordocooperacao_Model_Mapper_Tipoacordo extends App_Model_Mapper_MapperAb
     public function update(Default_Model_Tipoacordo $model)
     {
         $data = array(
-            "idtipoacordo" => $model->idtipoacordo,
-            "dsacordo" => $model->dsacordo,
+            "idtipoacordo"  => $model->idtipoacordo,
+            "dsacordo"      => $model->dsacordo,
             "idcadastrador" => $model->idcadastrador,
-            "dtcadastro" => $model->dtcadastro,
+            "dtcadastro"    => $model->dtcadastro,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
     }

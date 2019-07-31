@@ -9,8 +9,8 @@
 class Default_Model_DbTable_Pessoa extends Zend_Db_Table_Abstract
 {
 
-    protected $_schema = 'agepnet200';
-    protected $_name = 'tb_pessoa';
+    protected $_schema  = 'agepnet200';
+    protected $_name    = 'tb_pessoa';
     protected $_primary = array('idpessoa');
     protected $_dependentTables = array();
 
