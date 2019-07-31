@@ -155,7 +155,7 @@
             return jQuery.each(this, callback, args);
         },
 
-        // Determine the position of an element within 
+        // Determine the position of an element within
         // the matched set of elements
         index: function (elem) {
             var ret = -1;
@@ -299,8 +299,8 @@
                     // using cloneNode. Calling detachEvent on the
                     // clone will also remove the events from the orignal
                     // In order to get around this, we use innerHTML.
-                    // Unfortunately, this means some modifications to 
-                    // attributes in IE that are actually only stored 
+                    // Unfortunately, this means some modifications to
+                    // attributes in IE that are actually only stored
                     // as properties will not be copied (such as the
                     // the name attribute on an input).
                     var clone = this.cloneNode(true),
@@ -658,7 +658,7 @@
             if (data != undefined)
                 jQuery.cache[id][name] = data;
 
-            // Return the named cache data, or the ID for the element	
+            // Return the named cache data, or the ID for the element
             return name ?
                 jQuery.cache[id][name] :
                 id;
@@ -993,7 +993,7 @@
                             if (jQuery.nodeName(tbody[j], "tbody") && !tbody[j].childNodes.length)
                                 tbody[j].parentNode.removeChild(tbody[j]);
 
-                        // IE completely kills leading whitespace when innerHTML is used	
+                        // IE completely kills leading whitespace when innerHTML is used
                         if (/^\s/.test(elem))
                             div.insertBefore(context.createTextNode(elem.match(/^\s*/)[0]), div.firstChild);
 
@@ -1793,7 +1793,7 @@
 
     /*
  * A number of helper functions used for managing events.
- * Many of the ideas behind this code orignated from 
+ * Many of the ideas behind this code orignated from
  * Dean Edwards' addEvent library.
  */
     jQuery.event = {
@@ -1813,21 +1813,21 @@
             if (!handler.guid)
                 handler.guid = this.guid++;
 
-            // if data is passed, bind to handler 
+            // if data is passed, bind to handler
             if (data != undefined) {
-                // Create temporary function pointer to original handler 
+                // Create temporary function pointer to original handler
                 var fn = handler;
 
-                // Create unique handler function, wrapped around original handler 
+                // Create unique handler function, wrapped around original handler
                 handler = function () {
-                    // Pass arguments and context to original handler 
+                    // Pass arguments and context to original handler
                     return fn.apply(this, arguments);
                 };
 
-                // Store data in unique handler 
+                // Store data in unique handler
                 handler.data = data;
 
-                // Set the guid of unique handler to the same of original handler, so it can be removed 
+                // Set the guid of unique handler to the same of original handler, so it can be removed
                 handler.guid = fn.guid;
             }
 
@@ -2062,7 +2062,7 @@
             if (event[expando])
                 return event;
 
-            // store a copy of the original event object 
+            // store a copy of the original event object
             // and clone to set read-only properties
             var originalEvent = event;
             event = jQuery.extend({}, originalEvent);
@@ -2070,7 +2070,7 @@
             // Mark the event as fixed by jQuery.event.fix
             event[expando] = true;
 
-            // add preventDefault and stopPropagation since 
+            // add preventDefault and stopPropagation since
             // they will not work on the clone
             event.preventDefault = function () {
                 // if preventDefault exists run it on the original event

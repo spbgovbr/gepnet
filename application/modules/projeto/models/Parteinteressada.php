@@ -30,6 +30,7 @@ class Projeto_Model_Parteinteressada extends App_Model_ModelAbstract
     public $observacao = null;
     public $tppermissao = null;
     public $idparteinteressadafuncao = null;
+    public $status;
 
     /**
      * Trata os dados do form fora do padrão e popula o model. Ex: campotabelaexterno => campotabela

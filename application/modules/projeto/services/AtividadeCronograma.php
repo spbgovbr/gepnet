@@ -931,6 +931,7 @@ class Projeto_Service_AtividadeCronograma extends App_Service_ServiceAbstract
             $retorno = round(($totalConcluido / $totalGeral) * 100);
             $retorno = mb_substr($retorno, 0, 5);
         }
+
         return $retorno;
     }
 

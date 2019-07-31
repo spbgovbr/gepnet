@@ -45,7 +45,6 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $serviceGerencia = new Projeto_Service_Gerencia();
             $desatividadeconcluida = "";
             $desatividadeandamento = "";
-            $statusReport = $serviceGerencia->generateStatusReport(array('idprojeto' => $params['idprojeto']));
             $periodos = $serviceAtividadeCronograma->retornaDataPeriodo(array(
                 'idprojeto' => $params['idprojeto']
             ));
@@ -67,21 +66,6 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
                 );
                 $desatividadeconcluida = $this->getAtividadesConcluidas($dadosAtvConcluidas);
                 $desatividadeandamento = $this->getAtividadesEmAndamento($dadosAtvEmAndamento);
-//                if(count($atvConcluidas) > 0 ) {
-//                    foreach ($atvConcluidas as $sr) {
-//                        $desatividadeconcluida .= $sr['datinicio'] . " - " . $sr['datfim'] . " - " . $sr['nomatividadecronograma'] . "<BR>\n";
-//                    }
-//                }
-//
-//                if(count($atvAndamento) > 0) {
-//                    foreach ($atvAndamento as $aa) {
-//                        $desatividadeandamento .= $aa['datinicio'] . " - " . $aa['datfim'] . " - " . $aa['nomatividadecronograma'] . "<BR>\n";
-//                    }
-//                }
-//                $desatividadeconcluida = (!empty($desatividadeconcluida)) ? trim($desatividadeconcluida) : "Não existem atividades.";
-//
-//                $desatividadeandamento = (!empty($desatividadeandamento)) ? trim($desatividadeandamento) : "Não existem atividades.";
-//                Zend_Debug::dump($desatividadeandamento);die;
 
                 $desandamentoprojeto = $desandamentoprojeto ? $desandamentoprojeto : "Não existem considerações sobre o andamento do projeto.";
             }
@@ -93,7 +77,6 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $params['desatividadeconcluida'] = $desatividadeconcluida;
             $params['desatividadeandamento'] = $desatividadeandamento;
             $params['datcadastro'] = date('Y-m-d');
-            //$params['datfimprojetotendencia']   = $projeto->ultimoStatusReport->datfimprojetotendencia->toString('d/m/Y');
             $params['idprojeto'] = $params['idprojeto'];
 
             $form->getElement('idmarco')->setMultiOptions($array);
@@ -129,8 +112,6 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
 
             $params['desatividadeconcluida'] = $desatividadeconcluida;
             $params['desatividadeandamento'] = $desatividadeandamento;
-
-            //Zend_Debug::dump($params);die;
 
             $form->getElement('idmarco')->setMultiOptions($array);
             $form->populate($params);
@@ -362,9 +343,7 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         if (!empty($dados['numprocessosei'])) {
             $dados['numprocessosei'] = preg_replace('/[^0-9]/i', '', $dados['numprocessosei']);
         }
-
         $form = $this->getForm($dados);
-
         $arquivo = isset($dados['descaminho']) == false;
         if (empty($dados['descaminho'])) {
             $dados['descaminho'] = null;
@@ -379,36 +358,12 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         }
 
         if ($form->isValidPartial($dados)) {
-            $atraso = 0;
-            $domcoratraso = "success";
             $objStatusRerport = new Projeto_Model_Statusreport($form->getValues());
-
             $objProjeto = $serviceGerencia->retornaProjetoPorId(array('idprojeto' => $dados['idprojeto']));
-            $dtFimProjetoTendencia = $objStatusRerport->datfimprojetotendencia;
-            $dtAcompanhamento = $dtFimProjetoTendencia->toString('d/m/Y');
-            $dataFimValida = $objProjeto->datfim->toString('d/m/Y');
-
-            $dataFimPlanejada = $objProjeto->datfim;
             $objStatusRerport->setDatfimprojeto($objProjeto->datfim->toString('d/m/Y'));
-
-            if (!empty($dtAcompanhamento) && (!empty($dataFimValida))) {
-                if ((Zend_Date::isDate($objProjeto->datfim)) && (Zend_Date::isDate($objStatusRerport->datfimprojetotendencia))) {
-                    if (($dtFimProjetoTendencia->equals($dataFimPlanejada)) == false) {
-                        $entradaAtraso['datainicio'] = $dtFimProjetoTendencia->toString('d/m/Y');
-                        $entradaAtraso['datafim'] = $dataFimPlanejada->toString('d/m/Y');
-                        $atraso = $serviceCronograma->retornaQtdeDiasUteisEntreDatas($entradaAtraso);
-                        /* Inverte o sinal conforme Redmine 15429 */
-                        $atraso = $atraso * (-1);
-                        $atraso = ($atraso > 0 ? $atraso - 1 : $atraso + 1);
-                        $domcoratraso = $serviceGerencia->retornaDescricaoFarol($dtFimProjetoTendencia->toString('d/m/Y'),
-                            $dataFimPlanejada->toString('d/m/Y'), $objProjeto->numcriteriofarol);
-                    }
-                }
-            }
-
-            $objStatusRerport->setAtrasoProjeto($atraso);
-            $objStatusRerport->setDomCorAtraso($domcoratraso);
-            $objStatusRerport->setPercentualConcluidoMarco($serviceCronograma->retornaPercentualMarcoPorDataEProjeto($dados));
+            $objStatusRerport->setAtrasoProjeto($dados['diaatraso']);
+            $objStatusRerport->setDomCorAtraso($dados['domcoratraso']);
+            $objStatusRerport->setPercentualConcluidoMarco($objProjeto->percentualConcluidoMarco);
             $objStatusRerport->setNumeroCriterioFarol($objProjeto->numcriteriofarol);
 
             /** @var Projeto_Model_Statusreport $model */
@@ -1154,13 +1109,19 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
 
     public function getChartMarcoByRelatorio($params, $paginator)
     {
-        $service = new Projeto_Service_AtividadeCronograma();
-
-        $percentual = $service->getPercentualConcluidoMarcoByRelatorio($params);
-
         $r = new stdClass();
         $r->numcriteriofarol = 0;
-        $r->prazo = $percentual;
+
+        $retorno = $this->_mapper->retornaMarcoConcluidoProjetoByStatusReport($params);
+
+        if($retorno['numpercentualconcluidomarco'] > 0) {
+            $r->prazo = $retorno['numpercentualconcluidomarco'];
+        }else{
+            $service = new Projeto_Service_AtividadeCronograma();
+            $percentual = $service->getPercentualConcluidoMarcoByRelatorio($params);
+            $r->prazo = $percentual;
+        }
+
         return $r;
     }
 

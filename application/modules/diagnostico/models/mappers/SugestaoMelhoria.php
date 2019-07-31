@@ -259,7 +259,7 @@ class Diagnostico_Model_Mapper_SugestaoMelhoria extends App_Model_Mapper_MapperA
     public function getAllDelegacia()
     {
         $sql = "SELECT * FROM vw_comum_unidade 
-                WHERE id_tipo_organizacional in ('2400') 
+                WHERE id_tipo_organizacional in(2400) 
                 ORDER BY nome";
         $arrayDel = array();
         foreach ($this->_db->fetchAll($sql) as $d) {

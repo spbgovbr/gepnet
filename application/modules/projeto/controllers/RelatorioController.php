@@ -96,7 +96,6 @@ class Projeto_RelatorioController extends Zend_Controller_Action
                 $dias = ($dias > 0 ? $dias - 1 : $dias + 1);
             }
 
-
             $proximoMarco->idatividadecronograma = $dadosMarco['idatividadecronograma'];
             $proximoMarco->nomatividadecronograma = $dadosMarco['nomatividadecronograma'];
             $proximoMarco->datfimbaseline = $dadosMarco['datfimbaseline'];
@@ -252,13 +251,14 @@ class Projeto_RelatorioController extends Zend_Controller_Action
                     $this->view->QtAtividadesDesatualizadas = count($atividadesDesatualizadas);
                 }
             } else {
-                $statusReport = $serviceGerencia->generateStatusReport(array('idprojeto' => $this->_request->getParam('idprojeto')));
+                $statusReport = $serviceGerencia->generateStatusReport(
+                    array('idprojeto' => $this->_request->getParam('idprojeto'))
+                );
                 $statusProjeto = $serviceStatusReport->getStatusProjeto();
                 $this->view->idprojeto = $this->_request->getParam('idprojeto');
                 $this->view->ultimoStatusReport = $projeto['ultimoStatusReport'];
                 $this->view->statusreport = $statusReport;
                 $this->view->statusprojeto = $statusProjeto;
-
                 $this->view->flaaprovado = $serviceStatusReport->getTapAssinado();
                 $this->view->pgpassinado = $serviceStatusReport->getPgpAssinado();
                 $this->view->tepassinado = $serviceStatusReport->getTepAssinado();
@@ -382,7 +382,6 @@ class Projeto_RelatorioController extends Zend_Controller_Action
                 'idstatusreport' => $statusreport->idstatusreport
             ), true);
 
-            //Zend_Debug::dump($statusreport);die;
             if ($statusreport) {
                 $success = true; ###### AUTENTICATION SUCCESS
                 /** Cadastra na linha do tempo (auditoria). */
@@ -420,9 +419,6 @@ class Projeto_RelatorioController extends Zend_Controller_Action
             $datfim = $marco->datfim;
             $datfimbaseline = $marco->datfimbaseline;
 
-            //$proximoMarco = $serviceAtividadeCronograma->retornaProximoMarco(
-            //array('idprojeto' => $this->_request->getParam('idprojeto'))
-            //);
             $this->view->proximoMarco = $proximoMarco;
 
             $numSeiFormatado = (string)new App_Mask_NumeroSei($projeto->numprocessosei);
@@ -640,7 +636,7 @@ class Projeto_RelatorioController extends Zend_Controller_Action
         $custo = (!empty($linhaResumo['vlratividadet']) && $linhaResumo['vlratividadet'] > 0) ? mb_substr($linhaResumo['vlratividadet'],
                 0, -2) . '.' . mb_substr($linhaResumo['vlratividadet'], -2) : number_format(0, 2);
         $diasreal = $linhaResumo['numdiasrealizados'];
-        $descricaProjeto = substr($linhaResumo['nomcodigo'] . ' - ' . $linhaResumo['nomprojeto'], 0, 50) . '...';
+        $descricaProjeto = mb_substr($linhaResumo['nomcodigo'] . ' - ' . $linhaResumo['nomprojeto'], 0, 50, 'UTF-8') . '...';
 
         if (!empty($linhaResumo['datfimReal'])) {
             $descriaoPrazoProjeto = $service->retornaDescricaoFarol($linhaResumo['datfimReal'],
@@ -674,7 +670,6 @@ class Projeto_RelatorioController extends Zend_Controller_Action
         $this->view->linhaResumoNomProjeto = (!empty($descricaProjeto)) ? $descricaProjeto : "";
         $this->view->cronograma = $arrayCronograma;
         $this->view->projeto = $projeto;
-
 
         $cabecalho = $this->view->render('/_partials/relatorio-cabecalho.phtml');
         $cabecalhoProjeto = $this->view->render('/_partials/projeto-cabecalho.phtml');

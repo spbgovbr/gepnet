@@ -275,6 +275,33 @@ class Default_Form_Pessoa extends App_Form_FormAbstract
                     ),
                     'idpessoa' => array('hidden', array()),
                     'idcadastrador' => array('hidden', array()),
+                    'token' => array(
+                        'password',
+                        array(
+                            'label' => 'Senha',
+                            'required' => true,
+                            'filters' => array('StringTrim', 'StripTags'),
+                            'validators' => array(
+                                'NotEmpty',
+                                array('StringLength'),
+                                array(
+                                    'Db_NoRecordExists',
+                                    false,
+                                    array(
+                                        'table' => 'tb_pessoa',
+                                        'field' => 'token',
+                                        'schema' => 'agepnet200',
+                                    )
+                                )
+                            ),
+                            'attribs' => array(
+                                'size' => 10,
+                                'data-rule-required' => true,
+                                'data-rule-minlength' => 5,
+                                'data-rule-password' => true,
+                            ),
+                        )
+                    ),
                 )
             ));
         $this->getElement('submit')

@@ -11,6 +11,9 @@ header("Connection: close");
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <?php echo $this->headTitle('GEPNET 2'); ?>
+    <script type="text/javascript">
+        var base_url = "<?php echo $this->baseUrl(); ?>";
+    </script>
     <?php
     // Framework CSS
     $this->headLink()
@@ -27,11 +30,6 @@ header("Connection: close");
         ->appendStylesheet($this->baseUrl('/js/library/kendoui.web/styles/kendo.bootstrap.min.css'))
         ->appendStylesheet($this->baseUrl('/css/layout.css'), 'screen, projection');
     // Library JS
-    //echo $this->minifyHeadScript()
-    /*
-      $this->jquery()
-      ;
-     */
     $this->headScript()
         ->prependFile($this->baseUrl('/js/layout.js'))
         ->prependFile($this->baseUrl('/js/library/jquery.layout.min.js'))

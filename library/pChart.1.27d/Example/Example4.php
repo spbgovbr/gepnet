@@ -3,11 +3,11 @@
     Example4 : Showing how to draw area
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->ImportFromCSV("Sample/datawithtitle.csv", ",", array(1, 2, 3), true, 0);
 $DataSet->AddSerie("Serie2");

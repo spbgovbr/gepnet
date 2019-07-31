@@ -99,6 +99,7 @@
                 dataType: "html",
                 success: function (data) {
                     $('#domtratamento').html(data);
+                    $('#domtratamento').val($('#domtratamentooriginal').val());
                 }
             });
         } else {
@@ -107,21 +108,7 @@
         }
     });
 
-    if ($("#idtiporisco").val() > 0) {
-        $.ajax({
-            url: base_url + "/projeto/risco/combo-tratamento/id/" + $("#idtiporisco").val(),
-            type: "GET",
-            dataType: "html",
-            success: function (data) {
-                $('#domtratamento').html(data);
-                $('#domtratamento').find('option[value="' + $('#trat').val() + '"]').attr('selected', 'selected');
-            }
-        });
-
-    } else {
-        $('select[name=domtratamento]').text("Selecione");
-        $('#domtratamento').html("");
-    }
+    $("#idtiporisco").trigger("change");
 
     if ($('#flariscoativo').val() == 2) {
         $('#divdatinatividade').show();
@@ -149,6 +136,7 @@
                 <?php echo $this->form->domcorrisco ?>
                 <?php echo $this->form->idcontramedida ?>
                 <?php echo $this->form->contramedidaefetiva ?>
+                <?php echo $this->form->domtratamentooriginal ?>
                 <div class="span3">
                     <?php echo $this->form->norisco ?>
                 </div>

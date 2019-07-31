@@ -727,7 +727,7 @@ Ganttalendar.prototype.refreshGantt = function () {
     par.append(domEl);
     this.redrawTasks();
 
-    //set old scroll  
+    //set old scroll
     //console.debug("old scroll:",scrollX,scrollY)
     par.scrollTop(scrollY);
     par.scrollLeft(scrollX);

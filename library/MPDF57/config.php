@@ -201,7 +201,7 @@ $this->keep_table_proportions = false;    // If table width set > page width, fo
 $this->shrink_tables_to_fit = 1.4;    // automatically reduce fontsize in table if words would have to split ( not in CJK)
 // 0 or false to disable; value (if set) gives maximum factor to reduce fontsize
 
-$this->tableMinSizePriority = false;    // If page-break-inside:avoid but cannot fit on full page without
+$this->tableMinSizePriority = false;    // If page-break-inside:avoid but cannot fit on full page without 
 // exceeding autosize; setting this value to true will force respsect for
 // autosize, and disable the page-break-inside:avoid
 
@@ -269,7 +269,7 @@ $this->watermark_font = '';
 $this->watermarkTextAlpha = 0.2;
 $this->watermarkImageAlpha = 0.2;
 $this->watermarkImgAlphaBlend = 'Normal';
-// Accepts any PDF spec. value: Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn,
+// Accepts any PDF spec. value: Normal, Multiply, Screen, Overlay, Darken, Lighten, ColorDodge, ColorBurn, 
 // HardLight, SoftLight, Difference, Exclusion
 // "Multiply" works well for watermark image on top
 
@@ -495,7 +495,7 @@ $this->pdf_version = '1.4';
 // Hyphenation
 $this->SHYlanguages = array('en', 'de', 'es', 'fi', 'fr', 'it', 'nl', 'pl', 'ru', 'sv');    // existing defined patterns
 
-$this->default_lineheight_correction = 1.2;    // Value 1 sets lineheight=fontsize height;
+$this->default_lineheight_correction = 1.2;    // Value 1 sets lineheight=fontsize height; 
 // Value used if line-height not set by CSS (usuallly is)
 
 $this->fontsizes = array(
@@ -537,7 +537,7 @@ $this->pregASCIIchars2 = "\x{0020}-\x{002E}\x{0030}-\x{003B}?";    // [SPACE] pu
 $this->pregASCIIchars3 = "\x{0000}-\x{002E}\x{0030}-\x{003B}\x{003F}-\x{007E}";    // all except <>
 // Vietnamese - specific
 $this->pregVIETchars = "\x{01A0}\x{01A1}\x{01AF}\x{01B0}\x{1EA0}-\x{1EF1}";
-// Vietnamese -  Chars which shouldn't break string
+// Vietnamese -  Chars which shouldn't break string 
 $this->pregVIETPluschars = "\x{0000}-\x{003B}\x{003F}-\x{00FF}\x{0300}-\x{036F}\x{0102}\x{0103}\x{0110}\x{0111}\x{0128}\x{0129}\x{0168}\x{0169}\x{1EF1}-\x{1EF9}";    // omits < >
 
 // Arabic
@@ -549,15 +549,15 @@ $this->pregHEBchars = "\x{0590}-\x{05FF}\x{FB00}-\x{FB49}";    // Hebrew
 
 // INDIC
 $this->pregHIchars = "\x{0900}-\x{0963}\x{0966}-\x{097F}";    // Devanagari (Hindi) minus the common indic punctuation 0964,0965
-$this->pregBNchars = "\x{0980}-\x{09FF}";    // Bengali
+$this->pregBNchars = "\x{0980}-\x{09FF}";    // Bengali 
 $this->pregPAchars = "\x{0A00}-\x{0A7F}";    // Gurmukhi (Punjabi)
 $this->pregGUchars = "\x{0A80}-\x{0AFF}";    // Gujarati
-$this->pregORchars = "\x{0B00}-\x{0B7F}";    // Oriya
-$this->pregTAchars = "\x{0B80}-\x{0BFF}";    // Tamil
-$this->pregTEchars = "\x{0C00}-\x{0C7F}";    // Telugu
-$this->pregKNchars = "\x{0C80}-\x{0CFF}";    // Kannada
-$this->pregMLchars = "\x{0D00}-\x{0D7F}";    // Malayalam
-$this->pregSHchars = "\x{0D80}-\x{0DFF}";    // Sinhala
+$this->pregORchars = "\x{0B00}-\x{0B7F}";    // Oriya 
+$this->pregTAchars = "\x{0B80}-\x{0BFF}";    // Tamil 
+$this->pregTEchars = "\x{0C00}-\x{0C7F}";    // Telugu 
+$this->pregKNchars = "\x{0C80}-\x{0CFF}";    // Kannada 
+$this->pregMLchars = "\x{0D00}-\x{0D7F}";    // Malayalam 
+$this->pregSHchars = "\x{0D80}-\x{0DFF}";    // Sinhala 
 
 $this->pregINDextra = "\x{200B}-\x{200D}\x{0964}\x{0965}\x{0020}-\x{0022}\x{0024}-\x{002E}\x{003A}-\x{003F}\x{005B}-\x{0060}\x{007B}-\x{007E}\x{00A0}";
 // 200B-D=Zero-width joiners; 0964,0965=Generic Indic punctuation; NBSP & general punctuation (excludes # and / so can use in autoFont() )

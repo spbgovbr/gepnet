@@ -107,7 +107,7 @@ class cssmgr
         preg_match_all('/<style.*?>(.*?)<\/style>/si', $html, $m);
         if (count($m[1])) {
             for ($i = 0; $i < count($m[1]); $i++) {
-                // Remove comment tags 
+                // Remove comment tags
                 $sub = preg_replace('/(<\!\-\-|\-\->)/s', ' ', $m[1][$i]);
                 $sub = '>' . preg_replace('|/\*.*?\*/|s', ' ', $sub) . '</style>';
                 $html = str_replace('>' . $m[1][$i] . '</style>', $sub, $html);
@@ -302,7 +302,7 @@ class cssmgr
                                 $tag = $t . '>>PSEUDO>>' . $m[1];
                                 if ($m[1] == 'LEFT' || $m[1] == 'RIGHT') {
                                     $pageselectors = true;
-                                }    // used to turn on $this->mpdf->mirrorMargins 
+                                }    // used to turn on $this->mpdf->mirrorMargins
                             } else {
                                 if ($level == 2) {
                                     $tag = $t . '>>NAMED>>' . $t2;
@@ -430,7 +430,7 @@ class cssmgr
             }
         } // end of if
         //Remove CSS (tags and content), if any
-        $regexp = '/<style.*?>(.*?)<\/style>/si'; // it can be <style> or <style type="txt/css"> 
+        $regexp = '/<style.*?>(.*?)<\/style>/si'; // it can be <style> or <style type="txt/css">
         $html = preg_replace($regexp, '', $html);
 //print_r($this->CSS); exit;
 //print_r($this->cascadeCSS); exit;
@@ -487,23 +487,23 @@ class cssmgr
             else {
                 if (is_array($this->mpdf->ConvertColor($prop[0]))) {
                     $c = $prop[0];
-                } // 1px 
+                } // 1px
                 else {
                     $w = $prop[0];
                 }
             }
         } else {
             if (count($prop) == 2) {
-                // 1px solid 
+                // 1px solid
                 if (in_array($prop[1], $this->mpdf->borderstyles) || $prop[1] == 'none' || $prop[1] == 'hidden') {
                     $w = $prop[0];
                     $s = $prop[1];
-                } // solid #000000 
+                } // solid #000000
                 else {
                     if (in_array($prop[0], $this->mpdf->borderstyles) || $prop[0] == 'none' || $prop[0] == 'hidden') {
                         $s = $prop[0];
                         $c = $prop[1];
-                    } // 1px #000000 
+                    } // 1px #000000
                     else {
                         $w = $prop[0];
                         $c = $prop[1];
@@ -1474,7 +1474,7 @@ class cssmgr
             $this->_mergeFullCSS($this->cascadeCSS, $this->tablecascadeCSS[$this->tbCSSlvl], $tag, $classes,
                 $attr['ID']);
             //===============================================
-            // Cascading forward CSS e.g. "table.topic td" for this table in $this->tablecascadeCSS 
+            // Cascading forward CSS e.g. "table.topic td" for this table in $this->tablecascadeCSS
             //===============================================
             // STYLESHEET TAG e.g. table
             $this->_mergeFullCSS($this->tablecascadeCSS[$this->tbCSSlvl - 1], $this->tablecascadeCSS[$this->tbCSSlvl],
@@ -1506,7 +1506,7 @@ class cssmgr
             $this->_mergeFullCSS($this->cascadeCSS, $this->listcascadeCSS[$this->listCSSlvl], $tag, $classes,
                 $attr['ID']);
             //===============================================
-            // Cascading forward CSS e.g. "table.topic td" for this list in $this->listcascadeCSS 
+            // Cascading forward CSS e.g. "table.topic td" for this list in $this->listcascadeCSS
             //===============================================
             // STYLESHEET TAG e.g. table
             $this->_mergeFullCSS($this->listcascadeCSS[$this->listCSSlvl - 1], $this->listcascadeCSS[$this->listCSSlvl],
@@ -1618,7 +1618,7 @@ class cssmgr
                     }
                 }
             }
-            // CSS says text-decoration is not inherited, but IE7 does?? 
+            // CSS says text-decoration is not inherited, but IE7 does??
             if (isset($biilp['underline']) && $biilp['underline']) {
                 $p['TEXT-DECORATION'] = 'underline';
             }
@@ -1939,7 +1939,7 @@ class cssmgr
                 /*-- LISTS --*/
                 else {
                     if ($inherit == 'TOPLIST' || $inherit == 'LIST') { // NB looks at $this->listcascadeCSS-1 for cascading CSS
-                        // false = don't check for 'depth' 
+                        // false = don't check for 'depth'
                         $this->_set_mergedCSS($this->listcascadeCSS[$this->listCSSlvl - 1][$tag], $p, false);
                         foreach ($classes AS $class) {
                             $this->_set_mergedCSS($this->listcascadeCSS[$this->listCSSlvl - 1]['CLASS>>' . $class], $p,

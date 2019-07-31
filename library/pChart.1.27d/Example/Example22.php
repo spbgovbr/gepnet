@@ -22,7 +22,7 @@ $DataSet->SetYAxisUnit("k");
 $DataSet->SetSerieSymbol("Serie1", "Sample/Point_Asterisk.gif");
 $DataSet->SetSerieSymbol("Serie2", "Sample/Point_Cd.gif");
 
-// Initialise the graph   
+// Initialise the graph
 $Test = new pChart(700, 230);
 $Test->setFontProperties("Fonts/tahoma.ttf", 8);
 $Test->setGraphArea(65, 30, 650, 200);

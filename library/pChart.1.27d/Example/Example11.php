@@ -3,12 +3,12 @@
     Example11 : Using the pCache class
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 include("pChart/pCache.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(1, 4, 3, 2, 3, 3, 2, 1, 0, 7, 4, 3, 2, 3, 3, 5, 1, 0, 7), "Serie1");
 $DataSet->AddPoint(array(1, 4, 2, 6, 2, 3, 0, 1, 5, 1, 2, 4, 5, 2, 1, 0, 6, 4, 2), "Serie2");
@@ -17,7 +17,7 @@ $DataSet->SetAbsciseLabelSerie();
 $DataSet->SetSerieName("January", "Serie1");
 $DataSet->SetSerieName("February", "Serie2");
 
-// Cache definition 
+// Cache definition
 $Cache = new pCache();
 $Cache->GetFromCache("Graph1", $DataSet->GetData());
 

@@ -52,16 +52,6 @@ class Projeto_Service_Relatorio extends App_Service_ServiceAbstract
                 }
             }
         }
-
         return $acompanhamentos;
-//        var_dump($params);
-//        var_dump($acompanhamentos);
-//        exit;
-
-//        $arquivo = "pdf_".$params['idprojeto']. "_".$rs["codstatusreport"].".pdf";
-//        if  (file_exists($path."/".$descaminho) ) {
-//            echo " <b><A HREF ='upload/projeto/$codprojeto/$descaminho' target=_blank title='Cronograma em Project'><img src='imagem/mmp.png'  border=0></a>";
-//        }
     }
-
 }

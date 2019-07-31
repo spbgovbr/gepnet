@@ -43,6 +43,11 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
         return $this;
     }
 
+    public function getToken()
+	{
+        return $this->token;
+    }
+
     public function setToken($token)
     {
         $this->token = md5($token);
@@ -136,6 +141,7 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
             'idcadastrador' => $this->idcadastrador,
             'versaosistema' => $this->versaosistema,
             'id_unidade' => $this->id_unidade,
+			'token' => $this->getToken(),
         );
     }
 }

@@ -558,9 +558,14 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 }
             }
 
+            $data['datatividadeconcluida'] = $this->retornaDataAtividadeconcluida($data);
             if (!isset($data['numpercentualconcluido'])) {
                 $data['numpercentualconcluido'] = 0;
+                $data['datatividadeconcluida'] = null;
+            } else if (100 == $data['numpercentualconcluido'] && empty($data['datatividadeconcluida'])) {
+                $data['datatividadeconcluida'] = date('d/m/Y');
             }
+
             if (!isset($data['idelementodespesa'])) {
                 $data['idelementodespesa'] = null;
             }
@@ -2244,15 +2249,20 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
     public function retornaMarcoPorStatusReport($params)
     {
         $sql = "SELECT
-                    (SELECT COUNT(ac.idatividadecronograma) from agepnet200.tb_atividadecronograma ac
-                    where ac.idprojeto = str.idprojeto and ac.domtipoatividade = 4
-                    and ac.datfim <= str.datacompanhamento and ac.numpercentualconcluido=100) as concluido,
-                    (select count(cr.idatividadecronograma) from agepnet200.tb_atividadecronograma cr
-                    where cr.idprojeto=str.idprojeto and cr.domtipoatividade = 4) as total
-                FROM
-                    agepnet200.tb_statusreport str
-                WHERE
-                    str.idprojeto = :idprojeto and str.idstatusreport = :idstatusreport";
+                   CASE 
+                        WHEN str.numpercentualconcluidomarco IS NOT NULL THEN ROUND(str.numpercentualconcluidomarco,0)
+                        ELSE 	
+                            (SELECT COUNT(ac.idatividadecronograma) 
+                               FROM agepnet200.tb_atividadecronograma ac
+                              WHERE ac.idprojeto = str.idprojeto AND ac.domtipoatividade IN(4)
+                                AND ac.datfim <= str.datacompanhamento AND ac.numpercentualconcluido=100)			
+                   END	as concluido,
+                   (SELECT COUNT(cr.idatividadecronograma) 
+                      FROM agepnet200.tb_atividadecronograma cr 
+                     WHERE cr.idprojeto=str.idprojeto AND cr.domtipoatividade IN(4)) AS total
+                  FROM agepnet200.tb_statusreport str
+                 WHERE str.idprojeto = :idprojeto 
+                   AND str.idstatusreport = :idstatusreport";
 
         $resultado = $this->_db->fetchAll($sql, array(
             'idprojeto' => $params['idprojeto'],
@@ -4896,13 +4906,12 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
     public function retornaAtividadesConcluidas($params)
     {
         $sql = "SELECT  cron.idatividadecronograma,cron.datfim, cron.datinicio,
-	                    ARRAY_TO_STRING(ARRAY_AGG(to_char(cron.datinicio,'DD/MM/YYYY')::VARCHAR || ' - ' || to_char(cron.datfim,'DD/MM/YYYY')::VARCHAR || ' - ' || cron.nomatividadecronograma::VARCHAR || '\n'),'','*') AS registro
+	                    ARRAY_TO_STRING(ARRAY_AGG(to_char(cron.datinicio,'DD/MM/YYYY')::VARCHAR || ' - ' || to_char(cron.datfim, 'DD/MM/YYYY')::VARCHAR || ' - ' || cron.nomatividadecronograma::VARCHAR || '\n'),'','*') AS registro
                   FROM agepnet200.tb_atividadecronograma cron 
                  WHERE cron.idprojeto = :idprojeto 
                    AND cron.domtipoatividade IN (3, 4) 
                    AND cron.numpercentualconcluido = 100 
-                  -- AND cron.datfim BETWEEN TO_DATE('{$params['dtInicio']}','DD/MM/YYYY') AND TO_DATE('{$params['dtFim']}','DD/MM/YYYY') 
-                  -- AND ((:periodoFim)::DATE BETWEEN (:periodoIni)::DATE AND cron.datfim::DATE)
+                   AND cron.datatividadeconcluida BETWEEN TO_DATE('{$params['dtInicio']}', 'DD/MM/YYYY') AND TO_DATE('{$params['dtFim']}', 'DD/MM/YYYY') 
                  GROUP BY cron.idatividadecronograma, cron.datfim, cron.datinicio
                   ORDER BY cron.datfim, cron.datinicio";
 
@@ -5437,6 +5446,19 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
         return $resultado;
     }
 
+    public function retornaDataAtividadeconcluida($params)
+    {
+        $sql = 'SELECT datatividadeconcluida 
+                  FROM agepnet200.tb_atividadecronograma 
+                 WHERE idprojeto = :idprojeto 
+                   AND idatividadecronograma = :idatividadecronograma';
+
+        $resultado = $this->_db->fetchOne($sql, array(
+            'idprojeto' => (int)$params['idprojeto'],
+            'idatividadecronograma' => (int)$params['idatividadecronograma'],
+        ));
+        return $resultado;
+    }
 
     public function retornaQtdeDiasUteisEntreDatas($params)
     {

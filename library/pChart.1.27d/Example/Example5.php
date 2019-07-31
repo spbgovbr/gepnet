@@ -3,11 +3,11 @@
     Example5 : A limits graph
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(1, 4, -3, 2, -3, 3, 2, 1, 0, 7, 4, -3, 2, -3, 3, 5, 1, 0, 7), "Serie1");
 $DataSet->AddPoint(array(2, 5, 7, 5, 1, 5, 6, 4, 8, 4, 0, 2, 5, 6, 4, 5, 6, 7, 6), "Serie2");

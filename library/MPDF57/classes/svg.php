@@ -438,7 +438,7 @@ class SVG
                             $tmp = $gp + $offs[$i];
                             $gradient_info['color'][(($ns * $gp) + $i)]['offset'] = $tmp;
                         }
-                        // IF STILL INSIDE BOX OR STILL VALID 
+                        // IF STILL INSIDE BOX OR STILL VALID
                         // Point on axis to test
                         $px1 = $x1 + ($x2 - $x1) * $tmp;
                         $py1 = $y1 + ($y2 - $y1) * $tmp;
@@ -480,7 +480,7 @@ class SVG
                             $newarr[$i]['offset'] = $tmp;
                         }
 
-                        // IF STILL INSIDE BOX OR STILL VALID 
+                        // IF STILL INSIDE BOX OR STILL VALID
                         // Point on axis to test
                         $px1 = $x1 + ($x2 - $x1) * $tmp;
                         $py1 = $y1 + ($y2 - $y1) * $tmp;
@@ -724,8 +724,8 @@ class SVG
                                 $tmp = $gp + $offs[$i];
                                 $gradient_info['color'][(($ns * $gp) + $i)]['offset'] = $tmp;
                             }
-                            // IF STILL INSIDE BOX OR STILL VALID 
-                            // TEST IF circle (perimeter) intersects with 
+                            // IF STILL INSIDE BOX OR STILL VALID
+                            // TEST IF circle (perimeter) intersects with
                             // or is enclosed
                             // Point on axis to test
                             $px = $x1 + ($x0 - $x1) * $tmp;
@@ -890,10 +890,10 @@ class SVG
                 } // left edge
                 if ($y < $ymax) {
                     $y2 = $ymax;
-                } // bottom 
+                } // bottom
                 if ($y > $ymin) {
                     $y2 = $ymin;
-                } // top 
+                } // top
 
             }
         }
@@ -934,7 +934,7 @@ if ($vv[0] < 0) { $sx *= -1; } // change sign
 $sy=sqrt(pow($vv[1],2)+pow($vv[3],2));
 if ($vv[3] < 0) { $sy *= -1; } // change sign
 
-// rotation angle is 
+// rotation angle is
 $t=atan2($vv[1],$vv[3]);
 $t=atan2(-$vv[2],$vv[0]);	// Should be the same value or skew has been applied
 
@@ -1233,7 +1233,7 @@ $md = $sy * cos($t);
                         }    // CMYKa
                         $path_style .= $this->mpdf_ref->SetDColor($col, true) . ' ';    // mPDF 5.0.051
                         $style .= 'D';
-                        $lw = $this->ConvertSVGSizePixels($critere_style['stroke-width']);    // mPDF 4.4.003 
+                        $lw = $this->ConvertSVGSizePixels($critere_style['stroke-width']);    // mPDF 4.4.003
                         $path_style .= sprintf('%.3F w ', $lw * $this->kp);
                     }
                 }
@@ -1512,7 +1512,7 @@ $md = $sy * cos($t);
                 }
                 break;
             case 's': // bezier with first vertex equal first control
-                // mPDF 4.4.003 
+                // mPDF 4.4.003
                 if (!($this->lastcommand == 'C' || $this->lastcommand == 'c' || $this->lastcommand == 'S' || $this->lastcommand == 's')) {
                     $this->lastcontrolpoints = array(0, 0);
                 }
@@ -1633,7 +1633,7 @@ $md = $sy * cos($t);
 
                         $pdfx1 = ($this->xbase + ($x1 * 2 / 3));
                         $pdfy1 = ($this->ybase - ($y1 * 2 / 3));
-                        // mPDF 4.4.003 
+                        // mPDF 4.4.003
                         $pdfx2 = $pdfx1 + 1 / 3 * ($x);
                         $pdfy2 = $pdfy1 + 1 / 3 * (-$y);
 
@@ -1649,7 +1649,7 @@ $md = $sy * cos($t);
                         $pdfx2 = ($x + (($x1 - $x) * 2 / 3));
                         $pdfy2 = (-$y - (($y1 - $y) * 2 / 3));
 
-                        // mPDF 4.4.003 
+                        // mPDF 4.4.003
                         $pdfx2 = $pdfx1 + 1 / 3 * ($x - $this->xbase);
                         $pdfy2 = $pdfy1 + 1 / 3 * (-$y - $this->ybase);
 
@@ -1680,7 +1680,7 @@ $md = $sy * cos($t);
                 }
                 break;
             case 't': // bezier quadratic avec point de control simetrique a lancien point de control
-                // mPDF 4.4.003 
+                // mPDF 4.4.003
                 if (!($this->lastcommand == 'Q' || $this->lastcommand == 'q' || $this->lastcommand == 'T' || $this->lastcommand == 't')) {
                     $this->lastcontrolpoints = array(0, 0);
                 }
@@ -1695,9 +1695,9 @@ $md = $sy * cos($t);
                         $pdfx = ($this->xbase + $x);
                         $pdfy = ($this->ybase - $y);
 
-                        $pdfx1 = ($this->xbase + ($x1));    // mPDF 4.4.003 
-                        $pdfy1 = ($this->ybase - ($y1));    // mPDF 4.4.003 
-                        // mPDF 4.4.003 
+                        $pdfx1 = ($this->xbase + ($x1));    // mPDF 4.4.003
+                        $pdfy1 = ($this->ybase - ($y1));    // mPDF 4.4.003
+                        // mPDF 4.4.003
                         $pdfx2 = $pdfx1 + 1 / 3 * ($x);
                         $pdfy2 = $pdfy1 + 1 / 3 * (-$y);
 
@@ -1707,9 +1707,9 @@ $md = $sy * cos($t);
                         $pdfx = $x;
                         $pdfy = -$y;
 
-                        $pdfx1 = ($this->xbase + ($x1));    // mPDF 4.4.003 
-                        $pdfy1 = ($this->ybase - ($y1));    // mPDF 4.4.003 
-                        // mPDF 4.4.003 
+                        $pdfx1 = ($this->xbase + ($x1));    // mPDF 4.4.003
+                        $pdfy1 = ($this->ybase - ($y1));    // mPDF 4.4.003
+                        // mPDF 4.4.003
                         $pdfx2 = $pdfx1 + 1 / 3 * ($x - $this->xbase);
                         $pdfy2 = $pdfy1 + 1 / 3 * (-$y - $this->ybase);
 
@@ -1739,7 +1739,7 @@ $md = $sy * cos($t);
                 for ($i = 0; $i < $ile_argumentow; $i += 7) {
                     $rx = ($a[$i][0]);
                     $ry = ($a[$i + 1][0]);
-                    $angle = ($a[$i + 2][0]); //x-axis-rotation 
+                    $angle = ($a[$i + 2][0]); //x-axis-rotation
                     $largeArcFlag = ($a[$i + 3][0]);
                     $sweepFlag = ($a[$i + 4][0]);
                     $x2 = ($a[$i + 5][0]);
@@ -1974,12 +1974,12 @@ $md = $sy * cos($t);
             return '';
         }    // mPDF 4.4.003
 
-        $x = $this->ConvertSVGSizePixels($arguments['x'], 'x');    // mPDF 4.4.003 
-        $y = $this->ConvertSVGSizePixels($arguments['y'], 'y');    // mPDF 4.4.003 
-        $h = $this->ConvertSVGSizePixels($arguments['h'], 'y');    // mPDF 4.4.003 
-        $w = $this->ConvertSVGSizePixels($arguments['w'], 'x');    // mPDF 4.4.003 
-        $rx = $this->ConvertSVGSizePixels($arguments['rx'], 'x');    // mPDF 4.4.003 
-        $ry = $this->ConvertSVGSizePixels($arguments['ry'], 'y');    // mPDF 4.4.003 
+        $x = $this->ConvertSVGSizePixels($arguments['x'], 'x');    // mPDF 4.4.003
+        $y = $this->ConvertSVGSizePixels($arguments['y'], 'y');    // mPDF 4.4.003
+        $h = $this->ConvertSVGSizePixels($arguments['h'], 'y');    // mPDF 4.4.003
+        $w = $this->ConvertSVGSizePixels($arguments['w'], 'x');    // mPDF 4.4.003
+        $rx = $this->ConvertSVGSizePixels($arguments['rx'], 'x');    // mPDF 4.4.003
+        $ry = $this->ConvertSVGSizePixels($arguments['ry'], 'y');    // mPDF 4.4.003
 
         if ($rx > $w / 2) {
             $rx = $w / 2;
@@ -2047,10 +2047,10 @@ $md = $sy * cos($t);
 
         $kappa = 4 * (sqrt(2) - 1) / 3;
 
-        $cx = $this->ConvertSVGSizePixels($arguments['cx'], 'x');    // mPDF 4.4.003 
-        $cy = $this->ConvertSVGSizePixels($arguments['cy'], 'y');    // mPDF 4.4.003 
-        $rx = $this->ConvertSVGSizePixels($arguments['rx'], 'x');    // mPDF 4.4.003 
-        $ry = $this->ConvertSVGSizePixels($arguments['ry'], 'y');    // mPDF 4.4.003 
+        $cx = $this->ConvertSVGSizePixels($arguments['cx'], 'x');    // mPDF 4.4.003
+        $cy = $this->ConvertSVGSizePixels($arguments['cy'], 'y');    // mPDF 4.4.003
+        $rx = $this->ConvertSVGSizePixels($arguments['rx'], 'x');    // mPDF 4.4.003
+        $ry = $this->ConvertSVGSizePixels($arguments['ry'], 'y');    // mPDF 4.4.003
 
         $x1 = $cx;
         $y1 = -$cy + $ry;
@@ -2090,8 +2090,8 @@ $md = $sy * cos($t);
             if ($arguments[0] == $arguments[2] && $arguments[1] == $arguments[3]) {
                 return '';
             }    // mPDF 4.4.003  Zero length line
-            $xbase = $this->ConvertSVGSizePixels($arguments[0], 'x');    // mPDF 4.4.003 
-            $ybase = -$this->ConvertSVGSizePixels($arguments[1], 'y');    // mPDF 4.4.003 
+            $xbase = $this->ConvertSVGSizePixels($arguments[0], 'x');    // mPDF 4.4.003
+            $ybase = -$this->ConvertSVGSizePixels($arguments[1], 'y');    // mPDF 4.4.003
         }
         $path_cmd = sprintf('%.3F %.3F m ', $xbase * $this->kp, $ybase * $this->kp);
         for ($i = 2; $i < count($arguments); $i += 2) {
@@ -2099,8 +2099,8 @@ $md = $sy * cos($t);
                 $tmp_x = $arguments[$i];
                 $tmp_y = -$arguments[($i + 1)];
             } else {
-                $tmp_x = $this->ConvertSVGSizePixels($arguments[$i], 'x');    // mPDF 4.4.003 
-                $tmp_y = -$this->ConvertSVGSizePixels($arguments[($i + 1)], 'y');    // mPDF 4.4.003 
+                $tmp_x = $this->ConvertSVGSizePixels($arguments[$i], 'x');    // mPDF 4.4.003
+                $tmp_y = -$this->ConvertSVGSizePixels($arguments[($i + 1)], 'y');    // mPDF 4.4.003
             }
             $path_cmd .= sprintf('%.3F %.3F l ', $tmp_x * $this->kp, $tmp_y * $this->kp);
         }
@@ -2203,7 +2203,7 @@ $md = $sy * cos($t);
                 return '';
             }
 
-            $x = $this->ConvertSVGSizePixels($this->txt_data[0], 'x');    // mPDF 4.4.003 
+            $x = $this->ConvertSVGSizePixels($this->txt_data[0], 'x');    // mPDF 4.4.003
             $y = $this->ConvertSVGSizePixels($this->txt_data[1], 'y');    // mPDF 4.4.003
             $txt = $this->txt_data[2];
 

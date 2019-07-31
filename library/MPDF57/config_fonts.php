@@ -214,13 +214,13 @@ $this->fontdata = array(
             ),
         "hannoma" => array(
             'R' => "HAN NOM A.ttf",
-            'sip-ext' => 'hannomb',
+            'sip-ext' => 'hannomb',	
             ),
         "hannomb" => array(
             'R' => "HAN NOM B.ttf",
             ),
-
-
+    
+    
         'mingliu' => array (
             'R' => 'mingliu.ttc',
             'TTCfontID' => array (

@@ -318,6 +318,18 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
         return $resultado;
     }
 
+    public function retornaMarcoConcluidoProjetoByStatusReport($params){
+        $sql = "SELECT ROUND(COALESCE(str.numpercentualconcluidomarco,0),0)	AS numpercentualconcluidomarco
+                  FROM agepnet200.tb_statusreport str
+                 WHERE str.idprojeto = :idprojeto AND str.idstatusreport = :idstatusreport";
+
+        $resultado = $this->_db->fetchRow($sql,array(
+                'idprojeto'      => $params['idprojeto'],
+                'idstatusreport' => $params['idstatusreport'],
+        ));
+        return $resultado;
+    }
+
     public function retornaAcompanhamentosPorProjeto($params, $paginator, $array = false)
     {
         $sql = "SELECT

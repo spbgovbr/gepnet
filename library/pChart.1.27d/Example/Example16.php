@@ -3,11 +3,11 @@
     Example16 : Importing CSV data
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->ImportFromCSV("Sample/CO2.csv", ",", array(1, 2, 3, 4), true, 0);
 $DataSet->AddAllSeries();

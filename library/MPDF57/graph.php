@@ -91,7 +91,7 @@ function print_graph($g, $pgwidth)
     }    // Hide the y-axis
 
 
-    // Antialias: If true - better quality curves, but graph line will only be 1px even in PDF 300dpi
+    // Antialias: If true - better quality curves, but graph line will only be 1px even in PDF 300dpi 
     // default=true for most except line and radar
     if (isset($g['attr']['ANTIALIAS']) && ($g['attr']['ANTIALIAS'] == '' || $g['attr']['ANTIALIAS'] == 0)) {
         $antialias = false;
@@ -594,7 +594,7 @@ function print_graph($g, $pgwidth)
                 } // LINE
                 else {
                     if ($type == 'line') {
-                        // Setup the graph.
+                        // Setup the graph. 
                         $graph->img->SetMargin($pml * $k, $pmr * $k, $pmt * $k, $pmb * $k);    // LRTB
                         $graph->SetScale($axes);
                         $graph->yaxis->SetFont(FF_USERFONT, FS_NORMAL, 8 * $k);
@@ -661,7 +661,7 @@ function print_graph($g, $pgwidth)
                     } // XY or SCATTER
                     else {
                         if ($type == 'xy' || $type == 'scatter') {
-                            // Setup the graph.
+                            // Setup the graph. 
                             $graph->img->SetMargin($pml * $k, $pmr * $k, $pmt * $k, $pmb * $k);    // LRTB
                             $graph->SetScale($axes);
                             // Setup font for axis
@@ -758,7 +758,7 @@ function print_graph($g, $pgwidth)
                         } // BAR
                         else {
                             if ($type == 'bar') {
-                                // Setup the graph.
+                                // Setup the graph. 
                                 $graph->img->SetMargin($pml * $k, $pmr * $k, $pmt * $k, $pmb * $k);    // LRTB
                                 $graph->SetScale($axes);
                                 // Setup y-axis
@@ -799,7 +799,7 @@ function print_graph($g, $pgwidth)
                                     // Create the bar plot
                                     $bplot = new BarPlot($rdata);
                                     $bplot->SetWidth(0.6);    // for SINGLE??
-                                    // Setup color for gradient fill style
+                                    // Setup color for gradient fill style 
                                     if ($bandw) {
                                         $bplot->SetPattern($patterns[$series]);
                                     } else {
@@ -829,7 +829,7 @@ function print_graph($g, $pgwidth)
                                 if (count($data) == 1) {
                                     $graph->Add($group[0]);
                                 } else {
-                                    // Create the grouped bar plot
+                                    // Create the grouped bar plot 
                                     if ($stacked) {
                                         $gbplot = new AccBarPlot ($group);
                                     } else {
@@ -897,7 +897,7 @@ function print_graph($g, $pgwidth)
                                         // Create the bar pot
                                         $bplot = new BarPlot($rdata);
                                         $bplot->SetWidth(0.6);    // for SINGLE??
-                                        // Setup color for gradient fill style
+                                        // Setup color for gradient fill style 
                                         if ($bandw) {
                                             $bplot->SetPattern($patterns[$series]);
                                         } else {
@@ -927,7 +927,7 @@ function print_graph($g, $pgwidth)
                                     if (count($data) == 1) {
                                         $graph->Add($group[0]);
                                     } else {
-                                        // Create the grouped bar plot
+                                        // Create the grouped bar plot 
                                         if ($stacked) {
                                             $gbplot = new AccBarPlot ($group);
                                         } else {

@@ -358,7 +358,7 @@ class Zend_View_Helper_HeadLink extends Zend_View_Helper_Placeholder_Container_S
             return false;
         }
 
-        $href .= '?v' . App_Service_SemVer::getSemverBase();
+        $href .= '?v' . App_Service_SemVer::getSemver();
 
         if (0 < count($args)) {
             $media = array_shift($args);

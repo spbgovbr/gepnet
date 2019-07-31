@@ -148,7 +148,7 @@ class PDFBarcode
                     );    // Descender; Ascender; Full; Tracker bar heights
                     $arrcode = $this->barcode_imb($code);
                     $arrcode['nom-X'] = $xdim;
-                    $arrcode['nom-H'] = 3.68;    // Nominal value for Height of Full bar in mm (spec.) 
+                    $arrcode['nom-H'] = 3.68;    // Nominal value for Height of Full bar in mm (spec.)
                     // USPS-B-3200 Revision C = 4.623
                     // USPS-B-3200 Revision E = 3.68
                     $arrcode['quietL'] = 3.175;    // LEFT Quiet margin =  mm (spec.)

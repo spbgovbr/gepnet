@@ -70,7 +70,7 @@ class TTFontFile_Analysis EXTENDS TTFontFile
         // name - Naming table
         ///////////////////////////////////
 
-        /* Test purposes - displays table of names 
+        /* Test purposes - displays table of names
                     $name_offset = $this->seek_table("name");
                     $format = $this->read_ushort();
                     if ($format != 0 && $format != 1)	// mPDF 5.3.73
@@ -84,7 +84,7 @@ class TTFontFile_Analysis EXTENDS TTFontFile
                         $x[$i]['nameId'] = $this->read_ushort();
                         $x[$i]['length'] = $this->read_ushort();
                         $x[$i]['offset'] = $this->read_ushort();
-        
+
                         $N = '';
                         if ($x[$i]['platformId'] == 1 && $x[$i]['encodingId'] == 0 && $x[$i]['languageId'] == 0) { // Roman
                             $opos = $this->_pos;

@@ -106,7 +106,6 @@ abstract class App_Model_ModelAbstract implements IteratorAggregate, ArrayAccess
                  */
                 return $this->$method();
             }
-            //Zend_Debug::dump($this);
             return $this->$nome;
         } catch (Exception $exc) {
 

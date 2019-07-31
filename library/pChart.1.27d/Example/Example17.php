@@ -21,7 +21,7 @@ $DataSet->SetYAxisName("Call duration");
 $DataSet->SetYAxisFormat("time");
 $DataSet->SetXAxisFormat("date");
 
-// Initialise the graph   
+// Initialise the graph
 $Test = new pChart(700, 230);
 $Test->setFontProperties("Fonts/tahoma.ttf", 8);
 $Test->setGraphArea(85, 30, 650, 200);
@@ -31,7 +31,7 @@ $Test->drawGraphArea(255, 255, 255, true);
 $Test->drawScale($DataSet->GetData(), $DataSet->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2);
 $Test->drawGrid(4, true, 230, 230, 230, 50);
 
-// Draw the 0 line   
+// Draw the 0 line
 $Test->setFontProperties("Fonts/tahoma.ttf", 6);
 $Test->drawTreshold(0, 143, 55, 72, true, true);
 

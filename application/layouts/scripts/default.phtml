@@ -52,6 +52,9 @@ header("Connection: close");
         }
     </style>
     <script type="text/javascript" src="<?php echo $this->baseUrl('/js/library/pace.min.js') ?>"></script>
+    <script type="text/javascript">
+        var base_url = "<?php echo $this->baseUrl(); ?>";
+    </script>
     <?php
     // Framework CSS
     $this->headLink()

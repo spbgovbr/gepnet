@@ -1674,7 +1674,7 @@
 
 
     /* thanks jQuery UI (https://github.com/jquery/jquery-ui/blob/master/ui/jquery.ui.datepicker.js)
- * 
+ *
  * Set as calculateWeek to determine the week of the year based on the ISO 8601 definition.
  * `date` - the date to get the week for
  * `number` - the number of the week within the year that contains this date
@@ -3629,7 +3629,7 @@ function enableTextSelection(element) {
                         var d2 = realCellToDate(cell);
                         dates = [
                             d1,
-                            addMinutes(cloneDate(d1), snapMinutes), // calculate minutes depending on selection slot minutes 
+                            addMinutes(cloneDate(d1), snapMinutes), // calculate minutes depending on selection slot minutes
                             d2,
                             addMinutes(cloneDate(d2), snapMinutes)
                         ].sort(dateCompare);

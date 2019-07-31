@@ -531,6 +531,7 @@ class Projeto_Model_Mapper_Risco extends App_Model_Mapper_MapperAbstract
                     r.norisco, 
                     r.descausa, 
                     r.domtratamento, 
+                    r.domtratamento AS domtratamentooriginal,
                     to_char(datencerramentorisco, 'DD/MM/YYYY')  as datencerramentorisco,
                     r.domcorimpacto, 
                     r.domcorrisco, 

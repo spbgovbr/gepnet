@@ -64,7 +64,6 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
     public function getFormClonarProjeto($params)
     {
         $form = $this->_getForm('Projeto_Form_ClonarProjeto');
-        $form->populate($params);
         return $form;
     }
 
@@ -1151,7 +1150,9 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
     public function generateStatusReport($params)
     {
         $projeto = $this->retornaProjetoPorId($params);
+
         $resultado = $projeto->retornarDiasEstimadosEReais();
+
         $this->_mapperAtividadeCronograma = new Projeto_Model_Mapper_Atividadecronograma();
         $r = $this->_mapperAtividadeCronograma->retornaMetaDadosPorProjeto($params);
         $periodos = $this->_mapperAtividadeCronograma->retornaDatasDoPeriodo(array(
@@ -1164,14 +1165,14 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
 
             $dadosAtvConcluidas = array(
                 'idprojeto' => $params['idprojeto'],
-                'dtInicio' => $dtInicio->toString('Y-m-d'),
-                'dtFim' => $dtFim->toString('Y-m-d')
+                'dtInicio' => $dtInicio->toString('d-m-Y'),
+                'dtFim' => $dtFim->toString('d-m-Y')
             );
 
             $dadosAtvEmAndamento = array(
                 'idprojeto' => $params['idprojeto'],
-                'dtInicio' => $dtInicio->toString('Y-m-d'),
-                'dtFim' => date('Y-m-d')
+                'dtInicio' => $dtInicio->toString('d-m-Y'),
+                'dtFim' => date('d-m-Y')
             );
 
             $ac = $this->_mapperAtividadeCronograma->retornaAtividadesConcluidas($dadosAtvConcluidas);
@@ -1179,10 +1180,13 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
             $r['desatividadeandamento'] = $ae;
             $r['desatividadeconcluida'] = $ac;
         }
+
         $r['estimativas'] = $resultado;
-        $percentuais = $projeto->retornaPercentuais();
-        $r['estimativas']->numpercentualprevisto = $percentuais->numpercentualprevisto;
-        $r['estimativas']->numpercentualconcluido = $percentuais->numpercentualconcluido;
+        $r['estimativas']->numpercentualprevisto = $projeto->numpercentualprevisto;
+        $r['estimativas']->numpercentualconcluido = $projeto->numpercentualconcluido;
+        $r['estimativas']->diaatraso = $projeto->atraso;
+        $r['estimativas']->domcoratraso = $projeto->domcoratraso;
+        $r['estimativas']->numpercentualconcluido = $projeto->numpercentualconcluido;
 
         return $r;
     }

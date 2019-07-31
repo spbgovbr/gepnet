@@ -40,6 +40,7 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
                 "desobs" => $model->desobs,
                 "numfone" => $model->numfone,
                 "numcelular" => $model->numcelular,
+				"token"      => $model->getToken(),
                 "desemail" => $model->desemail,
 //                "domcargo" => $model->domcargo,
                 "idcadastrador" => $model->idcadastrador,
@@ -83,6 +84,7 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
             "numfone" => $model->numfone,
             "numcelular" => $model->numcelular,
             "desemail" => $model->desemail,
+			"token"    => $model->getToken(),
             "id_unidade" => $model->id_unidade,
             "desobs" => $model->desobs,
             "desfuncao" => $model->desfuncao,
@@ -97,6 +99,7 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
             $pks = array(
                 "idpessoa" => $model->idpessoa,
             );
+
             if (array_key_exists('domcargo', $data) && $data["domcargo"] == 'COL') {
                 $data["domcargo"] = 'OUTROS';
             }
@@ -311,7 +314,6 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
      */
     public function pesquisar($params, $paginator = false)
     {
-        // 'Carbo','Nome','Matrï¿½cula','CPF','Lotaï¿½ï¿½o','Operaï¿½ï¿½es'
         //$sql = "SELECT domcargo, nompessoa, nummatricula, numcpf,  uni.sigla as unidade, idpessoa
         $sql = "SELECT nompessoa, nummatricula, LPAD(numcpf::text, 11, '0') numcpf, idpessoa
                 FROM agepnet200.tb_pessoa pes

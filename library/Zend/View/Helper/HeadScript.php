@@ -494,7 +494,7 @@ class Zend_View_Helper_HeadScript extends Zend_View_Helper_Placeholder_Container
     public function createData($type, array $attributes, $content = null)
     {
         if (!empty($attributes) && !empty($attributes['src'])) {
-            $attributes['src'] .= '?v' . App_Service_SemVer::getSemverBase();
+            $attributes['src'] .= '?v' . App_Service_SemVer::getSemver();
         }
         $data = new stdClass();
         $data->type = $type;

@@ -116,15 +116,14 @@ $frmAttr = $this->form->getAttribs();
         <input type="hidden" id="dm" value="<?php echo $this->diasmarco; ?>">
         <input type="hidden" id="uPrazo" value="<?php echo $this->ultimoPrazo; ?>">
         <?php if ($this->acompanhamento): ?>
-            <?php /* var_dump($this->projeto); echo $this->partial('_partials/status-report-graficos.phtml',        array('acompanhamento' => $this->acompanhamento,'entregasMarcos' => $this->entregasMarcos,'proximoMarco' => $this->proximoMarco));*/ ?>
-            <?php /* var_dump($this->projeto); */
+            <?php
             echo $this->partial('_partials/status-report-acompanhamento.phtml', array(
                 'acompanhamento' => $this->acompanhamento,
                 'entregasMarcos' => $this->entregasMarcos,
                 'proximoMarco' => $this->proximoMarco,
                 'periodo' => $this->periodo
             )); ?>
-            <?php /* var_dump($this->projeto); */
+            <?php
             echo $this->partial('_partials/status-report-entregas-marcos.phtml',
                 array('entregasMarcos' => $this->entregasMarcos, 'projeto' => $this->projeto)); ?>
         <?php endif; ?>

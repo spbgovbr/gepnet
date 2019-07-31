@@ -120,7 +120,7 @@ for ($i = 32; $i < $max; ++$i) {
         while ($notthisline) {
             for ($j = 0; $j < 16; $j++) {
                 if ($mpdf->_charDefined($cw, ($i + $j))) {
-                    //if (isset($cw[($i+$j)])) {
+                    //if (isset($cw[($i+$j)])) { 
                     $notthisline = false;
                 }
             }

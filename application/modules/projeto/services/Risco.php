@@ -181,7 +181,6 @@ class Projeto_Service_Risco extends App_Service_ServiceAbstract
         $modelRisco->setFromArray($params);
         $modelRisco->idcadastrador = $this->auth->idpessoa;
         $modelRisco->flaaprovado = 1;
-        $modelRisco->domtratamento = $params['trat'];
 
         $modelContramedida->setFromArray($params);
         $db = $this->_db;
@@ -256,9 +255,11 @@ class Projeto_Service_Risco extends App_Service_ServiceAbstract
      */
     public function gerarPdf($templates = array(), $name = 'document')
     {
+        $project = Zend_Registry::get('config')->project;
+
         $this->mpdf = new App_Service_MPDF('UTF-8', 'A4-L', '', '', 15, 15, 15, 25, 10, 15, '');
         $this->mpdf->AddPage('L', '', '', '', '', 15, 15, 15, 20, 15, 15);
-        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">DPF - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">' . $project->sigla . ' - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             . 'Página {PAGENO} de {nbpg}</div>');
 
         $stylesheet = file_get_contents(APPLICATION_PATH . '/../library/MPDF57/examples/mpdfstyletables.css');

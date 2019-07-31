@@ -181,7 +181,9 @@ $(function () {
                 excluir: base_url + '/cadastro/pessoa/form-excluir',
                 detalhar: base_url + '/cadastro/pessoa/detalhar'
             };
-        params = '/idpessoa/' + r[5];
+
+        console.log(r);
+        params = '/idpessoa/' + r[3];
         //console.log(rowObject);
 
         return '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +

@@ -209,6 +209,48 @@ class Default_Form_PessoaEditar extends App_Form_FormAbstract
                             ),
                         )
                     ),
+                    'editarSenha' => array(
+                        'select',
+                        array(
+                            'label' => 'Editar Senha?',
+                            'multiOptions' => array('N' => 'Não', 'S' => 'Sim'),
+                            'required' => true,
+                            'filters' => array('StringTrim', 'StripTags'),
+                            'validators' => array('NotEmpty'),
+                            'attribs' => array(
+                                'class' => 'span2',
+                                'data-rule-required' => true,
+                            ),
+                        )
+                    ),
+                    'token' => array(
+                        'password',
+                        array(
+                            'label' => 'Senha',
+                            'required' => false,
+                            'filters' => array('StringTrim', 'StripTags'),
+                            'validators' => array(
+                                'NotEmpty',
+                                array('StringLength'),
+                                array(
+                                    'Db_NoRecordExists',
+                                    false,
+                                    array(
+                                        'table' => 'tb_pessoa',
+                                        'field' => 'token',
+                                        'schema' => 'agepnet200',
+                                    )
+                                )
+                            ),
+                            'attribs' => array(
+                                'size' => 10,
+                                'data-rule-required' => true,
+                                'data-rule-minlength' => 5,
+                                'data-rule-password' => true,
+                                'disabled' => true,
+                            ),
+                        )
+                    ),
                     'submit' => array(
                         'button',
                         array(

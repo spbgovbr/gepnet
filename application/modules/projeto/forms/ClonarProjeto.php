@@ -11,10 +11,10 @@ class Projeto_Form_ClonarProjeto extends App_Form_FormAbstract
     public function init()
     {
         //Chamada para Default Service
-        $serviceEscritorio = App_Service_ServiceAbstract::getService('Default_Service_Escritorio');
+        $serviceEscritorio = new Default_Service_Escritorio();
         $fetchPairEscritorio = $serviceEscritorio->fetchPairs();
         //Chamada para Gerencias Service
-        $serviceGerencia = App_Service_ServiceAbstract::getService('Projeto_Service_Gerencia');
+        $serviceGerencia = new Projeto_Service_Gerencia();
         //Preparando Combos para seleção
         $arrayEscritorio = $serviceGerencia->initCombo($fetchPairEscritorio, "Selecione");
 

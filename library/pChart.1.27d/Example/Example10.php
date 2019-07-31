@@ -3,11 +3,11 @@
     Example10 : A 3D exploded pie graph
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(10, 2, 3, 5, 3), "Serie1");
 $DataSet->AddPoint(array("January", "February", "March", "April", "May"), "Serie2");

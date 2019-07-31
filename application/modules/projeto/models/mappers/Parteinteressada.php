@@ -242,7 +242,7 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                 WHERE
                    idprojeto = :idprojeto
                 AND
-                   idparteinteressada = :idparteinteressada  ";
+                   idparteinteressada = :idparteinteressada and status = true  ";
 
         $resultado = $this->_db->fetchOne($sql, array(
             'idprojeto' => $params['idprojeto'],
@@ -260,10 +260,10 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                    idparteinteressada, nomparteinteressada
                 FROM
                    agepnet200.tb_parteinteressada
-                WHERE
-                   idprojeto = :idprojeto AND
-                   nomparteinteressada = lower(trim(:nomparteinteressada)) and
-                   desemail = lower(trim(:desemail))";
+                WHERE idprojeto = :idprojeto 
+                  AND nomparteinteressada = lower(trim(:nomparteinteressada)) 
+                  AND desemail = LOWER (TRIM(:desemail)) 
+                  AND status = TRUE  ";
         $resultado = $this->_db->fetchAll($sql, array(
             'idprojeto' => $params['idprojeto'],
             'nomparteinteressada' => strtolower($nomeparte),
@@ -279,10 +279,9 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                    COUNT(idparteinteressada) as total
                 FROM
                    agepnet200.tb_parteinteressada
-                WHERE
-                   idprojeto = :idprojeto
-                AND
-                   idpessoainterna = :idparteinteressada  ";
+                WHERE idprojeto = :idprojeto
+                  AND idpessoainterna = :idparteinteressada  
+                  AND status = TRUE";
 
         $resultado = $this->_db->fetchOne($sql, array(
             'idprojeto' => $params['idprojeto'],
@@ -299,8 +298,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                    COUNT(idparteinteressada) as total
                 FROM
                    agepnet200.tb_parteinteressada
-                WHERE
-                   idprojeto = {$params['idprojeto']} ";
+                WHERE idprojeto = {$params['idprojeto']} 
+                  AND status = TRUE ";
 
         if (!empty($params['idpessoainterna'])) {
             $sql .= "AND idpessoainterna = {$params['idpessoainterna']} ";
@@ -343,8 +342,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                                 pin.observacao
                         FROM
                                 agepnet200.tb_parteinteressada pin
-                        WHERE 
-                                pin.idprojeto = :idprojeto
+                        WHERE   pin.idprojeto = :idprojeto
+                          AND   pin.status = TRUE 
                         ORDER BY pin.idparteinteressada DESC";
 
         $resultado = $this->_db->fetchAll($sql, array('idprojeto' => $params['idprojeto']));
@@ -372,8 +371,13 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
         try {
 
             if (isset($params['idprojeto']) != null) {
-                $sql = "DELETE 
-                          FROM agepnet200.tb_parteinteressada
+
+                $sqlParteFuncao = "DELETE FROM agepnet200.tb_parteinteressada_funcoes 
+                               WHERE idparteinteressada = :idparteinteressada ";
+                $res = $this->_db->fetchAll($sqlParteFuncao,
+                    array('idparteinteressada' => $params['idparteinteressada']));
+
+                $sql = "UPDATE agepnet200.tb_parteinteressada SET status = FALSE 
                          WHERE idprojeto = :idprojeto 
                            AND idparteinteressada = :idparteinteressada ";
 
@@ -420,10 +424,15 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function removerPartes($params)
     {
         try {
-            $sql = "
-                DELETE from agepnet200.tb_parteinteressada
-                WHERE idprojeto = :idprojeto and 
-                idparteinteressada = :idparteinteressada ";
+
+            $sqlParteFuncao = "DELETE FROM agepnet200.tb_parteinteressada_funcoes 
+                               WHERE idparteinteressada = :idparteinteressada ";
+            $res = $this->_db->fetchAll($sqlParteFuncao,
+                array('idparteinteressada' => $params['idparteinteressada']));
+
+            $sql = "UPDATE agepnet200.tb_parteinteressada SET status = FALSE
+                     WHERE idprojeto = :idprojeto 
+                       AND idparteinteressada = :idparteinteressada ";
 
             $resultado = $this->_db->fetchAll($sql,
                 array('idprojeto' => $params['idprojeto'], 'idparteinteressada' => $params['idparteinteressada']));
@@ -501,7 +510,7 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
             $sql = "
                 SELECT nomparteinteressada, idprojeto, idpessoainterna 
                 FROM agepnet200.tb_parteinteressada 
-                WHERE idprojeto = :idprojeto
+                WHERE idprojeto = :idprojeto 
                 GROUP BY nomparteinteressada, idprojeto, idpessoainterna
                 HAVING COUNT(nomparteinteressada) > 1 ";
 
@@ -528,8 +537,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                   nomparteinteressada
                 FROM
                     agepnet200.tb_parteinteressada
-                WHERE
-                    idprojeto = :idprojeto
+                WHERE idprojeto = :idprojeto 
+                  AND status = TRUE
                 ORDER BY nomparteinteressada";
 
         return $this->_db->fetchPairs($sql, array('idprojeto' => $params['idprojeto']));
@@ -564,9 +573,9 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                               pin.observacao
                         FROM
                               agepnet200.tb_parteinteressada pin
-                        WHERE
-                              pin.idpessoainterna = :idpessoainterna
-                          AND pin.idprojeto = :idprojeto";
+                        WHERE pin.idpessoainterna = :idpessoainterna
+                          AND pin.idprojeto = :idprojeto 
+                          AND status = TRUE";
 
         $resultado = $this->_db->fetchRow($sql, array(
                 'idpessoainterna' => $params['idpessoainterna'],
@@ -633,7 +642,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                     ON pifv.idparteinteressada = pin.idparteinteressada
                   LEFT JOIN agepnet200.tb_pessoa pes 
                     ON pin.idpessoainterna = pes.idpessoa 
-                 WHERE 1 = 1 {$condition}
+                 WHERE 1 = 1 {$condition} 
+                   AND pin.status = TRUE
                  GROUP BY pin.nomparteinteressada, 
                           pin.desemail, 
                           pin.destelefone, 
@@ -660,6 +670,7 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                   LEFT JOIN agepnet200.tb_parteinteressada pin
                     ON pin.idprojeto = p.idprojeto 
                    AND pin.idpessoainterna = :idpessoa 
+                   AND pin.status = TRUE 
                  WHERE p.idprojeto = :idprojeto";
         if (isset($params['idpessoa']) && (!empty($params['idpessoa']))) {
             return $this->_db->fetchRow($sql,
@@ -670,24 +681,21 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
 
     public function buscaParteIntgeressadaByNome($noParte, $idprojeto)
     {
-        $sql = "
-                        SELECT
-                                idparteinteressada,
-                                idprojeto,
-                                nomparteinteressada,
-                                nomfuncao,
-                                destelefone,
-                                desemail,
-                                domnivelinfluencia,
-                                idcadastrador,
-                                datcadastro,
-                                idpessoainterna,
-                                observacao                   
-                        FROM
-                                agepnet200.tb_parteinteressada
-                        WHERE 
-                                idprojeto = :idprojeto 
-                                and nomparteinteressada = :noParteInteressada";
+        $sql = "SELECT idparteinteressada,
+                       idprojeto,
+                       nomparteinteressada,
+                       nomfuncao,
+                       destelefone,
+                       desemail,
+                       domnivelinfluencia,
+                       idcadastrador,
+                       datcadastro,
+                       idpessoainterna,
+                       observacao                   
+                  FROM agepnet200.tb_parteinteressada
+                 WHERE idprojeto = :idprojeto
+                   AND nomparteinteressada = :noParteInteressada 
+                   AND status = TRUE";
 
         $resultado = $this->_db->fetchAll($sql, array('noParteInteressada' => $noParte, 'idprojeto' => $idprojeto));
 
@@ -700,19 +708,19 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
         $sql = "SELECT 
                     p2.idparteinteressada,                                
                     p2.idprojeto                    
-                FROM
-                    agepnet200.tb_parteinteressada p1
-                    left join agepnet200.tb_parteinteressada p2 
-                            on p2.nomparteinteressada=p1.nomparteinteressada 		
-                            and p2.idprojeto=p1.idprojeto
-                    left join agepnet200.tb_projeto pr 
-                            on pr.idprojeto=p1.idprojeto 
-                            and pr.idtipoiniciativa = 1
-                WHERE 
-                    p1.idprojeto = :idprojeto 
-                    and p1.idparteinteressada=:idparteinteressada
-                GROUP BY p2.idparteinteressada,p2.idprojeto 
-                ORDER BY p2.idparteinteressada";
+                  FROM agepnet200.tb_parteinteressada p1
+                  JOIN agepnet200.tb_parteinteressada p2 
+                    ON p2.nomparteinteressada=p1.nomparteinteressada
+                   AND p2.idprojeto=p1.idprojeto
+                   AND p2.status = TRUE
+                  JOIN agepnet200.tb_projeto pr
+                    ON pr.idprojeto=p1.idprojeto
+                   AND pr.idtipoiniciativa = 1
+                 WHERE p1.idprojeto = :idprojeto 
+                   AND p1.idparteinteressada=:idparteinteressada 
+                   AND p1.status = TRUE
+                 GROUP BY p2.idparteinteressada,p2.idprojeto 
+                 ORDER BY p2.idparteinteressada";
 
         $resultado = $this->_db->fetchAll($sql,
             array('idparteinteressada' => $params['id'], 'idprojeto' => $params['idprojeto']));
@@ -724,10 +732,11 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function buscaParteInteressadaByProjeto($params)
     {
 
-        $sql = "select idparteinteressada "
-            . "from agepnet200.tb_parteinteressada "
-            . "where idparteinteressada =:idparteinteressada and "
-            . "idprojeto = :idprojeto";
+        $sql = "SELECT idparteinteressada 
+                  FROM agepnet200.tb_parteinteressada 
+                 WHERE idparteinteressada =:idparteinteressada 
+                   AND idprojeto = :idprojeto 
+                   AND status = TRUE";
 
         $resultado = $this->_db->fetchAll($sql,
             array('idparteinteressada' => $params['idparteinteressada'], 'idprojeto' => $params['idprojeto']));
@@ -738,10 +747,11 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function buscaParteInteressadaPermissaoProjeto($params)
     {
 
-        $sql = "select idparteinteressada "
-            . "from agepnet200.tb_permissaoprojeto "
-            . "where idparteinteressada =:idparteinteressada "
-            . "idprojeto = :idprojeto";
+        $sql = "SELECT idparteinteressada 
+                  FROM agepnet200.tb_permissaoprojeto 
+                 WHERE idparteinteressada =:idparteinteressada 
+                   AND idprojeto = :idprojeto 
+                   AND status = TRUE";
 
         $resultado = $this->_db->fetchAll($sql,
             array('idparteinteressada' => $params['idparteinteressada'], 'idprojeto' => $params['idprojeto']));
@@ -751,10 +761,11 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
 
     public function buscaParteInteressadaComunicacao($params)
     {
-        $sql = "select idresponsavel "
-            . "from agepnet200.tb_comunicacao "
-            . "where idresponsavel =:idresponsavel "
-            . "idprojeto = :idprojeto";
+        $sql = "SELECT idresponsavel 
+                  FROM agepnet200.tb_comunicacao 
+                 WHERE idresponsavel =:idresponsavel 
+                   AND idprojeto = :idprojeto 
+                   AND status = TRUE";
 
         $resultado = $this->_db->fetchAll($sql,
             array('idresponsavel' => $params['idparteinteressada'], 'idprojeto' => $params['idprojeto']));
@@ -791,15 +802,16 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                   FROM agepnet200.tb_parteinteressada pin 
                   JOIN agepnet200.tb_projeto p 
                     ON p.idprojeto = pin.idprojeto
-                  LEFT JOIN agepnet200.tb_parteinteressada_funcoes piff
-                    ON piff.idparteinteressada = pin.idparteinteressada
-                  LEFT JOIN agepnet200.tb_parteinteressadafuncao pif
-                    ON pif.idparteinteressadafuncao = piff.idparteinteressadafuncao  
-                  LEFT JOIN agepnet200.tb_parteinteressada_funcoes pifv
+                  JOIN agepnet200.tb_parteinteressada_funcoes piff
+                    ON piff.idparteinteressada = pin.idparteinteressada                    
+                  JOIN agepnet200.tb_parteinteressadafuncao pif
+                    ON pif.idparteinteressadafuncao = piff.idparteinteressadafuncao
+                  JOIN agepnet200.tb_parteinteressada_funcoes pifv
                     ON pifv.idparteinteressada = pin.idparteinteressada
-                  LEFT JOIN agepnet200.tb_pessoa pes 
+                  JOIN agepnet200.tb_pessoa pes 
                     ON pin.idpessoainterna = pes.idpessoa 
                  WHERE pin.idparteinteressada = :idparteinteressada 
+                   AND pin.status = TRUE
                  GROUP BY pin.nomparteinteressada, 
 			           pin.desemail, 
 			           pin.destelefone, 
@@ -817,9 +829,11 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
 
     public function isParteInteressada($params)
     {
-        $sql = "SELECT count(idparteinteressada) as total
+        $sql = "SELECT count(idparteinteressada) AS total
                 FROM agepnet200.tb_parteinteressada  
-                WHERE idpessoainterna=:idpessoa and idprojeto=:idprojeto";
+                WHERE idpessoainterna=:idpessoa 
+                  AND idprojeto=:idprojeto 
+                  AND status = TRUE";
 
         $resultado = $this->_db->fetchRow($sql,
             array('idpessoa' => $params['idpessoa'], 'idprojeto' => $params['idprojeto']));
@@ -831,21 +845,21 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     {
         //print_r($params); exit;
         $sql = "SELECT
-                    pin.idparteinteressada,
-                    pin.idprojeto,
-                    pin.nomparteinteressada,
-                    pin.nomfuncao,
-                    pin.destelefone,
-                    pin.desemail,
-                    pin.domnivelinfluencia,
-                    pin.idcadastrador,
-                    to_char(pin.datcadastro,'DD/MM/YYYY') AS datcadastro,
-                    pin.idpessoainterna,
-                    pin.observacao
-                  FROM
-                    agepnet200.tb_parteinteressada pin
-                  WHERE pin.idparteinteressada = :idparteinteressada
-                  and pin.idprojeto= :idprojeto";
+                        pin.idparteinteressada,
+                        pin.idprojeto,
+                        pin.nomparteinteressada,
+                        pin.nomfuncao,
+                        pin.destelefone,
+                        pin.desemail,
+                        pin.domnivelinfluencia,
+                        pin.idcadastrador,
+                        to_char(pin.datcadastro,'DD/MM/YYYY') AS datcadastro,
+                        pin.idpessoainterna,
+                        pin.observacao
+                  FROM agepnet200.tb_parteinteressada pin
+                 WHERE pin.idparteinteressada = :idparteinteressada
+                   AND pin.idprojeto= :idprojeto 
+                   AND pin.status = TRUE";
 
         $resultado = $this->_db->fetchRow($sql,
             array(
@@ -863,22 +877,22 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function buscaParteInteressadaInterna($params)
     {
         $sql = "SELECT
-                    pin.idparteinteressada,
-                    pin.idprojeto,
-                    pin.nomparteinteressada,
-                    pin.nomfuncao,
-                    pin.destelefone,
-                    pin.desemail,
-                    pin.domnivelinfluencia,
-                    pin.idcadastrador,
-                    pin.datcadastro,
-                    pin.idpessoainterna,
-                    pin.observacao,
-                    pin.tppermissao
-                  FROM
-                    agepnet200.tb_parteinteressada pin
-                  WHERE pin.idpessoainterna = :idpessoainterna
-                  and pin.idprojeto= :idprojeto";
+                        pin.idparteinteressada,
+                        pin.idprojeto,
+                        pin.nomparteinteressada,
+                        pin.nomfuncao,
+                        pin.destelefone,
+                        pin.desemail,
+                        pin.domnivelinfluencia,
+                        pin.idcadastrador,
+                        pin.datcadastro,
+                        pin.idpessoainterna,
+                        pin.observacao,
+                        pin.tppermissao
+                  FROM agepnet200.tb_parteinteressada pin
+                 WHERE pin.idpessoainterna = :idpessoainterna 
+                   AND pin.idprojeto= :idprojeto 
+                   AND pin.status = TRUE";
 
         $resultado = $this->_db->fetchRow($sql,
             array(
@@ -894,21 +908,21 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function buscaParteInteressadaExterna($params)
     {
         $sql = "SELECT
-                    pin.idparteinteressada,
-                    pin.idprojeto,
-                    pin.nomparteinteressada,
-                    pin.nomfuncao,
-                    pin.destelefone,
-                    pin.desemail,
-                    pin.domnivelinfluencia,
-                    pin.idcadastrador,
-                    pin.datcadastro,
-                    pin.idpessoainterna,
-                    pin.observacao
-                  FROM
-                    agepnet200.tb_parteinteressada pin
+                        pin.idparteinteressada,
+                        pin.idprojeto,
+                        pin.nomparteinteressada,
+                        pin.nomfuncao,
+                        pin.destelefone,
+                        pin.desemail,
+                        pin.domnivelinfluencia,
+                        pin.idcadastrador,
+                        pin.datcadastro,
+                        pin.idpessoainterna,
+                        pin.observacao
+                   FROM agepnet200.tb_parteinteressada pin
                   WHERE pin.nomparteinteressada LIKE (:nomparteinteressada)
-                  and pin.idprojeto= :idprojeto ";
+                    AND pin.idprojeto= :idprojeto 
+                    AND pin.status = TRUE";
 
         $resultado = $this->_db->fetchRow($sql,
             [
@@ -930,26 +944,25 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function retornaPartes($params, $model = false)
     {
 
-        $sql = "SELECT 	
-                    pi.idprojeto,
-                    pi.idpessoainterna,
-                    pi.nomparteinteressada,
-                    pi.idcadastrador,
-                    to_char(pi.datcadastro, 'DD/MM/YYYY') AS datcadastro,
-                    pi.desemail,
-                    pi.destelefone,
-                    pi.domnivelinfluencia,
-                    (
-                      SELECT ARRAY_TO_STRING(ARRAY_AGG(pf.nomfuncao),', ','') AS nomfuncao 
-                       FROM agepnet200.tb_parteinteressada_funcoes f 
-                       INNER JOIN agepnet200.tb_parteinteressadafuncao pf 
-                         ON pf.idparteinteressadafuncao = f.idparteinteressadafuncao 
-                       WHERE f.idparteinteressada = pi.idparteinteressada
-                    ) AS nomfuncao,
-                    pi.observacao,
-                    pi.idparteinteressada
-                FROM agepnet200.tb_parteinteressada pi                
-                WHERE pi.idprojeto = :idprojeto::INTEGER ";
+        $sql = "SELECT pi.idprojeto,
+                       pi.idpessoainterna,
+                       pi.nomparteinteressada,
+                       pi.idcadastrador,
+                       to_char(pi.datcadastro, 'DD/MM/YYYY') AS datcadastro,
+                       pi.desemail,
+                       pi.destelefone,
+                       pi.domnivelinfluencia,
+                       (SELECT ARRAY_TO_STRING(ARRAY_AGG(pf.nomfuncao),', ','') AS nomfuncao
+                          FROM agepnet200.tb_parteinteressada_funcoes f 
+                        INNER JOIN agepnet200.tb_parteinteressadafuncao pf
+                                ON pf.idparteinteressadafuncao = f.idparteinteressadafuncao
+                         WHERE f.idparteinteressada = pi.idparteinteressada
+                       ) AS nomfuncao,
+                       pi.observacao,
+                       pi.idparteinteressada
+                  FROM agepnet200.tb_parteinteressada pi                
+                 WHERE pi.idprojeto = :idprojeto::INTEGER 
+                   AND pi.status = TRUE ";
 
         if (isset($params['nomparteinteressadapesquisar']) && (!empty($params['nomparteinteressadapesquisar']))) {
             $sql .= "AND UPPER(pi.nomparteinteressada) ILIKE '%{$params['nomparteinteressadapesquisar']}%' ";
@@ -970,13 +983,9 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                 $status = new Projeto_Model_Parteinteressada($r);
                 $collection[] = $status;
             }
-
             return $collection;
-
         }
-
         return $resultado;
-
     }
 
 
@@ -1008,7 +1017,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                     pin.observacao
                   FROM
                     agepnet200.tb_parteinteressada pin                   
-                  WHERE pin.idprojeto = :idprojeto ";
+                  WHERE pin.idprojeto = :idprojeto 
+                    AND pin.status = TRUE ";
 
         if (isset($params['idpessoainterna']) && (!empty($params['idpessoainterna']))) {
             $sql .= "AND pin.idpessoainterna IN({$params['idpessoainterna']}) ";
@@ -1080,7 +1090,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                     ON pif.idparteinteressadafuncao = piff.idparteinteressadafuncao
                   LEFT JOIN agepnet200.tb_pessoa pes 
                     ON pin.idpessoainterna = pes.idpessoa 
-                 WHERE p.idprojeto = {$params['idprojeto']} {$sqlCondition} 
+                 WHERE pin.idprojeto = {$params['idprojeto']} {$sqlCondition} 
+                   AND pin.status = TRUE
                  GROUP BY pin.nomparteinteressada, 
 			           pin.desemail, 
 			           pin.destelefone, 
@@ -1106,9 +1117,11 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function parteInteressadaGrid($params, $paginator = false)
     {
         $params = array_filter($params);
-        $sql = "select pint.idparteinteressada, pint.nomparteinteressada
-                    from agepnet200.tb_parteinteressada pint
-                    where pint.idprojeto = " . (int)$params['idprojeto'];
+        $sql = "SELECT pint.idparteinteressada, pint.nomparteinteressada
+                  FROM agepnet200.tb_parteinteressada pint
+                 WHERE pint.idprojeto = " . (int)$params['idprojeto']."
+                   AND pint.status = TRUE ";
+
         if (isset($params['nomparteinteressada'])) {
             $strInteressado = strtoupper($params['nomparteinteressada']);
             $sql .= " AND upper(pint.nomparteinteressada) LIKE '%{$strInteressado}%' ";
@@ -1134,28 +1147,25 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
      */
     public function setById($params)
     {
-        $sql = "
-                        SELECT
-                                pin.idparteinteressada,
-                                pin.idprojeto,
-                                pin.nomparteinteressada,
-                                (
-                                  SELECT ARRAY_TO_STRING(ARRAY_AGG(pf.nomfuncao),', ','') AS nomfuncao 
-                                   FROM agepnet200.tb_parteinteressada_funcoes f 
-                                   INNER JOIN agepnet200.tb_parteinteressadafuncao pf 
-                                     ON pf.idparteinteressadafuncao = f.idparteinteressadafuncao 
-                                   WHERE f.idparteinteressada = pin.idparteinteressada
-                                ) AS nomfuncao,
-                                pin.destelefone,
-                                pin.desemail,
-                                pin.domnivelinfluencia,
-                                pin.idpessoainterna,
-                                pin.observacao,
-                                pin.tppermissao
-                        FROM
-                                agepnet200.tb_parteinteressada pin
-                        WHERE
-                                pin.idparteinteressada = :idparteinteressada";
+        $sql = "SELECT 
+                       pin.idparteinteressada,
+                       pin.idprojeto,
+                       pin.nomparteinteressada,
+                       (SELECT ARRAY_TO_STRING(ARRAY_AGG(pf.nomfuncao),', ','') AS nomfuncao
+                          FROM agepnet200.tb_parteinteressada_funcoes f
+                        INNER JOIN agepnet200.tb_parteinteressadafuncao pf
+                                ON pf.idparteinteressadafuncao = f.idparteinteressadafuncao
+                         WHERE f.idparteinteressada = pin.idparteinteressada
+                       ) AS nomfuncao,
+                       pin.destelefone,
+                       pin.desemail,
+                       pin.domnivelinfluencia,
+                       pin.idpessoainterna,
+                       pin.observacao,
+                       pin.tppermissao
+                  FROM agepnet200.tb_parteinteressada pin
+                 WHERE pin.idparteinteressada = :idparteinteressada 
+                   AND pin.status = TRUE ";
 
         $resultado = $this->_db->fetchAll($sql, array('idparteinteressada' => $params['idparteinteressada']));
 
@@ -1170,12 +1180,14 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
      */
     public function parteInteressadaPorAtividade($idProjeto, $idAtividade)
     {
-        $sql = " select * 
-                  from agepnet200.tb_parteinteressada
-                  where idparteinteressada = (select idparteinteressada
-                      from agepnet200.tb_atividadecronograma ac
-                      where ac.idatividadecronograma = $idAtividade 
-                      and ac.idprojeto = $idProjeto)";
+        $sql = "SELECT * 
+                  FROM agepnet200.tb_parteinteressada 
+                 WHERE idparteinteressada = (SELECT idparteinteressada
+                                               FROM agepnet200.tb_atividadecronograma ac 
+                                              WHERE ac.idatividadecronograma = $idAtividade 
+                                                AND ac.idprojeto = $idProjeto 
+                                            ) 
+                   AND status = TRUE";
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
     }
@@ -1185,9 +1197,10 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
         $sql = "SELECT
                     pin.idparteinteressada,
                     pin.idpessoainterna
-                FROM agepnet200.tb_parteinteressada pin
+                  FROM agepnet200.tb_parteinteressada pin
                 INNER JOIN agepnet200.tb_projeto p ON p.idprojeto = pin.idprojeto
-                WHERE pin.idprojeto = {$params['idprojeto']} ";
+                 WHERE pin.idprojeto = {$params['idprojeto']} 
+                   AND pin.status = TRUE";
         if (isset($params['idpessoainterna'])) {
             $sql .= " AND pin.idpessoainterna = {$params['idpessoainterna']} ";
         }
@@ -1198,17 +1211,26 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function excluirPelaInfoIniciais($params, $model = false)
     {
         try {
+            $sqlParte       = "UPDATE agepnet200.tb_parteinteressada SET status = FALSE ";
+            $sqlParteFuncao = "DELETE FROM agepnet200.tb_parteinteressada_funcoes ";
+
             if (isset($params['idprojeto']) != null) {
 
                 if ($params['nomdemandante'] == "Não detalhado" &&
                     $params['nomgerenteadjunto'] != "Não detalhado") {
 
-                    $sql = "DELETE FROM agepnet200.tb_parteinteressada
-                        WHERE idprojeto = :idprojeto
-                        AND idparteinteressada = :idDeman";
-                    $resultado = $this->_db->fetchAll($sql, array(
+                    $sqlParteDeman  = " WHERE idprojeto = :idprojeto AND idparteinteressada = :idDeman ";
+                    $sqlFuncaoDeman = " WHERE idparteinteressada = :idDeman ";
+
+                    $res = $this->_db->fetchAll($sqlParteFuncao.$sqlFuncaoDeman, array(
                             'idprojeto' => $params['idprojeto'],
-                            'idDeman' => $params['idDeman']
+                            'idDeman'   => $params['idDeman']
+                        )
+                    );
+
+                    $resultado = $this->_db->fetchAll($sqlParte.$sqlParteDeman, array(
+                            'idprojeto' => $params['idprojeto'],
+                            'idDeman'   => $params['idDeman']
                         )
                     );
                     return $resultado;
@@ -1216,11 +1238,16 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                 } elseif ($params['nomgerenteadjunto'] == "Não detalhado" &&
                     $params['nomdemandante'] != "Não detalhado") {
 
-                    $sql2 = "DELETE FROM agepnet200.tb_parteinteressada
-                    WHERE idprojeto = :idprojeto
-                    AND idparteinteressada = :idadjunto";
+                    $sqlParteAdjunto  = " WHERE idprojeto = :idprojeto AND idparteinteressada = :idadjunto";
+                    $sqlFuncaoAdjunto = " WHERE idparteinteressada = :idadjunto ";
 
-                    $resultado = $this->_db->fetchAll($sql2, array(
+                    $res = $this->_db->fetchAll($sqlParteFuncao.$sqlFuncaoAdjunto, array(
+                            'idprojeto' => $params['idprojeto'],
+                            'idDeman'   => $params['idDeman']
+                        )
+                    );
+
+                    $resultado = $this->_db->fetchAll($sqlParte.$sqlParteAdjunto, array(
                             'idprojeto' => $params['idprojeto'],
                             'idadjunto' => $params['idadjunto']
                         )
@@ -1228,13 +1255,19 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                     return $resultado;
 
                 } else {
-                    $sql3 = "DELETE FROM agepnet200.tb_parteinteressada
-                    WHERE idprojeto = :idprojeto
-                    AND idparteinteressada IN(:idDeman, :idadjunto)";
+                    $sql3       = " WHERE idprojeto = :idprojeto  AND idparteinteressada IN(:idDeman, :idadjunto) ";
+                    $sqlFuncoes = " WHERE idparteinteressada IN(:idDeman, :idadjunto) ";
 
-                    $resultado = $this->_db->fetchAll($sql3, array(
+                    $res = $this->_db->fetchAll($sqlParteFuncao.$sqlFuncoes, array(
                             'idprojeto' => $params['idprojeto'],
-                            'idDeman' => $params['idDeman'],
+                            'idDeman'   => $params['idDeman'],
+                            'idadjunto' => $params['idadjunto']
+                        )
+                    );
+
+                    $resultado = $this->_db->fetchAll($sqlParte.$sql3, array(
+                            'idprojeto' => $params['idprojeto'],
+                            'idDeman'   => $params['idDeman'],
                             'idadjunto' => $params['idadjunto']
                         )
                     );
@@ -1267,7 +1300,8 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                     ) AS nomfuncao,
                 FROM agepnet200.tb_parteinteressada pin
                 WHERE pin.idprojeto = {$idprojeto} 
-                  AND pin.idparteinteressada = {$idparteinteressada}";
+                  AND pin.idparteinteressada = {$idparteinteressada} 
+                  AND pin.status = TRUE";
 
         $return = $this->_db->fetchRow($sql);
         return $return;

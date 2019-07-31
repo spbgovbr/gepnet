@@ -3,11 +3,11 @@
     Example20 : A stacked bar graph
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(1, 4, -3, 2, -3, 3, 2, 1, 0, 7, 4), "Serie1");
 $DataSet->AddPoint(array(3, 3, -4, 1, -2, 2, 1, 0, -1, 6, 3), "Serie2");

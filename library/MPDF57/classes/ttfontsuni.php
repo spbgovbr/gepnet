@@ -1050,7 +1050,7 @@ class TTFontFile
         ///////////////////////////////////
         // CMap table
         ///////////////////////////////////
-        // cmap - Character to glyph mapping 
+        // cmap - Character to glyph mapping
         $segCount = count($range) + 1;    // + 1 Last segment has missing character 0xFFFF
         $searchRange = 1;
         $entrySelector = 0;
@@ -1098,14 +1098,14 @@ class TTFontFile
             $cmap[] = $start;    // startCode(s)
         }
         $cmap[] = 0xFFFF;    // startCode of last Segment
-        // idDelta(s) 
+        // idDelta(s)
         foreach ($range AS $start => $subrange) {
             $idDelta = -($start - $subrange[0]);
             $n += count($subrange);
             $cmap[] = $idDelta;    // idDelta(s)
         }
         $cmap[] = 1;    // idDelta of last Segment
-        // idRangeOffset(s) 
+        // idRangeOffset(s)
         foreach ($range AS $subrange) {
             $cmap[] = 0;    // idRangeOffset[segCount]  	Offset in bytes to glyph indexArray, or 0
 
@@ -1343,7 +1343,7 @@ class TTFontFile
             }
 
             // NB Currently this method never subsets characters above BMP
-            // Could set nonBMP bit according to $this->maxUni 
+            // Could set nonBMP bit according to $this->maxUni
             $nonBMP = $this->get_ushort($os2_offset + 46);
             $nonBMP = ($nonBMP & ~(1 << 9));    // Unset Bit 57 (indicates non-BMP) - for interactive forms
 
@@ -1683,7 +1683,7 @@ class TTFontFile
             $prevcid = $cid;
             $prevglidx = $glidx;
         }
-        // cmap - Character to glyph mapping 
+        // cmap - Character to glyph mapping
         $segCount = count($range) + 1;    // + 1 Last segment has missing character 0xFFFF
         $searchRange = 1;
         $entrySelector = 0;
@@ -1717,14 +1717,14 @@ class TTFontFile
             $cmap[] = $start;    // startCode(s)
         }
         $cmap[] = 0xFFFF;    // startCode of last Segment
-        // idDelta(s) 
+        // idDelta(s)
         foreach ($range AS $start => $subrange) {
             $idDelta = -($start - $subrange[0]);
             $n += count($subrange);
             $cmap[] = $idDelta;    // idDelta(s)
         }
         $cmap[] = 1;    // idDelta of last Segment
-        // idRangeOffset(s) 
+        // idRangeOffset(s)
         foreach ($range AS $subrange) {
             $cmap[] = 0;    // idRangeOffset[segCount]  	Offset in bytes to glyph indexArray, or 0
 

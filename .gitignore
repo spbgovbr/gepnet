@@ -22,3 +22,5 @@ pom.xml
 /application/data/cache/*
 /application/data/log/*
 /application/data/arquivos/*
+/logs/application.log
+/.buildpath

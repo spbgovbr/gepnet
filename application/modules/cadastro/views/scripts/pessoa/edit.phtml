@@ -19,6 +19,17 @@ $frmAttr = $this->form->getAttribs();
                     <div class="span2">
                         <?php echo $this->form->numcpf; ?>
                     </div>
+                    <?php
+                    $auth = Zend_Auth::getInstance();
+                    $user = $auth->getIdentity()->perfilAtivo->idperfil;
+                    if ($user == 1): ?>
+                        <div class="span2">
+                            <?php echo $this->form->editarSenha; ?>
+                        </div>
+                        <div class="span2">
+                            <?php echo $this->form->token; ?>
+                        </div>
+                    <?php endif;?>
                 </div>
             </fieldset>
         </div>
@@ -86,4 +97,10 @@ $frmAttr = $this->form->getAttribs();
         </div>
     </div>
 </form>
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#editarSenha").change(function () {
+            $("#token").val('').attr('disabled', $(this).val() == 'N');
+        });
+    });
+</script>

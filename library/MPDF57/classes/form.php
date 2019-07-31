@@ -123,7 +123,7 @@ class form
             }    // no export
             if ($objattr['disabled']) {
                 $objattr['color'] = array(3, 128, 128, 128);
-            }    // gray out disabled 
+            }    // gray out disabled
             if ($objattr['required']) {
                 $flags[] = 2;
             }    // required
@@ -391,7 +391,7 @@ class form
     {
         // INPUT/BUTTON as IMAGE
         if ($this->mpdf->useActiveForms) {
-            // Flags: 1 - Readonly; 3 - No export; 
+            // Flags: 1 - Readonly; 3 - No export;
             $flags = array();
             if ($objattr['disabled']) {
                 $flags[] = 1;
@@ -421,7 +421,7 @@ class form
     {
         // BUTTON
         if ($this->mpdf->useActiveForms) {
-            // Flags: 1 - Readonly; 3 - No export; 
+            // Flags: 1 - Readonly; 3 - No export;
             $flags = array();
             if ($objattr['disabled']) {
                 $flags[] = 1;
@@ -485,7 +485,7 @@ class form
     {
         // CHECKBOX
         if ($this->mpdf->useActiveForms) {
-            // Flags: 1 - Readonly; 2 - Required; 3 - No export; 
+            // Flags: 1 - Readonly; 2 - Required; 3 - No export;
             $flags = array();
             if ($objattr['disabled']) {
                 $flags[] = 1;
@@ -541,7 +541,7 @@ class form
     {
         // RADIO
         if ($this->mpdf->useActiveForms) {
-            // Flags: 1 - Readonly; 2 - Required; 3 - No export; 
+            // Flags: 1 - Readonly; 2 - Required; 3 - No export;
             $flags = array();
             if ($objattr['disabled']) {
                 $flags[] = 1;
@@ -1100,7 +1100,7 @@ class form
     ) {
         $this->SetFormButton($w, $h, $name, $value, 'js_button', $title, $flags, false, false, $background_col,
             $border_col, $noprint);
-        // pos => 1 = no caption, icon only; 0 = caption only 
+        // pos => 1 = no caption, icon only; 0 = caption only
         if ($image_id) {
             $this->form_button_icon[$this->mpdf->_escape($name)] = array(
                 'pos' => 1,

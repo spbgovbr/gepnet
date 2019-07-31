@@ -47,6 +47,13 @@ class Projeto_Form_Risco extends App_Form_FormAbstract
                         'validators' => array('Digits'),
                     )
                 ),
+                'domtratamentooriginal' => array(
+                    'hidden',
+                    array(
+                        'filters' => array('StringTrim', 'StripTags'),
+                        'validators' => array('Digits'),
+                    )
+                ),
                 'pgpass' => array(
                     'hidden',
                     array(

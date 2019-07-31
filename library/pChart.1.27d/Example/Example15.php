@@ -3,11 +3,11 @@
     Example15 : Playing with line style & pictures inclusion
 */
 
-// Standard inclusions      
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition    
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(10, 9.4, 7.7, 5, 1.7, -1.7, -5, -7.7, -9.4, -10, -9.4, -7.7, -5, -1.8, 1.7), "Serie1");
 $DataSet->AddPoint(array(0, 3.4, 6.4, 8.7, 9.8, 9.8, 8.7, 6.4, 3.4, 0, -3.4, -6.4, -8.6, -9.8, -9.9), "Serie2");
@@ -37,7 +37,7 @@ $DataSet->SetSerieName("Temperature", "Serie3");
 $DataSet->SetYAxisName("Temperature");
 $DataSet->SetXAxisName("Month of the year");
 
-// Initialise the graph   
+// Initialise the graph
 $Test = new pChart(700, 230);
 $Test->reportWarnings("GD");
 $Test->setFixedScale(-12, 12, 5);
@@ -49,7 +49,7 @@ $Test->drawGraphArea(255, 255, 255, true);
 $Test->drawScale($DataSet->GetData(), $DataSet->GetDataDescription(), SCALE_NORMAL, 150, 150, 150, true, 0, 2, true, 3);
 $Test->drawGrid(4, true, 230, 230, 230, 50);
 
-// Draw the 0 line   
+// Draw the 0 line
 $Test->setFontProperties("Fonts/tahoma.ttf", 6);
 $Test->drawTreshold(0, 143, 55, 72, true, true);
 
@@ -70,7 +70,7 @@ $Test->drawPlotGraph($DataSet->GetData(), $DataSet->GetDataDescription(), 3, 2, 
 $Test->setFontProperties("Fonts/tahoma.ttf", 8);
 $Test->writeValues($DataSet->GetData(), $DataSet->GetDataDescription(), "Serie3");
 
-// Finish the graph   
+// Finish the graph
 $Test->setFontProperties("Fonts/tahoma.ttf", 8);
 $Test->drawLegend(590, 90, $DataSet->GetDataDescription(), 255, 255, 255);
 $Test->setFontProperties("Fonts/tahoma.ttf", 10);

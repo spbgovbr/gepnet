@@ -23,7 +23,6 @@ class App_View_Helper_Header extends Zend_View_Helper_Abstract
                 %s
             </div>
         </div>';
-
     public $view;
 
     public function setView(Zend_View_Interface $view)
@@ -35,19 +34,12 @@ class App_View_Helper_Header extends Zend_View_Helper_Abstract
     {
         $project = Zend_Registry::get('config')->project;
         $versao = App_Service_SemVer::getSemver();
-
-        $url = $this->view->url(array('module' => 'default', 'controller' => 'versao', 'action' => 'index'));
-
-        if (null == Zend_Auth::getInstance()->getStorage()->read()) {
-            $url = "#";
-        }
-
         return sprintf(
             $this->template,
             $project->orgao,
             $project->gestor,
             $project->sistema,
-            $url,
+            $this->view->url(array('module' => 'default', 'controller' => 'versao', 'action' => 'index')),
             $versao,
             $this->labelColor()
         );

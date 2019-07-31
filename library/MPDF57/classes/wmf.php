@@ -23,7 +23,7 @@ class wmf
         }
         // check for Aldus placeable metafile header
         $key = unpack('Lmagic', substr($data, 0, 4));
-        $p = 18;  // WMF header 
+        $p = 18;  // WMF header
         if ($key['magic'] == (int)0x9AC6CDD7) {
             $p += 22;
         } // Aldus header

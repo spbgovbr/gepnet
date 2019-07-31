@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <buildpath>
+<<<<<<< Updated upstream
 	<buildpathentry kind="src" path=""/>
+=======
+	<buildpathentry kind="src" path="application"/>
+	<buildpathentry kind="src" path="library/App"/>
+	<buildpathentry kind="src" path="library/MPDF57"/>
+	<buildpathentry kind="src" path="library/Twitter/Bootstrap"/>
+	<buildpathentry kind="src" path="library/Zend"/>
+	<buildpathentry kind="src" path="library/ZendX"/>
+	<buildpathentry kind="src" path="library/ZFDebug/Controller/Plugin"/>
+	<buildpathentry kind="src" path="public"/>
+>>>>>>> Stashed changes
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 </buildpath>

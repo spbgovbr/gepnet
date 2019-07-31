@@ -185,7 +185,7 @@ class grad
                 // do nothing - coords used as they are
             }
 
-            // If both a <point> and <angle> are defined, the gradient axis starts from the point and runs along the angle. The end point is 
+            // If both a <point> and <angle> are defined, the gradient axis starts from the point and runs along the angle. The end point is
             // defined as before - in this case start points may not be in corners, and axis may not correctly fall in the right quadrant.
             // NO end points (Angle defined & Start points)
             else {
@@ -285,8 +285,8 @@ class grad
                     }
                 }
 
-                // -moz If the first parameter is only an <angle>, the gradient axis starts from the box's corner that would ensure the 
-                // axis goes through the box. The axis runs along the specified angle. The end point of the axis is defined such that the 
+                // -moz If the first parameter is only an <angle>, the gradient axis starts from the box's corner that would ensure the
+                // axis goes through the box. The axis runs along the specified angle. The end point of the axis is defined such that the
                 // farthest corner of the box from the starting point is perpendicular to the gradient axis at that point.
                 // NO end points or Start points (Angle defined)
                 else {
@@ -388,8 +388,8 @@ class grad
                             }
                         }
                     }
-                    // -moz If the first parameter to the gradient function is only a <point>, the gradient axis starts from the specified point, 
-                    // and ends at the point you would get if you rotated the starting point by 180 degrees about the center of the box that the 
+                    // -moz If the first parameter to the gradient function is only a <point>, the gradient axis starts from the specified point,
+                    // and ends at the point you would get if you rotated the starting point by 180 degrees about the center of the box that the
                     // gradient is to be applied to.
                     // NO angle and NO end points (Start points defined)
                     else {
@@ -418,7 +418,7 @@ class grad
                             }
                         }
 
-                        // -moz If neither a <point> or <angle> is specified, i.e. the entire function consists of only <stop> values, the gradient 
+                        // -moz If neither a <point> or <angle> is specified, i.e. the entire function consists of only <stop> values, the gradient
                         // axis starts from the top of the box and runs vertically downwards, ending at the bottom of the box.
                         else {    // default values T2B
                             // All values are set in parseMozGradient - so won't appear here
@@ -531,7 +531,7 @@ class grad
                         }    // to prevent error
                         $coords[4] = $radius;
                     } // -moz If entire function consists of only <stop> values
-                    else {    // default values 
+                    else {    // default values
                         // All values are set in parseMozGradient - so won't appear here
                         $coords = array(0.5, 0.5, 0.5, 0.5);    // default for radial gradient (centred)
                     }
@@ -691,7 +691,7 @@ class grad
 
     function parseMozGradient($bg)
     {
-        //	background[-image]: -moz-linear-gradient(left, #c7Fdde 20%, #FF0000 ); 
+        //	background[-image]: -moz-linear-gradient(left, #c7Fdde 20%, #FF0000 );
         //	background[-image]: linear-gradient(left, #c7Fdde 20%, #FF0000 ); // CSS3
         if (preg_match('/repeating-/', $bg)) {
             $repeat = true;
@@ -1100,14 +1100,14 @@ class grad
             if (strtoupper(substr($bgr[0], 0, 1)) == 'L' && count($bgr) == 7) {  // linear
                 $g['type'] = 2;
                 //$coords = array(0,0,1,1 );	// 0 0 1 0 or 0 1 1 1 is L 2 R; 1,1,0,1 is R2L; 1,1,1,0 is T2B; 1,0,1,1 is B2T
-                // Linear: $coords - array of the form (x1, y1, x2, y2) which defines the gradient vector (see linear_gradient_coords.jpg). 
+                // Linear: $coords - array of the form (x1, y1, x2, y2) which defines the gradient vector (see linear_gradient_coords.jpg).
                 //    The default value is from left to right (x1=0, y1=0, x2=1, y2=0).
                 $g['coords'] = array($bgr[3], $bgr[4], $bgr[5], $bgr[6]);
             } else {
                 if (count($bgr) == 8) {    // radial
                     $g['type'] = 3;
-                    // Radial: $coords - array of the form (fx, fy, cx, cy, r) where (fx, fy) is the starting point of the gradient with color1, 
-                    //    (cx, cy) is the center of the circle with color2, and r is the radius of the circle (see radial_gradient_coords.jpg). 
+                    // Radial: $coords - array of the form (fx, fy, cx, cy, r) where (fx, fy) is the starting point of the gradient with color1,
+                    //    (cx, cy) is the center of the circle with color2, and r is the radius of the circle (see radial_gradient_coords.jpg).
                     //    (fx, fy) should be inside the circle, otherwise some areas will not be defined
                     $g['coords'] = array($bgr[3], $bgr[4], $bgr[5], $bgr[6], $bgr[7]);
                 }

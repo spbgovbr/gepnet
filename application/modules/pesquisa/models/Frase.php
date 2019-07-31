@@ -16,7 +16,7 @@ class Pesquisa_Model_Frase extends App_Model_ModelAbstract
     public $idescritorio = null;
     public $idcadastrador = null;
 
-    //dom tipo frase 
+    //dom tipo frase
     const UMA_ESCOLHA = 1;
     const MULTIPLA_ESCOLHA = 2;
     const DESCRITIVO = 3;

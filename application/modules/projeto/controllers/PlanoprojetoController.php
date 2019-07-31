@@ -56,7 +56,7 @@ class Projeto_PlanoprojetoController extends Zend_Controller_Action
         $arrayCronograma = $arrayCronograma['cronograma'];
         $linhaResumo = $projeto;
         $numSeiFormatado = (string)new App_Mask_NumeroSei($projeto['numprocessosei']);
-        $descricaProjeto = mb_substr($linhaResumo['nomcodigo'] . ' - ' . $linhaResumo['nomprojeto'], 0, 48) . '...';
+        $descricaProjeto = mb_substr($linhaResumo['nomcodigo'] . ' - ' . $linhaResumo['nomprojeto'], 0, 50, 'UTF-8') . '...';
         $custo = (!empty($projeto['vlratividadet']) && $projeto['vlratividadet'] > 0) ? mb_substr($projeto['vlratividadet'],
                 0, -2) . '.' . mb_substr($projeto['vlratividadet'], -2) : number_format(0, 2);
         $diasreal = $projeto['numdiasrealizados'];

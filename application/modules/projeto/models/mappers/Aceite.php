@@ -194,7 +194,7 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
                    AND acm.idprojeto = aac.idprojeto 
                   LEFT JOIN  agepnet200.tb_parteinteressada pi 
                     ON pi.idparteinteressada = ac.idparteinteressada 
-                 WHERE aac.idprojeto = {$idprojeto }";
+                 WHERE aac.idprojeto = {$idprojeto}";
 
         if ((@trim($params['idaceite']) != "") && (@trim($params['identrega']) != "")) {
             $identrega = $params['identrega'];

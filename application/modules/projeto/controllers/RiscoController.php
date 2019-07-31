@@ -36,7 +36,7 @@ class  Projeto_RiscoController extends Zend_Controller_Action
 
     public function cadastrarAction()
     {
-        $service = App_Service_ServiceAbstract::getService('Projeto_Service_Risco');
+        $service = new Projeto_Service_Risco();
         $request = $this->getRequest();
         $formRisco = $service->getFormRisco($request);
         $success = false;

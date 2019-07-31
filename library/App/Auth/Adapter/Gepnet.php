@@ -83,28 +83,19 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      */
     protected function validaToken($token)
     {
-        /************************/
-        //GRSF
-        $validaDesenv = array();
-        $validaDesenv[0] = array('ZEND_AUTH_CREDENTIAL_MATCH' => 1);
-
-        return $validaDesenv;
-        /************************/
-
-
-        //$resource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('multidb');
-        $resource = $this->_zendDb = Zend_Db_Table_Abstract::getDefaultAdapter();;
-        //$db = $resource->getDb('EGPE_MIGRACAO');
+        $resource = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getPluginResource('multidb');
+        $db = $resource->getDb('dpf_oracle');
         $resultadoUsuario = $this->getUsuario();
 
         if (count($resultadoUsuario) <= 0) {
             return $resultadoUsuario;
         }
 
-        $sql = "SELECT 1 AS ZEND_AUTH_CREDENTIAL_MATCH
-                FROM agepnet200.tb_pessoa t
-                WHERE t.token = :token";
-        $resultado = $resource->fetchAll($sql, array('token' => $token));
+        $sql = "select 1 AS zend_auth_credential_match
+                from 
+                    acseg300.tb_sso_login t
+                where t.DS_SSO_GUID = :token";
+        $resultado = $db->fetchAll($sql, array('token' => $token));
 
         return $resultado;
     }
@@ -118,13 +109,6 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
      */
     public function authenticate()
     {
-        /*******************/
-        //GRSF
-        //$this->_params['cpf'] = 61992704104;
-        //$this->_params['id'] = 30601;
-        //$this->_params['nome'] = '"WENDELL LUIZ FERREIRA LINO"';
-        /*******************/
-
         $this->_authenticateSetup();
         $token = $this->_params['token'];
         $resultIdentities = $this->validaToken($token);
@@ -145,6 +129,10 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
 
         if ($this->_params['token'] == '') {
             $exception = 'Token inválido';
+        } elseif ($this->_params['cpf'] == '') {
+            $exception = 'Acesso negado';
+        } elseif ($this->_params['nome'] == '') {
+            $exception = 'Nome da pessoa não informado';
         }
 
         if (null !== $exception) {
@@ -284,10 +272,10 @@ class App_Auth_Adapter_Gepnet implements Zend_Auth_Adapter_Interface
                     numfone, numcelular, desemail, nummatricula,
                     id_unidade, flaagenda, domcargo
                 from agepnet200.tb_pessoa pes
-                where pes.desemail = :desemail";
+                where pes.numcpf = :numcpf";
 
         $resultado = $this->_zendDb->fetchRow($sql, array(
-            'desemail' => $this->_params['desemail']
+            'numcpf' => $this->_params['cpf']
         ));
         return $resultado;
     }

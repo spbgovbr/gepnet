@@ -3,11 +3,11 @@
     Example9 : Showing how to use labels
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(0, 70, 70, 0, 0, 70, 70, 0, 0, 70), "Serie1");
 $DataSet->AddPoint(array(0.5, 2, 4.5, 8, 12.5, 18, 24.5, 32, 40.5, 50), "Serie2");

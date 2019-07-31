@@ -52,7 +52,9 @@ class Default_Service_Impressao extends App_Service_ServiceAbstract
 
 //        $this->mpdf->SetHTMLHeader($this->header);
 //        $this->mpdf->SetHTMLFooter($this->footer);
-        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">DPF - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+        $project = Zend_Registry::get('config')->project;
+
+        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">' . $project->sigla . ' - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             . 'Página {PAGENO} de {nbpg}</div>');
 
         if ($orientation == "L") {

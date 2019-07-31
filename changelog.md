@@ -1,8 +1,22 @@
-# 3.1.16
+# 3.1.19
 
 #### Data
 
-> * Gerado em 07/06/2019
+> * Gerado em 31/07/2019
+
+#### Correções
+
+> * RDM#34995 - Referente redmine #34456;
+> * RDM#35006 - Relatório do projetos com informações divergentes entre RESUMO DO PROJETO e o restante do relatório;
+> * RDM#35682 - Travamento do sistema quando da geração de novo relatório;
+> * RDM#36056 - Erro na geração do relatório.
+
+
+# 3.1.17
+
+#### Data
+
+> * Gerado em 25/06/2019
 
 #### Correções
 

@@ -4,18 +4,20 @@ $offset = 60 * 15;
 @header("Cache-Control: max-age=$offset, must-revalidate");
 
 $posServer = strpos($_SERVER['SERVER_NAME'], "localhost");
+$project = Zend_Registry::get('config')->project;
+
 if ($posServer === false) {
-    $brasao = $this->baseUrl('/img/brasao_fundobranco.png');
+    $brasao = $this->baseUrl('/img/' . $project->logo);
 } else {
-    $brasao = 'img/brasao_fundobranco.png';
+    $brasao = 'img/' . $project->logo;
 }
 ?>
 <div id="cabecalho">
     <div class="span9">
         <div align='left' style="float:left;">
             <img src="<?php echo $brasao; ?>" style="float:left;"/>
-            <br>MINIST&Eacute;RIO DA JUSTI&Ccedil;A
-            <br>POLÍCIA FEDERAL
+            <br><?php echo $project->orgao; ?>
+            <br><?php echo $project->gestor; ?>
             <HR>
         </div>
         <div class="span6" style="float: left; margin-top: 10px">

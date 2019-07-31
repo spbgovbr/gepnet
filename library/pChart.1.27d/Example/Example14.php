@@ -3,11 +3,11 @@
     Example14: A smooth flat pie graph
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(10, 2, 3, 5, 3), "Serie1");
 $DataSet->AddPoint(array("Jan", "Feb", "Mar", "Apr", "May"), "Serie2");

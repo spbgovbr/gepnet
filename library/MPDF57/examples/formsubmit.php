@@ -67,7 +67,7 @@ if (count($_POST)) {
             // To display whole XFDF
             //$postdata = preg_replace("/[\n\r]/", "", $postdata);
             //$postdata = preg_replace('/>\s*</', ">\n<", $postdata);
-            //echo nl2br(htmlspecialchars($postdata)); 
+            //echo nl2br(htmlspecialchars($postdata));
         } else {
             echo "No form data detected";
         }

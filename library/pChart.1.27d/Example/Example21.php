@@ -3,11 +3,11 @@
     Example21 : Playing with background
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array(9, 9, 9, 10, 10, 11, 12, 14, 16, 17, 18, 18, 19, 19, 18, 15, 12, 10, 9), "Serie1");
 $DataSet->AddPoint(array(10, 11, 11, 12, 12, 13, 14, 15, 17, 19, 22, 24, 23, 23, 22, 20, 18, 16, 14), "Serie2");

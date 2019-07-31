@@ -3,11 +3,11 @@
     Example8 : A radar graph
 */
 
-// Standard inclusions   
+// Standard inclusions
 include("pChart/pData.class");
 include("pChart/pChart.class");
 
-// Dataset definition 
+// Dataset definition
 $DataSet = new pData;
 $DataSet->AddPoint(array("Memory", "Disk", "Network", "Slots", "CPU"), "Label");
 $DataSet->AddPoint(array(1, 2, 3, 4, 3), "Serie1");
