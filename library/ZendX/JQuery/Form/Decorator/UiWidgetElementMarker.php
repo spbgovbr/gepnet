@@ -27,5 +27,6 @@
  * switching ZendX_JQuery_Form_Decorator_UiWidgetElement with Zend_Form_Decorator_ViewHelper
  * without noticing that this is not possible.
  */
-interface ZendX_JQuery_Form_Decorator_UiWidgetElementMarker {
+interface ZendX_JQuery_Form_Decorator_UiWidgetElementMarker
+{
 }

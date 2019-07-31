@@ -5,10 +5,10 @@ $frmAttr = $this->form->getAttribs();
 <div class="row">
     <div class="portlet portlet-marron span8">
         <div class="content">
-            <form id="<?php echo $frmAttr['id']; ?>" 
-                  name="<?php echo $frmAttr['id']; ?>" 
-                  enctype="<?php echo $frmAttr['enctype']; ?>" 
-                  action="<?php echo $this->form->getAction(); ?>" 
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  enctype="<?php echo $frmAttr['enctype']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
                   method="<?php echo $frmAttr['method']; ?>">
                 <div class="row">
                     <div class="span8">
@@ -68,6 +68,12 @@ $frmAttr = $this->form->getAttribs();
                     </div>
                     <div class="span">
                         <?php echo $this->form->idescritorio; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                        obrigatório
                     </div>
                 </div>
         </div>

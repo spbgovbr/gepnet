@@ -1,20 +1,21 @@
 <?php
+
 class App_View_Helper_SendDojoForm extends Zend_View_Helper_Abstract
 {
     public $view;
- 
+
     public function setView(Zend_View_Interface $view)
     {
         $this->view = $view;
     }
- 
+
     /**
      * Validate dojo enabled form onSubmit.
      *
-     * @param  string $formId
+     * @param string $formId
      * @return void
      */
-    public function SendDojoForm($formId,$formUrl)
+    public function SendDojoForm($formId, $formUrl)
     {
         $this->view->inlineScript()->captureStart();
         $config = 'config_' . $formId;

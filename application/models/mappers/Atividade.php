@@ -18,20 +18,20 @@ class Default_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Atividade $model)
     {
         $data = array(
-            "idatividade"            => $model->idatividade,
-            "nomatividade"           => $model->nomatividade,
-            "desatividade"           => $model->desatividade,
-            "idcadastrador"          => $model->idcadastrador,
-            "idresponsavel"          => $model->idresponsavel,
-            "datcadastro"            => $model->datcadastro,
-            "datatualizacao"         => $model->datatualizacao,
-            "datinicio"              => $model->datinicio,
-            "datfimmeta"             => $model->datfimmeta,
-            "datfimreal"             => $model->datfimreal,
-            "flacontinua"            => $model->flacontinua,
+            "idatividade" => $model->idatividade,
+            "nomatividade" => $model->nomatividade,
+            "desatividade" => $model->desatividade,
+            "idcadastrador" => $model->idcadastrador,
+            "idresponsavel" => $model->idresponsavel,
+            "datcadastro" => $model->datcadastro,
+            "datatualizacao" => $model->datatualizacao,
+            "datinicio" => $model->datinicio,
+            "datfimmeta" => $model->datfimmeta,
+            "datfimreal" => $model->datfimreal,
+            "flacontinua" => $model->flacontinua,
             "numpercentualconcluido" => $model->numpercentualconcluido,
-            "flacancelada"           => $model->flacancelada,
-            "idescritorio"           => $model->idescritorio,
+            "flacancelada" => $model->flacancelada,
+            "idescritorio" => $model->idescritorio,
         );
         $this->getDbTable()->insert($data);
     }
@@ -45,22 +45,21 @@ class Default_Model_Mapper_Atividade extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Atividade $model)
     {
         $data = array(
-            "idatividade"            => $model->idatividade,
-            "nomatividade"           => $model->nomatividade,
-            "desatividade"           => $model->desatividade,
-            "idcadastrador"          => $model->idcadastrador,
-            "idresponsavel"          => $model->idresponsavel,
-            "datcadastro"            => $model->datcadastro,
-            "datatualizacao"         => $model->datatualizacao,
-            "datinicio"              => $model->datinicio,
-            "datfimmeta"             => $model->datfimmeta,
-            "datfimreal"             => $model->datfimreal,
-            "flacontinua"            => $model->flacontinua,
+            "idatividade" => $model->idatividade,
+            "nomatividade" => $model->nomatividade,
+            "desatividade" => $model->desatividade,
+            "idcadastrador" => $model->idcadastrador,
+            "idresponsavel" => $model->idresponsavel,
+            "datcadastro" => $model->datcadastro,
+            "datatualizacao" => $model->datatualizacao,
+            "datinicio" => $model->datinicio,
+            "datfimmeta" => $model->datfimmeta,
+            "datfimreal" => $model->datfimreal,
+            "flacontinua" => $model->flacontinua,
             "numpercentualconcluido" => $model->numpercentualconcluido,
-            "flacancelada"           => $model->flacancelada,
-            "idescritorio"           => $model->idescritorio,
+            "flacancelada" => $model->flacancelada,
+            "idescritorio" => $model->idescritorio,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

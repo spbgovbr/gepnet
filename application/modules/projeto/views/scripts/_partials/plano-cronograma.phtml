@@ -1,14 +1,14 @@
 <style type="text/css">
-    
+
     td {
-        border:0.1mm solid #220044 !important;
+        border: 0.1mm solid #220044 !important;
         background-clip: border-box;
     }
-    
-    ol{
-         border:0.1mm solid #220044 !important;
+
+    ol {
+        border: 0.1mm solid #220044 !important;
         background-clip: border-box;
-}
+    }
 </style>
 
 <div align="left" class="span4" style="page-break-before: always; margin-top: 60px">
@@ -20,184 +20,184 @@
 
 <table class="" style="width: 100%; border:0.1mm solid #220044;  background-clip: border-box;">
     <thead>
-        <tr class="" style="width: 100%; border:0.1mm solid #220044;  background-clip: border-box;">
-            <td colspan="7"><?= $this->projeto->nomprojeto; ?></td>
-        </tr>
-        <tr class="" style="width: 100%; border:0.1mm solid #220044;  background-clip: border-box;">
-            <td>Grupo/Entrega/Atividade</td>
-            <td>(P) Base Line (data)</td>
-            <td>Custo</td>
-            <td>In&iacute;cio</td>
-            <td>Fim</td>
-            <td>%</td>
-            <td>Respons&aacute;vel</td>
-        </tr>
+    <tr class="" style="width: 100%; border:0.1mm solid #220044;  background-clip: border-box;">
+        <td colspan="7"><?php echo $this->projeto->nomprojeto; ?></td>
+    </tr>
+    <tr class="" style="width: 100%; border:0.1mm solid #220044;  background-clip: border-box;">
+        <td>Grupo/Entrega/Atividade</td>
+        <td>(P) Base Line (data)</td>
+        <td>Custo</td>
+        <td>In&iacute;cio</td>
+        <td>Fim</td>
+        <td>%</td>
+        <td>Respons&aacute;vel</td>
+    </tr>
     </thead>
 </table>
 <table>
     <tbody>
 
-        <?php
-        $i = 0;
-        foreach ($this->projeto->grupos as $grupo):
-            if (empty($grupo->idatividadecronograma) == false):
-                ?>
+    <?php
+    $i = 0;
+    foreach ($this->projeto->grupos as $grupo):
+        if (empty($grupo->idatividadecronograma) == false):
+            ?>
 
-                <tr class="" style="width: 100%; border:0.1mm solid #220044; background-clip: border-box;">
-                    <td>
-                        <ol>
-                            <li>
-                                <b><?= $grupo->nomatividadecronograma; ?></b>
-                                <ol>
-                                    <?php foreach ($grupo->entregas as $entrega): ?>
-                                        <li>
-                                            <div><?= $entrega->nomatividadecronograma; ?></div>
-                                        </li>
-                                        <ol>
-                                            <?php foreach ($entrega->atividades as $atividade): ?>
-                                                <li>
-                                                    <div><?= $atividade->nomatividadecronograma; ?></div>
-                                                    </li>
-                                            <?php endforeach; ?>
-                                        </ol>
-                                    <?php endforeach; ?> 
-                                </ol>
-                            </li>
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
-                            <h6><?php
-                                if ($grupo->datiniciobaseline):
-                                    echo $grupo->datiniciobaseline->format('d/m/Y') . " a " . $grupo->datfimbaseline->format('d/m/Y') . " ";
-                                else:
-                                    echo " - <BR>";
-                                endif
-                                ?>
-                            </h6><br>
+            <tr class="" style="width: 100%; border:0.1mm solid #220044; background-clip: border-box;">
+                <td>
+                    <ol>
+                        <li>
+                            <b><?php echo $grupo->nomatividadecronograma; ?></b>
                             <ol>
                                 <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <?php
-                                    if ($entrega->datiniciobaseline):
-                                        echo $entrega->datiniciobaseline->format('d/m/Y') . " a " . $entrega->datfimbaseline->format('d/m/Y') . "<BR>";
-                                    else:
-                                        echo " - <br>";
-                                    endif
-                                    ?>
+                                    <li>
+                                        <div><?php echo $entrega->nomatividadecronograma; ?></div>
+                                    </li>
                                     <ol>
-                                        <?php
-                                        foreach ($entrega->atividades as $atividade):
-                                            if ($atividade->datiniciobaseline->format('d/m/Y')):
-                                                echo $atividade->datiniciobaseline->format('d/m/Y') . " a " . $atividade->datfimbaseline->format('d/m/Y') . "<br>";
-                                            else:
-                                                echo " - <br>";
-                                            endif;
-                                        endforeach;
-                                        ?>OBSERVAÇÃO
-
-                                    </ol>
-                                <?php endforeach; ?> 
-                            </ol>
-                        </ol>
-                    </td>
-                    <td>
-                        <ol>
-
-                            <?= $grupo->getCusto(); ?><br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <?= $entrega->getCusto(); ?><br>
-                                    <ol type="i">
                                         <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?= $atividade->vlratividade; ?><br>
+                                            <li>
+                                                <div><?php echo $atividade->nomatividadecronograma; ?></div>
+                                            </li>
                                         <?php endforeach; ?>
                                     </ol>
-                                <?php endforeach; ?> 
+                                <?php endforeach; ?>
                             </ol>
-
-                        </ol>
-                    </td>
-                    <td>
+                        </li>
+                    </ol>
+                </td>
+                <td>
+                    <ol>
+                        <h6><?php
+                            if ($grupo->datiniciobaseline):
+                                echo $grupo->datiniciobaseline->format('d/m/Y') . " a " . $grupo->datfimbaseline->format('d/m/Y') . " ";
+                            else:
+                                echo " - <BR>";
+                            endif
+                            ?>
+                        </h6><br>
                         <ol>
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <?php
+                                if ($entrega->datiniciobaseline):
+                                    echo $entrega->datiniciobaseline->format('d/m/Y') . " a " . $entrega->datfimbaseline->format('d/m/Y') . "<BR>";
+                                else:
+                                    echo " - <br>";
+                                endif
+                                ?>
+                                <ol>
+                                    <?php
+                                    foreach ($entrega->atividades as $atividade):
+                                        if ($atividade->datiniciobaseline->format('d/m/Y')):
+                                            echo $atividade->datiniciobaseline->format('d/m/Y') . " a " . $atividade->datfimbaseline->format('d/m/Y') . "<br>";
+                                        else:
+                                            echo " - <br>";
+                                        endif;
+                                    endforeach;
+                                    ?>OBSERVAÇÃO
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?= $atividade->datinicio->format('d/m/Y'); ?><br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?> 
-                            </ol>
-
+                                </ol>
+                            <?php endforeach; ?>
                         </ol>
-                    </td>
-                    <td>
-                        <ol>
+                    </ol>
+                </td>
+                <td>
+                    <ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?= $atividade->datfim->format('d/m/Y'); ?><br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?> 
-                            </ol>
-
+                        <?php echo $grupo->getCusto(); ?><br>
+                        <ol type="a">
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <?php echo $entrega->getCusto(); ?><br>
+                                <ol type="i">
+                                    <?php foreach ($entrega->atividades as $atividade): ?>
+                                        <?php echo $atividade->vlratividade; ?><br>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php endforeach; ?>
                         </ol>
-                    </td>
-                    <td>
-                        <ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?= $atividade->numpercentualconcluido; ?>%<br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?> 
-                            </ol>
+                    </ol>
+                </td>
+                <td>
+                    <ol>
 
+                        <br>
+                        <ol type="a">
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <br>
+                                <ol type="i">
+                                    <?php foreach ($entrega->atividades as $atividade): ?>
+                                        <?php echo $atividade->datinicio->format('d/m/Y'); ?><br>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php endforeach; ?>
                         </ol>
-                    </td>
-                    <td>
-                        <ol>
 
-                            <br>
-                            <ol type="a">
-                                <?php foreach ($grupo->entregas as $entrega): ?>
-                                    <br>
-                                    <ol type="i">
-                                        <?php foreach ($entrega->atividades as $atividade): ?>
-                                            <?= $atividade->parteinteressada->desemail ; ?><br>
-                                        <?php endforeach; ?>
-                                    </ol>
-                                <?php endforeach; ?> 
-                            </ol>
+                    </ol>
+                </td>
+                <td>
+                    <ol>
 
+                        <br>
+                        <ol type="a">
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <br>
+                                <ol type="i">
+                                    <?php foreach ($entrega->atividades as $atividade): ?>
+                                        <?php echo $atividade->datfim->format('d/m/Y'); ?><br>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php endforeach; ?>
                         </ol>
-                    </td>
 
-                </tr>
-                <?php
-                $i++;
-            else:
-                ?>
-                <tr>
-                    <td colspan="7">Nenhum registro encontrado.</td>
-                </tr>
+                    </ol>
+                </td>
+                <td>
+                    <ol>
+
+                        <br>
+                        <ol type="a">
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <br>
+                                <ol type="i">
+                                    <?php foreach ($entrega->atividades as $atividade): ?>
+                                        <?php echo $atividade->numpercentualconcluido; ?>%<br>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php endforeach; ?>
+                        </ol>
+
+                    </ol>
+                </td>
+                <td>
+                    <ol>
+
+                        <br>
+                        <ol type="a">
+                            <?php foreach ($grupo->entregas as $entrega): ?>
+                                <br>
+                                <ol type="i">
+                                    <?php foreach ($entrega->atividades as $atividade): ?>
+                                        <?php echo $atividade->parteinteressada->desemail; ?><br>
+                                    <?php endforeach; ?>
+                                </ol>
+                            <?php endforeach; ?>
+                        </ol>
+
+                    </ol>
+                </td>
+
+            </tr>
             <?php
-            endif;
-        endforeach;
-        ?>
+            $i++;
+        else:
+            ?>
+            <tr>
+                <td colspan="7">Nenhum registro encontrado.</td>
+            </tr>
+        <?php
+        endif;
+    endforeach;
+    ?>
 
     </tbody>
 </table>

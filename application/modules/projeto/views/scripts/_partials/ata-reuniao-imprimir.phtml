@@ -13,30 +13,30 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td>C&Oacute;DIGO DO PROJETO</td>
-                    <td><?= $this->projeto->nomcodigo; ?></td>
-                </tr>
-                <tr>
-                    <td>T&Iacute;TULO DO PROJETO</td>
-                    <td><?= $this->projeto->nomprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>GERENTE DE PROJETO</td>
-                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>GERENTE ADJUNTO</td>
-                    <td><?= $this->projeto->nomgerenteadjunto; ?></td>
-                </tr>
-                <tr>
-                    <td>PATROCINADOR</td>
-                    <td><?= $this->projeto->nompatrocinador; ?></td>
-                </tr> 
+            <tr>
+                <td>C&Oacute;DIGO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomcodigo; ?></td>
+            </tr>
+            <tr>
+                <td>T&Iacute;TULO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE DE PROJETO</td>
+                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE ADJUNTO</td>
+                <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
+            </tr>
+            <tr>
+                <td>PATROCINADOR</td>
+                <td><?php echo $this->projeto->nompatrocinador; ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.2 PARTICIPANTES</h5>
     </div>
@@ -46,16 +46,16 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td><?= $this->projeto->ata->desparticipante; ?></td>
-                </tr>
-                <tr>
-                    <td><B>ASSINATURA:</B>_____________________________<br><br></td>
-                </tr>
+            <tr>
+                <td><?php echo $this->projeto->ata->desparticipante; ?></td>
+            </tr>
+            <tr>
+                <td><B>ASSINATURA:</B>_____________________________<br><br></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.3 ATA</h5>
     </div>
@@ -66,34 +66,34 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td>DATA DA REUNI&Atilde;O</td>
-                    <td><?= $this->projeto->ata->datata; ?></td>
-                </tr>
-                <tr>
-                    <td>LOCAL</td>
-                    <td><?= $this->projeto->ata->deslocal; ?></td>
-                </tr>
-                <tr>
-                    <td>ASSUNTO</td>
-                    <td><?= $this->projeto->ata->desassunto; ?></td>
-                </tr>
-                <tr>
-                    <td>PONTOS DISCUTIDOS</td>
-                    <td><?= $this->projeto->ata->despontodiscutido; ?></td>
-                </tr>
-                <tr>
-                    <td>DECIS&Otilde;ES</td>
-                    <td><?= $this->projeto->ata->desdecisao; ?></td>
-                </tr> 
-                <tr>
-                    <td>OBSERVA&Ccedil;&Otilde;ES</td>
-                    <td><?= $this->projeto->ata->despontoatencao; ?></td>
-                </tr> 
+            <tr>
+                <td>DATA DA REUNI&Atilde;O</td>
+                <td><?php echo $this->projeto->ata->datata; ?></td>
+            </tr>
+            <tr>
+                <td>LOCAL</td>
+                <td><?php echo $this->projeto->ata->deslocal; ?></td>
+            </tr>
+            <tr>
+                <td>ASSUNTO</td>
+                <td><?php echo $this->projeto->ata->desassunto; ?></td>
+            </tr>
+            <tr>
+                <td>PONTOS DISCUTIDOS</td>
+                <td><?php echo $this->projeto->ata->despontodiscutido; ?></td>
+            </tr>
+            <tr>
+                <td>DECIS&Otilde;ES</td>
+                <td><?php echo $this->projeto->ata->desdecisao; ?></td>
+            </tr>
+            <tr>
+                <td>OBSERVA&Ccedil;&Otilde;ES</td>
+                <td><?php echo $this->projeto->ata->despontoatencao; ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.4 PR&Oacute;XIMOS PASSOS</h5>
     </div>
@@ -103,17 +103,17 @@
                 <col style="width: 100%">
             </colgroup>
             <tbody>
-                <tr>
-                    <td><?php 
-                            if($this->projeto->ata->desproximopasso){
-                                echo $this->projeto->ata->desproximopasso; 
-                            } else {
-                                echo "Nenhum registro encontrado.";
-                            }
-                        ?></td>
-                </tr>
+            <tr>
+                <td><?php
+                    if ($this->projeto->ata->desproximopasso) {
+                        echo $this->projeto->ata->desproximopasso;
+                    } else {
+                        echo "Nenhum registro encontrado.";
+                    }
+                    ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
 </div>

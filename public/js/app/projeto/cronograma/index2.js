@@ -1,5 +1,4 @@
-function ProjetoCtrl($scope, $http)
-{
+function ProjetoCtrl($scope, $http) {
     //$scope.projeto = {};
     $scope.path = base_url + '/projeto/cronograma/retorna-projeto/idprojeto/1/format/json';
     $scope.projeto = {
@@ -55,8 +54,6 @@ function ProjetoCtrl($scope, $http)
 
     }
     ;
-
-    
 
 
     refreshItems();

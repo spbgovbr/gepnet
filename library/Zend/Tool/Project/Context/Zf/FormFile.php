@@ -69,7 +69,7 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
     {
         return array(
             'formName' => $this->getFormName()
-            );
+        );
     }
 
     /**
@@ -102,12 +102,12 @@ class Zend_Tool_Project_Context_Zf_FormFile extends Zend_Tool_Project_Context_Zf
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'init',
                             'body' => '/* Form Elements & Other Definitions Here ... */',
-                            ))
-                        )
+                        ))
+                    )
 
-                    ))
-                )
-            ));
+                ))
+            )
+        ));
         return $codeGenFile->generate();
     }
 }

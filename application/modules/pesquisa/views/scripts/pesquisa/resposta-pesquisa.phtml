@@ -4,84 +4,90 @@
     <h4 class="pagination-centered"><?php echo $resultados[0]['nomquestionario']; ?></h4>
     <br/>
     <div class="content" style="font-size: 12px;">
-    <div class="row-fluid"> 
-        <div class="span2">            
-            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
-                <strong>&numero;: </strong> <?php echo $this->idresultado; ?> 
+        <div class="row-fluid">
+            <div class="span2">
+                <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;"
+                     class="input-selecionado">
+                    <strong>&numero;: </strong> <?php echo $this->idresultado; ?>
+                </div>
             </div>
-        </div> 
-        <div class="span5">            
-            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
-                <strong>Participante: </strong> <?php echo $resultados[0]['nompessoa'] ?: 'Anônimo'; ?> 
+            <div class="span5">
+                <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;"
+                     class="input-selecionado">
+                    <strong>Participante: </strong> <?php echo $resultados[0]['nompessoa'] ?: 'Anônimo'; ?>
+                </div>
             </div>
-        </div> 
-    </div>
-    <?php 
+        </div>
+        <?php
         $idfrase = null;
         foreach ($resultados as $resultado):?>
-            <?php if($resultado['idfrasepesquisa'] != $idfrase):?>
-                    <span>&nbsp</span>
-                    <div class="row-fluid">
-                        <div class="alert" style="color: black; margin-bottom: 5px;">
+            <?php if ($resultado['idfrasepesquisa'] != $idfrase): ?>
+                <span>&nbsp</span>
+                <div class="row-fluid">
+                    <div class="alert" style="color: black; margin-bottom: 5px;">
                         <label>
-                            <span class="badge badge-inverse"><?php echo $resultado['numordempergunta']?></span>&nbsp;&nbsp;<?php echo $resultado['desfrase'];?> 
-                            <?php echo $resultado['obrigatoriedade'] == 'S' ? '<span style="color: red;">(Campo obrigat&oacute;rio)</span>' : ''?>
+                            <span class="badge badge-inverse"><?php echo $resultado['numordempergunta'] ?></span>&nbsp;&nbsp;<?php echo $resultado['desfrase']; ?>
+                            <?php echo $resultado['obrigatoriedade'] == 'S' ? '<span style="color: red;">(Campo obrigat&oacute;rio)</span>' : '' ?>
                         </label>
-                        <?php $idfrase = $resultado['idfrasepesquisa']; //atribui idfrase corrente?> 
-                        </div>
+                        <?php $idfrase = $resultado['idfrasepesquisa']; //atribui idfrase corrente?>
                     </div>
+                </div>
 
-                    <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA || 
-                             $resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA || 
-                             $resultado['domtipofrase'] == Pesquisa_Model_Frase::UF):
+                <?php if ($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA ||
+                    $resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA ||
+                    $resultado['domtipofrase'] == Pesquisa_Model_Frase::UF):
                     ?>
-                            <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA):?>
-                                <div class="row-fluid span">
-                                    <input type="radio" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>" disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
-                                    <?php echo $resultado['desresposta']; ?>
-                                </div>
-                            <?php elseif($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA):?>
-                                <div class="row-fluid span">
-                                    <input type="checkbox" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>" disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
-                                    <?php echo $resultado['desresposta'];?>
-                                </div>
-                            <?php else:?>
-                                <?php if($resultado['idresultado']): ?>
-                                    <div class="row-fluid">
-                                        <div class=" portlet portlet-cinza" style="padding: 5px;">
-                                            <?php echo $resultado['desresposta']; ?>&nbsp;
-                                        </div>
-                                    </div>
-                                <?php endif;?>
-                            <?php endif;?>
-                    <?php else: ?>
+                    <?php if ($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA): ?>
+                    <div class="row-fluid span">
+                        <input type="radio" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>"
+                               disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
+                        <?php echo $resultado['desresposta']; ?>
+                    </div>
+                <?php elseif ($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA): ?>
+                    <div class="row-fluid span">
+                        <input type="checkbox" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>"
+                               disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
+                        <?php echo $resultado['desresposta']; ?>
+                    </div>
+                <?php else: ?>
+                    <?php if ($resultado['idresultado']): ?>
                         <div class="row-fluid">
                             <div class=" portlet portlet-cinza" style="padding: 5px;">
-                                <?php echo $resultado['resultado_resposta']; ?>&nbsp;
+                                <?php echo $resultado['desresposta']; ?>&nbsp;
                             </div>
                         </div>
-                    <?php endif;?>
-        
+                    <?php endif; ?>
+                <?php endif; ?>
+                <?php else: ?>
+                    <div class="row-fluid">
+                        <div class=" portlet portlet-cinza" style="padding: 5px;">
+                            <?php echo $resultado['resultado_resposta']; ?>&nbsp;
+                        </div>
+                    </div>
+                <?php endif; ?>
+
             <?php else: ?>
-                        <?php if($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA):?>
-                            <div class="row-fluid span">
-                                <input type="radio" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>" disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
-                                <?php echo $resultado['desresposta'];?>
+                <?php if ($resultado['domtipofrase'] == Pesquisa_Model_Frase::UMA_ESCOLHA): ?>
+                    <div class="row-fluid span">
+                        <input type="radio" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>"
+                               disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
+                        <?php echo $resultado['desresposta']; ?>
+                    </div>
+                <?php elseif ($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA): ?>
+                    <div class="row-fluid span">
+                        <input type="checkbox" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>"
+                               disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
+                        <?php echo $resultado['desresposta']; ?>
+                    </div>
+                <?php else: ?>
+                    <?php if ($resultado['idresultado']): ?>
+                        <div class="row-fluid">
+                            <div class=" portlet portlet-cinza" style="padding: 5px;">
+                                <?php echo $resultado['desresposta']; ?>&nbsp;
                             </div>
-                        <?php elseif($resultado['domtipofrase'] == Pesquisa_Model_Frase::MULTIPLA_ESCOLHA):?>
-                            <div class="row-fluid span">
-                                <input type="checkbox" name="idfrase<?php echo $resultado['idfrasepesquisa']; ?>" disabled="true" <?php echo $resultado['resultado_resposta'] ? "checked" : "" ?>>
-                                <?php echo $resultado['desresposta']; ?>
-                            </div>
-                        <?php else: ?>
-                            <?php if($resultado['idresultado']): ?>
-                                <div class="row-fluid">
-                                    <div class=" portlet portlet-cinza" style="padding: 5px;">
-                                        <?php echo $resultado['desresposta']; ?>&nbsp;
-                                    </div>
-                                </div>
-                            <?php endif;?>
-                         <?php endif;?>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
             <?php endif; ?>
         <?php endforeach; ?>
     </div>

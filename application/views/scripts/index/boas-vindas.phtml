@@ -1,4 +1,121 @@
-<div class="region-center alert" >
-    <h2>Boas-vindas</h2>
-    <p>Acessado em: <?php echo date("d/m/Y H:i")?></p>
+<script>
+    $(function () {
+        $('.navbar').css('visibility', 'hidden');
+    });
+</script>
+<style>
+    .espacamento {
+        padding: 50px;
+    }
+</style>
+<?php
+$auth = Zend_Auth::getInstance();
+
+
+?>
+
+
+<div class="region-center alert">
+
+    <table align="center" style="margin-top: 110px;">
+        <tbody>
+        <tr>
+            <?php if ($auth->getIdentity()->perfilAtivo->idperfil != 16): ?>
+                <td>
+                    <a title="Projeto" class="espacamento"
+                       href="<?php echo $this->url(array(
+                           'module' => 'projeto',
+                           'controller' => 'gerencia',
+                           'action' => 'index'
+                       )); ?>">
+                        <img src="../img/projeto.png" class="img-circle"/>
+                    </a>
+                </td>
+                <td>
+                    <a title="Processos" class="espacamento"
+                       href="<?php echo $this->url(array(
+                           'module' => 'processo',
+                           'controller' => 'index',
+                           'action' => 'index'
+                       )); ?>">
+                        <img src="../img/processo.png" class="img-circle"/>
+                    </a>
+                </td>
+                <td>
+                    <a title="Planejamentos" class="espacamento"
+                       href="<?php echo $this->url(array(
+                           'module' => 'planejamento',
+                           'controller' => 'index',
+                           'action' => 'index'
+                       )); ?>">
+                        <img src="../img/planejamento.png" class="img-circle"/>
+                    </a>
+                </td>
+                <td>
+                    <a title="Diagnóstico" class="espacamento"
+                       href="<?php echo $this->url(array(
+                           'module' => 'diagnostico',
+                           'controller' => 'diagnostico',
+                           'action' => 'index'
+                       )); ?>">
+                        <img src="../img/diagnostico3.png" class="img-circle"/>
+                    </a>
+                </td>
+            <?php endif; ?>
+            <?php if ($auth->getIdentity()->perfilAtivo->idperfil == 1 || $auth->getIdentity()->perfilAtivo->idperfil == 2 || $auth->getIdentity()->perfilAtivo->idperfil == 16): ?>
+                <td>
+                    <a title="Administrador" class="espacamento"
+                       href="<?php echo $this->url(array(
+                           'module' => 'cadastro',
+                           'controller' => 'recurso',
+                           'action' => 'index'
+                       )); ?>">
+                        <img src="../img/administrador.png" class="img-circle"/>
+                    </a>
+                </td>
+            <?php endif; ?>
+        </tr>
+        <tr>
+            <?php if ($auth->getIdentity()->perfilAtivo->idperfil != 16): ?>
+                <td style="text-align: center;cursor: pointer;"><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'projeto',
+                                'controller' => 'gerencia',
+                                'action' => 'index'
+                            )); ?>">Projetos</a>
+                </td>
+                <td style="text-align: center;cursor: pointer;"><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'processo',
+                                'controller' => 'index',
+                                'action' => 'index'
+                            )); ?>">Processos</a>
+                </td>
+                <td style="text-align: center;cursor: pointer;"><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'planejamento',
+                                'controller' => 'index',
+                                'action' => 'index'
+                            )); ?>">Planejamentos</a>
+                </td>
+                <td style="text-align: center;cursor: pointer;"><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'diagnostico',
+                                'controller' => 'diagnostico',
+                                'action' => 'index'
+                            )); ?>">Diagnóstico</a>
+                </td>
+            <?php endif; ?>
+            <?php if ($auth->getIdentity()->perfilAtivo->idperfil == 1 || $auth->getIdentity()->perfilAtivo->idperfil == 2 || $auth->getIdentity()->perfilAtivo->idperfil == 16): ?>
+                <td style="text-align: center;cursor: pointer;"><a
+                            href="<?php echo $this->url(array(
+                                'module' => 'cadastro',
+                                'controller' => 'recurso',
+                                'action' => 'index'
+                            )); ?>">Administrador</a>
+                </td>
+            <?php endif; ?>
+        </tr>
+        </tbody>
+    </table>
 </div>

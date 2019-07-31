@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 class App_Application extends Zend_Application
 {
     /**

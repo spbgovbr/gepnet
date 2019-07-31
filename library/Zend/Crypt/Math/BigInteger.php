@@ -71,13 +71,13 @@ class Zend_Crypt_Math_BigInteger
     /**
      * Redirect all public method calls to the wrapped extension object.
      *
-     * @param   string $methodName
-     * @param   array $args
+     * @param string $methodName
+     * @param array $args
      * @throws  Zend_Crypt_Math_BigInteger_Exception
      */
     public function __call($methodName, $args)
     {
-        if(!method_exists($this->_math, $methodName)) {
+        if (!method_exists($this->_math, $methodName)) {
             require_once 'Zend/Crypt/Math/BigInteger/Exception.php';
             throw new Zend_Crypt_Math_BigInteger_Exception('invalid method call: ' . get_class($this->_math) . '::' . $methodName . '() does not exist');
         }
@@ -93,18 +93,18 @@ class Zend_Crypt_Math_BigInteger
         if ($extension === null) {
             if (extension_loaded('gmp')) {
                 $extension = 'gmp';
-            //} elseif (extension_loaded('big_int')) {
-            //    $extension = 'big_int';
+                //} elseif (extension_loaded('big_int')) {
+                //    $extension = 'big_int';
             } else {
                 $extension = 'bcmath';
             }
         }
-        if($extension == 'gmp' && extension_loaded('gmp')) {
+        if ($extension == 'gmp' && extension_loaded('gmp')) {
             require_once 'Zend/Crypt/Math/BigInteger/Gmp.php';
             $this->_math = new Zend_Crypt_Math_BigInteger_Gmp();
-        //} elseif($extension == 'bigint' && extension_loaded('big_int')) {
-        //    require_once 'Zend/Crypt_Math/BigInteger/Bigint.php';
-        //    $this->_math = new Zend_Crypt_Math_BigInteger_Bigint();
+            //} elseif($extension == 'bigint' && extension_loaded('big_int')) {
+            //    require_once 'Zend/Crypt_Math/BigInteger/Bigint.php';
+            //    $this->_math = new Zend_Crypt_Math_BigInteger_Bigint();
         } elseif ($extension == 'bcmath' && extension_loaded('bcmath')) {
             require_once 'Zend/Crypt/Math/BigInteger/Bcmath.php';
             $this->_math = new Zend_Crypt_Math_BigInteger_Bcmath();

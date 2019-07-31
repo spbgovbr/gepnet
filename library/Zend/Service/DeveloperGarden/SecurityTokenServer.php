@@ -73,7 +73,7 @@ class Zend_Service_DeveloperGarden_SecurityTokenServer
      */
     protected $_classMap = array(
         'SecurityTokenResponse' => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_SecurityTokenResponse',
-        'getTokensResponse'     => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse'
+        'getTokensResponse' => 'Zend_Service_DeveloperGarden_Response_SecurityTokenServer_GetTokensResponse'
     );
 
     /**

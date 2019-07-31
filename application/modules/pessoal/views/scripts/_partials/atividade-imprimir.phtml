@@ -2,40 +2,40 @@
 
 
 <div id="content">
-    <div> <h5> RELAT&Oacute;RIO DE ATIVIDADES </h5> </div>
-        <table class="table table-bordered table-hover table-striped ">
-            <thead>
-                <tr style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
-                    <th>Atividade</th>
-                    <th>Descri&ccedil;&atilde;o</th>
-                    <th>In&iacute;cio</th>
-                    <th>Fim Meta</th>
-                    <th>Fim Real</th>
-                    <th>Demandante</th>
-                    <th>Respons&aacute;vel</th>
-                    <th>%</th>
-                    <th>Cont&iacute;nua</th>
-                    <th>Atualiza&ccedil;&atilde;o</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($this->atividade as $atividade): ?>
-                    <tr>
-                        <td> <?php echo $atividade->nomatividade;?></td>
-                        <td> <?php echo $atividade->desatividade;?></td>
-                        <td> <?php echo $atividade->datinicio;?></td>
-                        <td> <?php echo $atividade->datfimmeta;?></td>
-                        <td> <?php echo $atividade->datfimreal;?></td>
-                        <td> <?php echo $atividade->nomcadastrador;?></td>
-                        <td> <?php echo $atividade->nomresponsavel;?></td>
-                        <td> <?php echo $atividade->numpercentualconcluido;?></td>
-                        <td> <?php echo $atividade->flacontinua;?></td>
-                        <td> <?php echo $atividade->datatualizacao;?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+    <div><h5> RELAT&Oacute;RIO DE ATIVIDADES </h5></div>
+    <table class="table table-bordered table-hover table-striped ">
+        <thead>
+        <tr style="width: 100%; border:0.1mm solid #220044; background-color: #f0f2ff; background-clip: border-box;">
+            <th>Atividade</th>
+            <th>Descri&ccedil;&atilde;o</th>
+            <th>In&iacute;cio</th>
+            <th>Fim Meta</th>
+            <th>Fim Real</th>
+            <th>Demandante</th>
+            <th>Respons&aacute;vel</th>
+            <th>%</th>
+            <th>Cont&iacute;nua</th>
+            <th>Atualiza&ccedil;&atilde;o</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->atividade as $atividade): ?>
+            <tr>
+                <td> <?php echo $atividade->nomatividade; ?></td>
+                <td> <?php echo $atividade->desatividade; ?></td>
+                <td> <?php echo $atividade->datinicio; ?></td>
+                <td> <?php echo $atividade->datfimmeta; ?></td>
+                <td> <?php echo $atividade->datfimreal; ?></td>
+                <td> <?php echo $atividade->nomcadastrador; ?></td>
+                <td> <?php echo $atividade->nomresponsavel; ?></td>
+                <td> <?php echo $atividade->numpercentualconcluido; ?></td>
+                <td> <?php echo $atividade->flacontinua; ?></td>
+                <td> <?php echo $atividade->datatualizacao; ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
 
 

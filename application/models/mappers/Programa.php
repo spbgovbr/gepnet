@@ -17,21 +17,21 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Default_Model_Programa $model)
     {
-    	
-    	
-    	$model->idcadastrador = 1;
-    	$model->idprograma  = $this->maxVal('idprograma');
-    	$model->flaativo      = 'S';
+
+
+        $model->idcadastrador = 1;
+        $model->idprograma = $this->maxVal('idprograma');
+        $model->flaativo = 'S';
         $data = array(
-            "idprograma"          => $model->idprograma,
-            "nomprograma"         => $model->nomprograma,
-            "desprograma"         => $model->desprograma,
-            "idcadastrador"       => $model->idcadastrador,
-            "datcadastro"         => new Zend_Db_Expr('now()'),
-            "flaativo"            => $model->flaativo,
-            "idresponsavel"       => $model->idresponsavel,
-            "idsimpr"             => $model->idsimpr,
-            "idsimpreixo"         => $model->idsimpreixo,
+            "idprograma" => $model->idprograma,
+            "nomprograma" => $model->nomprograma,
+            "desprograma" => $model->desprograma,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => new Zend_Db_Expr('now()'),
+            "flaativo" => $model->flaativo,
+            "idresponsavel" => $model->idresponsavel,
+            "idsimpr" => $model->idsimpr,
+            "idsimpreixo" => $model->idsimpreixo,
             "idsimprareatematica" => $model->idsimprareatematica
 
         );
@@ -47,25 +47,24 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Programa $model)
     {
         $data = array(
-           // "idprograma"          => $model->idprograma,
-            "nomprograma"         => $model->nomprograma,
-            "desprograma"         => $model->desprograma,
-            "idcadastrador"       => $model->idcadastrador,
-          //"datcadastro"         => $model->datcadastro,
-            "flaativo"            => $model->flaativo,
-            "idresponsavel"       => $model->idresponsavel,
-            "idsimpr"             => $model->idsimpr,
-            "idsimpreixo"         => $model->idsimpreixo,
+            // "idprograma"          => $model->idprograma,
+            "nomprograma" => $model->nomprograma,
+            "desprograma" => $model->desprograma,
+            "idcadastrador" => $model->idcadastrador,
+            //"datcadastro"         => $model->datcadastro,
+            "flaativo" => $model->flaativo,
+            "idresponsavel" => $model->idresponsavel,
+            "idsimpr" => $model->idsimpr,
+            "idsimpreixo" => $model->idsimpreixo,
             "idsimprareatematica" => $model->idsimprareatematica
         );
         $pkey = array(
-        	"idprograma"          => $model->idprograma,
+            "idprograma" => $model->idprograma,
         );
-        
+
         $where = $this->_generateRestrictionsFromPrimaryKeys($pkey);
-        
+
         $data = array_filter($data);
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
         $retorno = $this->getDbTable()->update($data, $where);
         return $retorno;
     }
@@ -74,35 +73,34 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Default_Form_Programa);
     }
-    
+
     public function retornaPorId($params)
     {
-    	$resultado = $this->getById($params);
-    	$programa = new Default_Model_Programa($resultado);
-    	 
-    	$pessoa = new Default_Model_Pessoa(array(
-    			//		'nompessoa' => $resultado['responsavel'],
-    			'idpessoa'  => $resultado['idresponsavel'],
-    			'nompessoa' => $resultado['nomresponsavel'],
-    	));
-    	 
-    	$programa->responsavel = $pessoa;
-    	
-    	
-    	$programa->idprograma =intval($params['idprograma']);
-    	
-    	//Zend_Debug::dump($programa); exit;
-    	
-    	return $programa;
+        $resultado = $this->getById($params);
+        $programa = new Default_Model_Programa($resultado);
+
+        $pessoa = new Default_Model_Pessoa(array(
+            'idpessoa' => $resultado['idresponsavel'],
+            'nompessoa' => $resultado['nomresponsavel'],
+        ));
+
+        $programa->responsavel = $pessoa;
+
+
+        $programa->idprograma = intval($params['idprograma']);
+
+        //Zend_Debug::dump($programa); exit;
+
+        return $programa;
     }
-    
+
     /**
      * @param array $params
      * @return array
      */
     public function getById($params)
     {
-    	$sql    = "SELECT
+        $sql = "SELECT
                         e.idprograma,
     			e.idcadastrador,
                         e.nomprograma,
@@ -128,12 +126,10 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
                     left join agepnet200.tb_portfolio port
                     on port.idportfolio = portp.idportfolio
 		where e.idprograma = :idprograma";
-        
-    	return $this->_db->fetchRow($sql, array('idprograma' => $params['idprograma']));
+
+        return $this->_db->fetchRow($sql, array('idprograma' => $params['idprograma']));
     }
-    
-    
-    
+
 
     /**
      * @param array $params
@@ -141,7 +137,7 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
      */
     public function getByName($params)
     {
-    	$sql    = " SELECT
+        $sql = " SELECT
                         e.idprograma,
                         e.idcadastrador,
                         e.nomprograma,
@@ -157,9 +153,9 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
                         left JOIN agepnet200.tb_pessoa resp1
                         ON e.idresponsavel = resp1.idpessoa
 				    where e.nomprograma = :nomprograma";
-    
-    	$resultado = $this->_db->fetchAll($sql, array('nomprograma' => $params['nomprograma']));
-    	return $resultado;
+
+        $resultado = $this->_db->fetchAll($sql, array('nomprograma' => $params['nomprograma']));
+        return $resultado;
     }
 
 
@@ -171,9 +167,9 @@ class Default_Model_Mapper_Programa extends App_Model_Mapper_MapperAbstract
      */
     public function pesquisar($params, $paginator = false)
     {
-    	// 'Nome','Descrição','Responsavel','Situacao','Logo','Id'
-    
-    	$sql    = "
+        // 'Nome','Descrição','Responsavel','Situacao','Logo','Id'
+
+        $sql = "
 
 SELECT
 	e.nomprograma as nome,
@@ -188,52 +184,39 @@ FROM agepnet200.tb_programa e
 	left JOIN agepnet200.tb_pessoa resp1
 	ON e.idresponsavel = resp1.idpessoa
         		        where 1 = 1";
-    	$params = array_filter($params);
-    
-    	if ( isset($params['nomprograma']) ) {
-    		$nomprograma = strtoupper($params['nomprograma']);
-    		$sql.= " and e.nomprograma LIKE '%{$nomprograma}%'"
-                . " or e.desprograma LIKE '%{$params['nomprograma']}%' "
-                . " or resp1.nompessoa LIKE'%{$nomprograma}%'";
-                
-    	}
-    
-    	// Zend_Debug::dump($sql);exit;
-        
-        if ( isset($params['sidx']) ) {
+        $params = array_filter($params);
+
+        if (isset($params['nomprograma'])) {
+            $nomprograma = strtoupper($params['nomprograma']);
+            $sql .= " and e.nomprograma LIKE '%{$nomprograma}%'";
+        }
+
+        // Zend_Debug::dump($sql);exit;
+
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-    
-    	if ( $paginator ) {
-    	$page      = (isset($params['page'])) ? $params['page'] : 1;
-    	$limit     = (isset($params['rows'])) ? $params['rows'] : 20;
-    	$paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
-    	$paginator->setItemCountPerPage($limit);
-    	$paginator->setCurrentPageNumber($page);
-    	return $paginator;
-    	}
-    
-    	$resultado = $this->_db->fetchAll($sql);
-    	//Zend_Debug::dump($id);exit;
-    	return $resultado;
-    	}
-    
-    	
+
+        if ($paginator) {
+            $page = (isset($params['page'])) ? $params['page'] : 1;
+            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
+            $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
+            $paginator->setItemCountPerPage($limit);
+            $paginator->setCurrentPageNumber($page);
+            return $paginator;
+        }
+
+        $resultado = $this->_db->fetchAll($sql);
+        //Zend_Debug::dump($id);exit;
+        return $resultado;
+    }
+
+
     public function fetchPairs()
     {
         $sql = "SELECT idprograma, nomprograma FROM agepnet200.tb_programa
                                    where flaativo = 'S' order by nomprograma asc";
         return $this->_db->fetchPairs($sql);
     }
-
-   /* public function fetchPairsProgramaSemPortfolio()
-    {
-        $sql = "  SELECT idprograma, nomprograma
-                    FROM agepnet200.tb_programa
-                    WHERE idportfolio is null" ;
-        return $this->_db->fetchPairs($sql);
-    }*/
-
-
 }
 

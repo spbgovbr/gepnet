@@ -92,9 +92,9 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
                 new Zend_CodeGenerator_Php_Class(array(
                     'name' => 'Bootstrap',
                     'extendedClass' => 'Zend_Application_Bootstrap_Bootstrap',
-                    )),
-                )
-            ));
+                )),
+            )
+        ));
 
         return $codeGenFile->generate();
     }
@@ -110,7 +110,7 @@ class Zend_Tool_Project_Context_Zf_BootstrapFile extends Zend_Tool_Project_Conte
                 $this->_applicationInstance = new Zend_Application(
                     'development',
                     $applicationOptions
-                    );
+                );
             }
         }
 

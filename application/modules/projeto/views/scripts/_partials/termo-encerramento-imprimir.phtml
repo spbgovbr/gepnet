@@ -14,38 +14,38 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td>C&Oacute;DIGO DO PROJETO</td>
-                    <td><?= $this->projeto->nomcodigo; ?></td>
-                </tr>
-                <tr>
-                    <td>T&Iacute;TULO DO PROJETO</td>
-                    <td><?= $this->projeto->nomprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>PATROCINADOR</td>
-                    <td><?= $this->projeto->nompatrocinador; ?></td>
-                </tr> 
-                <tr>
-                    <td>GERENTE DO PROJETO</td>
-                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
-                </tr>
-                <tr>
-                    <td>GERENTE ADJUNTO</td>
-                    <td><?= $this->projeto->nomgerenteadjunto; ?></td>
-                </tr>
-                <tr>
-                    <td>OBJETIVO</td>
-                    <td><?= $this->projeto->desobjetivo; ?></td>
-                </tr>
-                <tr>
-                    <td>OBJETO</td>
-                    <td><?= $this->projeto->desprojeto; ?></td>
-                </tr>
+            <tr>
+                <td>C&Oacute;DIGO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomcodigo; ?></td>
+            </tr>
+            <tr>
+                <td>T&Iacute;TULO DO PROJETO</td>
+                <td><?php echo $this->projeto->nomprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>PATROCINADOR</td>
+                <td><?php echo $this->projeto->nompatrocinador; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE DO PROJETO</td>
+                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
+            </tr>
+            <tr>
+                <td>GERENTE ADJUNTO</td>
+                <td><?php echo $this->projeto->nomgerenteadjunto; ?></td>
+            </tr>
+            <tr>
+                <td>OBJETIVO</td>
+                <td><?php echo $this->projeto->desobjetivo; ?></td>
+            </tr>
+            <tr>
+                <td>OBJETO</td>
+                <td><?php echo $this->projeto->desprojeto; ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.2 LIÇÕES APRENDIDAS</h5>
     </div>
@@ -56,26 +56,26 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td>Entrega</td>
-                    <td>RESULTADOS OBTIDOS</td>
-                    <td>PONTOS FORTES</td>
-                    <td>PONTOS FRACOS / DIFICULTADES ENCONTRADAS</td>
-                    <td>SUGEST&Otilde;ES PARA UM PROJETO SEMELHANTE</td>
-                </tr>
-                 <?php foreach ($this->licao as $licao): ?>
-                <tr>
-                    <td><?= $licao['nomatividadecronograma']; ?></td>
-                    <td><?= $licao['desresultadosobtidos']; ?></td>
-                    <td><?= $licao['despontosfortes']; ?></td>
-                    <td><?= $licao['despontosfracos']; ?></td>
-                    <td><?= $licao['dessugestoes']; ?></td>
-                    <?php endforeach;?>
-                </tr>
+            <tr>
+                <td>Entrega</td>
+                <td>RESULTADOS OBTIDOS</td>
+                <td>PONTOS FORTES</td>
+                <td>PONTOS FRACOS / DIFICULTADES ENCONTRADAS</td>
+                <td>SUGEST&Otilde;ES PARA UM PROJETO SEMELHANTE</td>
+            </tr>
+            <?php foreach ($this->licao as $licao): ?>
+            <tr>
+                <td><?php echo $licao['nomatividadecronograma']; ?></td>
+                <td><?php echo $licao['desresultadosobtidos']; ?></td>
+                <td><?php echo $licao['despontosfortes']; ?></td>
+                <td><?php echo $licao['despontosfracos']; ?></td>
+                <td><?php echo $licao['dessugestoes']; ?></td>
+                <?php endforeach; ?>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span4">
         <h5>1.3 CONSIDERA&Ccedil;&Otilde;ES FINAIS</h5>
     </div>
@@ -85,13 +85,13 @@
                 <col style="width: 100px">
             </colgroup>
             <tbody>
-                <tr>
-                    <td><?= $this->projeto->desconsideracaofinal; ?></td>
-                </tr>
+            <tr>
+                <td><?php echo $this->projeto->desconsideracaofinal; ?></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+
     <div align="left" class="span6" style="page-break-before: always;margin-top: 60px;margin-bottom: 40px">
         <h5>2 APROVA&Ccedil;&Atilde;O DO PATROCINADOR</h5>
     </div>
@@ -103,16 +103,16 @@
                 <col style="width: 15px">
             </colgroup>
             <tbody style="text-align: center">
-                <tr style="vertical-align: bottom">
-                    <td><?= $this->projeto->nompatrocinador; ?></td>
-                    <td>____________________________________________________________________</td>
-                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-                </tr>
-                <tr style="vertical-align: top">
-                    <td><b>Patrocinador</b></td>
-                    <td><b>Assinatura</b></td>
-                    <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
-                </tr>
+            <tr style="vertical-align: bottom">
+                <td><?php echo $this->projeto->nompatrocinador; ?></td>
+                <td>____________________________________________________________________</td>
+                <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+            </tr>
+            <tr style="vertical-align: top">
+                <td><b>Patrocinador</b></td>
+                <td><b>Assinatura</b></td>
+                <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -128,18 +128,43 @@
                 <col style="width: 15px">
             </colgroup>
             <tbody style="text-align: center">
-                <tr style="vertical-align: bottom">
-                    <td><?= $this->projeto->nomgerenteprojeto; ?></td>
-                    <td>____________________________________________________________________</td>
-                    <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
-                </tr>
-                <tr style="vertical-align: top">
-                    <td><b>Gerente de Projeto</b></td>
-                    <td><b>Assinatura</b></td>
-                    <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
-                </tr>
+            <tr style="vertical-align: bottom">
+                <td><?php echo $this->projeto->nomgerenteprojeto; ?></td>
+                <td>____________________________________________________________________</td>
+                <td>/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/</td>
+            </tr>
+            <tr style="vertical-align: top">
+                <td><b>Gerente de Projeto</b></td>
+                <td><b>Assinatura</b></td>
+                <td><b>Data da Aprova&ccedil;&atilde;o</b></td>
+            </tr>
             </tbody>
         </table>
     </div>
-    
+    <?php if (count($this->assinaturas) > 0): ?>
+        <div align="left" class="span10" style="margin-top: 60px;margin-bottom: 20px">
+            <h5>4 ASSINATURA ELETR&Ocirc;NICA</h5><span style="font-size: 10px;">(Para validar a assinatura eletr&ocirc;nica acesse o endere&ccedil;o: <?php echo $this->url; ?> )</span>
+        </div>
+        <div align="center" style="margin-top: 20px">
+            <table border="1" class="span10" cellspacing="1" cellpadding="1">
+                <colgroup>
+                    <col style="width: 150px">
+                    <col style="width: 15px">
+                    <col style="width: 150px">
+                </colgroup>
+                <tbody style="text-align: center">
+                <?php foreach ($this->assinaturas as $assinatura) : ?>
+                    <tr style="vertical-align: bottom">
+                        <td><?php echo $assinatura['nomparteinteressada']; ?></td>
+                        <td><?php echo $assinatura['assinado']; ?></td>
+                        <td><?php echo $assinatura['hashdoc']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+    <?php endif; ?>
+</div>
+
 </div>

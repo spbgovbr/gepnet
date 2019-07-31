@@ -33,4 +33,5 @@ require_once 'Zend/Service/Exception.php';
  * @version    $Id: Exception.php 24594 2012-01-05 21:27:01Z matthew $
  */
 class Zend_Service_ReCaptcha_Exception extends Zend_Service_Exception
-{}
+{
+}

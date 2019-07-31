@@ -1,6 +1,6 @@
 <?php
 
-class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Projeto_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -32,7 +32,7 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
 
         return $service;
     }
-    
+
     /**
      * Retorna projeto servico
      *
@@ -40,15 +40,14 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceGerencia()
     {
-    	$service = new Projeto_Service_Gerencia(
-    			new Projeto_Model_Mapper_Gerencia()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Gerencia(
+            new Projeto_Model_Mapper_Gerencia()
+        );
+
+        return $service;
     }
-    
-    
-    
+
+
     /**
      * Retorna projeto servico
      *
@@ -56,14 +55,14 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceEscritorio()
     {
-    	$service = new Projeto_Service_Escritorio(
-    			new Default_Model_Mapper_Escritorio()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Escritorio(
+            new Default_Model_Mapper_Escritorio()
+        );
+
+        return $service;
     }
-    
-    
+
+
     /**
      * Retorna projeto servico
      *
@@ -71,14 +70,14 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServicePrograma()
     {
-    	$service = new Projeto_Service_Programa(
-    			new Default_Model_Mapper_Programa()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Programa(
+            new Default_Model_Mapper_Programa()
+        );
+
+        return $service;
     }
-    
-    
+
+
     /**
      * Retorna projeto servico
      *
@@ -86,14 +85,14 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceNatureza()
     {
-    	$service = new Projeto_Service_Natureza(
-    			new Default_Model_Mapper_Natureza()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Natureza(
+            new Default_Model_Mapper_Natureza()
+        );
+
+        return $service;
     }
-    
-    
+
+
     /**
      * Retorna projeto servico
      *
@@ -101,13 +100,13 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceSetor()
     {
-    	$service = new Projeto_Service_Setor(
-    			new Default_Model_Mapper_Setor()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Setor(
+            new Default_Model_Mapper_Setor()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna projeto servico
      *
@@ -115,14 +114,14 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceObjetivo()
     {
-    	$service = new Projeto_Service_Objetivo(
-    			new Default_Model_Mapper_Objetivo()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Objetivo(
+            new Default_Model_Mapper_Objetivo()
+        );
+
+        return $service;
     }
-    
-    
+
+
     /**
      * Retorna projeto servico
      *
@@ -130,13 +129,13 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceAcao()
     {
-    	$service = new Projeto_Service_Acao(
-    			new Default_Model_Mapper_Acao()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Acao(
+            new Default_Model_Mapper_Acao()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna ParteInteressada servico
      *
@@ -144,13 +143,13 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceParteInteressada()
     {
-    	$service = new Projeto_Service_ParteInteressada(
-    			new Projeto_Model_Mapper_Parteinteressada()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_ParteInteressada(
+            new Projeto_Model_Mapper_Parteinteressada()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna StatusReport servico
      *
@@ -158,13 +157,13 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceStatusReport()
     {
-    	$service = new Projeto_Service_StatusReport(
-    			new Projeto_Model_Mapper_Statusreport()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_StatusReport(
+            new Projeto_Model_Mapper_Statusreport()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna Impressao servico
      *
@@ -172,13 +171,11 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getDefaultServiceImpressao()
     {
-    	$service = new Default_Service_Impressao(
-    			
-    	);
-    
-    	return $service;
+        $service = new Default_Service_Impressao();
+
+        return $service;
     }
-    
+
     /**
      * Retorna Atividade Cronograma servico
      *
@@ -186,13 +183,13 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceAtividadeCronograma()
     {
-    	$service = new Projeto_Service_AtividadeCronograma(
-    		new Projeto_Model_Mapper_Atividadecronograma()
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_AtividadeCronograma(
+            new Projeto_Model_Mapper_Atividadecronograma()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna Plano Projeto servico
      *
@@ -200,13 +197,11 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServicePlanoProjeto()
     {
-    	$service = new Projeto_Service_PlanoProjeto(
-                
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_PlanoProjeto();
+
+        return $service;
     }
-    
+
     /**
      * Retorna Relatorio Servico
      *
@@ -214,13 +209,11 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceRelatorio()
     {
-    	$service = new Projeto_Service_Relatorio(
-                
-    	);
-    
-    	return $service;
+        $service = new Projeto_Service_Relatorio();
+
+        return $service;
     }
-    
+
     /**
      * Retorna Comunicacao Servico
      *
@@ -228,12 +221,11 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceComunicacao()
     {
-    	$service = new Projeto_Service_Comunicacao(
-                
-    	);
-    
-    	return $service;
-    }  
+        $service = new Projeto_Service_Comunicacao();
+
+        return $service;
+    }
+
     /**
      * Retorna Ata Servico
      *
@@ -241,10 +233,11 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceAta()
     {
-    	$service = new Projeto_Service_Ata();
-    
-    	return $service;
-    }  
+        $service = new Projeto_Service_Ata();
+
+        return $service;
+    }
+
     /**
      * Retorna DiarioBordo Servico
      *
@@ -252,23 +245,23 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceDiariobordo()
     {
-    	$service = new Projeto_Service_DiarioBordo();
-    
-    	return $service;
-    }  
-    
+        $service = new Projeto_Service_DiarioBordo();
+
+        return $service;
+    }
+
     /**
      * Retorna Gantt Servico
      *
-     * @return Projeto_Service_Diariobordo
+     * @return Projeto_Service_Gantt
      */
     public function getProjetoServiceGantt()
     {
-    	$service = new Projeto_Service_Gantt();
-    
-    	return $service;
+        $service = new Projeto_Service_Gantt();
+
+        return $service;
     }
-    
+
     /**
      * Retorna Riscos Servico
      *
@@ -276,22 +269,22 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
      */
     public function getProjetoServiceRisco()
     {
-    	$service = new Projeto_Service_Risco();
-    
-    	return $service;
-    }  
-    
+        $service = new Projeto_Service_Risco();
+
+        return $service;
+    }
+
     /**
      * Retorna Riscos Servico
      *
-     * @return Projeto_Service_Riscos
+     * @return Projeto_Service_Contramedida
      */
     public function getProjetoServiceContramedida()
     {
-    	$service = new Projeto_Service_Contramedida();
-    
-    	return $service;
-    }  
+        $service = new Projeto_Service_Contramedida();
+
+        return $service;
+    }
 
     /**
      * Retorna R3g Servico
@@ -337,6 +330,18 @@ class Projeto_Service_InjectionContainer extends  App_Service_InjectionContainer
     public function getProjetoServiceBloqueioProjeto()
     {
         $service = new Projeto_Service_BloqueioProjeto();
+
+        return $service;
+    }
+
+    /**
+     * Retorna PermissaoProjeto Servico
+     *
+     * @return Projeto_Service_PermissaoProjeto
+     */
+    public function getProjetoServicePermissaoProjeto()
+    {
+        $service = new Projeto_Service_PermissaoProjeto();
 
         return $service;
     }

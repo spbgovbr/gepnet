@@ -15,11 +15,11 @@ class App_View_Helper_Allowed extends Zend_View_Helper_Abstract
 
     public function __construct()
     {
-        $this->_auth           = Zend_Auth::getInstance();
-        $this->_acl            = new App_Acl();
+        $this->_auth = Zend_Auth::getInstance();
+        $this->_acl = new App_Acl();
         $this->_flashMessenger = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger');
     }
-    
+
     public $view;
 
     public function setView(Zend_View_Interface $view)
@@ -29,15 +29,15 @@ class App_View_Helper_Allowed extends Zend_View_Helper_Abstract
 
     public function allowed($module, $controller, $action)
     {
-        $resource   = $module . ':' . $controller;
-        $role       = null;
+        $resource = $module . ':' . $controller;
+        $role = null;
 
-        if ( $this->_auth->hasIdentity() ) {
-            if ( isset($this->_auth->getIdentity()->perfilAtivo->idperfil) ) {
+        if ($this->_auth->hasIdentity()) {
+            if (isset($this->_auth->getIdentity()->perfilAtivo->idperfil)) {
                 $role = $this->_auth->getIdentity()->perfilAtivo->idperfil;
             }
         }
-        
+
         return $this->_acl->isAllowed($role, $resource, $action);
     }
 }

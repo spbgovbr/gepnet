@@ -1,28 +1,28 @@
 <?php
 $this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
-        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
 
 $this->headScript()
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-        ->appendFile($this->baseUrl('/js/app/projeto/tap/parteinteressada.js'), 'text/javascript')
-;
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/app/projeto/tap/parteinteressada.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 ?>
-<div class="region-center" >
+<div class="region-center">
     <?php echo $this->partial('_partials/menuTap.phtml', array('dados' => 'partesinteressadas')); ?>
     <div class="portlet portlet-marron span12">
         <h3>Partes Interessadas</h3>
@@ -30,8 +30,11 @@ $frmAttr = $this->form->getAttribs();
             <div class="row">
                 <div class="portlet span12">
                     <ul class="nav nav-pills">
-                        <li class="origem origem-interno active"  data-cont="interno"><a id="origem-interno-link" class="link" href="#">Interno</a></li>
-                        <li class="origem origem-externo" data-cont="externo"><a id="origem-externo-link" class="link" href="#">Externo</a></li>
+                        <li class="origem origem-interno active" data-cont="interno"><a id="origem-interno-link"
+                                                                                        class="link"
+                                                                                        href="#">Interno</a></li>
+                        <li class="origem origem-externo" data-cont="externo"><a id="origem-externo-link" class="link"
+                                                                                 href="#">Externo</a></li>
                     </ul>
                 </div>
             </div>
@@ -41,7 +44,7 @@ $frmAttr = $this->form->getAttribs();
                       action="<?php echo $this->form->getAction(); ?>"
                       method="<?php echo $frmAttr['method']; ?>">
 
-                    <div class="row" style="height:165px;">                
+                    <div class="row" style="height:165px;">
                         <div class="interno formulario cont">
                             <div class="span9">
                                 <div class="row">
@@ -70,7 +73,8 @@ $frmAttr = $this->form->getAttribs();
                                         <input type="text" id="dessituacao" name="dessituacao" class="span2">
                                     </div>-->
                                     <div class="span">
-                                        <label class="control-label optional" for="domnivelinfluencia">Nível de Influência</label>
+                                        <label class="control-label optional" for="domnivelinfluencia">Nível de
+                                            Influência</label>
                                         <select id="domnivelinfluencia" name="domnivelinfluencia" class="span1">
                                             <option value="Baixo">Baixo</option>
                                             <option value="Médio">Médio</option>
@@ -82,14 +86,15 @@ $frmAttr = $this->form->getAttribs();
                                 </div>
                             </div>
                         </div>
-                        <div class="externo formulario cont" >   		   
+                        <div class="externo formulario cont">
                             <div class="span9">
                                 <div class="row">
                                     <div class="span">
                                         <?php echo $this->form->nomparteinteressada; ?>
                                     </div>
                                     <div class="span">
-                                        <label class="control-label optional" for="nomfuncao">Posição na Organização</label>
+                                        <label class="control-label optional" for="nomfuncao">Posição na
+                                            Organização</label>
                                         <input type="text" id="nomfuncao" name="nomfuncao" class="span2">
                                     </div>
                                     <div class="span">
@@ -106,7 +111,8 @@ $frmAttr = $this->form->getAttribs();
                                         <?php echo $this->form->desemail; ?>
                                     </div>
                                     <div class="span">
-                                        <label class="control-label optional" for="domnivelinfluencia">Nível de Influência</label>
+                                        <label class="control-label optional" for="domnivelinfluencia">Nível de
+                                            Influência</label>
                                         <select id="domnivelinfluencia" name="domnivelinfluencia" class="span1">
                                             <option value="Baixo">Baixo</option>
                                             <option value="Médio">Médio</option>
@@ -117,12 +123,13 @@ $frmAttr = $this->form->getAttribs();
                             </div>
                         </div>
                         <div class="span2 actions-pesquisar" style="float:left;">
-                            <input id="idprojeto" type="hidden" value="<?php echo $this->idprojeto; ?>" name="idprojeto">
+                            <input id="idprojeto" type="hidden" value="<?php echo $this->idprojeto; ?>"
+                                   name="idprojeto">
                             <button class="btn" type="button" id="btn-adicionar">Adicionar</button>
                         </div>
                     </div>
                 </form>
-            </div> 
+            </div>
 
             <div id="listagemInteressados" class="row">
                 <table class="table table-bordered table-hover table-striped span10">
@@ -139,35 +146,36 @@ $frmAttr = $this->form->getAttribs();
                         <th>#</th>
                         <th>Nome</th>
                         <th>Função</th>
-                        <th>E-mail</th>
                         <th>Telefone</th>
+                        <th>Email</th>
                         <th>Nível Influência</th>
                         </thead>
                         <tbody>
-                            <?php foreach ($this->dados as $data) : ?>
-                                <tr>
-                                    <td>
-                                        <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado' data-id="<?php echo $data->idparteinteressada ?>" >
-                                            <i class='icon-trash'></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->nomparteinteressada; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->nomfuncao; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->destelefone; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->desemail; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->domnivelinfluencia; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                        <?php foreach ($this->dados as $data) : ?>
+                            <tr>
+                                <td>
+                                    <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado'
+                                       data-id="<?php echo $data->idparteinteressada ?>">
+                                        <i class='icon-trash'></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <?php echo $data->nomparteinteressada; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->nomfuncao; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->destelefone; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->desemail; ?>
+                                </td>
+                                <td>
+                                    <?php echo $data->domnivelinfluencia; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                         </tbody>
                     <?php else: ?>
                         <tr>

@@ -80,12 +80,12 @@ class Zend_Tool_Project_Context_Zf_DbTableFile extends Zend_Tool_Project_Context
                             'name' => '_name',
                             'visibility' => Zend_CodeGenerator_Php_Property::VISIBILITY_PROTECTED,
                             'defaultValue' => $this->_actualTableName
-                            ))
-                        ),
+                        ))
+                    ),
 
-                    ))
-                )
-            ));
+                ))
+            )
+        ));
         return $codeGenFile->generate();
     }
 

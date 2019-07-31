@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_QuestionariofrasePesquisa extends App_Service_ServiceAbstract {
+class Pesquisa_Service_QuestionariofrasePesquisa extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -22,11 +23,11 @@ class Pesquisa_Service_QuestionariofrasePesquisa extends App_Service_ServiceAbst
     {
         return $this->errors;
     }
-    
-    public function inserirQuestionarioFrasePesquisa($params, $idquestionariopesquisa, $idfrasepesquisa )
+
+    public function inserirQuestionarioFrasePesquisa($params, $idquestionariopesquisa, $idfrasepesquisa)
     {
         $questionarioFrase = new Pesquisa_Model_QuestionariofrasePesquisa();
-        
+
         $questionarioFrase->idquestionariopesquisa = $idquestionariopesquisa;
         $questionarioFrase->idfrasepesquisa = $idfrasepesquisa;
         $questionarioFrase->numordempergunta = $params['tqf_mumordempergunta'];

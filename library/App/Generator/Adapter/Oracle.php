@@ -1,4 +1,5 @@
 <?php
+
 class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
 {
     public function getReference($table, $schema = '')
@@ -6,20 +7,20 @@ class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
         $table = strtoupper($table);
         $relations = array();
         $sql = 'SELECT '
-             . 'rcc.table_name AS referenced_table_name, '
-             . 'lcc.column_name AS local_column_name, '
-             . 'rcc.column_name AS referenced_column_name '
-             . 'FROM user_constraints ac '
-             . 'JOIN user_cons_columns rcc ON ac.r_constraint_name = rcc.constraint_name '
-             . 'JOIN user_cons_columns lcc ON ac.constraint_name = lcc.constraint_name '
-             . "WHERE ac.constraint_type = 'R' AND ac.table_name = '$table' ";
+            . 'rcc.table_name AS referenced_table_name, '
+            . 'lcc.column_name AS local_column_name, '
+            . 'rcc.column_name AS referenced_column_name '
+            . 'FROM user_constraints ac '
+            . 'JOIN user_cons_columns rcc ON ac.r_constraint_name = rcc.constraint_name '
+            . 'JOIN user_cons_columns lcc ON ac.constraint_name = lcc.constraint_name '
+            . "WHERE ac.constraint_type = 'R' AND ac.table_name = '$table' ";
         /*
         $sql = 'SELECT *'
              . 'FROM user_constraints ac '
              . 'JOIN user_cons_columns rcc ON ac.r_constraint_name = rcc.constraint_name '
              . 'JOIN user_cons_columns lcc ON ac.constraint_name = lcc.constraint_name '
              . "WHERE ac.constraint_type = 'R' AND ac.table_name = 'TB_DOCUMENTO'";
-         */    
+         */
         $results = $this->_db->fetchAll($sql);
         //Zend_Debug::dump($sql);
         //Zend_Debug::dump($results);exit;
@@ -28,8 +29,8 @@ class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
             $className = $this->camelize($result['referenced_table_name']);
             $relations[$className] = array(
                 'refTableClass' => $result['referenced_table_name'],
-                'columns'       => $result['local_column_name'],
-                'refColumns'    => $result['referenced_column_name']
+                'columns' => $result['local_column_name'],
+                'refColumns' => $result['referenced_column_name']
             );
         }
         return $relations;
@@ -40,8 +41,7 @@ class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
         //$db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $metadata = $this->_db->describeTable($table, $schemaName);
         $primary = array();
-        foreach ($metadata as $col)
-        {
+        foreach ($metadata as $col) {
             if ($col['PRIMARY']) {
                 $primary[$col['PRIMARY_POSITION']] = $col['COLUMN_NAME'];
             }
@@ -53,7 +53,7 @@ class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
     {
         //$db = Zend_Db_Table_Abstract::getDefaultAdapter();
         $sql = "SELECT TABLE_NAME FROM all_tables";
-        if($schema != ''){
+        if ($schema != '') {
             $sql .= " WHERE OWNER = '$schema'";
         }
         return $this->_db->fetchCol($sql);
@@ -73,8 +73,8 @@ class App_Generator_Adapter_Oracle extends App_Generator_Adapter_Abstract
                 TABLE_NAME = '$table'  )
                 AND STATUS = 'ENABLED'
                 ";
-                //echo $sql;
-                //exit;
+        //echo $sql;
+        //exit;
         //$results = $db->fetchAll($sql, array('SIOUV',$table));
         $results = $this->_db->fetchAll($sql);
         $relations = array();

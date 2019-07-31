@@ -115,8 +115,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
         if ($majorVersion >= 2) {
             if ($this->_etag != null) {
                 $element->setAttributeNS($this->lookupNamespace('gd'),
-                                         'gd:etag',
-                                         $this->_etag);
+                    'gd:etag',
+                    $this->_etag);
             }
         }
 
@@ -133,24 +133,24 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     {
         $absoluteNodeName = $child->namespaceURI . ':' . $child->localName;
         switch ($absoluteNodeName) {
-        case $this->lookupNamespace('openSearch') . ':' . 'totalResults':
-            $totalResults = new Zend_Gdata_Extension_OpenSearchTotalResults();
-            $totalResults->transferFromDOM($child);
-            $this->_totalResults = $totalResults;
-            break;
-        case $this->lookupNamespace('openSearch') . ':' . 'startIndex':
-            $startIndex = new Zend_Gdata_Extension_OpenSearchStartIndex();
-            $startIndex->transferFromDOM($child);
-            $this->_startIndex = $startIndex;
-            break;
-        case $this->lookupNamespace('openSearch') . ':' . 'itemsPerPage':
-            $itemsPerPage = new Zend_Gdata_Extension_OpenSearchItemsPerPage();
-            $itemsPerPage->transferFromDOM($child);
-            $this->_itemsPerPage = $itemsPerPage;
-            break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            case $this->lookupNamespace('openSearch') . ':' . 'totalResults':
+                $totalResults = new Zend_Gdata_Extension_OpenSearchTotalResults();
+                $totalResults->transferFromDOM($child);
+                $this->_totalResults = $totalResults;
+                break;
+            case $this->lookupNamespace('openSearch') . ':' . 'startIndex':
+                $startIndex = new Zend_Gdata_Extension_OpenSearchStartIndex();
+                $startIndex->transferFromDOM($child);
+                $this->_startIndex = $startIndex;
+                break;
+            case $this->lookupNamespace('openSearch') . ':' . 'itemsPerPage':
+                $itemsPerPage = new Zend_Gdata_Extension_OpenSearchItemsPerPage();
+                $itemsPerPage->transferFromDOM($child);
+                $this->_itemsPerPage = $itemsPerPage;
+                break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 
@@ -164,21 +164,20 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
     protected function takeAttributeFromDOM($attribute)
     {
         switch ($attribute->localName) {
-        case 'etag':
-            // ETags are special, since they can be conveyed by either the
-            // HTTP ETag header or as an XML attribute.
-            $etag = $attribute->nodeValue;
-            if ($this->_etag === null) {
-                $this->_etag = $etag;
-            }
-            elseif ($this->_etag != $etag) {
-                require_once('Zend/Gdata/App/IOException.php');
-                throw new Zend_Gdata_App_IOException("ETag mismatch");
-            }
-            break;
-        default:
-            parent::takeAttributeFromDOM($attribute);
-            break;
+            case 'etag':
+                // ETags are special, since they can be conveyed by either the
+                // HTTP ETag header or as an XML attribute.
+                $etag = $attribute->nodeValue;
+                if ($this->_etag === null) {
+                    $this->_etag = $etag;
+                } elseif ($this->_etag != $etag) {
+                    require_once('Zend/Gdata/App/IOException.php');
+                    throw new Zend_Gdata_App_IOException("ETag mismatch");
+                }
+                break;
+            default:
+                parent::takeAttributeFromDOM($attribute);
+                break;
         }
     }
 
@@ -189,7 +188,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      *        value of the totalResults property. Use null to unset.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
-    function setTotalResults($value) {
+    function setTotalResults($value)
+    {
         $this->_totalResults = $value;
         return $this;
     }
@@ -200,7 +200,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      * @return Zend_Gdata_Extension_OpenSearchTotalResults|null The value of
      *         the totalResults property, or null if unset.
      */
-    function getTotalResults() {
+    function getTotalResults()
+    {
         return $this->_totalResults;
     }
 
@@ -211,7 +212,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      *        for the startIndex property. Use null to unset.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
-    function setStartIndex($value) {
+    function setStartIndex($value)
+    {
         $this->_startIndex = $value;
         return $this;
     }
@@ -222,7 +224,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      * @return Zend_Gdata_Extension_OpenSearchStartIndex|null The value of the
      *         startIndex property, or null if unset.
      */
-    function getStartIndex() {
+    function getStartIndex()
+    {
         return $this->_startIndex;
     }
 
@@ -233,7 +236,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      *        value for the itemsPerPage property. Use nul to unset.
      * @return Zend_Gdata_Feed Provides a fluent interface.
      */
-    function setItemsPerPage($value) {
+    function setItemsPerPage($value)
+    {
         $this->_itemsPerPage = $value;
         return $this;
     }
@@ -244,7 +248,8 @@ class Zend_Gdata_Feed extends Zend_Gdata_App_Feed
      * @return Zend_Gdata_Extension_OpenSearchItemsPerPage|null The value of
      *         the itemsPerPage property, or null if unset.
      */
-    function getItemsPerPage() {
+    function getItemsPerPage()
+    {
         return $this->_itemsPerPage;
     }
 

@@ -18,16 +18,16 @@ class Default_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Evento $model)
     {
         $data = array(
-            "idevento"      => $model->idevento,
-            "nomevento"     => $model->nomevento,
-            "desevento"     => $model->desevento,
-            "desobs"        => $model->desobs,
+            "idevento" => $model->idevento,
+            "nomevento" => $model->nomevento,
+            "desevento" => $model->desevento,
+            "desobs" => $model->desobs,
             "idcadastrador" => $model->idcadastrador,
             "idresponsavel" => $model->idresponsavel,
-            "datcadastro"   => $model->datcadastro,
-            "datinicio"     => $model->datinicio,
-            "datfim"        => $model->datfim,
-            "uf"            => $model->uf,
+            "datcadastro" => $model->datcadastro,
+            "datinicio" => $model->datinicio,
+            "datfim" => $model->datfim,
+            "uf" => $model->uf,
         );
         $this->getDbTable()->insert($data);
     }
@@ -41,18 +41,17 @@ class Default_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Evento $model)
     {
         $data = array(
-            "idevento"      => $model->idevento,
-            "nomevento"     => $model->nomevento,
-            "desevento"     => $model->desevento,
-            "desobs"        => $model->desobs,
+            "idevento" => $model->idevento,
+            "nomevento" => $model->nomevento,
+            "desevento" => $model->desevento,
+            "desobs" => $model->desobs,
             "idcadastrador" => $model->idcadastrador,
             "idresponsavel" => $model->idresponsavel,
-            "datcadastro"   => $model->datcadastro,
-            "datinicio"     => $model->datinicio,
-            "datfim"        => $model->datfim,
-            "uf"            => $model->uf,
+            "datcadastro" => $model->datcadastro,
+            "datinicio" => $model->datinicio,
+            "datfim" => $model->datfim,
+            "uf" => $model->uf,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

@@ -1,4 +1,5 @@
 <?php
+
 class ZFDebug_Controller_Plugin_Debug_Plugin_Debug implements ZFDebug_Controller_Plugin_Debug_Plugin_Interface
 {
     /**

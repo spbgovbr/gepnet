@@ -13,7 +13,7 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
     {
         $this->auth = App_Service_ServiceAbstract::getService('Default_Service_Login');
     }
-    
+
     /**
      * Set the property
      *
@@ -23,12 +23,12 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
     public function insert(Pesquisa_Model_Questionariofrase $model)
     {
         $data = array(
-            "idfrase"          => $model->idfrase,
-            "idquestionario"   => $model->idquestionario,
+            "idfrase" => $model->idfrase,
+            "idquestionario" => $model->idquestionario,
             "numordempergunta" => $model->numordempergunta,
-            "obrigatoriedade"  => $model->obrigatoriedade,
-            "idcadastrador"    => $model->idcadastrador,
-            "datcadastro"      => new Zend_Db_Expr('now()'),
+            "obrigatoriedade" => $model->obrigatoriedade,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => new Zend_Db_Expr('now()'),
         );
         return $this->getDbTable()->insert($data);
     }
@@ -43,19 +43,20 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
     {
         $data = array(
             "numordempergunta" => $model->numordempergunta,
-            "obrigatoriedade"  => $model->obrigatoriedade,
+            "obrigatoriedade" => $model->obrigatoriedade,
         );
-        return $this->getDbTable()->update($data, array("idquestionario = ?" => $model->idquestionario, 'idfrase = ?'=> $model->idfrase));
+        return $this->getDbTable()->update($data,
+            array("idquestionario = ?" => $model->idquestionario, 'idfrase = ?' => $model->idfrase));
     }
 
     public function delete($params)
     {
-       $where =  $this->quoteInto(' idquestionario = ? ', (int)$params['idquestionario']);        
-       $where .=  $this->quoteInto(' AND idfrase = ? ', (int)$params['idfrase']);        
-       $result =  $this->getDbTable()->delete($where);
-       return $result;
+        $where = $this->quoteInto(' idquestionario = ? ', (int)$params['idquestionario']);
+        $where .= $this->quoteInto(' AND idfrase = ? ', (int)$params['idfrase']);
+        $result = $this->getDbTable()->delete($where);
+        return $result;
     }
-    
+
     public function getForm()
     {
         return $this->_getForm(Pesquisa_Form_Questionariofrase);
@@ -63,19 +64,21 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
 
     public function getById($params)
     {
-        $sql =  "SELECT tqf.*, tf.desfrase, te.nomescritorio 
+        $sql = "SELECT tqf.*, tf.desfrase, te.nomescritorio 
                     FROM agepnet200.tb_questionariofrase  tqf
                     INNER JOIN agepnet200.tb_frase tf ON tf.idfrase = tqf.idfrase
                     INNER JOIN agepnet200.tb_escritorio te ON te.idescritorio = tf.idescritorio
                 WHERE tqf.idquestionario =  :idquestionario
                 AND tqf.idfrase = :idfrase
                 ";
-        
-        return $this->_db->fetchRow($sql, array('idquestionario' => (int)$params['idquestionario'], 'idfrase'=>$params['idfrase']));
+
+        return $this->_db->fetchRow($sql,
+            array('idquestionario' => (int)$params['idquestionario'], 'idfrase' => $params['idfrase']));
     }
+
     public function getByIdDetalhar($params)
     {
-        $sql =  "SELECT tqf.numordempergunta,
+        $sql = "SELECT tqf.numordempergunta,
                         tqf.idfrase,
                         tqf.idquestionario,
                         CASE 
@@ -90,18 +93,19 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
                 WHERE tqf.idquestionario =  :idquestionario
                 AND tqf.idfrase = :idfrase
                 ";
-        
-        return $this->_db->fetchRow($sql, array('idquestionario' => (int)$params['idquestionario'], 'idfrase'=>$params['idfrase']));
+
+        return $this->_db->fetchRow($sql,
+            array('idquestionario' => (int)$params['idquestionario'], 'idfrase' => $params['idfrase']));
     }
-    
-    
+
+
     public function getAllByIdQuestionario($params)
     {
         $idescritorio = $this->auth->retornaUsuarioLogado()->perfilAtivo->idescritorio;
         $params = array_filter($params);
 
         try {
-        $sql = "SELECT 
+            $sql = "SELECT 
                     te.nomescritorio,
                     tf.desfrase as desfrase, 
                     tqf.numordempergunta as numordempergunta,                    
@@ -114,17 +118,17 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
                     WHERE tqf.idquestionario  = :idquestionario
                     and tq.idescritorio  = $idescritorio
                     ORDER BY tqf.numordempergunta";
-        
-        return $this->_db->fetchAll($sql, array('idquestionario' => (int)$params['idquestionario']));
-        
-        } catch(Exception $exc) {
+
+            return $this->_db->fetchAll($sql, array('idquestionario' => (int)$params['idquestionario']));
+
+        } catch (Exception $exc) {
             throw new Exception($exc->getMessage());
         }
     }
-    
+
     /**
      * Retorna as perguntas vinculadas ao questionario
-     * 
+     *
      * @param array $params
      * @return \Zend_Paginator
      * @throws Exception
@@ -148,20 +152,20 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
                     INNER JOIN agepnet200.tb_questionariofrase tqf ON tqf.idfrase = tf.idfrase
                     INNER JOIN agepnet200.tb_questionario tq ON tq.idquestionario = tqf.idquestionario
                     INNER JOIN agepnet200.tb_escritorio te ON te.idescritorio = tf.idescritorio
-                    WHERE tqf.idquestionario  = ".(int)$params['idquestionario']."
+                    WHERE tqf.idquestionario  = " . (int)$params['idquestionario'] . "
                     AND tf.flaativo = 'S'
                     AND tq.idescritorio = $idescritorio ";
-                
-        if(isset($params['desfrase']) && $params['desfrase'] != "") {
-            $sql .= $this->_db->quoteInto(" AND tf.desfrase ilike ?", "%".$params['desfrase']."%");
+
+        if (isset($params['desfrase']) && $params['desfrase'] != "") {
+            $sql .= $this->_db->quoteInto(" AND tf.desfrase ilike ?", "%" . $params['desfrase'] . "%");
         }
-        if(isset($params['numordempergunta']) && $params['numordempergunta'] != "") {
+        if (isset($params['numordempergunta']) && $params['numordempergunta'] != "") {
             $sql .= $this->quoteInto(" AND tqf.numordempergunta  = ? ", (int)$params['numordempergunta']);
-        } 
-        if(isset($params['obrigatoriedade']) && $params['obrigatoriedade'] != "") {
+        }
+        if (isset($params['obrigatoriedade']) && $params['obrigatoriedade'] != "") {
             $sql .= $this->quoteInto(" AND tqf.obrigatoriedade  = ? ", $params['obrigatoriedade']);
-        }   
-        
+        }
+
         $sql .= ' order by ' . $params['sidx'] . ' ' . $params['sord'];
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;
@@ -170,14 +174,14 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
             return $paginator;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->code());
         }
     }
-    
+
     /**
      * Retorna a relação de perguntas existentes e ainda nao vinculadas ao questionario
-     * 
+     *
      * @param array $params
      * @return \Zend_Paginator
      * @throws Exception
@@ -202,14 +206,14 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
                 FROM agepnet200.tb_frase tf
                 INNER JOIN agepnet200.tb_escritorio te ON te.idescritorio = tf.idescritorio
                     WHERE tf.flaativo = 'S'
-                    AND tf.idfrase NOT IN (SELECT idfrase FROM agepnet200.tb_questionariofrase WHERE idquestionario = ".(int)$params['idquestionario'].")";
-                
-        if(isset($params['desfrase']) && $params['desfrase'] != "") {
-            $sql .= $this->_db->quoteInto(" AND tf.desfrase ilike ?", "%".$params['desfrase']."%");
+                    AND tf.idfrase NOT IN (SELECT idfrase FROM agepnet200.tb_questionariofrase WHERE idquestionario = " . (int)$params['idquestionario'] . ")";
+
+        if (isset($params['desfrase']) && $params['desfrase'] != "") {
+            $sql .= $this->_db->quoteInto(" AND tf.desfrase ilike ?", "%" . $params['desfrase'] . "%");
         }
 
         $sql .= 'order by ' . $params['sidx'] . ' ' . $params['sord'];
-        
+
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
@@ -217,15 +221,15 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
             return $paginator;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->code());
         }
     }
-    
+
     /**
      * Retorna todas a perguntas ativas e com resposta ou perguntas ativas sem resposta do questionario
-     * 
-     * 
+     *
+     *
      * @param type $params
      * @return type
      * @throws Exception
@@ -234,7 +238,7 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
     {
         try {
             $params = array_filter($params);
-            $sql =  "SELECT 
+            $sql = "SELECT 
                             tqf.idfrase as tqf_idfrase, 
                             tqf.idquestionario as tqf_idquestionario, 
                             tqf.numordempergunta as tqf_mumordempergunta,
@@ -261,21 +265,21 @@ class Pesquisa_Model_Mapper_Questionariofrase extends App_Model_Mapper_MapperAbs
                                 LEFT JOIN agepnet200.tb_respostafrase trf ON trf.idfrase = tf.idfrase
                                 LEFT JOIN agepnet200.tb_resposta tr ON tr.idresposta = trf.idresposta
                             WHERE (
-                                    tf.domtipofrase <> ".Pesquisa_Model_Frase::UMA_ESCOLHA." AND tf.domtipofrase <> ".Pesquisa_Model_Frase::MULTIPLA_ESCOLHA." AND tf.domtipofrase <> ".Pesquisa_Model_Frase::UF."
-                                    AND tf.flaativo = '".Pesquisa_Model_Frase::ATIVO."' AND tqf.idquestionario = :idquestionario
+                                    tf.domtipofrase <> " . Pesquisa_Model_Frase::UMA_ESCOLHA . " AND tf.domtipofrase <> " . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . " AND tf.domtipofrase <> " . Pesquisa_Model_Frase::UF . "
+                                    AND tf.flaativo = '" . Pesquisa_Model_Frase::ATIVO . "' AND tqf.idquestionario = :idquestionario
                                   )
                             OR  (
-                                  (tf.domtipofrase = ".Pesquisa_Model_Frase::UMA_ESCOLHA." OR tf.domtipofrase = ".Pesquisa_Model_Frase::MULTIPLA_ESCOLHA." OR tf.domtipofrase = ".Pesquisa_Model_Frase::UF.") 
-                                  AND tf.flaativo = '".Pesquisa_Model_Frase::ATIVO."' 
-                                  AND tr.flaativo = '". Pesquisa_Model_Resposta::ATIVO."' AND tqf.idquestionario = :idquestionario
+                                  (tf.domtipofrase = " . Pesquisa_Model_Frase::UMA_ESCOLHA . " OR tf.domtipofrase = " . Pesquisa_Model_Frase::MULTIPLA_ESCOLHA . " OR tf.domtipofrase = " . Pesquisa_Model_Frase::UF . ") 
+                                  AND tf.flaativo = '" . Pesquisa_Model_Frase::ATIVO . "' 
+                                  AND tr.flaativo = '" . Pesquisa_Model_Resposta::ATIVO . "' AND tqf.idquestionario = :idquestionario
                                 )
                             ORDER BY tf.idfrase, tr.idresposta";
-            
-            return $this->_db->fetchAll($sql, array('idquestionario'=>(int)$params['idquestionario']));
-        } catch ( Exception $exc ) {
+
+            return $this->_db->fetchAll($sql, array('idquestionario' => (int)$params['idquestionario']));
+        } catch (Exception $exc) {
             throw new Exception($exc->code());
         }
-        
+
     }
 }
 

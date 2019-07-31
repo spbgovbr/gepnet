@@ -6,26 +6,22 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initAutoload()
     {
         $autoloader = $this->getApplication()->getAutoloader();
-        if ( !$autoloader->isFallbackAutoloader() ) {
+        if (!$autoloader->isFallbackAutoloader()) {
             $autoloader->setFallbackAutoloader(true);
         }
-        //return $autoloader;
-
 
         $this->bootstrap('frontController');
 
-        //Zend_Debug::dump('passou');
-        //new Zend_
         $autoloader = new Zend_Loader_Autoloader_Resource(array(
-            'namespace'     => 'Default',
-            'basePath'      => APPLICATION_PATH,
+            'namespace' => 'Default',
+            'basePath' => APPLICATION_PATH,
             'resourceTypes' => array(
-                'form'  => array(
-                    'path'      => 'forms',
+                'form' => array(
+                    'path' => 'forms',
                     'namespace' => 'Form'
                 ),
                 'model' => array(
-                    'path'      => 'models',
+                    'path' => 'models',
                     'namespace' => 'Model',
                 ),
             )
@@ -39,6 +35,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     protected function _initCache()
     {
+        $this->bootstrap('db');
+
         // First, set up the Cache
         $frontendOptions = array(
             'automatic_serialization' => true
@@ -63,9 +61,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         date_default_timezone_set('America/Sao_Paulo');
         //Data no formato 12-12-2010
-        $locale   = new Zend_Locale('pt_BR');
+        $locale = new Zend_Locale('pt_BR');
         Zend_Locale_Format::setOptions(array(
-            'locale'      => 'pt_BR',
+            'locale' => 'pt_BR',
             'date_format' => 'dd/MM/YYYY'
         ));
         $registry = Zend_Registry::getInstance();
@@ -75,10 +73,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initTranslate()
     {
         try {
-            $translate = new Zend_Translate('Array', APPLICATION_PATH . DIRECTORY_SEPARATOR . 'i18n' . DIRECTORY_SEPARATOR . 'pt_BR.php', 'pt_BR');
+            $translate = new Zend_Translate('Array',
+                APPLICATION_PATH . DIRECTORY_SEPARATOR . 'i18n' . DIRECTORY_SEPARATOR . 'pt_BR.php', 'pt_BR');
             Zend_Registry::set('translate', $translate);
             Zend_Validate_Abstract::setDefaultTranslator($translate);
-        } catch ( Exception $e ) {
+        } catch (Exception $e) {
             die($e->getMessage());
         }
     }
@@ -87,15 +86,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $this->bootstrap('frontController');
         $frontController = $this->getResource('frontController');
-        $config          = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
-        $router          = $frontController->getRouter();
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/routes.ini');
+        $router = $frontController->getRouter();
         $router->addConfig($config, 'routes');
     }
 
     protected function _initView()
     {
         // Initialize view
-        $view      = new Zend_View ( );
+        $view = new Zend_View ();
         //$view->doctype ( 'HTML4_STRICT' );
         //$view->headTitle('Meu Projeto');
         $view->env = APPLICATION_ENV;
@@ -134,31 +133,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController = $this->getResource('frontController');
         $frontController->registerPlugin(new App_Controller_Plugin_CustomView());
         $frontController->registerPlugin(new App_Controller_Plugin_Auth());
-    }
-
-    protected function _initDbTable()
-    {
-        $d = DIRECTORY_SEPARATOR;
-        // First, set up the Cache
-        $frontendOptions = array(
-            'automatic_serialization' => true
-        );
-
-        $backendOptions = array(
-            'cache_dir' => APPLICATION_PATH . $d . 'data' . $d . 'cache'
-        );
-
-        $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
-
-// Next, set the cache to be used with all table objects
-        Zend_Db_Table_Abstract::setDefaultMetadataCache($cache);
+        $frontController->registerPlugin(new App_Controller_Plugin_Menu());
     }
 
     protected function _initZFDebug()
     {
         $zfdebugConfig = $this->getOption('zfdebug');
 
-        if ( $zfdebugConfig['enabled'] != 1 ) {
+        if ($zfdebugConfig['enabled'] != 1) {
             return;
         }
         $autoloader = Zend_Loader_Autoloader::getInstance();
@@ -167,31 +149,35 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
           $this->bootstrap('Doctrine');
           $doctrine = $this->getResource('Doctrine');
          */
-        $options    = array(
-            'plugins' => array('Variables',
-                'File'                                         => array('base_path' => realpath(APPLICATION_PATH . '/../')),
+        $options = array(
+            'plugins' => array(
+                'Variables',
+                'File' => array('base_path' => realpath(APPLICATION_PATH . '/../')),
                 'Memory',
-                'ZFDebug_Controller_Plugin_Debug_Plugin_Debug' => array('tab'   => 'Debug',
-                    'panel' => ''),
+                'ZFDebug_Controller_Plugin_Debug_Plugin_Debug' => array(
+                    'tab' => 'Debug',
+                    'panel' => ''
+                ),
                 'ZFDebug_Controller_Plugin_Debug_Plugin_Auth',
                 //'App_ZFDebug_Controller_Plugin_Debug_Plugin_Doctrine',
                 'Time',
                 'Registry',
-                'Exception')
+                'Exception'
+            )
         );
 
         # Instantiate the database adapter and setup the plugin.
         # Alternatively just add the plugin like above and rely on the autodiscovery feature.
-        if ( $this->hasPluginResource('db') ) {
+        if ($this->hasPluginResource('db')) {
             $this->bootstrap('db');
-            $db                                        = $this->getPluginResource('db')->getDbAdapter();
+            $db = $this->getPluginResource('db')->getDbAdapter();
             $options['plugins']['Database']['adapter'] = $db;
         }
 
         # Setup the cache plugin
-        if ( $this->hasPluginResource('cache') ) {
+        if ($this->hasPluginResource('cache')) {
             $this->bootstrap('cache');
-            $cache                                  = $this->getPluginResource('cache')->getDbAdapter();
+            $cache = $this->getPluginResource('cache')->getDbAdapter();
             $options['plugins']['Cache']['backend'] = $cache->getBackend();
         }
 
@@ -202,85 +188,33 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $frontController->registerPlugin($debug);
     }
 
-    /*
-      protected function _initNavigation()
-      {
-      $this->bootstrap('layout');
-      $this->bootstrap('view');
-      $this->bootstrap('frontController');
-      $layout = $this->getResource('layout');
-      $view = $layout->getView();
-
-
-      $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
-
-      $navigation = new Zend_Navigation($config);
-      Zend_Registry::set('Zend_Navigation', $navigation);
-      $view->navigation($navigation);
-
-      Zend_Registry::set('Zend_Navigation', $navigation);
-
-      return $navigation;
-      }
-     */
-
     protected function _initNavigation()
     {
-        /*
-          $this->bootstrap('layout');
-          $this->bootstrap('view');
-          $this->bootstrap('FrontController');
-
-          $config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
-
-          $resource = new Zend_Application_Resource_Navigation(array(
-          'pages' => $config->toArray(),
-          ));
-          $resource->setBootstrap($this);
-
-          return $resource->init();
-
-         */
-
-        $this->bootstrap('db');
-        $this->bootstrap('layout');
-        $this->bootstrap('view');
-        $this->bootstrap('FrontController');
-        $layout     = $this->getResource('layout');
-        $view       = $layout->getView();
-        $config     = new Zend_Config_Xml(APPLICATION_PATH .
-            '/configs/navigation.xml', 'nav');
-        
-        $navigation = new Zend_Navigation($config);
-        $role       = null;
-        $auth       = Zend_Auth::getInstance();
-        $acl        = new App_Acl();
-
-
-
-        if ( $auth->hasIdentity() ) {
-            //$role = $acl->getRoleById($auth->getIdentity()->nr_nivel);
-            //Zend_Debug::dump($auth->getIdentity()); exit;
-            if ( isset($auth->getIdentity()->perfilAtivo->idperfil) ) {
-                $role = new Zend_Acl_Role($auth->getIdentity()->perfilAtivo->idperfil);
-            }
-        }
-
-        //Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
-        //Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($role);
-
-        /*
-          $view->addHelperPath(
-          'App/View/Helper/Navigation',
-          'App_View_Helper_Navigation'
-          );
-         *
-         */
-
-        Zend_Registry::set('Zend_Navigation', $navigation);
-        $nav = $view->navigation($navigation);
-        $nav->setAcl($acl)->setRole($role);
-        return $navigation;
+//        $this->bootstrap('db');
+//        $this->bootstrap('layout');
+//        $this->bootstrap('view');
+//        $this->bootstrap('FrontController');
+//        $layout     = $this->getResource('layout');
+//        $view       = $layout->getView();
+//        $config     = new Zend_Config_Xml(APPLICATION_PATH .
+//            '/configs/navigation_menu.xml', 'nav');
+//
+//        $navigation = new Zend_Navigation($config);
+//        $role       = null;
+//        $auth       = Zend_Auth::getInstance();
+//        $acl        = new App_Acl();
+//
+//        if ( $auth->hasIdentity() ) {
+//            //$role = $acl->getRoleById($auth->getIdentity()->nr_nivel);
+//            //Zend_Debug::dump($auth->getIdentity()); exit;
+//            if ( isset($auth->getIdentity()->perfilAtivo->idperfil) ) {
+//                $role = new Zend_Acl_Role($auth->getIdentity()->perfilAtivo->idperfil);
+//            }
+//        }
+//
+//        $nav = $view->navigation($navigation);
+//        $nav->setAcl($acl)->setRole($role);
+//        return $navigation;
     }
 
     /**
@@ -294,5 +228,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         App_Service_ServiceAbstract::attachInjectionContainer(
             new Default_Service_InjectionContainer($config), 'Default_Service_'
         );
+    }
+
+    protected function _initConfig()
+    {
+        $config = new Zend_Config($this->getOptions(), true);
+        Zend_Registry::set('config', $config);
+        return $config;
     }
 }

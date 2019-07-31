@@ -28,13 +28,13 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
     protected $_log;
 
     /**
-     * @var array 
+     * @var array
      */
-    public $errors              = array();
-    private $arrRecursos         = array();
-    private $recursos            = array();
+    public $errors = array();
+    private $arrRecursos = array();
+    private $recursos = array();
     private $recursosCadastrados = array();
-    private $permissoesAtual     = array();
+    private $permissoesAtual = array();
 
     public function init()
     {
@@ -63,7 +63,7 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
         try {
             $permissao = new Default_Model_Permissao($params);
             return $this->_mapper->insert($permissao);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -74,13 +74,13 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
     {
         try {
             $form = $this->getForm();
-            if ( $form->isValid($params) ) {
+            if ($form->isValid($params)) {
                 $permissao = new Default_Model_Permissao($params);
                 return $this->_mapper->update($permissao);
             } else {
                 $this->errors = $form->getMessages();
             }
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -95,6 +95,88 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
     public function getById($params)
     {
         return $this->_mapper->getById($params);
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     *
+     */
+    public function getRecursosProjeto()
+    {
+        return $this->_mapper->getRecursosProjeto();
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     *
+     */
+    public function getRecursosPlanodeacao()
+    {
+        return $this->_mapper->getRecursosPlanodeacao();
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return array Default_Model_Mapper_Permissao
+     */
+    public function getRecursosProjetoPorId()
+    {
+        return $this->_mapper->getRecursosProjetoPorId();
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     */
+    public function getRecursosProjetoPorParte($params)
+    {
+        return $this->_mapper->getRecursosProjetoPorParte($params);
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     */
+    public function getRecursosProjetoRecursoPorParte($params)
+    {
+        return $this->_mapper->getRecursosProjetoRecursoPorParte($params);
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return array Default_Model_Mapper_Permissao
+     */
+    public function getRecursosPlanodeacaoPorId()
+    {
+        return $this->_mapper->getRecursosPlanodeacaoPorId();
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     */
+    public function getRecursosPlanodeacaoPorParte($params)
+    {
+        return $this->_mapper->getRecursosPlanodeacaoPorParte($params);
+    }
+
+    /**
+     *
+     * @param array $param
+     * @return Default_Model_Mapper_Permissao
+     */
+    public function getRecursosPlanodeacaoRecursoPorParte($params)
+    {
+        return $this->_mapper->getRecursosPlanodeacaoRecursoPorParte($params);
     }
 
     /**
@@ -116,7 +198,7 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
     public function pesquisar($params, $paginator)
     {
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);
@@ -132,20 +214,19 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
     public function retornaPorPerfil()
     {
         $serviceLogin = new Default_Service_Login();
-        $perfil       = $serviceLogin->retornaPerfilAtivo();
-        $permissoes   = $this->_mapper->retornaPorPerfil($perfil->idperfil);
+        $perfil = $serviceLogin->retornaPerfilAtivo();
+        $permissoes = $this->_mapper->retornaPorPerfil($perfil->idperfil);
         return $permissoes;
     }
 
-    public function fetchPairs()
+    public function fetchPairs($params = array())
     {
-        if ( count($params) <= 0 ) {
+        if (count($params) <= 0) {
             $retorno = array(
                 '' => 'Todas'
             );
             $options = $this->_mapper->fetchPairs();
-            foreach ( $options as $i => $val )
-            {
+            foreach ($options as $i => $val) {
                 $retorno[$i] = $val;
             }
             return $retorno;
@@ -161,14 +242,23 @@ class Default_Service_Permissao extends App_Service_ServiceAbstract
         $todas->nome = 'Todas';
         $retorno[] = $todas;
         $resultado = $this->_mapper->retornaPorRecurso($params);
-        foreach ($resultado as $r => $permissao)
-        {
+        foreach ($resultado as $r => $permissao) {
             $p = new stdClass();
             $p->id = $permissao->idpermissao;
             $p->nome = $permissao->no_permissao;
             $retorno[] = $p;
         }
         return $retorno;
+    }
+
+    public function retornaRecursoEPermissaoDiagnosticoPorTipo($tipo)
+    {
+        return $this->_mapper->retornaRecursoEPermissaoDiagnosticoPorTipo($tipo);
+    }
+
+    public function retornaRecursoEPermissaoPorTipo($tipo)
+    {
+        return $this->_mapper->retornaRecursoEPermissaoPorTipo($tipo);
     }
 
 }

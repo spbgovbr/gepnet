@@ -1,16 +1,17 @@
-<div class="region-center" >
+<div class="region-center">
     <div class="portlet portlet-cinza">
         <div class="content">
-            <input type="hidden" id="idparteinteressada" name="idparteinteressada" value="<?php echo $this->parte->idparteinteressada; ?>"/>
-            <div class="row">              
+            <input type="hidden" id="idparteinteressada" name="idparteinteressada"
+                   value="<?php echo $this->parte->idparteinteressada; ?>"/>
+            <div class="row">
                 <div class="portlet portlet-cinza span9">
                     <div class="title">Nome</div>
                     <div class="content"><?php echo $this->parte->nomparteinteressada; ?></div>
                 </div>
-            </div>          
-            <div class="row">              
+            </div>
+            <div class="row">
                 <div class="portlet portlet-cinza span3">
-                    <div class="title">Fun&ccedil;&atilde;o</div>
+                    <div class="title">Função no projeto</div>
                     <div class="content"><?php echo $this->parte->nomfuncao; ?></div>
                 </div>
                 <div class="portlet portlet-cinza span3">
@@ -22,16 +23,33 @@
                     <div class="content"><?php echo $this->parte->destelefone; ?></div>
                 </div>
             </div>
-            <div class="row">              
+            <div class="row">
                 <div class="portlet portlet-cinza span5">
                     <div class="title">N&iacute;vel de Influ&ecirc;ncia</div>
                     <div class="content"><?php echo $this->parte->domnivelinfluencia; ?></div>
                 </div>
+                <?php if ($this->parte->idpessoainterna != null): ?>
+                    <div class="portlet portlet-cinza span5">
+                        <div class="title">Permissão</div>
+                        <div class="content">
+                            <?php
+                            $permissao = $this->parte->tppermissao;
+                            if ($permissao == '1') {
+                                echo 'Editar';
+                            } elseif ($permissao == '2') {
+                                echo 'Visualizar';
+                            } else {
+                                echo '';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
                 <div class="portlet portlet-cinza span5">
                     <div class="title">Observação</div>
                     <div class="content"><?php echo $this->parte->observacao; ?></div>
                 </div>
-            </div>           
+            </div>
         </div>
     </div>
 </div>

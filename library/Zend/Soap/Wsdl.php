@@ -73,8 +73,8 @@ class Zend_Soap_Wsdl
     /**
      * Constructor
      *
-     * @param string  $name Name of the Web Service being Described
-     * @param string  $uri URI where the WSDL will be available
+     * @param string $name Name of the Web Service being Described
+     * @param string $uri URI where the WSDL will be available
      * @param boolean|string|Zend_Soap_Wsdl_Strategy_Interface $strategy
      */
     public function __construct($name, $uri, $strategy = true)
@@ -110,7 +110,7 @@ class Zend_Soap_Wsdl
     /**
      * Set a new uri for this WSDL
      *
-     * @param  string|Zend_Uri_Http $uri
+     * @param string|Zend_Uri_Http $uri
      * @return Zend_Server_Wsdl
      */
     public function setUri($uri)
@@ -121,7 +121,7 @@ class Zend_Soap_Wsdl
         $oldUri = $this->_uri;
         $this->_uri = $uri;
 
-        if($this->_dom !== null) {
+        if ($this->_dom !== null) {
             // @todo: This is the worst hack ever, but its needed due to design and non BC issues of WSDL generation
             $xml = $this->_dom->saveXML();
             $xml = str_replace($oldUri, $uri, $xml);
@@ -135,30 +135,34 @@ class Zend_Soap_Wsdl
     /**
      * Set a strategy for complex type detection and handling
      *
-     * @todo Boolean is for backwards compability with extractComplexType object var. Remove it in later versions.
      * @param boolean|string|Zend_Soap_Wsdl_Strategy_Interface $strategy
      * @return Zend_Soap_Wsdl
+     * @todo Boolean is for backwards compability with extractComplexType object var. Remove it in later versions.
      */
     public function setComplexTypeStrategy($strategy)
     {
-        if($strategy === true) {
+        if ($strategy === true) {
             require_once "Zend/Soap/Wsdl/Strategy/DefaultComplexType.php";
             $strategy = new Zend_Soap_Wsdl_Strategy_DefaultComplexType();
-        } else if($strategy === false) {
-            require_once "Zend/Soap/Wsdl/Strategy/AnyType.php";
-            $strategy = new Zend_Soap_Wsdl_Strategy_AnyType();
-        } else if(is_string($strategy)) {
-            if(class_exists($strategy)) {
-                $strategy = new $strategy();
+        } else {
+            if ($strategy === false) {
+                require_once "Zend/Soap/Wsdl/Strategy/AnyType.php";
+                $strategy = new Zend_Soap_Wsdl_Strategy_AnyType();
             } else {
-                require_once "Zend/Soap/Wsdl/Exception.php";
-                throw new Zend_Soap_Wsdl_Exception(
-                    sprintf("Strategy with name '%s does not exist.", $strategy
-                ));
+                if (is_string($strategy)) {
+                    if (class_exists($strategy)) {
+                        $strategy = new $strategy();
+                    } else {
+                        require_once "Zend/Soap/Wsdl/Exception.php";
+                        throw new Zend_Soap_Wsdl_Exception(
+                            sprintf("Strategy with name '%s does not exist.", $strategy
+                            ));
+                    }
+                }
             }
         }
 
-        if(!($strategy instanceof Zend_Soap_Wsdl_Strategy_Interface)) {
+        if (!($strategy instanceof Zend_Soap_Wsdl_Strategy_Interface)) {
             require_once "Zend/Soap/Wsdl/Exception.php";
             throw new Zend_Soap_Wsdl_Exception("Set a strategy that is not of type 'Zend_Soap_Wsdl_Strategy_Interface'");
         }
@@ -248,7 +252,7 @@ class Zend_Soap_Wsdl
             $operation->appendChild($node);
         }
         if (is_string($output) && (strlen(trim($output)) >= 1)) {
-            $node= $this->_dom->createElement('output');
+            $node = $this->_dom->createElement('output');
             $node->setAttribute('message', $output);
             $operation->appendChild($node);
         }
@@ -433,7 +437,7 @@ class Zend_Soap_Wsdl
         $doc_cdata = $this->_dom->createTextNode(str_replace(array("\r\n", "\r"), "\n", $documentation));
         $doc->appendChild($doc_cdata);
 
-        if($node->hasChildNodes()) {
+        if ($node->hasChildNodes()) {
             $node->insertBefore($doc, $node->firstChild);
         } else {
             $node->appendChild($doc);
@@ -452,7 +456,7 @@ class Zend_Soap_Wsdl
         if ($types instanceof DomDocument) {
             $dom = $this->_dom->importNode($types->documentElement);
             $this->_wsdl->appendChild($types->documentElement);
-        } elseif ($types instanceof DomNode || $types instanceof DomElement || $types instanceof DomDocumentFragment ) {
+        } elseif ($types instanceof DomNode || $types instanceof DomElement || $types instanceof DomDocumentFragment) {
             $dom = $this->_dom->importNode($types);
             $this->_wsdl->appendChild($dom);
         }
@@ -466,7 +470,7 @@ class Zend_Soap_Wsdl
      */
     public function addType($type)
     {
-        if(!in_array($type, $this->_includedTypes)) {
+        if (!in_array($type, $this->_includedTypes)) {
             $this->_includedTypes[] = $type;
         }
         return $this;
@@ -489,7 +493,7 @@ class Zend_Soap_Wsdl
      */
     public function getSchema()
     {
-        if($this->_schema == null) {
+        if ($this->_schema == null) {
             $this->addSchemaTypeSection();
         }
 
@@ -503,7 +507,7 @@ class Zend_Soap_Wsdl
      */
     public function toXML()
     {
-           return $this->_dom->saveXML();
+        return $this->_dom->saveXML();
     }
 
     /**
@@ -565,7 +569,7 @@ class Zend_Soap_Wsdl
             default:
                 // delegate retrieval of complex type to current strategy
                 return $this->addComplexType($type);
-            }
+        }
     }
 
     /**

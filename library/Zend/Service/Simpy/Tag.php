@@ -48,7 +48,7 @@ class Zend_Service_Simpy_Tag
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMNode $node Individual <tag> node from a parsed response from
+     * @param DOMNode $node Individual <tag> node from a parsed response from
      *                       a GetTags operation
      * @return void
      */

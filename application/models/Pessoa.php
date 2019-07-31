@@ -8,28 +8,29 @@
 class Default_Model_Pessoa extends App_Model_ModelAbstract
 {
 
-    public $idpessoa      = null;
-    public $nompessoa     = null;
-    public $numcpf        = null;
-    public $token         = null;
-    public $desobs        = null;
-    public $numfone       = null;
-    public $numcelular    = null;
-    public $desemail      = null;
-    public $domcargo      = null;
+    public $idpessoa = null;
+    public $nompessoa = null;
+    public $numcpf = null;
+    public $desobs = null;
+    public $numfone = null;
+    public $numcelular = null;
+    public $desemail = null;
+    public $domcargo = null;
     public $idcadastrador = null;
+    public $versaosistema = null;
+    public $id_servidor = null;
+    public $id_unidade = null;
+    public $unidade = null;
+    public $token = null;
 
     /**
      *
-     * @var Zend_Date 
+     * @var Zend_Date
      */
-    public $datcadastro  = null;
-    public $lotacao      = null;
-    public $id_servidor  = null;
+    public $datcadastro = null;
     public $nummatricula = null;
-    public $desfuncao    = null;
-    public $flaagenda    = 'S';
-    public $unidade      = null;
+    public $desfuncao = null;
+    public $flaagenda = 'S';
 
     public function getDatcadastro()
     {
@@ -41,15 +42,18 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
         $this->datcadastro = new Zend_Date($datcadastro, 'dd/MM/yyyy');
         return $this;
     }
-    function getToken() {
+
+    public function getToken()
+	{
         return $this->token;
     }
 
-    function setToken($token) {
+    public function setToken($token)
+    {
         $this->token = md5($token);
     }
 
-        /**
+    /**
      * Retorna verdadeiro ou falso para a utilização da agenda.
      * @return booelan
      */
@@ -66,7 +70,7 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
     public function setFlaagenda($flaagenda)
     {
         $valores = array('S', 'N');
-        if ( !in_array($flaagenda, $valores) ) {
+        if (!in_array($flaagenda, $valores)) {
             throw new Exception('Este model somente aceita os valores S ou N');
         }
         $this->flaagenda = $flaagenda;
@@ -80,7 +84,7 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
             'N' => 'Não',
         );
 
-        if ( array_key_exists($this->flaagenda, $valores) ) {
+        if (array_key_exists($this->flaagenda, $valores)) {
             return $valores[$this->flaagenda];
         }
         return 'Não informado.';
@@ -88,36 +92,27 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
 
     public function getNumcpfMascarado()
     {
-        return (string) new App_Mask_Cpf($this->numcpf);
+        return (string)new App_Mask_Cpf($this->numcpf);
     }
 
     public function getNumfoneMascarado()
     {
-        return (string) new App_Mask_TelefoneFixo($this->numfone);
+        return (string)new App_Mask_TelefoneFixo($this->numfone);
     }
 
     public function getNumcelularMascarado()
     {
-        return (string) new App_Mask_TelefoneCelular($this->numcelular);
+        return (string)new App_Mask_TelefoneCelular($this->numcelular);
     }
 
     public function getDescricaoDomcargo()
     {
         $valores = array(
-            /*
-              "ADM" => "AGENTE ADMINISTRATIVO",
-              "APF" => "AGENTE DE POLICIA FEDERAL",
-              "DPF" => "DELEGADO DE POLICIA FEDERAL",
-              "EPF" => "ESCRIVAO DE POLICIA FEDERAL",
-              "PCF" => "PERITO CRIMINAL FEDERAL",
-              "PPF" => "PAPILOSCOPISTA POLICIAL FEDERAL",
-             * 
-             */
             "COL" => "COLABORADOR",
         );
 
 
-        if ( !array_key_exists($this->domcargo, $valores) ) {
+        if (!array_key_exists($this->domcargo, $valores)) {
             return $this->domcargo;
         }
         return "COLABORADOR";
@@ -131,22 +126,23 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
     public function formPopulate()
     {
         return array(
-            'idpessoa'     => $this->idpessoa,
-            'nompessoa'    => $this->nompessoa,
-            'numcpf'       => $this->getNumcpfMascarado(),
-            'desobs'       => $this->desobs,
-            'numfone'      => $this->getNumfoneMascarado(),
-            'numcelular'   => $this->getNumcelularMascarado(),
-            'desemail'     => $this->desemail,
-            'domcargo'     => $this->domcargo,
-            'lotacao'      => $this->lotacao,
-            'id_servidor'  => $this->id_servidor,
+            'idpessoa' => $this->idpessoa,
+            'nompessoa' => $this->nompessoa,
+            'numcpf' => $this->getNumcpfMascarado(),
+            'desobs' => $this->desobs,
+            'numfone' => $this->getNumfoneMascarado(),
+            'numcelular' => $this->getNumcelularMascarado(),
+            'desemail' => $this->desemail,
+            'domcargo' => $this->domcargo,
+            'id_servidor' => $this->id_servidor,
             'nummatricula' => $this->nummatricula,
-            'desfuncao'    => $this->desfuncao,
-            'flaagenda'    => $this->flaagenda,
-            'token'        => $this->getToken(),
+            'desfuncao' => $this->desfuncao,
+            'flaagenda' => $this->flaagenda,
+            'idcadastrador' => $this->idcadastrador,
+            'versaosistema' => $this->versaosistema,
+            'id_unidade' => $this->id_unidade,
+			'token' => $this->getToken(),
         );
     }
-
 }
 

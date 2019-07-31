@@ -14,11 +14,11 @@ kendo_module({
     id: "columnmenu",
     name: "Column Menu",
     category: "framework",
-    depends: [ "popup", "filtermenu", "menu" ],
+    depends: ["popup", "filtermenu", "menu"],
     advanced: true
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         proxy = $.proxy,
@@ -43,7 +43,7 @@ kendo_module({
     }
 
     var ColumnMenu = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 link;
 
@@ -69,7 +69,7 @@ kendo_module({
             that.wrapper = $('<div class="k-column-menu"/>');
         },
 
-        _init: function() {
+        _init: function () {
             var that = this,
                 options = that.options;
 
@@ -97,10 +97,10 @@ kendo_module({
 
             that._filter();
 
-            that.trigger(INIT, { field: that.field, container: that.wrapper });
+            that.trigger(INIT, {field: that.field, container: that.wrapper});
         },
 
-        events: [ INIT ],
+        events: [INIT],
 
         options: {
             name: "ColumnMenu",
@@ -115,7 +115,7 @@ kendo_module({
             filterable: true
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -147,13 +147,13 @@ kendo_module({
             that.link.off(NS);
         },
 
-        close: function() {
+        close: function () {
             this.menu.close();
             this.popup.close();
             this.popup.element.off("keydown" + NS);
         },
 
-        _click: function(e) {
+        _click: function (e) {
             e.preventDefault();
             e.stopPropagation();
 
@@ -164,25 +164,25 @@ kendo_module({
             this.popup.toggle();
         },
 
-        _open: function() {
+        _open: function () {
             var that = this;
-            $(".k-column-menu").not(that.wrapper).each(function() {
+            $(".k-column-menu").not(that.wrapper).each(function () {
                 $(this).data(POPUP).close();
             });
-            that.popup.element.on("keydown" + NS, function(e) {
+            that.popup.element.on("keydown" + NS, function (e) {
                 if (e.keyCode == kendo.keys.ESC) {
                     that.close();
                 }
             });
         },
 
-        _activate: function() {
+        _activate: function () {
             this.menu.element.focus();
         },
 
-        _ownerColumns: function() {
+        _ownerColumns: function () {
             var columns = this.owner.columns,
-                menuColumns = grep(columns, function(col) {
+                menuColumns = grep(columns, function (col) {
                     var result = true,
                         title = trim(col.title || "");
 
@@ -193,7 +193,7 @@ kendo_module({
                     return result;
                 });
 
-            return map(menuColumns, function(col) {
+            return map(menuColumns, function (col) {
                 return {
                     originalField: col.field,
                     field: col.field || col.title,
@@ -204,14 +204,14 @@ kendo_module({
             });
         },
 
-        _menu: function() {
+        _menu: function () {
             this.menu = this.wrapper.children()[MENU]({
                 orientation: "vertical",
                 closeOnClick: false
             }).data(MENU);
         },
 
-        _sort: function() {
+        _sort: function () {
             var that = this;
 
             if (that.options.sortable) {
@@ -221,7 +221,7 @@ kendo_module({
 
                 that.dataSource.bind(CHANGE, that._refreshHandler);
 
-                that.menu.bind("select", function(e) {
+                that.menu.bind("select", function (e) {
                     var item = $(e.item),
                         dir;
 
@@ -244,7 +244,7 @@ kendo_module({
             }
         },
 
-        _sortDataSource: function(item, dir) {
+        _sortDataSource: function (item, dir) {
             var that = this,
                 sortable = that.options.sortable,
                 dataSource = that.dataSource,
@@ -260,7 +260,7 @@ kendo_module({
             }
 
             if (sortable === true || sortable.mode === "single") {
-                sort = [ { field: that.field, dir: dir } ];
+                sort = [{field: that.field, dir: dir}];
             } else {
                 for (idx = 0, length = sort.length; idx < length; idx++) {
                     if (sort[idx].field === that.field) {
@@ -268,13 +268,13 @@ kendo_module({
                         break;
                     }
                 }
-                sort.push({ field: that.field, dir: dir });
+                sort.push({field: that.field, dir: dir});
             }
 
             dataSource.sort(sort);
         },
 
-        _columns: function() {
+        _columns: function () {
             var that = this;
 
             if (that.options.columns) {
@@ -285,7 +285,7 @@ kendo_module({
 
                 that.owner.bind(["columnHide", "columnShow"], that._updateColumnsMenuHandler);
 
-                that.menu.bind("select", function(e) {
+                that.menu.bind("select", function (e) {
                     var item = $(e.item),
                         input,
                         index,
@@ -304,7 +304,7 @@ kendo_module({
 
                     field = input.attr(kendo.attr("field"));
 
-                    column = grep(columns, function(column) {
+                    column = grep(columns, function (column) {
                         return column.field == field || column.title == field;
                     })[0];
                     index = inArray(column, columns);
@@ -318,19 +318,19 @@ kendo_module({
             }
         },
 
-        _updateColumnsMenu: function() {
+        _updateColumnsMenu: function () {
             var attr = "[" + kendo.attr("field") + "=",
                 columns = this._ownerColumns(),
-                allselector = map(columns, function(col) {
+                allselector = map(columns, function (col) {
                     return attr + '"' + col.field.replace(nameSpecialCharRegExp, "\\$1") + '"]';
                 }).join(","),
-                visible = grep(columns, function(field) {
+                visible = grep(columns, function (field) {
                     return !field.hidden;
                 }),
-                visibleDataFields = grep(visible, function(field) {
+                visibleDataFields = grep(visible, function (field) {
                     return field.originalField;
                 }).length,
-                selector = map(visible, function(col) {
+                selector = map(visible, function (col) {
                     return attr + '"' + col.field.replace(nameSpecialCharRegExp, "\\$1") + '"]';
                 }).join(",");
 
@@ -338,24 +338,24 @@ kendo_module({
             this.wrapper.find(selector).prop("checked", true).prop("disabled", visibleDataFields == 1);
         },
 
-        _filter: function() {
+        _filter: function () {
             var that = this,
                 options = that.options;
 
             if (options.filterable !== false) {
                 that.filterMenu = that.wrapper.find(".k-filterable")[FILTERMENU](
                     extend(true, {}, {
-                        appendToElement: true,
-                        dataSource: options.dataSource,
-                        values: options.values,
-                        field: that.field
-                    },
-                    options.filterable)
+                            appendToElement: true,
+                            dataSource: options.dataSource,
+                            values: options.values,
+                            field: that.field
+                        },
+                        options.filterable)
                 ).data(FILTERMENU);
             }
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this,
                 sort = that.options.dataSource.sort() || [],
                 descriptor,
@@ -366,39 +366,39 @@ kendo_module({
             that.wrapper.find(".k-sort-asc, .k-sort-desc").removeClass(ACTIVE);
 
             for (idx = 0, length = sort.length; idx < length; idx++) {
-               descriptor = sort[idx];
+                descriptor = sort[idx];
 
-               if (field == descriptor.field) {
-                   that.wrapper.find(".k-sort-" + descriptor.dir).addClass(ACTIVE);
-               }
+                if (field == descriptor.field) {
+                    that.wrapper.find(".k-sort-" + descriptor.dir).addClass(ACTIVE);
+                }
             }
         }
     });
 
-    var template = '<ul>'+
-                    '#if(sortable){#'+
-                        '<li class="k-item k-sort-asc"><span class="k-link"><span class="k-sprite k-i-sort-asc"></span>${messages.sortAscending}</span></li>'+
-                        '<li class="k-item k-sort-desc"><span class="k-link"><span class="k-sprite k-i-sort-desc"></span>${messages.sortDescending}</span></li>'+
-                        '#if(showColumns || filterable){#'+
-                            '<li class="k-separator"></li>'+
-                        '#}#'+
-                    '#}#'+
-                    '#if(showColumns){#'+
-                        '<li class="k-item k-columns-item"><span class="k-link"><span class="k-sprite k-i-columns"></span>${messages.columns}</span><ul>'+
-                        '#for (var col in columns) {#'+
-                            '<li><input type="checkbox" data-#=ns#field="#=columns[col].field#" data-#=ns#index="#=columns[col].index#"/>#=columns[col].title#</li>'+
-                        '#}#'+
-                        '</ul></li>'+
-                        '#if(filterable){#'+
-                            '<li class="k-separator"></li>'+
-                        '#}#'+
-                    '#}#'+
-                    '#if(filterable){#'+
-                        '<li class="k-item k-filter-item"><span class="k-link"><span class="k-sprite k-filter"></span>${messages.filter}</span><ul>'+
-                            '<li><div class="k-filterable"></div></li>'+
-                        '</ul></li>'+
-                    '#}#'+
-                    '</ul>';
+    var template = '<ul>' +
+        '#if(sortable){#' +
+        '<li class="k-item k-sort-asc"><span class="k-link"><span class="k-sprite k-i-sort-asc"></span>${messages.sortAscending}</span></li>' +
+        '<li class="k-item k-sort-desc"><span class="k-link"><span class="k-sprite k-i-sort-desc"></span>${messages.sortDescending}</span></li>' +
+        '#if(showColumns || filterable){#' +
+        '<li class="k-separator"></li>' +
+        '#}#' +
+        '#}#' +
+        '#if(showColumns){#' +
+        '<li class="k-item k-columns-item"><span class="k-link"><span class="k-sprite k-i-columns"></span>${messages.columns}</span><ul>' +
+        '#for (var col in columns) {#' +
+        '<li><input type="checkbox" data-#=ns#field="#=columns[col].field#" data-#=ns#index="#=columns[col].index#"/>#=columns[col].title#</li>' +
+        '#}#' +
+        '</ul></li>' +
+        '#if(filterable){#' +
+        '<li class="k-separator"></li>' +
+        '#}#' +
+        '#}#' +
+        '#if(filterable){#' +
+        '<li class="k-item k-filter-item"><span class="k-link"><span class="k-sprite k-filter"></span>${messages.filter}</span><ul>' +
+        '<li><div class="k-filterable"></div></li>' +
+        '</ul></li>' +
+        '#}#' +
+        '</ul>';
 
     ui.plugin(ColumnMenu);
 })(window.kendo.jQuery);

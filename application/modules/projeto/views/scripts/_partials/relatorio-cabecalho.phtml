@@ -1,12 +1,26 @@
+<?php
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
+$posServer = strpos($_SERVER['SERVER_NAME'], "localhost");
+$project = Zend_Registry::get('config')->project;
+
+if ($posServer === false) {
+    $brasao = $this->baseUrl('/img/' . $project->logo);
+} else {
+    $brasao = 'img/' . $project->logo;
+}
+?>
 <div id="cabecalho">
     <div class="span9">
         <div align='left' style="float:left;">
-            <img src="<?= $this->baseUrl('/img/brasao_fundobranco.png'); ?>" style="float:left;" />
-            <br>INSIRA AQUI O NOME DE SUA ORGANIZACAO
-            <br>INSIRA AQUI O NOME DE SEU SETOR OU DIVISAO
+            <img src="<?php echo $brasao; ?>" style="float:left;"/>
+            <br><?php echo $project->orgao; ?>
+            <br><?php echo $project->gestor; ?>
             <HR>
         </div>
         <div class="span6" style="float: left; margin-top: 10px">
         </div>
-    </div> 
+    </div>
 </div>

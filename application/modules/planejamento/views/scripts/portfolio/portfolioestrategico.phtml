@@ -1,52 +1,52 @@
 <?php
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'))
-        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-        ->appendStylesheet($this->baseUrl('/css/bootstrap.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
-        ->appendStylesheet($this->baseUrl('/css/app/planejamento/portfolio.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/bootstrap.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.3.2/select2.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/planejamento/portfolio.css'));
 
 $this->headScript()
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-        ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolioestrategico.js'), 'text/javascript')
-         ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolio-charts.js'), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolioestrategico.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/planejamento/portfolio/portfolio-charts.js'), 'text/javascript');
 
 ?>
 <div class="region-east">
     <div class="row">
         <div class="portlet portlet-marron span4">
             <div class="title">Pesquisar Escrit&oacute;rio</div>
-            <div class="content">  
-            <form id="formPesquisar"
+            <div class="content">
+                <form id="formPesquisar"
                       name="formPesquisar"
                       method="post"
                       action="<?php echo $this->baseUrl() ?>/planejamento/portfolio/portfolioestrategico">
-                   <div class="row">
-                       <div class="span">
-                           <label>Escritório</label>
-                           <select name="idescritorio">
-                               <option value="">Todos</option>
-                               <?php foreach ($this->selectEscritorio as $selectEscritorio) {?>
-                               <option value="<?php echo $selectEscritorio['idescritorio']; ?>"><?php echo $selectEscritorio['nomescritorio']; ?></option>
-                               <?php }?>
-                           </select>
+                    <div class="row">
+                        <div class="span">
+                            <label>Escritório</label>
+                            <select name="idescritorio">
+                                <option value="">Todos</option>
+                                <?php foreach ($this->selectEscritorio as $selectEscritorio) { ?>
+                                    <option value="<?php echo $selectEscritorio['idescritorio']; ?>"><?php echo $selectEscritorio['nomescritorio']; ?></option>
+                                <?php } ?>
+                            </select>
                         </div>
                         <div class="span3">
                             <?php echo $this->formPesquisar->nomprojeto; ?>
                         </div>
                         <div class="span3">
-                              <?php //escho $this->formPesquisar->idprograma; ?>
+                            <?php //escho $this->formPesquisar->idprograma; ?>
                         </div>
                         <div class="span3">
                             <?php //echo $this->formPesquisar->domstatusprojeto; ?>
@@ -81,73 +81,40 @@ $this->headScript()
     </div>
 </div>
 <div class="region-center">
-      <div class="form-actions form-actions-mini">
+    <div class="form-actions form-actions-mini">
         <div class="btn-group">
             <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
-<!--            <a class="btn" href="<?php //echo $this->url(array('module' => 'projeto', 'controller' => 'tap', 'action' => 'add')); ?>">Incluir Termo de Abertura (TAP)</a>
+            <!--            <a class="btn" href="<?php //echo $this->url(array('module' => 'projeto', 'controller' => 'tap', 'action' => 'add')); ?>">Incluir Termo de Abertura (TAP)</a>
             <a class="btn" href="<?php //echo $this->url(array('module' => 'projeto', 'controller' => 'statusreport', 'action' => 'index')); ?>">Status Report</a>-->
         </div>
     </div>
     <h5> PORTF&Oacute;LIO ESTRAT&Eacute;GICO DA ORGANIZA&Ccedil;&Atilde;O - <?php echo $this->escritorio->sigla; ?></h5>
     <div class="container-objetivos row" style="margin-left: 5px;">
-        <?php $contAcao = 0; 
-              foreach($this->portfolio as $obj): ?>
-                <div class="span2 box-objetivo" id="<?php echo $obj['idobjetivo'] ?>">
-                    
-                    <div class="box-nome-objetivo">
-                        <?php if($obj['totalProjetos'] != 0 ): ?>
-                            <form id='form-pesquisar_<?php echo $obj["idobjetivo"]; ?>' name="form-pesquisar" action="<?php echo $this->baseUrl(); ?>/projeto/statusreport" method="post">
-                                <input type="hidden" name="nomprojeto" id="nomprojeto" value="" data-rule-required="" class="">
-                                <input type="hidden" name="codacao" id="codacao" class="" />
-                                <input type="hidden" name="codnatureza" id="codnatureza" class="" />
-                                <input type="hidden" name="codsetor" id="codsetor" class="" />
-                                <input type="hidden" name="domstatusprojeto" id="domstatusprojeto" class="" />
-                                <input type="hidden" name="postite" id="postite" value="1" />
-                                <input type="hidden" name="codobjetivo" id="codobjetivo" class="" value="<?php echo $obj['idobjetivo'] ?>"/>
-                                <a id="submitbutton" href="javascript:{}" onclick="document.getElementById('form-pesquisar_<?php echo $obj["idobjetivo"]; ?>').submit(); return false;" title="Click para visualizar os <?php //echo $obj['totalProjetos'] ?> projeto(s) relacionado(s). Existe (m) <?php echo $obj['totalProjetoProposta'] ?> proposta (s). OBS: ao clicar s&oacute; ir&atilde;o aparecer somente os projetos que voc&ecirc; tem acesso.">
-                                    <span style="margin: 0; padding-top: 5px;"><?php echo $obj['nomobjetivo'] ?></span> <br/>
-                                    <span style="font-weight: bold;"> (<?php echo $obj['totalProjetos'] ?>) </span>
-                                </a>
-                            </form>
-                        <?php else: ?>
-                            <span style="margin: 0; padding-top: 5px;"><?php echo $obj['nomobjetivo'] ?></span> <br/>
-                            <span style="font-weight: bold;"> (<?php echo $obj['totalProjetos'] ?>) </span>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div class="box-acao">
-                        <ul>
-                           <?php if(count($obj['acoes']) > 1):
-                                    foreach($obj['acoes'] as $acao): ?>
-                                        <li class="content item-acao" id="<?php echo $acao['idacao'] ?>"> 
-                                        <?php if($acao['totalProjetos'] != 0 ): ?>
-                                            <form id='form-pesquisar_<?php echo $acao['idacao'] ?>' name="form-pesquisar" action="<?php echo $this->baseUrl(); ?>/projeto/statusreport" method="post">
-                                                <input type="hidden" name="nomprojeto" id="nomprojeto" value="" data-rule-required="" class="">
-                                                <input type="hidden" name="codacao" id="codacao" class="" value="<?php echo $acao['idacao'] ?>"/>
-                                                <input type="hidden" name="codnatureza" id="codnatureza" class="" />
-                                                <input type="hidden" name="codsetor" id="codsetor" class="" />
-                                                <input type="hidden" name="domstatusprojeto" id="domstatusprojeto" class="" />
-                                                <input type="hidden" name="postite" id="postite" value="1" />
-                                                <input type="hidden" name="codobjetivo" id="codobjetivo" class="" value="<?php echo $obj['idobjetivo'] ?>"/>
-                                                <a id="submitbutton" href="javascript:{}" onclick="document.getElementById('form-pesquisar_<?php echo $acao['idacao'] ?>').submit(); return false;" title="Click para visualizar os <?php echo $acao['totalProjetos'] ?> projetos relacionados. Existem <?php echo $acao['totalProjetos'] ?> projetos relacionados. Existem <?php echo $acao['totalProjetoProposta'] ?> propostas. OBS: ao clicar s&oacute; ir&atilde;o aparecer os projetos que voc&ecirc; tem acesso." > 
-                                                    <span style="margin: 0; padding-top: 5px;"><?php echo $acao['nomacao'] ?></span> <br/>
-                                                    <span style="font-weight: bold;"> (<?php echo $acao['totalProjetos'] ?>) </span>
-                                                </a>
-                                            </form>
-                                        <?php else: ?>
-                                                <span> <?php echo $acao['nomacao'] ?> </span> <br/>
-                                                <span style="font-weight: bold;"> (<?php echo $acao['totalProjetos'] ?>)</span>
-                                        <?php endif; ?>
-                                        </li>
-                            <?php   $contAcao++; 
-                                    endforeach; 
-                                 endif;?>
-                        </ul>
-                    </div>
+        <?php $contAcao = 0;
+        foreach ($this->portfolio as $obj): ?>
+            <div class="span2 box-objetivo" id="<?php echo $obj['idobjetivo'] ?>">
+                <div class="box-nome-objetivo">
+                    <span style="margin: 0; padding-top: 5px;"><?php echo $obj['nomobjetivo'] ?></span> <br/>
+                    <span style="font-weight: bold;"> (<?php echo $obj['totalProjetos'] ?>) </span>
                 </div>
+
+                <div class="box-acao">
+                    <ul>
+                        <?php if (count($obj['acoes']) > 1):
+                            foreach ($obj['acoes'] as $acao): ?>
+                                <li class="content item-acao" id="<?php echo $acao['idacao'] ?>">
+                                    <span> <?php echo $acao['nomacao'] ?> </span> <br/>
+                                    <span style="font-weight: bold;"> (<?php echo $acao['totalProjetos'] ?>)</span>
+                                </li>
+                                <?php $contAcao++;
+                            endforeach;
+                        endif; ?>
+                    </ul>
+                </div>
+            </div>
         <?php endforeach; ?>
     </div>
-    
+
     <div class="row" style="">
         <div class="portlet portlet-cinza span12">
             <div class="title">
@@ -156,44 +123,44 @@ $this->headScript()
             </div>
         </div>
     </div>
-     <?php
-        if(isset($this->idprograma)&& $this->idprograma != '') {
-            foreach ($this->idprograma as $idprograma) {
-                $grafico = $idprograma['idprograma'];
-            }
-        }else{
-            $grafico = '';
+    <?php
+    if (isset($this->idprograma) && $this->idprograma != '') {
+        foreach ($this->idprograma as $idprograma) {
+            $grafico = $idprograma['idprograma'];
         }
+    } else {
+        $grafico = '';
+    }
 
-      ?>
+    ?>
     <div id="container-graficos">
-       <input type="hidden" name="idprograma" id="idescritorio" value="<?php echo $grafico;?>" />
-    <div class="row">
-        <div class="portlet portlet-cinza span12">
-            <div class="title"><?php echo $this->nomescritorio ?> </div>
-            <div class="content">
-                <div id="chartContainer-orcamentario" style="min-width: 580px; min-height: 300px;"></div>
+        <input type="hidden" name="idprograma" id="idescritorio" value="<?php echo $grafico; ?>"/>
+        <div class="row">
+            <div class="portlet portlet-cinza span12">
+                <div class="title"><?php echo $this->nomescritorio ?> </div>
+                <div class="content">
+                    <div id="chartContainer-orcamentario" style="min-width: 580px; min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="portlet portlet-cinza span8">
+                <div class="title"><?php echo $this->nomescritorio ?> </div>
+                <div class="content">
+                    <div id="chartContainer-projetos-programa" style="min-width: 580px; min-height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="portlet portlet-cinza span8">
+                <div class="title"><?php echo $this->nomescritorio ?> </div>
+                <div class="content">
+                    <div id="chartContainer-projetos-natureza" style="min-width: 580px; min-height: 300px;"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="portlet portlet-cinza span8">
-            <div class="title"><?php echo $this->nomescritorio ?> </div>
-            <div class="content">
-                <div id="chartContainer-projetos-programa" style="min-width: 580px; min-height: 300px;"></div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="portlet portlet-cinza span8">
-            <div class="title"><?php echo $this->nomescritorio ?> </div>
-            <div class="content">
-                <div id="chartContainer-projetos-natureza" style="min-width: 580px; min-height: 300px;"></div>
-            </div>
-        </div>
-    </div>
-    </div>
-    
 </div>

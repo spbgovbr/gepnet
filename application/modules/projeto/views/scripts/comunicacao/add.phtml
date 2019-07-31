@@ -1,108 +1,113 @@
 <script type="text/javascript">
- $(function() {
-    $.pnotify.defaults.history = false;
-  
-    $(".pessoa-button").on('click', function(event) {
-        event.preventDefault();
-        $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
-        $(this).closest('.control-group').addClass('input-selecionado');
-        if ($("table#list-grid-pessoa").length <= 0) {
-            $.ajax({
-                url: base_url + "/projeto/comunicacao/pesquisar-parte-interessada",
-                type: "GET",
-                dataType: "html",
-                success: function(html) {
-                    $(".grid-append").append(html).slideDown('fast');
-                }
-            });
-            $('.pessoa-button')
-                .off('click')
-                .on('click',function() {
-                    var $this = $(this);
-                    $(".grid-append").slideDown('fast', function(){
-                        $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
-                        $this.closest('.control-group').addClass('input-selecionado');
-                    });
+    $(function () {
+        $.pnotify.defaults.history = false;
+
+        $(".pessoa-button").on('click', function (event) {
+            event.preventDefault();
+            $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+            $(this).closest('.control-group').addClass('input-selecionado');
+            if ($("table#list-grid-pessoa").length <= 0) {
+                $.ajax({
+                    url: base_url + "/projeto/comunicacao/pesquisar-parte-interessada",
+                    type: "GET",
+                    dataType: "html",
+                    success: function (html) {
+                        $(".grid-append").append(html).slideDown('fast');
+                    }
                 });
-        } 
+                $('.pessoa-button')
+                    .off('click')
+                    .on('click', function () {
+                        var $this = $(this);
+                        $(".grid-append").slideDown('fast', function () {
+                            $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+                            $this.closest('.control-group').addClass('input-selecionado');
+                        });
+                    });
+            }
+        });
     });
-});
 
-function selectRow(row) {
-    $('.input-selecionado')
-        .find('input:hidden').val(row.idparteinteressada).trigger('blur')
-        .end()
-        .find('input:text').val(row.nomparteinteressada).trigger('blur');
-}
+    function selectRow(row) {
+        $('.input-selecionado')
+            .find('input:hidden').val(row.idparteinteressada).trigger('blur')
+            .end()
+            .find('input:text').val(row.nomparteinteressada).trigger('blur');
+    }
 
-function reset() {
-    $('#desinformacao').val('');
-    $('#desinformado').val('');
-    $('#desorigem').val('');
-    $('#desfrequencia').val('');
-    $('#destransmissao').val('');
-    $('#desarmazenamento').val('');
-    $('#nomresponsavel').val('');
-    $('#idresponsavel').val('');    
-}
+    function reset() {
+        $('#desinformacao').val('');
+        $('#desinformado').val('');
+        $('#desorigem').val('');
+        $('#desfrequencia').val('');
+        $('#destransmissao').val('');
+        $('#desarmazenamento').val('');
+        $('#nomresponsavel').val('');
+        $('#idresponsavel').val('');
+    }
 </script>
 
 <?php
-    $frmAttr =  $this->form->getAttribs(); 
+$frmAttr = $this->form->getAttribs();
 ?>
 
-<div class="region-center" >
+<div class="region-center">
     <div class="portlet portlet-marron">
         <div class="content">
             <form id="<?php echo $frmAttr['id']; ?>"
-                          name="<?php echo $frmAttr['id']; ?>"
-                          action="<?php echo $this->form->getAction(); ?>"
-                          method="<?php echo $frmAttr['method']; ?>">
-                        <div class="row">
-                            <div>
-                                <?php echo $this->form->idcomunicacao?>
-                            </div>
-                            <div>
-                                <?php echo $this->form->idprojeto?>
-                            </div>
-                            <div class="span4">
-                                <?php echo $this->form->desinformacao?>
-                            </div>
-                            <div class="span3">
-                                <?php echo $this->form->desinformado?>
-                            </div>                                                        
-                            <div class="span2">
-                                <?php echo $this->form->desorigem?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span2">
-                                <?php echo $this->form->desfrequencia?>
-                            </div>
-                            <div class="span2">
-                                <?php echo $this->form->destransmissao ?>
-                            </div>
-                            <div class="span2">
-                                <?php echo $this->form->desarmazenamento ?>
-                            </div>
-                        <div class="row container-pessoa">
-                            <div class="span">
-                                <div class="control-group">
-                                    <?php echo $this->form->nomresponsavel->renderLabel() ?>
-                                    <div class="controls">
-                                        <div class="input-prepend">
-                                            <?php echo $this->form->pessoabutton ?>
-                                            <?php echo $this->form->idresponsavel ?>
-                                            <?php echo $this->form->nomresponsavel->renderViewHelper() ?>
-                                        </div>
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <div class="row">
+                    <div>
+                        <?php echo $this->form->idcomunicacao ?>
+                    </div>
+                    <div>
+                        <?php echo $this->form->idprojeto ?>
+                    </div>
+                    <div class="span4">
+                        <?php echo $this->form->desinformacao ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $this->form->desinformado ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->desorigem ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->form->desfrequencia ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->destransmissao ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->desarmazenamento ?>
+                    </div>
+                    <div class="row container-pessoa">
+                        <div class="span">
+                            <div class="control-group">
+                                <?php echo $this->form->nomresponsavel->renderLabel() ?>
+                                <div class="controls">
+                                    <div class="input-prepend">
+                                        <?php echo $this->form->pessoabutton ?>
+                                        <?php echo $this->form->idresponsavel ?>
+                                        <?php echo $this->form->nomresponsavel->renderViewHelper() ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row grid-append" style="display: none;">
-                        </div>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="row grid-append" style="display: none;">
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 250px;">
+        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+    </div>
+</div>

@@ -2,7 +2,10 @@
     <div class="portlet portlet-azul span4">
         <h3>Nome do documento</h3>
         <div class="content">
-            <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array('action' => 'abrir', 'iddocumento' => $this->documento->iddocumento)); ?>">
+            <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array(
+                'action' => 'abrir',
+                'iddocumento' => $this->documento->iddocumento
+            )); ?>">
                 <i class="icon-eye-open"></i> <?php echo $this->documento->nomdocumento; ?>
             </a>
         </div>

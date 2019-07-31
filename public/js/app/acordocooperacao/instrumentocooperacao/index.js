@@ -5,7 +5,7 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function() {
+$(function () {
 
     var
         grid = null,
@@ -14,34 +14,34 @@ $(function() {
         colModel = null,
         colNames = null,
         $dialogCadastrar = $('#dialog-cadastrar');
-        $dialogEditar = $('#dialog-editar'),
+    $dialogEditar = $('#dialog-editar'),
         $dialogDetalhar = $('#dialog-detalhar');
-        actions = {
-            pesquisar: {
-                form: $("form#form-pesquisar"),
-                url: base_url + "/projeto/statusreport/pesquisarjson?" + $("form#form-pesquisar").serialize()
-            },
-            cadastrar: {
-                form: $("form#form-acordo"),
-                url: base_url + '/acordocooperacao/instrumentocooperacao/add/format/json',
-                dialog: $('#dialog-cadastrar')
-            },
-            detalhar: {
-                url: base_url + '/projeto/relatorio/detalhar/format/json',
-                dialog: $('#dialog-detalhar')
-            },
-            editar: {
-                form: $("form#form-acordo-editar"),
-                url: base_url + '/acordocooperacao/instrumentocooperacao/editar/format/json',
-                dialog: $('#dialog-editar')
-            },
-            excluir: {
-                form: $("form#form-status-report-excluir"),
-                url: base_url + '/projeto/relatorio/excluir/format/json',
-                dialog: $('#dialog-excluir')
-            }
+    actions = {
+        pesquisar: {
+            form: $("form#form-pesquisar"),
+            url: base_url + "/projeto/statusreport/pesquisarjson?" + $("form#form-pesquisar").serialize()
+        },
+        cadastrar: {
+            form: $("form#form-acordo"),
+            url: base_url + '/acordocooperacao/instrumentocooperacao/add/format/json',
+            dialog: $('#dialog-cadastrar')
+        },
+        detalhar: {
+            url: base_url + '/projeto/relatorio/detalhar/format/json',
+            dialog: $('#dialog-detalhar')
+        },
+        editar: {
+            form: $("form#form-acordo-editar"),
+            url: base_url + '/acordocooperacao/instrumentocooperacao/editar/format/json',
+            dialog: $('#dialog-editar')
+        },
+        excluir: {
+            form: $("form#form-status-report-excluir"),
+            url: base_url + '/projeto/relatorio/excluir/format/json',
+            dialog: $('#dialog-excluir')
+        }
 
-        };
+    };
 
 
     $dialogDetalhar.dialog({
@@ -50,7 +50,7 @@ $(function() {
         width: '1121px',
         modal: true,
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -61,7 +61,7 @@ $(function() {
         dataType: 'json',
         type: 'POST',
         delegation: true,
-        success: function(data) {
+        success: function (data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
@@ -81,25 +81,25 @@ $(function() {
         title: 'Instrumento Cooperação - Cadastrar',
         width: 1104,
         height: 620,
-        autoScroll : true,
+        autoScroll: true,
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
 
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             actions.cadastrar.dialog.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 $("form#form-acordo").trigger('submit');
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.cadastrar", function(event) {
+    $(document.body).on('click', "a.cadastrar", function (event) {
         event.preventDefault();
         var
             $this = $(this);
@@ -111,10 +111,10 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialogCadastrar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -130,7 +130,7 @@ $(function() {
         dataType: 'json',
         type: 'POST',
         delegation: true,
-        success: function(data) {
+        success: function (data) {
             if (typeof data.msg.text !== 'string') {
                 $.formErrors(data.msg.text);
                 return;
@@ -150,25 +150,25 @@ $(function() {
         title: 'Instrumento Cooperação - Editar',
         width: 1104,
         height: 620,
-        autoScroll : true,
+        autoScroll: true,
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
 
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $dialogEditar.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 $("form#form-acordo-editar").trigger('submit');
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.detalhar", function(event) {
+    $(document.body).on('click', "a.detalhar", function (event) {
         event.preventDefault();
         var
             $this = $(this);
@@ -180,10 +180,10 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialogDetalhar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -193,7 +193,7 @@ $(function() {
         });
     });
 
-    $(document.body).on('click',"a.editar", function(event) {
+    $(document.body).on('click', "a.editar", function (event) {
         event.preventDefault();
         var
             $this = $(this),
@@ -206,10 +206,10 @@ $(function() {
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -220,8 +220,7 @@ $(function() {
     });
 
 
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
             params = '',
             url = {
@@ -231,7 +230,7 @@ $(function() {
         params = '/idacordo/' + r[10];
 
 
-        return 	'<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
+        return '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
             '<a data-target="#dialog-deta" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>'
             ;
     }
@@ -243,19 +242,19 @@ $(function() {
             index: 'idacordo',
             width: 5,
             search: true
-        },{
+        }, {
             name: 'nomsetor',
             index: 'nomsetor',
             width: 10,
             align: 'center',
             search: true
-        },{
+        }, {
             name: 'numsiapro',
             index: 'numsiapro',
             width: 10,
             align: 'center',
             search: true
-        },{
+        }, {
             name: 'nomacordo',
             index: 'nomacordo',
             width: 5,
@@ -266,25 +265,25 @@ $(function() {
             width: 10,
             align: 'center',
             search: true
-        },   {
+        }, {
             name: 'idfiscal',
             index: 'idfiscal',
             width: 10,
             align: 'center',
             search: true
-        },  {
+        }, {
             name: 'datiniciovigencia',
             index: 'datiniciovigencia',
             width: 10,
             align: 'center',
             search: true
-        },  {
+        }, {
             name: 'datfimvigencia',
             index: 'datfimvigencia',
             width: 10,
             align: 'center',
             search: true
-        },  {
+        }, {
             name: 'flasituacaoatual',
             index: 'flasituacaoatual',
             width: 10,
@@ -296,7 +295,7 @@ $(function() {
             width: 5,
             align: 'center',
             search: false
-        },  {
+        }, {
             name: 'idacordo',
             index: 'idacordo',
             width: 10,
@@ -320,7 +319,7 @@ $(function() {
         sortname: 'idacordo',
         viewrecords: true,
         sortorder: "desc",
-        gridComplete: function() {
+        gridComplete: function () {
         }
     });
 
@@ -335,7 +334,7 @@ $(function() {
     grid.jqGrid('setLabel', 'rn', 'Ord');
 
     var $form = $("form#form-entidadeexterna-pesquisar");
-    $form.on('submit', function(e) {
+    $form.on('submit', function (e) {
         e.preventDefault();
         grid.setGridParam({
             url: base_url + "/acordocooperacao/instrumentocooperacao/pesquisarjson?" + $form.serialize(),
@@ -345,7 +344,7 @@ $(function() {
     });
 
 
-    $(document.body).on('click', ".pessoa-button", function(event) {
+    $(document.body).on('click', ".pessoa-button", function (event) {
 //    $(".pessoa-button").on('click', function(event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
@@ -355,15 +354,15 @@ $(function() {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function(html) {
+                success: function (html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click',function() {
+                .on('click', function () {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function(){
+                    $(".grid-append").slideDown('fast', function () {
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });
@@ -374,7 +373,7 @@ $(function() {
     resizeGrid();
 
     var $i = 0;
-    $.adicionar = function(dados) {
+    $.adicionar = function (dados) {
         var $row = "<tr class='success' data-row='" + dados.val() + "'>" +
             "<td><a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado' data-id='" + dados.val() + "' >" +
             "<i class='icon-trash'></i>" +
@@ -388,29 +387,29 @@ $(function() {
         $("#tabela").show();
     };
 
-    $(document.body).on('click', "#btn-adicionar", function(event) {
+    $(document.body).on('click', "#btn-adicionar", function (event) {
         $row = getEntidade();
-        if($row.val() != ""){
+        if ($row.val() != "") {
             $add = checkEntidadeAdicionada($row.val());
-            addEntidade($row,$add);
+            addEntidade($row, $add);
         } else {
             setNotify("Selecione uma Entidade Externa.", "error");
         }
     });
 
-    $(document.body).on('click', ".excluirbutton", function(event) {
+    $(document.body).on('click', ".excluirbutton", function (event) {
         var tr = $(this).closest('tr');
         var $id = $(this).closest('tr').attr("data-row");
-        tr.css("background-color","#FF3700");
-        tr.fadeOut(400, function(){
+        tr.css("background-color", "#FF3700");
+        tr.fadeOut(400, function () {
             tr.remove();
         });
         $linha = $("#listagemInteressados")
             .removeClass('hide')
             .find("table tbody")
             .find("tr");
-            console.log($linha.length);
-        if($linha.length <= 1){
+        console.log($linha.length);
+        if ($linha.length <= 1) {
             $("#nenhumregistro").show();
             $("#tabela").hide();
         }
@@ -418,40 +417,41 @@ $(function() {
         return false;
     });
 
-    function addEntidade(row,add){
-        if(add){
+    function addEntidade(row, add) {
+        if (add) {
             $.adicionar(row);
             setNotify("Entidade adicionada com sucesso.", "success");
         }
     }
 
-    function checkEntidadeAdicionada(data){
+    function checkEntidadeAdicionada(data) {
         $add = true;
         $linha = $("#listagemInteressados")
             .removeClass('hide')
             .find("table tbody")
-            .find('tr[data-row='+ data +']');
-        if($linha.length > 0){
+            .find('tr[data-row=' + data + ']');
+        if ($linha.length > 0) {
             setNotify("A Entidade Externa já foi adicionada.", "error");
             $add = false;
         }
         return $add;
     }
 
-    function getEntidade(){
+    function getEntidade() {
         $row = new Array();
-        $row = $( "#entidadeexterna option:selected" );
+        $row = $("#entidadeexterna option:selected");
         return $row;
     }
+
     //TODO findentidade retornando a entidade ou false
 
-    function setNotify(msg,type){
+    function setNotify(msg, type) {
         $.pnotify({
             text: msg,
             type: type,
             hide: true
         });
-        if(type == "error"){
+        if (type == "error") {
             return false;
         }
     }

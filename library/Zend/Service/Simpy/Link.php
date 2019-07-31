@@ -43,7 +43,7 @@ class Zend_Service_Simpy_Link
      *
      * @var string
      */
-    const ACCESSTYPE_PUBLIC  = '1';
+    const ACCESSTYPE_PUBLIC = '1';
 
     /**
      * Access type assigned to the link
@@ -104,7 +104,7 @@ class Zend_Service_Simpy_Link
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMNode $node Individual <link> node from a parsed response from
+     * @param DOMNode $node Individual <link> node from a parsed response from
      *                       a GetLinks operation
      * @return void
      */
@@ -134,9 +134,9 @@ class Zend_Service_Simpy_Link
     /**
      * Returns the access type assigned to the link
      *
-     * @see ACCESSTYPE_PRIVATE
-     * @see ACCESSTYPE_PUBLIC
      * @return string
+     * @see ACCESSTYPE_PUBLIC
+     * @see ACCESSTYPE_PRIVATE
      */
     public function getAccessType()
     {

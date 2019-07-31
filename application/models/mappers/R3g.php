@@ -6,7 +6,8 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
+class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract
+{
 
     /**
      * Set the property
@@ -14,7 +15,8 @@ class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
      * @param string $value
      * @return Default_Model_R3g
      */
-    public function insert(Default_Model_R3g $model) {
+    public function insert(Default_Model_R3g $model)
+    {
         $data = array(
             "idr3g" => $model->idr3g,
             "idprojeto" => $model->idprojeto,
@@ -44,7 +46,8 @@ class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
      * @param string $value
      * @return Default_Model_R3g
      */
-    public function update(Default_Model_R3g $model) {
+    public function update(Default_Model_R3g $model)
+    {
         $data = array(
             "idr3g" => $model->idr3g,
             "idprojeto" => $model->idprojeto,
@@ -65,14 +68,15 @@ class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
             "desresponsavel" => $model->desresponsavel,
             "desobs" => $model->desobs,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
-    public function getForm() {
+    public function getForm()
+    {
         return $this->_getForm(Default_Form_R3g);
     }
 
-    public function getById($params) {
+    public function getById($params)
+    {
         $sql = "SELECT
                     idr3g,
                     idprojeto,
@@ -98,8 +102,9 @@ class Default_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
         return new Default_Model_R3g($resultado);
     }
 
-    public function retornaPorProjeto($params) {
-         $sql = "SELECT
+    public function retornaPorProjeto($params)
+    {
+        $sql = "SELECT
                     idr3g,
                     idprojeto,
                     datdeteccao,

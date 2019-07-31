@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["af"] = {
         name: "af",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ".",
             groupSize: [3],
             percent: {
-                pattern: ["-n%","n%"],
+                pattern: ["-n%", "n%"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["$-n","$ n"],
+                pattern: ["$-n", "$ n"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Sondag","Maandag","Dinsdag","Woensdag","Donderdag","Vrydag","Saterdag"],
-                    namesAbbr: ["Son","Maan","Dins","Woen","Dond","Vry","Sat"],
-                    namesShort: ["So","Ma","Di","Wo","Do","Vr","Sa"]
+                    names: ["Sondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrydag", "Saterdag"],
+                    namesAbbr: ["Son", "Maan", "Dins", "Woen", "Dond", "Vry", "Sat"],
+                    namesShort: ["So", "Ma", "Di", "Wo", "Do", "Vr", "Sa"]
                 },
                 months: {
-                    names: ["Januarie","Februarie","Maart","April","Mei","Junie","Julie","Augustus","September","Oktober","November","Desember",""],
-                    namesAbbr: ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Des",""]
+                    names: ["Januarie", "Februarie", "Maart", "April", "Mei", "Junie", "Julie", "Augustus", "September", "Oktober", "November", "Desember", ""],
+                    namesAbbr: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des", ""]
                 },
-                AM: ["AM","am","AM"],
-                PM: ["PM","pm","PM"],
+                AM: ["AM", "am", "AM"],
+                PM: ["PM", "pm", "PM"],
                 patterns: {
                     d: "yyyy/MM/dd",
                     D: "dd MMMM yyyy",

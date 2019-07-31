@@ -8,7 +8,7 @@
 class Default_Model_Acordoentidadeexterna extends App_Model_ModelAbstract
 {
 
-    public $idacordo          = null;
+    public $idacordo = null;
     public $identidadeexterna = null;
 
 }

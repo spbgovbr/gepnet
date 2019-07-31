@@ -1,24 +1,23 @@
 <?php
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'))
-        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
 
 $this->headScript()
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))       
-        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/max-chars.js'), 'text/javascript')
-        
-        ->appendFile($this->baseUrl('/js/app/pesquisa/questionario/listar-perguntas.js'), 'text/javascript')
-;
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/max-chars.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/pesquisa/questionario/listar-perguntas.js'), 'text/javascript');
 
 $frmAttr = $this->formPesquisar->getAttribs();
 $idQuestionario = $this->idquestionario;
@@ -27,30 +26,37 @@ $idQuestionario = $this->idquestionario;
 <div class="region-center">
     <h4 class="pagination-centered">Perguntas do Question&aacute;rio</h4>
     <br/>
-    <div class="row-fluid"> 
-        <div class="span">            
-            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;" class="input-selecionado">
-                <strong>Question&aacute;rio: </strong><?php echo $this->questionario['nomquestionario']?>
+    <div class="row-fluid">
+        <div class="span">
+            <div id="nomquestionario" style=" padding: 5px; border-radius: 5px; font-size: 12px;"
+                 class="input-selecionado">
+                <strong>Question&aacute;rio: </strong><?php echo $this->questionario['nomquestionario'] ?>
             </div>
             <br/>
-        </div> 
+        </div>
     </div>
     <div class="form-actions form-actions-mini">
         <div class="btn-group">
             <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
             <a data-target="#dialog-inserir" class="btn inserir" title="Cadastrar" href="<?php echo $this->url(array(
-             'module' => 'pesquisa', 'controller' => 'questionario', 'action' => 'vincular-pergunta' ))?>">
+                'module' => 'pesquisa',
+                'controller' => 'questionario',
+                'action' => 'vincular-pergunta'
+            )) ?>">
                 Adicionar Pergunta
             </a>
             <a class="btn" title="Cancelar" href="<?php echo $this->url(array(
-             'module' => 'pesquisa', 'controller' => 'questionario', 'action' => 'listar' ), null, true)?>">
+                'module' => 'pesquisa',
+                'controller' => 'questionario',
+                'action' => 'listar'
+            ), null, true) ?>">
                 Voltar
             </a>
         </div>
         <input type="hidden" id="id-questionario" value="<?php echo $idQuestionario; ?>">
-    </div> 
-    
-    
+    </div>
+
+
     <table id="list-grid-questionario-frase"></table>
     <div id="toolbar-grid-questionario-frase"></div>
     <div id="pager-grid-questionario-frase"></div>
@@ -61,36 +67,37 @@ $idQuestionario = $this->idquestionario;
         <div class="portlet portlet-marron span4">
             <div class="title">Perguntas Question&aacute;rio - Pesquisar</div>
             <div class="content">
-                 <form id="<?php echo $frmAttr['id']; ?>"
-                        name="<?php echo $frmAttr['id']; ?>"
-                        action="<?php echo $this->formPesquisar->getAction(); ?>"
-                        method="<?php echo $frmAttr['method']; ?>">
-                        <input type="hidden" id="idquestionario" name="idquestionario" value="<?php echo $idQuestionario; ?>">
-                        <div class="row">                                                                       
-                            <div class="span">
-                                <?php echo $this->formPesquisar->numordempergunta ?>
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->formPesquisar->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <input type="hidden" id="idquestionario" name="idquestionario"
+                           value="<?php echo $idQuestionario; ?>">
+                    <div class="row">
+                        <div class="span">
+                            <?php echo $this->formPesquisar->numordempergunta ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span">
+                            <?php echo $this->formPesquisar->desfrase ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span">
+                            <?php echo $this->formPesquisar->obrigatoriedade ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->formPesquisar->btnpesquisar ?>
+                                <?php echo $this->formPesquisar->reset ?>
+                                <?php echo $this->formPesquisar->close ?>
                             </div>
                         </div>
-                        <div class="row">                                                                       
-                            <div class="span">
-                                <?php echo $this->formPesquisar->desfrase ?>
-                            </div>
-                        </div>
-                        <div class="row">                                                                       
-                            <div class="span">
-                                <?php echo $this->formPesquisar->obrigatoriedade ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="span3">
-                                <div class="btn-group">
-                                    <?php echo $this->formPesquisar->btnpesquisar ?>
-                                    <?php echo $this->formPesquisar->reset ?>
-                                    <?php echo $this->formPesquisar->close ?>
-                                </div>
-                            </div>
-                        </div>
-                 </form>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

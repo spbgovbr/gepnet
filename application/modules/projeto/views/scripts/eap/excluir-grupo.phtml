@@ -1,8 +1,7 @@
 <?php
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-;
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
 ?>
 <form id="ac-grupo-excluir"
       name="ac-grupo-excluir"
@@ -10,23 +9,25 @@ $this->headLink()
       method="post">
     <div class="alert alert-block" style="font-size: 14px !important;">
         <h4>Aten&ccedil;&atilde;o!</h4>
-            Deseja realmente excluir o grupo 
-            <strong><?php echo $this->grupo['nomatividadecronograma']; ?></strong>?<br /><br />
-            <?php if(count($this->grupo->entregas)  > 0): ?>
-                    As seguintes entregas, suas atividades e atividades predecessoras, tamb&eacute;m ser&atilde;o exclu&iacute;das: 
-                    <ul> <?php  foreach ($this->grupo->entregas as $en): ?>
-                            <li> <?php echo $en['nomatividadecronograma'] .' - '. $en['numpercentualconcluido']; ?>% </li>
-                         <?php endforeach; ?>
-                    </ul> 
-            <?php endif; ?> 
-            <br/>
-            <p>Depois de exclu&iacute;da, a a&ccedil;&atilde;o <strong> n&atilde;o </strong> poder&aacute; ser desfeita.</p>      
+        Deseja realmente excluir o grupo
+        <strong><?php echo $this->grupo['nomatividadecronograma']; ?></strong>?<br/><br/>
+        <?php if (count($this->grupo->entregas) > 0): ?>
+            As seguintes entregas, suas atividades e atividades predecessoras, tamb&eacute;m ser&atilde;o exclu&iacute;das:
+            <ul> <?php foreach ($this->grupo->entregas as $en): ?>
+                    <li> <?php echo $en['nomatividadecronograma'] . ' - ' . $en['numpercentualconcluido']; ?>%</li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+        <br/>
+        <p>Depois de exclu&iacute;da, a a&ccedil;&atilde;o <strong> n&atilde;o </strong> poder&aacute; ser desfeita.</p>
     </div>
     <div class="row">
         <div class="span5">
-            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->grupo['idprojeto']; ?>" />
-            <input type="hidden" name="idatividadecronograma" id="idprojeto" value="<?php echo $this->grupo['idatividadecronograma']; ?>" />
-            <input type="hidden" name="domtipoatividade" id="idprojeto" value="<?php echo $this->grupo['domtipoatividade']; ?>" />
+            <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->grupo['idprojeto']; ?>"/>
+            <input type="hidden" name="idatividadecronograma" id="idprojeto"
+                   value="<?php echo $this->grupo['idatividadecronograma']; ?>"/>
+            <input type="hidden" name="domtipoatividade" id="idprojeto"
+                   value="<?php echo $this->grupo['domtipoatividade']; ?>"/>
         </div>
     </div>
 </form>

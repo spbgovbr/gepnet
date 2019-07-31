@@ -40,10 +40,16 @@ $frmAttr = $this->form->getAttribs();
             <label>Arquivo</label>
             <div class="btn-toolbar">
                 <div class="btn-group">
-                    <a class="btn btn_editar" title="Editar" href="<?php echo $this->url(array('action' => 'editar-arquivo', 'iddocumento' => $this->documento->iddocumento)); ?>">
+                    <a class="btn btn_editar" title="Editar" href="<?php echo $this->url(array(
+                        'action' => 'editar-arquivo',
+                        'iddocumento' => $this->documento->iddocumento
+                    )); ?>">
                         <i class="icon-upload"></i> Editar
                     </a>
-                    <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array('action' => 'abrir', 'iddocumento' => $this->documento->iddocumento)); ?>">
+                    <a class="btn" title="Clique para abrir" href="<?php echo $this->url(array(
+                        'action' => 'abrir',
+                        'iddocumento' => $this->documento->iddocumento
+                    )); ?>">
                         <i class="icon-eye-open"></i> <?php echo $this->documento->nomdocumento; ?>
                     </a>
 
@@ -55,6 +61,11 @@ $frmAttr = $this->form->getAttribs();
         <div class="span8">
             <?php echo $this->form->desobs; ?>
             <?php echo $this->form->iddocumento; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
         </div>
     </div>
 </form>

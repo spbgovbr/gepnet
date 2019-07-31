@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_HistoricoPublicacao extends App_Service_ServiceAbstract {
+class Pesquisa_Service_HistoricoPublicacao extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -17,7 +18,7 @@ class Pesquisa_Service_HistoricoPublicacao extends App_Service_ServiceAbstract {
         $this->auth = $login->retornaUsuarioLogado();
         $this->_mapper = new Pesquisa_Model_Mapper_HistoricoPublicacao();
     }
-    
+
     public function getFormPesquisar()
     {
         $this->_form = new Pesquisa_Form_HistoricoPesquisar();
@@ -28,7 +29,7 @@ class Pesquisa_Service_HistoricoPublicacao extends App_Service_ServiceAbstract {
     {
         return $this->errors;
     }
-    
+
     public function retornaHistoricoPesquisasGrid($params)
     {
         try {
@@ -36,26 +37,26 @@ class Pesquisa_Service_HistoricoPublicacao extends App_Service_ServiceAbstract {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
-        } catch(Exception $exc) {
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
     }
-    
-    public function inserirHistoricoPublicacao($params) 
+
+    public function inserirHistoricoPublicacao($params)
     {
         $historico = new Pesquisa_Model_HistoricoPublicacao();
-        
-        if(isset($params['dtencerramento']) && $params['dtencerramento']) {
-            $historico->datencerramento  = $params['dtencerramento'];
+
+        if (isset($params['dtencerramento']) && $params['dtencerramento']) {
+            $historico->datencerramento = $params['dtencerramento'];
         }
-        if(isset($params['datpublicacao']) && $params['datpublicacao']) {
-            $historico->datpublicacao   = $params['datpublicacao'];
+        if (isset($params['datpublicacao']) && $params['datpublicacao']) {
+            $historico->datpublicacao = $params['datpublicacao'];
         }
-        $historico->idpesquisa      = $params['idpesquisa'];
-        $historico->idpesencerrou   = $params['idpesencerra'];
-        $historico->idpespublicou   = $params['idpespublica'];
-        
+        $historico->idpesquisa = $params['idpesquisa'];
+        $historico->idpesencerrou = $params['idpesencerra'];
+        $historico->idpespublicou = $params['idpespublica'];
+
         $idhistorico = $this->_mapper->insert($historico);
         return $idhistorico;
     }

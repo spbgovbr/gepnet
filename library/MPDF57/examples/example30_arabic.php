@@ -368,7 +368,7 @@ modified Persian letter  &#x649;<br />
 //==============================================================
 include("../mpdf.php");
 
-$mpdf=new mPDF(); 
+$mpdf = new mPDF();
 
 $mpdf->WriteHTML($html);
 

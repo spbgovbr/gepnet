@@ -9,12 +9,12 @@ class Default_Model_Perfilpessoa extends App_Model_ModelAbstract
 {
 
     public $idperfilpessoa = null;
-    public $idperfil       = null;
-    public $idescritorio   = null;
-    public $flaativo       = null;
-    public $idcadastrador  = null;
-    public $datcadastro    = null;
-    public $idpessoa       = null;
+    public $idperfil = null;
+    public $idescritorio = null;
+    public $flaativo = null;
+    public $idcadastrador = null;
+    public $datcadastro = null;
+    public $idpessoa = null;
 
 }
 

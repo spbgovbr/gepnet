@@ -17,18 +17,18 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
      */
     public function insert(Acordocooperacao_Model_Entidadeexterna $model)
     {
-        try{
+        try {
             $model->identidadeexterna = $this->maxVal('identidadeexterna');
             $data = array(
-                "identidadeexterna"  => $model->identidadeexterna,
+                "identidadeexterna" => $model->identidadeexterna,
                 "nomentidadeexterna" => $model->nomentidadeexterna,
-                "idcadastrador"      => $model->idcadastrador,
-                "datcadastro"        => new Zend_Db_Expr("now()")
+                "idcadastrador" => $model->idcadastrador,
+                "datcadastro" => new Zend_Db_Expr("now()")
             );
 
             $retorno = $this->getDbTable()->insert($data);
             return $retorno;
-            
+
         } catch (Exception $exc) {
             throw $exc;
         }
@@ -46,14 +46,14 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
             "nomentidadeexterna" => $model->nomentidadeexterna,
         );
         try {
-        	$pks     = array(
-        			"identidadeexterna" => $model->identidadeexterna,
-        	);
-        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
-        	$retorno = $this->getDbTable()->update($data, $where);
-        	return $retorno;
-        } catch ( Exception $exc ) {
-        	throw $exc;
+            $pks = array(
+                "identidadeexterna" => $model->identidadeexterna,
+            );
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $retorno = $this->getDbTable()->update($data, $where);
+            return $retorno;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
 
@@ -61,7 +61,7 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
     {
         return $this->_getForm(Acordocooperacao_Form_Entidadeexterna);
     }
-    
+
     public function getById($params)
     {
         $sql = "SELECT 
@@ -74,13 +74,13 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
                     agepnet200.tb_pessoa p
                  WHERE
                     e.idcadastrador = p.idpessoa
-                    and e.identidadeexterna = :identidadeexterna" ;
-        
+                    and e.identidadeexterna = :identidadeexterna";
+
         $resultado = $this->_db->fetchRow($sql, array('identidadeexterna' => $params['identidadeexterna']));
         $entidadeexterna = new Acordocooperacao_Model_Entidadeexterna($resultado);
         return $entidadeexterna;
     }
-    
+
     public function pesquisar($params, $paginator = false)
     {
         $sql = "SELECT 
@@ -92,20 +92,20 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
                     agepnet200.tb_entidadeexterna e,
                     agepnet200.tb_pessoa p
                  WHERE
-                    e.idcadastrador = p.idpessoa" ;
-        
-         
-         $params = array_filter($params);
-         if (isset($params['nomentidadeexterna'])) {
-             $nomentidadeexterna = strtoupper($params['nomentidadeexterna']);
-             $sql .= " AND upper(e.nomentidadeexterna) LIKE '%{$nomentidadeexterna}%'";
-         }
-         
-         if ( isset($params['sidx']) ) {
+                    e.idcadastrador = p.idpessoa";
+
+
+        $params = array_filter($params);
+        if (isset($params['nomentidadeexterna'])) {
+            $nomentidadeexterna = strtoupper($params['nomentidadeexterna']);
+            $sql .= " AND upper(e.nomentidadeexterna) LIKE '%{$nomentidadeexterna}%'";
+        }
+
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        
-         if ($paginator) {
+
+        if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
@@ -116,7 +116,7 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
 
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
-        
+
     }
 
     public function fetchPairs()
@@ -125,7 +125,8 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
         return $this->_db->fetchPairs($sql);
     }
 
-    public function retornaEntidadesExternas($params){
+    public function retornaEntidadesExternas($params)
+    {
         $sql = "
                 SELECT
                     ee.identidadeexterna,
@@ -138,7 +139,7 @@ class Acordocooperacao_Model_Mapper_Entidadeexterna extends App_Model_Mapper_Map
                     and ae.idacordo = :idacordo;
         ";
 
-        $resultado =  $this->_db->fetchAll($sql,array('idacordo' => $params['idacordo']));
+        $resultado = $this->_db->fetchAll($sql, array('idacordo' => $params['idacordo']));
 
 //        $entidadeexterna = new Acordocooperacao_Model_Entidadeexterna($resultado);
 //        Zend_Debug::dump($entidadeexterna); exit;

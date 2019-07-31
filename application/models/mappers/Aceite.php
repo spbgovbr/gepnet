@@ -18,13 +18,13 @@ class Default_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Aceite $model)
     {
         $data = array(
-            "idaceite"          => $model->idaceite,
-            "identrega"         => $model->identrega,
-            "idprojeto"         => $model->idprojeto,
+            "idaceite" => $model->idaceite,
+            "identrega" => $model->identrega,
+            "idprojeto" => $model->idprojeto,
             "desprodutoservico" => $model->desprodutoservico,
-            "desparecerfinal"   => $model->desparecerfinal,
-            "idcadastrador"     => $model->idcadastrador,
-            "datcadastro"       => $model->datcadastro,
+            "desparecerfinal" => $model->desparecerfinal,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -38,15 +38,15 @@ class Default_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Aceite $model)
     {
         $data = array(
-            "idaceite"          => $model->idaceite,
-            "identrega"         => $model->identrega,
-            "idprojeto"         => $model->idprojeto,
+            "idaceite" => $model->idaceite,
+            "identrega" => $model->identrega,
+            "idprojeto" => $model->idprojeto,
             "desprodutoservico" => $model->desprodutoservico,
-            "desparecerfinal"   => $model->desparecerfinal,
-            "idcadastrador"     => $model->idcadastrador,
-            "datcadastro"       => $model->datcadastro,
+            "desparecerfinal" => $model->desparecerfinal,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
+
     }
 
     public function getForm()
@@ -54,7 +54,8 @@ class Default_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
         return $this->_getForm(Default_Form_Aceite);
     }
 
-    public function getById($params) {
+    public function getById($params)
+    {
         $sql = "SELECT
                     idaceite,
                     identrega,
@@ -69,8 +70,9 @@ class Default_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
         return new Default_Model_Aceite($resultado);
     }
 
-    public function retornaPorProjeto($params) {
-                 $sql = "SELECT
+    public function retornaPorProjeto($params)
+    {
+        $sql = "SELECT
                     idaceite,
                     identrega,
                     idprojeto,

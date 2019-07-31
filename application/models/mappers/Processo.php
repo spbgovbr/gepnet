@@ -18,20 +18,20 @@ class Default_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Processo $model)
     {
         $data = array(
-            "idprocesso"     => $model->idprocesso,
-            "idprocessopai"  => $model->idprocessopai,
-            "nomcodigo"      => $model->nomcodigo,
-            "nomprocesso"    => $model->nomprocesso,
-            "idsetor"        => $model->idsetor,
-            "desprocesso"    => $model->desprocesso,
-            "iddono"         => $model->iddono,
-            "idexecutor"     => $model->idexecutor,
-            "idgestor"       => $model->idgestor,
-            "idconsultor"    => $model->idconsultor,
-            "numvalidade"    => $model->numvalidade,
+            "idprocesso" => $model->idprocesso,
+            "idprocessopai" => $model->idprocessopai,
+            "nomcodigo" => $model->nomcodigo,
+            "nomprocesso" => $model->nomprocesso,
+            "idsetor" => $model->idsetor,
+            "desprocesso" => $model->desprocesso,
+            "iddono" => $model->iddono,
+            "idexecutor" => $model->idexecutor,
+            "idgestor" => $model->idgestor,
+            "idconsultor" => $model->idconsultor,
+            "numvalidade" => $model->numvalidade,
             "datatualizacao" => $model->datatualizacao,
-            "idcadastrador"  => $model->idcadastrador,
-            "datcadastro"    => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -45,27 +45,34 @@ class Default_Model_Mapper_Processo extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Processo $model)
     {
         $data = array(
-            "idprocesso"     => $model->idprocesso,
-            "idprocessopai"  => $model->idprocessopai,
-            "nomcodigo"      => $model->nomcodigo,
-            "nomprocesso"    => $model->nomprocesso,
-            "idsetor"        => $model->idsetor,
-            "desprocesso"    => $model->desprocesso,
-            "iddono"         => $model->iddono,
-            "idexecutor"     => $model->idexecutor,
-            "idgestor"       => $model->idgestor,
-            "idconsultor"    => $model->idconsultor,
-            "numvalidade"    => $model->numvalidade,
+            "idprocesso" => $model->idprocesso,
+            "idprocessopai" => $model->idprocessopai,
+            "nomcodigo" => $model->nomcodigo,
+            "nomprocesso" => $model->nomprocesso,
+            "idsetor" => $model->idsetor,
+            "desprocesso" => $model->desprocesso,
+            "iddono" => $model->iddono,
+            "idexecutor" => $model->idexecutor,
+            "idgestor" => $model->idgestor,
+            "idconsultor" => $model->idconsultor,
+            "numvalidade" => $model->numvalidade,
             "datatualizacao" => $model->datatualizacao,
-            "idcadastrador"  => $model->idcadastrador,
-            //"datcadastro"    => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
     {
         return $this->_getForm(Default_Form_Processo);
+    }
+
+    public function fetchPairs()
+    {
+        $sql = "SELECT idprocesso, nomprocesso
+                FROM agepnet200.tb_processo
+                order by nomprocesso asc";
+        return $this->_db->fetchPairs($sql);
     }
 
 }

@@ -42,7 +42,7 @@ require_once 'Zend/Service/WindowsAzure/Storage/StorageEntityAbstract.php';
  * @property string $ExpirationTime    Expiration time
  * @property string $PopReceipt         Receipt verification for deleting the message from queue.
  * @property string $TimeNextVisible   Next time the message is visible in the queue
- * @property int    $DequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
+ * @property int $DequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
  * @property string $MessageText       Message text
  */
 class Zend_Service_WindowsAzure_Storage_QueueMessage
@@ -51,24 +51,31 @@ class Zend_Service_WindowsAzure_Storage_QueueMessage
     /**
      * Constructor
      *
-     * @param string $messageId         Message ID
-     * @param string $insertionTime     Insertion time
-     * @param string $expirationTime    Expiration time
-     * @param string $popReceipt          Receipt verification for deleting the message from queue.
-     * @param string $timeNextVisible   Next time the message is visible in the queue
-     * @param int    $dequeueCount      Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
-     * @param string $messageText       Message text
+     * @param string $messageId Message ID
+     * @param string $insertionTime Insertion time
+     * @param string $expirationTime Expiration time
+     * @param string $popReceipt Receipt verification for deleting the message from queue.
+     * @param string $timeNextVisible Next time the message is visible in the queue
+     * @param int $dequeueCount Number of times the message has been dequeued. This value is incremented each time the message is subsequently dequeued.
+     * @param string $messageText Message text
      */
-    public function __construct($messageId, $insertionTime, $expirationTime, $popReceipt, $timeNextVisible, $dequeueCount, $messageText)
-    {
+    public function __construct(
+        $messageId,
+        $insertionTime,
+        $expirationTime,
+        $popReceipt,
+        $timeNextVisible,
+        $dequeueCount,
+        $messageText
+    ) {
         $this->_data = array(
-            'messageid'       => $messageId,
-            'insertiontime'   => $insertionTime,
-            'expirationtime'  => $expirationTime,
-            'popreceipt'      => $popReceipt,
+            'messageid' => $messageId,
+            'insertiontime' => $insertionTime,
+            'expirationtime' => $expirationTime,
+            'popreceipt' => $popReceipt,
             'timenextvisible' => $timeNextVisible,
-            'dequeuecount'    => $dequeueCount,
-            'messagetext'     => $messageText
+            'dequeuecount' => $dequeueCount,
+            'messagetext' => $messageText
         );
     }
 }

@@ -24,13 +24,14 @@ class Default_Model_Recurso extends App_Model_ModelAbstract
         $this->permissions[$index] = $permissao;
         return $this;
     }
+
     /**
      *
      * @return boolean | array
      */
     public function retornaPermissoes()
     {
-        if(count($this->permissions) > 0){
+        if (count($this->permissions) > 0) {
             return $this->permissions;
         }
         return false;

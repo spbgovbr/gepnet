@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["sq-AL"] = {
         name: "sq-AL",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n$","n$"],
+                pattern: ["-n$", "n$"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["e diel","e hënë","e martë","e mërkurë","e enjte","e premte","e shtunë"],
-                    namesAbbr: ["Die","Hën","Mar","Mër","Enj","Pre","Sht"],
-                    namesShort: ["Di","Hë","Ma","Më","En","Pr","Sh"]
+                    names: ["e diel", "e hënë", "e martë", "e mërkurë", "e enjte", "e premte", "e shtunë"],
+                    namesAbbr: ["Die", "Hën", "Mar", "Mër", "Enj", "Pre", "Sht"],
+                    namesShort: ["Di", "Hë", "Ma", "Më", "En", "Pr", "Sh"]
                 },
                 months: {
-                    names: ["janar","shkurt","mars","prill","maj","qershor","korrik","gusht","shtator","tetor","nëntor","dhjetor",""],
-                    namesAbbr: ["Jan","Shk","Mar","Pri","Maj","Qer","Kor","Gsh","Sht","Tet","Nën","Dhj",""]
+                    names: ["janar", "shkurt", "mars", "prill", "maj", "qershor", "korrik", "gusht", "shtator", "tetor", "nëntor", "dhjetor", ""],
+                    namesAbbr: ["Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Kor", "Gsh", "Sht", "Tet", "Nën", "Dhj", ""]
                 },
-                AM: ["PD","pd","PD"],
-                PM: ["MD","md","MD"],
+                AM: ["PD", "pd", "PD"],
+                PM: ["MD", "md", "MD"],
                 patterns: {
                     d: "yyyy-MM-dd",
                     D: "yyyy-MM-dd",

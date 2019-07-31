@@ -6,7 +6,8 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
+class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract
+{
 
     /**
      * Set the property
@@ -14,7 +15,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
      * @param string $value
      * @return Default_Model_R3g
      */
-    public function insert(Projeto_Model_R3g $model) {
+    public function insert(Projeto_Model_R3g $model)
+    {
         $model->idr3g = $this->maxVal('idr3g');
 
         $data = array(
@@ -29,9 +31,9 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
             "desconsequencia" => $model->desconsequencia,
             "descontramedida" => $model->descontramedida,
 //            "datprazocontramedida" => $model->datprazocontramedida,
-            "datprazocontramedida" => isset($model->datprazocontramedida)? new Zend_Db_Expr("to_date('" . $model->datprazocontramedida->toString('Y-m-d') . "','YYYY-MM-DD')") : null,
+            "datprazocontramedida" => isset($model->datprazocontramedida) ? new Zend_Db_Expr("to_date('" . $model->datprazocontramedida->toString('Y-m-d') . "','YYYY-MM-DD')") : null,
 //            "datprazocontramedidaatraso" => $model->datprazocontramedidaatraso,
-            "datprazocontramedidaatraso" => isset($model->datprazocontramedidaatraso)? new Zend_Db_Expr("to_date('" . $model->datprazocontramedidaatraso->toString('Y-m-d') . "','YYYY-MM-DD')"): null,
+            "datprazocontramedidaatraso" => isset($model->datprazocontramedidaatraso) ? new Zend_Db_Expr("to_date('" . $model->datprazocontramedidaatraso->toString('Y-m-d') . "','YYYY-MM-DD')") : null,
             "domcorprazoprojeto" => $model->domcorprazoprojeto,
             "domstatuscontramedida" => $model->domstatuscontramedida,
             "flacontramedidaefetiva" => $model->flacontramedidaefetiva,
@@ -40,8 +42,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
             "desresponsavel" => $model->desresponsavel,
             "desobs" => $model->desobs,
         );
-        
-       $data = array_filter($data);
+
+        $data = array_filter($data);
 //        $this->getDbTable()->insert($data);
         try {
             $this->getDbTable()->insert($data);
@@ -57,7 +59,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
      * @param string $value
      * @return Default_Model_R3g
      */
-    public function update(Projeto_Model_R3g $model) {
+    public function update(Projeto_Model_R3g $model)
+    {
         $datdeteccao = !empty($model->datdeteccao) ? new Zend_Db_Expr("to_date('" . $model->datdeteccao->toString('Y-m-d') . "','YYYY-MM-DD')") : '';
         $datprazocontramedida = !empty($model->datprazocontramedida) ? new Zend_Db_Expr("to_date('" . $model->datprazocontramedida->toString('Y-m-d') . "','YYYY-MM-DD')") : '';
         $datprazocontramedidaatraso = !empty($model->datprazocontramedidaatraso) ? new Zend_Db_Expr("to_date('" . $model->datprazocontramedidaatraso->toString('Y-m-d') . "','YYYY-MM-DD')") : '';
@@ -103,17 +106,19 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
     /**
      * @return boolean
      */
-    public function excluir($params) {
-//        Zend_Debug::dump($params); exit;
-        $result = $this->_db->delete('agepnet200.tb_r3g', array('idr3g = ?' =>(int)$params));
+    public function excluir($params)
+    {
+        $result = $this->_db->delete('agepnet200.tb_r3g', array('idr3g = ?' => (int)$params));
         return $result;
     }
 
-    public function getForm() {
+    public function getForm()
+    {
         return $this->_getForm(Projeto_Model_R3g);
     }
 
-    public function getById($params) {
+    public function getById($params)
+    {
         $sql = "SELECT
                     r3g.idr3g,
                     r3g.idprojeto,
@@ -141,8 +146,9 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
         return new Projeto_Model_R3g($resultado);
     }
 
-    public function retornaPorProjeto($params) {
-         $sql = "SELECT
+    public function retornaPorProjeto($params)
+    {
+        $sql = "SELECT
                     r3g.idr3g,
                     r3g.idprojeto,
                     to_char(r3g.datdeteccao, 'DD/MM/YYYY') as datdeteccao,
@@ -169,7 +175,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
         return new Projeto_Model_R3g($resultado);
     }
 
-    public function pesquisar($params,$paginator) {
+    public function pesquisar($params, $paginator)
+    {
         $sql = "SELECT
                     to_char(r3g.datdeteccao, 'DD/MM/YYYY') as datdeteccao,
                     r3g.domtipo,
@@ -208,7 +215,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
 //        return new Default_Model_R3g($resultado);
     }
 
-    public function getPaginatortById($params,$paginator){
+    public function getPaginatortById($params, $paginator)
+    {
         $sql = "SELECT
                     to_char(r3g.datdeteccao, 'DD/MM/YYYY') as datdeteccao,
                     r3g.domtipo,
@@ -249,7 +257,8 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
         return $resultado;
     }
 
-    public function retornaContramedida($params){
+    public function retornaContramedida($params)
+    {
         $sql = "SELECT
                     descontramedida
 		        FROM
@@ -260,6 +269,36 @@ class Projeto_Model_Mapper_R3g extends App_Model_Mapper_MapperAbstract {
 		            AND  domstatuscontramedida!= 3 --concluida";
         $resultado = $this->_db->fetchRow($sql, array('idprojeto' => $params['idprojeto']));
         return $resultado['descontramedida'];
+    }
+
+    public function retornaTodasContramedidas($params)
+    {
+        $sql = "SELECT
+                    idr3g, idprojeto, datdeteccao, trim(desplanejado) desplanejado, trim(desrealizado) desrealizado,
+                    trim(descausa) descausa,trim(desconsequencia) desconsequencia, trim(descontramedida) descontramedida,
+                    datprazocontramedida, datprazocontramedidaatraso,
+                    idcadastrador, datcadastro, desresponsavel, desobs, domtipo,
+                    domcorprazoprojeto, domstatuscontramedida, flacontramedidaefetiva
+		        FROM
+		            agepnet200.tb_r3g
+		        WHERE
+		            idprojeto = :idprojeto
+		            AND  domstatuscontramedida!= 6 --cancelada
+		            AND  domstatuscontramedida!= 3 --concluida";
+        $resultado = $this->_db->fetchAll($sql, array('idprojeto' => $params['idprojeto']));
+        return $resultado;
+    }
+
+    public function getProjeto($idR3g)
+    {
+        $sql = "SELECT
+                    idprojeto
+		        FROM
+		            agepnet200.tb_r3g
+		        WHERE
+                    idr3g = $idR3g";
+        $resultado = $this->_db->fetchAll($sql);
+        return $resultado[0]['idprojeto'];
     }
 }
 

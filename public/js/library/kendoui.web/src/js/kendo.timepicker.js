@@ -15,10 +15,10 @@ kendo_module({
     name: "TimePicker",
     category: "web",
     description: "The TimePicker widget allows the end user to select a value from a list of predefined values or to type a new value.",
-    depends: [ "popup" ]
+    depends: ["popup"]
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         keys = kendo.keys,
         activeElement = kendo._activeElement,
@@ -60,21 +60,25 @@ kendo_module({
 
     TODAY = new DATE(TODAY.getFullYear(), TODAY.getMonth(), TODAY.getDate(), 0, 0, 0);
 
-    var TimeView = function(options) {
+    var TimeView = function (options) {
         var that = this,
             id = options.id;
 
         that.options = options;
 
         that.ul = $('<ul tabindex="-1" role="listbox" aria-hidden="true" unselectable="on" class="k-list k-reset"/>')
-                    .css({ overflow: support.kineticScrollNeeded ? "": "auto" })
-                    .on(CLICK, LI, proxy(that._click, that))
-                    .on("mouseenter" + ns, LI, function() { $(this).addClass(HOVER); })
-                    .on("mouseleave" + ns, LI, function() { $(this).removeClass(HOVER); });
+            .css({overflow: support.kineticScrollNeeded ? "" : "auto"})
+            .on(CLICK, LI, proxy(that._click, that))
+            .on("mouseenter" + ns, LI, function () {
+                $(this).addClass(HOVER);
+            })
+            .on("mouseleave" + ns, LI, function () {
+                $(this).removeClass(HOVER);
+            });
 
         that.list = $("<div class='k-list-container'/>")
-                    .append(that.ul)
-                    .on(MOUSEDOWN, preventDefault);
+            .append(that.ul)
+            .on(MOUSEDOWN, preventDefault);
 
         if (id) {
             that._timeViewID = id + "_timeview";
@@ -85,11 +89,11 @@ kendo_module({
 
         that._popup();
 
-        that.template = kendo.template('<li tabindex="-1" role="option" class="k-item" unselectable="on">#=data#</li>', { useWithBlock: false });
+        that.template = kendo.template('<li tabindex="-1" role="option" class="k-item" unselectable="on">#=data#</li>', {useWithBlock: false});
     };
 
     TimeView.prototype = {
-        current: function(candidate) {
+        current: function (candidate) {
             var that = this,
                 active = that.options.active;
 
@@ -103,8 +107,8 @@ kendo_module({
 
                 if (candidate) {
                     candidate = $(candidate).addClass(SELECTED)
-                                            .attr(ID, that._optionID)
-                                            .attr(ARIA_SELECTED, true);
+                        .attr(ID, that._optionID)
+                        .attr(ARIA_SELECTED, true);
 
                     that.scroll(candidate[0]);
                 }
@@ -119,11 +123,11 @@ kendo_module({
             }
         },
 
-        close: function() {
+        close: function () {
             this.popup.close();
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             that.ul.off(ns);
@@ -132,7 +136,7 @@ kendo_module({
             that.popup.destroy();
         },
 
-        open: function() {
+        open: function () {
             var that = this;
 
             if (!that.ul[0].firstChild) {
@@ -145,7 +149,7 @@ kendo_module({
             }
         },
 
-        dataBind: function(dates) {
+        dataBind: function (dates) {
             var that = this,
                 options = that.options,
                 format = options.format,
@@ -167,7 +171,7 @@ kendo_module({
             that._html(html, length);
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this,
                 options = that.options,
                 format = options.format,
@@ -225,7 +229,7 @@ kendo_module({
             that._html(html, length);
         },
 
-        bind: function() {
+        bind: function () {
             var that = this,
                 dates = that.options.dates;
 
@@ -236,7 +240,7 @@ kendo_module({
             }
         },
 
-        _html: function(html, length) {
+        _html: function (html, length) {
             var that = this;
 
             that.ul[0].innerHTML = html;
@@ -246,7 +250,7 @@ kendo_module({
             that.select(that._value);
         },
 
-        scroll: function(item) {
+        scroll: function (item) {
             if (!item) {
                 return;
             }
@@ -258,12 +262,12 @@ kendo_module({
                 ulOffsetHeight = ul.clientHeight,
                 bottomDistance = itemOffsetTop + itemOffsetHeight;
 
-                ul.scrollTop = ulScrollTop > itemOffsetTop ?
-                               itemOffsetTop : bottomDistance > (ulScrollTop + ulOffsetHeight) ?
-                               bottomDistance - ulOffsetHeight : ulScrollTop;
+            ul.scrollTop = ulScrollTop > itemOffsetTop ?
+                itemOffsetTop : bottomDistance > (ulScrollTop + ulOffsetHeight) ?
+                    bottomDistance - ulOffsetHeight : ulScrollTop;
         },
 
-        select: function(li) {
+        select: function (li) {
             var that = this,
                 options = that.options,
                 current = that._current;
@@ -274,7 +278,7 @@ kendo_module({
 
             if (typeof li === "string") {
                 if (!current || current.text() !== li) {
-                    li = $.grep(that.ul[0].childNodes, function(node) {
+                    li = $.grep(that.ul[0].childNodes, function (node) {
                         return (node.textContent || node.innerText) == li;
                     });
 
@@ -287,7 +291,7 @@ kendo_module({
             that.current(li);
         },
 
-        toggle: function() {
+        toggle: function () {
             var that = this;
 
             if (that.popup.visible()) {
@@ -297,7 +301,7 @@ kendo_module({
             }
         },
 
-        value: function(value) {
+        value: function (value) {
             var that = this;
 
             that._value = value;
@@ -306,7 +310,7 @@ kendo_module({
             }
         },
 
-        _click: function(e) {
+        _click: function (e) {
             var that = this,
                 li = $(e.currentTarget);
 
@@ -317,7 +321,7 @@ kendo_module({
             }
         },
 
-        _height: function(length) {
+        _height: function (length) {
             if (length) {
                 var that = this,
                     list = that.list,
@@ -331,7 +335,7 @@ kendo_module({
             }
         },
 
-        _parse: function(value) {
+        _parse: function (value) {
             var that = this,
                 options = that.options,
                 current = that._value || TODAY;
@@ -344,18 +348,18 @@ kendo_module({
 
             if (value) {
                 value = new DATE(current.getFullYear(),
-                                 current.getMonth(),
-                                 current.getDate(),
-                                 value.getHours(),
-                                 value.getMinutes(),
-                                 value.getSeconds(),
-                                 value.getMilliseconds());
+                    current.getMonth(),
+                    current.getDate(),
+                    value.getHours(),
+                    value.getMinutes(),
+                    value.getSeconds(),
+                    value.getMilliseconds());
             }
 
             return value;
         },
 
-        _adjustListWidth: function() {
+        _adjustListWidth: function () {
             var list = this.list,
                 width = list[0].style.width,
                 wrapper = this.options.anchor,
@@ -378,10 +382,10 @@ kendo_module({
                 fontFamily: wrapper.css("font-family"),
                 width: width
             })
-            .data("width", width);
+                .data("width", width);
         },
 
-        _popup: function() {
+        _popup: function () {
             var that = this,
                 list = that.list,
                 options = that.options,
@@ -398,7 +402,7 @@ kendo_module({
             kendo.touchScroller(that.popup.element);
         },
 
-        move: function(e) {
+        move: function (e) {
             var that = this,
                 key = e.keyCode,
                 ul = that.ul[0],
@@ -483,7 +487,7 @@ kendo_module({
     kendo.TimeView = TimeView;
 
     var TimePicker = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this, ul, timeView, disabled;
 
             Widget.fn.init.call(that, element, options);
@@ -499,14 +503,14 @@ kendo_module({
                 id: element.attr(ID),
                 anchor: that.wrapper,
                 format: options.format,
-                change: function(value, trigger) {
+                change: function (value, trigger) {
                     if (trigger) {
                         that._change(value);
                     } else {
                         element.val(value);
                     }
                 },
-                open: function(e) {
+                open: function (e) {
                     that.timeView._adjustListWidth();
 
                     if (that.trigger(OPEN)) {
@@ -516,7 +520,7 @@ kendo_module({
                         ul.attr(ARIA_HIDDEN, false);
                     }
                 },
-                close: function(e) {
+                close: function (e) {
                     if (that.trigger(CLOSE)) {
                         e.preventDefault();
                     } else {
@@ -524,7 +528,7 @@ kendo_module({
                         ul.attr(ARIA_HIDDEN, true);
                     }
                 },
-                active: function(current) {
+                active: function (current) {
                     element.removeAttr(ARIA_ACTIVEDESCENDANT);
                     if (current) {
                         element.attr(ARIA_ACTIVEDESCENDANT, timeView._optionID);
@@ -538,12 +542,12 @@ kendo_module({
 
             element[0].type = "text";
             element.addClass("k-input")
-                   .attr({
-                        "role": "textbox",
-                        "aria-haspopup": true,
-                        "aria-expanded": false,
-                        "aria-owns": timeView._timeViewID
-                   });
+                .attr({
+                    "role": "textbox",
+                    "aria-haspopup": true,
+                    "aria-expanded": false,
+                    "aria-owns": timeView._timeViewID
+                });
 
             disabled = element.is("[disabled]");
             if (disabled) {
@@ -571,12 +575,12 @@ kendo_module({
         },
 
         events: [
-         OPEN,
-         CLOSE,
-         CHANGE
+            OPEN,
+            CLOSE,
+            CHANGE
         ],
 
-        setOptions: function(options) {
+        setOptions: function (options) {
             var that = this,
                 timeView = that.timeView,
                 timeViewOptions = timeView.options;
@@ -595,13 +599,13 @@ kendo_module({
             timeView.ul[0].innerHTML = "";
         },
 
-        dataBind: function(dates) {
+        dataBind: function (dates) {
             if (isArray(dates)) {
                 this.timeView.dataBind(dates);
             }
         },
 
-        _editable: function(options) {
+        _editable: function (options) {
             var that = this,
                 disable = options.disable,
                 readonly = options.readonly,
@@ -616,44 +620,44 @@ kendo_module({
                     .on(HOVEREVENTS, that._toggleHover);
 
                 element.removeAttr(DISABLED)
-                       .removeAttr(READONLY)
-                       .attr(ARIA_DISABLED, false)
-                       .attr(ARIA_READONLY, false)
-                       .on("keydown" + ns, proxy(that._keydown, that))
-                       .on("blur" + ns, proxy(that._blur, that))
-                       .on("focus" + ns, function() {
-                           that._inputWrapper.addClass(FOCUSED);
-                       });
+                    .removeAttr(READONLY)
+                    .attr(ARIA_DISABLED, false)
+                    .attr(ARIA_READONLY, false)
+                    .on("keydown" + ns, proxy(that._keydown, that))
+                    .on("blur" + ns, proxy(that._blur, that))
+                    .on("focus" + ns, function () {
+                        that._inputWrapper.addClass(FOCUSED);
+                    });
 
-               arrow.on(CLICK, proxy(that._click, that))
-                   .on(MOUSEDOWN, preventDefault);
+                arrow.on(CLICK, proxy(that._click, that))
+                    .on(MOUSEDOWN, preventDefault);
             } else {
                 wrapper
                     .addClass(disable ? STATEDISABLED : DEFAULT)
                     .removeClass(disable ? DEFAULT : STATEDISABLED);
 
                 element.attr(DISABLED, disable)
-                       .attr(READONLY, readonly)
-                       .attr(ARIA_DISABLED, disable)
-                       .attr(ARIA_READONLY, readonly);
+                    .attr(READONLY, readonly)
+                    .attr(ARIA_DISABLED, disable)
+                    .attr(ARIA_READONLY, readonly);
             }
         },
 
-        readonly: function(readonly) {
+        readonly: function (readonly) {
             this._editable({
                 readonly: readonly === undefined ? true : readonly,
                 disable: false
             });
         },
 
-        enable: function(enable) {
+        enable: function (enable) {
             this._editable({
                 readonly: false,
                 disable: !(enable = enable === undefined ? true : enable)
             });
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -669,11 +673,11 @@ kendo_module({
             }
         },
 
-        close: function() {
+        close: function () {
             this.timeView.close();
         },
 
-        open: function() {
+        open: function () {
             this.timeView.open();
         },
 
@@ -685,7 +689,7 @@ kendo_module({
             return this._option("max", value);
         },
 
-        value: function(value) {
+        value: function (value) {
             var that = this;
 
             if (value === undefined) {
@@ -701,7 +705,7 @@ kendo_module({
             that._oldText = that.element.val();
         },
 
-        _blur: function() {
+        _blur: function () {
             var that = this,
                 value = that.element.val();
 
@@ -712,7 +716,7 @@ kendo_module({
             that._inputWrapper.removeClass(FOCUSED);
         },
 
-        _click: function() {
+        _click: function () {
             var that = this,
                 element = that.element;
 
@@ -723,7 +727,7 @@ kendo_module({
             }
         },
 
-        _change: function(value) {
+        _change: function (value) {
             var that = this;
 
             value = that._update(value);
@@ -739,7 +743,7 @@ kendo_module({
             }
         },
 
-        _icon: function() {
+        _icon: function () {
             var that = this,
                 element = that.element,
                 arrow;
@@ -756,7 +760,7 @@ kendo_module({
             });
         },
 
-        _keydown: function(e) {
+        _keydown: function (e) {
             var that = this,
                 key = e.keyCode,
                 timeView = that.timeView,
@@ -769,7 +773,7 @@ kendo_module({
             }
         },
 
-        _option: function(option, value) {
+        _option: function (option, value) {
             var that = this,
                 options = that.options;
 
@@ -790,11 +794,11 @@ kendo_module({
             that.timeView.bind();
         },
 
-        _toggleHover: function(e) {
+        _toggleHover: function (e) {
             $(e.currentTarget).toggleClass(HOVER, e.type === "mouseenter");
         },
 
-        _update: function(value) {
+        _update: function (value) {
             var that = this,
                 options = that.options,
                 timeView = that.timeView,
@@ -811,7 +815,7 @@ kendo_module({
             return date;
         },
 
-        _wrapper: function() {
+        _wrapper: function () {
             var that = this,
                 element = that.element,
                 wrapper;
@@ -825,7 +829,7 @@ kendo_module({
 
             wrapper[0].style.cssText = element[0].style.cssText;
             that.wrapper = wrapper.addClass("k-widget k-timepicker k-header")
-                                  .addClass(element[0].className);
+                .addClass(element[0].className);
 
             element.css({
                 width: "100%",
@@ -835,14 +839,14 @@ kendo_module({
             that._inputWrapper = $(wrapper[0].firstChild);
         },
 
-        _reset: function() {
+        _reset: function () {
             var that = this,
                 element = that.element,
                 formId = element.attr("form"),
                 form = formId ? $("#" + formId) : element.closest("form");
 
             if (form[0]) {
-                that._resetHandler = function() {
+                that._resetHandler = function () {
                     that.value(element[0].defaultValue);
                 };
 

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var
         grid = null,
@@ -7,8 +7,8 @@ $(document).ready(function() {
         $dialogIncluir = $('#dialog-incluir'),
         $dialogEditar = $('#dialog-editar'),
         $dialogDetalhar = $('#dialog-detalhar');
-        $dialogParticipantes = $('#dialog-participantes');
-        $dialogExcluir = $('#dialog-excluir');
+    $dialogParticipantes = $('#dialog-participantes');
+    $dialogExcluir = $('#dialog-excluir');
 
     innerLayout.sizePane("west", 395);
 
@@ -17,7 +17,7 @@ $(document).ready(function() {
         title: 'Agenda - Incluir',
         width: '1185px',
         modal: true,
-        open: function(event, ui) {
+        open: function (event, ui) {
 //            $('#')
 //                    .attr('readonly', true)
 //                    .focus(function() {
@@ -28,9 +28,9 @@ $(document).ready(function() {
             $("form#form-agenda").validate({
                 errorClass: 'error',
                 validClass: 'success',
-                submitHandler: function(form) {
+                submitHandler: function (form) {
 //                    console.log('enviar');
-                    enviar_ajax("/agenda/index/add/format/json", "form#form-agenda", function() {
+                    enviar_ajax("/agenda/index/add/format/json", "form#form-agenda", function () {
 //                        grid.jqGrid("clearGridData", true);
                         grid.trigger("reloadGrid");
                     });
@@ -38,17 +38,17 @@ $(document).ready(function() {
             });
             //$("form#form-pessoa input").trigger('focusout');
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $dialogEditar.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 //console.log('submit');
                 //$formEditar.on('submit');
                 $("form#form-agenda").trigger('submit');
                 marcaDiasComEvento();
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -60,7 +60,7 @@ $(document).ready(function() {
         width: '810px',
         modal: true,
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -71,7 +71,7 @@ $(document).ready(function() {
         title: 'Agenda - Excluir',
         width: '810px',
         modal: true,
-        open: function(event, ui) {
+        open: function (event, ui) {
 //            $('#')
 //                    .attr('readonly', true)
 //                    .focus(function() {
@@ -81,7 +81,7 @@ $(document).ready(function() {
             //$("form#form-pessoa input").trigger('focusout');
         },
         buttons: {
-            'Excluir': function() {
+            'Excluir': function () {
                 $.ajax({
                     url: base_url + "/agenda/index/excluir/format/json/",
                     dataType: 'json',
@@ -89,7 +89,7 @@ $(document).ready(function() {
                     data: {
                         idagenda: $('#xidagenda').val()
                     },
-                    success: function(data) {
+                    success: function (data) {
 //                console.log('success!');
                         if (data.success) {
                             console.log(data);
@@ -100,7 +100,7 @@ $(document).ready(function() {
                         }
                         $.pnotify(data.msg);
                     },
-                    error: function(data) {
+                    error: function (data) {
                         $.pnotify({
                             text: 'Falha ao enviar a requisição',
                             type: 'error',
@@ -109,7 +109,7 @@ $(document).ready(function() {
                     }
                 });
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -120,7 +120,7 @@ $(document).ready(function() {
         title: 'Agenda - Editar',
         width: '1185px',
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
 //            $('#')
 //                    .attr('readonly', true)
 //                    .focus(function() {
@@ -129,9 +129,9 @@ $(document).ready(function() {
             $("form#form-agenda").validate({
                 errorClass: 'error',
                 validClass: 'success',
-                submitHandler: function(form) {
+                submitHandler: function (form) {
 //                    console.log('enviar');
-                    enviar_ajax("/agenda/index/edit/format/json", "form#form-agenda", function() {
+                    enviar_ajax("/agenda/index/edit/format/json", "form#form-agenda", function () {
                         grid.jqGrid("clearGridData", true);
                         grid.trigger("reloadGrid");
                     });
@@ -139,17 +139,17 @@ $(document).ready(function() {
             });
             //$("form#form-pessoa input").trigger('focusout');
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $dialogEditar.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 //console.log('submit');
                 //$formEditar.on('submit');
                 $("form#form-agenda").trigger('submit');
                 marcaDiasComEvento();
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -160,21 +160,21 @@ $(document).ready(function() {
         title: 'Agenda - Participantes',
         width: '1185px',
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
 
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             grid.trigger("reloadGrid");
             $dialogParticipantes.empty();
         },
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.detalhar", function(event) {
+    $(document.body).on('click', "a.detalhar", function (event) {
         event.preventDefault();
         var
             $this = $(this);
@@ -187,10 +187,10 @@ $(document).ready(function() {
             cache: true,
             //data: $formEditar.serialize(),
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialogDetalhar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -230,7 +230,7 @@ $(document).ready(function() {
         });
     });*/
 
-    $(document.body).on('click', "a.incluir, a.excluir-agenda, a.editar, a.participantes", function(event) {
+    $(document.body).on('click', "a.incluir, a.excluir-agenda, a.editar, a.participantes", function (event) {
         event.preventDefault();
         var
             $this = $(this),
@@ -244,10 +244,10 @@ $(document).ready(function() {
             cache: true,
             //data: $formEditar.serialize(),
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -258,14 +258,12 @@ $(document).ready(function() {
     });
 
 
-
 //    $('#calendar').fullCalendar('render');
 
 //    innerLayout.sizePane("east", 780);
 //    myLayout.open('east');
 
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
             params = '',
             url = {
@@ -282,8 +280,9 @@ $(document).ready(function() {
             '<a data-target="#dialog-deta" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
             '<a data-target="#dialog-excluir" class="btn actionfrm excluir-agenda" title="Excluir" data-id="' + cellvalue + '" href="' + url.excluir + params + '"><i class="icon-trash"></i></a>';
     }
+
     //'Data', 'Hora', 'Local', 'Assunto', 'Participantes', 'Usuário', 'Enviou Email'
-    colNames = ['Data', 'Hora', 'Local', 'Assunto', 'Participantes', 'Usuário', 'Enviou Email','Operações'];
+    colNames = ['Data', 'Hora', 'Local', 'Assunto', 'Participantes', 'Usuário', 'Enviou Email', 'Operações'];
     colModel = [{
         name: 'datagenda',
         index: 'datagenda',
@@ -346,7 +345,7 @@ $(document).ready(function() {
         sortname: 'nompessoa',
         viewrecords: true,
         sortorder: "asc",
-        gridComplete: function() {
+        gridComplete: function () {
             // console.log('teste');
             //$("a.actionfrm").tooltip();
         }
@@ -363,19 +362,19 @@ $(document).ready(function() {
 
     grid.jqGrid('setLabel', 'rn', 'Ord');
 
-    $('#calendar').attr('style','width:350px');
+    $('#calendar').attr('style', 'width:350px');
     $('#calendar').fullCalendar({
-        dayClick: function(date, allDay, jsEvent, view) {
+        dayClick: function (date, allDay, jsEvent, view) {
 //            alert('teste');
             grid.jqGrid("clearGridData", true);
-            $('#display-data').html('Agenda de ' + $.fullCalendar.formatDate( date, 'dd/MM/yyyy' ));
-            $('#display-data').attr('data-value-field',$.fullCalendar.formatDate( date, 'dd/MM/yyyy' ));
+            $('#display-data').html('Agenda de ' + $.fullCalendar.formatDate(date, 'dd/MM/yyyy'));
+            $('#display-data').attr('data-value-field', $.fullCalendar.formatDate(date, 'dd/MM/yyyy'));
             grid.setGridParam({
-                url: base_url + "/agenda/index/pesquisarjson/data/" + $.fullCalendar.formatDate( date, 'yyyy-MM-dd' ),
+                url: base_url + "/agenda/index/pesquisarjson/data/" + $.fullCalendar.formatDate(date, 'yyyy-MM-dd'),
                 page: 1
             }).trigger("reloadGrid");
         },
-        viewRender: function(view,element){
+        viewRender: function (view, element) {
             marcaDiasComEvento()
         },
         selectable: true,
@@ -384,22 +383,22 @@ $(document).ready(function() {
         height: 265
     });
 
-    function marcaDiasComEvento(){
+    function marcaDiasComEvento() {
         $.ajax({
-            url:  base_url + "/agenda/index/retorna-dias-com-eventos",
+            url: base_url + "/agenda/index/retorna-dias-com-eventos",
             dataType: 'json',
             type: 'POST',
             async: true,
             cache: true,
             data: {mes: getMonth()},
             processData: true,
-            success: function(data) {
-                $.each(data, function(i, item) {
+            success: function (data) {
+                $.each(data, function (i, item) {
 //                        console.log(item.datagenda);
                     $('.fc-day[data-date="' + item.datagenda + '"]').css('background', '#F3F3F3');
                 });
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -409,7 +408,7 @@ $(document).ready(function() {
         });
     }
 
-    function getMonth(){
+    function getMonth() {
         var date = $("#calendar").fullCalendar('getDate');
         var month_int = date.getMonth();
         return month_int + 1;

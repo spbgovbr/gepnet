@@ -36,7 +36,6 @@ class Default_Model_Mapper_Pessoaagenda extends App_Model_Mapper_MapperAbstract
             "idagenda" => $model->idagenda,
             "idpessoa" => $model->idpessoa,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

@@ -1,6 +1,6 @@
 <?php
 
-class Agenda_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Agenda_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -26,9 +26,7 @@ class Agenda_Service_InjectionContainer extends  App_Service_InjectionContainerA
      */
     public function getAgendaServiceAgenda()
     {
-        $service = new Agenda_Service_Agenda(
-
-        );
+        $service = new Agenda_Service_Agenda();
 
         return $service;
     }
@@ -40,9 +38,7 @@ class Agenda_Service_InjectionContainer extends  App_Service_InjectionContainerA
      */
     public function getAgendaServicePessoaAgenda()
     {
-        $service = new Agenda_Service_PessoaAgenda(
-
-        );
+        $service = new Agenda_Service_PessoaAgenda();
 
         return $service;
     }

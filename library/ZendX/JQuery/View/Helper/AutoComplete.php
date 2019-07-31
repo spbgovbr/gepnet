@@ -28,7 +28,7 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
 /**
  * jQuery Autocomplete View Helper
  *
- * @uses 	   Zend_Json, Zend_View_Helper_FormText
+ * @uses       Zend_Json, Zend_View_Helper_FormText
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
@@ -48,10 +48,10 @@ class ZendX_JQuery_View_Helper_AutoComplete extends ZendX_JQuery_View_Helper_UiW
      *
      * @link   http://docs.jquery.com/UI/Autocomplete
      * @throws ZendX_JQuery_Exception
-     * @param  String $id
-     * @param  String $value
-     * @param  array $params
-     * @param  array $attribs
+     * @param String $id
+     * @param String $value
+     * @param array $params
+     * @param array $attribs
      * @return String
      */
     public function autoComplete($id, $value = null, array $params = array(), array $attribs = array())
@@ -62,24 +62,26 @@ class ZendX_JQuery_View_Helper_AutoComplete extends ZendX_JQuery_View_Helper_UiW
             if (isset($params['url'])) {
                 $params['source'] = $params['url'];
                 unset($params['url']);
-            } else if (isset($params['data'])) {
-                $params['source'] = $params['data'];
-                unset($params['data']);
             } else {
-                require_once "ZendX/JQuery/Exception.php";
-                throw new ZendX_JQuery_Exception(
-                    "Cannot construct AutoComplete field without specifying 'source' field, ".
-                    "either an url or an array of elements."
-                );
+                if (isset($params['data'])) {
+                    $params['source'] = $params['data'];
+                    unset($params['data']);
+                } else {
+                    require_once "ZendX/JQuery/Exception.php";
+                    throw new ZendX_JQuery_Exception(
+                        "Cannot construct AutoComplete field without specifying 'source' field, " .
+                        "either an url or an array of elements."
+                    );
+                }
             }
         }
 
         $params = ZendX_JQuery::encodeJson($params);
 
         $js = sprintf('%s("#%s").autocomplete(%s);',
-                ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
-                $attribs['id'],
-                $params
+            ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
+            $attribs['id'],
+            $params
         );
 
         $this->jquery->addOnLoad($js);

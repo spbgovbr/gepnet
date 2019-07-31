@@ -1,23 +1,24 @@
 <table id="novos-recursos">
     <caption>Novos Recursos</caption>
     <thead>
-        <tr>
-            <th>Recurso</th>
-            <th>Permissão</th>
-            <th>Operações</th>
-        </tr>
+    <tr>
+        <th>Recurso</th>
+        <th>Permissão</th>
+        <th>Operações</th>
+    </tr>
     </thead>
     <tbody>
-        <?php
-            foreach ( $this->dados as $recurso ): ?>
-            <?php foreach ( $recurso->permissions as $permissao ): ?>
-                <tr>
-                    <td><?php echo $recurso->ds_recurso; ?></td>
-                    <td><?php echo $permissao->no_permissao; ?></td>
-                    <td><a class="btn btn-success cadastrar_recurso" data-recurso="<?php echo $recurso->ds_recurso; ?>" data-permissao="<?php echo $permissao->no_permissao; ?>" href="#">cadastrar</a></td>
-                </tr>
-            <?php endforeach; ?>
+    <?php
+    foreach ($this->dados as $recurso): ?>
+        <?php foreach ($recurso->permissions as $permissao): ?>
+            <tr>
+                <td><?php echo $recurso->ds_recurso; ?></td>
+                <td><?php echo $permissao->no_permissao; ?></td>
+                <td><a class="btn btn-success cadastrar_recurso" data-recurso="<?php echo $recurso->ds_recurso; ?>"
+                       data-permissao="<?php echo $permissao->no_permissao; ?>" href="#">cadastrar</a></td>
+            </tr>
         <?php endforeach; ?>
+    <?php endforeach; ?>
 
     </tbody>
 </table>

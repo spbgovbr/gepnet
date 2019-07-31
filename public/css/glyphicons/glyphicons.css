@@ -1,12 +1,12 @@
 [class^="glyphicons"],
 [class*=" glyphicons-"] {
-  display: block;
-  width: 38px;
-  height: 31px;
-  line-height: 27px;
-  vertical-align: text-top;
-  background-repeat: no-repeat;
-  background-position: 6px 0;
+    display: block;
+    width: 38px;
+    height: 31px;
+    line-height: 27px;
+    vertical-align: text-top;
+    background-repeat: no-repeat;
+    background-position: 6px 0;
 }
 
 ul.liabc {
@@ -23,7 +23,7 @@ ul.liabc li {
     margin: 0;
     padding: 0;
     height: 31px;
-    /*border: 1px solid red;*/
+    /*border: 1px solid red;/**/
     display: block;
 }
 
@@ -34,6 +34,8 @@ ul.abertura {
 ul.cronograma,
 ul.gantt,
 ul.eap,
+ul.detalhar-diagnostico,
+ul.servidores,
 ul.rh,
 ul.comunicacao,
 ul.riscos {
@@ -48,15 +50,22 @@ ul.rud,
 ul.relatorio,
 ul.aceite {
     border-right: 5px solid #F89911;
-} 
+}
 
 ul.licoes,
+ul.configuracao,
+ul.termoenc,
+ul.servidores,
+ul.detalhar-diagnostico,
+ul.linhatempo,
+ul.sugestaomelhoria,
+ul.cidadao,
 ul.encerramento {
     border-right: 5px solid #ccc;
-} 
+}
 
 ul.liabc li a {
-    display: block; 
+    display: block;
     width: 38px;
     overflow: hidden;
     /*border: 1px solid green;*/
@@ -66,7 +75,7 @@ ul.liabc li a {
 
 ul.liabc li a:hover {
     background-color: #0088CC;
-} 
+}
 
 
 ul.liabc li.mc a:hover,
@@ -76,34 +85,50 @@ ul.diario li.diario a,
 ul.mudancas li.mudancas a,
 ul.rud li.rud a,
 ul.relatorio li.relatorio a,
-ul.aceite li.aceite a
-{
+ul.aceite li.aceite a {
     background-color: #F89911 !important;
-} 
+}
 
-ul.liabc li.tap a:hover, 
+ul.liabc li.tap a:hover,
 ul.abertura li.abertura a {
     background-color: #52A552 !important;
-} 
+}
 
 ul.liabc li.pgp a:hover,
 ul.cronograma li.cronograma a,
 ul.gantt li.gantt a,
 ul.eap li.eap a,
+ul.detalhar-diagnostico li.detalhar-diagnostico a,
 ul.rh li.rh a,
 ul.comunicacao li.comunicacao a,
-ul.riscos li.riscos a
-{
+ul.riscos li.riscos a {
     background-color: #0088CC !important;
-} 
-
+}
 
 ul.liabc li.tep a:hover,
 ul.licoes li.licoes a,
-ul.encerramento li.encerramento a{
+ul.configuracao li.configuracao a,
+ul.linhatempo li.linhatempo a,
+ul.sugestaomelhoria li.sugestaomelhoria a,
+ul.termoenc li.termoenc a {
     background-color: #ccc !important;
-} 
+}
 
+ul.detalhar-diagnostico li.detalhar-diagnostico a {
+    background-color: #ccc !important;
+}
+
+ul.servidores li.servidores a {
+    background-color: #ccc !important;
+}
+
+ul.sugestaomelhoria li.sugestaomelhoria a {
+    background-color: #ccc !important;
+}
+
+ul.cidadao li.cidadao a {
+    background-color: #ccc !important;
+}
 
 
 ul.liabc li a span {
@@ -112,25 +137,34 @@ ul.liabc li a span {
 
 ul.liabc li.tap a {
     background-color: #DFF0D8;
-} 
+}
 
 ul.liabc li.pgp a {
     background-color: #D9EDF7;
-} 
+}
 
 ul.liabc li.mc a {
     background-color: #FCF8E3;
-} 
+}
 
 ul.liabc li.tep a {
     background-color: #f7f7f7;
-} 
+}
 
 
 /* ICONES */
 
-
 .glyphicons-tap {
+    background-image: url(src/glyphicons_notes_2.png);
+    background-position: 8px 2px;
+}
+
+.glyphicons-tpa {
+    background-image: url(src/glyphicons_notes_2.png);
+    background-position: 8px 2px;
+}
+
+.glyphicons-detalhar-diagnostico {
     background-image: url(src/glyphicons_notes_2.png);
     background-position: 8px 2px;
 }
@@ -153,6 +187,16 @@ ul.liabc li.tep a {
 .glyphicons-rh {
     background-image: url(src/glyphicons_user.png);
     background-position: 8px 4px;
+}
+
+.glyphicons-cidadao {
+    background-image: url(src/glyphicons_user.png);
+    background-position: 8px 4px;
+}
+
+.glyphicons-servidores {
+    background-image: url(src/glyphicons_userservidor.png);
+    background-position: 6px 4px;
 }
 
 .glyphicons-comunicacao {
@@ -208,4 +252,34 @@ ul.liabc li.tep a {
 .glyphicons-tep {
     background-image: url(src/glyphicons_notes.png);
     background-position: 9px 3px;
+}
+
+.glyphicons-termoenc {
+    background-image: url(src/glyphicons_notes.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-configurar {
+    background-image: url(src/glyphicons-cogwheel.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-configuracao {
+    background-image: url(src/glyphicons-cogwheel.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-itransfer {
+    background-image: url(src/glyphicons_itransfer.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-linhatempo {
+    background-image: url(src/glyphicons_linhatempo.png);
+    background-position: 9px 3px;
+}
+
+.glyphicons-sugestaomelhoria {
+    background-image: url(src/glyphicons-hint-filled.png);
+    background-position: 5px 4px;
 }

@@ -6,7 +6,7 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function() {
+$(function () {
     $.pnotify.defaults.history = false;
 
     $(".select2").select2();
@@ -17,18 +17,18 @@ $(function() {
     });
 
     $('#idprojetoprocesso')
-            .attr('readonly', true)
-            .focus(function() {
-        $(this).blur();
-    });
+        .attr('readonly', true)
+        .focus(function () {
+            $(this).blur();
+        });
 
     var $form = $("form#form-pacao");
 
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
-            enviar_ajax("/processo/pacao/add/format/json", "form#form-pacao", function(data) {
+        submitHandler: function (form) {
+            enviar_ajax("/processo/pacao/add/format/json", "form#form-pacao", function (data) {
                 if (data.success) {
                     $("#resetbutton").trigger('click');
                 }
@@ -36,7 +36,7 @@ $(function() {
             //console.log('enviando');
         }
     });
-    $(".pessoa-button").on('click', function(event) {
+    $(".pessoa-button").on('click', function (event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -45,15 +45,15 @@ $(function() {
                 url: base_url + "/cadastro/pessoa/grid",
                 type: "GET",
                 dataType: "html",
-                success: function(html) {
+                success: function (html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click',function() {
+                .on('click', function () {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function(){
+                    $(".grid-append").slideDown('fast', function () {
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });

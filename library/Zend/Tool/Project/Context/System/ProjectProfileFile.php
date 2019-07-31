@@ -54,7 +54,7 @@ require_once 'Zend/Tool/Project/Profile/FileParser/Xml.php';
 class Zend_Tool_Project_Context_System_ProjectProfileFile
     extends Zend_Tool_Project_Context_Filesystem_File
     implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable
+    Zend_Tool_Project_Context_System_NotOverwritable
 {
 
     /**

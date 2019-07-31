@@ -40,7 +40,7 @@ class App_View_Helper_FlashMessages extends Zend_View_Helper_Abstract
      * @return string HTML of output messages
      */
     private $tituloMessages = array(
-        'error'   => 'Erro',
+        'error' => 'Erro',
         'success' => 'Sucesso',
         'warning' => 'Alerta'
     );
@@ -54,17 +54,16 @@ class App_View_Helper_FlashMessages extends Zend_View_Helper_Abstract
 
      */
 
-    public function flashMessages($translator = NULL)
+    public function flashMessages($translator = null)
     {
         //Zend_Session::start();
         // Set up some variables, including the retrieval of all flash messages.
-        $messages     = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
+        $messages = Zend_Controller_Action_HelperBroker::getStaticHelper('FlashMessenger')->getMessages();
         $statMessages = array();
         $output = '';
         //Zend_Registry::get('firebug')->info($messages);
         // If there are no messages, don't bother with this whole process.
-        if (count($messages) > 0)
-        {
+        if (count($messages) > 0) {
             // This chunk of code takes the messages (formatted as in the above sample
             // input) and puts them into an array of the form:
             //    Array(
@@ -78,41 +77,38 @@ class App_View_Helper_FlashMessages extends Zend_View_Helper_Abstract
             //        )
             //        ....
             //    )
-            foreach ($messages as $message)
-            {
-                if (!array_key_exists($message['status'], $statMessages))
+            foreach ($messages as $message) {
+                if (!array_key_exists($message['status'], $statMessages)) {
                     $statMessages[$message['status']] = array();
+                }
 
-                if ($translator != NULL && $translator instanceof Zend_Translate)
+                if ($translator != null && $translator instanceof Zend_Translate) {
                     array_push($statMessages[$message['status']], $translator->_($message['message']));
-                else
+                } else {
                     array_push($statMessages[$message['status']], $message['message']);
+                }
             }
 
             // This chunk of code formats messages for HTML output (per
             // the example in the class comments).
             //Zend_Debug::dump($statMessages);
 
-            foreach ($statMessages as $status => $messages)
-            {
-                $output .= '<div class="' . $status . ' ">';
+            foreach ($statMessages as $status => $messages) {
+                $output .= '<div class="alert alert-' . $status . ' ' . $status . '">';
 
                 // If there is only one message to look at, we don't need to deal with
                 // ul or li - just output the message into the div.
-                if (count($messages) == 1)
-                {
+                if (count($messages) == 1) {
                     $msn = (is_array($messages[0])) ? $messages[0][0] : $messages[0];
                     $output .= '<strong>' . $this->tituloMessages[$status] . ': </strong>' . $msn;
                 }
 
                 // If there are more than one message, format it in the fashion of the
                 // sample output above.
-                else
-                {
+                else {
                     $output .= '<strong>' . $this->tituloMessages[$status] . ': </strong>';
                     $output .= '<ul>';
-                    foreach ($messages as $message)
-                    {
+                    foreach ($messages as $message) {
                         $output .= '<li>' . $message . '</li>';
                     }
                     $output .= '</ul>';

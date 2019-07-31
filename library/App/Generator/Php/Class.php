@@ -2,7 +2,7 @@
 
 class App_Generator_Php_Class extends Zend_CodeGenerator_Php_Class
 {
-     /**
+    /**
      * hasProperty()
      *
      * @param string $propertyName
@@ -12,7 +12,7 @@ class App_Generator_Php_Class extends Zend_CodeGenerator_Php_Class
     {
         return isset($this->_properties[$propertyName]);
     }
-    
+
     /**
      * setProperty()
      *
@@ -34,8 +34,8 @@ class App_Generator_Php_Class extends Zend_CodeGenerator_Php_Class
         $this->_properties[$propertyName] = $property;
         return $this;
     }
-    
-     /**
+
+    /**
      * hasMethod()
      *
      * @param string $methodName
@@ -47,7 +47,7 @@ class App_Generator_Php_Class extends Zend_CodeGenerator_Php_Class
         return isset($this->_methods[$methodName]);
     }
 
-    
+
     /**
      * hasConstant()
      *
@@ -58,6 +58,6 @@ class App_Generator_Php_Class extends Zend_CodeGenerator_Php_Class
     {
         return isset($this->_constants[$constName]);
     }
-    
-    
+
+
 }

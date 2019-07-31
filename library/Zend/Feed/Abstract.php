@@ -63,9 +63,9 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
      * The Zend_Feed_Abstract constructor takes the URI of a feed or a
      * feed represented as a string and loads it as XML.
      *
-     * @param  string $uri The full URI of the feed to load, or NULL if not retrieved via HTTP or as an array.
-     * @param  string $string The feed as a string, or NULL if retrieved via HTTP or as an array.
-     * @param  Zend_Feed_Builder_Interface $builder The feed as a builder instance or NULL if retrieved as a string or via HTTP.
+     * @param string $uri The full URI of the feed to load, or NULL if not retrieved via HTTP or as an array.
+     * @param string $string The feed as a string, or NULL if retrieved via HTTP or as an array.
+     * @param Zend_Feed_Builder_Interface $builder The feed as a builder instance or NULL if retrieved as a string or via HTTP.
      * @return void
      * @throws Zend_Feed_Exception If loading the feed failed.
      */
@@ -235,7 +235,7 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     /**
      * Generate the header of the feed when working in write mode
      *
-     * @param  array $array the data to use
+     * @param array $array the data to use
      * @return DOMElement root node
      */
     abstract protected function _mapFeedHeaders($array);
@@ -243,8 +243,8 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     /**
      * Generate the entries of the feed when working in write mode
      *
-     * @param  DOMElement $root the root node to use
-     * @param  array $array the data to use
+     * @param DOMElement $root the root node to use
+     * @param array $array the data to use
      * @return DOMElement root node
      */
     abstract protected function _mapFeedEntries(DOMElement $root, $array);
@@ -252,8 +252,8 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     /**
      * Send feed to a http client with the correct header
      *
-     * @throws Zend_Feed_Exception if headers have already been sent
      * @return void
+     * @throws Zend_Feed_Exception if headers have already been sent
      */
     abstract public function send();
 }

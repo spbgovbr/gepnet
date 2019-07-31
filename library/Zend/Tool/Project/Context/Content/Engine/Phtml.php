@@ -59,7 +59,7 @@ class Zend_Tool_Project_Context_Content_Engine_Phtml
     /**
      * hasContext()
      *
-     * @param Zend_Tool_Project_Context_Interface  $context
+     * @param Zend_Tool_Project_Context_Interface $context
      * @param string $method
      * @return string
      */

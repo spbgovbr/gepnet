@@ -18,52 +18,69 @@ class Default_Form_ProgramaPesquisar extends App_Form_FormAbstract
 
         $this
             ->setOptions(array(
-                "method"   => "post",
-                "enctype"  => Zend_Form::ENCTYPE_URLENCODED,
-                "id"       => "form-pesquisar",
+                "method" => "post",
+                "enctype" => Zend_Form::ENCTYPE_URLENCODED,
+                "id" => "form-pesquisar",
                 "elements" => array(
-                    'nomprograma' => array('text', array(
-                            'label'      => 'Programa',
-                            'required'   => true,
-                            'filters'    => array('StringTrim', 'StripTags'),
+                    'nomprograma' => array(
+                        'text',
+                        array(
+                            'label' => 'Programa',
+                            'required' => true,
+                            'maxlength' => '100',
+                            'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array(array('StringLength', false, array(0, 100))),
-                            'attribs'    => array(),
-                        )),
-                    'submit'      => array('button', array(
-                            'ignore'    => true,
-                            'label'     => 'Pesquisar',
-                            'icon'      => 'filter',
+                            'attribs' => array(
+                                'data-rule-minlength' => 0,
+                                'data-rule-maxlength' => 100,
+                                'data-rule-required' => true,
+                            ),
+                        )
+                    ),
+                    'submit' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'label' => 'Pesquisar',
+                            'icon' => 'filter',
                             'whiteIcon' => false,
-                            'escape'    => false,
-                            'attribs'   => array(
-                                'id'   => 'submitbutton',
+                            'escape' => false,
+                            'attribs' => array(
+                                'id' => 'submitbutton',
                                 'type' => 'submit',
                             ),
-                        )),
-                    'reset'       => array('button', array(
-                            'ignore'       => true,
-                            'icon'         => 'th',
+                        )
+                    ),
+                    'reset' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'icon' => 'th',
                             'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
-                            'label'        => 'Limpar',
-                            'escape'       => false,
-                            'attribs'      => array(
-                                'id'   => 'resetbutton',
+                            'label' => 'Limpar',
+                            'escape' => false,
+                            'attribs' => array(
+                                'id' => 'resetbutton',
                                 'type' => 'reset',
                             ),
-                        )),
-                    'close'       => array('button', array(
-                            'ignore'       => true,
-                            'icon'         => 'arrow-right',
+                        )
+                    ),
+                    'close' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'icon' => 'arrow-right',
                             'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
-                            'label'        => 'Fechar',
-                            'escape'       => false,
-                            'attribs'      => array(
-                                'id'   => 'closebutton',
+                            'label' => 'Fechar',
+                            'escape' => false,
+                            'attribs' => array(
+                                'id' => 'closebutton',
                                 'type' => 'button',
                             ),
-                        )),
+                        )
+                    ),
                 )
-        ));
+            ));
 
         $this->getElement('submit')
             ->removeDecorator('label')

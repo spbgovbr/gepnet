@@ -2,13 +2,13 @@
     <div class="portlet portlet-azul span2">
         <h3>Tipo de Mudança</h3>
         <div class="content">
-            <?= $this->mudanca->dsmudanca; ?>
+            <?php echo $this->mudanca->dsmudanca; ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span5">
         <h3>Nome do Solicitante</h3>
         <div class="content">
-            <?= $this->mudanca->nomsolicitante; ?>
+            <?php echo $this->mudanca->nomsolicitante; ?>
         </div>
     </div>
 </div>
@@ -17,49 +17,49 @@
     <div class="portlet portlet-cinza span2">
         <h3>Data da decisão</h3>
         <div class="content">
-            <?= $this->dateBr($this->mudanca->datdecisao); ?>
+            <?php echo $this->dateBr($this->mudanca->datdecisao); ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span3">
         <h3>Data da Solicitação</h3>
         <div class="content">
-            <?= $this->dateBr($this->mudanca->datsolicitacao); ?>
+            <?php echo $this->dateBr($this->mudanca->datsolicitacao); ?>
         </div>
     </div>
     <div class="portlet portlet-cinza span2">
         <h3>Aprovada?</h3>
         <div class="content">
-            <?= $this->mudanca->flaaprovada; ?>
+            <?php echo $this->mudanca->flaaprovada; ?>
         </div>
     </div>
 </div>
 
 <div class="row">
-   <div class="portlet portlet-cinza span5">
+    <div class="portlet portlet-cinza span5">
         <h3>Descrição da Mudança</h3>
         <div class="content">
-            <?= $this->mudanca->desmudanca; ?>
+            <?php echo $this->mudanca->desmudanca; ?>
         </div>
-    </div> 
+    </div>
     <div class="portlet portlet-cinza span5">
         <h3>Justificativa</h3>
         <div class="content">
-            <?= $this->mudanca->desjustificativa; ?>
+            <?php echo $this->mudanca->desjustificativa; ?>
         </div>
-    </div> 
+    </div>
 </div>
 
 <div class="row">
-   <div class="portlet portlet-cinza span5">
-        <h3>Parecer do Escritório</h3>
+    <div class="portlet portlet-cinza span5">
+        <h3>Parecer do CIGE</h3>
         <div class="content">
-            <?= $this->mudanca->despareceregp; ?>
+            <?php echo $this->mudanca->despareceregp; ?>
         </div>
-    </div> 
+    </div>
     <div class="portlet portlet-cinza span5">
         <h3>Parecer dos Aprovadores</h3>
         <div class="content">
-            <?= $this->mudanca->despareceraprovadores; ?>
+            <?php echo $this->mudanca->despareceraprovadores; ?>
         </div>
-    </div> 
+    </div>
 </div>

@@ -14,14 +14,14 @@ kendo_module({
     id: "reorderable",
     name: "Reorderable",
     category: "framework",
-    depends: [ "core", "draganddrop" ],
+    depends: ["core", "draganddrop"],
     advanced: true
 });
 
 (function ($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
-        CHANGE =  "change",
+        CHANGE = "change",
         KREORDERABLE = "k-reorderable";
 
     function toggleHintClass(hint, denied) {
@@ -35,7 +35,7 @@ kendo_module({
     }
 
     var Reorderable = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 draggable,
                 group = kendo.guid() + "-reorderable";
@@ -54,7 +54,7 @@ kendo_module({
 
             element.find(draggable.options.filter).kendoDropTarget({
                 group: draggable.options.group,
-                dragenter: function(e) {
+                dragenter: function (e) {
                     if (!that._draggable) {
                         return;
                     }
@@ -67,18 +67,18 @@ kendo_module({
                         offset = kendo.getOffset(dropTarget);
 
                         that.reorderDropCue.css({
-                             height: dropTarget.outerHeight(),
-                             top: offset.top,
-                             left: offset.left + (dropTarget.index() > that._draggable.index() ? dropTarget.outerWidth() : 0)
+                            height: dropTarget.outerHeight(),
+                            top: offset.top,
+                            left: offset.left + (dropTarget.index() > that._draggable.index() ? dropTarget.outerWidth() : 0)
                         })
-                        .appendTo(document.body);
+                            .appendTo(document.body);
                     }
                 },
-                dragleave: function(e) {
+                dragleave: function (e) {
                     toggleHintClass(e.draggable.hint, true);
                     that.reorderDropCue.remove();
                 },
-                drop: function() {
+                drop: function () {
                     if (!that._draggable) {
                         return;
                     }
@@ -98,17 +98,17 @@ kendo_module({
                 }
             });
 
-            draggable.bind([ "dragcancel", "dragend", "dragstart" ],
+            draggable.bind(["dragcancel", "dragend", "dragstart"],
                 {
-                    dragcancel: function() {
+                    dragcancel: function () {
                         that.reorderDropCue.remove();
                         that._draggable = null;
                     },
-                    dragend: function() {
+                    dragend: function () {
                         that.reorderDropCue.remove();
                         that._draggable = null;
                     },
-                    dragstart: function(e) {
+                    dragstart: function (e) {
                         that._draggable = e.currentTarget;
                     }
                 }
@@ -124,17 +124,17 @@ kendo_module({
             CHANGE
         ],
 
-       destroy: function() {
-           var that = this;
+        destroy: function () {
+            var that = this;
 
-           Widget.fn.destroy.call(that);
+            Widget.fn.destroy.call(that);
 
-           if (that.draggable) {
-               that.draggable.destroy();
-           }
+            if (that.draggable) {
+                that.draggable.destroy();
+            }
 
-           kendo.destroy(that.element);
-       }
+            kendo.destroy(that.element);
+        }
     });
 
     kendo.ui.plugin(Reorderable);

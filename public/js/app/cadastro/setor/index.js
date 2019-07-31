@@ -1,14 +1,13 @@
+$(function () {
 
-$(function() {
-	
-var
-            grid = null,
-            lastsel = null,
-            gridEnd = null,
-            colModel = null,
-            colNames = null,
-            $dialogEditar = $('#dialog-editar'),
-            $dialogDetalhar = $('#dialog-detalhar');
+    var
+        grid = null,
+        lastsel = null,
+        gridEnd = null,
+        colModel = null,
+        colNames = null,
+        $dialogEditar = $('#dialog-editar'),
+        $dialogDetalhar = $('#dialog-detalhar');
 
     $dialogDetalhar.dialog({
         autoOpen: false,
@@ -16,7 +15,7 @@ var
         width: '1000px',
         modal: true,
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
@@ -27,36 +26,36 @@ var
         title: 'Setor - Editar',
         width: '1050px',
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
             $("form#form-setor-editar").validate({
                 errorClass: 'error',
                 validClass: 'success',
-                submitHandler: function(form) {
-                        enviar_ajax("/cadastro/setor/editar/format/json", "form#form-setor-editar", function() {
+                submitHandler: function (form) {
+                    enviar_ajax("/cadastro/setor/editar/format/json", "form#form-setor-editar", function () {
                         grid.trigger("reloadGrid");
                         $(this).dialog('close');
                     });
                 }
             });
-            
+
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             $dialogEditar.empty();
         },
         buttons: {
-            'Salvar': function() {
+            'Salvar': function () {
                 $("form#form-setor-editar").trigger('submit');
             },
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.detalhar", function(event) {
+    $(document.body).on('click', "a.detalhar", function (event) {
         event.preventDefault();
         var
-                $this = $(this);
+            $this = $(this);
 
         $.ajax({
             url: $this.attr('href'),
@@ -65,10 +64,10 @@ var
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialogDetalhar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -77,12 +76,12 @@ var
             }
         });
     });
-    
-    $(document.body).on('click',"a.editar", function(event) {
+
+    $(document.body).on('click', "a.editar", function (event) {
         event.preventDefault();
         var
-                $this = $(this),
-                $dialog = $($this.data('target'));
+            $this = $(this),
+            $dialog = $($this.data('target'));
 
         $.ajax({
             url: $this.attr('href'),
@@ -91,10 +90,10 @@ var
             async: true,
             cache: true,
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 $dialog.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -105,57 +104,52 @@ var
     });
 
 
-
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
-                params = '',
-                url = {
-            editar: base_url + '/cadastro/setor/editar',
-            detalhar: base_url + '/cadastro/setor/detalhar',
-           
-        };
+            params = '',
+            url = {
+                editar: base_url + '/cadastro/setor/editar',
+                detalhar: base_url + '/cadastro/setor/detalhar',
+
+            };
         params = '/idsetor/' + r[3];
 
         return '<a data-target="#dialog-deta" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
-                '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' ;
+            '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>';
     }
-    
-    
-    
-    function formatadorSituacao(cellvalue, options, rowObject)
-    {
-    	if(rowObject[1] == 'S'){
-    		return '<span class="label label-success">Ativo</span>';
-    	}
-    	return '<span class="label label-important">Inativo</span>';
-    	
+
+
+    function formatadorSituacao(cellvalue, options, rowObject) {
+        if (rowObject[1] == 'S') {
+            return '<span class="label label-success">Ativo</span>';
+        }
+        return '<span class="label label-important">Inativo</span>';
+
     }
-    
-    
+
 
     colNames = ['Nome do Setor', 'Situação', 'Operações'];
     colModel = [{
-            name: 'nomsetor',
-            index: 'nomsetor',
-            hidden: false,
-            search: false
-        },{
-            name: 'flaativo',
-            index: 'flaativo',
-            align: 'center',
-            width: 20,
-            search: true,
-            formatter: formatadorSituacao
-        },{
-            name: 'idsetor',
-            index: 'idsetor',
-            width: 18,
-            align: 'center',
-            search: false,
-            sortable: false,
-            formatter: formatadorLink
-        }];
+        name: 'nomsetor',
+        index: 'nomsetor',
+        hidden: false,
+        search: false
+    }, {
+        name: 'flaativo',
+        index: 'flaativo',
+        align: 'center',
+        width: 20,
+        search: true,
+        formatter: formatadorSituacao
+    }, {
+        name: 'idsetor',
+        index: 'idsetor',
+        width: 18,
+        align: 'center',
+        search: false,
+        sortable: false,
+        formatter: formatadorLink
+    }];
 
     grid = jQuery("#list2").jqGrid({
         url: base_url + "/cadastro/setor/pesquisarjson",
@@ -172,7 +166,7 @@ var
         sortname: 'nomsetor',
         viewrecords: true,
         sortorder: "asc",
-        gridComplete: function() {
+        gridComplete: function () {
         }
     });
 
@@ -187,15 +181,15 @@ var
 
     grid.jqGrid('setLabel', 'rn', 'Ord');
 
-        var $form = $("form#form-setor");
-        
-        $form.on('submit', function(e) {
-            e.preventDefault();
-            grid.setGridParam({
+    var $form = $("form#form-setor");
+
+    $form.on('submit', function (e) {
+        e.preventDefault();
+        grid.setGridParam({
             url: base_url + "/cadastro/setor/pesquisarjson?" + $("form#form-setor").serialize(),
             page: 1
         }).trigger("reloadGrid");
-        
+
     });
     resizeGrid();
 });

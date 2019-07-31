@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
 //    innerLayout.sizePane("east", 380);
 //    myLayout.open('east');
@@ -14,8 +14,8 @@ $(document).ready(function() {
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
-            enviar_ajax("/agenda/index/add/format/json", "form#form-agenda", function(data) {
+        submitHandler: function (form) {
+            enviar_ajax("/agenda/index/add/format/json", "form#form-agenda", function (data) {
                 if (data.success) {
 //                    console.log(data);
 //                    window.location.href = base_url + "/agenda/index/edit/idagenda/" + data.idagenda;
@@ -25,7 +25,6 @@ $(document).ready(function() {
             });
         }
     });
-
 
 
 //    $("#btn-t").trigger("click");

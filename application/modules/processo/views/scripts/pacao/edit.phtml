@@ -1,8 +1,6 @@
 <?php
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-;
-/*
+    ->appendStylesheet($this->baseUrl('/css/form.css'));/*
   $this->headScript()
   ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
   ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
@@ -11,8 +9,7 @@ $this->headLink()
   ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
   ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
   ->appendFile($this->baseUrl('/js/app/cadastro/pessoa/edit.js'), 'text/javascript')
- */
-;
+ */;
 $frmAttr = $this->form->getAttribs();
 ?>
 <div class="content">
@@ -85,6 +82,11 @@ $frmAttr = $this->form->getAttribs();
                     </div>
                 </div>
             </fieldset>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
         </div>
     </form>
 </div>

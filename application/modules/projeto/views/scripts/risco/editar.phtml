@@ -1,137 +1,237 @@
 <script>
-    
-    $(function(){
+    $('#flacontramedidaefetiva').hide();
+    $('#divdatinatividade').hide();
+    $(function () {
         $.pnotify.defaults.history = false;
-    
+
         $('.mask-date').datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'pt-BR',
-                changeMonth: true,
-                changeYear: true
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR',
+            changeMonth: true,
+            changeYear: true
         });
-        
+
         $('.mask-date').mask('99/99/9999');
-    
-        $('#domcorimpacto, #domcorprobabilidade').change(function(){
+
+        $('#domcorimpacto, #domcorprobabilidade').change(function () {
             alteraRisco();
         });
-        
+
         alteraRisco();
     });
-    
+
     function alteraRisco() {
-            var probabilidade   = $('#domcorprobabilidade').val();
-            var impacto         = $('#domcorimpacto').val();
-            var opcao           = null;
-            
-            if (impacto == '1' && probabilidade == '1') {
-                opcao = '1';
-            }
-            else if (impacto == '3' || probabilidade == '3') {
-                opcao = '3';
-            } else {
-                opcao = '2';
-            }
-            switch (opcao) {
-                case '1':
-                    $('div#risco-badge.badge').attr('class', 'badge badge-important');                    
-                    break;
-                case '2':
-                    $('div#risco-badge.badge').attr('class', 'badge badge-warning');
-                    break;
-                case '3':
-                    $('div#risco-badge.badge').attr('class', 'badge badge-success');
-                    break;
-                default:
-                    $('div#risco-badge.badge').attr('class', 'badge');
-                    break;
-            }            
-            $('#domcorrisco').val(opcao);
-            return;
+        var probabilidade = $('#domcorprobabilidade').val();
+        var impacto = $('#domcorimpacto').val();
+        var opcao = null;
+
+        if (probabilidade == '3' && impacto == '3') {
+            opcao = '3';
+        } else if (probabilidade == '3' && impacto == '2') {
+            opcao = '3';
+        } else if (probabilidade == '3' && impacto == '1') {
+            opcao = '3';
+        } else if (probabilidade == '2' && impacto == '3') {
+            opcao = '3';
+        } else if (probabilidade == '2' && impacto == '2') {
+            opcao = '2';
+        } else if (probabilidade == '2' && impacto == '1') {
+            opcao = '2';
+        } else if (probabilidade == '1' && impacto == '3') {
+            opcao = '3';
+        } else if (probabilidade == '1' && impacto == '2') {
+            opcao = '2';
+        } else if (probabilidade == '1' && impacto == '1') {
+            opcao = '1';
+        } else {
+            opcao = '';
+        }
+        switch (opcao) {
+            case '1':
+                $('div#risco-badge.badge').attr('class', 'badge badge-important');
+                $("div#risco-badge.badge").text("Alto");
+                break;
+            case '2':
+                $('div#risco-badge.badge').attr('class', 'badge badge-warning');
+                $("div#risco-badge.badge").text("Médio");
+                break;
+            case '3':
+                $('div#risco-badge.badge').attr('class', 'badge badge-success');
+                $("div#risco-badge.badge").text("Baixo");
+                break;
+            default:
+                $('div#risco-badge.badge').attr('class', 'badge');
+                $("div#risco-badge.badge").text("Risco");
+                break;
+        }
+        $('#domcorrisco').val(opcao);
+        return;
     }
-    
-    function resetFormAta()
-    {
+
+    function resetFormAta() {
         $("input, select, textarea").not('input#idprojeto, #form-risco-pesquisar :input').val('');
     }
-    
-   
+
+    $('#flariscoativo').change(function () {
+        if ($('#flariscoativo').val() == '2') {
+            $('#divdatinatividade').show();
+        } else {
+            $('#divdatinatividade').hide();
+        }
+    });
+
+    $('#domstatuscontramedida').change(function () {
+        if ($(this).val() == '3' || $(this).val() == '2') {
+            $('#flacontramedidaefetiva').show();
+        } else {
+            $('#flacontramedidaefetiva').hide();
+        }
+    });
+
+    $('#idtiporisco').change(function (event) {
+        event.preventDefault();
+        var valor = $("#idtiporisco option:selected").val();
+
+        if ($("#idtiporisco option:selected").val() > 0) {
+            $.ajax({
+                url: base_url + "/projeto/risco/combo-tratamento/id/" + valor,
+                type: "GET",
+                dataType: "html",
+                success: function (data) {
+                    $('#domtratamento').html(data);
+                    $('#domtratamento').val($('#domtratamentooriginal').val());
+                }
+            });
+        } else {
+            $('select[name=domtratamento]').text("Selecione");
+            $('#domtratamento').html("");
+        }
+    });
+
+    $("#idtiporisco").trigger("change");
+
+    if ($('#flariscoativo').val() == 2) {
+        $('#divdatinatividade').show();
+    }
+
+    if ($('#domstatuscontramedida').val() == 2 || $('#domstatuscontramedida').val() == 3) {
+        $('#flacontramedidaefetiva').show();
+        $('#flacontramedidaefetiva').find('option[value="' + $('#contramedidaefetiva').val() + '"]').attr('selected', 'selected');
+    }
 </script>
 
 <?php $frmAttr = $this->form->getAttribs(); ?>
-
 <div class="region-center">
     <div class="portlet">
-        <div class="content">
-                <form id="<?php echo $frmAttr['id']; ?>"
-                        name="<?php echo $frmAttr['id']; ?>"
-                        action="<?php echo $this->form->getAction(); ?>"
-                        method="<?php echo $frmAttr['method']; ?>">    
-                    <div class="row">                                                                       
-                        <?php echo $this->form->idrisco ?>
-                        <?php echo $this->form->idprojeto ?>
-                        <?php echo $this->form->domcorrisco ?>
-                        <div class="span3">
-                            <?php echo $this->form->norisco ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->datdeteccao ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->idorigemrisco ?>                
-                        </div>
-                        <div class="span3">
-                            <?php echo $this->form->idetapa ?>
-                        </div>
+        <form id="<?php echo $frmAttr['id'];; ?>"
+              name="<?php echo $frmAttr['id']; ?>"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+
+            <div class="row">
+                <?php echo $this->form->trat ?>
+                <?php echo $this->form->pgpass ?>
+                <?php echo $this->form->idrisco ?>
+                <?php echo $this->form->idprojeto ?>
+                <?php echo $this->form->domcorrisco ?>
+                <?php echo $this->form->idcontramedida ?>
+                <?php echo $this->form->contramedidaefetiva ?>
+                <?php echo $this->form->domtratamentooriginal ?>
+                <div class="span3">
+                    <?php echo $this->form->norisco ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->flariscoativo ?>
+                </div>
+                <div class="span2" id="divdatinatividade">
+                    <?php echo $this->form->datinatividade ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span10">
+                    <?php echo $this->form->desrisco ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <?php echo $this->form->descausa ?>
+                </div>
+                <div class="span5">
+                    <?php echo $this->form->desconsequencia ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <?php echo $this->form->idtiporisco ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->domcorprobabilidade ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->domcorimpacto ?>
+                </div>
+                <div class="span1">
+                    <div class="control-group">
+                        <label>Risco</label>
+                        <div id="risco-badge" class="badge">Risco</div>
                     </div>
-                    <div class="row">
-                        <div class="span3">
-                            <?php echo $this->form->idtiporisco ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->domcorprobabilidade ?>
-                        </div>               
-                        <div class="span2">
-                            <?php echo $this->form->domcorimpacto ?>
-                        </div>
-                        <div class="span1">
-                            <div class="control-group">
-                                <label class="control-label">&nbsp</label>
-                                <div id="risco-badge" class="badge" >Risco</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo $this->form->desrisco ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span5">
-                            <?php echo $this->form->descausa ?>
-                        </div>
-                        <div class="span5">
-                            <?php echo $this->form->desconsequencia ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="span">
-                            <?php echo $this->form->domtratamento ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->flariscoativo ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->datencerramentorisco ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->flaaprovado ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->datinatividade ?>
-                        </div>
-                    </div>
-                </form>
-        </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <?php echo $this->form->datdeteccao ?>
+                </div>
+                <div class="span3">
+                    <?php echo $this->form->idetapa ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->idorigemrisco ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <label for="domtratamento" class="control-label required">Tratamento</label>
+                    <select name="domtratamento" id="domtratamento" class="span2">
+                        <option value="">Selecione</option>
+                        <?php foreach ($this->tratamento as $selectTratamento) : ?>
+                            <option value="<?php echo $selectTratamento['idtratamento']; ?>">
+                                <?php echo $selectTratamento['dstratamento']; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <!--                <div class="span2">
+                    <?php /*echo $this->form->tratamento */ ?>
+                </div>-->
+                <div class="span3">
+                    <?php echo $this->form->descontramedida ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <?php echo $this->form->domstatuscontramedida ?>
+                </div>
+                <div class="span2">
+                    <?php echo $this->form->datprazocontramedida ?>
+                </div>
+                <div class="span3">
+                    <?php echo $this->form->datprazocontramedidaatraso ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <?php echo $this->form->desresponsavel ?>
+                </div>
+                <div class="span2" id="flacontramedidaefetiva">
+                    <?php echo $this->form->flacontramedidaefetiva ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-offset-9 col-sm-span1" style="float: right; ">
+                    (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                    obrigatório
+                </div>
+            </div>
+        </form>
     </div>
 </div>

@@ -15,10 +15,10 @@ kendo_module({
     name: "TreeView",
     category: "web",
     description: "The TreeView widget displays hierarchical data in a traditional tree structure,with support for interactive drag-and-drop operations.",
-    depends: [ "data", "draganddrop" ]
+    depends: ["data", "draganddrop"]
 });
 
-(function($, undefined){
+(function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         data = kendo.data,
@@ -60,15 +60,15 @@ kendo_module({
             spriteCssClass: "dataSpriteCssClassField",
             imageUrl: "dataImageUrlField"
         },
-        isDomElement = function (o){
+        isDomElement = function (o) {
             return (
                 typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
-                o && typeof o === "object" && o.nodeType === 1 && typeof o.nodeName === STRING
+                    o && typeof o === "object" && o.nodeType === 1 && typeof o.nodeName === STRING
             );
         };
 
     function contentChild(filter) {
-        return function(node) {
+        return function (node) {
             var result = node.children(".k-animation-container");
 
             if (!result.length) {
@@ -80,12 +80,12 @@ kendo_module({
     }
 
     function templateNoWith(code) {
-        return kendo.template(code, { useWithBlock: false });
+        return kendo.template(code, {useWithBlock: false});
     }
 
     subGroup = contentChild(".k-group");
     nodeContents = contentChild(".k-group,.k-content");
-    nodeIcon = function(node) {
+    nodeIcon = function (node) {
         return node.children("div").children(".k-icon");
     };
 
@@ -165,7 +165,7 @@ kendo_module({
 
             if (isArray(options)) {
                 dataInit = true;
-                options = { dataSource: options };
+                options = {dataSource: options};
             }
 
             if (options && typeof options.loadOnDemand == UNDEFINED && isArray(options.dataSource)) {
@@ -235,15 +235,21 @@ kendo_module({
             }
         },
 
-        _attachEvents: function() {
+        _attachEvents: function () {
             var that = this,
                 clickableItems = ".k-in:not(.k-state-selected,.k-state-disabled)",
                 MOUSEENTER = "mouseenter";
 
             that.wrapper
-                .on(MOUSEENTER + NS, ".k-in.k-state-selected", function(e) { e.preventDefault(); })
-                .on(MOUSEENTER + NS, clickableItems, function () { $(this).addClass(KSTATEHOVER); })
-                .on("mouseleave" + NS, clickableItems, function () { $(this).removeClass(KSTATEHOVER); })
+                .on(MOUSEENTER + NS, ".k-in.k-state-selected", function (e) {
+                    e.preventDefault();
+                })
+                .on(MOUSEENTER + NS, clickableItems, function () {
+                    $(this).addClass(KSTATEHOVER);
+                })
+                .on("mouseleave" + NS, clickableItems, function () {
+                    $(this).removeClass(KSTATEHOVER);
+                })
                 .on(CLICK + NS, clickableItems, proxy(that._click, that))
                 .on("dblclick" + NS, ".k-in:not(.k-state-disabled)", proxy(that._toggleButtonClick, that))
                 .on(CLICK + NS, ".k-plus,.k-minus", proxy(that._toggleButtonClick, that))
@@ -254,14 +260,14 @@ kendo_module({
                 .on("change" + NS, ".k-checkbox :checkbox", proxy(that._checkboxChange, that))
                 .on("click" + NS, ".k-checkbox :checkbox", proxy(that._checkboxClick, that))
                 .on("click" + NS, ".k-request-retry", proxy(that._retryRequest, that))
-                .on("click" + NS, function(e) {
+                .on("click" + NS, function (e) {
                     if (!$(e.target).is(":focusable")) {
                         that.focus();
                     }
                 });
         },
 
-        _checkboxClick: function(e) {
+        _checkboxClick: function (e) {
             var checkbox = $(e.target);
 
             if (checkbox.data("indeterminate")) {
@@ -274,7 +280,7 @@ kendo_module({
             }
         },
 
-        _attachUids: function(root, dataSource) {
+        _attachUids: function (root, dataSource) {
             var that = this,
                 data,
                 uidAttr = kendo.attr("uid");
@@ -284,32 +290,32 @@ kendo_module({
 
             data = dataSource.view();
 
-            root.children("li").each(function(index, item) {
+            root.children("li").each(function (index, item) {
                 item = $(item).attr(uidAttr, data[index].uid);
                 item.attr("role", "treeitem");
                 that._attachUids(item.children("ul"), data[index].children);
             });
         },
 
-        _animation: function() {
+        _animation: function () {
             var options = this.options,
                 animationOptions = options.animation;
 
             if (animationOptions === false) {
                 animationOptions = {
-                    expand: { effects: {} },
-                    collapse: { hide: true, effects: {} }
+                    expand: {effects: {}},
+                    collapse: {hide: true, effects: {}}
                 };
             } else if (!animationOptions.collapse || !("effects" in animationOptions.collapse)) {
-                animationOptions.collapse = extend({ reverse: true }, animationOptions.expand);
+                animationOptions.collapse = extend({reverse: true}, animationOptions.expand);
             }
 
-            extend(animationOptions.collapse, { hide: true });
+            extend(animationOptions.collapse, {hide: true});
 
             options.animation = animationOptions;
         },
 
-        _templates: function() {
+        _templates: function () {
             var that = this,
                 options = that.options,
                 fieldAccessor = proxy(that._fieldAccessor, that);
@@ -320,9 +326,9 @@ kendo_module({
                 options.template = templateNoWith(
                     "# var text = " + fieldAccessor("text") + "(data.item); #" +
                     "# if (typeof data.item.encoded != 'undefined' && data.item.encoded === false) {#" +
-                        "#= text #" +
+                    "#= text #" +
                     "# } else { #" +
-                        "#: text #" +
+                    "#: text #" +
                     "# } #"
                 );
             }
@@ -338,13 +344,13 @@ kendo_module({
                         result += " k-first";
                     }
 
-                    if (index == group.length-1) {
+                    if (index == group.length - 1) {
                         result += " k-last";
                     }
 
                     return result;
                 },
-                cssClass: function(group, item) {
+                cssClass: function (group, item) {
                     var result = "",
                         index = item.index,
                         groupLength = group.length - 1;
@@ -363,7 +369,7 @@ kendo_module({
 
                     return result;
                 },
-                textClass: function(item) {
+                textClass: function (item) {
                     var result = "k-in";
 
                     if (item.enabled === false) {
@@ -376,7 +382,7 @@ kendo_module({
 
                     return result;
                 },
-                toggleButtonClass: function(item) {
+                toggleButtonClass: function (item) {
                     var result = "k-icon";
 
                     if (item.expanded !== true) {
@@ -391,10 +397,10 @@ kendo_module({
 
                     return result;
                 },
-                groupAttributes: function(group) {
+                groupAttributes: function (group) {
                     return group.expanded !== true ? " style='display:none'" : "";
                 },
-                groupCssClass: function(group) {
+                groupCssClass: function (group) {
                     var cssClass = "k-group";
 
                     if (group.firstLevel) {
@@ -405,24 +411,24 @@ kendo_module({
                 },
                 dragClue: templateNoWith(
                     "<div class='k-header k-drag-clue'>" +
-                        "<span class='k-icon k-drag-status' />" +
-                        "#= data.treeview.template(data) #" +
+                    "<span class='k-icon k-drag-status' />" +
+                    "#= data.treeview.template(data) #" +
                     "</div>"
                 ),
                 group: templateNoWith(
                     "<ul class='#= data.r.groupCssClass(data.group) #'#= data.r.groupAttributes(data.group) # role='group'>" +
-                        "#= data.renderItems(data) #" +
+                    "#= data.renderItems(data) #" +
                     "</ul>"
                 ),
                 itemContent: templateNoWith(
                     "# var imageUrl = " + fieldAccessor("imageUrl") + "(data.item); #" +
                     "# var spriteCssClass = " + fieldAccessor("spriteCssClass") + "(data.item); #" +
                     "# if (imageUrl) { #" +
-                        "<img class='k-image' alt='' src='#= imageUrl #'>" +
+                    "<img class='k-image' alt='' src='#= imageUrl #'>" +
                     "# } #" +
 
                     "# if (spriteCssClass) { #" +
-                        "<span class='k-sprite #= spriteCssClass #' />" +
+                    "<span class='k-sprite #= spriteCssClass #' />" +
                     "# } #" +
 
                     "#= data.treeview.template(data) #"
@@ -431,32 +437,32 @@ kendo_module({
                     "# var item = data.item, r = data.r; #" +
                     "# var url = " + fieldAccessor("url") + "(item); #" +
                     "<div class='#= r.cssClass(data.group, item) #'>" +
-                        "# if (item.hasChildren) { #" +
-                            "<span class='#= r.toggleButtonClass(item) #' role='presentation' />" +
-                        "# } #" +
+                    "# if (item.hasChildren) { #" +
+                    "<span class='#= r.toggleButtonClass(item) #' role='presentation' />" +
+                    "# } #" +
 
-                        "# if (data.treeview.checkboxes) { #" +
-                            "<span class='k-checkbox' role='presentation'>" +
-                                "#= data.treeview.checkboxes.template(data) #" +
-                            "</span>" +
-                        "# } #" +
+                    "# if (data.treeview.checkboxes) { #" +
+                    "<span class='k-checkbox' role='presentation'>" +
+                    "#= data.treeview.checkboxes.template(data) #" +
+                    "</span>" +
+                    "# } #" +
 
-                        "# var tag = url ? 'a' : 'span'; #" +
-                        "# var textAttr = url ? ' href=\\'' + url + '\\'' : ''; #" +
+                    "# var tag = url ? 'a' : 'span'; #" +
+                    "# var textAttr = url ? ' href=\\'' + url + '\\'' : ''; #" +
 
-                        "<#=tag#  class='#= r.textClass(item) #'#= textAttr #>" +
-                            "#= r.itemContent(data) #" +
-                        "</#=tag#>" +
+                    "<#=tag#  class='#= r.textClass(item) #'#= textAttr #>" +
+                    "#= r.itemContent(data) #" +
+                    "</#=tag#>" +
                     "</div>"
                 ),
                 item: templateNoWith(
                     "# var item = data.item, r = data.r; #" +
                     "<li role='treeitem' class='#= r.wrapperCssClass(data.group, item) #'" +
-                        " " + kendo.attr("uid") + "='#= item.uid #'" +
-                        "#=item.selected ? \"aria-selected='true'\" : ''#" +
-                        "#=item.enabled === false ? \"aria-disabled='true'\" : ''#" +
+                    " " + kendo.attr("uid") + "='#= item.uid #'" +
+                    "#=item.selected ? \"aria-selected='true'\" : ''#" +
+                    "#=item.enabled === false ? \"aria-disabled='true'\" : ''#" +
                     ">" +
-                        "#= r.itemElement(data) #" +
+                    "#= r.itemElement(data) #" +
                     "</li>"
                 ),
                 loading: templateNoWith(
@@ -469,11 +475,11 @@ kendo_module({
             };
         },
 
-        items: function() {
+        items: function () {
             return this.element.find(".k-item");
         },
 
-        setDataSource: function(dataSource) {
+        setDataSource: function (dataSource) {
             this.options.dataSource = dataSource;
 
             this._dataSource();
@@ -481,7 +487,7 @@ kendo_module({
             this.dataSource.fetch();
         },
 
-        _dataSource: function(silentRead) {
+        _dataSource: function (silentRead) {
             var that = this,
                 options = that.options,
                 dataSource = options.dataSource;
@@ -496,7 +502,7 @@ kendo_module({
                 }
             }
 
-            dataSource = isArray(dataSource) ? { data: dataSource } : dataSource;
+            dataSource = isArray(dataSource) ? {data: dataSource} : dataSource;
 
             if (that.dataSource) {
                 that.dataSource.unbind(CHANGE, proxy(that.refresh, that));
@@ -505,10 +511,10 @@ kendo_module({
 
             if (!dataSource.fields) {
                 dataSource.fields = [
-                    { field: "text" },
-                    { field: "url" },
-                    { field: "spriteCssClass" },
-                    { field: "imageUrl" }
+                    {field: "text"},
+                    {field: "url"},
+                    {field: "spriteCssClass"},
+                    {field: "imageUrl"}
                 ];
             }
 
@@ -558,7 +564,7 @@ kendo_module({
             dataTextField: null
         },
 
-        _accessors: function() {
+        _accessors: function () {
             var that = this,
                 options = that.options,
                 i, field, textField,
@@ -585,7 +591,7 @@ kendo_module({
         },
 
         // generates accessor function for a given field name, honoring the data*Field arrays
-        _fieldAccessor: function(fieldName) {
+        _fieldAccessor: function (fieldName) {
             var fieldBindings = this.options[bindings[fieldName]],
                 count = fieldBindings.length,
                 result = "(function(item) {";
@@ -594,9 +600,9 @@ kendo_module({
                 result += "return item['" + fieldName + "'];";
             } else {
                 result += "var levels = [" +
-                            $.map(fieldBindings, function(x) {
-                                return "function(d){ return " + kendo.expr(x) + "}";
-                            }).join(",") + "];";
+                    $.map(fieldBindings, function (x) {
+                        return "function(d){ return " + kendo.expr(x) + "}";
+                    }).join(",") + "];";
 
                 result += "return levels[Math.min(item.level(), " + count + "-1)](item)";
             }
@@ -606,7 +612,7 @@ kendo_module({
             return result;
         },
 
-        setOptions: function(options) {
+        setOptions: function (options) {
             var that = this;
 
             if (("dragAndDrop" in options) && options.dragAndDrop && !that.options.dragAndDrop) {
@@ -626,7 +632,7 @@ kendo_module({
             });
         },
 
-        _setChecked: function(datasource, value) {
+        _setChecked: function (datasource, value) {
             if (!datasource || !$.isFunction(datasource.view)) {
                 return;
             }
@@ -640,7 +646,7 @@ kendo_module({
             }
         },
 
-        _setIndeterminate: function(node) {
+        _setIndeterminate: function (node) {
             var group = subGroup(node),
                 siblings, length,
                 all = true,
@@ -657,8 +663,8 @@ kendo_module({
                 return;
             } else if (length > 1) {
                 for (i = 1; i < length; i++) {
-                    if (siblings[i].checked != siblings[i-1].checked ||
-                        siblings[i].indeterminate || siblings[i-1].indeterminate) {
+                    if (siblings[i].checked != siblings[i - 1].checked ||
+                        siblings[i].indeterminate || siblings[i - 1].indeterminate) {
                         all = false;
                         break;
                     }
@@ -673,7 +679,7 @@ kendo_module({
                 .prop(CHECKED, all && siblings[0].checked);
         },
 
-        updateIndeterminate: function(node) {
+        updateIndeterminate: function (node) {
             // top-down update of inital indeterminate state for all nodes
             node = node || this.wrapper;
 
@@ -688,7 +694,7 @@ kendo_module({
             }
         },
 
-        _bubbleIndeterminate: function(node) {
+        _bubbleIndeterminate: function (node) {
             // bottom-up setting of indeterminate state of parent nodes
             var parentNode = this.parent(node),
                 checkbox;
@@ -707,7 +713,7 @@ kendo_module({
             }
         },
 
-        _checkboxChange: function(e) {
+        _checkboxChange: function (e) {
             var checkbox = $(e.target),
                 isChecked = checkbox.prop(CHECKED),
                 node = checkbox.closest(NODE),
@@ -720,7 +726,7 @@ kendo_module({
             this.toggle($(e.target).closest(NODE));
         },
 
-        _mousedown: function(e) {
+        _mousedown: function (e) {
             var node = $(e.currentTarget).closest(NODE);
 
             this._clickTarget = node;
@@ -731,7 +737,7 @@ kendo_module({
             return node && node.length && node.is(":visible") && !node.find(".k-in:first").hasClass("k-state-disabled");
         },
 
-        _focus: function() {
+        _focus: function () {
             var current = this.select(),
                 clickTarget = this._clickTarget;
 
@@ -755,7 +761,7 @@ kendo_module({
             this.current(current);
         },
 
-        focus: function() {
+        focus: function () {
             var wrapper = this.wrapper,
                 scrollContainer = wrapper[0],
                 containers = [],
@@ -779,15 +785,15 @@ kendo_module({
             }
         },
 
-        _blur: function() {
+        _blur: function () {
             this.current().find(".k-in:first").removeClass("k-state-focused");
         },
 
-        _enabled: function(node) {
+        _enabled: function (node) {
             return !node.children("div").children(".k-in").hasClass("k-state-disabled");
         },
 
-        parent: function(node) {
+        parent: function (node) {
             var wrapperRe = /\bk-treeview\b/,
                 itemRe = /\bk-item\b/,
                 result,
@@ -818,7 +824,7 @@ kendo_module({
             return $(result);
         },
 
-        _nextVisible: function(node) {
+        _nextVisible: function (node) {
             var that = this,
                 expanded = that._expanded(node),
                 result;
@@ -855,7 +861,7 @@ kendo_module({
             return result;
         },
 
-        _previousVisible: function(node) {
+        _previousVisible: function (node) {
             var that = this,
                 lastChild,
                 result;
@@ -887,7 +893,7 @@ kendo_module({
             return result;
         },
 
-        _keydown: function(e) {
+        _keydown: function (e) {
             var that = this,
                 key = e.keyCode,
                 target,
@@ -935,7 +941,7 @@ kendo_module({
                     .data("indeterminate", false)
                     .prop("indeterminate", false);
 
-                that._checkboxChange({ target: checkbox });
+                that._checkboxChange({target: checkbox});
 
                 target = focused;
             }
@@ -972,7 +978,7 @@ kendo_module({
             }
         },
 
-        _wrapper: function() {
+        _wrapper: function () {
             var that = this,
                 element = that.element,
                 wrapper, root,
@@ -990,7 +996,7 @@ kendo_module({
             that.root = root;
         },
 
-        _group: function(item) {
+        _group: function (item) {
             var that = this,
                 firstLevel = item.hasClass(KTREEVIEW),
                 group = {
@@ -1006,17 +1012,17 @@ kendo_module({
             that._nodes(groupElement, group);
         },
 
-        _nodes: function(groupElement, groupData) {
+        _nodes: function (groupElement, groupData) {
             var that = this,
                 nodes = groupElement.children("li"),
                 nodeData;
 
-            groupData = extend({ length: nodes.length }, groupData);
+            groupData = extend({length: nodes.length}, groupData);
 
-            nodes.each(function(i, node) {
+            nodes.each(function (i, node) {
                 node = $(node);
 
-                nodeData = { index: i, expanded: that._expanded(node) };
+                nodeData = {index: i, expanded: that._expanded(node)};
 
                 updateNodeHtml(node);
 
@@ -1027,7 +1033,7 @@ kendo_module({
             });
         },
 
-        _checkboxes: function() {
+        _checkboxes: function () {
             var options = this.options,
                 checkboxOptions = options.checkboxes,
                 checkboxTemplate;
@@ -1082,7 +1088,7 @@ kendo_module({
 
             // div
             wrapper.removeClass("k-top k-mid k-bot")
-                   .addClass(templates.cssClass(groupData, nodeData));
+                .addClass(templates.cssClass(groupData, nodeData));
 
             // span
             wrapper.children(".k-in").removeClass("k-in k-state-default k-state-disabled")
@@ -1098,21 +1104,21 @@ kendo_module({
         },
 
 
-        _processNodes: function(nodes, callback) {
+        _processNodes: function (nodes, callback) {
             var that = this;
-            that.element.find(nodes).each(function(index, item) {
+            that.element.find(nodes).each(function (index, item) {
                 callback.call(that, index, $(item).closest(NODE));
             });
         },
 
-        dataItem: function(node) {
+        dataItem: function (node) {
             var uid = $(node).closest(NODE).attr(kendo.attr("uid")),
                 dataSource = this.dataSource;
 
             return dataSource && dataSource.getByUid(uid);
         },
 
-        _insertNode: function(nodeData, index, parentNode, insertCallback, collapsed) {
+        _insertNode: function (nodeData, index, parentNode, insertCallback, collapsed) {
             var that = this,
                 group = subGroup(parentNode),
                 updatedGroupLength = group.children().length + 1,
@@ -1122,7 +1128,7 @@ kendo_module({
                     expanded: !collapsed,
                     length: updatedGroupLength
                 }, node, i, item, nodeHtml = "",
-                append = function(item, group) {
+                append = function (item, group) {
                     item.appendTo(group);
                 };
 
@@ -1175,10 +1181,10 @@ kendo_module({
             return node;
         },
 
-        _updateNode: function(field, items) {
+        _updateNode: function (field, items) {
             var that = this, i, node, item,
                 isChecked, isCollapsed,
-                context = { treeview: that.options, item: item },
+                context = {treeview: that.options, item: item},
                 shouldUpdate = false;
 
             function access() {
@@ -1196,9 +1202,9 @@ kendo_module({
                 item = items[0];
 
                 node = that.findByUid(item.uid).find(".k-in:first")
-                        .removeClass("k-state-hover")
-                        .toggleClass("k-state-selected", item[field])
-                        .end();
+                    .removeClass("k-state-hover")
+                    .toggleClass("k-state-selected", item[field])
+                    .end();
 
                 if (item[field]) {
                     that.current(node);
@@ -1260,13 +1266,13 @@ kendo_module({
                                 .attr(ARIADISABLED, true);
                         }
 
-                        that._updateNodeClasses(node, {}, { enabled: item[field], expanded: !isCollapsed });
+                        that._updateNodeClasses(node, {}, {enabled: item[field], expanded: !isCollapsed});
                     }
                 }
             }
         },
 
-        refresh: function(e) {
+        refresh: function (e) {
             var that = this,
                 parentNode = that.wrapper,
                 node = e.node,
@@ -1287,7 +1293,7 @@ kendo_module({
                     index = children.length;
                 }
 
-                that._insertNode(items, index, parentNode, function(item, group) {
+                that._insertNode(items, index, parentNode, function (item, group) {
                     // insert node into DOM
                     if (index == children.length) {
                         item.appendTo(group);
@@ -1352,7 +1358,7 @@ kendo_module({
             });
         },
 
-        _error: function(e) {
+        _error: function (e) {
             var that = this,
                 node = e.node && that.findByUid(e.node.uid);
 
@@ -1367,7 +1373,7 @@ kendo_module({
             }
         },
 
-        _retryRequest: function(e) {
+        _retryRequest: function (e) {
             e.preventDefault();
 
             this.dataSource.fetch();
@@ -1393,7 +1399,7 @@ kendo_module({
             });
         },
 
-        current: function(node) {
+        current: function (node) {
             var that = this,
                 current = that._current,
                 element = that.element,
@@ -1440,7 +1446,7 @@ kendo_module({
 
             node = $(node, element).closest(NODE);
 
-            element.find(".k-state-selected").each(function() {
+            element.find(".k-state-selected").each(function () {
                 var dataItem = that.dataItem(this);
                 dataItem.set("selected", false);
                 delete dataItem.selected;
@@ -1453,7 +1459,7 @@ kendo_module({
             that.trigger(CHANGE);
         },
 
-        _toggle: function(node, dataItem, expand) {
+        _toggle: function (node, dataItem, expand) {
             var that = this,
                 options = that.options,
                 contents = nodeContents(node),
@@ -1471,7 +1477,7 @@ kendo_module({
                 loaded = dataItem && dataItem.loaded();
 
                 if (loaded && contents.children().length > 0) {
-                    that._updateNodeClasses(node, {}, { expanded: expand });
+                    that._updateNodeClasses(node, {}, {expanded: expand});
 
                     if (contents.css("display") == (expand ? "block" : "none")) {
                         return;
@@ -1481,8 +1487,8 @@ kendo_module({
                         contents.css("height", contents.height()).css("height");
                     }
 
-                    contents.kendoStop(true, true).kendoAnimate(extend({ reset: true }, animation, {
-                        complete: function() {
+                    contents.kendoStop(true, true).kendoAnimate(extend({reset: true}, animation, {
+                        complete: function () {
                             if (expand) {
                                 contents.css("height", "");
                             }
@@ -1513,7 +1519,7 @@ kendo_module({
             this._expanded(node, expand);
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -1527,7 +1533,7 @@ kendo_module({
             kendo.destroy(that.element);
         },
 
-        _expanded: function(node, value) {
+        _expanded: function (node, value) {
             var expandedAttr = kendo.attr("expanded"),
                 dataItem = this.dataItem(node);
 
@@ -1554,7 +1560,7 @@ kendo_module({
             }
         },
 
-        _progress: function(node, showProgress) {
+        _progress: function (node, showProgress) {
             var element = this.element;
 
             if (arguments.length == 1) {
@@ -1575,7 +1581,7 @@ kendo_module({
                 fieldBindings = this.options[bindings.text],
                 level = dataItem.level(),
                 length = fieldBindings.length,
-                field = fieldBindings[Math.min(level, length-1)];
+                field = fieldBindings[Math.min(level, length - 1)];
 
             if (text) {
                 dataItem.set(field, text);
@@ -1588,7 +1594,7 @@ kendo_module({
             return $(node).closest("[data-role=treeview]").data("kendoTreeView") || this;
         },
 
-        _dataSourceMove: function(nodeData, group, parentNode, callback) {
+        _dataSourceMove: function (nodeData, group, parentNode, callback) {
             var referenceDataItem,
                 destTreeview = this._objectOrSelf(parentNode || group),
                 destDataSource = destTreeview.dataSource;
@@ -1617,13 +1623,13 @@ kendo_module({
             return callback.call(this, destDataSource, nodeData);
         },
 
-        _toObservableData: function(node) {
+        _toObservableData: function (node) {
             var dataItem = node, dataSource, uid;
 
             if (node instanceof window.jQuery || isDomElement(node)) {
                 dataSource = this._objectOrSelf(node).dataSource,
 
-                uid = $(node).attr(kendo.attr("uid"));
+                    uid = $(node).attr(kendo.attr("uid"));
                 dataItem = dataSource.getByUid(uid);
 
                 if (dataItem) {
@@ -1634,7 +1640,7 @@ kendo_module({
             return dataItem;
         },
 
-        _insert: function(data, model, index) {
+        _insert: function (data, model, index) {
             if (!(model instanceof kendo.data.ObservableArray)) {
                 if (!isArray(model)) {
                     model = [model];
@@ -1651,7 +1657,7 @@ kendo_module({
                 parentNode._initChildren();
             }
 
-            data.splice.apply(data, [ index, 0 ].concat(model));
+            data.splice.apply(data, [index, 0].concat(model));
 
             return this.findByUid(data[index].uid);
         },
@@ -1725,13 +1731,13 @@ kendo_module({
             return this._remove(node, true);
         },
 
-        findByText: function(text) {
-            return $(this.element).find(".k-in").filter(function(i, element) {
+        findByText: function (text) {
+            return $(this.element).find(".k-in").filter(function (i, element) {
                 return $(element).text() == text;
             }).closest(NODE);
         },
 
-        findByUid: function(uid) {
+        findByUid: function (uid) {
             return this.element.find(".k-item[" + kendo.attr("uid") + "=" + uid + "]");
         },
 
@@ -1750,24 +1756,24 @@ kendo_module({
         _renderGroup: function (options) {
             var that = this;
 
-            options.renderItems = function(options) {
-                    var html = "",
-                        i = 0,
-                        items = options.items,
-                        len = items ? items.length : 0,
-                        group = options.group;
+            options.renderItems = function (options) {
+                var html = "",
+                    i = 0,
+                    items = options.items,
+                    len = items ? items.length : 0,
+                    group = options.group;
 
-                    group.length = len;
+                group.length = len;
 
-                    for (; i < len; i++) {
-                        options.group = group;
-                        options.item = items[i];
-                        options.item.index = i;
-                        html += that._renderItem(options);
-                    }
+                for (; i < len; i++) {
+                    options.group = group;
+                    options.item = items[i];
+                    options.item.index = i;
+                    html += that._renderItem(options);
+                }
 
-                    return html;
-                };
+                return html;
+            };
 
             options.r = that.templates;
 
@@ -1782,26 +1788,26 @@ kendo_module({
         that.hovered = treeview.element;
 
         that._draggable = new ui.Draggable(treeview.element, {
-           filter: "div:not(.k-state-disabled) .k-in",
-           hint: function(node) {
-               return treeview.templates.dragClue({
-                   item: treeview.dataItem(node),
-                   treeview: treeview.options
-               });
-           },
-           cursorOffset: {
-               left: 10,
-               top: kendo.support.touch || kendo.support.pointers ? -40 / kendo.support.zoomLevel() : 10
-           },
-           dragstart: proxy(that.dragstart, that),
-           dragcancel: proxy(that.dragcancel, that),
-           drag: proxy(that.drag, that),
-           dragend: proxy(that.dragend, that)
+            filter: "div:not(.k-state-disabled) .k-in",
+            hint: function (node) {
+                return treeview.templates.dragClue({
+                    item: treeview.dataItem(node),
+                    treeview: treeview.options
+                });
+            },
+            cursorOffset: {
+                left: 10,
+                top: kendo.support.touch || kendo.support.pointers ? -40 / kendo.support.zoomLevel() : 10
+            },
+            dragstart: proxy(that.dragstart, that),
+            dragcancel: proxy(that.dragcancel, that),
+            drag: proxy(that.drag, that),
+            dragend: proxy(that.dragend, that)
         });
     }
 
     TreeViewDragAndDrop.prototype = {
-        _removeTouchHover: function() {
+        _removeTouchHover: function () {
             var that = this;
 
             if (kendo.support.touch && that.hovered) {
@@ -1810,7 +1816,7 @@ kendo_module({
             }
         },
 
-        _hintStatus: function(newStatus) {
+        _hintStatus: function (newStatus) {
             var statusElement = this._draggable.hint.find(".k-drag-status")[0];
 
             if (newStatus) {
@@ -1825,7 +1831,7 @@ kendo_module({
                 treeview = that.treeview,
                 sourceNode = that.sourceNode = e.currentTarget.closest(NODE);
 
-            if (treeview.trigger(DRAGSTART, { sourceNode: sourceNode[0] })) {
+            if (treeview.trigger(DRAGSTART, {sourceNode: sourceNode[0]})) {
                 e.preventDefault();
             }
 
@@ -1917,7 +1923,7 @@ kendo_module({
             that._hintStatus(statusClass);
         },
 
-        dragcancel: function() {
+        dragcancel: function () {
             this.dropHint.remove();
         },
 
@@ -1949,7 +1955,9 @@ kendo_module({
                 sourceNode: sourceNode[0],
                 destinationNode: destinationNode[0],
                 valid: valid,
-                setValid: function(newValid) { valid = newValid; },
+                setValid: function (newValid) {
+                    valid = newValid;
+                },
                 dropTarget: dropTarget[0],
                 dropPosition: dropPosition
             });
@@ -1980,7 +1988,7 @@ kendo_module({
             });
         },
 
-        destroy: function() {
+        destroy: function () {
             this._draggable.destroy();
         }
     };

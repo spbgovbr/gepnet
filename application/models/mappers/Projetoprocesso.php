@@ -17,25 +17,22 @@ class Default_Model_Mapper_Projetoprocesso extends App_Model_Mapper_MapperAbstra
      */
     public function insert(Default_Model_Projetoprocesso $model)
     {
-    	
-    	
-    	
-    	
-    	
+
+
         $data = array(
-            "idprojetoprocesso"  => $model->idprojetoprocesso,
-            "idprocesso"         => $model->idprocesso,
-            "numano"             => $model->numano,
-            "domsituacao"        => $model->domsituacao,
-            "datsituacao"        => $model->datsituacao,
-            "idresponsavel"      => $model->idresponsavel,
+            "idprojetoprocesso" => $model->idprojetoprocesso,
+            "idprocesso" => $model->idprocesso,
+            "numano" => $model->numano,
+            "domsituacao" => $model->domsituacao,
+            "datsituacao" => $model->datsituacao,
+            "idresponsavel" => $model->idresponsavel,
             "desprojetoprocesso" => $model->desprojetoprocesso,
-            "datinicioprevisto"  => $model->datinicioprevisto,
+            "datinicioprevisto" => $model->datinicioprevisto,
             "datterminoprevisto" => $model->datterminoprevisto,
-            "vlrorcamento"       => $model->vlrorcamento,
-            "idcadastrador"      => $model->idcadastrador,
-            "codprojeto"         => $model->codprojeto,
-            "datcadastro"        => $model->datcadastro,
+            "vlrorcamento" => $model->vlrorcamento,
+            "idcadastrador" => $model->idcadastrador,
+            "codprojeto" => $model->codprojeto,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -49,21 +46,20 @@ class Default_Model_Mapper_Projetoprocesso extends App_Model_Mapper_MapperAbstra
     public function update(Default_Model_Projetoprocesso $model)
     {
         $data = array(
-            "idprojetoprocesso"  => $model->idprojetoprocesso,
-            "idprocesso"         => $model->idprocesso,
-            "numano"             => $model->numano,
-            "domsituacao"        => $model->domsituacao,
-            "datsituacao"        => $model->datsituacao,
-            "idresponsavel"      => $model->idresponsavel,
+            "idprojetoprocesso" => $model->idprojetoprocesso,
+            "idprocesso" => $model->idprocesso,
+            "numano" => $model->numano,
+            "domsituacao" => $model->domsituacao,
+            "datsituacao" => $model->datsituacao,
+            "idresponsavel" => $model->idresponsavel,
             "desprojetoprocesso" => $model->desprojetoprocesso,
-            "datinicioprevisto"  => $model->datinicioprevisto,
+            "datinicioprevisto" => $model->datinicioprevisto,
             "datterminoprevisto" => $model->datterminoprevisto,
-            "vlrorcamento"       => $model->vlrorcamento,
-            "idcadastrador"      => $model->idcadastrador,
-            "codprojeto"         => $model->codprojeto,
-            "datcadastro"        => $model->datcadastro,
+            "vlrorcamento" => $model->vlrorcamento,
+            "idcadastrador" => $model->idcadastrador,
+            "codprojeto" => $model->codprojeto,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()

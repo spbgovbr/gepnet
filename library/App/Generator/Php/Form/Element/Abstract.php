@@ -1,4 +1,5 @@
 <?php
+
 abstract class App_Generator_Php_Form_Element_Abstract
 {
     /**
@@ -6,11 +7,11 @@ abstract class App_Generator_Php_Form_Element_Abstract
      */
     protected $translate;
     /**
-     * @var App_Generator_Php_Form_Element_Property 
+     * @var App_Generator_Php_Form_Element_Property
      */
     protected $prop;
     /**
-     * @var App_Generator_Php_Config 
+     * @var App_Generator_Php_Config
      */
     protected $config;
 
@@ -19,16 +20,16 @@ abstract class App_Generator_Php_Form_Element_Abstract
      * @param App_Generator_Php_Form_Element_Property $prop
      * @param App_Generator_Php_Config $config
      */
-    public function __construct(App_Generator_Php_Form_Element_Property $prop, App_Generator_Php_Config $config) 
+    public function __construct(App_Generator_Php_Form_Element_Property $prop, App_Generator_Php_Config $config)
     {
-        $this->prop   = $prop;
+        $this->prop = $prop;
         $this->config = $config;
         $this->translate = new Zend_Translate(array(
             'adapter' => 'csv',
             'content' => APPLICATION_PATH . '/data/labels.csv',
-            'locale'  => 'pt'
+            'locale' => 'pt'
         ));
     }
-    
+
     abstract function __toString();
 }

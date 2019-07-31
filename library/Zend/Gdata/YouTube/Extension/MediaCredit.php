@@ -68,9 +68,12 @@ class Zend_Gdata_YouTube_Extension_MediaCredit extends Zend_Gdata_Extension
      * @param string $role
      * @param string $scheme
      */
-    public function __construct($text = null, $role = null,  $scheme = null,
-        $yttype = null)
-    {
+    public function __construct(
+        $text = null,
+        $role = null,
+        $scheme = null,
+        $yttype = null
+    ) {
         $this->registerAllNamespaces(Zend_Gdata_Media::$namespaces);
         parent::__construct();
         $this->_text = $text;

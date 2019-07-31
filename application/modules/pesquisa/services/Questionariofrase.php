@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
+class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -23,7 +24,7 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
         $this->_form = new Pesquisa_Form_QuestionarioFrasePesquisar();
         return $this->_form;
     }
-    
+
     public function getFormQuestionarioFrase()
     {
         $this->_form = new Pesquisa_Form_QuestionarioFrase();
@@ -34,18 +35,18 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
     {
         return $this->errors;
     }
-    
+
     /**
      * Retorna as Questionarios cadastradas
-     * 
+     *
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
     public function retornaQuestionarioGrid($params = null)
     {
         try {
-            if(isset($params['operacao']) && $params['operacao'] == 'vincular') {
-                $questionariofrase =  new Pesquisa_Model_Mapper_Questionariofrase();
+            if (isset($params['operacao']) && $params['operacao'] == 'vincular') {
+                $questionariofrase = new Pesquisa_Model_Mapper_Questionariofrase();
                 $dados = $questionariofrase->retornaVincularPerguntasToGrid($params);
             } else {
                 $dados = $this->_mapper->retornaPerguntasToGrid($params);
@@ -53,7 +54,7 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -70,7 +71,7 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
         $questionarioFrase = $this->_mapper->getById($params);
         return $questionarioFrase;
     }
-    
+
     public function getByIdDetalhar($params)
     {
         $questionarioFrase = $this->_mapper->getByIdDetalhar($params);
@@ -81,14 +82,14 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
     {
         $form = $this->getFormQuestionarioFrase();
 
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
             $model = new Pesquisa_Model_Questionariofrase();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
             try {
                 $model->idquestionario = $this->_mapper->insert($model);
                 return $model;
-            } catch ( Exception $exc ) {
+            } catch (Exception $exc) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
                 return false;
             }
@@ -97,10 +98,11 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
             return false;
         }
     }
+
     public function update($params)
     {
         $form = $this->getFormQuestionarioFrase();
-        if ( $form->isValid($params) ) {
+        if ($form->isValid($params)) {
             $model = new Pesquisa_Model_Questionariofrase($form->getValidValues($params));
             try {
                 $retorno = $this->_mapper->update($model);
@@ -114,29 +116,29 @@ class Pesquisa_Service_Questionariofrase extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function excluir($params)
     {
         try {
             return $this->_mapper->delete($params);
-        } catch ( Zend_Db_Statement_Exception $exc ) {
-        echo 'Linha:' . __LINE__ . '<br/>Arquivo:' . __FILE__ . '<br/>';
-        echo($exc->getMessage());
-        exit;
-            if ( $exc->getCode() == 23503 ) {
+        } catch (Zend_Db_Statement_Exception $exc) {
+            echo 'Linha:' . __LINE__ . '<br/>Arquivo:' . __FILE__ . '<br/>';
+            echo($exc->getMessage());
+            exit;
+            if ($exc->getCode() == 23503) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_VIOLACAO_FK_CODE_23503;
             }
-        } catch ( Exception $exc ) {           
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
     }
-        
+
     public function retornaPerguntasRespostasByQuestionario($params)
     {
         try {
             return $this->_mapper->retornaPerguntasRespostasByQuestionario($params);
-        } catch ( Exception $exc ) {           
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }

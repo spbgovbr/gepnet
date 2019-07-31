@@ -1,19 +1,22 @@
-<div class="region-center" >
-    <?php if($this->boolDisponivel): ?>
-        <div class="alert alert-block alert-danger"></i>Este question&aacute;rio econtra-se dispon&iacute;vel para publica&ccedil;&atilde;o, para alter&aacute;-lo &eacute; preciso torn&aacute;-lo indispon&iacute;vel. </div>
-    <?php else:?>
-    <div class="portlet portlet-cinza">
+<div class="region-center">
+    <?php if ($this->boolDisponivel): ?>
+        <div class="alert alert-block alert-danger"></i>Este question&aacute;rio econtra-se dispon&iacute;vel para
+            publica&ccedil;&atilde;o, para alter&aacute;-lo &eacute; preciso torn&aacute;-lo indispon&iacute;vel.
+        </div>
+    <?php else: ?>
+        <div class="portlet portlet-cinza">
             <div class="title">Detalhe da Pergunta</div>
-            <input type="hidden" id="idquestionario" name="idquestionario" value="<?php echo $this->questionarioFrase['idquestionario']; ?>">
+            <input type="hidden" id="idquestionario" name="idquestionario"
+                   value="<?php echo $this->questionarioFrase['idquestionario']; ?>">
             <input type="hidden" id="idfrase" name="idfrase" value="<?php echo $this->questionarioFrase['idfrase']; ?>">
             <div class="content">
-                <div class="row-fluid">              
+                <div class="row-fluid">
                     <div class="portlet portlet-cinza span">
                         <div class="title">Ordem</div>
                         <div class="content"><?php echo $this->questionarioFrase['numordempergunta']; ?>&nbsp;</div>
                     </div>
                 </div>
-                 <div class="row-fluid">              
+                <div class="row-fluid">
                     <div class="portlet portlet-cinza span">
                         <div class="title">Obrigatório</div>
                         <div class="content"><?php echo $this->questionarioFrase['obrigatoriedade']; ?>&nbsp;</div>
@@ -22,10 +25,12 @@
                 <div class="row-fluid">
                     <div class="portlet portlet-cinza span">
                         <div class="title">Pergunta</div>
-                        <div class="content"><?php echo '('.$this->nomescritorio.') '.$this->questionarioFrase['desfrase']; ?>&nbsp;</div>
+                        <div class="content"><?php echo '(' . $this->nomescritorio . ') ' . $this->questionarioFrase['desfrase']; ?>
+                            &nbsp;
+                        </div>
                     </div>
                 </div>
             </div>
-    </div>
-    <?php endif;?>
+        </div>
+    <?php endif; ?>
 </div>

@@ -18,16 +18,16 @@ class Default_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Agenda $model)
     {
         $data = array(
-            "idagenda"      => $model->idagenda,
-            "desassunto"    => $model->desassunto,
-            "datagenda"     => $model->datagenda,
-            "desagenda"     => $model->desagenda,
+            "idagenda" => $model->idagenda,
+            "desassunto" => $model->desassunto,
+            "datagenda" => $model->datagenda,
+            "desagenda" => $model->desagenda,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
-            "hragendada"    => $model->hragendada,
-            "deslocal"      => $model->deslocal,
+            "datcadastro" => $model->datcadastro,
+            "hragendada" => $model->hragendada,
+            "deslocal" => $model->deslocal,
             "flaenviaemail" => $model->flaenviaemail,
-            "idescritorio"  => $model->idescritorio,
+            "idescritorio" => $model->idescritorio,
         );
         $this->getDbTable()->insert($data);
     }
@@ -41,18 +41,18 @@ class Default_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Agenda $model)
     {
         $data = array(
-            "idagenda"      => $model->idagenda,
-            "desassunto"    => $model->desassunto,
-            "datagenda"     => $model->datagenda,
-            "desagenda"     => $model->desagenda,
+            "idagenda" => $model->idagenda,
+            "desassunto" => $model->desassunto,
+            "datagenda" => $model->datagenda,
+            "desagenda" => $model->desagenda,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
-            "hragendada"    => $model->hragendada,
-            "deslocal"      => $model->deslocal,
+            "datcadastro" => $model->datcadastro,
+            "hragendada" => $model->hragendada,
+            "deslocal" => $model->deslocal,
             "flaenviaemail" => $model->flaenviaemail,
-            "idescritorio"  => $model->idescritorio,
+            "idescritorio" => $model->idescritorio,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
+
     }
 
     public function getForm()

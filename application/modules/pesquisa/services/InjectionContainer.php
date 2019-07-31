@@ -1,6 +1,6 @@
 <?php
 
-class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Pesquisa_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -31,8 +31,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    } 
-    
+    }
+
     /**
      * Retorna pessoa servico
      *
@@ -45,8 +45,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    } 
-    
+    }
+
     /**
      * Retorna questionario servico
      *
@@ -59,7 +59,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
+    }
+
     /**
      * Retorna questionario servico
      *
@@ -72,8 +73,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServicePesquisa()
     {
         $service = new Pesquisa_Service_Pesquisa(
@@ -81,8 +82,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServiceQuestionarioPesquisa()
     {
         $service = new Pesquisa_Service_QuestionarioPesquisa(
@@ -90,8 +91,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServicePerguntaPesquisa()
     {
         $service = new Pesquisa_Service_PerguntaPesquisa(
@@ -99,7 +100,7 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
+    }
 
     public function getPesquisaServiceRespostaPesquisa()
     {
@@ -108,8 +109,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }   
-    
+    }
+
     public function getPesquisaServiceQuestionariofrasePesquisa()
     {
         $service = new Pesquisa_Service_QuestionariofrasePesquisa(
@@ -117,8 +118,8 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServiceHistoricoPublicacao()
     {
         $service = new Pesquisa_Service_HistoricoPublicacao(
@@ -126,7 +127,7 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
+    }
 
     public function getPesquisaServiceResultadoPesquisa()
     {
@@ -135,26 +136,26 @@ class Pesquisa_Service_InjectionContainer extends  App_Service_InjectionContaine
         );
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServiceResponder()
     {
         $service = new Pesquisa_Service_Responder();
 
         return $service;
-    }        
+    }
 
     public function getDefaultServiceLogin()
     {
         $service = new Default_Service_Login();
 
         return $service;
-    }        
-    
+    }
+
     public function getPesquisaServiceRelatorio()
     {
         $service = new Pesquisa_Service_Relatorio();
         return $service;
-    }        
+    }
 
 }

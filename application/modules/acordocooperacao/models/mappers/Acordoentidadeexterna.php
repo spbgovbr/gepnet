@@ -18,7 +18,7 @@ class Acordocooperacao_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapp
     public function insert(Default_Model_Acordoentidadeexterna $model)
     {
         $data = array(
-            "idacordo"          => $model->idacordo,
+            "idacordo" => $model->idacordo,
             "identidadeexterna" => $model->identidadeexterna,
         );
         $this->getDbTable()->insert($data);
@@ -33,7 +33,7 @@ class Acordocooperacao_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapp
     public function update(Default_Model_Acordoentidadeexterna $model)
     {
         $data = array(
-            "idacordo"          => $model->idacordo,
+            "idacordo" => $model->idacordo,
             "identidadeexterna" => $model->identidadeexterna,
         );
         // $this->getDbTable()->update($data, array("id = ?" => $id));
@@ -44,9 +44,10 @@ class Acordocooperacao_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapp
         return $this->_getForm(Default_Form_Acordoentidadeexterna);
     }
 
-    public function cadastrar($idacordo,$entidade){
+    public function cadastrar($idacordo, $entidade)
+    {
         $data = array(
-            "idacordo"          => $idacordo,
+            "idacordo" => $idacordo,
             "identidadeexterna" => $entidade,
         );
         $this->getDbTable()->insert($data);
@@ -64,7 +65,7 @@ class Acordocooperacao_Model_Mapper_Acordoentidadeexterna extends App_Model_Mapp
             $where = $this->_db->quoteInto('idacordo = ?', $params['idacordo']);
             $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }

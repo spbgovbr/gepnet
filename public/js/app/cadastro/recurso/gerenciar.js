@@ -1,10 +1,11 @@
-$(function() {
+$(function () {
     permissao.init();
-    
+
+    //$('.k-last').remove();
 
     //XXXXXXXXXX GERENCIAR RECURSOS XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-    var 
+    var
         dialogEditar = $('#dialog-editar'),
         dialogDetalhar = $('#dialog-detalhar'),
         formEditar = $("#form-permissao");
@@ -14,26 +15,26 @@ $(function() {
         title: 'Permissão - Editar',
         width: '830px',
         modal: false,
-        open: function(event, ui) {
+        open: function (event, ui) {
             $("#form-permissao").validate({
                 errorClass: 'error',
                 validClass: 'success',
-                submitHandler: function(form) {
+                submitHandler: function (form) {
                     //console.log('enviar');
-                    enviar_ajax("/cadastro/permissao/editar/format/json", "form#form-permissao", function() {
+                    enviar_ajax("/cadastro/permissao/editar/format/json", "form#form-permissao", function () {
                         grid.trigger("reloadGrid");
                     });
                 }
             });
         },
-        close: function(event, ui) {
+        close: function (event, ui) {
             dialogEditar.empty();
         },
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             },
-            'Salvar': function() {
+            'Salvar': function () {
                 //console.log('submit');
                 //$formEditar.on('submit');
                 $("#form-permissao").trigger('submit');
@@ -46,20 +47,20 @@ $(function() {
         title: 'Permissão - Detalhar',
         width: '830px',
         modal: false,
-        close: function(event, ui) {
+        close: function (event, ui) {
             dialogEditar.empty();
         },
         buttons: {
-            'Fechar': function() {
+            'Fechar': function () {
                 $(this).dialog('close');
             }
         }
     });
 
-    $(document.body).on('click', "a.editar", function(event) {
+    $(document.body).on('click', "a.editar", function (event) {
         event.preventDefault();
         var
-                $this = $(this);
+            $this = $(this);
 
         $.ajax({
             url: $this.attr('href'),
@@ -69,10 +70,10 @@ $(function() {
             cache: true,
             //data: $formEditar.serialize(),
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 dialogEditar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -82,10 +83,10 @@ $(function() {
         });
     });
 
-    $(document.body).on('click', "a.detalhar", function(event) {
+    $(document.body).on('click', "a.detalhar", function (event) {
         event.preventDefault();
         var
-                $this = $(this);
+            $this = $(this);
 
         $.ajax({
             url: $this.attr('href'),
@@ -95,10 +96,10 @@ $(function() {
             cache: true,
             //data: $formEditar.serialize(),
             processData: false,
-            success: function(data) {
+            success: function (data) {
                 dialogDetalhar.html(data).dialog('open');
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -109,47 +110,46 @@ $(function() {
     });
 
     //$("#novos-recursos").jqGrid('showCol', 'rn');
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
-                params = '',
-                url = {
-            editar: base_url + '/cadastro/permissao/editar',
-            detalhar: base_url + '/cadastro/permissao/detalhar'
-        };
+            params = '',
+            url = {
+                editar: base_url + '/cadastro/permissao/editar',
+                detalhar: base_url + '/cadastro/permissao/detalhar'
+            };
         params = '/idpermissao/' + r[3];
         //console.log(rowObject);
 
         return '<a data-target="#dialog-deta" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
-                '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>';
+            '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>';
     }
 
     colNames = ['Recurso', 'Permissao', 'Descrição', 'Operações'];
     colModel = [{
-            name: 'ds_recurso',
-            index: 'ds_recurso',
-            width: 50,
-            hidden: false,
-            search: false
-        }, {
-            name: 'no_permissao',
-            index: 'no_permissao',
-            width: 60,
-            hidden: false,
-            search: false
-        }, {
-            name: 'ds_permissao',
-            index: 'ds_permissao',
-            width: 200,
-            search: true
-        }, {
-            name: 'idpermissao',
-            index: 'idpermissao',
-            width: 30,
-            search: false,
-            sortable: false,
-            formatter: formatadorLink
-        }];
+        name: 'ds_recurso',
+        index: 'ds_recurso',
+        width: 50,
+        hidden: false,
+        search: false
+    }, {
+        name: 'no_permissao',
+        index: 'no_permissao',
+        width: 60,
+        hidden: false,
+        search: false
+    }, {
+        name: 'ds_permissao',
+        index: 'ds_permissao',
+        width: 200,
+        search: true
+    }, {
+        name: 'idpermissao',
+        index: 'idpermissao',
+        width: 30,
+        search: false,
+        sortable: false,
+        formatter: formatadorLink
+    }];
 
     grid = jQuery("#list2").jqGrid({
         caption: "Gerênciar Recursos",
@@ -167,7 +167,7 @@ $(function() {
         sortname: 'idpermissao',
         viewrecords: true,
         sortorder: "desc",
-        gridComplete: function() {
+        gridComplete: function () {
             // console.log('teste');
             //$("a.actionfrm").tooltip();
         }
@@ -184,14 +184,14 @@ $(function() {
 
     grid.jqGrid('setLabel', 'rn', 'Ord');
 
-    $("#resetbutton").click(function() {
+    $("#resetbutton").click(function () {
         $("select#idpermissao").select2('data', null);
         $("select#idrecurso").select2('data', null);
         //$("select#idperfil").select2('data', null);
     });
 
     $("select#idpermissao").select2();
-    $("select#idrecurso").select2().change(function() {
+    $("select#idrecurso").select2().change(function () {
         $("select#idpermissao").select2('destroy');
         $("select#idpermissao").empty().html('<option value="">Carregando...</option>');
         $.ajax({
@@ -199,16 +199,16 @@ $(function() {
             dataType: 'json',
             type: 'GET',
             //processData:false,
-            success: function(data) {
+            success: function (data) {
                 //console.log(data);
                 var linhas = $("select#idpermissao").get(0);
                 linhas.options.length = 0; //reset para zero
-                $.each(data, function(i, item) {
+                $.each(data, function (i, item) {
                     linhas.options[linhas.length] = new Option(item.nome, item.id);
                 });
                 $("select#idpermissao").select2();
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -218,7 +218,7 @@ $(function() {
         });
     });
 
-    $("form#form-recurso-pesquisar").on('submit', function(e) {
+    $("form#form-recurso-pesquisar").on('submit', function (e) {
         e.preventDefault();
         grid.setGridParam({
             url: base_url + "/cadastro/recurso/pesquisar/format/json?" + $("form#form-recurso-pesquisar").serialize(),
@@ -226,6 +226,6 @@ $(function() {
         }).trigger("reloadGrid");
         return false;
     });
-    
+
     resizeGrid();
 });

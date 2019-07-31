@@ -1857,7 +1857,7 @@ This is only recommended in non-HTML headers and footers. Although the text is a
 include("../mpdf.php");
 
 
-$mpdf=new mPDF('c','A4','','',15,15,20,20,5,5); 
+$mpdf = new mPDF('c', 'A4', '', '', 15, 15, 20, 20, 5, 5);
 
 //==============================================================
 
@@ -1866,17 +1866,15 @@ $mpdf->pagenumSuffix = '';
 $mpdf->nbpgPrefix = ' of ';
 $mpdf->nbpgSuffix = ' pages.';
 $header = array(
-	'L' => array(
-	),
-	'C' => array(
-	),
-	'R' => array(
-		'content' => '{PAGENO}{nbpg}',
-		'font-family' => 'sans',
-		'font-style' => '',
-		'font-size' => '9',	/* gives default */
-	),
-	'line' => 1,
+    'L' => array(),
+    'C' => array(),
+    'R' => array(
+        'content' => '{PAGENO}{nbpg}',
+        'font-family' => 'sans',
+        'font-style' => '',
+        'font-size' => '9',    /* gives default */
+    ),
+    'line' => 1,
 );
 $footer = '
 <table width="100%" style="border-top: 0.1mm solid #000000; vertical-align: top; font-family: sans; font-size: 9pt; color: #000055;"><tr>
@@ -1885,7 +1883,7 @@ $footer = '
 </tr></table>
 ';
 
-$mpdf->SetHeader($header,'O');
+$mpdf->SetHeader($header, 'O');
 $mpdf->SetHTMLFooter($footer);
 //==============================================================
 
@@ -1893,7 +1891,7 @@ $mpdf->SetDisplayMode('fullpage');
 
 $mpdf->WriteHTML($html);
 
-$mpdf->Output(); 
+$mpdf->Output();
 exit;
 
 //==============================================================

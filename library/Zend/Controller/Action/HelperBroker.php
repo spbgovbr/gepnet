@@ -61,7 +61,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Set PluginLoader for use with broker
      *
-     * @param  Zend_Loader_PluginLoader_Interface $loader
+     * @param Zend_Loader_PluginLoader_Interface $loader
      * @return void
      */
     public static function setPluginLoader($loader)
@@ -97,7 +97,7 @@ class Zend_Controller_Action_HelperBroker
     static public function addPrefix($prefix)
     {
         $prefix = rtrim($prefix, '_');
-        $path   = str_replace('_', DIRECTORY_SEPARATOR, $prefix);
+        $path = str_replace('_', DIRECTORY_SEPARATOR, $prefix);
         self::getPluginLoader()->addPrefixPath($prefix, $path);
     }
 
@@ -143,12 +143,12 @@ class Zend_Controller_Action_HelperBroker
      * does not already exist in the stack. Always returns a helper, unless
      * the helper class cannot be found.
      *
-     * @param  string $name
+     * @param string $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public static function getStaticHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -169,13 +169,13 @@ class Zend_Controller_Action_HelperBroker
      * stack; use {@link hasHelper()} to check if the helper is registered
      * prior to retrieving it.
      *
-     * @param  string $name
+     * @param string $name
      * @return Zend_Controller_Action_Helper_Abstract
      * @throws Zend_Controller_Action_Exception
      */
     public static function getExistingHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -199,7 +199,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Is a particular helper loaded in the broker?
      *
-     * @param  string $name
+     * @param string $name
      * @return boolean
      */
     public static function hasHelper($name)
@@ -211,7 +211,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Remove a particular helper from the broker
      *
-     * @param  string $name
+     * @param string $name
      * @return boolean
      */
     public static function removeHelper($name)
@@ -281,12 +281,12 @@ class Zend_Controller_Action_HelperBroker
     /**
      * getHelper() - get helper by name
      *
-     * @param  string $name
+     * @param string $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public function getHelper($name)
     {
-        $name  = self::_normalizeHelperName($name);
+        $name = self::_normalizeHelperName($name);
         $stack = self::getStack();
 
         if (!isset($stack->{$name})) {
@@ -304,7 +304,7 @@ class Zend_Controller_Action_HelperBroker
 
         if ($initialize) {
             $helper->setActionController($this->_actionController)
-                   ->init();
+                ->init();
         }
 
         return $helper;
@@ -313,8 +313,8 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Method overloading
      *
-     * @param  string $method
-     * @param  array $args
+     * @param string $method
+     * @param array $args
      * @return mixed
      * @throws Zend_Controller_Action_Exception if helper does not have a direct() method
      */
@@ -331,7 +331,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Retrieve helper by name as object property
      *
-     * @param  string $name
+     * @param string $name
      * @return Zend_Controller_Action_Helper_Abstract
      */
     public function __get($name)
@@ -342,7 +342,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Normalize helper name for lookups
      *
-     * @param  string $name
+     * @param string $name
      * @return string
      */
     protected static function _normalizeHelperName($name)
@@ -357,7 +357,7 @@ class Zend_Controller_Action_HelperBroker
     /**
      * Load a helper
      *
-     * @param  string $name
+     * @param string $name
      * @return void
      */
     protected static function _loadHelper($name)

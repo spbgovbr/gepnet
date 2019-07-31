@@ -34,7 +34,7 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
                 "desproximopasso" => $model->desproximopasso,
             );
             return $this->getDbTable()->insert($data);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->getMessage());
         }
     }
@@ -62,19 +62,19 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
             //"datcadastro" => new Zend_Db_Expr('now()'),
             "desproximopasso" => $model->desproximopasso,
         );
-         try{
+        try {
             return $this->getDbTable()->update($data, array("idata = ?" => $data['idata']));
-         } catch (Exception $exc) {
-             throw new Exception($exc->getMessage());
-         }
+        } catch (Exception $exc) {
+            throw new Exception($exc->getMessage());
+        }
     }
 
     public function delete($params)
     {
-       $where =  $this->quoteInto('idata = ?', (int)$params['idata']);        
-        
-       $result =  $this->getDbTable()->delete($where);
-       return $result;
+        $where = $this->quoteInto('idata = ?', (int)$params['idata']);
+
+        $result = $this->getDbTable()->delete($where);
+        return $result;
     }
 
     public function getById($params)
@@ -98,11 +98,11 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
         $resultado = $this->_db->fetchRow($sql, array('idata' => $params['idata']));
         return new Projeto_Model_Ata($resultado);
     }
-    
+
     public function getByIdDetalhar($params)
     {
         try {
-        $sql = "SELECT
+            $sql = "SELECT
                     idata,
                     idprojeto,
                     desassunto,
@@ -118,12 +118,13 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
                     desproximopasso
                 FROM agepnet200.tb_ata
                 WHERE idata = :idata";
-        $resultado = $this->_db->fetchRow($sql, array('idata' => $params['idata']));
-        return new Projeto_Model_Ata($resultado);
+            $resultado = $this->_db->fetchRow($sql, array('idata' => $params['idata']));
+            return new Projeto_Model_Ata($resultado);
         } catch (Exception $exc) {
             throw new Exception($exc->getCode());
         }
     }
+
     public function getByIdImprimir($params)
     {
         $sql = "SELECT
@@ -167,6 +168,7 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
         $resultado = $this->_db->fetchRow($sql, array('idprojeto' => $params['idprojeto']));
         return new Projeto_Model_Ata($resultado);
     }
+
     public function findAllByProjeto($params)
     {
         $sql = "SELECT
@@ -184,8 +186,23 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
                     datcadastro,
                     desproximopasso
                 FROM agepnet200.tb_ata
-                WHERE idprojeto = :idprojeto";
-        $resultado = $this->_db->fetchAll($sql, array('idprojeto' => $params['idprojeto']));
+                WHERE idprojeto = :idprojeto ";
+
+        if (@trim($params['idata']) != "") {
+            $sql .= " and idata = :idata ";
+        }
+        if (@trim($params['idata']) != "") {
+            $resultado = $this->_db->fetchAll(
+                $sql, array(
+                    'idprojeto' => $params['idprojeto'],
+                    'idata' => $params['idata']
+                )
+            );
+        } else {
+            $resultado = $this->_db->fetchAll(
+                $sql, array('idprojeto' => $params['idprojeto'])
+            );
+        }
         return $resultado;
     }
 
@@ -208,29 +225,64 @@ class Projeto_Model_Mapper_Ata extends App_Model_Mapper_MapperAbstract
                     ata.desproximopasso
                 FROM agepnet200.tb_ata ata,
                      agepnet200.tb_pessoa pes
-                WHERE idprojeto = " . (int) $params['idprojeto'] . "
+                WHERE idprojeto = " . (int)$params['idprojeto'] . "
                 AND ata.idcadastrador = pes.idpessoa ";
-        if(isset($params['deslocal']) && $params['deslocal'] != "") {
-            $sql .= " AND UPPER(ata.deslocal) LIKE '%".strtoupper($params['deslocal'])."%' ";
+        if (isset($params['deslocal']) && $params['deslocal'] != "") {
+            $sql .= " AND UPPER(ata.deslocal) LIKE '%" . strtoupper($params['deslocal']) . "%' ";
         }
-        if(isset($params['desassunto']) && $params['desassunto'] != "") {
-            $sql .= " AND UPPER(ata.desassunto) LIKE '%".strtoupper($params['desassunto'])."%' ";
+        if (isset($params['desassunto']) && $params['desassunto'] != "") {
+            $sql .= " AND UPPER(ata.desassunto) LIKE '%" . strtoupper($params['desassunto']) . "%' ";
         }
-        if(isset($params['hrreuniao']) && $params['hrreuniao'] != "") {
+        if (isset($params['hrreuniao']) && $params['hrreuniao'] != "") {
             $sql .= " AND ata.hrreuniao = '{$params['hrreuniao']}' ";
         }
-        if(isset($params['datata']) && $params['datata'] != "") {
+        if (isset($params['datata']) && $params['datata'] != "") {
             $sql .= " AND ata.datata = to_date('{$params['datata']}','DD/MM/YYYY') ";
         }
 
         $sql .= ' order by ' . $params['sidx'] . ' ' . $params['sord'];
-        
+
         $page = (isset($params['page'])) ? $params['page'] : 1;
         $limit = (isset($params['rows'])) ? $params['rows'] : 20;
         $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
         $paginator->setItemCountPerPage($limit);
         $paginator->setCurrentPageNumber($page);
         return $paginator;
+    }
+
+    public function copiaAtaByProjeto($params)
+    {
+
+        $sql = "insert into agepnet200.tb_ata(idata,
+        idprojeto, desassunto, datata, deslocal, desparticipante,
+        despontodiscutido, desdecisao, despontoatencao, idcadastrador,
+        datcadastro, desproximopasso, hrreuniao)(SELECT
+        (SELECT MAX(idata) FROM agepnet200.tb_ata) + ROW_NUMBER()
+                OVER (ORDER BY idata) idata,
+       :idprojetoNovo, tb1.desassunto, tb1.datata, tb1.deslocal, tb1.desparticipante,
+       tb1.despontodiscutido, tb1.desdecisao, tb1.despontoatencao, tb1.idcadastrador,
+       tb1.datcadastro, tb1.desproximopasso, tb1.hrreuniao
+       FROM agepnet200.tb_ata tb1
+       WHERE tb1.idprojeto = :idprojeto and not exists(
+		   select 1 FROM agepnet200.tb_ata tb2
+		   where tb2.idprojeto = :idprojetoNovo and
+		   tb2.desassunto = tb1.desassunto and tb2.datata = tb1.datata and
+		   tb2.deslocal = tb1.deslocal and tb2.desparticipante = tb1.desparticipante and
+		   tb2.despontodiscutido = tb1.despontodiscutido and tb2.desdecisao = tb1.desdecisao and
+		   tb2.despontoatencao = tb1.despontoatencao and tb2.desproximopasso = tb1.desproximopasso and
+		   tb2.hrreuniao = tb1.hrreuniao)
+       )";
+
+        if ($this->_db->query($sql, array(
+                'idprojeto' => $params['idprojeto'],
+                'idprojetoNovo' => $params['idprojetoNovo']
+            )
+        )) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }

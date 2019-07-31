@@ -29,11 +29,11 @@
     <div class="portlet portlet-cinza span8">
         <h3> Programa </h3>
         <div class="content">
-            <?php if(count($this->portfolio->idprograma) > 0 ):
-                foreach($this->portfolio->idprograma as $key => $value ){
-                        echo $value['nomprograma'] . '<br/>';
-                    }
-                endif;
+            <?php if (count($this->portfolio->idprograma) > 0):
+                foreach ($this->portfolio->idprograma as $key => $value) {
+                    echo $value['nomprograma'] . '<br/>';
+                }
+            endif;
             ?>
         </div>
     </div>

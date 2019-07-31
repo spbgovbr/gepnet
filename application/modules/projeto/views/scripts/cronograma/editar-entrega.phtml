@@ -18,8 +18,8 @@ $frmAttr = $this->form->getAttribs();
         <div class="span4">
             <?php echo $this->form->idparteinteressada; ?>
         </div>
-        <div class="span4 hidden container-nomresponsavel">
-            <?php echo $this->form->nomresponsavel; ?>
+        <div class="span4">
+            <?php echo $this->form->idresponsavel; ?>
         </div>
     </div>
     <div class="row">
@@ -33,7 +33,15 @@ $frmAttr = $this->form->getAttribs();
             <?php echo $this->form->idprojeto; ?>
             <?php echo $this->form->idatividadecronograma; ?>
             <?php echo $this->form->domtipoatividade; ?>
+            <?php echo @$this->form->datinicio; ?>
+            <?php echo @$this->form->datfim; ?>
+            <?php echo @$this->form->datiniciobaseline; ?>
+            <?php echo @$this->form->datfimbaseline; ?>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+        </div>
+    </div>
 </form>

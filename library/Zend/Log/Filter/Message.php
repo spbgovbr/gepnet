@@ -41,7 +41,7 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     /**
      * Filter out any log messages not matching $regexp.
      *
-     * @param  string  $regexp     Regular expression to test the log message
+     * @param string $regexp Regular expression to test the log message
      * @return void
      * @throws Zend_Log_Exception
      */
@@ -57,7 +57,7 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     /**
      * Create a new instance of Zend_Log_Filter_Message
      *
-     * @param  array|Zend_Config $config
+     * @param array|Zend_Config $config
      * @return Zend_Log_Filter_Message
      */
     static public function factory($config)
@@ -75,7 +75,7 @@ class Zend_Log_Filter_Message extends Zend_Log_Filter_Abstract
     /**
      * Returns TRUE to accept the message, FALSE to block it.
      *
-     * @param  array    $event    event data
+     * @param array $event event data
      * @return boolean            accepted?
      */
     public function accept($event)

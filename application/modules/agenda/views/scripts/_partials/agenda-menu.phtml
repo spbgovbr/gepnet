@@ -1,11 +1,21 @@
 <?php
-$agenda     = ($this->dados == 'agenda') ? 'active' : "";
-$parte      = ($this->dados == 'parte') ? 'active' : "";
+$agenda = ($this->dados == 'agenda') ? 'active' : "";
+$parte = ($this->dados == 'parte') ? 'active' : "";
 ?>
 <div id="menuagenda" class="informacoes span12">
     <ul class="nav nav-pills">
-        <li><a class="link" href="<?php echo $this->url(array('module' => 'agenda', 'controller' => 'index', 'action' => 'index')) ?>">Agenda</a></li>
-        <li class="<?php echo $agenda ?>"><a class="link" href="<?php echo $this->url(array('module' => 'agenda', 'controller' => 'index', 'action' => 'edit')) ?>">Cadastro de Agenda</a></li>
-        <li id="link_participantes" style="display: none;" class="<?php echo $parte ?>"><a class="link" href="<?php echo $this->url(array('action' => 'participantes')) ?>">Participantes</a></li>
+        <li><a class="link" href="<?php echo $this->url(array(
+                'module' => 'agenda',
+                'controller' => 'index',
+                'action' => 'index'
+            )) ?>">Agenda</a></li>
+        <li class="<?php echo $agenda ?>"><a class="link" href="<?php echo $this->url(array(
+                'module' => 'agenda',
+                'controller' => 'index',
+                'action' => 'edit'
+            )) ?>">Cadastro de Agenda</a></li>
+        <li id="link_participantes" style="display: none;" class="<?php echo $parte ?>"><a class="link"
+                                                                                           href="<?php echo $this->url(array('action' => 'participantes')) ?>">Participantes</a>
+        </li>
     </ul>
 </div>

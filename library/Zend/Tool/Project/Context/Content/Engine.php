@@ -69,7 +69,7 @@ class Zend_Tool_Project_Context_Content_Engine
         $this->_engines = array(
             new Zend_Tool_Project_Context_Content_Engine_CodeGenerator($storage, $this->_keyInStorage),
             new Zend_Tool_Project_Context_Content_Engine_Phtml($storage, $this->_keyInStorage),
-            );
+        );
     }
 
     /**

@@ -1,12 +1,12 @@
 <?php
 //$this->headScript()->appendFile($this->baseUrl('/js/app/_partial/grid-pessoa.js'), 'text/javascript');
-$agenda = $this->agenda ? '/agenda/'.$this->agenda : null;
+$agenda = $this->agenda ? '/agenda/' . $this->agenda : null;
 ?>
 <script type="text/javascript">
 
-$(function() {
+    $(function () {
 
-    var
+        var
             grid = null,
             lastsel = null,
             gridEnd = null,
@@ -15,9 +15,9 @@ $(function() {
             btnSubmit = $("button#btn-grid-pessoa"),
             btnCloseGridPessoa = $("#btn-close-grid-pessoa");
 
-    //idpessoa, nompessoa, numcpf, desunidade, nummatricula, desfuncao
-    colNames = ['Nome', 'Operações'];
-    colModel = [{
+        //idpessoa, nompessoa, numcpf, desunidade, nummatricula, desfuncao
+        colNames = ['Nome', 'Operações'];
+        colModel = [{
             name: 'nompessoa',
             index: 'nompessoa',
             width: 200,
@@ -32,65 +32,65 @@ $(function() {
             sortable: false
         }];
 
-    grid = jQuery("#list-grid-pessoa").jqGrid({
-        //caption: "Documentos",
-        url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade<?php echo $agenda ?>",
-        datatype: "json",
-        mtype: 'post',
-        width: '645',
-        height: '200px',
-        colNames: colNames,
-        colModel: colModel,
-        rownumbers: true,
-        rowNum: 20,
-        rowList: [20, 50, 100],
-        pager: '#pager-grid-pessoa',
-        sortname: 'nompessoa',
-        viewrecords: true,
-        sortorder: "asc",
-        gridComplete: function() {
-            // console.log('teste');
-            //$("a.actionfrm").tooltip();
-        },
-        onSelectRow: function(id) {
-            if(window.selectRow){
-                var row = grid.getRowData(id);
-                selectRow(row);
-            } else {
-                alert('Função [selectRow] não está definida');
+        grid = jQuery("#list-grid-pessoa").jqGrid({
+            //caption: "Documentos",
+            url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade<?php echo $agenda ?>",
+            datatype: "json",
+            mtype: 'post',
+            width: '645',
+            height: '200px',
+            colNames: colNames,
+            colModel: colModel,
+            rownumbers: true,
+            rowNum: 20,
+            rowList: [20, 50, 100],
+            pager: '#pager-grid-pessoa',
+            sortname: 'nompessoa',
+            viewrecords: true,
+            sortorder: "asc",
+            gridComplete: function () {
+                // console.log('teste');
+                //$("a.actionfrm").tooltip();
+            },
+            onSelectRow: function (id) {
+                if (window.selectRow) {
+                    var row = grid.getRowData(id);
+                    selectRow(row);
+                } else {
+                    alert('Função [selectRow] não está definida');
+                }
+
             }
+        });
 
-        }
+        //grid.jqGrid('filterToolbar');
+        grid.jqGrid('navGrid', '#pager-grid-pessoa', {
+            search: false,
+            edit: false,
+            add: false,
+            del: false,
+            view: false
+        });
+
+        grid.jqGrid('setLabel', 'rn', 'Ord');
+
+        btnSubmit.on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            grid.setGridParam({
+                url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade?gridpessoa=" + $("#gridpessoa").val(),
+                page: 1
+            }).trigger("reloadGrid");
+            //$("a.actionfrm").tooltip();
+            return false;
+        });
+
+        btnCloseGridPessoa.on('click', function () {
+            $(".grid-append").slideUp('slow');
+            $('.container-pessoa').find('.control-group').removeClass('input-selecionado');
+        });
+
     });
-
-    //grid.jqGrid('filterToolbar');
-    grid.jqGrid('navGrid', '#pager-grid-pessoa', {
-        search: false,
-        edit: false,
-        add: false,
-        del: false,
-        view: false
-    });
-
-    grid.jqGrid('setLabel', 'rn', 'Ord');
-
-    btnSubmit.on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        grid.setGridParam({
-            url: base_url + "/cadastro/pessoa/pesquisar-sem-unidade?gridpessoa=" + $("#gridpessoa").val(),
-            page: 1
-        }).trigger("reloadGrid");
-        //$("a.actionfrm").tooltip();
-        return false;
-    });
-    
-    btnCloseGridPessoa.on('click',function(){
-        $(".grid-append").slideUp('slow');
-        $('.container-pessoa').find('.control-group').removeClass('input-selecionado');
-    });
-
-});
 </script>
 
 <div class="control-group">

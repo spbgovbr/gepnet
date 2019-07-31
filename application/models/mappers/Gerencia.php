@@ -6,21 +6,24 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
+class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract
+{
 
     private $_mapperParteInteressada = null;
 
-    protected function _init() {
+    protected function _init()
+    {
         $this->_mapperParteInteressada = new Projeto_Model_Mapper_Parteinteressada();
     }
 
     /**
      * Set the property
      *
-     * @param  Projeto_Model_Gerencia 
+     * @param Projeto_Model_Gerencia
      * @return Projeto_Model_Gerencia
      */
-    public function insert(Projeto_Model_Gerencia $model) {
+    public function insert(Projeto_Model_Gerencia $model)
+    {
         /**
          * @todo remover o idcadastrador abaixo
          */
@@ -75,7 +78,7 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             "numseqprojeto" => $model->numanoprojeto,
             "ano" => $model->ano,
             "idacao" => $model->idacao,
-            "idportfolio"   => $model->idportfolio
+            "idportfolio" => $model->idportfolio
         );
 
 //        return $this->getDbTable()->insert($data);
@@ -93,7 +96,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param string $value
      * @return Default_Model_Escritorio
      */
-    public function update(Projeto_Model_Gerencia $model) {
+    public function update(Projeto_Model_Gerencia $model)
+    {
         $datainicio = !empty($model->datinicio) ? new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')") : '';
         $datafim = !empty($model->datfim) ? new Zend_Db_Expr("to_date('" . $model->datfim->toString('Y-m-d') . "','YYYY-MM-DD')") : "";
         $datainicioplano = !empty($model->datinicioplano) ? new Zend_Db_Expr("to_date('" . $model->datinicioplano->toString('Y-m-d') . "','YYYY-MM-DD')") : '';
@@ -148,9 +152,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             "nomproponente" => $model->nomproponente,
             "numseqprojeto" => $model->numanoprojeto,
             "idacao" => $model->idacao,
-            "idportfolio"   => $model->idportfolio
+            "idportfolio" => $model->idportfolio
         );
-
 
         $data = array_filter($data);
 
@@ -165,12 +168,14 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             throw $exc;
         }
     }
+
     /**
      * @param array $params
      */
-    public function updateStatusProjeto($params) {
+    public function updateStatusProjeto($params)
+    {
 
-        $data = array("domstatusprojeto"=>6);
+        $data = array("domstatusprojeto" => 6);
         try {
             $pks = array("idprojeto" => $params['idprojeto']);
             $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
@@ -181,13 +186,15 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             throw $exc;
         }
     }
+
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
-    public function pesquisar($params,$idperfil = null,$idescritorio = null, $paginator = false) {
+    public function pesquisar($params, $idperfil = null, $idescritorio = null, $paginator = false)
+    {
 
         $sql = "SELECT
                        (SELECT nomprograma from agepnet200.tb_programa prog WHERE prog.idprograma = proj.idprograma) as nomprograma,
@@ -214,32 +221,32 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
                         proj.domstatusprojeto
                 FROM
                         agepnet200.tb_projeto proj
-                WHERE 
+                WHERE
                         1 = 1 ";
 
-       /* if (isset($params['statusreport'])) {
-            $sql .= " and proj.flapublicado = 'S'";
-            $sql .= " and proj.flaaprovado = 'S'";
-        }*/
+        /* if (isset($params['statusreport'])) {
+             $sql .= " and proj.flapublicado = 'S'";
+             $sql .= " and proj.flaaprovado = 'S'";
+         }*/
         $params = array_filter($params);
 
         if (isset($idperfil) && $idperfil <> 1) {
-           
-            $sql.= " and proj.idescritorio = {$idescritorio}";
+
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and proj.nomprojeto LIKE '%{$nomprojeto}%'";
+            $sql .= " and proj.nomprojeto LIKE '%{$nomprojeto}%'";
         }
 
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and proj.idprograma = {$idprograma}";
+            $sql .= " and proj.idprograma = {$idprograma}";
         }
 
         if (isset($params['idescritorio'])) {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and proj.idescritorio = {$idescritorio}";
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
 
         if (isset($params['domstatusprojeto'])) {
@@ -249,23 +256,23 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
 //                case "Cancelado": $status = 5; break; case "Bloqueado": $status = 6; break;
 //                case "Em Alteracao": $status = 7; break; }
             $domstatusprojeto = $params['domstatusprojeto'];
-            $sql.= " and proj.domstatusprojeto = {$domstatusprojeto}";
+            $sql .= " and proj.domstatusprojeto = {$domstatusprojeto}";
         }
         if (isset($params['codobjetivo'])) {
             $status = $params['codobjetivo'];
-            $sql.= " and proj.idobjetivo = '{$status}'";
+            $sql .= " and proj.idobjetivo = '{$status}'";
         }
         if (isset($params['codacao']) && empty($params['codacao']) == false) {
             $status = $params['codacao'];
-            $sql.= " and proj.idacao = '{$status}'";
+            $sql .= " and proj.idacao = '{$status}'";
         }
         if (isset($params['codnatureza']) && empty($params['codnatureza']) == false) {
             $status = $params['codnatureza'];
-            $sql.= " and st.idnatureza = '{$status}'";
+            $sql .= " and st.idnatureza = '{$status}'";
         }
         if (isset($params['codsetor']) && empty($params['codsetor']) == false) {
             $status = $params['codsetor'];
-            $sql.= " and proj.idsetor = '{$status}'";
+            $sql .= " and proj.idsetor = '{$status}'";
         }
 
         if (isset($params['sidx'])) {
@@ -287,11 +294,13 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         return $resultado;
     }
 
-    public function getForm() {
+    public function getForm()
+    {
         return $this->_getForm(Default_Form_Gerencia);
     }
 
-    public function fetchPairs() {
+    public function fetchPairs()
+    {
         $sql = "  SELECT distinct nomescritorio FROM agepnet200.tb_escritorio order by nomescritorio asc";
         return $this->_db->fetchAll($sql);
     }
@@ -300,7 +309,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param array $params
      * @return array
      */
-    public function getById($params) {
+    public function getById($params)
+    {
         $sql = "
                         SELECT
                                 proj.datcadastro,
@@ -402,7 +412,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param array $params
      * @return array
      */
-    public function getByName($params) {
+    public function getByName($params)
+    {
         $sql = "
 				SELECT
      		        e.idescritoriope,
@@ -428,7 +439,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         return $resultado;
     }
 
-    public function mapaFetchPairs() {
+    public function mapaFetchPairs()
+    {
         $sql = "SELECT DISTINCT idescritorio,nomescritorio from agepnet200.tb_escritorio";
         return $this->_db->fetchPairs($sql);
     }
@@ -437,7 +449,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param array $params
      * @return array
      */
-    public function getByIdTapImprimir($params) {
+    public function getByIdTapImprimir($params)
+    {
         $sql = "
                  SELECT
                         proj.datcadastro,
@@ -499,7 +512,7 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
 
         $projeto = new Projeto_Model_Gerencia($resultado);
         $projeto->partes = new App_Model_Relation(
-                $this->_mapperParteInteressada, 'getByProjeto', array(array('idprojeto' => $resultado['idprojeto'])));
+            $this->_mapperParteInteressada, 'getByProjeto', array(array('idprojeto' => $resultado['idprojeto'])));
         return $projeto;
     }
 
@@ -507,7 +520,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param array $params
      * @return Projeto_Model_Projeto
      */
-    public function retornaProjetoPorId($params) {
+    public function retornaProjetoPorId($params)
+    {
         // Zend_Debug::dump($params); exit;
         $sql = "SELECT
                     to_char(proj.datcadastro,'DD/MM/YYYY') as datcadastro,
@@ -598,8 +612,6 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         $mapperAceite = new Projeto_Model_Mapper_Aceite();
 
 
-
-
         $projeto = new Projeto_Model_Gerencia($resultado);
         //return $projeto;
         $projeto->demandante = $mapperPessoa->retornaPessoaProjeto(array('idpessoa' => $projeto->iddemandante));
@@ -607,9 +619,11 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         $projeto->gerenteprojeto = $mapperPessoa->retornaPessoaProjeto(array('idpessoa' => $projeto->idgerenteprojeto));
         $projeto->gerenteadjunto = $mapperPessoa->retornaPessoaProjeto(array('idpessoa' => $projeto->idgerenteadjunto));
         $projeto->ultimoStatusReport = $mapperStatusreport->retornaUltimoPorProjeto(array('idprojeto' => $projeto->idprojeto));
-        $projeto->grupos = new App_Model_Relation($mapperAtividadeCron, 'retornaGrupoPorProjeto', array(array('idprojeto' => $projeto->idprojeto)));
+        $projeto->grupos = new App_Model_Relation($mapperAtividadeCron, 'retornaGrupoPorProjeto',
+            array(array('idprojeto' => $projeto->idprojeto)));
         $projeto->escritorio = $mapperEscritorio->getById(array('idescritorio' => $projeto->idescritorio));
-        $projeto->partes = new App_Model_Relation($mapperParteInteressada, 'retornaPartes', array(array('idprojeto' => $resultado['idprojeto'])));
+        $projeto->partes = new App_Model_Relation($mapperParteInteressada, 'retornaPartes',
+            array(array('idprojeto' => $resultado['idprojeto'])));
         $projeto->programa = $mapperPrograma->getById(array('idprograma' => $resultado['idprograma']));
         $projeto->objetivo = $mapperObjetivo->getById(array('idobjetivo' => $resultado['idobjetivo']));
         $projeto->natureza = $mapperNatureza->getById(array('idnatureza' => $resultado['idnatureza']));
@@ -630,9 +644,9 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      * @param boolean $paginator
      * @return \Zend_Paginator | array
      */
-    public function pesquisarProjetoCronograma($params, $paginator = false) 
+    public function pesquisarProjetoCronograma($params, $paginator = false)
     {
-        
+
         $sql = "SELECT
                         prog.nomprograma as nomprograma,
                         proj.nomprojeto as nomprojeto,
@@ -659,24 +673,24 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
 
         if (isset($params['idescritorio']) && $params['idescritorio'] != "") {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and proj.idescritorio = {$idescritorio}"; 
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
         $params = array_filter($params);
 
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
+            $sql .= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
         }
 
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and proj.idprograma = {$idprograma}";
+            $sql .= " and proj.idprograma = {$idprograma}";
         }
 
         if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        
+
         if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
@@ -690,7 +704,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         return $resultado;
     }
 
-    public function retornaUltimoSequencialPorEscritorio($params) {
+    public function retornaUltimoSequencialPorEscritorio($params)
+    {
         $sql = "
             SELECT 
                 SUBSTRING(nomcodigo,1,3) as sequencial
@@ -703,87 +718,88 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             AND SUBSTRING(nomcodigo,10,10) = :escritorio
             order by idprojeto desc
         ";
-        
-        $retorno =  $this->_db->fetchRow($sql, array('ano' => $params['ano'],'escritorio' => $params['escritorio']));
+
+        $retorno = $this->_db->fetchRow($sql, array('ano' => $params['ano'], 'escritorio' => $params['escritorio']));
         return $retorno['sequencial'];
-        
+
     }
-    
+
     public function getQtdeProjetosPorStatus($params)
     {
-       $statusprojeto = $params['domstatusprojeto'];
+        $statusprojeto = $params['domstatusprojeto'];
         $sql = " SELECT 
                      count(*) as totalprojetos
                  FROM 
                     agepnet200.tb_projeto 
                 WHERE  	
                     domstatusprojeto = 1";
-           
+
         $params = array_filter($params);
         if (isset($params['idescritorio']) && $params['idescritorio'] != '') {
             $idescritorio = $params['idescritorio'];
             $sql .= " and idescritorio = {$idescritorio} ";
         }
-        
+
         if (isset($params['idobjetivo']) && $params['idobjetivo'] != '') {
             $idobjetivo = $params['idobjetivo'];
             $sql .= " and idobjetivo = {$idobjetivo} ";
         }
-        
-        if (isset($params['idsetor']) && $params['idsetor']!= '') {
+
+        if (isset($params['idsetor']) && $params['idsetor'] != '') {
             $idsetor = $params['idsetor'];
             $sql .= " and idsetor = {$idsetor} ";
         }
-         if (isset($params['nomprojeto']) && $params['nomprojeto'] != '') {
+        if (isset($params['nomprojeto']) && $params['nomprojeto'] != '') {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and nomprojeto LIKE '%{$nomprojeto}%'";
+            $sql .= " and nomprojeto LIKE '%{$nomprojeto}%'";
         }
-        
+
         if (isset($params['idacao']) && $params['idacao'] != '') {
             $idacao = $params['idacao'];
             $sql .= " and idacao = {$idacao} ";
         }
-        $retorno =  $this->_db->fetchRow($sql);
+        $retorno = $this->_db->fetchRow($sql);
         return $retorno['totalprojetos'];
     }
+
     public function getPesquisaQtdeProjetosPorStatus($params)
     {
-       $statusprojeto = $params['domstatusprojeto'];
+        $statusprojeto = $params['domstatusprojeto'];
         $sql = " SELECT 
                      count(*) as totalprojetos
                  FROM 
                     agepnet200.tb_projeto 
                 WHERE  	
                     1 = 1";
-           
+
         $params = array_filter($params);
-         if (isset($params['nomprojeto']) && $params['nomprometo'] != '') {
+        if (isset($params['nomprojeto']) && $params['nomprometo'] != '') {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and nomprojeto LIKE '%{$nomprojeto}%'";
+            $sql .= " and nomprojeto LIKE '%{$nomprojeto}%'";
         }
         if (isset($params['idescritorio']) && $params['idescritorio'] != '') {
             $idescritorio = $params['idescritorio'];
             $sql .= " and idescritorio = {$idescritorio} ";
         }
-        
+
         if (isset($params['idobjetivo']) && $params['idobjetivo'] != '') {
             $idobjetivo = $params['idobjetivo'];
             $sql .= " and idobjetivo = {$idobjetivo} ";
         }
-        if (isset($params['idacao']) && $params['idacao']!= '') {
+        if (isset($params['idacao']) && $params['idacao'] != '') {
             $idacao = $params['idacao'];
             $sql .= " and idacao = {$idacao} ";
         }
-        
-        if (isset($params['idnatureza']) && $params['idnatureza']!= '') {
+
+        if (isset($params['idnatureza']) && $params['idnatureza'] != '') {
             $idsetor = $params['idnatureza'];
             $sql .= " and idnatureza = {$idsetor} ";
         }
-        
-        $retorno =  $this->_db->fetchRow($sql);
+
+        $retorno = $this->_db->fetchRow($sql);
         return $retorno['totalprojetos'];
     }
-    
+
     public function getQtdeProjetosPorStatusAcao($params)
     {
         $statusprojeto = $params['domstatusprojeto'];
@@ -793,93 +809,96 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
                     agepnet200.tb_projeto 
                 WHERE  	
                     domstatusprojeto != 1 ";
-           
-         $params = array_filter($params);
+
+        $params = array_filter($params);
         if (isset($params['idescritorio']) && $params['idescritorio'] != '') {
             $idescritorio = $params['idescritorio'];
             $sql .= " and idescritorio = {$idescritorio} ";
         }
-        
+
         if (isset($params['idobjetivo']) && $params['idobjetivo'] != '') {
             $idobjetivo = $params['idobjetivo'];
             $sql .= " and idobjetivo = {$idobjetivo} ";
         }
-        
-        if (isset($params['idsetor']) && $params['idsetor']!= '') {
+
+        if (isset($params['idsetor']) && $params['idsetor'] != '') {
             $idsetor = $params['idsetor'];
             $sql .= " and idsetor = {$idsetor} ";
         }
-         if (isset($params['nomprojeto']) && $params['nomprojeto'] != '') {
+        if (isset($params['nomprojeto']) && $params['nomprojeto'] != '') {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and nomprojeto LIKE '%{$nomprojeto}%'";
+            $sql .= " and nomprojeto LIKE '%{$nomprojeto}%'";
         }
-        
+
         if (isset($params['idacao']) && $params['idacao'] != '') {
             $idacao = $params['idacao'];
             $sql .= " and idacao = {$idacao} ";
         }
-        $retorno =  $this->_db->fetchRow($sql);
+        $retorno = $this->_db->fetchRow($sql);
         return $retorno;
     }
-    
-    public function getTotalProjetosPorObjetivo($idobjetivo, $params){
-        
+
+    public function getTotalProjetosPorObjetivo($idobjetivo, $params)
+    {
+
         $sql = "SELECT 
                     count(*) as totalprojetos
                     FROM 
                     agepnet200.tb_projeto 
                     WHERE 
-                    idobjetivo = " .$idobjetivo;
-        
+                    idobjetivo = " . $idobjetivo;
+
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and nomprojeto LIKE '%{$nomprojeto}%'";
+            $sql .= " and nomprojeto LIKE '%{$nomprojeto}%'";
         }
-           if (isset($params['idescritorio']) ) {
+        if (isset($params['idescritorio'])) {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and idescritorio = {$idescritorio}"; 
+            $sql .= " and idescritorio = {$idescritorio}";
         }
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and idprograma = {$idprograma}";
+            $sql .= " and idprograma = {$idprograma}";
         }
-        
+
         if (isset($params['domstatusprojeto'])) {
             $domstatusprojeto = $params['domstatusprojeto'];
-            $sql.= " and domstatusprojeto = {$domstatusprojeto}";
+            $sql .= " and domstatusprojeto = {$domstatusprojeto}";
         }
-        
+
         if (isset($params['idobjetivo'])) {
             $idobjetivo = $params['idobjetivo'];
-            $sql.= " and idobjetivo = {$idobjetivo}";
+            $sql .= " and idobjetivo = {$idobjetivo}";
         }
 
         if (isset($params['idacao'])) {
             $idacao = $params['idacao'];
-            $sql.= " and idacao = {$idacao}";
+            $sql .= " and idacao = {$idacao}";
         }
-        
+
         if (isset($params['idnatureza'])) {
             $idnatureza = $params['idnatureza'];
-            $sql.= " and .idnatureza = {$idnatureza}";
+            $sql .= " and .idnatureza = {$idnatureza}";
         }
-        
+
         $retorno = $this->_db->fetchRow($sql);
         return $retorno['totalprojetos'];
     }
-    public function getProjetosPorEscritorio($idescritorio){
-        
+
+    public function getProjetosPorEscritorio($idescritorio)
+    {
+
         $sql = " SELECT
                        (SELECT nomprograma from agepnet200.tb_programa prog WHERE prog.idprograma = proj.idprograma) as nomprograma,
                         proj.nomprojeto
                 FROM
                         agepnet200.tb_projeto proj
                 WHERE 
-                        proj.idescritorio = " .$idescritorio;
+                        proj.idescritorio = " . $idescritorio;
         $retorno = $this->_db->fetchAll($sql);
     }
-    
-    
+
+
     public function getTotalOrcamentarioProjetosPorPrograma($params)
     {
         $sql = " SELECT count(p.idprojeto) as total, 
@@ -891,24 +910,24 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
                      agepnet200.tb_escritorio as esc
                 WHERE p.idprograma = prog.idprograma
                       and p.idescritorio = esc.idescritorio
-                      --and p.domstatusprojeto != ". Projeto_Model_Gerencia::STATUS_PROPOSTA." 
-                          and prog.idobjetivo = " .$params;
-               
-                          
+                      --and p.domstatusprojeto != " . Projeto_Model_Gerencia::STATUS_PROPOSTA . " 
+                          and prog.idobjetivo = " . $params;
+
+
 //        if( isset($params['idescritorio'])){
 //            $idescritorio = $params['idescritorio'];
 //            $sql .= " and esc.idescritorio = {$idescritorio}";
 //        }              
         $sql .= " GROUP BY prog.nomprograma, prog.idprograma
                   ORDER BY soma DESC ";
-        
-        $retorno =  $this->_db->fetchAll($sql);
+
+        $retorno = $this->_db->fetchAll($sql);
         return $retorno;
     }
-    
+
     public function getTotalProjetosNatureza($params)
     {
-        
+
         $sql = " SELECT count(p.idprojeto) as total, 
                         n.nomnatureza,
                         n.idnatureza
@@ -917,22 +936,22 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
                      agepnet200.tb_escritorio as esc
                 WHERE p.idnatureza = n.idnatureza
                       and p.idescritorio = esc.idescritorio
-                      --and p.domstatusprojeto != ". Projeto_Model_Gerencia::STATUS_PROPOSTA."
+                      --and p.domstatusprojeto != " . Projeto_Model_Gerencia::STATUS_PROPOSTA . "
                        ";
-        
-     if( isset($params['idprograma'])){
+
+        if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
             $sql .= " and p.idprograma = {$idprograma}";
         }
-        
+
         $sql .= " GROUP BY n.nomnatureza, n.idnatureza
                   ORDER BY total DESC ";
-       
-        $retorno =  $this->_db->fetchAll($sql);
+
+        $retorno = $this->_db->fetchAll($sql);
         return $retorno;
-        
+
     }
-    
+
     public function pesquisarProjetoPortfolio($params, $paginator = true)
     {
         $sql = " SELECT 
@@ -965,55 +984,55 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
                                                           from agepnet200.tb_statusreport s
 							  where s.idprojeto = proj.idprojeto)
                 where 1 = 1 ";
-        
 
-        if (isset($params['idescritorio']) ) {
+
+        if (isset($params['idescritorio'])) {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and proj.idescritorio = {$idescritorio}"; 
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
         $params = array_filter($params);
 
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and proj.idprograma = {$idprograma}";
+            $sql .= " and proj.idprograma = {$idprograma}";
         }
-        
+
         if (isset($params['domstatusprojeto'])) {
             $domstatusprojeto = $params['domstatusprojeto'];
-            $sql.= " and proj.domstatusprojeto = {$domstatusprojeto}";
+            $sql .= " and proj.domstatusprojeto = {$domstatusprojeto}";
         }
-        
+
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
+            $sql .= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
         }
-        
+
         if (isset($params['idobjetivo'])) {
             $idobjetivo = $params['idobjetivo'];
-            $sql.= " and proj.idobjetivo = {$idobjetivo}";
+            $sql .= " and proj.idobjetivo = {$idobjetivo}";
         }
 
         if (isset($params['idacao'])) {
             $idacao = $params['idacao'];
-            $sql.= " and proj.idacao = {$idacao}";
+            $sql .= " and proj.idacao = {$idacao}";
         }
-        
+
         if (isset($params['idnatureza'])) {
             $idnatureza = $params['idnatureza'];
-            $sql.= " and proj.idnatureza = {$idnatureza}";
+            $sql .= " and proj.idnatureza = {$idnatureza}";
         }
-        
+
         if (isset($params['idsetor'])) {
             $idsetor = $params['idsetor'];
-            $sql.= " and proj.idsetor = {$idsetor}";
+            $sql .= " and proj.idsetor = {$idsetor}";
         }
-        
+
         if (isset($params['flacopa'])) {
             $flacopa = $params['flacopa'];
-            $sql.= " and proj.flacopa = '{$flacopa}' ";
+            $sql .= " and proj.flacopa = '{$flacopa}' ";
         }
-        
-        if ( isset($params['cronogramadesatualizado']) && $params['cronogramadesatualizado'] == 'S') {
+
+        if (isset($params['cronogramadesatualizado']) && $params['cronogramadesatualizado'] == 'S') {
             $dataAtual = date("Y-m-d");
             $sql .= " and proj.idprojeto in (select idprojeto from agepnet200.tb_atividadecronograma where numpercentualconcluido <> 100 and datfim < '$dataAtual') ";
         }
@@ -1021,7 +1040,7 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        
+
         if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
@@ -1030,12 +1049,12 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             $paginator->setCurrentPageNumber($page);
             return $paginator;
         }
-       
+
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
     }
-    
-    public function buscarProjetos($params) 
+
+    public function buscarProjetos($params)
     {
         $sql = "SELECT
                         proj.idprojeto as idprojeto,
@@ -1052,18 +1071,18 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
 
         if (isset($params['idescritorio']) && $params['idescritorio'] != "") {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and proj.idescritorio = {$idescritorio}"; 
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
         $params = array_filter($params);
 
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
+            $sql .= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
         }
 
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and proj.idprograma = {$idprograma}";
+            $sql .= " and proj.idprograma = {$idprograma}";
         }
 
         if (isset($params['sidx'])) {
@@ -1072,10 +1091,10 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         $resultado = $this->_db->fetchPairs($sql);
         return $resultado;
     }
-    
+
     public function retornaCronogramaProjetos($params)
     {
-        
+
         $sql = " SELECT
                     to_char(proj.datcadastro,'DD/MM/YYYY') as datcadastro,
                     to_char(proj.datenviouemailatualizacao,'DD/MM/YYYY') as datenviouemailatualizacao,
@@ -1101,73 +1120,74 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             WHERE
                    1 = 1 ";
 
-        if(isset($params['idprojetos']) && count($params['idprojetos']) > 0 && !empty($params['idprojetos'][0])){
+        if (isset($params['idprojetos']) && count($params['idprojetos']) > 0 && !empty($params['idprojetos'][0])) {
             $ids = implode(",", $params['idprojetos']);
-            $sql.= " and idprojeto in ({$ids}) ";
+            $sql .= " and idprojeto in ({$ids}) ";
         }
-        
+
         if (isset($params['idescritorio']) && $params['idescritorio'] != "") {
             $idescritorio = $params['idescritorio'];
-            $sql.= " and proj.idescritorio = {$idescritorio}"; 
+            $sql .= " and proj.idescritorio = {$idescritorio}";
         }
         $params = array_filter($params);
         if (isset($params['idprograma'])) {
             $idprograma = $params['idprograma'];
-            $sql.= " and proj.idprograma = {$idprograma}";
+            $sql .= " and proj.idprograma = {$idprograma}";
         }
-        
+
         if (isset($params['domstatusprojeto'])) {
             $domstatusprojeto = $params['domstatusprojeto'];
-            $sql.= " and proj.domstatusprojeto = {$domstatusprojeto}";
+            $sql .= " and proj.domstatusprojeto = {$domstatusprojeto}";
         }
         if (isset($params['idresponsavel'])) {
             $idparteinteressada = $params['idresponsavel'];
-            $sql.= " and proj.idprojeto in (select ativ.idprojeto 
+            $sql .= " and proj.idprojeto in (select ativ.idprojeto 
                                                 from agepnet200.tb_atividadecronograma ativ,
                                                      agepnet200.tb_parteinteressada par
                                                 where  ativ.idparteinteressada = par.idparteinteressada
                                                 and par.idpessoainterna = {$idparteinteressada}
                                                 and domtipoatividade = 3 )";
-        }else{
+        } else {
             $sql .= " and proj.idprojeto in (select idprojeto
 				      from agepnet200.tb_atividadecronograma) ";
         }
-        
+
         if (isset($params['nomprojeto'])) {
             $nomprojeto = $params['nomprojeto'];
-            $sql.= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
+            $sql .= " and lower(proj.nomprojeto) LIKE '%{$nomprojeto}%'";
         }
         $resultado = $this->_db->fetchAll($sql);
-        
+
         $mapperAtividadeCron = new Projeto_Model_Mapper_Atividadecronograma();
         $mapperStatusreport = new Projeto_Model_Mapper_Statusreport();
-        
+
         $collection = new App_Model_Collection();
         $collection->setDomainClass('Projeto_Model_Gerencia');
-       
-        foreach ($resultado as $res){
+
+        foreach ($resultado as $res) {
             $o = new Projeto_Model_Gerencia($res);
             $params['idprojeto'] = $o->idprojeto;
-            
+
             $o->grupos = new App_Model_Relation(
-                    $mapperAtividadeCron, 'retornaGrupoPorProjeto', array($params));
+                $mapperAtividadeCron, 'retornaGrupoPorProjeto', array($params));
             $o->grupos->getIterator();
-            
+
             $o->ultimoStatusReport = $mapperStatusreport->retornaUltimoPorProjeto(array('idprojeto' => $o->idprojeto));
             $collection[] = $o;
         }
-        
+
         return $collection;
     }
-    
+
     public function fetchPairsProjeto()
     {
-        $sql =  "select idprojeto, nomprojeto from agepnet200.tb_projeto order by nomprojeto";
+        $sql = "select idprojeto, nomprojeto from agepnet200.tb_projeto order by nomprojeto";
         return $this->_db->fetchPairs($sql);
     }
 
 
-    public function retornaTodosOsProjetosEmAndamento(){
+    public function retornaTodosOsProjetosEmAndamento()
+    {
         $sql = "SELECT
                     to_char(proj.datcadastro,'DD/MM/YYYY') as datcadastro,
                     --to_char(proj.datenviouemailatualizacao,'DD/MM/YYYY') as datenviouemailatualizacao,
@@ -1242,7 +1262,7 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
         $collection = new App_Model_Collection();
         $collection->setDomainClass('Projeto_Model_Gerencia');
 
-        foreach ($resultado as $res){
+        foreach ($resultado as $res) {
             $o = new Projeto_Model_Gerencia($res);
             $params['idprojeto'] = $o->idprojeto;
 
@@ -1266,7 +1286,8 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
      *
      * @param string $value
      */
-    public function alterarStatusProjeto($params) {
+    public function alterarStatusProjeto($params)
+    {
 //        Zend_Debug::dump($params); exit;
 
         $data = array(
@@ -1287,12 +1308,14 @@ class Projeto_Model_Mapper_Gerencia extends App_Model_Mapper_MapperAbstract {
             throw $exc;
         }
     }
+
     /**
      * Set the property
      *
      * @param string $value
      */
-    public function registrarBloqueioProjeto($params) {
+    public function registrarBloqueioProjeto($params)
+    {
 //        Zend_Debug::dump($params); exit;
 
         $data = array(

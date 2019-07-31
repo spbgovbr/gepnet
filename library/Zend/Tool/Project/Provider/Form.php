@@ -47,7 +47,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         $newForm = $formsDirectory->createResource(
             'formFile',
             array('formName' => $formName, 'moduleName' => $moduleName)
-            );
+        );
 
         return $newForm;
     }
@@ -155,7 +155,7 @@ class Zend_Tool_Project_Provider_Form extends Zend_Tool_Project_Provider_Abstrac
         // do the creation
         if ($this->_registry->getRequest()->isPretend()) {
 
-            $this->_registry->getResponse()->appendContent('Would create a form at '  . $formResource->getContext()->getPath());
+            $this->_registry->getResponse()->appendContent('Would create a form at ' . $formResource->getContext()->getPath());
 
             if ($testFormResource) {
                 $this->_registry->getResponse()->appendContent('Would create a form test file at ' . $testFormResource->getContext()->getPath());

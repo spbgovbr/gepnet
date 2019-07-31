@@ -9,7 +9,7 @@ function selectRow(row) {
         .find('input:text').val(row.nompessoa).trigger('blur');
 }
 
-$(function() {
+$(function () {
 //console.log('participantes.js');
 //    $('#link_participantes').attr('style','display:block');
 //    $('#link_participantes').attr('class','active');
@@ -36,12 +36,12 @@ $(function() {
 //    });
 
 //    $("#btn-adicionar").click(function() {
-    $(document.body).on("click", "#btn-adicionar", function() {
+    $(document.body).on("click", "#btn-adicionar", function () {
 //        console.log($("form#form-parte").serialize());
 //        $("form#form-participante").submit();
         $valid = true;
-        $(document.body).find('.excluir').each(function(i, item){
-            if($(item).attr('data-id') == $('#idpessoa').val()){
+        $(document.body).find('.excluir').each(function (i, item) {
+            if ($(item).attr('data-id') == $('#idpessoa').val()) {
                 $.pnotify({
                     text: 'O participante já foi adicionado',
                     type: 'error',
@@ -51,13 +51,13 @@ $(function() {
             }
         });
 
-        if($valid){
+        if ($valid) {
             $.ajax({
                 url: base_url + "/agenda/index/participantes/format/json",
                 dataType: 'json',
                 type: 'POST',
                 data: $("form#form-participante").serialize(),
-                success: function(data) {
+                success: function (data) {
                     if (data.success) {
                         $.adicionar(data.parte);
                         $.pnotify({
@@ -68,7 +68,7 @@ $(function() {
                     }
 
                 },
-                error: function() {
+                error: function () {
                     $.pnotify({
                         text: 'Falha ao enviar a requisição',
                         type: 'error',
@@ -79,13 +79,13 @@ $(function() {
         }
     });
 
-    $(document.body).on('click', '.classeDoSeuBotao', function(event) {
+    $(document.body).on('click', '.classeDoSeuBotao', function (event) {
         event.preventDefault();
 //        console.log('excluir');
 
     });
 
-    $.adicionar = function(parte) {
+    $.adicionar = function (parte) {
         var $row = "<tr class='success'>" +
             "<td><a class='btn actionfrm excluir excluirparticipantebutton' title='Excluir Participante' data-id='" + parte.idpessoa + "' data-agenda ='" + $('#agenda').val() + "' >" +
             "<i class='icon-trash'></i>" +
@@ -101,7 +101,7 @@ $(function() {
     };
 
 
-    $(document.body).on("click", ".excluirparticipantebutton", function() {
+    $(document.body).on("click", ".excluirparticipantebutton", function () {
         var $this = $(this);
         $.ajax({
             url: base_url + "/agenda/index/excluirparticipante/format/json/",
@@ -111,14 +111,14 @@ $(function() {
                 idpessoa: $this.data('id'),
                 idagenda: $this.data('agenda')
             },
-            success: function(data) {
+            success: function (data) {
 //                console.log('success!');
 //                console.log(data);
                 $.pnotify(data.msg);
                 if (data.success) {
 
 //                    window.location.reload(true);
-                    if($("#listagemInteressados").find("table tr:visible").length <= 2){
+                    if ($("#listagemInteressados").find("table tr:visible").length <= 2) {
                         $this.parent().parent().hide();
                         $("#tabelaInteressados").hide();
                         $("#nenhumregistro").show();
@@ -128,7 +128,7 @@ $(function() {
                 }
 
             },
-            error: function() {
+            error: function () {
                 $.pnotify({
                     text: 'Falha ao enviar a requisição',
                     type: 'error',
@@ -143,9 +143,9 @@ $(function() {
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
+        submitHandler: function (form) {
 //            enviar_ajax("/projeto/tap/partesinteressadas/format/json", "form#form-parte", function(data) {
-            enviar_ajax("/agenda/index/participantes/format/json", "form#form-participante", function(data) {
+            enviar_ajax("/agenda/index/participantes/format/json", "form#form-participante", function (data) {
 //                if (data.success) {
                 if (data.success) {
                     $.adicionar(data.parte);
@@ -159,7 +159,7 @@ $(function() {
         }
     });
 
-    $(document.body).on('click',".pessoa-button", function(event) {
+    $(document.body).on('click', ".pessoa-button", function (event) {
         event.preventDefault();
         $(this).closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
         $(this).closest('.control-group').addClass('input-selecionado');
@@ -168,15 +168,15 @@ $(function() {
                 url: base_url + "/cadastro/pessoa/grid/agenda/1",
                 type: "GET",
                 dataType: "html",
-                success: function(html) {
+                success: function (html) {
                     $(".grid-append").append(html).slideDown('fast');
                 }
             });
             $('.pessoa-button')
                 .off('click')
-                .on('click',function() {
+                .on('click', function () {
                     var $this = $(this);
-                    $(".grid-append").slideDown('fast', function(){
+                    $(".grid-append").slideDown('fast', function () {
                         $this.closest('.container-pessoa').find('.control-group').removeClass('input-selecionado');
                         $this.closest('.control-group').addClass('input-selecionado');
                     });

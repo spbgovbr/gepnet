@@ -161,7 +161,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
                     'The max-results-group parameter must be set to a value
                     greater than 0 and can only be used if grouped=true');
             } else {
-              $this->_params['max-results-group'] = $value;
+                $this->_params['max-results-group'] = $value;
             }
         }
         return $this;
@@ -194,11 +194,11 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
     {
         if ($value !== null) {
             if ($value <= 0 || $this->getGrouped() !== 'true') {
-              throw new Zend_Gdata_App_InvalidArgumentException(
-                  'The max-results-in-group parameter must be set to a value
+                throw new Zend_Gdata_App_InvalidArgumentException(
+                    'The max-results-in-group parameter must be set to a value
                   greater than 0 and can only be used if grouped=true');
             } else {
-              $this->_params['max-results-in-group'] = $value;
+                $this->_params['max-results-in-group'] = $value;
             }
         }
         return $this;
@@ -233,7 +233,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
             throw new Zend_Gdata_App_InvalidArgumentException(
                 'The start-index-group can only be used if grouped=true');
         } else {
-          $this->_params['start-index-group'] = $value;
+            $this->_params['start-index-group'] = $value;
         }
         return $this;
     }
@@ -255,7 +255,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
     /**
      *  Setter for the start-index-in-group parameter.
      *
-     * @param int $value  A 1-based index of the records to be retrieved from
+     * @param int $value A 1-based index of the records to be retrieved from
      *     each group. This parameter is only valid if grouped=true.
      * @return Zend_Gdata_Health_Query Provides a fluent interface
      */
@@ -264,7 +264,7 @@ class Zend_Gdata_Health_Query extends Zend_Gdata_Query
         if ($value !== null && $this->getGrouped() !== 'true') {
             throw new Zend_Gdata_App_InvalidArgumentException('start-index-in-group');
         } else {
-          $this->_params['start-index-in-group'] = $value;
+            $this->_params['start-index-in-group'] = $value;
         }
         return $this;
     }

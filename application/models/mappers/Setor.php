@@ -9,12 +9,12 @@
 class Default_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
 {
 
-	/**
-	 *
-	 * @var Default_Model_Mapper_Setor
-	 */
-	protected $_mapper;
-	
+    /**
+     *
+     * @var Default_Model_Mapper_Setor
+     */
+    protected $_mapper;
+
     /**
      * Set the property
      *
@@ -24,11 +24,11 @@ class Default_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Setor $model)
     {
         $data = array(
-            "idsetor"       => $model->idsetor,
-            "nomsetor"      => $model->nomsetor,
+            "idsetor" => $model->idsetor,
+            "nomsetor" => $model->nomsetor,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
-            "flaativo"      => $model->flaativo,
+            "datcadastro" => $model->datcadastro,
+            "flaativo" => $model->flaativo,
         );
         $this->getDbTable()->insert($data);
     }
@@ -42,13 +42,12 @@ class Default_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Setor $model)
     {
         $data = array(
-            "idsetor"       => $model->idsetor,
-            "nomsetor"      => $model->nomsetor,
+            "idsetor" => $model->idsetor,
+            "nomsetor" => $model->nomsetor,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => $model->datcadastro,
-            "flaativo"      => $model->flaativo,
+            "datcadastro" => $model->datcadastro,
+            "flaativo" => $model->flaativo,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
@@ -58,12 +57,13 @@ class Default_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
 
     public function fetchPairs()
     {
-    	$sql = " SELECT idsetor, nomsetor FROM agepnet200.tb_setor
+        $sql = " SELECT idsetor, nomsetor FROM agepnet200.tb_setor
                   where flaativo = 'S' order by nomsetor asc";
-    	return $this->_db->fetchPairs($sql);
+        return $this->_db->fetchPairs($sql);
     }
-    
-    public function getById($params){
+
+    public function getById($params)
+    {
         $sql = "
                 SELECT
                     idsetor,
@@ -75,13 +75,13 @@ class Default_Model_Mapper_Setor extends App_Model_Mapper_MapperAbstract
                     agepnet200.tb_setor
                 WHERE
                     idsetor = :idsetor";
-        
+
         $resultado = $this->_db->fetchRow($sql, array('idsetor' => $params["idsetor"]));
-        
-        if(false == $resultado){
+
+        if (false == $resultado) {
             return false;
         }
-        
+
         return $resultado;
     }
 }

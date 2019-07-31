@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
+class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -29,15 +30,15 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
         $this->_form = new Pesquisa_Form_QuestionarioPesquisar();
         return $this->_form;
     }
-    
+
     public function getErrors()
     {
         return $this->errors;
     }
-    
+
     /**
      * Retorna as Questionarios cadastradas
-     * 
+     *
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
@@ -48,7 +49,7 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             return $service;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }
@@ -65,7 +66,7 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
         $questionario = $this->_mapper->getById($params);
         return $questionario;
     }
-    
+
     public function getByIdAndEscritorio($params)
     {
         $questionario = $this->_mapper->getByIdAndEscritorio($params);
@@ -76,7 +77,7 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
     {
         $form = $this->getFormQuestionario();
 
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
             $model = new Pesquisa_Model_Questionario();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
@@ -84,7 +85,7 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
             try {
                 $model->idquestionario = $this->_mapper->insert($model);
                 return $model;
-            } catch ( Exception $exc ) {
+            } catch (Exception $exc) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
                 return false;
             }
@@ -93,10 +94,11 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
             return false;
         }
     }
+
     public function update($params)
     {
         $form = $this->getFormQuestionario();
-        if ( $form->isValid($params) ) {
+        if ($form->isValid($params)) {
             $model = new Pesquisa_Model_Questionario($form->getValidValues($params));
             try {
                 $retorno = $this->_mapper->update($model);
@@ -110,10 +112,10 @@ class Pesquisa_Service_Questionario extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     /**
      * Altera o status de disponibilidade do questionario.
-     * 
+     *
      * @param type $params
      * @return boolean
      */

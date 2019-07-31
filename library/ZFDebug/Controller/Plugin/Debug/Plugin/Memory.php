@@ -58,7 +58,7 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     public function getTab()
     {
         if (function_exists('memory_get_peak_usage')) {
-            return round(memory_get_peak_usage()/1024) . 'K of '.ini_get("memory_limit");
+            return round(memory_get_peak_usage() / 1024) . 'K of ' . ini_get("memory_limit");
         }
         return 'MemUsage n.a.';
     }
@@ -71,31 +71,34 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
     public function getPanel()
     {
         $panel = '<h4>Memory Usage</h4>';
-        $panel .= 'Controller: ' . round(($this->_memory['postDispatch']-$this->_memory['preDispatch'])/1024,2) .'K<br />';
+        $panel .= 'Controller: ' . round(($this->_memory['postDispatch'] - $this->_memory['preDispatch']) / 1024,
+                2) . 'K<br />';
         if (isset($this->_memory['user']) && count($this->_memory['user'])) {
             foreach ($this->_memory['user'] as $key => $value) {
-                $panel .= $key.': '.round($value/1024).'K<br />';
+                $panel .= $key . ': ' . round($value / 1024) . 'K<br />';
             }
         }
         return $panel;
     }
-    
+
     /**
      * Sets a memory mark identified with $name
      *
      * @param string $name
      */
-    public function mark($name) {
+    public function mark($name)
+    {
         if (!function_exists('memory_get_peak_usage')) {
             return;
         }
-        if (isset($this->_memory['user'][$name]))
-            $this->_memory['user'][$name] = memory_get_peak_usage()-$this->_memory['user'][$name];
-        else
+        if (isset($this->_memory['user'][$name])) {
+            $this->_memory['user'][$name] = memory_get_peak_usage() - $this->_memory['user'][$name];
+        } else {
             $this->_memory['user'][$name] = memory_get_peak_usage();
+        }
     }
-    
-    
+
+
     /**
      * Defined by Zend_Controller_Plugin_Abstract
      *
@@ -121,5 +124,5 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Memory extends Zend_Controller_Plug
             $this->_memory['postDispatch'] = memory_get_peak_usage();
         }
     }
-    
+
 }

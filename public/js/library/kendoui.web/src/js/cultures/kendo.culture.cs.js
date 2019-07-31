@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["cs"] = {
         name: "cs",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n%","n%"],
+                pattern: ["-n%", "n%"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["neděle","pondělí","úterý","středa","čtvrtek","pátek","sobota"],
-                    namesAbbr: ["ne","po","út","st","čt","pá","so"],
-                    namesShort: ["ne","po","út","st","čt","pá","so"]
+                    names: ["neděle", "pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota"],
+                    namesAbbr: ["ne", "po", "út", "st", "čt", "pá", "so"],
+                    namesShort: ["ne", "po", "út", "st", "čt", "pá", "so"]
                 },
                 months: {
-                    names: ["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec",""],
-                    namesAbbr: ["1","2","3","4","5","6","7","8","9","10","11","12",""]
+                    names: ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec", ""],
+                    namesAbbr: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", ""]
                 },
-                AM: ["dop.","dop.","DOP."],
-                PM: ["odp.","odp.","ODP."],
+                AM: ["dop.", "dop.", "DOP."],
+                PM: ["odp.", "odp.", "ODP."],
                 patterns: {
                     d: "d.M.yyyy",
                     D: "d. MMMM yyyy",
