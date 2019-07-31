@@ -18,20 +18,20 @@ class Default_Model_Mapper_Mudanca extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Mudanca $model)
     {
         $data = array(
-            "idmudanca"             => $model->idmudanca,
-            "idprojeto"             => $model->idprojeto,
-            "nomsolicitante"        => $model->nomsolicitante,
-            "datsolicitacao"        => $model->datsolicitacao,
-            "datdecisao"            => $model->datdecisao,
-            "flaaprovada"           => $model->flaaprovada,
-            "desmudanca"            => $model->desmudanca,
-            "desjustificativa"      => $model->desjustificativa,
-            "despareceregp"         => $model->despareceregp,
-            "desaprovadores"        => $model->desaprovadores,
+            "idmudanca" => $model->idmudanca,
+            "idprojeto" => $model->idprojeto,
+            "nomsolicitante" => $model->nomsolicitante,
+            "datsolicitacao" => $model->datsolicitacao,
+            "datdecisao" => $model->datdecisao,
+            "flaaprovada" => $model->flaaprovada,
+            "desmudanca" => $model->desmudanca,
+            "desjustificativa" => $model->desjustificativa,
+            "despareceregp" => $model->despareceregp,
+            "desaprovadores" => $model->desaprovadores,
             "despareceraprovadores" => $model->despareceraprovadores,
-            "idcadastrador"         => $model->idcadastrador,
-            "idtipomudanca"         => $model->idtipomudanca,
-            "datcadastro"           => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+            "idtipomudanca" => $model->idtipomudanca,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -45,30 +45,30 @@ class Default_Model_Mapper_Mudanca extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Mudanca $model)
     {
         $data = array(
-            "idmudanca"             => $model->idmudanca,
-            "idprojeto"             => $model->idprojeto,
-            "nomsolicitante"        => $model->nomsolicitante,
-            "datsolicitacao"        => $model->datsolicitacao,
-            "datdecisao"            => $model->datdecisao,
-            "flaaprovada"           => $model->flaaprovada,
-            "desmudanca"            => $model->desmudanca,
-            "desjustificativa"      => $model->desjustificativa,
-            "despareceregp"         => $model->despareceregp,
-            "desaprovadores"        => $model->desaprovadores,
+            "idmudanca" => $model->idmudanca,
+            "idprojeto" => $model->idprojeto,
+            "nomsolicitante" => $model->nomsolicitante,
+            "datsolicitacao" => $model->datsolicitacao,
+            "datdecisao" => $model->datdecisao,
+            "flaaprovada" => $model->flaaprovada,
+            "desmudanca" => $model->desmudanca,
+            "desjustificativa" => $model->desjustificativa,
+            "despareceregp" => $model->despareceregp,
+            "desaprovadores" => $model->desaprovadores,
             "despareceraprovadores" => $model->despareceraprovadores,
-            "idcadastrador"         => $model->idcadastrador,
-            "idtipomudanca"         => $model->idtipomudanca,
-            "datcadastro"           => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+            "idtipomudanca" => $model->idtipomudanca,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
     {
         return $this->_getForm(Default_Form_Mudanca);
     }
-    
-    public function retornaPorProjeto($params) {
+
+    public function retornaPorProjeto($params)
+    {
         $sql = "select
                     m.idmudanca,
                     m.idprojeto,

@@ -70,7 +70,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
     {
         return array(
             'controllerName' => $this->getControllerName()
-            );
+        );
     }
 
     /**
@@ -101,7 +101,7 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
     public function getContents()
     {
         $filter = new Zend_Filter_Word_DashToCamelCase();
-        
+
         $className = ($this->_moduleName) ? $filter->filter(ucfirst($this->_moduleName)) . '_' : '';
         $className .= ucfirst($this->_controllerName) . 'Controller';
 
@@ -115,11 +115,11 @@ class Zend_Tool_Project_Context_Zf_ControllerFile extends Zend_Tool_Project_Cont
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'init',
                             'body' => '/* Initialize action controller here */',
-                            ))
-                        )
-                    ))
-                )
-            ));
+                        ))
+                    )
+                ))
+            )
+        ));
 
 
         if ($className == 'ErrorController') {
@@ -171,7 +171,7 @@ if (\$this->getInvokeArg('displayExceptions') == true) {
 
 \$this->view->request   = \$errors->request;
 EOS
-                                )),
+                            )),
                             new Zend_CodeGenerator_Php_Method(array(
                                 'name' => 'getLog',
                                 'body' => <<<EOS
@@ -182,11 +182,11 @@ if (!\$bootstrap->hasResource('Log')) {
 \$log = \$bootstrap->getResource('Log');
 return \$log;
 EOS
-                                )),
-                            )
-                        ))
-                    )
-                ));
+                            )),
+                        )
+                    ))
+                )
+            ));
 
         }
 

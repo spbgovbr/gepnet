@@ -14,11 +14,11 @@ kendo_module({
     id: "scheduler.recurrence",
     name: "Recurrence",
     category: "web",
-    depends: [ "dropdownlist", "datepicker", "numerictextbox" ],
+    depends: ["dropdownlist", "datepicker", "numerictextbox"],
     hidden: true
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         timezone = kendo.timezone,
         Class = kendo.Class,
@@ -29,8 +29,8 @@ kendo_module({
         setDayOfWeek = date.setDayOfWeek,
         adjustDST = date.adjustDST,
         firstDayOfMonth = date.firstDayOfMonth,
-        DAYS_IN_LEAPYEAR = [0,31,60,91,121,152,182,213,244,274,305,335,366],
-        DAYS_IN_YEAR = [0,31,59,90,120,151,181,212,243,273,304,334,365],
+        DAYS_IN_LEAPYEAR = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366],
+        DAYS_IN_YEAR = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365],
         MONTHS = [31, 28, 30, 31, 30, 31, 30, 31, 30, 31, 30, 31],
         WEEK_DAYS = {
             0: "SU",
@@ -67,7 +67,7 @@ kendo_module({
         RULE_NAMES = ["months", "weeks", "yearDays", "monthDays", "weekDays", "hours", "minutes", "seconds"],
         RULE_NAMES_LENGTH = RULE_NAMES.length,
         limitation = {
-            months: function(date, end, rule) {
+            months: function (date, end, rule) {
                 var monthRules = rule.months,
                     months = ruleValues(monthRules, date.getMonth() + 1),
                     changed = false;
@@ -85,11 +85,11 @@ kendo_module({
                 return changed;
             },
 
-            monthDays: function(date, end, rule) {
+            monthDays: function (date, end, rule) {
                 var monthLength, month, days,
                     changed = false,
                     hours = date.getHours(),
-                    normalize = function(monthDay) {
+                    normalize = function (monthDay) {
                         if (monthDay < 0) {
                             monthDay = monthLength + monthDay;
                         }
@@ -122,11 +122,11 @@ kendo_module({
                 return changed;
             },
 
-            yearDays: function(date, end, rule) {
+            yearDays: function (date, end, rule) {
                 var year, yearDays,
                     changed = false,
                     hours = date.getHours(),
-                    normalize = function(yearDay) {
+                    normalize = function (yearDay) {
                         if (yearDay < 0) {
                             yearDay = year + yearDay;
                         }
@@ -156,12 +156,12 @@ kendo_module({
                 return changed;
             },
 
-            weeks: function(date, end, rule) {
+            weeks: function (date, end, rule) {
                 var weekStart = rule.weekStart,
                     year, weeks, day,
                     changed = false,
                     hours = date.getHours(),
-                    normalize = function(week) {
+                    normalize = function (week) {
                         if (week < 0) {
                             week = 53 + week;
                         }
@@ -194,7 +194,7 @@ kendo_module({
                 return changed;
             },
 
-            weekDays: function(date, end, rule) {
+            weekDays: function (date, end, rule) {
                 var weekDays = rule.weekDays,
                     weekStart = rule.weekStart,
                     weekDayRules = ruleWeekValues(weekDays, date, weekStart),
@@ -236,7 +236,7 @@ kendo_module({
                 return true;
             },
 
-            hours: function(date, end, rule) {
+            hours: function (date, end, rule) {
                 var hourRules = rule.hours,
                     startTime = rule._startTime,
                     startHours = startTime.getHours(),
@@ -272,7 +272,7 @@ kendo_module({
                 return changed;
             },
 
-            minutes: function(date, end, rule) {
+            minutes: function (date, end, rule) {
                 var minuteRules = rule.minutes,
                     currentMinutes = date.getMinutes(),
                     minutes = ruleValues(minuteRules, currentMinutes),
@@ -303,7 +303,7 @@ kendo_module({
                 return changed;
             },
 
-            seconds: function(date, end, rule) {
+            seconds: function (date, end, rule) {
                 var secondRules = rule.seconds,
                     hours = rule._startTime.getHours(),
                     seconds = ruleValues(secondRules, date.getSeconds()),
@@ -332,7 +332,7 @@ kendo_module({
             }
         },
         BaseFrequency = Class.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 var startTime = rule._startTime,
                     day = startTime.getDate(),
                     minutes, seconds;
@@ -357,7 +357,7 @@ kendo_module({
                 return true;
             },
 
-            normalize: function(options) {
+            normalize: function (options) {
                 var rule = options.rule;
 
                 if (options.idx === 4 && rule.hours) {
@@ -366,7 +366,7 @@ kendo_module({
                 }
             },
 
-            limit: function(date, end, rule) {
+            limit: function (date, end, rule) {
                 var ruleName, firstRule, modified,
                     idx, day;
 
@@ -387,7 +387,7 @@ kendo_module({
                         }
 
                         if (modified) {
-                            this.normalize({ date: date, rule: rule, day: day, idx: idx });
+                            this.normalize({date: date, rule: rule, day: day, idx: idx});
                         }
                     }
 
@@ -397,7 +397,7 @@ kendo_module({
                 }
             },
 
-            _hour: function(date, rule, interval) {
+            _hour: function (date, rule, interval) {
                 var startTime = rule._startTime,
                     hours = startTime.getHours();
 
@@ -412,7 +412,7 @@ kendo_module({
                 adjustDST(date, hours);
             },
 
-            _date: function(date, rule, interval) {
+            _date: function (date, rule, interval) {
                 var hours = date.getHours();
 
                 date.setDate(date.getDate() + interval);
@@ -422,13 +422,13 @@ kendo_module({
             }
         }),
         HourlyFrequency = BaseFrequency.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 if (!BaseFrequency.fn.next(date, rule)) {
                     this._hour(date, rule, rule.interval);
                 }
             },
 
-            normalize: function(options) {
+            normalize: function (options) {
                 var rule = options.rule;
 
                 if (options.idx === 4) {
@@ -438,7 +438,7 @@ kendo_module({
             }
         }),
         DailyFrequency = BaseFrequency.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 if (!BaseFrequency.fn.next(date, rule)) {
                     if (rule.hours) {
                         this._hour(date, rule, 1);
@@ -449,7 +449,7 @@ kendo_module({
             }
         }),
         WeeklyFrequency = BaseFrequency.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 if (!BaseFrequency.fn.next(date, rule)) {
                     if (rule.hours) {
                         this._hour(date, rule, 1);
@@ -458,7 +458,7 @@ kendo_module({
                     }
                 }
             },
-            setup: function(rule, date) {
+            setup: function (rule, date) {
                 if (!rule.weekDays) {
                     rule.weekDays = [{
                         day: date.getDay(),
@@ -468,7 +468,7 @@ kendo_module({
             }
         }),
         MonthlyFrequency = BaseFrequency.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 var day, hours;
                 if (!BaseFrequency.fn.next(date, rule)) {
                     if (rule.hours) {
@@ -482,7 +482,7 @@ kendo_module({
                         date.setMonth(date.getMonth() + 1);
                         adjustDST(date, hours);
 
-                        while(date.getDate() !== day) {
+                        while (date.getDate() !== day) {
                             date.setDate(day);
                             adjustDST(date, hours);
                         }
@@ -491,7 +491,7 @@ kendo_module({
                     }
                 }
             },
-            normalize: function(options) {
+            normalize: function (options) {
                 var rule = options.rule,
                     date = options.date,
                     hours = date.getHours();
@@ -503,14 +503,14 @@ kendo_module({
                     BaseFrequency.fn.normalize(options);
                 }
             },
-            setup: function(rule, date, eventStartDate) {
+            setup: function (rule, date, eventStartDate) {
                 if (!rule.monthDays && !rule.weekDays) {
                     date.setDate(eventStartDate.getDate());
                 }
             }
         }),
         YearlyFrequency = MonthlyFrequency.extend({
-            next: function(date, rule) {
+            next: function (date, rule) {
                 var day,
                     hours = date.getHours();
 
@@ -525,7 +525,7 @@ kendo_module({
                         date.setMonth(date.getMonth() + 1);
                         adjustDST(date, hours);
 
-                        while(date.getDate() !== day) {
+                        while (date.getDate() !== day) {
                             date.setDate(day);
                             adjustDST(date, hours);
                         }
@@ -539,24 +539,25 @@ kendo_module({
                     }
                 }
             },
-            setup: function() {} //TODO: check if I need to call Monthly normalize method here too ???
+            setup: function () {
+            } //TODO: check if I need to call Monthly normalize method here too ???
         }),
         frequencies = {
-            "hourly" : new HourlyFrequency(),
-            "daily" : new DailyFrequency(),
-            "weekly" : new WeeklyFrequency(),
-            "monthly" : new MonthlyFrequency(),
-            "yearly" : new YearlyFrequency()
+            "hourly": new HourlyFrequency(),
+            "daily": new DailyFrequency(),
+            "weekly": new WeeklyFrequency(),
+            "monthly": new MonthlyFrequency(),
+            "yearly": new YearlyFrequency()
         };
 
     function dayInYear(date) {
         var month = date.getMonth(),
-        days = leapYear(date) ? DAYS_IN_LEAPYEAR[month] : DAYS_IN_YEAR[month];
+            days = leapYear(date) ? DAYS_IN_LEAPYEAR[month] : DAYS_IN_YEAR[month];
 
         return days + date.getDate();
     }
 
-    function weekInYear(date, weekStart){
+    function weekInYear(date, weekStart) {
         var year, days;
 
         date = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -644,7 +645,7 @@ kendo_module({
             currentDay += weekStart;
         }
 
-        for (;idx < length; idx++) {
+        for (; idx < length; idx++) {
             weekDay = weekDays[idx];
             offset = weekDay.offset;
             day = weekDay.day;
@@ -685,7 +686,7 @@ kendo_module({
 
             if (value === ruleValue) {
                 return null;
-            }  else if (value < ruleValue) {
+            } else if (value < ruleValue) {
                 availableRules.push(ruleValue);
             }
         }
@@ -698,7 +699,7 @@ kendo_module({
             length = positions.length,
             idx = 0, event;
 
-        for (;idx < length; idx++) {
+        for (; idx < length; idx++) {
             event = events[positions[idx] - 1];
 
             if (event) {
@@ -986,12 +987,12 @@ kendo_module({
             property, until,
             weekStart,
             weekDays,
-            predicate = function(a, b) {
+            predicate = function (a, b) {
                 var day1 = a.day,
                     day2 = b.day;
 
                 if (day1 < weekStart) {
-                   day1 += weekStart;
+                    day1 += weekStart;
                 }
 
                 if (day2 < weekStart) {
@@ -1035,32 +1036,32 @@ kendo_module({
                     instance.interval = parseInt(value[0], 10);
                     break;
                 case "BYSECOND":
-                    instance.seconds = parseArray(value, { start: 0, end: 60 });
+                    instance.seconds = parseArray(value, {start: 0, end: 60});
                     break;
                 case "BYMINUTE":
-                    instance.minutes = parseArray(value, { start: 0, end: 59 });
+                    instance.minutes = parseArray(value, {start: 0, end: 59});
                     break;
                 case "BYHOUR":
-                    instance.hours = parseArray(value, { start: 0, end: 23 });
+                    instance.hours = parseArray(value, {start: 0, end: 23});
                     break;
                 case "BYMONTHDAY":
-                    instance.monthDays = parseArray(value, { start: -31, end: 31 });
+                    instance.monthDays = parseArray(value, {start: -31, end: 31});
                     break;
                 case "BYYEARDAY":
-                    instance.yearDays = parseArray(value, { start: -366, end: 366 });
+                    instance.yearDays = parseArray(value, {start: -366, end: 366});
                     break;
                 case "BYMONTH":
-                    instance.months = parseArray(value, { start: 1, end: 12 });
+                    instance.months = parseArray(value, {start: 1, end: 12});
                     break;
                 case "BYDAY":
                     instance.weekDays = weekDays = parseWeekDayList(value);
                     break;
                 case "BYSETPOS":
                     //TODO: rename to positions
-                    instance.setPositions = parseArray(value, { start: 1, end: 366 });
+                    instance.setPositions = parseArray(value, {start: 1, end: 366});
                     break;
                 case "BYWEEKNO":
-                    instance.weeks = parseArray(value, { start: -53, end: 53 });
+                    instance.weeks = parseArray(value, {start: -53, end: 53});
                     break;
                 case "WKST":
                     instance.weekStart = weekStart = WEEK_DAYS_IDX[value[0]];
@@ -1168,39 +1169,39 @@ kendo_module({
     var END_COUNT = '<input class="k-recur-count" />{0}';
     var END_UNTIL = '<input class="k-recur-until" />';
     var END_HTML = '<div class="k-edit-label"><label>{0}</label></div>' +
-                   '<div class="k-edit-field">' +
-                   '<ul class="k-reset">' +
-                       '<li><label><input class="k-recur-end-never" type="radio" name="end" value="never" />{1}</label></li>' +
-                       '<li><label><input class="k-recur-end-count" type="radio" name="end" value="count" />{2}</label>{3}</li>' +
-                       '<li><label><input class="k-recur-end-until" type="radio" name="end" value="until" />{4}</label>{5}</li>' +
-                   '</ul></div>';
+        '<div class="k-edit-field">' +
+        '<ul class="k-reset">' +
+        '<li><label><input class="k-recur-end-never" type="radio" name="end" value="never" />{1}</label></li>' +
+        '<li><label><input class="k-recur-end-count" type="radio" name="end" value="count" />{2}</label>{3}</li>' +
+        '<li><label><input class="k-recur-end-until" type="radio" name="end" value="until" />{4}</label>{5}</li>' +
+        '</ul></div>';
 
     var ROW_HTML = '<div class="k-edit-label"><label>{0}</label></div>' +
-                      '<div class="k-edit-field">{1}</div>';
+        '<div class="k-edit-field">{1}</div>';
 
     var UL_RESET_HTML = '<ul class="k-reset">{0}</ul>';
 
     var MONTHDAY_HTML = '<li>' +
-                            '<label><input class="k-recur-month-radio" type="radio" name="month" value="monthday" />{0}</label>' +
-                            '<input class="k-recur-monthday" />' +
-                        '</li>';
+        '<label><input class="k-recur-month-radio" type="radio" name="month" value="monthday" />{0}</label>' +
+        '<input class="k-recur-monthday" />' +
+        '</li>';
 
     var WEEKDAY_HTML = '<li>' +
-                            '<input class="k-recur-month-radio" type="radio" name="month" value="weekday" />' +
-                            '<input class="k-recur-offset" /><input class="k-recur-weekday" />' +
-                       '</li>';
+        '<input class="k-recur-month-radio" type="radio" name="month" value="weekday" />' +
+        '<input class="k-recur-offset" /><input class="k-recur-weekday" />' +
+        '</li>';
 
     var MONTH_HTML = '<li>' +
-                         '<input class="k-recur-year-radio" type="radio" name="year" value="monthday" />' +
-                         '<input class="k-recur-month" /><input class="k-recur-monthday" />' +
-                     '</li>';
+        '<input class="k-recur-year-radio" type="radio" name="year" value="monthday" />' +
+        '<input class="k-recur-month" /><input class="k-recur-monthday" />' +
+        '</li>';
 
     var WEEKDAY_WITH_MONTH_HTML = '<li>' +
-                                      '<input class="k-recur-year-radio" type="radio" name="year" value="weekday" />' +
-                                      '<input class="k-recur-offset" /><input class="k-recur-weekday" />{0}<input class="k-recur-month" />' +
-                                  '</li>';
+        '<input class="k-recur-year-radio" type="radio" name="year" value="weekday" />' +
+        '<input class="k-recur-offset" /><input class="k-recur-weekday" />{0}<input class="k-recur-month" />' +
+        '</li>';
 
-    var weekDayCheckBoxes = function(firstDay) {
+    var weekDayCheckBoxes = function (firstDay) {
         var shortNames = kendo.culture().calendar.days.namesShort,
             length = shortNames.length,
             result = "",
@@ -1221,7 +1222,7 @@ kendo_module({
         CLICK = "click" + ns;
 
     var RecurrenceEditor = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 start;
 
@@ -1303,9 +1304,9 @@ kendo_module({
                 }
             }
         },
-        events: [ "change" ],
+        events: ["change"],
 
-        destroy: function() {
+        destroy: function () {
             this.ddlFrequency.destroy();
             this.container.find("input[type=radio],input[type=checkbox]").off(CLICK);
 
@@ -1314,7 +1315,7 @@ kendo_module({
             Widget.fn.destroy.call(this);
         },
 
-        value: function(value) {
+        value: function (value) {
             var that = this,
                 timezone = that.options.timezone;
 
@@ -1332,7 +1333,7 @@ kendo_module({
             that.setView(that.ddlFrequency.value());
         },
 
-        setView: function(frequency) {
+        setView: function (frequency) {
             var that = this,
                 container = this.container,
                 html = this["_" + frequency] || "",
@@ -1374,7 +1375,7 @@ kendo_module({
             that._setEndRule();
         },
 
-        _interval: function() {
+        _interval: function () {
             var that = this,
                 input = that.container.find(".k-recur-interval"),
                 rule = that._value;
@@ -1384,14 +1385,14 @@ kendo_module({
                 decimals: 0,
                 format: "#",
                 min: 1,
-                change: function() {
+                change: function () {
                     rule.interval = this.value();
                     that.trigger("change");
                 }
             });
         },
 
-        _weekDay: function() {
+        _weekDay: function () {
             var that = this,
                 offsetMessage = that.options.messages.offsetPositions,
                 offsetInput = that.container.find(".k-recur-offset"),
@@ -1406,13 +1407,13 @@ kendo_module({
                     dataTextField: "text",
                     dataValueField: "value",
                     dataSource: [
-                        { text: offsetMessage.first, value: "1" },
-                        { text: offsetMessage.second, value: "2" },
-                        { text: offsetMessage.third, value: "3" },
-                        { text: offsetMessage.fourth, value: "4" },
-                        { text: offsetMessage.last, value: "-1" }
+                        {text: offsetMessage.first, value: "1"},
+                        {text: offsetMessage.second, value: "2"},
+                        {text: offsetMessage.third, value: "3"},
+                        {text: offsetMessage.fourth, value: "4"},
+                        {text: offsetMessage.last, value: "-1"}
                     ],
-                    change: function() {
+                    change: function () {
                         rule.weekDays = [{
                             offset: Number(offsetDDL.value()),
                             day: Number(weekDayDDL.value())
@@ -1421,7 +1422,7 @@ kendo_module({
                     }
                 });
 
-                dayNames = $.map(kendo.culture().calendar.days.names, function(dayName, idx) {
+                dayNames = $.map(kendo.culture().calendar.days.names, function (dayName, idx) {
                     return {
                         text: dayName,
                         value: idx
@@ -1432,7 +1433,7 @@ kendo_module({
                     dataTextField: "text",
                     dataValueField: "value",
                     dataSource: dayNames,
-                    change: function() {
+                    change: function () {
                         rule.weekDays = [{
                             offset: Number(offsetDDL.value()),
                             day: Number(weekDayDDL.value())
@@ -1450,14 +1451,14 @@ kendo_module({
             }
         },
 
-        _weekDays: function() {
+        _weekDays: function () {
             var that = this,
                 rule = that._value,
                 weekDays = that.container.find(".k-recur-weekday-checkbox");
 
             if (weekDays[0]) {
-                weekDays.on(CLICK, function() {
-                    rule.weekDays = $.map(weekDays.filter(":checked"), function(checkbox) {
+                weekDays.on(CLICK, function () {
+                    rule.weekDays = $.map(weekDays.filter(":checked"), function (checkbox) {
                         return {
                             day: Number(checkbox.value),
                             offset: 0
@@ -1468,14 +1469,14 @@ kendo_module({
                 });
 
                 if (rule.weekDays) {
-                    for (var idx = 0, length = rule.weekDays.length; idx < length; idx ++) {
+                    for (var idx = 0, length = rule.weekDays.length; idx < length; idx++) {
                         weekDays.eq(rule.weekDays[idx].day).prop("checked", true);
                     }
                 }
             }
         },
 
-        _monthDay: function() {
+        _monthDay: function () {
             var that = this,
                 rule = that._value,
                 monthDayInput = that.container.find(".k-recur-monthday");
@@ -1487,7 +1488,7 @@ kendo_module({
                     decimals: 0,
                     format: "#",
                     value: rule.monthDays ? rule.monthDays[0] : that.options.start.getDate(),
-                    change: function() {
+                    change: function () {
                         var value = this.value();
 
                         if (value) {
@@ -1501,7 +1502,7 @@ kendo_module({
             }
         },
 
-        _month: function() {
+        _month: function () {
             var that = this,
                 rule = that._value,
                 start = that.options.start,
@@ -1510,7 +1511,7 @@ kendo_module({
                 monthNames, monthDDL1, monthDDL2;
 
             if (monthInputs[0]) {
-                monthNames = $.map(kendo.culture().calendar.months.names, function(monthName, idx) {
+                monthNames = $.map(kendo.culture().calendar.months.names, function (monthName, idx) {
                     return {
                         text: monthName,
                         value: idx + 1
@@ -1521,7 +1522,7 @@ kendo_module({
                     dataTextField: "text",
                     dataValueField: "value",
                     dataSource: monthNames,
-                    change: function() {
+                    change: function () {
                         rule.months = [Number(this.value())];
                         that.trigger("change");
                     }
@@ -1531,7 +1532,7 @@ kendo_module({
                     dataTextField: "text",
                     dataValueField: "value",
                     dataSource: monthNames,
-                    change: function() {
+                    change: function () {
                         rule.months = [Number(this.value())];
                         that.trigger("change");
                     }
@@ -1546,7 +1547,7 @@ kendo_module({
 
         },
 
-        _count: function() {
+        _count: function () {
             var that = this,
                 input = that.container.find(".k-recur-count"),
                 rule = that._value;
@@ -1556,14 +1557,14 @@ kendo_module({
                 decimals: 0,
                 format: "#",
                 min: 1,
-                change: function() {
+                change: function () {
                     rule.count = this.value();
                     that.trigger("change");
                 }
             }).data("kendoNumericTextBox");
         },
 
-        _until: function() {
+        _until: function () {
             var that = this,
                 input = that.container.find(".k-recur-until"),
                 start = that.options.start,
@@ -1573,18 +1574,18 @@ kendo_module({
             that.untilDatePicker = input.kendoDatePicker({
                 min: until && until < start ? until : start,
                 value: until || start,
-                change: function() {
+                change: function () {
                     rule.until = this.value();
                     that.trigger("change");
                 }
             }).data("kendoDatePicker");
         },
 
-        _setEndRule: function() {
+        _setEndRule: function () {
             var that = this,
                 rule = that._value,
                 container = that.container,
-                click = function(e) {
+                click = function (e) {
                     that._toggleEndRule(e.currentTarget.value);
                     that.trigger("change");
                 };
@@ -1602,10 +1603,10 @@ kendo_module({
             }
         },
 
-        _setMonthRule: function() {
+        _setMonthRule: function () {
             var that = this,
                 rule = that._value,
-                click = function(e) {
+                click = function (e) {
                     that._toggleMonthDayRule(e.currentTarget.value);
                     that.trigger("change");
                 },
@@ -1621,10 +1622,10 @@ kendo_module({
             }
         },
 
-        _setYearRule: function() {
+        _setYearRule: function () {
             var that = this,
                 rule = that._value,
-                click = function(e) {
+                click = function (e) {
                     that._toggleYearRule(e.currentTarget.value);
                     that.trigger("change");
                 },
@@ -1640,7 +1641,7 @@ kendo_module({
             }
         },
 
-        _toggleEndRule: function(endRule) {
+        _toggleEndRule: function (endRule) {
             var that = this,
                 rule = that._value;
 
@@ -1671,7 +1672,7 @@ kendo_module({
             }
         },
 
-        _toggleMonthDayRule: function(monthRule) {
+        _toggleMonthDayRule: function (monthRule) {
             var that = this,
                 rule = that._value;
 
@@ -1700,7 +1701,7 @@ kendo_module({
             }
         },
 
-        _toggleYearRule: function(yearRule) {
+        _toggleYearRule: function (yearRule) {
             var that = this,
                 month;
 
@@ -1719,7 +1720,7 @@ kendo_module({
             that._toggleMonthDayRule(yearRule);
         },
 
-        _container: function() {
+        _container: function () {
             var element = this.element,
                 container = $('<div class="k-recur-view" />'),
                 editContainer = element.parent(".k-edit-field");
@@ -1733,7 +1734,7 @@ kendo_module({
             this.container = container;
         },
 
-        _frequencyChooser: function() {
+        _frequencyChooser: function () {
             var that = this,
                 options = that.options,
                 frequencies = options.frequencies,
@@ -1741,7 +1742,7 @@ kendo_module({
                 ddl = $('<input />'),
                 frequency;
 
-            frequencies = $.map(frequencies, function(frequency) {
+            frequencies = $.map(frequencies, function (frequency) {
                 return {
                     text: messages[frequency],
                     value: frequency
@@ -1758,7 +1759,7 @@ kendo_module({
                 dataTextField: "text",
                 dataValueField: "value",
                 dataSource: frequencies,
-                change: function() {
+                change: function () {
                     that._value = {};
                     that.setView(that.ddlFrequency.value());
                     that.trigger("change");
@@ -1766,7 +1767,7 @@ kendo_module({
             });
         },
 
-        _views: function() {
+        _views: function () {
             var that = this,
                 options = that.options,
                 messages = options.messages,

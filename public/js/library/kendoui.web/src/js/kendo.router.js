@@ -15,11 +15,11 @@ kendo_module({
     name: "History",
     category: "framework",
     description: "The Router class is responsible for tracking the application state and navigating between the application states.",
-    depends: [ "core" ],
+    depends: ["core"],
     hidden: false
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         support = kendo.support,
         location = window.location,
@@ -29,7 +29,7 @@ kendo_module({
         document = window.document;
 
     var History = kendo.Observable.extend({
-        start: function(options) {
+        start: function (options) {
             var that = this;
             options = options || {};
 
@@ -53,18 +53,18 @@ kendo_module({
             that._listenToLocationChange();
         },
 
-        stop: function() {
+        stop: function () {
             $(window).unbind(".kendo");
             this.unbind("change");
             clearInterval(this._interval);
             this._started = false;
         },
 
-        change: function(callback) {
+        change: function (callback) {
             this.bind('change', callback);
         },
 
-        navigate: function(to, silent) {
+        navigate: function (to, silent) {
             var that = this;
 
             if (to === '#:back') {
@@ -79,7 +79,7 @@ kendo_module({
             }
 
             if (!silent) {
-                if (that.trigger("change", { url: to })) {
+                if (that.trigger("change", {url: to})) {
                     return;
                 }
             }
@@ -94,7 +94,7 @@ kendo_module({
             that.locations.push(that.current);
         },
 
-        _normalizeUrl: function() {
+        _normalizeUrl: function () {
             var that = this,
                 pushStateUrl,
                 atRoot = that.root == location.pathname,
@@ -112,7 +112,7 @@ kendo_module({
             return false;
         },
 
-        _listenToLocationChange: function() {
+        _listenToLocationChange: function () {
             var that = this, _checkUrlProxy = $.proxy(that._checkUrl, that);
 
             if (this._pushState) {
@@ -124,7 +124,7 @@ kendo_module({
             }
         },
 
-        _checkUrl: function() {
+        _checkUrl: function () {
             var that = this,
                 current = that._currentLocation().replace(hashStrip, ''),
                 back = current === that.locations[that.locations.length - 2];
@@ -133,7 +133,7 @@ kendo_module({
                 return;
             }
 
-            if (that.trigger("change", { url: current })) {
+            if (that.trigger("change", {url: current})) {
                 if (back) {
                     history.forward();
                 } else {
@@ -151,7 +151,7 @@ kendo_module({
             }
         },
 
-        _stripRoot: function(url) {
+        _stripRoot: function (url) {
             var that = this;
 
             if (url.indexOf(that.root) === 0) {
@@ -161,7 +161,7 @@ kendo_module({
             }
         },
 
-        _makePushStateUrl: function(address) {
+        _makePushStateUrl: function (address) {
             var that = this;
             var regEx = new RegExp("^" + that.root, "i");
 
@@ -172,7 +172,7 @@ kendo_module({
             return location.protocol + '//' + location.host + address;
         },
 
-        _currentLocation: function() {
+        _currentLocation: function () {
             var that = this, current;
 
             if (that._pushState) {
@@ -192,7 +192,7 @@ kendo_module({
     kendo.history = new History();
 })(window.kendo.jQuery);
 
-(function() {
+(function () {
     var kendo = window.kendo,
         history = kendo.history,
         Observable = kendo.Observable,
@@ -217,7 +217,7 @@ kendo_module({
     }
 
     var Route = kendo.Class.extend({
-        init: function(route, callback) {
+        init: function (route, callback) {
             if (!(route instanceof RegExp)) {
                 route = routeToRegExp(route);
             }
@@ -226,12 +226,12 @@ kendo_module({
             this._callback = callback;
         },
 
-        callback: function(url) {
+        callback: function (url) {
             var params = this.route.exec(url).slice(1),
                 idx = 0,
                 length = params.length;
 
-            for (; idx < length; idx ++) {
+            for (; idx < length; idx++) {
                 if (typeof params[idx] !== 'undefined') {
                     params[idx] = decodeURIComponent(params[idx]);
                 }
@@ -240,7 +240,7 @@ kendo_module({
             this._callback.apply(null, params);
         },
 
-        worksWith: function(url) {
+        worksWith: function (url) {
             if (this.route.test(url)) {
                 this.callback(url);
                 return true;
@@ -251,7 +251,7 @@ kendo_module({
     });
 
     var Router = Observable.extend({
-        init: function(options) {
+        init: function (options) {
             Observable.fn.init.call(this);
             this.routes = [];
             this.pushState = options ? options.pushState : false;
@@ -261,14 +261,14 @@ kendo_module({
             this.bind([INIT, ROUTE_MISSING, CHANGE], options);
         },
 
-        destroy: function() {
+        destroy: function () {
             history.unbind("change", this._urlChangedProxy);
             this.unbind();
         },
 
-        start: function() {
+        start: function () {
             var that = this,
-                urlChangedProxy = function(e) {
+                urlChangedProxy = function (e) {
                     that._urlChanged(e);
                 };
 
@@ -278,7 +278,7 @@ kendo_module({
                 root: that.root
             });
 
-            var initEventObject = { url: history.current || "/" };
+            var initEventObject = {url: history.current || "/"};
 
             if (!that.trigger(INIT, initEventObject)) {
                 that._urlChanged(initEventObject);
@@ -287,15 +287,15 @@ kendo_module({
             this._urlChangedProxy = urlChangedProxy;
         },
 
-        route: function(route, callback) {
+        route: function (route, callback) {
             this.routes.push(new Route(route, callback));
         },
 
-        navigate: function(url, silent) {
+        navigate: function (url, silent) {
             kendo.history.navigate(url, silent);
         },
 
-        _urlChanged: function(e) {
+        _urlChanged: function (e) {
             var url = e.url;
             if (!url) {
                 url = "/";
@@ -311,15 +311,15 @@ kendo_module({
                 route,
                 length = routes.length;
 
-            for (; idx < length; idx ++) {
-                 route = routes[idx];
+            for (; idx < length; idx++) {
+                route = routes[idx];
 
-                 if (route.worksWith(url)) {
+                if (route.worksWith(url)) {
                     return;
-                 }
+                }
             }
 
-            if (this.trigger(ROUTE_MISSING, { url: url })) {
+            if (this.trigger(ROUTE_MISSING, {url: url})) {
                 e.preventDefault();
             }
         }

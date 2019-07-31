@@ -13,40 +13,40 @@ abstract class App_Model_Mapper_MapperAbstract
      *
      * @var Zend_Db_Table_Abstract
      */
-    protected $_dbTable        = null;
-    protected $_adapter        = null;
+    protected $_dbTable = null;
+    protected $_adapter = null;
     protected static $_defaultAdapter = null;
     protected static $_form;
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
-    protected $_db  = null;
+    protected $_db = null;
     public $rows = null;
 
     /**
      * Instantiate a new mapper with a specific adapter.
-     * 
+     *
      * If no adapter is defined, the default adapter is used. If there is also
      * no default adapter, an exception is thrown.
-     * 
-     * @param  Zend_Db_Adapter_Abstract $adapter
+     *
+     * @param Zend_Db_Adapter_Abstract $adapter
      * @throws Exception When no adapter was defined
-     * @throws 
+     * @throws
      */
     public function __construct(Zend_Db_Adapter_Abstract $adapter = null)
     {
-        if ( $adapter === null ) {
+        if ($adapter === null) {
             $adapter = self::getDefaultAdapter();
         }
 
-        if ( $adapter === null ) {
+        if ($adapter === null) {
             throw new Exception('No adapter was defined');
         }
 
         $this->_adapter = $adapter;
-        $this->_db      = self::getDefaultAdapter();
+        $this->_db = self::getDefaultAdapter();
         $this->resourceInjector();
         //$this->helperInjector();
         $this->_db->getProfiler()->setEnabled(true);
@@ -55,12 +55,12 @@ abstract class App_Model_Mapper_MapperAbstract
 
     /**
      * Do some initial stuff
-     * 
+     *
      * @return void
      */
     protected function _init()
     {
-        
+
     }
 
     /**
@@ -70,7 +70,7 @@ abstract class App_Model_Mapper_MapperAbstract
      */
     public static function getDefaultAdapter()
     {
-        if ( !self::$_defaultAdapter ) {
+        if (!self::$_defaultAdapter) {
             self::setDefaultAdapter();
         }
 
@@ -80,7 +80,7 @@ abstract class App_Model_Mapper_MapperAbstract
     /**
      * Set the adapter
      *
-     * @param  string $banco
+     * @param string $banco
      * @return void
      */
     public static function setDefaultAdapter($banco = 'trf')
@@ -100,10 +100,10 @@ abstract class App_Model_Mapper_MapperAbstract
      */
     public function setDbTable($dbTable)
     {
-        if ( is_string($dbTable) ) {
+        if (is_string($dbTable)) {
             $dbTable = new $dbTable();
         }
-        if ( !$dbTable instanceof Zend_Db_Table_Abstract ) {
+        if (!$dbTable instanceof Zend_Db_Table_Abstract) {
             throw new Exception("Invalid table data gateway provided");
         }
         $this->_dbTable = $dbTable;
@@ -116,8 +116,8 @@ abstract class App_Model_Mapper_MapperAbstract
      */
     public function getDbTable()
     {
-        if ( null === $this->_dbTable ) {
-            $a       = get_class($this);
+        if (null === $this->_dbTable) {
+            $a = get_class($this);
             //$a = substr(str_replace("_Model_Mapper_", "_Model_DbTable_", $a), 0, -6);
             $dbTable = str_replace("_Model_Mapper_", "_Model_DbTable_", $a);
             $this->setDbTable($dbTable);
@@ -131,14 +131,14 @@ abstract class App_Model_Mapper_MapperAbstract
      */
     protected function _getForm($formName)
     {
-        if ( !self::$_form ) {
+        if (!self::$_form) {
             self::$_form = new $formName();
         }
         return self::$_form;
     }
 
     /**
-     * 
+     *
      * @param type $name
      * @return Zend_Application_Resource_ResourceAbstract
      * @throws Exception
@@ -147,7 +147,7 @@ abstract class App_Model_Mapper_MapperAbstract
     {
         $bootstrap = self::getBootstrap();
 
-        if ( !$bootstrap->hasResource($name) ) {
+        if (!$bootstrap->hasResource($name)) {
             throw new Exception("Unable to find dependency by name '$name'");
         }
         return $bootstrap->getResource($name);
@@ -164,21 +164,24 @@ abstract class App_Model_Mapper_MapperAbstract
     }
 
     /**
-     * 
-     * @param array or string $pkey
-     * @return array or string where
+     * REFACTORING: Funcionalidade de excluir atividade
+     *
+     * @param $pkey
+     * @return array
+     * @throws Zend_Db_Table_Exception
      */
     protected function _generateRestrictionsFromPrimaryKeys($pkey)
     {
-        $where   = array();
+        $where = array();
         $primary = $this->getDbTable()->info('primary');
-        $name    = $this->getDbTable()->info('name');
+        $name = $this->getDbTable()->info('name');
 
-        if ( is_array($primary) ) {
-            foreach ( $primary as $key )
-            {
-                $valor   = (is_array($pkey)) ? $pkey[$key] : $pkey;
-                $where[] = $this->_db->quoteInto($name . '.' . $key . ' = ?', $valor);
+        if (is_array($primary)) {
+            foreach ($primary as $key) {
+                if (isset($pkey[$key])) {
+                    $valor = (is_array($pkey)) ? $pkey[$key] : $pkey;
+                    $where[] = $this->_db->quoteInto($name . '.' . $key . ' = ?', $valor);
+                }
             }
         } else {
             $where = $this->$this->_db->quoteInto($name . '.' . $primary . ' = ?', $pkey);
@@ -187,7 +190,7 @@ abstract class App_Model_Mapper_MapperAbstract
     }
 
     /**
-     * 
+     *
      * @param string $coluna
      * @param mixed $where
      * @param array $params
@@ -195,7 +198,7 @@ abstract class App_Model_Mapper_MapperAbstract
      */
     protected function maxVal($coluna, $where = null, $params = null, $schema = 'agepnet200')
     {
-        $name   = $this->getDbTable()->info('name');
+        $name = $this->getDbTable()->info('name');
         $select = $this->getDbTable()->select();
         $select->from("{$schema}.{$name}", array(new Zend_Db_Expr("MAX($coluna) AS maxID")));
         //->columns(array(new Zend_Db_Expr("MAX($coluna) AS maxID")));
@@ -203,7 +206,7 @@ abstract class App_Model_Mapper_MapperAbstract
         //$sql = "SELECT MAX({$coluna}) as maxID FROM agepnet200.{$name}";
 
 
-        if ( $where && $params ) {
+        if ($where && $params) {
             $select->where($where, $params);
             $max = $this->_db->fetchOne($select, $params);
         } else {
@@ -212,8 +215,7 @@ abstract class App_Model_Mapper_MapperAbstract
         //Zend_Debug::dump($select->__toString()); exit;
 
 
-
-        if ( $max == false ) {
+        if ($max == false) {
             $max = 0;
         }
 
@@ -224,28 +226,27 @@ abstract class App_Model_Mapper_MapperAbstract
     {
         $bootstrap = $this->getBootstrap();
 
-        if ( !isset($this->_dependencies) || !is_array($this->_dependencies) ) {
+        if (!isset($this->_dependencies) || !is_array($this->_dependencies)) {
             return;
         }
 
-        foreach ( $this->_dependencies as $name )
-        {
+        foreach ($this->_dependencies as $name) {
             $helper = $name;
             $filter = new Zend_Filter_Word_CamelCaseToUnderscore();
-            $name   = $filter->filter($name);
-            $name   = str_replace(" ", "", ucwords(str_replace("_", " ", strtolower($name))));
-            $name   = '_' . lcfirst($name);
+            $name = $filter->filter($name);
+            $name = str_replace(" ", "", ucwords(str_replace("_", " ", strtolower($name))));
+            $name = '_' . lcfirst($name);
             /*
               if ($helper == 'cachemanager') {
               $this->$name = new Zend_Cache_Manager;
               continue;
               }
              */
-            if ( !$bootstrap->hasResource($helper) && !$bootstrap->hasPluginResource($helper) ) {
+            if (!$bootstrap->hasResource($helper) && !$bootstrap->hasPluginResource($helper)) {
                 throw new Exception("Unable to find dependency by name '$helper'");
             }
 
-            if ( $bootstrap->hasResource($helper) ) {
+            if ($bootstrap->hasResource($helper)) {
                 $this->$name = $bootstrap->getResource($helper);
             } else {
                 $this->$name = $bootstrap->getPluginResource($helper);
@@ -255,20 +256,20 @@ abstract class App_Model_Mapper_MapperAbstract
 
     public function getPanel()
     {
-        if ( !$this->_db )
+        if (!$this->_db) {
             return '';
+        }
 
         $html = '<h4>Database queries</h4>';
-        if ( Zend_Db_Table_Abstract::getDefaultMetadataCache() ) {
+        if (Zend_Db_Table_Abstract::getDefaultMetadataCache()) {
             $html .= 'Metadata cache is ENABLED';
         } else {
             $html .= 'Metadata cache is DISABLED';
         }
 
-        if ( $profiles = $this->_db->getProfiler()->getQueryProfiles() ) {
+        if ($profiles = $this->_db->getProfiler()->getQueryProfiles()) {
             $html .= '<h4>Adapter </h4><ol>';
-            foreach ( $profiles as $profile )
-            {
+            foreach ($profiles as $profile) {
                 $html .= '<li><strong>[' . round($profile->getElapsedSecs() * 1000, 2) . ' ms]</strong> '
                     . htmlspecialchars($profile->getQuery()) . '</li>';
             }

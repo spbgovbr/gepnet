@@ -2,13 +2,14 @@
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-;
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
@@ -18,12 +19,12 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/template.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/projeto/licao/index.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/licao/add.js'), 'text/javascript')
-;
-$linkImprimirTudo = '/projeto/licao/imprimir/idprojeto/'.$this->idprojeto.'/print/all';
+    ->appendFile($this->baseUrl('/js/app/projeto/licao/add.js'), 'text/javascript');
+$linkImprimirTudo = '/projeto/licao/imprimir/idprojeto/' . $this->idprojeto . '/print/all';
 ?>
 <div class="region-west">
-    <?php echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'licao', 'idprojeto' => $this->idprojeto));  ?>
+    <?php echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'licoes', 'idprojeto' => $this->idprojeto)); ?>
 </div>
 
 <div class="region-center">
@@ -31,11 +32,16 @@ $linkImprimirTudo = '/projeto/licao/imprimir/idprojeto/'.$this->idprojeto.'/prin
     <div id="dados-projeto"></div>
 
     <div class="form-actions form-actions-mini">
+        <a data-target="#dialog-cadastrar" class="btn cadastrar" title="Cadastrar" href="<?php echo $this->url(array(
+            'module' => 'projeto',
+            'controller' => 'licao',
+            'action' => 'cadastrar'
+        )); ?>" title="Cadastrar Li&ccedil;&atilde;o">
+            Cadastrar
+        </a>
         <div class="btn-group">
-            <a class="btn" href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'licao', 'action' => 'cadastrar')); ?>" title="Cadastrar nova Lição">Cadastrar Li&ccedil;&atilde;o</a>
-        </div>
-        <div class="btn-group">
-            <a href="<?php echo $this->baseUrl($linkImprimirTudo)?>" class="btn print" title="Imprimir tudo" style="float: right;" target="blank"><i class="icon-print"></i>  &nbsp;Imprimir Todas</a>
+            <a href="<?php echo $this->baseUrl($linkImprimirTudo) ?>" class="btn print" title="Imprimir tudo"
+               style="float: right;" target="blank"><i class="icon-print"></i> &nbsp;Imprimir Todas</a>
         </div>
     </div>
     <table id="list2"></table>
@@ -65,7 +71,7 @@ $linkImprimirTudo = '/projeto/licao/imprimir/idprojeto/'.$this->idprojeto.'/prin
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto ;?>" />
+                    <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>"/>
                 </form>
             </div>
         </div>
@@ -73,9 +79,7 @@ $linkImprimirTudo = '/projeto/licao/imprimir/idprojeto/'.$this->idprojeto.'/prin
 </div>
 
 
-
-
-
+<div id="dialog-cadastrar" style="display: none"></div>
 <div id="dialog-editar" style="display: none"></div>
 <div id="dialog-excluir" style="display: none"></div>
 <div id="dialog-detalhar" style="display: none"></div>

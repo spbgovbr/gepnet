@@ -14,7 +14,7 @@ kendo_module({
     id: "selectable",
     name: "Selectable",
     category: "framework",
-    depends: [ "core", "userevents" ],
+    depends: ["core", "userevents"],
     advanced: true
 });
 
@@ -32,21 +32,21 @@ kendo_module({
         UNSELECTING = "k-state-unselecting",
         supportEventDelegation = false;
 
-        (function($) {
-            (function() {
-                $('<div class="parent"><span /></div>')
-                .on("click", ">*", function() {
+    (function ($) {
+        (function () {
+            $('<div class="parent"><span /></div>')
+                .on("click", ">*", function () {
                     supportEventDelegation = true;
                 })
                 .find("span")
                 .click()
                 .end()
                 .off();
-            })();
-        })($);
+        })();
+    })($);
 
     var Selectable = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this,
                 multiple;
 
@@ -66,10 +66,10 @@ kendo_module({
 
             if (multiple) {
                 that.userEvents
-                   .bind("start", proxy(that._start, that))
-                   .bind("move", proxy(that._move, that))
-                   .bind("end", proxy(that._end, that))
-                   .bind("select", proxy(that._select, that));
+                    .bind("start", proxy(that._start, that))
+                    .bind("move", proxy(that._move, that))
+                    .bind("end", proxy(that._end, that))
+                    .bind("select", proxy(that._select, that));
             }
         },
 
@@ -81,7 +81,7 @@ kendo_module({
             multiple: false
         },
 
-        _tap: function(e) {
+        _tap: function (e) {
             var target = $(e.target),
                 that = this,
                 ctrlKey = e.event.ctrlKey || e.event.metaKey,
@@ -115,7 +115,7 @@ kendo_module({
             }
         },
 
-        _start: function(e) {
+        _start: function (e) {
             var that = this,
                 target = $(e.target),
                 selected = target.hasClass(SELECTED),
@@ -151,7 +151,7 @@ kendo_module({
             }
         },
 
-        _move: function(e) {
+        _move: function (e) {
             var that = this,
                 position = {
                     left: e.x.startLocation > e.x.location ? e.x.location : e.x.startLocation,
@@ -168,7 +168,7 @@ kendo_module({
             e.preventDefault();
         },
 
-        _end: function() {
+        _end: function () {
             var that = this;
 
             that._marquee.remove();
@@ -181,12 +181,12 @@ kendo_module({
             that._lastActive = that._downTarget;
         },
 
-        value: function(val) {
+        value: function (val) {
             var that = this,
                 selectElement = proxy(that._selectElement, that);
 
-            if(val) {
-                val.each(function() {
+            if (val) {
+                val.each(function () {
                     selectElement(this);
                 });
 
@@ -197,27 +197,27 @@ kendo_module({
             return that.element.find(that.options.filter + "." + SELECTED);
         },
 
-        _firstSelectee: function() {
+        _firstSelectee: function () {
             var that = this,
                 selected;
 
-            if(that._lastActive !== null) {
+            if (that._lastActive !== null) {
                 return that._lastActive;
             }
 
             selected = that.value();
             return selected.length > 0 ?
-                    selected[0] :
-                    that.element.find(that.options.filter);
+                selected[0] :
+                that.element.find(that.options.filter);
         },
 
-        _selectElement: function(element, preventNotify) {
+        _selectElement: function (element, preventNotify) {
             var toSelect = $(element),
-                isPrevented =  !preventNotify && this._notify("select", { element: element });
+                isPrevented = !preventNotify && this._notify("select", {element: element});
 
             toSelect.removeClass(ACTIVE);
-            if(!isPrevented) {
-                 toSelect.addClass(SELECTED);
+            if (!isPrevented) {
+                toSelect.addClass(SELECTED);
 
                 if (this.options.aria) {
                     toSelect.attr(ARIASELECTED, true);
@@ -225,12 +225,12 @@ kendo_module({
             }
         },
 
-        _notify: function(name, args) {
-            args = args || { };
+        _notify: function (name, args) {
+            args = args || {};
             return this.trigger(name, args);
         },
 
-        _unselect: function(element) {
+        _unselect: function (element) {
             element.removeClass(SELECTED);
 
             if (this.options.aria) {
@@ -240,7 +240,7 @@ kendo_module({
             return element;
         },
 
-        _select: function(e) {
+        _select: function (e) {
             if ($(e.event.target).is("input,a,textarea")) {
                 this.userEvents.cancel();
                 this._downTarget = null;
@@ -249,12 +249,12 @@ kendo_module({
             }
         },
 
-        clear: function() {
+        clear: function () {
             var items = this.element.find(this.options.filter + "." + SELECTED);
             this._unselect(items);
         },
 
-        selectRange: function(start, end) {
+        selectRange: function (start, end) {
             var that = this,
                 found = false,
                 idx,
@@ -267,15 +267,15 @@ kendo_module({
             start = $(start)[0];
             end = $(end)[0];
 
-            for (idx = 0, length = items.length; idx < length; idx ++) {
+            for (idx = 0, length = items.length; idx < length; idx++) {
                 toSelect = items[idx];
-                if(found) {
+                if (found) {
                     selectElement(toSelect);
                     found = toSelect !== end;
-                } else if(toSelect === start) {
+                } else if (toSelect === start) {
                     found = start !== end;
                     selectElement(toSelect);
-                } else if(toSelect === end) {
+                } else if (toSelect === end) {
                     tmp = start;
                     start = end;
                     end = tmp;
@@ -289,7 +289,7 @@ kendo_module({
             that._notify(CHANGE);
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -308,7 +308,7 @@ kendo_module({
         elementPosition.right = elementPosition.left + element.outerWidth();
         elementPosition.bottom = elementPosition.top + element.outerHeight();
 
-        return !(elementPosition.left > right||
+        return !(elementPosition.left > right ||
             elementPosition.right < position.left ||
             elementPosition.top > bottom ||
             elementPosition.bottom < position.top);
@@ -319,12 +319,12 @@ kendo_module({
             length,
             toSelect;
 
-        for (idx = 0, length = items.length; idx < length; idx ++) {
+        for (idx = 0, length = items.length; idx < length; idx++) {
             toSelect = items.eq(idx);
 
             if (collision(toSelect, position)) {
-                if(toSelect.hasClass(SELECTED)) {
-                    if(ctrlKey && target !== toSelect[0]) {
+                if (toSelect.hasClass(SELECTED)) {
+                    if (ctrlKey && target !== toSelect[0]) {
                         toSelect.removeClass(SELECTED).addClass(UNSELECTING);
                     }
                 } else if (!toSelect.hasClass(ACTIVE) && !toSelect.hasClass(UNSELECTING)) {
@@ -333,7 +333,7 @@ kendo_module({
             } else {
                 if (toSelect.hasClass(ACTIVE)) {
                     toSelect.removeClass(ACTIVE);
-                } else if(ctrlKey && toSelect.hasClass(UNSELECTING)) {
+                } else if (ctrlKey && toSelect.hasClass(UNSELECTING)) {
                     toSelect.removeClass(UNSELECTING).addClass(SELECTED);
                 }
             }

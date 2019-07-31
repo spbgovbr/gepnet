@@ -17,28 +17,28 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Evento_Model_Evento $model)
     {
-        try{
-               
-                $model->idevento = $this->maxVal('idevento');
-               // var_dump($model->idevento); exit;
-                
-                $data = array(
-                    "idevento"      => $model->idevento,
-                    "nomevento"     => $model->nomevento,
-                    "desevento"     => $model->desevento,
-                    "desobs"        => $model->desobs,
-                    "idcadastrador" => $model->idcadastrador,
-                    "idresponsavel" => $model->idresponsavel,
-                    "datcadastro"   => new Zend_Db_Expr("now()"),
-                    "datinicio"     => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
-                    "datfim"        => new Zend_Db_Expr("to_date('" . $model->datfim->toString('Y-m-d') . "','YYYY-MM-DD')"),
-                    "uf"            => $model->uf,
-                );
-                $retorno = $this->getDbTable()->insert($data);
-                return $retorno;
-                
-        }catch( Exeption $exc ){
-                throw $exc;
+        try {
+
+            $model->idevento = $this->maxVal('idevento');
+            // var_dump($model->idevento); exit;
+
+            $data = array(
+                "idevento" => $model->idevento,
+                "nomevento" => $model->nomevento,
+                "desevento" => $model->desevento,
+                "desobs" => $model->desobs,
+                "idcadastrador" => $model->idcadastrador,
+                "idresponsavel" => $model->idresponsavel,
+                "datcadastro" => new Zend_Db_Expr("now()"),
+                "datinicio" => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
+                "datfim" => new Zend_Db_Expr("to_date('" . $model->datfim->toString('Y-m-d') . "','YYYY-MM-DD')"),
+                "uf" => $model->uf,
+            );
+            $retorno = $this->getDbTable()->insert($data);
+            return $retorno;
+
+        } catch (Exeption $exc) {
+            throw $exc;
         }
     }
 
@@ -51,25 +51,25 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
     public function update(Evento_Model_Evento $model)
     {
         $data = array(
-            "idevento"      => $model->idevento,
-            "nomevento"     => $model->nomevento,
-            "desevento"     => $model->desevento,
-            "desobs"        => $model->desobs,
+            "idevento" => $model->idevento,
+            "nomevento" => $model->nomevento,
+            "desevento" => $model->desevento,
+            "desobs" => $model->desobs,
             "idresponsavel" => $model->idresponsavel,
-            "datinicio"     => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "datfim"        => new Zend_Db_Expr("to_date('" . $model->datfim->toString('Y-m-d') . "','YYYY-MM-DD')"),
-            "uf"            => $model->uf,
+            "datinicio" => new Zend_Db_Expr("to_date('" . $model->datinicio->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "datfim" => new Zend_Db_Expr("to_date('" . $model->datfim->toString('Y-m-d') . "','YYYY-MM-DD')"),
+            "uf" => $model->uf,
         );
         //var_dump($data); exit;
         try {
-        	$pks     = array(
-        			"idevento" => $model->idevento,
-        	);
-        	$where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
-        	$retorno = $this->getDbTable()->update($data, $where);
-        	return $retorno;
-        } catch ( Exception $exc ) {
-        	throw $exc;
+            $pks = array(
+                "idevento" => $model->idevento,
+            );
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $retorno = $this->getDbTable()->update($data, $where);
+            return $retorno;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
 
@@ -77,7 +77,7 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
     {
         return $this->_getForm(Evento_Form_Evento);
     }
-    
+
     public function getById($params)
     {
         $sql = "SELECT 
@@ -98,24 +98,24 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
                     agepnet200.tb_pessoa p
                  WHERE
                     e.idresponsavel = p.idpessoa
-                    and e.idevento = :idevento" ;
-        
+                    and e.idevento = :idevento";
+
         $resultado = $this->_db->fetchRow($sql, array('idevento' => $params['idevento']));
         $evento = new Evento_Model_Evento($resultado);
         return $evento;
     }
-    
+
     public function fetchPairs()
     {
         $sql = "SELECT 
                       idevento,
                       nomevento
                  FROM 
-                    agepnet200.tb_evento" ;
-                 
+                    agepnet200.tb_evento";
+
         return $this->_db->fetchPairs($sql);
     }
-    
+
     public function pesquisar($params, $paginator = false)
     {
         $sql = "SELECT 
@@ -134,20 +134,20 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
                     agepnet200.tb_evento e,
                     agepnet200.tb_pessoa p
                  WHERE
-                    e.idresponsavel = p.idpessoa" ;
-        
-         
-         $params = array_filter($params);
-         if (isset($params['nomevento'])) {
-             $nomevento = strtoupper($params['nomevento']);
-             $sql .= " AND upper(e.nomevento) LIKE '%{$nomevento}%'";
-         }
-         
-         if ( isset($params['sidx']) ) {
+                    e.idresponsavel = p.idpessoa";
+
+
+        $params = array_filter($params);
+        if (isset($params['nomevento'])) {
+            $nomevento = strtoupper($params['nomevento']);
+            $sql .= " AND upper(e.nomevento) LIKE '%{$nomevento}%'";
+        }
+
+        if (isset($params['sidx'])) {
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
-        
-         if ($paginator) {
+
+        if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
             $limit = (isset($params['rows'])) ? $params['rows'] : 20;
             $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
@@ -158,7 +158,7 @@ class Evento_Model_Mapper_Evento extends App_Model_Mapper_MapperAbstract
 
         $resultado = $this->_db->fetchAll($sql);
         return $resultado;
-        
+
     }
 
 }

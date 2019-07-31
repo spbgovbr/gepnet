@@ -1,0 +1,175 @@
+<?php
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/relatorio/index.css')) /*SAPS 110567*/
+;
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/relatorio/relatorio-individual.js?' . time()), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'relatorio', 'idprojeto' => $this->projeto->idprojeto));
+    ?>
+</div>
+<div class="region-center">
+    <?php echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->projeto)); ?>
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+        </div>
+        <div class="btn-group">
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'tap',
+                'action' => 'imprimir',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Termo de Abertura</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'planoprojeto',
+                'action' => 'imprimir',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Plano do Projeto</a>
+            <a class="btn" target="_blank"
+               href="<?php echo $this->baseUrl('/projeto/atareuniao/imprimir/idprojeto/') . $this->projeto->idprojeto . '/print/all'; ?>">Ata
+                de Reunião</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'termoaceite',
+                'action' => 'imprimir-todos',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Termo de Aceite</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'solicitacaomudanca',
+                'action' => 'imprimir',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Solicitação de Mudança</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'termoencerramento',
+                'action' => 'imprimir',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Termo de Encerramento</a>
+            <a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'statusreport',
+                'action' => 'visualizarimpressao',
+                'idprojeto' => $this->projeto->idprojeto,
+                'idstatusreport' => $this->acompanhamento->idstatusreport
+            )); ?>">Visualizar impressão</a>
+            <!--<a class="btn" target="_blank" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'statusreport',
+                'action' => 'imprimir-pdf',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">Visualizar impressão</a>-->
+        </div>
+    </div>
+    <div class="row"><span
+                class="relspan">Relat&oacute;rio de Acompanhamento gerado em &nbsp;<?php echo $this->acompanhamento->datacompanhamento->toString('d/m/Y'); ?></span>
+    </div>
+    <?php if ($this->acompanhamento): ?>
+        <?php echo $this->partial('_partials/status-report-graficos-individuais.phtml', array(
+            'acompanhamento' => $this->acompanhamento,
+            'entregasMarcos' => $this->entregasMarcos,
+            'proximoMarco' => $this->proximoMarco
+        )); ?>
+    <?php endif; ?>
+    <table id="list2"></table>
+    <div id="toolbar2"></div>
+    <div id="pager2"></div>
+    <input type="hidden" id="ip" value="<?php echo $this->projeto->idprojeto; ?>">
+    <input type="hidden" id="idprojeto" value="<?php echo $this->projeto->idprojeto; ?>">
+
+    <input type="hidden" id="idst" value="<?php echo $this->acompanhamento->idstatusreport; ?>">
+    <input type="hidden" id="idUltimoStatus" value="<?php echo $this->idUltimoStatus; ?>">
+    <input type="hidden" id="risco" value="<?php echo $this->acompanhamento->domcorrisco; ?>">
+    <input type="hidden" id="cf" value="<?php echo $this->projeto->numcriteriofarol; ?>">
+    <input type="hidden" id="dm" value="<?php echo $this->diasmarco; ?>">
+    <input type="hidden" id="uPrazo" value="<?php echo $this->ultimoPrazo; ?>">
+    <?php if ($this->acompanhamento): ?>
+        <?php /* var_dump($this->projeto); */
+        echo $this->partial('_partials/status-report-acompanhamento-individual.phtml', array(
+            'acompanhamento' => $this->acompanhamento,
+            'entregasMarcos' => $this->entregasMarcos,
+            'proximoMarco' => $this->proximoMarco
+        )); ?>
+        <?php /* var_dump($this->projeto); */
+        echo $this->partial('_partials/status-report-entregas-marcos-individual.phtml',
+            array('entregasMarcos' => $this->entregasMarcos, 'projeto' => $this->projeto)); ?>
+    <?php endif; ?>
+
+</div>
+<div class="region-east">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Consulta</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <label>Acompanhamento</label>
+                            <select id="idstatusreport">
+                                <option value="">Selecione</option>
+                                <?php
+                                $i = 0;
+                                foreach ($this->listaAcompanhamentos as $acomp):
+                                    $i++;
+                                    ?>
+                                    <option value="<?php echo $acomp->idstatusreport; ?>"><?php echo $i . " - " . $acomp->datacompanhamento; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="span3">
+                            <div class="btn-group">
+                                <input type="hidden" id="idprojeto" value="<?php echo $this->projeto->idprojeto; ?>">
+                                <input type="hidden" id="idst"
+                                       value="<?php echo $this->acompanhamento->idstatusreport; ?>">
+                                <input type="hidden" id="risco"
+                                       value="<?php echo $this->acompanhamento->domcorrisco; ?>">
+                                <input type="hidden" id="cf" value="<?php echo $this->projeto->numcriteriofarol; ?>">
+                                <input type="hidden" id="dm" value="<?php echo $this->diasmarco; ?>">
+                                <input type="hidden" id="uPrazo" value="<?php echo $this->ultimoPrazo; ?>">
+                                <button class="btn" type="button" id="pesquisa">Pesquisar</button>
+                                <?php //echo $this->form->submit; ?>
+                                <?php echo $this->form->reset; ?>
+                                <?php echo $this->form->close; ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialog-editar" style="display: none"></div>
+<div id="dialog-excluir" style="display: none"></div>
+<div id="dialog-detalhar" style="display: none"></div>

@@ -1,0 +1,13 @@
+/*RDM# 21064*/
+
+.region-center {
+    overflow: hidden !important;
+}
+
+.ui-jqgrid-bdiv {
+    /*height: 288px !important;*/
+}
+
+.region-east {
+    overflow: auto !important;
+}

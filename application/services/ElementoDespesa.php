@@ -16,12 +16,12 @@ class Default_Service_ElementoDespesa extends App_Service_ServiceAbstract
 
     /**
      *
-     * @var Zend_Db_Adapter_Abstract 
+     * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -30,17 +30,17 @@ class Default_Service_ElementoDespesa extends App_Service_ServiceAbstract
         $this->_mapper = new Default_Model_Mapper_Elementodespesa();
     }
 
-    
+
     public function fetchPairs()
     {
-        $data =  $this->_mapper->fetchPairs();
+        $data = $this->_mapper->fetchPairs();
         $retorno[''] = 'Todos';
-        foreach($data as $d){
+        foreach ($data as $d) {
             $retorno[] = $d;
         }
         return $retorno;
     }
-    
+
     public function getById($params)
     {
         return $this->_mapper->getById($params);

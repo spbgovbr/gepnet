@@ -8,8 +8,16 @@
 -------------------------------------------------------------- */
 
 /* Indentation instead of line shifts for sibling paragraphs. */
-   p + p { text-indent:2em; margin-top:-1.5em; }
-   form p + p  { text-indent: 0; } /* Don't want this in forms. */
+p + p {
+    text-indent: 2em;
+    margin-top: -1.5em;
+}
+
+form p + p {
+    text-indent: 0;
+}
+
+/* Don't want this in forms. */
 
 
 /* For great looking type, use this code instead of asdf:
@@ -17,10 +25,10 @@
    Best used on prepositions and ampersands. */
 
 .alt {
-  color: #666;
-  font-family: "Warnock Pro", "Goudy Old Style","Palatino","Book Antiqua", Georgia, serif;
-  font-style: italic;
-  font-weight: normal;
+    color: #666;
+    font-family: "Warnock Pro", "Goudy Old Style", "Palatino", "Book Antiqua", Georgia, serif;
+    font-style: italic;
+    font-weight: normal;
 }
 
 
@@ -29,7 +37,9 @@
    (That is, when the title starts with a quote mark).
    (You may have to change this value depending on your font size). */
 
-.dquo { margin-left: -.5em; }
+.dquo {
+    margin-left: -.5em;
+}
 
 
 /* Reduced size type with incremental leading
@@ -51,9 +61,9 @@
      14.4px / 10px = 1.44 (new line height in em's) */
 
 p.incr, .incr p {
-  font-size: 10px;
-  line-height: 1.44em;
-  margin-bottom: 1.5em;
+    font-size: 10px;
+    line-height: 1.44em;
+    margin-bottom: 1.5em;
 }
 
 
@@ -61,11 +71,11 @@ p.incr, .incr p {
    Based on work by Jørgen Arnor Gårdsø Lom [http://twistedintellect.com/] */
 
 .caps {
-  font-variant: small-caps;
-  letter-spacing: 1px;
-  text-transform: lowercase;
-  font-size:1.2em;
-  line-height:1%;
-  font-weight:bold;
-  padding:0 2px;
+    font-variant: small-caps;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+    font-size: 1.2em;
+    line-height: 1%;
+    font-weight: bold;
+    padding: 0 2px;
 }

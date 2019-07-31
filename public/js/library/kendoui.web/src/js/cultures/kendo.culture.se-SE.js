@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["se-SE"] = {
         name: "se-SE",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["sotnabeaivi","mánnodat","disdat","gaskavahkku","duorastat","bearjadat","lávvardat"],
-                    namesAbbr: ["sotn","mán","dis","gask","duor","bear","láv"],
-                    namesShort: ["s","m","d","g","d","b","l"]
+                    names: ["sotnabeaivi", "mánnodat", "disdat", "gaskavahkku", "duorastat", "bearjadat", "lávvardat"],
+                    namesAbbr: ["sotn", "mán", "dis", "gask", "duor", "bear", "láv"],
+                    namesShort: ["s", "m", "d", "g", "d", "b", "l"]
                 },
                 months: {
-                    names: ["ođđajagemánnu","guovvamánnu","njukčamánnu","cuoŋománnu","miessemánnu","geassemánnu","suoidnemánnu","borgemánnu","čakčamánnu","golggotmánnu","skábmamánnu","juovlamánnu",""],
-                    namesAbbr: ["ođđj","guov","njuk","cuo","mies","geas","suoi","borg","čakč","golg","skáb","juov",""]
+                    names: ["ođđajagemánnu", "guovvamánnu", "njukčamánnu", "cuoŋománnu", "miessemánnu", "geassemánnu", "suoidnemánnu", "borgemánnu", "čakčamánnu", "golggotmánnu", "skábmamánnu", "juovlamánnu", ""],
+                    namesAbbr: ["ođđj", "guov", "njuk", "cuo", "mies", "geas", "suoi", "borg", "čakč", "golg", "skáb", "juov", ""]
                 },
                 AM: [""],
                 PM: [""],

@@ -1,0 +1,61 @@
+/*SAPS 110567*/
+
+.ui-layout-pane-west {
+    overflow: auto !important;
+    width: 42px !important;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    margin-left: -10px !important;
+}
+
+.ui-corner-bottom {
+    margin-top: -300px !important;
+}
+
+.ui-widget-content {
+
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    /* margin-top: -10px; */
+}
+
+#list2 {
+    /* height: 200px !important; */
+}
+
+#form-assinaDoc {
+    overflow: hidden;
+}
+
+.estatistica {
+    font-size: 40px !important;
+    line-height: 55px !important;
+    margin-left: 150px !important;
+    margin: 20px;
+}
+
+.ui-jqgrid .ui-widget .ui-widget-content .ui-corner-all {
+    width: 524% !important;
+    overflow-x: auto !important;
+    height: auto !important;
+}
+
+.labelSecao {
+    color: #ffffff;
+    background-color: #E7D9A8;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.labelPergunta {
+    color: #000000 !important;
+    /*background-color: #E7D9A8;*/
+    text-align: justify;
+    font-size: 15px !important;
+    /*font-weight: bold !important;*/
+    padding: 2px !important;
+}

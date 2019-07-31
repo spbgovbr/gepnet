@@ -1,78 +1,117 @@
 <script>
-    
-    $(function(){
+
+    $(function () {
         $.pnotify.defaults.history = false;
-    
+
         $('.mask-date').datepicker({
-                changeMonth: true,
-                changeYear: true
+            changeMonth: true,
+            changeYear: true
         });
         $('.mask-date').mask('99/99/9999');
         $('.mask-hora').mask('99:99:99');
+
+        //limitadores de campo textarea
+        $("body").delegate("#desparticipante", "focusin", function () {
+            var max = $(this).attr('data-rule-maxlength');
+            $(this).limit(max, '#contDesParticipante');
+        });
+        $("body").delegate("#despontodiscutido", "focusin", function () {
+            var max = $(this).attr('data-rule-maxlength');
+            $(this).limit(max, '#contDesPontoDiscutido');
+        });
+        $("body").delegate("#desdecisao", "focusin", function () {
+            var max = $(this).attr('data-rule-maxlength');
+            $(this).limit(max, '#contDesDecisao');
+        });
+        $("body").delegate("#despontoatencao", "focusin", function () {
+            var max = $(this).attr('data-rule-maxlength');
+            $(this).limit(max, '#contDesPontoAtencao');
+        });
+        $("body").delegate("#desproximopasso", "focusin", function () {
+            var max = $(this).attr('data-rule-maxlength');
+            $(this).limit(max, '#contDesProximoPasso');
+        });
     });
-    
+
 </script>
 
-<?php $frmAttr = $this->form->getAttribs(); 
-       $linkImprimir = '/projeto/atareuniao/imprimir/print/one/idata/'.$this->form->idata->getValue().'/idprojeto/'.$this->form->idprojeto->getValue();
+<?php $frmAttr = $this->form->getAttribs();
+$linkImprimir = '/projeto/atareuniao/imprimir/print/one/idata/' . $this->form->idata->getValue() . '/idprojeto/' . $this->form->idprojeto->getValue();
 ?>
 
 <div class="region-center">
     <div class="portlet portlet-marron">
         <div class="content">
-                <form id="<?php echo $frmAttr['id']; ?>"
-                        name="<?php echo $frmAttr['id']; ?>"
-                        action="<?php echo $this->form->getAction(); ?>"
-                        method="<?php echo $frmAttr['method']; ?>">    
-                        <div class="row">
-                            <a class="btn" style="float: right;" title="Imprimir" href="<?php echo $this->baseUrl($linkImprimir)?>">
-                                    <i class="icon-print"></i> &nbsp;Gerar Ata Reunião
-                                </a>
-                        </div>
-                         <div class="row">                                                                       
-                        <?php echo $this->form->idprojeto ?>
-                        <?php echo $this->form->idata ?>
-                        <div class="span3">
-                            <?php echo $this->form->deslocal ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->datata ?>                
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->hrreuniao ?>
-                        </div>
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <div class="row">
+                    <a class="btn" style="float: right;" title="Imprimir"
+                       href="<?php echo $this->baseUrl($linkImprimir) ?>">
+                        <i class="icon-print"></i> &nbsp;Gerar Ata Reunião
+                    </a>
+                </div>
+                <div class="row">
+                    <?php echo $this->form->idprojeto ?>
+                    <?php echo $this->form->idata ?>
+                    <div class="span3">
+                        <?php echo $this->form->deslocal ?>
                     </div>
-                    <div class="row">
-                        <div class="span5">
-                            <?php echo $this->form->desassunto ?>
-                        </div>
+                    <div class="span2">
+                        <?php echo $this->form->datata ?>
                     </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo  $this->form->desparticipante?>
-                        </div>
+                    <div class="span2">
+                        <?php echo $this->form->hrreuniao ?>
                     </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo  $this->form->despontodiscutido?>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="span5">
+                        <?php echo $this->form->desassunto ?>
                     </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo  $this->form->desdecisao?>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <?php echo $this->form->desparticipante ?>
+                        <strong>Restam <span id="contDesParticipante" style="color: red"></span> caracteres a serem
+                            digitados.</strong>
                     </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo  $this->form->despontoatencao?>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <?php echo $this->form->despontodiscutido ?>
+                        <strong>Restam <span id="contDesPontoDiscutido" style="color: red"></span> caracteres a serem
+                            digitados.</strong>
                     </div>
-                    <div class="row">
-                        <div class="span10">
-                            <?php echo  $this->form->desproximopasso?>
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <?php echo $this->form->desdecisao ?>
+                        <strong>Restam <span id="contDesDecisao" style="color: red"></span> caracteres a serem
+                            digitados.</strong>
                     </div>
-                </form>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <?php echo $this->form->despontoatencao ?>
+                        <strong>Restam <span id="contDesPontoAtencao" style="color: red"></span> caracteres a serem
+                            digitados.</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span10">
+                        <?php echo $this->form->desproximopasso ?>
+                        <strong>Restam <span id="contDesProximoPasso" style="color: red"></span> caracteres a serem
+                            digitados.</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                        obrigatório
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

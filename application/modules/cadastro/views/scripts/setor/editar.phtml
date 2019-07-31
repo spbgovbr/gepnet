@@ -4,9 +4,9 @@ $frmAttr = $this->form->getAttribs();
 <div class="row">
     <div class="portlet portlet-marron span10">
         <div class="content">
-            <form id="form-setor-editar" 
-                  name="form-setor-editar"  
-                  action="" 
+            <form id="form-setor-editar"
+                  name="form-setor-editar"
+                  action=""
                   method="<?php echo $frmAttr['method']; ?>">
                 <?php echo $this->form->idsetor; ?>
                 <div class="row">
@@ -20,13 +20,19 @@ $frmAttr = $this->form->getAttribs();
                             <div class="span">
                                 <?php echo $this->form->flaativo; ?>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-        </form>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                        obrigatório
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 

@@ -40,47 +40,47 @@ class Zend_Reflection_File implements Reflector
     /**
      * @var string
      */
-    protected $_filepath        = null;
+    protected $_filepath = null;
 
     /**
      * @var string
      */
-    protected $_docComment      = null;
+    protected $_docComment = null;
 
     /**
      * @var int
      */
-    protected $_startLine       = 1;
+    protected $_startLine = 1;
 
     /**
      * @var int
      */
-    protected $_endLine         = null;
+    protected $_endLine = null;
 
     /**
      * @var string[]
      */
-    protected $_requiredFiles   = array();
+    protected $_requiredFiles = array();
 
     /**
      * @var Zend_Reflection_Class[]
      */
-    protected $_classes         = array();
+    protected $_classes = array();
 
     /**
      * @var Zend_Reflection_Function[]
      */
-    protected $_functions       = array();
+    protected $_functions = array();
 
     /**
      * @var string
      */
-    protected $_contents        = null;
+    protected $_contents = null;
 
     /**
      * Constructor
      *
-     * @param  string $file
+     * @param string $file
      * @return void
      */
     public function __construct($file)
@@ -104,7 +104,7 @@ class Zend_Reflection_File implements Reflector
     /**
      * Find realpath of file based on include_path
      *
-     * @param  string $fileName
+     * @param string $fileName
      * @return string
      */
     public static function findRealpathInIncludePath($fileName)
@@ -114,7 +114,7 @@ class Zend_Reflection_File implements Reflector
         while (count($includePaths) > 0) {
             $filePath = array_shift($includePaths) . DIRECTORY_SEPARATOR . $fileName;
 
-            if ( ($foundRealpath = realpath($filePath)) !== false) {
+            if (($foundRealpath = realpath($filePath)) !== false) {
                 break;
             }
         }
@@ -127,8 +127,8 @@ class Zend_Reflection_File implements Reflector
      *
      * Required by the Reflector interface.
      *
-     * @todo   What should this do?
      * @return null
+     * @todo   What should this do?
      */
     public static function export()
     {
@@ -178,7 +178,7 @@ class Zend_Reflection_File implements Reflector
     /**
      * Return the docblock
      *
-     * @param  string $reflectionClass Reflection class to use
+     * @param string $reflectionClass Reflection class to use
      * @return Zend_Reflection_Docblock
      */
     public function getDocblock($reflectionClass = 'Zend_Reflection_Docblock')
@@ -194,7 +194,7 @@ class Zend_Reflection_File implements Reflector
     /**
      * Return the reflection classes of the classes found inside this file
      *
-     * @param  string $reflectionClass Name of reflection class to use for instances
+     * @param string $reflectionClass Name of reflection class to use for instances
      * @return array Array of Zend_Reflection_Class instances
      */
     public function getClasses($reflectionClass = 'Zend_Reflection_Class')
@@ -214,7 +214,7 @@ class Zend_Reflection_File implements Reflector
     /**
      * Return the reflection functions of the functions found inside this file
      *
-     * @param  string $reflectionClass Name of reflection class to use for instances
+     * @param string $reflectionClass Name of reflection class to use for instances
      * @return array Array of Zend_Reflection_Functions
      */
     public function getFunctions($reflectionClass = 'Zend_Reflection_Function')
@@ -234,8 +234,8 @@ class Zend_Reflection_File implements Reflector
     /**
      * Retrieve the reflection class of a given class found in this file
      *
-     * @param  null|string $name
-     * @param  string $reflectionClass Reflection class to use when creating reflection instance
+     * @param null|string $name
+     * @param string $reflectionClass Reflection class to use when creating reflection instance
      * @return Zend_Reflection_Class
      * @throws Zend_Reflection_Exception for invalid class name or invalid reflection class
      */
@@ -280,8 +280,8 @@ class Zend_Reflection_File implements Reflector
      *
      * Required by the Reflector interface
      *
-     * @todo   What should this serialization look like?
      * @return string
+     * @todo   What should this serialization look like?
      */
     public function __toString()
     {
@@ -298,12 +298,12 @@ class Zend_Reflection_File implements Reflector
     protected function _reflect()
     {
         $contents = $this->_contents;
-        $tokens   = token_get_all($contents);
+        $tokens = token_get_all($contents);
 
         $functionTrapped = false;
-        $classTrapped    = false;
-        $requireTrapped  = false;
-        $openBraces      = 0;
+        $classTrapped = false;
+        $requireTrapped = false;
+        $openBraces = 0;
 
         $this->_checkFileDocBlock($tokens);
 
@@ -321,16 +321,18 @@ class Zend_Reflection_File implements Reflector
              */
 
             if (is_array($token)) {
-                $type    = $token[0];
-                $value   = $token[1];
+                $type = $token[0];
+                $value = $token[1];
                 $lineNum = $token[2];
             } else {
                 // It's a symbol
                 // Maintain the count of open braces
                 if ($token == '{') {
                     $openBraces++;
-                } else if ($token == '}') {
-                    $openBraces--;
+                } else {
+                    if ($token == '}') {
+                        $openBraces--;
+                    }
                 }
 
                 continue;
@@ -351,7 +353,7 @@ class Zend_Reflection_File implements Reflector
                 // Required file names are T_CONSTANT_ENCAPSED_STRING
                 case T_CONSTANT_ENCAPSED_STRING:
                     if ($requireTrapped) {
-                        $this->_requiredFiles[] = $value ."\n";
+                        $this->_requiredFiles[] = $value . "\n";
                         $requireTrapped = false;
                     }
                     continue;
@@ -389,19 +391,20 @@ class Zend_Reflection_File implements Reflector
     /**
      * Validate / check a file level docblock
      *
-     * @param  array $tokens Array of tokenizer tokens
+     * @param array $tokens Array of tokenizer tokens
      * @return void
      */
-    protected function _checkFileDocBlock($tokens) {
+    protected function _checkFileDocBlock($tokens)
+    {
         foreach ($tokens as $token) {
-            $type    = $token[0];
-            $value   = $token[1];
+            $type = $token[0];
+            $value = $token[1];
             $lineNum = $token[2];
-            if(($type == T_OPEN_TAG) || ($type == T_WHITESPACE)) {
+            if (($type == T_OPEN_TAG) || ($type == T_WHITESPACE)) {
                 continue;
             } elseif ($type == T_DOC_COMMENT) {
                 $this->_docComment = $value;
-                $this->_startLine  = $lineNum + substr_count($value, "\n") + 1;
+                $this->_startLine = $lineNum + substr_count($value, "\n") + 1;
                 return;
             } else {
                 // Only whitespace is allowed before file docblocks

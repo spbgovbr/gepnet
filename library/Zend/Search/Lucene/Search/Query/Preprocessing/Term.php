@@ -63,15 +63,15 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
     /**
      * Class constructor.  Create a new preprocessing object for prase query.
      *
-     * @param string $word       Non-tokenized word (query parser lexeme) to search.
-     * @param string $encoding   Word encoding.
-     * @param string $fieldName  Field name.
+     * @param string $word Non-tokenized word (query parser lexeme) to search.
+     * @param string $encoding Word encoding.
+     * @param string $fieldName Field name.
      */
     public function __construct($word, $encoding, $fieldName)
     {
-        $this->_word     = $word;
+        $this->_word = $word;
         $this->_encoding = $encoding;
-        $this->_field    = $fieldName;
+        $this->_field = $fieldName;
     }
 
     /**
@@ -99,8 +99,8 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             require_once 'Zend/Search/Lucene/Search/Query/Preprocessing/Term.php';
             foreach ($searchFields as $fieldName) {
                 $subquery = new Zend_Search_Lucene_Search_Query_Preprocessing_Term($this->_word,
-                                                                                   $this->_encoding,
-                                                                                   $fieldName);
+                    $this->_encoding,
+                    $fieldName);
                 $rewrittenSubquery = $subquery->rewrite($index);
                 foreach ($rewrittenSubquery->getQueryTerms() as $term) {
                     $query->addTerm($term);
@@ -166,11 +166,12 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             foreach ($subPatterns as $id => $subPattern) {
                 // Append corresponding wildcard character to the pattern before each sub-pattern (except first)
                 if ($id != 0) {
-                    $pattern .= $word[ $subPattern[1] - 1 ];
+                    $pattern .= $word[$subPattern[1] - 1];
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
-                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0], $subPatternsEncoding);
+                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0],
+                    $subPatternsEncoding);
                 if (count($tokens) > 1) {
                     require_once 'Zend/Search/Lucene/Search/QueryParserException.php';
                     throw new Zend_Search_Lucene_Search_QueryParserException('Wildcard search is supported only for non-multiple word terms');
@@ -181,7 +182,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             }
 
             require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
             require_once 'Zend/Search/Lucene/Search/Query/Wildcard.php';
             $query = new Zend_Search_Lucene_Search_Query_Wildcard($term);
             $query->setBoost($this->getBoost());
@@ -207,7 +208,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
 
         if (count($tokens) == 1) {
             require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($tokens[0]->getTermText(), $this->_field);
             require_once 'Zend/Search/Lucene/Search/Query/Term.php';
             $query = new Zend_Search_Lucene_Search_Query_Term($term);
             $query->setBoost($this->getBoost());
@@ -239,7 +240,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
     /**
      * Query specific matches highlighting
      *
-     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter  Highlighter object (also contains doc for highlighting)
+     * @param Zend_Search_Lucene_Search_Highlighter_Interface $highlighter Highlighter object (also contains doc for highlighting)
      */
     protected function _highlightMatches(Zend_Search_Lucene_Search_Highlighter_Interface $highlighter)
     {
@@ -269,11 +270,12 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             foreach ($subPatterns as $id => $subPattern) {
                 // Append corresponding wildcard character to the pattern before each sub-pattern (except first)
                 if ($id != 0) {
-                    $pattern .= $word[ $subPattern[1] - 1 ];
+                    $pattern .= $word[$subPattern[1] - 1];
                 }
 
                 // Check if each subputtern is a single word in terms of current analyzer
-                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0], $subPatternsEncoding);
+                $tokens = Zend_Search_Lucene_Analysis_Analyzer::getDefault()->tokenize($subPattern[0],
+                    $subPatternsEncoding);
                 if (count($tokens) > 1) {
                     // Do nothing (nothing is highlighted)
                     return;
@@ -284,7 +286,7 @@ class Zend_Search_Lucene_Search_Query_Preprocessing_Term extends Zend_Search_Luc
             }
 
             require_once 'Zend/Search/Lucene/Index/Term.php';
-            $term  = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
+            $term = new Zend_Search_Lucene_Index_Term($pattern, $this->_field);
             require_once 'Zend/Search/Lucene/Search/Query/Wildcard.php';
             $query = new Zend_Search_Lucene_Search_Query_Wildcard($term);
 

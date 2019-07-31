@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.weekend {
+    background: #f4f7f4 !important;
+}
+
+.gantt_selected .weekend {
+    background: #FFF3A1 !important;
+}
+
+.well {
+    text-align: right;
+}
+
+@media (max-width: 991px) {
+    .nav-stacked > li {
+        float: left;
+    }
+}
+
+.container-fluid .row {
+    margin-bottom: 10px;
+}
+
+.container-fluid .gantt_wrapper {
+    height: 700px;
+    width: 100%;
+}
+
+.gantt_container {
+    border-radius: 4px;
+}
+
+.gantt_grid_scale {
+    background-color: transparent;
+}
+
+.gantt_hor_scroll {
+    margin-bottom: 1px;
+}

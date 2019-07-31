@@ -1,0 +1,46 @@
+#butons {
+    position: relative;
+    margin-left: 40px;
+    width: 80px;
+}
+
+.modal {
+    width: 365px;
+    height: 350px;
+}
+
+/*#message {*/
+/*text-decoration:none;*/
+/*font: bold 11px Verdana,Arial,Helvetica,sans-serif;*/
+/*color: #790000;*/
+/*font-size: 10px;*/
+/*}*/
+
+.modal.fade.in {
+    top: 0px;
+    position: fixed;
+    position: absolute;
+    /*display: block !important;*/
+}
+
+.modal-header {
+    padding: 0px;
+    border-bottom: 1px solid #eee;
+}
+
+.modal-body {
+    height: auto;
+    overflow: hidden;
+}
+
+.row {
+    margin-left: 0px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    margin-left: 5px;
+}
+
+
+

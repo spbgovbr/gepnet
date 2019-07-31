@@ -1,0 +1,37 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="row">
+    <div class="portlet portlet-azul span2">
+        <h3>Matrícula</h3>
+        <div class="content">
+            <?= $this->cd_matricula; ?>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <h3>Nome</h3>
+        <div class="content">
+            <?= $this->no_pessoa; ?>
+        </div>
+    </div>
+</div>
+
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->form->getAction(); ?>"
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->ds_senha; ?>
+        </div>
+        <div class="span4">
+            <?php echo $this->form->ds_senha_repeat; ?>
+        </div>
+    </div>
+    <div class="span4">
+        <?php echo $this->form->cd_lotacao; ?>
+        <?php echo $this->form->cd_pessoa; ?>
+        <?php echo $this->form->submit; ?>
+    </div>
+</form>
+<div class="span2 pull-right">(<span class="campos-obrigatorios"></span>) Campos obrigatórios</div>

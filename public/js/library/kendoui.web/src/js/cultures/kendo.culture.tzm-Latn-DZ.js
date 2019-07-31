@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["tzm-Latn-DZ"] = {
         name: "tzm-Latn-DZ",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": ",",
                 ".": ".",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Acer","Arime","Aram","Ahad","Amhadh","Sem","Sedh"],
-                    namesAbbr: ["Ace","Ari","Ara","Aha","Amh","Sem","Sed"],
-                    namesShort: ["Ac","Ar","Ar","Ah","Am","Se","Se"]
+                    names: ["Acer", "Arime", "Aram", "Ahad", "Amhadh", "Sem", "Sedh"],
+                    namesAbbr: ["Ace", "Ari", "Ara", "Aha", "Amh", "Sem", "Sed"],
+                    namesShort: ["Ac", "Ar", "Ar", "Ah", "Am", "Se", "Se"]
                 },
                 months: {
-                    names: ["Yenayer","Furar","Maghres","Yebrir","Mayu","Yunyu","Yulyu","Ghuct","Cutenber","Ktuber","Wambir","Dujanbir",""],
-                    namesAbbr: ["Yen","Fur","Mag","Yeb","May","Yun","Yul","Ghu","Cut","Ktu","Wam","Duj",""]
+                    names: ["Yenayer", "Furar", "Maghres", "Yebrir", "Mayu", "Yunyu", "Yulyu", "Ghuct", "Cutenber", "Ktuber", "Wambir", "Dujanbir", ""],
+                    namesAbbr: ["Yen", "Fur", "Mag", "Yeb", "May", "Yun", "Yul", "Ghu", "Cut", "Ktu", "Wam", "Duj", ""]
                 },
                 AM: [""],
                 PM: [""],

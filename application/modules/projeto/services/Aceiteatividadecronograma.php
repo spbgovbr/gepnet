@@ -1,4 +1,5 @@
 <?php
+
 class Projeto_Service_Aceiteatividadecronograma extends App_Service_ServiceAbstract
 {
 
@@ -12,7 +13,7 @@ class Projeto_Service_Aceiteatividadecronograma extends App_Service_ServiceAbstr
     protected $_dependencies = array(
         'db'
     );
-     /**
+    /**
      * @var Zend_Db_Adapter_Abstract
      */
     protected $_db = null;
@@ -27,7 +28,8 @@ class Projeto_Service_Aceiteatividadecronograma extends App_Service_ServiceAbstr
         $this->_mapper = new Projeto_Model_Mapper_Aceiteatividadecronograma();
     }
 
-    public function getForm($params){
+    public function getForm($params)
+    {
         $serviceAtivCronograma = new Projeto_Service_AtividadeCronograma();
         $fetchPairMarco = $serviceAtivCronograma->fetchPairsMarcosPorEntrega($params);
         $arrayMarco = $this->initCombo($fetchPairMarco, 'Selecione');
@@ -37,47 +39,51 @@ class Projeto_Service_Aceiteatividadecronograma extends App_Service_ServiceAbstr
         return $form;
     }
 
-    public function inserir($params){
+    public function inserir($params)
+    {
 
-        try{
+        try {
             $modelAceiteAtividadeCronograma = new Projeto_Model_Aceiteatividadecronograma($params);
             $modelAceiteAtividadeCronograma->aceito = $params['flaaceite'];
-            if($modelAceiteAtividadeCronograma->aceito=="S"){
-                $modelAceiteAtividadeCronograma->idpesaceitou=$params['idcadastrador'];
+            if ($modelAceiteAtividadeCronograma->aceito == "S") {
+                $modelAceiteAtividadeCronograma->idpesaceitou = $params['idcadastrador'];
                 $modelAceiteAtividadeCronograma->dataceitacao = new Zend_Db_Expr("now()");
             }
             $resultado = $this->_mapper->inserir($modelAceiteAtividadeCronograma);
             return $resultado;
-        } catch (Exception $exc){
-            $this->errors = array('msg'=>'Não foi possível inserir o registro.');
+        } catch (Exception $exc) {
+            $this->errors = array('msg' => 'Não foi possível inserir o registro.');
             return false;
         }
     }
 
     public function editar($params)
     {
-       try{
-           $model   = new Projeto_Model_Aceiteatividadecronograma($params);
-           $model->aceito = $params['flaaceite'];
-           $retorno = $this->_mapper->update($model);
-           //Zend_Debug::dump($model);exit;
-           return $retorno;
+        try {
+            $model = new Projeto_Model_Aceiteatividadecronograma($params);
+            $model->aceito = $params['flaaceite'];
+            $retorno = $this->_mapper->update($model);
+            //Zend_Debug::dump($model);exit;
+            return ($retorno ? true : false);
         } catch (Exception $exc) {
-            $this->errors = array('msg'=>'Não foi possível atualizar o registro.');
+            $this->errors = array('msg' => 'Não foi possível atualizar o registro.');
             return false;
         }
     }
 
-    public function getById($params){
+    public function getById($params)
+    {
         return $this->_mapper->getById($params);
     }
 
 
-    public function excluir($dados){
-       return $this->_mapper->delete($dados);
+    public function excluir($dados)
+    {
+        return $this->_mapper->delete($dados);
     }
 
-    public function initCombo($objeto, $msg) {
+    public function initCombo($objeto, $msg)
+    {
 
         $listArray = array();
         $listArray = array('' => $msg);

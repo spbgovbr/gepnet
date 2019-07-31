@@ -14,7 +14,8 @@
     <div class="portlet portlet-cinza span1_5">
         <h3>Avalia&ccedil;&atilde;o T&eacute;cnica</h3>
         <div class="content">
-            <?php echo number_format($this->avaliacao->nummedia, 2); ?> (<?php echo $this->avaliacao->numtotalavaliado; ?>)
+            <?php echo number_format($this->avaliacao->nummedia, 2); ?>
+            (<?php echo $this->avaliacao->numtotalavaliado; ?>)
         </div>
     </div>
     <div class="portlet portlet-cinza span1_5">
@@ -64,18 +65,18 @@
             </tr>
             </thead>
             <tbody>
-            <?php foreach($this->perguntas as $key => $pergunta): ?>
+            <?php foreach ($this->perguntas as $key => $pergunta): ?>
                 <tr>
                     <td style="padding: 0px 15px;"> <?php echo $pergunta; ?> </td>
-                    <td style="text-align: center;"> <?php echo ($this->avaliacao[$key] == '10')? "<i class='icon-check'></i>" : ""; ?> </td>
-                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '8')? "<i class='icon-check'></i>" : ""; ?> </td>
-                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '2')? "<i class='icon-check'></i>" : ""; ?> </td>
-                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '0')? "<i class='icon-check'></i>" : ""; ?> </td>
-                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '-1')? "<i class='icon-check'></i>" : ""; ?></td>
+                    <td style="text-align: center;"> <?php echo ($this->avaliacao[$key] == '10') ? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '8') ? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '2') ? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '0') ? "<i class='icon-check'></i>" : ""; ?> </td>
+                    <td style="text-align: center"> <?php echo ($this->avaliacao[$key] == '-1') ? "<i class='icon-check'></i>" : ""; ?></td>
                 </tr>
             <?php endforeach; ?>
             <tr>
-                <td colspan="6" style="color: #ff0000;"> * Não foi poss&iacute;vel avaliar </td>
+                <td colspan="6" style="color: #ff0000;"> * Não foi poss&iacute;vel avaliar</td>
             </tr>
             </tbody>
         </table>
@@ -83,7 +84,8 @@
 </div>
 <div class="row">
     <div class="portlet portlet-cinza span6">
-        <h3> O servidor destacou-se positivamente no cumprimento de alguma tarefa/miss&atilde;o? Em caso positivo, qual? </h3>
+        <h3> O servidor destacou-se positivamente no cumprimento de alguma tarefa/miss&atilde;o? Em caso positivo,
+            qual? </h3>
         <div class="content">
             <?php echo $this->avaliacao->desdestaqueservidor; ?>
         </div>

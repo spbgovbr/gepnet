@@ -2,14 +2,12 @@
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-;
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
 
 $this->headScript()
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/default/index/perfil.js'), 'text/javascript')
-;
+    ->appendFile($this->baseUrl('/js/app/default/index/perfil.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 ?>
@@ -17,15 +15,30 @@ $frmAttr = $this->form->getAttribs();
     <div class="title">Selecione um perfil</div>
     <div class="content">
         <form id="<?php echo $frmAttr['id']; ?>"
-                  name="<?php echo $frmAttr['id']; ?>"
-                  action="<?php echo $this->form->getAction(); ?>"
-                  method="<?php echo $frmAttr['method']; ?>">
-            <div class="span3">
+              name="<?php echo $frmAttr['id']; ?>"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+            <div class="span" style="margin-right: 10px;padding-right: 10px;">
                 <?php echo $this->form->idperfil; ?>
             </div>
             <div class="span2 actions-pesquisar">
                 <?php echo $this->form->submit; ?>
             </div>
         </form>
+    </div>
+</div>
+
+
+<div class="portlet span12">
+    <div class="content" style="padding: 30px 0px 120px 340px;">
+        <p>
+            Em caso de funcionamento anormal do sistema, pressione <FONT SIZE="2" COLOR="red">"Ctrl+F5"</FONT> para
+            limpeza do cache e
+            respectiva atualiza&ccedil;&atilde;o da p&aacute;gina do sistema.<br/><br/>
+            Em caso de d&uacute;vidas ou sugest&otilde;es, entre em contato com o Gestor do Sistema. <br/><br/>
+            Coordena&ccedil;&atilde;o de Gest&atilde;o Estrat&eacute;gica - CGE/PF <br/>
+            E-mail: cge@dpf.gov.br <br/>
+            Fone: (61) 2024-9592
+        </p>
     </div>
 </div>

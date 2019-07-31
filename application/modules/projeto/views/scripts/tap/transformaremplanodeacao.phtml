@@ -1,0 +1,162 @@
+<?php
+$this->headLink()->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'))
+    ->appendFile($this->baseUrl('/js/app/projeto/tap/transformaremplanodeacao.js'), 'text/javascript');
+$frmAttr = $this->form->getAttribs();
+?>
+
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'abertura', 'idprojeto' => $this->gerencia->idprojeto));
+    ?>
+</div>
+<div class="region-center">
+    <div class="portlet portlet-marron span12">
+        <h3>Transformar em Plano de Ação</h3>
+
+        <div class="content">
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <fieldset>
+                    <legend>Plano de Ação</legend>
+                    <div class="row">
+                        <div class="span10">
+                            <?php echo $this->form->nomprojeto; ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomcodigo; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idportfolio; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idprograma; ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->idobjetivo; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idacao; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idnatureza; ?>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->datinicio; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->datfim; ?>
+                        </div>
+                    </div>
+
+                    <div class="row container-pessoa">
+                        <div class="span3">
+                            <div class="control-group">
+                                <?php echo $this->form->nomproponente->renderLabel(); ?>
+                                <div class="input-prepend ">
+                                    <?php echo $this->form->pessoabutton; ?>
+                                    <?php echo $this->form->idproponente; ?>
+                                    <?php echo $this->form->nomproponente->renderViewHelper(); ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="span3">
+                            <?php echo $this->form->idsetor; ?>
+                        </div>
+
+                        <div class="span3">
+                            <?php
+                            if ($this->identiti == $this->perfil) {
+                                ?>
+                                <div class="span3" style="margin-left: -4px !important;">
+                                    <?php echo $this->form->idescritorio; ?>
+                                </div>
+                            <?php } else { ?>
+                                <div class="span3">
+                                    <p>Escritório Responsável</p>
+                                    <input type="hidden" name="idescritorio" id="idescritorio"
+                                           value="<?php echo $this->projetoIdEscritorio; ?>">
+                                    <textarea readonly="true"><?php echo $this->nomeEscritorio; ?></textarea>
+                                </div>
+
+                            <?php }; ?>
+                        </div>
+                    </div>
+                    <div class="row grid-append" style="display: none;">
+                    </div>
+
+                </fieldset>
+
+                <fieldset>
+                    <div class="row">
+                        <div class="span5">
+                            <?php echo $this->form->idprojeto; ?>
+                            <?php echo $this->form->idcadastrador; ?>
+                            <?php echo $this->form->idtipoiniciativa; ?>
+                            <?php echo $this->form->enviar; ?>
+                            <?php echo $this->form->reset; ?>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="dialog-transformarplanodeacao" style="display: none">
+    <div class="region-center">
+        <div class="portlet">
+            <form id="form-transformar-planodeacao"
+                  name="form-transformar-planodeacao"
+                  action="<?php echo $this->baseUrl(); ?>/projeto/tap/transformaremplanodeacao/format/json"
+                  method="post">
+                <div class="alert alert-block" style="font-size: 14px !important;">
+                    <h4>Aten&ccedil;&atilde;o!</h4>
+                    Voc&ecirc; est&aacute; prestes a <b>TRANSFORMAR</b> este Projeto em
+                    Plano de A&ccedil;&atilde;o.<br/><br/>
+                    <strong><?php echo $this->form->getValue('nomcodigo'); ?>
+                        - <?php echo $this->form->getValue('nomprojeto'); ?>
+                    </strong></br></br>  Ao concordar o campo Tipo Iniciativa ser&aacute; alterado para Plano de A&ccedil;&atilde;o,
+                    e o
+                    mesmo somente poder&aacute; ser<br/>
+                    acessado no M&oacute;dulo Plano de A&ccedil;&atilde;o/Gerenciar. Certifique-se que voc&ecirc; possui
+                    perfil de usu&aacute;rio
+                    para acessar o referido m&oacute;dulo.
+                </div>
+                <div class="row">
+                    <div class="span5">
+                        <input type="hidden" name="idprojeto" id="idprojeto"
+                               value="<?php echo $this->projeto['idprojeto']; ?>"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -5,23 +5,28 @@
         <form id="<?php echo $frmAttrPergunta['id']; ?>"
               name="<?php echo $frmAttrPergunta['id']; ?>"
               action="<?php echo $this->form->getAction(); ?>"
-              method="<?php echo $frmAttrPergunta['method']; ?>">    
+              method="<?php echo $frmAttrPergunta['method']; ?>">
             <?php echo $this->form->idfrase ?>
-            <div class="row-fluid">                                                                       
+            <div class="row-fluid">
                 <div class="span">
                     <?php echo $this->form->desfrase ?>
                 </div>
             </div>
-            <div class="row-fluid"> 
+            <div class="row-fluid">
                 <div class="span3">
                     <?php echo $this->form->domtipofrase ?>
                 </div>
             </div>
-            <div class="row-fluid"> 
+            <div class="row-fluid">
                 <div class="span2">
-                    <?php echo $this->form->flaativo ?>                
+                    <?php echo $this->form->flaativo ?>
                 </div>
             </div>
         </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 190px;">
+        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
     </div>
 </div>

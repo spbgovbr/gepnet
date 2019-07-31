@@ -1,0 +1,95 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'servidores', 'iddiagnostico' => $this->iddiagnostico));
+    ?>
+</div>
+<div class="region-center">
+    <?php echo $this->partial('_partials/questionario-pesquisaservidor-menu.phtml', array('dados' => $this->aba)); ?>
+    <div id="ii" class="informacoes" style="display: block">
+        <fieldset style="margin-left: 30px !important;">
+            <legend>Sumário</legend>
+            <div class="row">
+                <div class="portlet portlet-verde span5">
+                    <h3>Quantidade de questionários respondidos</h3>
+                    <div class="content estatistica">
+                        <span class="badge badge-success"
+                              style="font-size: 40px;line-height: 55px;"><?php echo $this->qtdQuestionarioRespondido; ?></span>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span5">
+                    <h3>Média geral do resultado das respostas numéricas</h3>
+                    <div class="content estatistica">
+                        <span class="badge badge-success"
+                              style="font-size: 40px;line-height: 55px;"><?php echo number_format($this->mediaGeralRespNumerica,
+                                1); ?></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portlet portlet-verde span10">
+                    <h3>Média geral do resultado das respostas numéricas, por resposta</h3>
+                    <div class="content">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <td>Questionário</td>
+                                <td>Seção</td>
+                                <td>Resposta</td>
+                                <td>Média</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if (count($this->mediaGeralPorResposta) > 0) :
+                                $idQuestionarioTeste = null;
+                                $idSecaoTeste = null;
+                                $rowspanQuestionario = 1;
+                                $rowspanSecao = 1;
+                                ?>
+                                <?php foreach ($this->mediaGeralPorResposta as $informacao) : ?>
+                                <tr>
+                                    <td><?php echo $informacao['nomquestionario']; ?></td>
+                                    <td><?php echo $informacao['secao']; ?></td>
+                                    <td><?php echo $informacao['desresposta']; ?></td>
+                                    <td style="text-align: center !important;"><?php echo number_format(($informacao['escala'] / $this->qtdQuestionarioRespondido),
+                                            1); ?></td>
+                                </tr>
+
+                                <?php $idQuestionarioTeste = $informacao['idquestionario']; ?>
+                                <?php $idSecaoTeste = $informacao['id_secao']; ?>
+                            <?php endforeach; ?>
+                            <?php endif; ?>
+                            <?php if (count($this->mediaGeralPorResposta) == 0) : ?>
+                                <tr>
+                                    <td colspan="4">Não existe média para esse diagnóstico</td>
+                                </tr>
+                            <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="region-center" style="padding-left: 28px; padding-top: 20px;">
+        <a data-target="#" id="btnPesquisaServidores" class="btn actionfrm excluir" title="Retornar para listagem"
+           href="
+            <?php echo $this->url(
+               array(
+                   'module' => 'diagnostico',
+                   'controller' => 'pesquisaservidores',
+                   'action' => 'listarquestionariorespondido',
+                   'tpquestionario' => '1'
+               )
+           );
+           ?>">Voltar
+        </a>
+    </div>
+</div>

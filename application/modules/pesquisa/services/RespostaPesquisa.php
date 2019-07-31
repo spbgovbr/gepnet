@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_RespostaPesquisa extends App_Service_ServiceAbstract {
+class Pesquisa_Service_RespostaPesquisa extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -23,27 +24,27 @@ class Pesquisa_Service_RespostaPesquisa extends App_Service_ServiceAbstract {
     {
         return $this->errors;
     }
-    
+
     public function inserirRespostaPesquisa($params)
     {
         $respostaPesquisa = new Pesquisa_Model_RespostaPesquisa();
-        
-        $respostaPesquisa->desresposta =  $params['tr_desresposta'];
-        $respostaPesquisa->flaativo =  $params['tr_flaativo'];
-        $respostaPesquisa->numordem =  $params['tr_numordem'];
-        $respostaPesquisa->datcadastro =  $params['tr_datcadastro'];
-        $respostaPesquisa->idcadastrador =  $params['tr_idcadastrador'];
-        
+
+        $respostaPesquisa->desresposta = $params['tr_desresposta'];
+        $respostaPesquisa->flaativo = $params['tr_flaativo'];
+        $respostaPesquisa->numordem = $params['tr_numordem'];
+        $respostaPesquisa->datcadastro = $params['tr_datcadastro'];
+        $respostaPesquisa->idcadastrador = $params['tr_idcadastrador'];
+
         $idrespostapesquisa = $this->_mapper->insert($respostaPesquisa);
         return $idrespostapesquisa;
     }
-    
-    public function inserirRespostaFrasePesquisa($params) 
+
+    public function inserirRespostaFrasePesquisa($params)
     {
         $respostaFrasePesquisa = new Pesquisa_Model_RespostaFrasePesquisa();
-        
+
         $respostaFrasePesquisa->idfrasepesquisa = $params['idfrasepesquisa'];
-        $respostaFrasePesquisa->idrespostapesquisa =  $params['idrespostapesquisa'];
+        $respostaFrasePesquisa->idrespostapesquisa = $params['idrespostapesquisa'];
         return $this->_mapperRepostaFrase->insert($respostaFrasePesquisa);
     }
 }

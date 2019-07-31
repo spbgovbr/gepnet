@@ -182,17 +182,17 @@ class Zend_Gdata_YouTube_Extension_MediaGroup extends Zend_Gdata_Media_Extension
                 break;
             case $this->lookupNamespace('yt') . ':' . 'videoid':
                 $videoid = new Zend_Gdata_YouTube_Extension_VideoId();
-                $videoid ->transferFromDOM($child);
+                $videoid->transferFromDOM($child);
                 $this->_videoid = $videoid;
                 break;
             case $this->lookupNamespace('yt') . ':' . 'uploaded':
                 $uploaded = new Zend_Gdata_YouTube_Extension_Uploaded();
-                $uploaded ->transferFromDOM($child);
+                $uploaded->transferFromDOM($child);
                 $this->_uploaded = $uploaded;
                 break;
-        default:
-            parent::takeChildFromDOM($child);
-            break;
+            default:
+                parent::takeChildFromDOM($child);
+                break;
         }
     }
 

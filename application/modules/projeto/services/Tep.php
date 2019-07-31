@@ -1,6 +1,7 @@
 <?php
 
-class Projeto_Service_Tep extends App_Service_ServiceAbstract {
+class Projeto_Service_Tep extends App_Service_ServiceAbstract
+{
 
     protected $_form;
 
@@ -14,7 +15,13 @@ class Projeto_Service_Tep extends App_Service_ServiceAbstract {
         'db'
     );
 
-    public function init() {
+    /**
+     * @var array
+     */
+    public $errors = array();
+
+    public function init()
+    {
         $this->_mapper = new Projeto_Model_Mapper_Tep();
         $this->_timeInterval = new App_TimeInterval();
     }
@@ -22,7 +29,8 @@ class Projeto_Service_Tep extends App_Service_ServiceAbstract {
     /**
      * @return Default_Form_Tep
      */
-    public function getFormTep() {
+    public function getFormTep()
+    {
         $formEditar = $this->_getForm('Projeto_Form_Tep');
         return $formEditar;
     }
@@ -32,14 +40,21 @@ class Projeto_Service_Tep extends App_Service_ServiceAbstract {
      * @param array $dados
      * @return boolean | array
      */
-    public function update($dados) {
+    public function update($dados)
+    {
+        if (@trim($dados['desprojeto']) != "") {
+            $dados['desprojeto'] = @mb_substr(@trim($dados['desprojeto']), 0, 4000);
+        }
+        if (@trim($dados['desobjetivo']) != "") {
+            $dados['desobjetivo'] = @mb_substr(@trim($dados['desobjetivo']), 0, 4000);
+        }
+        if (@trim($dados['desconsideracaofinal']) != "") {
+            $dados['desconsideracaofinal'] = @mb_substr(@trim($dados['desconsideracaofinal']), 0, 4000);
+        }
         $form = $this->getFormTep();
-
         if ($form->isValidPartial($dados)) {
-            $values = array_filter($form->getValues());
-//            var_dump($values); exit;
+            $values = $form->getValues();
             $model = new Projeto_Model_Tep($values);
-//            var_dump($model); exit;
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -48,9 +63,17 @@ class Projeto_Service_Tep extends App_Service_ServiceAbstract {
         }
     }
 
-    public function getById($dados) {
+    public function getById($dados)
+    {
         return $this->_mapper->getById($dados);
     }
+
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
 }
+
 ?>
 

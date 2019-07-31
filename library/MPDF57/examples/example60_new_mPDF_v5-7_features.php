@@ -1,10 +1,10 @@
 <?php
 
-ini_set("memory_limit","64M");
+ini_set("memory_limit", "64M");
 
 include("../mpdf.php");
 
-$mpdf=new mPDF(''); 
+$mpdf = new mPDF('');
 
 
 //==============================================================
@@ -558,24 +558,27 @@ dottab.menu { outdent: 4em; }
 
 ';
 
-$mpdf->h2toc = array('H3'=>0, 'H4'=>1);
-$mpdf->h2bookmarks = array('H3'=>0, 'H4'=>1);
+$mpdf->h2toc = array('H3' => 0, 'H4' => 1);
+$mpdf->h2bookmarks = array('H3' => 0, 'H4' => 1);
 
 $mpdf->open_layer_pane = false;
-$mpdf->layerDetails[1]['state']='hidden';	// Set initial state of layer - "hidden" or nothing
-$mpdf->layerDetails[1]['name']='Correct Answers';
-$mpdf->layerDetails[2]['state']='hidden';	// Set initial state of layer - "hidden" or nothing
-$mpdf->layerDetails[2]['name']='Wrong Answers';
+$mpdf->layerDetails[1]['state'] = 'hidden';    // Set initial state of layer - "hidden" or nothing
+$mpdf->layerDetails[1]['name'] = 'Correct Answers';
+$mpdf->layerDetails[2]['state'] = 'hidden';    // Set initial state of layer - "hidden" or nothing
+$mpdf->layerDetails[2]['name'] = 'Wrong Answers';
 
 //==============================================================
-if ($_REQUEST['html']) { echo $html; exit; }
-if ($_REQUEST['source']) { 
-	$file = __FILE__;
-	header("Content-Type: text/plain");
-	header("Content-Length: ". filesize($file));
-	header("Content-Disposition: attachment; filename='".$file."'");
-	readfile($file);
-	exit; 
+if ($_REQUEST['html']) {
+    echo $html;
+    exit;
+}
+if ($_REQUEST['source']) {
+    $file = __FILE__;
+    header("Content-Type: text/plain");
+    header("Content-Length: " . filesize($file));
+    header("Content-Disposition: attachment; filename='" . $file . "'");
+    readfile($file);
+    exit;
 }
 
 //==============================================================
@@ -583,7 +586,8 @@ if ($_REQUEST['source']) {
 $mpdf->WriteHTML($html);
 
 // OUTPUT
-$mpdf->Output(); exit;
+$mpdf->Output();
+exit;
 
 
 //==============================================================

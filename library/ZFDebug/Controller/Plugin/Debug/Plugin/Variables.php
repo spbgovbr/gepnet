@@ -72,18 +72,17 @@ class ZFDebug_Controller_Plugin_Debug_Plugin_Variables extends ZFDebug_Controlle
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewVars = $viewRenderer->view->getVars();
         $vars = '';
-        if ($this->_request->isPost())
-        {
+        if ($this->_request->isPost()) {
             $vars .= '<h4>$_POST</h4>'
-                   . '<div id="ZFDebug_post">' . $this->_cleanData($this->_request->getPost()) . '</div>';
+                . '<div id="ZFDebug_post">' . $this->_cleanData($this->_request->getPost()) . '</div>';
         }
 
         $vars .= '<h4>$_COOKIE</h4>'
-               . '<div id="ZFDebug_cookie">' . $this->_cleanData($this->_request->getCookie()) . '</div>'
-               . '<h4>Request</h4>'
-               . '<div id="ZFDebug_requests">' . $this->_cleanData($this->_request->getParams()) . '</div>'
-               . '<h4>View vars</h4>'
-               . '<div id="ZFDebug_vars">' . $this->_cleanData($viewVars) . '</div>';
+            . '<div id="ZFDebug_cookie">' . $this->_cleanData($this->_request->getCookie()) . '</div>'
+            . '<h4>Request</h4>'
+            . '<div id="ZFDebug_requests">' . $this->_cleanData($this->_request->getParams()) . '</div>'
+            . '<h4>View vars</h4>'
+            . '<div id="ZFDebug_vars">' . $this->_cleanData($viewVars) . '</div>';
         return $vars;
     }
 

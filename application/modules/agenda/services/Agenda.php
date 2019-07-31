@@ -1,6 +1,7 @@
 <?php
 
-class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
+class Agenda_Service_Agenda extends App_Service_ServiceAbstract
+{
 
     protected $_form;
 
@@ -14,14 +15,16 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
      */
     public $errors = array();
 
-    public function init() {
+    public function init()
+    {
         $this->_mapper = new Agenda_Model_Mapper_Agenda();
     }
 
     /**
      * @return Agenda_Form_Agenda
      */
-    public function getForm() {
+    public function getForm()
+    {
         $form = $this->_getForm('Agenda_Form_Agenda');
         return $form;
     }
@@ -30,21 +33,24 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
     /**
      * @return Agenda_Form_Agenda
      */
-    public function getFormPesquisar() {
+    public function getFormPesquisar()
+    {
         return $this->_getForm('Projeto_Form_GerenciaPesquisar');
     }
 
     /**
      * @return Agenda_Form_AgendaEditar
      */
-    public function getFormEditar() {
+    public function getFormEditar()
+    {
         $formEditar = $this->_getForm('Agenda_Form_Agenda');
         return $formEditar;
     }
 
 
     //put your code here
-    public function inserir($dados) {
+    public function inserir($dados)
+    {
         $form = $this->getForm();
 
         if ($form->isValid($dados)) {
@@ -68,7 +74,8 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
      * @param array $dados
      * @return boolean | array
      */
-    public function update($dados) {
+    public function update($dados)
+    {
 
         $form = $this->getForm();
         if ($form->isValidPartial($dados)) {
@@ -86,7 +93,8 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
      *
      * @param array $dados
      */
-    public function excluir($dados) {
+    public function excluir($dados)
+    {
         try {
             //$model = new Default_Model_Gerencia($dados);
             return $this->_mapper->excluir($dados);
@@ -96,10 +104,11 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
         }
     }
 
-    public function getById($dados, $model = false) {
+    public function getById($dados, $model = false)
+    {
 
-        $dados = $this->_mapper->getById($dados,$model);
-        if(isset($dados->participantes)){
+        $dados = $this->_mapper->getById($dados, $model);
+        if (isset($dados->participantes)) {
             $data = null;
             foreach ($dados->participantes->getIterator() as $p):
                 $data .= (empty($data) ? '' : ', ') . $p->nompessoa;
@@ -109,7 +118,8 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
         return $dados;
     }
 
-    public function getErrors() {
+    public function getErrors()
+    {
         return $this->errors;
     }
 
@@ -119,7 +129,8 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
      */
-    public function pesquisar($params) {
+    public function pesquisar($params)
+    {
 //        var_dump($params); exit;
         $service = App_Service_ServiceAbstract::getService('Agenda_Service_PessoaAgenda');
         $dados = $this->_mapper->pesquisar($params);
@@ -127,11 +138,11 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
 
 //        var_dump($dados); exit;
 
-        foreach($dados as $d){
+        foreach ($dados as $d) {
             $nomparticipantes = null;
             $params['idagenda'] = $d['idagenda'];
             $participantes = $service->retornaPartesPorAgenda($params);
-            foreach($participantes as $p){
+            foreach ($participantes as $p) {
                 $nomparticipantes .= (empty($nomparticipantes) ? null : ',') . $p['nompessoa'];
             }
             $array['cell'] = array(
@@ -155,14 +166,17 @@ class Agenda_Service_Agenda extends App_Service_ServiceAbstract {
 //        return $this->_mapper->pesquisar($params);
     }
 
-    public function retornaPartesPorAgenda($params,$model = false){
-        return $this->_mapper->retornaPartesPorAgenda($params,$model);
+    public function retornaPartesPorAgenda($params, $model = false)
+    {
+        return $this->_mapper->retornaPartesPorAgenda($params, $model);
     }
 
-    public function retornaDiasComEventos($params) {
+    public function retornaDiasComEventos($params)
+    {
         $dados = $this->_mapper->retornaDiasComEventos($params);
         return $dados;
     }
 }
+
 ?>
 

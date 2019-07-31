@@ -1,0 +1,99 @@
+<?php $frmAttr = $this->form->getAttribs(); ?>
+<style>
+    /*input#hashdoc {*/
+    /*padding-right: 135px;*/
+    /*/!*padding-right: 4px \9;*!/*/
+    /*padding-left: 200px;*/
+    /*/!*padding-left: 4px \9;*!/*/
+    /*margin-bottom: 0;*/
+    /*-webkit-border-radius: 15px;*/
+    /*-moz-border-radius: 15px;*/
+    /*border-radius: 15px;*/
+    /*margin-left: 212px;*/
+    /*}*/
+    form input {
+        margin-left: 400px;
+    }
+</style>
+
+<div class="container">
+    <div>
+        <?php if ($this->message): ?>
+            <div class="row-fluid">
+                <div class="span alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><?php echo $this->message; ?></strong>
+                </div>
+            </div>
+        <?php endif; ?>
+        <fieldset>
+            <legend>Assinaturas</legend>
+            <div class="row">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>"
+                      class="<?php echo $frmAttr['class']; ?>">
+                    <?php ?>
+                    <div class="row">
+                        <input type="text" name="hashdoc" id="hashdoc" size="200" maxlength="300">
+                        <button type="submit" name="valida" id="valida" class="btn">Validar</button>
+                        <button type="reset" class="btn">Limpar</button>
+                    </div>
+                </form>
+
+            </div>
+            <div id="assinaturas" class="row">
+                <table class="table table-bordered table-hover table-striped span10">
+                    <thead>
+                    <th>Nome</th>
+                    <th>Matr&iacute;cula</th>
+                    <th>Data/Hora assintaura</th>
+                    <th>Documento Assinado</th>
+                    </thead>
+                    <tbody>
+                    <?php if (count($this->dadosrecebidos) > 0): ?>
+                        <?php foreach ($this->dadosrecebidos as $assinatura) : ?>
+                            <tr>
+                                <td>
+                                    <span id="nomparteinteressada"><?php echo $assinatura['nomparteinteressada']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="nomfuncao"><?php echo $assinatura['nummatricula']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="assinado"><?php echo $assinatura['assinado']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="tipo"><?php echo $assinatura['tipo']; ?></span>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr id="nenhumregistro">
+                            <td colspan="4"><span id="regEmpty">Nenhum documento encontrado</td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('button.close').on('click', function () {
+            $(this).parents('.row-fluid').remove();
+        });
+        $("#valida").on("click", function () {
+            var hash = $("#hashdoc");
+            console.log(hash.length);
+            if (hash.length > 0) {
+                $("#assinaturas").load(location.href + " #assinaturas>*", "");
+            } else {
+                $(".alert-error").text("Informe um código para validar.");
+            }
+        });
+
+    });
+</script>

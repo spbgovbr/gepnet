@@ -1,6 +1,8 @@
-<div class="row atividade"id="ativ<?php echo $this->atividade->idatividadecronograma; ?>" data-date="<?php echo $this->atividade->datiniciobaseline->toString('Ymd'); ?>">
+<div class="row atividade" id="ativ<?php echo $this->atividade->idatividadecronograma; ?>"
+     data-date="<?php echo $this->atividade->datiniciobaseline->toString('Ymd'); ?>">
     <div class="span1" style="width: 30px !important">
-        <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-atividade" value="<?php echo $this->atividade->idatividadecronograma; ?>">
+        <input type="radio" name="item_cronograma" class="item-cronograma" data-group=".btn-group-atividade"
+               value="<?php echo $this->atividade->idatividadecronograma; ?>">
     </div>
     <div class="span4" style="margin-left: 0">
         <div class="container-entrega" style="padding-left: 40px;">
@@ -27,6 +29,7 @@
         wilton.wbsj
     </div>
     <div class="span1">
-        <span class="badge badge-<?php echo $this->atividade->retornaDescricaoPrazo($this->projeto->numcriteriofarol); ?>" title="<?php echo $this->atividade->retornaPrazoEmDias(); ?>">R</span>
+        <span class="badge badge-<?php echo (int)$this->atividade->numpercentualconcluido == 100 ? "" : $this->atividade->retornaDescricaoPrazo($this->projeto->numcriteriofarol); ?>"
+              title="<?php echo $this->atividade->retornaPrazoEmDias(); ?>">R</span>
     </div>
 </div>

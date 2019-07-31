@@ -1,0 +1,103 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/diagnostico/diagnostico/index.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/questionario/index.js'), 'text/javascript');
+?>
+
+<div class="region-center" id="barrafer">
+    <div class="" style="width: 9%; float: right;">
+        <a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '"
+           href="<?php echo $this->url(
+               array(
+                   'module' => 'diagnostico',
+                   'controller' => 'questionario',
+                   'action' => 'dadosbasicos',
+                   'idquestionariodiagnostico' => $this->questionario->idquestionariodiagnostico,
+                   'tpquestionario' => $this->questionario->tipo
+               ));
+           ?>"><i class="icon-edit"></i>
+        </a>
+        <a data-target="#dialog-excluir" id="btnexcluir" class="btn actionfrm excluir" title="excluir"
+           data-id="' + cellvalue + '" href="<?php echo $this->url(
+            array(
+                'module' => 'diagnostico',
+                'controller' => 'questionario',
+                'action' => 'excluir',
+                'idquestionariodiagnostico' => $this->questionario->idquestionariodiagnostico
+            ));
+        ?>"><i class="icon-trash"></i>
+        </a>
+    </div>
+    <!-- Questionário -->
+    <div id="ii" class="informacoes" style="display: block">
+        <fieldset>
+            <legend>Questionário</legend>
+            <div class="row">
+                <input type="hidden" id="idquestionariodiagnostico"
+                       value="<?php echo $this->questionario->idquestionariodiagnostico; ?>">
+                <div class="portlet portlet-verde span3">
+                    <h3>Nome do Questionário</h3>
+                    <div class="content">
+                        <?php echo $this->questionario->nomquestionario; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Tipo</h3>
+                    <div class="content">
+                        <?php echo $this->questionario->tipo == 1 ? 'Servidor' : 'Cidadão'; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Observações</h3>
+                    <div class="content">
+                        <?php echo $this->questionario->observacao; ?>
+                    </div>
+                </div>
+                <?php foreach ($this->arrayPergunta as $k => $s): ?>
+                    <div class="portlet portlet-verde span10">
+                        <h3><?php echo explode('|', $k)[1]; ?></h3>
+                        <div class="content">
+                            <?php
+                            $c = 1;
+                            foreach ($s as $i => $p): ?>
+                                <h7><?php echo $p['descricaoPergunta'];
+                                    $c++; ?></h7>
+                                <ul>
+                                    <li><i>Número:</i> <?php echo $p['numero']; ?></li>
+                                    <li><i>Tipo de
+                                            Registro:</i> <?php echo $p['tipoRegistro'] == 1 ? 'Numérico' : 'Textual'; ?>
+                                    </li>
+                                    <li><i>Obrigatória:</i> <?php echo $p['obrigatoria'] == 0 ? 'Não' : 'Sim'; ?></li>
+                                    <li><i>Tipo de Resposta:</i> <?php echo $p['tipoReposta']; ?></li>
+                                </ul>
+                                <h7>Respostas</h7>
+                                <ul>
+                                    <?php foreach ($p['resposta'] as $r): ?>
+                                        <?php if ($r != null): ?>
+                                            <li><?php echo $r; ?></li>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <br/>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div id="dialog" title="Confirmação Requerida" style="display: none">
+    <p>Tem certeza que deseja excluir o Questionário? </p>
+</div>​

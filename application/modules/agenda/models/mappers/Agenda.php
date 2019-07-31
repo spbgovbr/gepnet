@@ -10,9 +10,11 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
 {
     private $_mapperPessoaAgenda = null;
 
-    protected function _init() {
+    protected function _init()
+    {
         $this->_mapperPessoaAgenda = new Agenda_Model_Mapper_Pessoaagenda();
     }
+
     /**
      * Set the property
      *
@@ -22,20 +24,21 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
     public function insert(Agenda_Model_Agenda $model)
     {
         $model->idagenda = $this->maxVal('idagenda');
-        $model->idcadastrador   = Zend_Auth::getInstance()->getIdentity()->idpessoa;
+        $model->idcadastrador = Zend_Auth::getInstance()->getIdentity()->idpessoa;
 
         $data = array(
-            "idagenda"      => $model->idagenda,
-            "desassunto"    => $model->desassunto,
-            "datagenda"     => new Zend_Db_Expr("to_date('" . $model->datagenda->toString('Y-m-d ') . $model->hragendada.":00" . "','YYYY-MM-DD')"),
-            "desagenda"     => $model->desagenda,
+            "idagenda" => $model->idagenda,
+            "desassunto" => $model->desassunto,
+            "datagenda" => new Zend_Db_Expr("to_date('" . $model->datagenda->toString('Y-m-d ') . $model->hragendada . ":00" . "','YYYY-MM-DD')"),
+            "desagenda" => $model->desagenda,
             "idcadastrador" => $model->idcadastrador,
-            "datcadastro"   => new Zend_Db_Expr('now()'),
-            "hragendada"    => date('Y-m-d H:i:s', strtotime($model->datagenda->toString('Y-m-d') . " " . $model->hragendada .".0")),
+            "datcadastro" => new Zend_Db_Expr('now()'),
+            "hragendada" => date('Y-m-d H:i:s',
+                strtotime($model->datagenda->toString('Y-m-d') . " " . $model->hragendada . ".0")),
 //            "hragendada"    => new Zend_Db_Expr("now()"),
-            "deslocal"      => $model->deslocal,
+            "deslocal" => $model->deslocal,
             "flaenviaemail" => 2,
-            "idescritorio"  => $model->idescritorio,
+            "idescritorio" => $model->idescritorio,
         );
         try {
             $this->getDbTable()->insert($data);
@@ -54,15 +57,16 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
     public function update(Agenda_Model_Agenda $model)
     {
         $data = array(
-            "idagenda"      => $model->idagenda,
-            "desassunto"    => $model->desassunto,
-            "datagenda"     => new Zend_Db_Expr("to_date('" . $model->datagenda->toString('Y-m-d ') . $model->hragendada.":00" . "','YYYY-MM-DD')"),
-            "desagenda"     => $model->desagenda,
+            "idagenda" => $model->idagenda,
+            "desassunto" => $model->desassunto,
+            "datagenda" => new Zend_Db_Expr("to_date('" . $model->datagenda->toString('Y-m-d ') . $model->hragendada . ":00" . "','YYYY-MM-DD')"),
+            "desagenda" => $model->desagenda,
 //            "idcadastrador" => $model->idcadastrador,
 //            "nomcadastrador" => $model->nomcadastrador,
 //            "datcadastro"   => $model->datcadastro,
-            "hragendada"    => date('Y-m-d H:i:s', strtotime($model->datagenda->toString('Y-m-d') . " " . $model->hragendada .":00.0")),
-            "deslocal"      => $model->deslocal,
+            "hragendada" => date('Y-m-d H:i:s',
+                strtotime($model->datagenda->toString('Y-m-d') . " " . $model->hragendada . ":00.0")),
+            "deslocal" => $model->deslocal,
 //            "flaenviaemail" => $model->flaenviaemail,
 //            "idescritorio"  => $model->idescritorio,
         );
@@ -79,7 +83,8 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
         return $this->_getForm(Agenda_Form_Agenda);
     }
 
-    public function pesquisar($params,$paginator = true){
+    public function pesquisar($params, $paginator = true)
+    {
         //'Data', 'Hora', 'Local', 'Assunto', 'Participantes', 'Usuário', 'Enviou Email'
         $sql = "
                 SELECT
@@ -105,17 +110,17 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
 
         if (isset($params['data'])) {
             $data = $params['data'];
-            $sql.= " and agenda.datagenda::text like '{$data}%'";
+            $sql .= " and agenda.datagenda::text like '{$data}%'";
         } else {
             $hoje = new DateTime('now');
-            $hoje =  $hoje->format('Y-m-d');
+            $hoje = $hoje->format('Y-m-d');
 //            var_dump($hoje); exit;
-            $sql.= " and agenda.datagenda::text like '{$hoje}%'";
+            $sql .= " and agenda.datagenda::text like '{$hoje}%'";
         }
 
         if (isset($params['idescritorio'])) {
             $escritorio = $params['idescritorio'];
-            $sql.= " and agenda.idescritorio = {$escritorio}";
+            $sql .= " and agenda.idescritorio = {$escritorio}";
         }
 
 //        var_dump($sql); exit;
@@ -130,7 +135,6 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
         }
         $resultado = $this->_db->fetchAll($sql);
 
-        var_dump($resultado); exit;
         $agenda = new Agenda_Model_Agenda($resultado);
         $agenda->participantes = new App_Model_Relation(
             $this->_mapperPessoaAgenda, 'getByAgenda', array(array('idagenda' => $resultado['idagenda']))
@@ -141,7 +145,8 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
 
     }
 
-    public function getById($params,$model = false) {
+    public function getById($params, $model = false)
+    {
 
         $sql = "SELECT
                     a.idagenda,
@@ -173,7 +178,7 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
 
         $resultado = $this->_db->fetchRow($sql, array('idagenda' => $params['idagenda']));
 
-        if($model){
+        if ($model) {
             $agenda = new Agenda_Model_Agenda($resultado);
             $agenda->participantes = new App_Model_Relation(
                 $this->_mapperPessoaAgenda, 'retornaPartesPorAgenda', array(array('idagenda' => $resultado['idagenda']))
@@ -193,16 +198,16 @@ class Agenda_Model_Mapper_Agenda extends App_Model_Mapper_MapperAbstract
             $pks = array(
                 "idagenda" => $params['idagenda'],
             );
-            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
             $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch ( Exception $exc ) {
-//            throw $exc;
-            var_dump($exc); exit;
+        } catch (Exception $exc) {
+            throw $exc;
         }
     }
 
-    public function retornaDiasComEventos($params, $paginator = true) {
+    public function retornaDiasComEventos($params, $paginator = true)
+    {
 
         $mes = str_pad($params['mes'], 2, '0', STR_PAD_LEFT);
         $sql = "SELECT

@@ -1,0 +1,15 @@
+<form id="form-melhoria-excluir"
+      name="form-melhoria-excluir"
+      action=""
+      class="form-exc"
+      method="POST">
+    <div class="row">
+        <input type="hidden" name="idmelhoria" id="idmelhoria" value="<?php
+        echo $this->result['idmelhoria'];
+        ?>">
+        <input type="hidden" name="iddiagnostico" id="iddiagnostico" value="<?php
+        echo $this->result['iddiagnostico'];
+        ?>">
+    </div>
+</form>
+<p>Tem certeza que deseja excluir a sugestão de melhoria? </p>

@@ -1,0 +1,55 @@
+<form id="excluir"
+      name="excluir"
+      action="<?php $this->url(array('controller' => 'documento', 'action' => 'excluir')); ?>"
+      method="post">
+
+    <input type="hidden" name="tipodoc_cd_tipodoc" value="<?= $this->doc['tipodoc_cd_tipodoc']; ?>"/>
+    <input type="hidden" name="cd_documento" value="<?= $this->doc['cd_documento']; ?>"/>
+    <input type="hidden" name="an_documento" value="<?= $this->doc['an_documento']; ?>"/>
+    <input type="hidden" name="nr_copia" value="<?= $this->doc['nr_copia']; ?>"/>
+
+    <div class="row">
+        <div class="portlet portlet-azul span8">
+            <h3>Tipo de documento</h3>
+            <div class="content">
+                <?= $this->doc['ds_tp_doc']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span1">
+            <h3>N&uacute;mero</h3>
+            <div class="content">
+                <?= $this->doc['nr_documento']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span2">
+            <h3>Data</h3>
+            <div class="content">
+                <?= $this->doc['dt_documento']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span6">
+            <h3>Refer&ecirc;ncia</h3>
+            <div class="content">
+                <?= $this->doc['ds_referen_doc']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span5">
+            <h3>Interessado</h3>
+            <div class="content">
+                <?= $this->doc['ds_interess_doc']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span4">
+            <h3>Autor</h3>
+            <div class="content">
+                <?= $this->doc['ds_rubrica_doc']; ?>
+            </div>
+        </div>
+        <div class="portlet portlet-cinza span7">
+            <h3>Assunto</h3>
+            <div class="content">
+                <?= $this->doc['ds_assunto_doc']; ?>
+            </div>
+        </div>
+    </div>
+</form>

@@ -33,21 +33,20 @@ require_once 'Zend/Validate/Abstract.php';
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
- 
 class App_Validate_Cnpj extends Zend_Validate_Abstract
 {
     /**
      * Validation failure message key for when the value contains non-digit characters
      */
-    const NOT_DIGITS    = 'notDigits';
+    const NOT_DIGITS = 'notDigits';
 
     /**
      * Validation failure message key for when the value is an empty string
      */
-    const STRING_EMPTY  = 'stringEmpty';
-	
-	const CNPJ_INVALIDO = 'cpfInvalido';
-	const STRING_LENGTH = 'stringLength';
+    const STRING_EMPTY = 'stringEmpty';
+
+    const CNPJ_INVALIDO = 'cpfInvalido';
+    const STRING_LENGTH = 'stringLength';
 
     /**
      * Digits filter used for validation
@@ -62,10 +61,10 @@ class App_Validate_Cnpj extends Zend_Validate_Abstract
      * @var array
      */
     protected $_messageTemplates = array(
-        self::NOT_DIGITS    => "'%value%' contains not only digit characters",
-        self::STRING_EMPTY  => "'%value%' is an empty string",
+        self::NOT_DIGITS => "'%value%' contains not only digit characters",
+        self::STRING_EMPTY => "'%value%' is an empty string",
         self::STRING_LENGTH => "'%value%' o CNPJ deve possuir 14 digitos",
-        self::CNPJ_INVALIDO  => "'%value%' não é um CNPJ válido"
+        self::CNPJ_INVALIDO => "'%value%' não é um CNPJ válido"
     );
 
     /**
@@ -73,12 +72,12 @@ class App_Validate_Cnpj extends Zend_Validate_Abstract
      *
      * Returns true if and only if $value only contains digit characters
      *
-     * @param  string $value
+     * @param string $value
      * @return boolean
      */
     public function isValid($cnpj)
     {
-        $cnpj = (string) $cnpj;
+        $cnpj = (string)$cnpj;
 
         $this->_setValue($cnpj);
 
@@ -86,10 +85,10 @@ class App_Validate_Cnpj extends Zend_Validate_Abstract
             $this->_error(self::STRING_EMPTY);
             return false;
         }
-		
-		$cnpj = preg_replace("/[\.\-\/]/", "", $cnpj); 
-		//$cnpj = strstr($cnpj, ".-/", "");//preg_replace("/[\.-]/", "", $cnpj); 
-		
+
+        $cnpj = preg_replace("/[\.\-\/]/", "", $cnpj);
+        //$cnpj = strstr($cnpj, ".-/", "");//preg_replace("/[\.-]/", "", $cnpj); 
+
         if (null === self::$_filter) {
             /**
              * @see Zend_Filter_Digits
@@ -103,28 +102,32 @@ class App_Validate_Cnpj extends Zend_Validate_Abstract
             return false;
         }
 
-		$b = array(6,5,4,3,2,9,8,7,6,5,4,3,2);
-		$cnpj = str_split($cnpj);
-		
-		if (count($cnpj) != 14) {
+        $b = array(6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2);
+        $cnpj = str_split($cnpj);
+
+        if (count($cnpj) != 14) {
             $this->_error(self::STRING_LENGTH);
             return false;
-		}
-		
-		for($i = 0, $n = 0; $i < 12; $n += $cnpj[$i] * $b[++$i]);
-		
-		if($cnpj[12] != ((($n %= 11) < 2) ? 0 : 11 - $n)) {
+        }
+
+        for ($i = 0, $n = 0; $i < 12; $n += $cnpj[$i] * $b[++$i]) {
+            ;
+        }
+
+        if ($cnpj[12] != ((($n %= 11) < 2) ? 0 : 11 - $n)) {
             $this->_error(self::CNPJ_INVALIDO);
             return false;
-		}
-		
-		for($i = 0, $n = 0; $i <= 12; $n += $cnpj[$i] * $b[$i++]);
-		
-		if($cnpj[13] != ((($n %= 11) < 2) ? 0 : 11 - $n)) {
+        }
+
+        for ($i = 0, $n = 0; $i <= 12; $n += $cnpj[$i] * $b[$i++]) {
+            ;
+        }
+
+        if ($cnpj[13] != ((($n %= 11) < 2) ? 0 : 11 - $n)) {
             $this->_error(self::CNPJ_INVALIDO);
             return false;
-		}
-		
-		return true;
+        }
+
+        return true;
     }
 }

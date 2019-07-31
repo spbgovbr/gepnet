@@ -133,11 +133,11 @@
                     var observableOption = options.observableOptions[key];
                     if (observableOption) {
                         var optType = observableOption.type,
-                           val = ko.toJS(ko.utils.unwrapObservable(value)),
-                           hash = $(element).data(widgetName + '_ko'),
-                           widgetVal = hash && (key in hash)
-                               ? hash[key]
-                               : $(element)[widgetName]("option", key);
+                            val = ko.toJS(ko.utils.unwrapObservable(value)),
+                            hash = $(element).data(widgetName + '_ko'),
+                            widgetVal = hash && (key in hash)
+                                ? hash[key]
+                                : $(element)[widgetName]("option", key);
 
                         if (updatingFromEvents) {
                             return true;
@@ -238,8 +238,7 @@
         observableOptions: {
             disabled: {},
             stacked: {},
-            header: {
-            },
+            header: {},
             dataSource: {},
             seriesList: {
                 type: 'array',
@@ -597,7 +596,7 @@
             autoOpen: {},
             draggable: {},
             modal: {},
-			contentUrl:{},
+            contentUrl: {},
             resizable: {}
         }
     });
@@ -652,7 +651,7 @@
             nodes: {
                 type: "array",
                 attachEvents: ['nodeCheckChanged', 'nodeCollapsed', 'nodeExpanded',
-                               'nodeTextChanged', 'selectedNodeChanged']
+                    'nodeTextChanged', 'selectedNodeChanged']
             }
         }
     });
@@ -712,7 +711,7 @@
         widgetName: "wijpager",
         observableOptions: {
             disabled: {},
-            pageCount: { type: "numeric" },
+            pageCount: {type: "numeric"},
             pageIndex: {
                 type: "numeric",
                 attachEvents: ['pageindexchanged']
@@ -766,7 +765,7 @@
             autoComplete: {},
             highlightMatching: {},
             selectionMode: {},
-            isEditable: {}, 
+            isEditable: {},
             selectedIndex: {
                 type: 'numeric',
                 attachEvents: ['changed']
@@ -959,4 +958,4 @@
         }
     });
 
-} (jQuery, ko));
+}(jQuery, ko));

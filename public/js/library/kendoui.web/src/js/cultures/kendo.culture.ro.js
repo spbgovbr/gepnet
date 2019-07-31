@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["ro"] = {
         name: "ro",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n%","n%"],
+                pattern: ["-n%", "n%"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["duminică","luni","marţi","miercuri","joi","vineri","sâmbătă"],
-                    namesAbbr: ["D","L","Ma","Mi","J","V","S"],
-                    namesShort: ["D","L","Ma","Mi","J","V","S"]
+                    names: ["duminică", "luni", "marţi", "miercuri", "joi", "vineri", "sâmbătă"],
+                    namesAbbr: ["D", "L", "Ma", "Mi", "J", "V", "S"],
+                    namesShort: ["D", "L", "Ma", "Mi", "J", "V", "S"]
                 },
                 months: {
-                    names: ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie",""],
-                    namesAbbr: ["ian.","feb.","mar.","apr.","mai.","iun.","iul.","aug.","sep.","oct.","nov.","dec.",""]
+                    names: ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie", ""],
+                    namesAbbr: ["ian.", "feb.", "mar.", "apr.", "mai.", "iun.", "iul.", "aug.", "sep.", "oct.", "nov.", "dec.", ""]
                 },
                 AM: [""],
                 PM: [""],

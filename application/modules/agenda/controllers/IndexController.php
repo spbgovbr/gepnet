@@ -1,8 +1,9 @@
 <?php
 
-class Agenda_IndexController extends Zend_Controller_Action {
+class Agenda_IndexController extends Zend_Controller_Action
+{
 
-    public function init ()
+    public function init()
     {
         $ajaxContext = $this->_helper->getHelper('AjaxContext');
         $ajaxContext
@@ -16,13 +17,13 @@ class Agenda_IndexController extends Zend_Controller_Action {
             ->initContext();
         //$ajaxContext->addActionContext('pesquisar', 'json')
     }
-    
-    public function indexAction ()
+
+    public function indexAction()
     {
-        $hoje =  new DateTime('now');
+        $hoje = new DateTime('now');
         $this->view->hoje = $hoje;
     }
-    
+
     public function detalharAction()
     {
         $service = App_Service_ServiceAbstract::getService('Agenda_Service_Agenda');
@@ -30,19 +31,19 @@ class Agenda_IndexController extends Zend_Controller_Action {
 
 //        var_dump($this->view->agenda); exit;
     }
-    
+
     public function addAction()
     {
         $service = App_Service_ServiceAbstract::getService('Agenda_Service_Agenda');
         $form = $service->getForm();
         $success = false;
-        if($this->_request->isPost()){
+        if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
             $agenda = $service->inserir($dados);
 //            var_dump($agenda); exit;
-            if($agenda){
+            if ($agenda) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                $msg     = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
+                $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -58,23 +59,22 @@ class Agenda_IndexController extends Zend_Controller_Action {
         }
 
 //        Zend_Debug::dump($form->idescritorio ); exit;
-        $this->view->form   = $form;
-
+        $this->view->form = $form;
 
 
         if ($this->_request->isPost()) {
-            if($this->_request->isXmlHttpRequest()){
+            if ($this->_request->isXmlHttpRequest()) {
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text'    => $msg,
-                    'type'    => ($success) ? 'success' : 'error',
-                    'hide'    => true,
-                    'closer'  => true,
+                    'text' => $msg,
+                    'type' => ($success) ? 'success' : 'error',
+                    'hide' => true,
+                    'closer' => true,
                     'sticker' => false
                 );
                 $this->view->idagenda = $agenda->idagenda;
             } else {
-                if($success){
+                if ($success) {
                     $this->_helper->_redirector->gotoSimpleAndExit('add', 'index', 'agenda');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -82,20 +82,20 @@ class Agenda_IndexController extends Zend_Controller_Action {
             }
         }
     }
-    
+
     public function editAction()
     {
         $service = App_Service_ServiceAbstract::getService('Agenda_Service_Agenda');
 //        $servicePessoaAgenda = App_Service_ServiceAbstract::getService('Agenda_Service_PessoaAgenda');
         $form = $service->getForm();
         $success = false;
-        if($this->_request->isPost()){
+        if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
             $agenda = $service->update($dados);
 //            var_dump($agenda); exit;
-            if($agenda){
+            if ($agenda) {
                 $success = true; ###### AUTENTICATION SUCCESS
-                $msg     = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
+                $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
                 $msg = $service->getErrors();
             }
@@ -110,17 +110,17 @@ class Agenda_IndexController extends Zend_Controller_Action {
 //        $this->view->dados  = $servicePessoaAgenda->retornaPartesPorAgenda($this->_request->getParams());
 
         if ($this->_request->isPost()) {
-            if($this->_request->isXmlHttpRequest()){
+            if ($this->_request->isXmlHttpRequest()) {
                 $this->view->success = $success;
                 $this->view->msg = array(
-                    'text'    => $msg,
-                    'type'    => ($success) ? 'success' : 'error',
-                    'hide'    => true,
-                    'closer'  => true,
+                    'text' => $msg,
+                    'type' => ($success) ? 'success' : 'error',
+                    'hide' => true,
+                    'closer' => true,
                     'sticker' => false
                 );
             } else {
-                if($success){
+                if ($success) {
                     $this->_helper->_redirector->gotoSimpleAndExit('edit', 'documento', 'default');
                 }
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
@@ -140,7 +140,8 @@ class Agenda_IndexController extends Zend_Controller_Action {
 //        $this->_helper->json->sendJson($resultado);
     }
 
-    public function participantesAction(){
+    public function participantesAction()
+    {
 //        var_dump($this->_request->getParams());
 //        exit;
         $serviceAgenda = App_Service_ServiceAbstract::getService('Agenda_Service_Agenda');
@@ -163,13 +164,13 @@ class Agenda_IndexController extends Zend_Controller_Action {
             $this->view->dados = $parte;
             $this->view->idagenda = $this->_request->getParam('idagenda');
             $this->view->form = $form;
-            $this->view->agenda = $serviceAgenda->getById($this->_request->getParams(),true);
+            $this->view->agenda = $serviceAgenda->getById($this->_request->getParams(), true);
         }
 
         if ($this->_request->isPost()) {
             if ($this->_request->isXmlHttpRequest()) {
 //                $this->view->form = $form;
-                $this->view->parte = is_object($parte) ? get_object_vars($parte) : NULL;
+                $this->view->parte = is_object($parte) ? get_object_vars($parte) : null;
                 $this->view->success = $success;
                 $this->view->msg = $service->getNotify();
                 /*$this->view->msg = array(
@@ -189,7 +190,8 @@ class Agenda_IndexController extends Zend_Controller_Action {
         }
     }
 
-    public function excluirparticipanteAction() {
+    public function excluirparticipanteAction()
+    {
         $service = App_Service_ServiceAbstract::getService('Agenda_Service_PessoaAgenda');
         $success = false;
         //$idparteinteressada = $this->_request->getParams('id');
@@ -232,13 +234,13 @@ class Agenda_IndexController extends Zend_Controller_Action {
             $dados = $this->_request->getPost();
 
 //            var_dump($this->_request->getParams()); exit;
-            try{
+            try {
                 $servicePessoaAgenda->excluir($this->_request->getParams(), true);
                 $serviceAgenda->excluir($this->_request->getParams(), true);
 
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_EXCLUIDO_COM_SUCESSO;
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 $msg = $e;
             }
 
@@ -253,9 +255,8 @@ class Agenda_IndexController extends Zend_Controller_Action {
             $this->view->agenda = $serviceAgenda->getById($this->_request->getParams(), true);
         }
 
-       /*
-       */
-
+        /*
+        */
 
 
         if ($this->_request->isXmlHttpRequest()) {

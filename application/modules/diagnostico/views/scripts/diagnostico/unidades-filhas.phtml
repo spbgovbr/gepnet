@@ -1,0 +1,134 @@
+<script type="text/javascript">
+    function marcarDesmarcar() {
+        if ($("#cb_list-grid-diagnostico").prop("checked")) {
+            $(".cbox").attr("checked", "checked");
+        } else {
+            $(".cbox").removeAttr("checked");
+        }
+    }
+
+    var checkbox = [];
+    var unidadesVinculadas = function () {
+        var traingIds = $('#idpessoacheckbox').val();
+
+        if (jQuery.type($('#idpessoacheckbox').val()) != "undefined") {
+            var trainindIdArray = traingIds.split(',');
+            $.each(trainindIdArray, function (index, value) {
+                //valProd.push($(this).value);
+                if (value.length > 0) {
+                    checkbox[index] = $.trim(value);
+                }
+            });
+
+        }
+        return checkbox;
+    }
+    unidadesVinculadas();
+    var numerosPermitidos = new Array($('#idpessoacheckbox').val());
+    var checkbox = $('input:checkbox[name^=unidades-vinculadas]');
+
+    //array para armazenar os valores
+    var val = [];
+    var valProd = [];
+    //função each para pegar os selecionados
+    checkbox.each(function () {
+        val.push($(this).val());
+    });
+
+    if (checkbox.length > 0) {
+        var products = unidadesVinculadas();
+        var item_id = val;
+        var len = products.length;
+        for (i = 0; i < len; i++) {
+            if ($.inArray(products[i], item_id) == -1) {
+                //alert("not in array item_Id   :"+products[i]);
+            } else {
+                //alert("in array item_ID  :"+products[i]);
+                $("#" + products[i]).prop("checked", true);
+            }
+        }
+    }
+
+</script>
+<div class="ui-jqgrid-view" id="grid-unidade">
+    <div class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix">
+        <a role="link" href="javascript:void(0)" class="ui-jqgrid-titlebar-close HeaderButton" style="right: 0px;"></a>
+        <span class="ui-jqgrid-title">Unidades Vinculadas</span>
+    </div>
+    <div class="ui-state-default ui-jqgrid-hdiv" style="width: 778px;">
+        <div class="ui-jqgrid-hbox">
+            <table class="ui-jqgrid-htable" style="width: 780px;" role="grid"
+                   aria-labelledby="gbox_list-grid-diagnostico" cellspacing="0" cellpadding="0" border="0">
+                <thead>
+                <tr class="ui-jqgrid-labels" role="rowheader">
+                    <th id="list-grid-diagnostico_cb" role="columnheader"
+                        class="ui-state-default ui-th-column ui-th-ltr" style="width: 20px;">
+                        <div id="jqgh_list-grid-diagnostico_cb">
+                            <input type="checkbox" id="cb_list-grid-diagnostico" class="cbox"
+                                   onclick="marcarDesmarcar();">
+                            <span class="s-ico" style="display:none">
+                                    <span sort="asc"
+                                          class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
+                                    <span sort="desc"
+                                          class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span>
+                                </span>
+                        </div>
+                    </th>
+                    <th id="list-grid-diagnostico_id_unidade" role="columnheader"
+                        class="ui-state-default ui-th-column ui-th-ltr" style="width: 19px; display: none;">
+                        <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                        <div id="jqgh_list-grid-diagnostico_id_unidade" class="ui-jqgrid-sortable">Unidades
+                            <span class="s-ico" style="display:none">
+                                    <span sort="asc"
+                                          class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
+                                    <span sort="desc"
+                                          class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span>
+
+                                </span>
+                        </div>
+                    </th>
+                    <th id="list-grid-diagnostico_sigla" role="columnheader"
+                        class="ui-state-default ui-th-column ui-th-ltr" style="width: 1294px;">
+                        <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
+                        <div id="jqgh_list-grid-diagnostico_sigla" class="ui-jqgrid-sortable">Sigla da Unidade
+                            <span class="s-ico" style="display:none">
+                                    <span sort="asc"
+                                          class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
+                                    <span sort="desc"
+                                          class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span>
+
+                                </span>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="ui-jqgrid-bdiv">
+        <div style="position:relative;">
+            <div></div>
+            <table id="list-grid-diagnostico" tabindex="0" cellspacing="0" cellpadding="0" border="0" role="grid"
+                   aria-multiselectable="true" aria-labelledby="gbox_list-grid-diagnostico" class="ui-jqgrid-btable"
+                   style="width: 780px;">
+                <tbody>
+                <tr class="jqgfirstrow" role="row" style="height:auto">
+                    <td role="gridcell" style="height:0px;width:20px;"></td>
+                    <td role="gridcell" style="height:0px;width:19px;display:none;"></td>
+                    <td role="gridcell" style="height: 0px; width: 1294px;"></td>
+                </tr>
+                <?php foreach ($this->unidadesFilhas as $f): ?>
+                    <tr role="row" id="1" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr">
+                        <td role="gridcell" style="text-align:center;width: 20px;"
+                            aria-describedby="list-grid-diagnostico_cb">
+                            <input role="checkbox" value="<?php echo $f['id_unidade'] ?>" type="checkbox"
+                                   id="<?php echo $f['id_unidade'] ?>" class="cbox" name="unidades-vinculadas[]"></td>
+                        <td role="gridcell" style="" title="<?php echo $f['sigla'] ?>"
+                            aria-describedby="list-grid-diagnostico_sigla"><?php echo $f['sigla'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

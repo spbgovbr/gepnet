@@ -50,17 +50,19 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
      */
     static public function getInstance($xmlData)
     {
-        if($xmlData instanceof Zend_InfoCard_Xml_Element) {
+        if ($xmlData instanceof Zend_InfoCard_Xml_Element) {
             $strXmlData = $xmlData->asXML();
-        } else if (is_string($xmlData)) {
-            $strXmlData = $xmlData;
         } else {
-            throw new Zend_InfoCard_Xml_Exception("Invalid Data provided to create instance");
+            if (is_string($xmlData)) {
+                $strXmlData = $xmlData;
+            } else {
+                throw new Zend_InfoCard_Xml_Exception("Invalid Data provided to create instance");
+            }
         }
 
         $sxe = simplexml_load_string($strXmlData);
 
-        if($sxe->getName() != "SecurityTokenReference") {
+        if ($sxe->getName() != "SecurityTokenReference") {
             throw new Zend_InfoCard_Xml_Exception("Invalid XML Block provided for SecurityTokenReference");
         }
 
@@ -75,10 +77,11 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
      */
     protected function _getKeyIdentifier()
     {
-        $this->registerXPathNamespace('o', 'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd');
+        $this->registerXPathNamespace('o',
+            'http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd');
         list($keyident) = $this->xpath('//o:KeyIdentifier');
 
-        if(!($keyident instanceof Zend_InfoCard_Xml_Element)) {
+        if (!($keyident instanceof Zend_InfoCard_Xml_Element)) {
             throw new Zend_InfoCard_Xml_Exception("Failed to retrieve Key Identifier");
         }
 
@@ -98,7 +101,7 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
 
         $dom = self::convertToDOM($keyident);
 
-        if(!$dom->hasAttribute('ValueType')) {
+        if (!$dom->hasAttribute('ValueType')) {
             throw new Zend_InfoCard_Xml_Exception("Key Identifier did not provide a type for the value");
         }
 
@@ -119,7 +122,7 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
 
         $dom = self::convertToDOM($keyident);
 
-        if(!$dom->hasAttribute('EncodingType')) {
+        if (!$dom->hasAttribute('EncodingType')) {
             throw new Zend_InfoCard_Xml_Exception("Unable to determine the encoding type for the key identifier");
         }
 
@@ -140,17 +143,17 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
         $dom = self::convertToDOM($keyIdentifier);
         $encoded = $dom->nodeValue;
 
-        if(empty($encoded)) {
+        if (empty($encoded)) {
             throw new Zend_InfoCard_Xml_Exception("Could not find the Key Reference Encoded Value");
         }
 
-        if($decode) {
+        if ($decode) {
 
             $decoded = "";
-            switch($this->getKeyThumbprintEncodingType()) {
+            switch ($this->getKeyThumbprintEncodingType()) {
                 case self::ENCODING_BASE64BIN:
 
-                    if(version_compare(PHP_VERSION, "5.2.0", ">=")) {
+                    if (version_compare(PHP_VERSION, "5.2.0", ">=")) {
                         $decoded = base64_decode($encoded, true);
                     } else {
                         $decoded = base64_decode($encoded);
@@ -161,7 +164,7 @@ class Zend_InfoCard_Xml_SecurityTokenReference extends Zend_InfoCard_Xml_Element
                     throw new Zend_InfoCard_Xml_Exception("Unknown Key Reference Encoding Type: {$this->getKeyThumbprintEncodingType()}");
             }
 
-            if(!$decoded || empty($decoded)) {
+            if (!$decoded || empty($decoded)) {
                 throw new Zend_InfoCard_Xml_Exception("Failed to decode key reference");
             }
 

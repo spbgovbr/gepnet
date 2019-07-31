@@ -61,7 +61,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
             $now = new Zend_Date;
             if (isset($data['lease_seconds'])) {
                 $data['expiration_time'] = $now->add($data['lease_seconds'], Zend_Date::SECOND)
-                ->get('yyyy-MM-dd HH:mm:ss');
+                    ->get('yyyy-MM-dd HH:mm:ss');
             }
             $this->_db->update(
                 $data,
@@ -77,7 +77,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
     /**
      * Get subscription by ID/key
      *
-     * @param  string $key
+     * @param string $key
      * @return array
      */
     public function getSubscription($key)
@@ -85,7 +85,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
         if (empty($key) || !is_string($key)) {
             require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('Invalid parameter "key"'
-                .' of "' . $key . '" must be a non-empty string');
+                . ' of "' . $key . '" must be a non-empty string');
         }
         $result = $this->_db->find($key);
         if (count($result)) {
@@ -97,7 +97,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
     /**
      * Determine if a subscription matching the key exists
      *
-     * @param  string $key
+     * @param string $key
      * @return bool
      */
     public function hasSubscription($key)
@@ -105,7 +105,7 @@ class Zend_Feed_Pubsubhubbub_Model_Subscription
         if (empty($key) || !is_string($key)) {
             require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
             throw new Zend_Feed_Pubsubhubbub_Exception('Invalid parameter "key"'
-                .' of "' . $key . '" must be a non-empty string');
+                . ' of "' . $key . '" must be a non-empty string');
         }
         $result = $this->_db->find($key);
         if (count($result)) {

@@ -1,0 +1,108 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/gerencia/index.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+            <a class="btn"
+               href="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'tap', 'action' => 'add')); ?>">Novo
+                Termo de Abertura (TAP)</a>
+            <a class="btn" href="<?php echo $this->url(array(
+                'module' => 'projeto',
+                'controller' => 'statusreport',
+                'action' => 'index'
+            )); ?>">Status Report</a>
+        </div>
+    </div>
+
+    <table id="list2"></table>
+    <div id="toolbar2"></div>
+    <div id="pager2"></div>
+</div>
+
+<div class="region-east">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Gerência - Tela Mestra (CIGE)</div>
+            <div class="content">
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->form->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomprojeto; ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->idprograma; ?>
+                        </div>
+                        <div class="span3">
+                            <?php
+
+                            if ($this->identiti->perfilAtivo->idperfil == 1) {
+                                echo $this->form->idescritorio;
+                            }
+                            ?>
+                        </div>
+                        <div class="span3">
+                            <?php echo $this->form->domstatusprojeto; ?>
+                        </div>
+                        <div class="span2">
+                            <?php //echo $this->form->nomareaexecutora; ?>
+                        </div>
+
+                        <div class="span2">
+                            <?php //echo $this->form->nomalinhamento; ?>
+                        </div>
+                        <div class="span2">
+                            <?php //echo $this->form->nomacao; ?>
+                        </div>
+                        <div class="span">
+                            <?php //echo $this->form->nomnatureza; ?>
+                        </div>
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->form->submit; ?>
+                                <?php echo $this->form->reset; ?>
+                                <?php echo $this->form->close; ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php
+/**
+ *
+ * @todo remover este link (abaixo) após a criação do menu
+ */
+?>
+
+<div id="dialog-editar" style="display: none"></div>
+<div id="dialog-excluir" style="display: none"></div>
+<div id="dialog-detalhar" style="display: none"></div>
+<!--<div id="dialog-desbloquear" style="display: none"></div>

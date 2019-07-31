@@ -54,8 +54,8 @@ require_once 'Zend/Tool/Project/Context/System/NotOverwritable.php';
 class Zend_Tool_Project_Context_System_ProjectDirectory
     extends Zend_Tool_Project_Context_Filesystem_Directory
     implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable,
-               Zend_Tool_Project_Context_System_TopLevelRestrictable
+    Zend_Tool_Project_Context_System_NotOverwritable,
+    Zend_Tool_Project_Context_System_TopLevelRestrictable
 {
 
     /**

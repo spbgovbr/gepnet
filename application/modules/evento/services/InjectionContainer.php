@@ -1,6 +1,6 @@
 <?php
 
-class Evento_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Evento_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -19,5 +19,5 @@ class Evento_Service_InjectionContainer extends  App_Service_InjectionContainerA
         $this->_config = $config;
     }
 
-    
+
 }

@@ -9,9 +9,11 @@ class Default_Model_Permissao extends App_Model_ModelAbstract
 {
 
     public $idpermissao = null;
-    public $idrecurso    = null;
+    public $idrecurso = null;
     public $no_permissao = null;
     public $ds_permissao = null;
+    public $visualizar = null;
+    public $tipo = null;
 
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-class Acordocooperacao_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Acordocooperacao_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -49,8 +49,7 @@ class Acordocooperacao_Service_InjectionContainer extends  App_Service_Injection
 
     public function getAcordocooperacaoServiceAcordoentidadeexterna()
     {
-        $service = new Acordocooperacao_Service_Acordoentidadeexterna(
-        );
+        $service = new Acordocooperacao_Service_Acordoentidadeexterna();
 
         return $service;
     }

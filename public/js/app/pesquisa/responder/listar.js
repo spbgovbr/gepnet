@@ -1,37 +1,37 @@
 var altura_ocupada = 130;
 
-$(function() {
-    
+$(function () {
+
     var
-            grid = null,
-            lastsel = null,
-            gridEnd = null,
-            colModel = null,
-            colNames = null,
-    colNames = ['Nome Questionário', 'Observa&ccedil;&otilde;es', 'Opera&ccedil;&otilde;es'];
+        grid = null,
+        lastsel = null,
+        gridEnd = null,
+        colModel = null,
+        colNames = null,
+        colNames = ['Nome Questionário', 'Observa&ccedil;&otilde;es', 'Opera&ccedil;&otilde;es'];
     colModel = [{
-            name: 'nomquestionario',
-            index: 'nomquestionario',
-            width: 40,
-            search: false,
-            hidden: false,
-            sortable: true
-        },  {
-            name: 'desobservacao',
-            index: 'desobservacao',
-            width: 55,
-            hidden: false,
-            search: false,
-            sortable: true
-        }, {      
-            name: 'idpesquisa',
-            index: 'idpesquisa',
-            width: 5,
-            hidden: false,
-            search: false,
-            sortable: false,
-            formatter: formatadorLink
-        }];
+        name: 'nomquestionario',
+        index: 'nomquestionario',
+        width: 40,
+        search: false,
+        hidden: false,
+        sortable: true
+    }, {
+        name: 'desobservacao',
+        index: 'desobservacao',
+        width: 55,
+        hidden: false,
+        search: false,
+        sortable: true
+    }, {
+        name: 'idpesquisa',
+        index: 'idpesquisa',
+        width: 5,
+        hidden: false,
+        search: false,
+        sortable: false,
+        formatter: formatadorLink
+    }];
 
     grid = jQuery("#list-grid-pesquisa").jqGrid({
         //caption: "Documentos",
@@ -50,11 +50,11 @@ $(function() {
         viewrecords: true,
         sortorder: "asc",
         caption: 'Selecione um formulário abaixo para preenchimento',
-        gridComplete: function() {
-             //console.log('teste');
+        gridComplete: function () {
+            //console.log('teste');
             $("a.actionfrm").tooltip({placement: 'left'});
         },
-        onSelectRow: function(id) {
+        onSelectRow: function (id) {
 //            if(window.selectRow){
 //                var row = grid.getRowData(id);
 //                selectRow(row);
@@ -62,7 +62,7 @@ $(function() {
 //                alert('Função [selectRow] não está definida');
 //            }
         },
-        loadError: function() {
+        loadError: function () {
             $.pnotify({
                 text: 'Falha ao enviar a requisição',
                 type: 'error',
@@ -82,30 +82,29 @@ $(function() {
     grid.jqGrid('setLabel', 'rn', 'Ord');
     resizeGrid();
 
-    function formatadorLink(cellvalue, options, rowObject)
-    {
+    function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
-                params = '',
-                url = {
-            responder:         base_url + '/pesquisa/responder/responder-pesquisa',
-        };
+            params = '',
+            url = {
+                responder: base_url + '/pesquisa/responder/responder-pesquisa',
+            };
         params = '/idpesquisa/' + r[2];
 //        console.log(rowObject);
-         return  '<a data-target="dialog-responder" class="btn actionfrm responder" title="Responder" data-id="' + cellvalue + '" href="' + url.responder + params + '"><i class="icon-check"></i></a>';
+        return '<a data-target="dialog-responder" class="btn actionfrm responder" title="Responder" data-id="' + cellvalue + '" href="' + url.responder + params + '"><i class="icon-check"></i></a>';
     }
-    
-    
+
+
     $("form#form-questionario-pesquisar").validate();
-    
-    $('#btnpesquisar').click(function(e){
+
+    $('#btnpesquisar').click(function (e) {
         e.preventDefault();
         if ($("form#form-questionario-pesquisar").valid()) {
             grid.setGridParam({
-                url: base_url + "/pesquisa/responder/pesquisar?"+$("form#form-questionario-pesquisar").serialize(),
+                url: base_url + "/pesquisa/responder/pesquisar?" + $("form#form-questionario-pesquisar").serialize(),
                 page: 1
             }).trigger("reloadGrid");
         }
     });
-    
-        
+
+
 });

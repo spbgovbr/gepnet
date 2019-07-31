@@ -6,7 +6,8 @@
  * This class has been automatically generated based on the dbTable "" @ 14-05-2013
  * 18:02
  */
-class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract {
+class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
+{
 
     /**
      * Set the property
@@ -14,13 +15,14 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
      * @param string $value
      * @return Projeto_Model_Statusreport
      */
-    public function insert(Projeto_Model_Statusreport $model) {
+    public function insert(Projeto_Model_Statusreport $model)
+    {
         $model->idstatusreport = $this->maxVal("idstatusreport");
 //        $model->idcadastrador = '30605';
 //        print "<PRE>aqui";
 //        print_r($model);
 //        exit;
-        $model->idcadastrador   = Zend_Auth::getInstance()->getIdentity()->idpessoa;
+        $model->idcadastrador = Zend_Auth::getInstance()->getIdentity()->idpessoa;
 
         $data = array(
             "idstatusreport" => $model->idstatusreport,
@@ -40,7 +42,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
             "idcadastrador" => $model->idcadastrador,
             "datcadastro" => date('Y-m-d'),
             "domstatusprojeto" => $model->domstatusprojeto,
-            "flaaprovado" => 2, //nao aprovada
+            "flaaprovado" => 2,
+            //nao aprovada
             "domcorrisco" => $model->domcorrisco,
             "descontramedida" => $model->descontramedida,
             "desrisco" => $model->desrisco,
@@ -66,11 +69,12 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
      * @param string $value
      * @return Projeto_Model_Statusreport
      */
-    public function update(Projeto_Model_Statusreport $model) {
+    public function update(Projeto_Model_Statusreport $model)
+    {
 //        print "<PRE>";
 //        print_r($model);
-        
-        
+
+
         $data = array(
             "idstatusreport" => $model->idstatusreport,
             "idprojeto" => $model->idprojeto,
@@ -94,18 +98,18 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         );
 
         $data = array_filter($data);
-        
+
 //        print_r($data);
 //        exit;
-        
-        
+
+
         try {
             $this->getDbTable()->update($data, array("idstatusreport = ?" => $model->idstatusreport));
             return $model;
         } catch (Exception $exc) {
             throw $exc;
         }
-        
+
 
 //        Zend_Debug::dump($data); exit;
 
@@ -125,15 +129,16 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
             $pks = array(
                 "idstatusreport" => $params['idstatusreport'],
             );
-            $where   = $this->_generateRestrictionsFromPrimaryKeys($pks);
+            $where = $this->_generateRestrictionsFromPrimaryKeys($pks);
             $retorno = $this->getDbTable()->delete($where);
             return $retorno;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw $exc;
         }
     }
-    
-    public function retornaUltimoPorProjeto($params) {
+
+    public function retornaUltimoPorProjeto($params)
+    {
         $sql = "select
                     idstatusreport, idprojeto,
                     to_char(datacompanhamento, 'DD/MM/YYYY') as datacompanhamento,
@@ -153,9 +158,10 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return new Projeto_Model_Statusreport($resultado);
     }
 
-    public function pesquisar($params, $paginator = false) {
+    public function pesquisar($params, $paginator = false)
+    {
 
-       $sql = "SELECT
+        $sql = "SELECT
           prog.nomprograma,
           proj.nomprojeto,
           pes1.nompessoa,
@@ -177,56 +183,56 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
             inner join agepnet200.tb_pessoa pes1 on pes1.idpessoa = proj.idgerenteprojeto
         WHERE
           1 = 1 ";
-       /* $sql = "
-                SELECT 
-                        prog.nomprograma,
-                        proj.nomprojeto,
-                        pes1.nompessoa,
-                        to_char(proj.datinicio, 'DD/MM/YYYY') as datinicio,
-                        to_char(st.datfimprojetotendencia, 'DD/MM/YYYY') as datfimprojetotendencia,
-                        to_char(proj.datfim, 'DD/MM/YYYY') as datfim,
-                        '0%' as previsto,
-                        '0%' as concluido,
-                        '0%' as atraso,
-                        to_char(st.datacompanhamento, 'DD/MM/YYYY') as datacompanhamento,
-                        st.idprojeto
-                FROM 
-                        agepnet200.tb_statusreport st,
-                        agepnet200.tb_projeto proj,
-                        agepnet200.tb_escritorio esc,
-                        agepnet200.tb_objetivo obj,
-                        agepnet200.tb_acao ac,
-                        agepnet200.tb_programa prog,
-                        agepnet200.tb_pessoa pes1
-                WHERE
-                        st.idprojeto            = proj.idprojeto
-                        AND proj.idescritorio   = esc.idescritorio
-                        AND st.idprojeto        = proj.idprojeto
-                        AND esc.idescritorio    = obj.idobjetivo
-                        AND obj.idobjetivo      = ac.idobjetivo
-                        AND proj.idprograma     = prog.idprograma
-                        AND proj.idgerenteprojeto = pes1.idpessoa
-        ";*/
+        /* $sql = "
+                 SELECT
+                         prog.nomprograma,
+                         proj.nomprojeto,
+                         pes1.nompessoa,
+                         to_char(proj.datinicio, 'DD/MM/YYYY') as datinicio,
+                         to_char(st.datfimprojetotendencia, 'DD/MM/YYYY') as datfimprojetotendencia,
+                         to_char(proj.datfim, 'DD/MM/YYYY') as datfim,
+                         '0%' as previsto,
+                         '0%' as concluido,
+                         '0%' as atraso,
+                         to_char(st.datacompanhamento, 'DD/MM/YYYY') as datacompanhamento,
+                         st.idprojeto
+                 FROM
+                         agepnet200.tb_statusreport st,
+                         agepnet200.tb_projeto proj,
+                         agepnet200.tb_escritorio esc,
+                         agepnet200.tb_objetivo obj,
+                         agepnet200.tb_acao ac,
+                         agepnet200.tb_programa prog,
+                         agepnet200.tb_pessoa pes1
+                 WHERE
+                         st.idprojeto            = proj.idprojeto
+                         AND proj.idescritorio   = esc.idescritorio
+                         AND st.idprojeto        = proj.idprojeto
+                         AND esc.idescritorio    = obj.idobjetivo
+                         AND obj.idobjetivo      = ac.idobjetivo
+                         AND proj.idprograma     = prog.idprograma
+                         AND proj.idgerenteprojeto = pes1.idpessoa
+         ";*/
 
         $params = array_filter($params);
 
         if (isset($params['idprojeto'])) {
-            $sql.= " and st.idprojeto = {$params['idprojeto']}";
+            $sql .= " and st.idprojeto = {$params['idprojeto']}";
         }
         if (isset($params['nomprojeto'])) {
-            $sql.= " and proj.nomprojeto like '%{$params['nomprojeto']}%'";
+            $sql .= " and proj.nomprojeto like '%{$params['nomprojeto']}%'";
         }
         if (isset($params['idescritorio'])) {
-            $sql.= " and esc.idescritorio = {$params['idescritorio']}";
+            $sql .= " and esc.idescritorio = {$params['idescritorio']}";
         }
         if (isset($params['idprograma'])) {
-            $sql.= " and proj.idprograma = {$params['idprograma']}";
+            $sql .= " and proj.idprograma = {$params['idprograma']}";
         }
         if (isset($params['codobjetivo'])) {
-            $sql.= " and obj.idobjetivo = {$params['codobjetivo']}";
+            $sql .= " and obj.idobjetivo = {$params['codobjetivo']}";
         }
         if (isset($params['codacao'])) {
-            $sql.= " and ac.idacao = {$params['codacao']}";
+            $sql .= " and ac.idacao = {$params['codacao']}";
         }
         /*if (isset($params['codacao'])) {
             $sql.= " and ac.idacao = {$params['codacao']}";
@@ -236,7 +242,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
             $sql .= " order by " . $params['sidx'] . " " . $params['sord'];
         }
 
-         Zend_Debug::dump($sql);exit;
+        //Zend_Debug::dump($sql);exit;
 
         if ($paginator) {
             $page = (isset($params['page'])) ? $params['page'] : 1;
@@ -252,7 +258,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $resultado;
     }
 
-    public function retornaAcompanhamentosPorProjeto($params, $paginator, $array = false) {
+    public function retornaAcompanhamentosPorProjeto($params, $paginator, $array = false)
+    {
         $sql = "SELECT
                     to_char(sr.datacompanhamento, 'DD/MM/YYYY') as datacompanhamento,
                     sr.numpercentualprevisto,
@@ -282,7 +289,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
 
         if (isset($params['idprojeto'])) {
             $idprojeto = $params['idprojeto'];
-            $sql.= " and idprojeto = {$idprojeto}";
+            $sql .= " and idprojeto = {$idprojeto}";
         }
 
         if (isset($params['sidx'])) {
@@ -315,7 +322,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $collection;
     }
 
-    public function retornaAcompanhamentoPorId($params) {
+    public function retornaAcompanhamentoPorId($params)
+    {
         $sql = "select
                     idstatusreport, idprojeto,
                     to_char(datacompanhamento, 'DD/MM/YYYY') as datacompanhamento,
@@ -335,11 +343,13 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
                     and idprojeto  = :idprojeto
                 ";
 
-        $resultado = $this->_db->fetchRow($sql, array('idstatusreport' => $params['idstatusreport'], 'idprojeto' => $params['idprojeto']));
+        $resultado = $this->_db->fetchRow($sql,
+            array('idstatusreport' => $params['idstatusreport'], 'idprojeto' => $params['idprojeto']));
         return new Projeto_Model_Statusreport($resultado);
     }
 
-    public function retornaUltimoAcompanhamento($params) {
+    public function retornaUltimoAcompanhamento($params)
+    {
 
         //zend_debug::dump($params['idprojeto']);
 
@@ -367,7 +377,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
 //        return $resultado;
     }
 
-    public function getChartPlanejadoRealizado($params, $paginator) {
+    public function getChartPlanejadoRealizado($params, $paginator)
+    {
         $sql = "select
                     datacompanhamento,
                     numpercentualconcluido,
@@ -378,7 +389,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
                     1 = 1
                 ";
         if (isset($params['idprojeto'])) {
-            $sql.= " and idprojeto = {$params['idprojeto']}";
+            $sql .= " and idprojeto = {$params['idprojeto']}";
         }
 
         $sql .= ' ORDER BY datacompanhamento ASC ';
@@ -388,7 +399,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $resultado;
     }
 
-    public function getChartEvolucaoAtraso($params, $paginator) {
+    public function getChartEvolucaoAtraso($params, $paginator)
+    {
         $sql = "select
                     datacompanhamento,
                     (numpercentualprevisto - numpercentualconcluido) as atraso
@@ -398,7 +410,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
                     1 = 1
                 ";
         if (isset($params['idprojeto'])) {
-            $sql.= " and idprojeto = {$params['idprojeto']}";
+            $sql .= " and idprojeto = {$params['idprojeto']}";
         }
 
         $sql .= ' ORDER BY datacompanhamento ASC ';
@@ -408,7 +420,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $resultado;
     }
 
-    public function getChartPrazo($params, $paginator) {
+    public function getChartPrazo($params, $paginator)
+    {
         $sql = "SELECT
                     proj.numcriteriofarol,
                     (report.datfimprojetotendencia - proj.datfim) as prazo
@@ -419,10 +432,10 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
                     proj.idprojeto = report.idprojeto
                 ";
         if (isset($params['idprojeto'])) {
-            $sql.= " and proj.idprojeto = {$params['idprojeto']}";
+            $sql .= " and proj.idprojeto = {$params['idprojeto']}";
         }
         if (isset($params['idstatusreport'])) {
-            $sql.= " and report.idstatusreport = {$params['idstatusreport']}";
+            $sql .= " and report.idstatusreport = {$params['idstatusreport']}";
         }
 
         $resultado = $this->_db->fetchRow($sql);
@@ -430,7 +443,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $resultado;
     }
 
-    public function getById($params) {
+    public function getById($params)
+    {
         $sql = "SELECT
                     idstatusreport,
                     idprojeto,
@@ -464,7 +478,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract 
         return $statusreport;
     }
 
-    public function ultimoId() {
+    public function ultimoId()
+    {
         $sql = "select
                     idstatusreport
                 from agepnet200.tb_statusreport

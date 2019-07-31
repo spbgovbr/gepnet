@@ -1,0 +1,71 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pesquisacidadao/pesquisacidadao.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-west">
+    <?php
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'cidadao', 'iddiagnostico' => $this->iddiagnostico));
+    ?>
+</div>
+<div class="region-center">
+
+    <?php echo $this->partial('_partials/questionario-pesquisacidadao-menu.phtml', array('dados' => $this->aba)); ?>
+
+    <div style="width: 150px; margin-top: 10px !important; margin-bottom: 10px !important; margin-left: 30px !important;"
+         class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a>
+        </div>
+    </div>
+    <div style="margin-left: 30px !important;">
+        <table id="list-grid"></table>
+        <div id="toolbar-grid"></div>
+        <div id="pager-grid"></div>
+    </div>
+</div>
+<div class="region-east">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Pesquisar</div>
+            <div class="content">
+                <form id="form-quest-vinculado-pesquisar"
+                      name="form-quest-vinculado-pesquisar"
+                      method="post">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->form->nomquestionario ?>
+                        </div>
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->form->iddiagnostico; ?>
+                                <?php echo $this->form->tpquestionario; ?>
+                                <?php echo $this->form->submit; ?>
+                                <?php echo $this->form->reset; ?>
+                                <?php echo $this->form->close; ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

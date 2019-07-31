@@ -1,58 +1,163 @@
 <?php
+
+$offset = 60 * 15;
+@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
+@header("Cache-Control: max-age=$offset, must-revalidate");
+
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'))
-        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-        
-        
-        
-;
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/tap/assinatura.css?' . time()))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/css/app/projeto/termoaceite/index.css'));
 
 $this->headScript()
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/app/projeto/tap/index.js'), 'text/javascript')
-        
-        // Chamada para personalizar o title dos botões.
-//    ->appendFile($this->baseUrl('/js/library/handlebars.js'), 'text/javascript')
-//    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/intervalo.js'), 'text/javascript')
-//    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/index.js'), 'text/javascript')
-//    ->appendFile($this->baseUrl('/js/app/projeto/cronograma/cronograma.js'), 'text/javascript')
-//        
-;
-;
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/tap/index.js?' . time()), 'text/javascript');
 
+$frmAttr = $this->formAssinatura->getAttribs();
 ?>
 
-<div class="region-west" >
+<div class="region-west">
     <?php
-    echo $this->partial('_partials/menu-projeto.phtml', array('ativo' => 'abertura', 'idprojeto' => $this->projeto->idprojeto));
+    echo $this->partial('_partials/menu-projeto.phtml',
+        array('ativo' => 'abertura', 'idprojeto' => $this->projeto->idprojeto));
     ?>
 </div>
-<div class="region-center" >
+<div class="region-center" id="barrafer">
     <?php echo $this->partial('_partials/projeto.phtml', array('projeto' => $this->objprojeto)); ?>
-    
-    <!-- Imprime o termo de abertura e o plano de gerenciamento do projeto -->
+
+    <!-- Imprime o termo de abertura e o plano de gerenciamento do projeto href="<?php //echo $this->url(
+    //array('module' => 'projeto', 'controller' => 'tap', 'action' => 'autenticarassinatura','idprojeto' => $this->projeto->idprojeto)); ?>"-->
     <div class="btn-toolbar" align="" style="width: 350px; float: right;">
-        <a class="btn btn-cadastrar-grupo" title="Imprimir TERMO DE ABERTURA DE PROJETO (TAP)" target="_blank" href="<?php echo $this->url(
-            array('module' => 'projeto', 'controller' => 'tap', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto, 'matricula' => $this->matricula)); ?>">
+        <a data-target="#dialog-assinar" class="btn actionfrm autenticarassinatura" title="Assinar Documentos"
+           target="_blank" href="<?php echo $this->url(
+            array(
+                'module' => 'projeto',
+                'controller' => 'tap',
+                'action' => 'autenticarassinatura',
+                'idprojeto' => $this->projeto->idprojeto
+            )); ?>">
+            <i class="icon-pencil"></i>
+        </a>
+        <?php if ($this->projeto->domstatusprojeto == 8): ?>
+            <a class="btn actionfrm  <?php echo $this->projeto->domstatusprojeto == 8 ? 'restaurarprojeto' : 'excluirprojeto'; ?>"
+               title="<?php echo $this->projeto->domstatusprojeto == 8 ? 'Recuperar' : 'Excluir' ?> Projeto"
+               id="<?php echo($this->projeto->domstatusprojeto == 8 ? 'restaurar' : 'excluir'); ?>"
+               href="<?php echo($this->projeto->domstatusprojeto == 8 ?
+                   $this->url(array(
+                       'module' => 'projeto',
+                       'controller' => 'gerencia',
+                       'action' => 'restaurarprojeto',
+                       'idprojeto' => $this->projeto->idprojeto,
+                       'matricula' => $this->matricula
+                   )) :
+                   $this->url(array(
+                       'module' => 'projeto',
+                       'controller' => 'gerencia',
+                       'action' => 'excluirprojeto',
+                       'idprojeto' => $this->projeto->idprojeto,
+                       'matricula' => $this->matricula
+                   ))); ?>
+            ">
+                <i class="<?php echo $this->projeto->domstatusprojeto == 8 ? 'icon-repeat' : 'icon-trash'; ?>"></i>
+            </a>
+        <?php endif; ?>
+        <a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar TAP" data-id="' + cellvalue + '"
+           href="<?php echo $this->url(
+               array(
+                   'module' => 'projeto',
+                   'controller' => 'tap',
+                   'action' => 'informacoesiniciais',
+                   'idprojeto' => $this->projeto->idprojeto,
+                   'matricula' => $this->matricula
+               )); ?>"><i class="icon-edit"></i>
+        </a>
+        <a class="btn btn-imprimir-word" title="Exportar TERMO DE ABERTURA DE PROJETO (TAP)" target="_blank"
+           href="<?php echo $this->url(
+               array(
+                   'module' => 'projeto',
+                   'controller' => 'tap',
+                   'action' => 'imprimir-word',
+                   'idprojeto' => $this->projeto->idprojeto,
+                   'matricula' => $this->matricula
+               )); ?>">
+            <i class="icon-book"></i>
+        </a>
+        <a class="btn btn-cadastrar-grupo" style="padding-right: 10px;"
+           title="Imprimir TERMO DE ABERTURA DE PROJETO (TAP)" target="_blank" href="<?php echo $this->url(
+            array(
+                'module' => 'projeto',
+                'controller' => 'tap',
+                'action' => 'imprimir',
+                'idprojeto' => $this->projeto->idprojeto,
+                'tipodoc' => 1,
+                'acao' => urlencode($this->acao),
+                'matricula' => $this->matricula
+            )); ?>">
             <i class="icon-print"></i>
         </a>
-        <a class="btn btn-cadastrar-grupo" title="Imprimir PLANO DE PROJETO" target="_blank" href="<?php echo $this->url(
-            array('module' => 'projeto', 'controller' => 'planoprojeto', 'action' => 'imprimir','idprojeto' => $this->projeto->idprojeto, 'matricula' => $this->matricula)); ?>">
+        <a class="btn btn-imprimir-word" title="Exportar PLANO DE PROJETO" target="_blank" href="<?php echo $this->url(
+            array(
+                'module' => 'projeto',
+                'controller' => 'planoprojeto',
+                'action' => 'imprimir-word',
+                'idprojeto' => $this->projeto->idprojeto,
+                'matricula' => $this->matricula
+            )); ?>">
+            <i class="icon-book"></i>
+        </a>
+        <a class="btn btn-cadastrar-grupo" title="Imprimir PLANO DE PROJETO" target="_blank"
+           href="<?php echo $this->url(
+               array(
+                   'module' => 'projeto',
+                   'controller' => 'planoprojeto',
+                   'action' => 'imprimir',
+                   'idprojeto' => $this->projeto->idprojeto,
+                   'tipodoc' => 2,
+                   'matricula' => $this->matricula
+               )); ?>">
             <i class="icon-print"></i>
         </a>
+        <?php if ($this->projeto->domstatusprojeto != 8): ?>
+            <a class="btn actionfrm  <?php echo $this->projeto->domstatusprojeto == 8 ? 'restaurarprojeto' : 'excluirprojeto'; ?>"
+               title="<?php echo $this->projeto->domstatusprojeto == 8 ? 'Recuperar' : 'Excluir' ?> Projeto"
+               id="<?php echo($this->projeto->domstatusprojeto == 8 ? 'restaurar' : 'excluir'); ?>"
+               href="<?php echo($this->projeto->domstatusprojeto == 8 ?
+                   $this->url(array(
+                       'module' => 'projeto',
+                       'controller' => 'gerencia',
+                       'action' => 'restaurarprojeto',
+                       'idprojeto' => $this->projeto->idprojeto,
+                       'matricula' => $this->matricula
+                   )) :
+                   $this->url(array(
+                       'module' => 'projeto',
+                       'controller' => 'gerencia',
+                       'action' => 'excluirprojeto',
+                       'idprojeto' => $this->projeto->idprojeto,
+                       'matricula' => $this->matricula
+                   ))); ?>
+            ">
+                <i class="<?php echo $this->projeto->domstatusprojeto == 8 ? 'icon-repeat' : 'icon-trash'; ?>"></i>
+            </a>
+        <?php endif; ?>
     </div>
-    
+
+
     <!-- Informacoes Iniciais -->
     <div id="ii" class="informacoes" style="display: block">
         <?php echo $this->partial('_partials/tap-menu-report.phtml', array('dados' => 'informacoesiniciais')); ?>
@@ -95,14 +200,14 @@ $this->headScript()
                         <?php echo $this->acao; ?>
                     </div>
                 </div>
-              
+
             </div>
             <div class="row">
                 <div class="portlet portlet-verde span3">
                     <h3>Demandante</h3>
                     <div class="content">
                         <?php echo $this->projeto->nomdemandante; ?>
-                       
+
                     </div>
                 </div>
                 <div class="portlet portlet-verde span3">
@@ -152,12 +257,6 @@ $this->headScript()
             </div>
             <div class="row">
                 <div class="portlet portlet-verde span3">
-                    <h3>Natureza</h3>
-                    <div class="content">
-                        <?php echo $this->projeto->natureza; ?>
-                    </div>
-                </div>
-                <div class="portlet portlet-verde span3">
                     <h3>Área Executora</h3>
                     <div class="content">
                         <?php echo $this->projeto->setor; ?>
@@ -170,9 +269,15 @@ $this->headScript()
                     </div>
                 </div>
                 <div class="portlet portlet-verde span3">
-                    <h3>Ano</h3>
+                    <h3>Periodicidade de Atualização(Dias)</h3>
                     <div class="content">
-                        <?php echo $this->projeto->ano; ?>
+                        <?php echo $this->projeto->numperiodicidadeatualizacao; ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-verde span3">
+                    <h3>Critério Farol Prazo(Dias)</h3>
+                    <div class="content">
+                        <?php echo $this->projeto->numcriteriofarol; ?>
                     </div>
                 </div>
             </div>
@@ -182,50 +287,19 @@ $this->headScript()
             <legend>Demais Informações</legend>
             <div class="row">
                 <div class="portlet portlet-verde span4">
-                    <h3>Portf&oacute;lio do Projeto</h3>
-                    <div class="content">
-                        <?php echo $this->noPortifolio ?>
-                    </div>
-                </div>
-                <div class="portlet portlet-verde span4">
-                    <h3>Tipo do Projeto</h3>
-                    <div class="content">
-                        <?php echo $this->projeto->domtipoprojeto ?>
-                    </div>
-                </div>
-
-                <div class="portlet portlet-verde span3">
-                    <h3>Grandes Eventos</h3>
-                    <div class="content">
-                        <?php echo $this->projeto->copa; ?>
-                    </div>
-                </div>
-                <div class="portlet portlet-verde span3">
-                    <h3>Periodicidade de Atualização(Dias)</h3>
-                    <div class="content">
-                        <?php echo $this->projeto->numperiodicidadeatualizacao; ?>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="portlet portlet-verde span4">
-                    <h3>Critério Farol Prazo(Dias)</h3>
-                    <div class="content">
-                        <?php echo $this->projeto->numcriteriofarol; ?>
-                    </div>
-                </div>
-                <div class="portlet portlet-verde span4">
                     <h3>Publicar Projeto</h3>
                     <div class="content">
                         <?php echo $this->projeto->publicado; ?>
                     </div>
                 </div>
-                <div class="portlet portlet-verde span3">
+                <div class="portlet portlet-verde span4">
                     <h3>Aprovado?(TAP assinado)</h3>
                     <div class="content">
                         <?php echo $this->projeto->aprovado; ?>
                     </div>
                 </div>
+            </div>
+            <div class="row">
             </div>
         </fieldset>
     </div>
@@ -239,7 +313,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Justificativa do Projeto</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desjustificativa; ?>
+                        <?php echo nl2br($this->projeto->desjustificativa); ?>
                     </div>
                 </div>
             </div>
@@ -247,7 +321,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Objeto do Projeto (O que será feito?)</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desprojeto; ?>
+                        <?php echo nl2br($this->projeto->desprojeto); ?>
                     </div>
                 </div>
             </div>
@@ -255,7 +329,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Objetivo do Projeto (Por que será feito?)</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desobjetivo; ?>
+                        <?php echo nl2br($this->projeto->desobjetivo); ?>
                     </div>
                 </div>
             </div>
@@ -271,7 +345,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Escopo Resumido (Principais Entregas)</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desescopo; ?>
+                        <?php echo nl2br($this->projeto->desescopo); ?>
                     </div>
                 </div>
             </div>
@@ -279,7 +353,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Não Escopo (O que não será feito?)</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desnaoescopo; ?>
+                        <?php echo nl2br($this->projeto->desnaoescopo); ?>
                     </div>
                 </div>
             </div>
@@ -287,7 +361,7 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Premissas</h3>
                     <div class="content">
-                        <?php echo $this->projeto->despremissa; ?>
+                        <?php echo nl2br($this->projeto->despremissa); ?>
                     </div>
                 </div>
             </div>
@@ -295,65 +369,62 @@ $this->headScript()
                 <div class="portlet portlet-verde span8">
                     <h3>Restrições</h3>
                     <div class="content">
-                        <?php echo $this->projeto->desrestricao; ?>
+                        <?php echo nl2br($this->projeto->desrestricao); ?>
                     </div>
                 </div>
             </div>
         </fieldset>
     </div>
-
-    <!-- Partes Interessadas -->
+    <!-- Assinaturas -->
     <div id="pi" class="informacoes" style="display: none">
-        <?php echo $this->partial('_partials/tap-menu-report.phtml', array('dados' => 'partesinteressadas')); ?>
+        <?php echo $this->partial('_partials/tap-menu-report.phtml', array('dados' => 'assinadocumento')); ?>
         <fieldset>
-            <legend>Partes Interessadas</legend>
+            <legend>Assinaturas</legend>
             <div class="row">
                 <table class="table table-bordered table-hover table-striped span10">
                     <colgroup>
                         <col style="width: 100px">
                         <col style="width: 100px">
                         <col style="width: 50px">
-                        <col style="width: 50px">
-                        <col style="width: 50px">
+                        <col style="width: 100px">
                     </colgroup>
                     <thead>
                     <th>Nome</th>
-                    <th>Função</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Nível Influência</th>
+                    <th>Função no Projeto</th>
+                    <th>Data/Hora assintaura</th>
+                    <th>Documento Assinado</th>
                     </thead>
                     <tbody>
-                        <?php if (count($this->dados) > 0): ?>
-                            <?php foreach ($this->dados as $data) : ?>
-                                <tr>
-                                    <td>
-                                        <?php echo $data->nomparteinteressada; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->nomfuncao; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->destelefone; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->desemail; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $data->domnivelinfluencia; ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <tr id="nenhumregistro">
-                                <td  colspan="6">Nenhum registro encontrado</td>
+                    <?php if (count($this->assinaturas) > 0): ?>
+                        <?php foreach ($this->assinaturas as $assinatura) : ?>
+                            <tr>
+                                <td>
+                                    <span id="nomparteinteressada"><?php echo $assinatura['nomparteinteressada']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="nomfuncao"><?php echo $assinatura['nomfuncao']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="assinado"><?php echo $assinatura['assinado']; ?></span>
+                                </td>
+                                <td>
+                                    <span id="tipo"><?php echo $assinatura['tipo']; ?></span>
+                                </td>
                             </tr>
-                        <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr id="nenhumregistro">
+                            <td colspan="4"><span id="regEmpty">Nenhum registro encontrado</td>
+                        </tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
             </div>
         </fieldset>
     </div>
 </div>
+<div id="dialog-assinar" style="display: none"></div>
+<div id="dialog-excluirprojeto" style="display: none"></div>
+<div id="dialog-restaurarprojeto" style="display: none"></div>
 
 

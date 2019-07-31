@@ -14,7 +14,7 @@
  * !!!!NOTE!!!!
  */
 
-(function($, window){
+(function ($, window) {
     // i'll just put them here to get evaluated on script load
     var htmlSpecialCharsRegEx = /[<>&\r\n"']/gm;
     var htmlSpecialCharsPlaceHolders = {
@@ -56,21 +56,23 @@
                 //
                 //Requires jQuery UI: options to pass into jQuery UI Dialog
                 //
-                dialogOptions: { modal: true },
+                dialogOptions: {modal: true},
 
                 //
                 //a function to call while the dowload is being prepared before the browser's dialog appears
                 //Args:
                 //  url - the original url attempted
                 //
-                prepareCallback: function (url) { },
+                prepareCallback: function (url) {
+                },
 
                 //
                 //a function to call after a file download dialog/ribbon has appeared
                 //Args:
                 //  url - the original url attempted
                 //
-                successCallback: function (url) { },
+                successCallback: function (url) {
+                },
 
                 //
                 //a function to call after a file download dialog/ribbon has appeared
@@ -80,7 +82,8 @@
                 //                      server's error message with a "helpful" IE built in message
                 //  url             - the original url attempted
                 //
-                failCallback: function (responseHtml, url) { },
+                failCallback: function (responseHtml, url) {
+                },
 
                 //
                 // the HTTP method to use. Defaults to "GET".
@@ -189,7 +192,8 @@
                     //remove the perparing message if it was specified
                     if ($preparingDialog) {
                         $preparingDialog.dialog('close');
-                    };
+                    }
+                    ;
 
                     settings.successCallback(url);
 
@@ -201,7 +205,8 @@
                     //remove the perparing message if it was specified
                     if ($preparingDialog) {
                         $preparingDialog.dialog('close');
-                    };
+                    }
+                    ;
 
                     //wire up a jquery dialog to display the fail message if specified
                     if (settings.failMessageHtml) {
@@ -365,8 +370,7 @@
                                 return;
                             }
                         }
-                    }
-                    catch (err) {
+                    } catch (err) {
 
                         //500 error less than IE9
                         internalCallbacks.onFail('', fileUrl);
@@ -393,7 +397,7 @@
 
             function cleanUp(isFailure) {
 
-                setTimeout(function() {
+                setTimeout(function () {
 
                     if (downloadWindow) {
 
@@ -422,7 +426,7 @@
 
 
             function htmlSpecialCharsEntityEncode(str) {
-                return str.replace(htmlSpecialCharsRegEx, function(match) {
+                return str.replace(htmlSpecialCharsRegEx, function (match) {
                     return '&' + htmlSpecialCharsPlaceHolders[match];
                 });
             }

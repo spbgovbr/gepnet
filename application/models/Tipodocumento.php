@@ -7,7 +7,7 @@
  */
 class Default_Model_Tipodocumento extends App_Model_ModelAbstract
 {
-	public $idtipodocumento = null;
+    public $idtipodocumento = null;
     public $nomtipodocumento = null;
     public $idcadastrador = null;
     public $datcadastro = null;

@@ -1,0 +1,43 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));;
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="alert alert-block" style="font-size: 14px !important;">
+    <h4>Aten&ccedil;&atilde;o!</h4>
+    Tem certeza que deseja clonar este projeto?<br/>
+    Ao concordar e clicar em "Clonar" uma c&oacute;pia deste projeto ser&aacute; gerado incluindo dados de m&oacute;dulos
+    deste projeto.<br/>
+    <p>Depois de clonado, a a&ccedil;&atilde;o <strong> n&atilde;o </strong> poder&aacute; ser desfeita.
+    </p>
+</div>
+<form id="<?php echo $frmAttr['id']; ?>"
+      name="<?php echo $frmAttr['id']; ?>"
+      action="<?php echo $this->baseUrl(); ?>/projeto/gerencia/clonarprojeto/format/json"
+      method="<?php echo $frmAttr['method']; ?>">
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->nomprojeto; ?>
+        </div>
+        <div class="span4" style="display:none">
+            <?php echo $this->form->ano; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->idescritorio; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span4">
+            <?php echo $this->form->idprojeto; ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+            (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+        </div>
+    </div>
+</form>
+

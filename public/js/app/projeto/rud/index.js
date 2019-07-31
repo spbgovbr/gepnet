@@ -1,4 +1,4 @@
-function recuperarPastas(){
+function recuperarPastas() {
     $.ajax({
         url: url_recuperar_pastas,
         dataType: 'json',
@@ -6,19 +6,19 @@ function recuperarPastas(){
         async: true,
         cache: true,
         processData: true,
-        data:{'idprojeto' : $('#idprojeto').val()} ,
-        success: function(data) {
-            if(data){
+        data: {'idprojeto': $('#idprojeto').val()},
+        success: function (data) {
+            if (data) {
                 var options = $("#nompasta");
                 options.empty();
                 options.append($("<option />").val("").text("Selecione"));
-                $.each(data, function() {
+                $.each(data, function () {
                     options.append($("<option />").val(this).text(this));
                 });
 //                options.find('option[value='+ $num +']').attr('selected', 'selected');
             }
         },
-        error: function() {
+        error: function () {
             $.pnotify({
                 text: 'Falha ao enviar a requisição',
                 type: 'error',
@@ -28,49 +28,75 @@ function recuperarPastas(){
     });
 }
 
-function fileTree(){
+function fileTree() {
     $('#fileTree').fileTree({
             root: $('#idprojeto').val() + '/',
-            script: base_url + '/projeto/rud/file-tree' },
-        function(file) {
+            script: base_url + '/projeto/rud/file-tree'
+        },
+        function (file) {
 //            alert(encodeURIComponent(file));
 //            window.open(base_url + '/projeto/rud/download/file/' + file);
-            window.open(base_url + '/projeto/rud/download/file/' + file.replace(/\//gi ,":!"));
+            window.open(base_url + '/projeto/rud/download/file/' + file.replace(/\//gi, ":!"));
 //            window.open(base_url + '/projeto/rud/download/file/' + encodeURIComponent(file));
         });
 
 }
 
-function refreshTree(){
-    $( "#fileTree" ).fadeOut( "slow", function() {
+function refreshTree() {
+    $("#fileTree").fadeOut("slow", function () {
         fileTree();
     });
     $('#fileTree').fadeIn("slow");
 }
 
-$(function() {
+$(function () {
 
     $.pnotify.defaults.history = false;
 
     fileTree();
     var
         $form = $("form#form-rud");
-        $formPasta = $("form#form-rud-pasta");
-        url_recuperar_pastas = base_url + "/projeto/rud/pesquisarjson";
-        url_cadastrar = base_url + "/projeto/rud/add/format/json";
-        url_criar_pasta = base_url + "/projeto/rud/addpasta/format/json";
-        url_remover = base_url + "/projeto/rud/delete/format/json";
-        url_download = base_url + "/projeto/rud/download/";
+    $formPasta = $("form#form-rud-pasta");
+    url_recuperar_pastas = base_url + "/projeto/rud/pesquisarjson";
+    url_cadastrar = base_url + "/projeto/rud/add/format/json";
+    url_criar_pasta = base_url + "/projeto/rud/addpasta/format/json";
+    url_remover = base_url + "/projeto/rud/delete/format/json";
+    url_download = base_url + "/projeto/rud/download/";
+
+    $.validator.addMethod("fileUpload", function (value, element) {
+        var validFields = $('input[type="file"]').map(function () {
+            if ($(this).val() != "")
+                return $(this);
+        }).get();
+        return (validFields.length ? true : false);
+    }, 'Informe pelo menos um arquivo.');
 
     $form.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
+        rules: {
+            arquivo1: {
+                fileUpload: true
+            },
+            arquivo2: {
+                fileUpload: true
+            },
+            arquivo3: {
+                fileUpload: true
+            },
+            arquivo4: {
+                fileUpload: true
+            },
+            arquivo5: {
+                fileUpload: true
+            }
+        },
+        submitHandler: function (form) {
             var options = {
                 url: url_cadastrar,
                 dataType: 'json',
                 type: 'POST',
-                success: function(data) {
+                success: function (data) {
 //                    if(typeof data.msg.text != 'string'){
 //                        $.formErrors(data.msg.text);
 //                        fileTree();
@@ -78,8 +104,8 @@ $(function() {
 //                    }
                     $.pnotify(data.msg);
 //                    if(data.success){
-                        fileTree();
-                        $("#resetbutton").trigger('click');
+                    fileTree();
+                    $("#resetbutton").trigger('click');
 //                    }
                 }
             };
@@ -90,31 +116,30 @@ $(function() {
     $formPasta.validate({
         errorClass: 'error',
         validClass: 'success',
-        submitHandler: function(form) {
+        submitHandler: function (form) {
             var options = {
                 url: url_criar_pasta,
                 dataType: 'json',
                 type: 'POST',
-                success: function(data) {
+                success: function (data) {
 //                    console.log('formPasta Submit');
                     $.pnotify(data.msg);
                     refreshTree();
                     recuperarPastas();
                     $('#resetbuttonpasta').trigger('click');
                 }
-
             };
             $formPasta.ajaxSubmit(options);
         }
     });
 
-    $("#excluir").on('click', function(){
+    $("#excluir").on('click', function () {
         var selected = new Array();
-        $('input:checked').each(function() {
+        $('input:checked').each(function () {
             selected.push($(this).attr('name'));
         });
 
-        if(selected.length == 0){
+        if (selected.length == 0) {
             $.pnotify({
                 text: 'Selecione um arquivo/diretório.',
                 type: 'error',
@@ -130,19 +155,25 @@ $(function() {
             async: true,
             cache: true,
             processData: true,
-            data:{'arquivos' : selected, 'idprojeto': $("#idprojeto").val()} ,
-            success: function(data) {
+            data: {'arquivos': selected, 'idprojeto': $("#idprojeto").val()},
+            success: function (data) {
                 refreshTree();
                 recuperarPastas();
                 $('#resetbuttonpasta').trigger('click');
                 $.pnotify(data.msg);
             },
-            error: function(data) {
+            error: function (data) {
                 $.pnotify(data.msg);
             }
         });
+    });
 
-
+    $("#accordion2").click(function () {
+        if ($('.accordion-toggle').hasClass("collapsed")) {
+            $("#img").attr("class", "icon-minus");
+        } else {
+            $("#img").attr("class", "icon-plus");
+        }
     });
 
     recuperarPastas();

@@ -82,7 +82,7 @@ class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Con
         $codeGenFile = new Zend_CodeGenerator_Php_File(array(
             'requiredFiles' => array(
                 'PHPUnit/Framework/TestCase.php'
-                ),
+            ),
             'classes' => array(
                 new Zend_CodeGenerator_Php_Class(array(
                     'name' => $className,
@@ -91,15 +91,15 @@ class Zend_Tool_Project_Context_Zf_TestLibraryFile extends Zend_Tool_Project_Con
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'setUp',
                             'body' => '        /* Setup Routine */'
-                            )),
+                        )),
                         new Zend_CodeGenerator_Php_Method(array(
                             'name' => 'tearDown',
                             'body' => '        /* Tear Down Routine */'
-                            ))
-                        )
-                    ))
-                )
-            ));
+                        ))
+                    )
+                ))
+            )
+        ));
 
         return $codeGenFile->generate();
     }

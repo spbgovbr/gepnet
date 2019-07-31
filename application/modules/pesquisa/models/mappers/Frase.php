@@ -18,12 +18,12 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
     public function insert(Pesquisa_Model_Frase $model)
     {
         $data = array(
-            "idfrase"       => $this->maxVal('idfrase'),
-            "desfrase"      => $model->desfrase,
-            "domtipofrase"  => $model->domtipofrase,
-            "flaativo"      => $model->flaativo,
-            "datcadastro"   => new Zend_Db_Expr('now()'),
-            "idescritorio"  => $model->idescritorio,
+            "idfrase" => $this->maxVal('idfrase'),
+            "desfrase" => $model->desfrase,
+            "domtipofrase" => $model->domtipofrase,
+            "flaativo" => $model->flaativo,
+            "datcadastro" => new Zend_Db_Expr('now()'),
+            "idescritorio" => $model->idescritorio,
             "idcadastrador" => $model->idcadastrador,
         );
         return $this->getDbTable()->insert($data);
@@ -38,11 +38,11 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
     public function update(Pesquisa_Model_Frase $model)
     {
         $data = array(
-            "desfrase"      => $model->desfrase,
-            "domtipofrase"  => $model->domtipofrase,
-            "flaativo"      => $model->flaativo,
+            "desfrase" => $model->desfrase,
+            "domtipofrase" => $model->domtipofrase,
+            "flaativo" => $model->flaativo,
         );
-         return $this->getDbTable()->update($data, array("idfrase = ?" => $model->idfrase));
+        return $this->getDbTable()->update($data, array("idfrase = ?" => $model->idfrase));
     }
 
 //    public function delete($params)
@@ -51,12 +51,12 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
 //       $result =  $this->getDbTable()->delete($where);
 //       return $result;
 //    }
-    
+
     public function getForm()
     {
         return $this->_getForm(Pesquisa_Form_Frase);
     }
-    
+
     public function retornaPerguntasToGrid($params)
     {
         $params = array_filter($params);
@@ -79,17 +79,17 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
                     domtipofrase as inttipo
                 FROM agepnet200.tb_frase 
                 WHERE 1 = 1 ";
-                
-        if(isset($params['desfrase']) && $params['desfrase'] != "") {
+
+        if (isset($params['desfrase']) && $params['desfrase'] != "") {
             $sql .= " AND desfrase ilike'%{$params['desfrase']}%'";
         }
-        if(isset($params['domtipofrase']) && $params['domtipofrase'] != "") {
+        if (isset($params['domtipofrase']) && $params['domtipofrase'] != "") {
             $sql .= " AND domtipofrase  = {$params['domtipofrase']}";
         }
-        if(isset($params['flaativo']) && $params['flaativo'] != "") {
+        if (isset($params['flaativo']) && $params['flaativo'] != "") {
             $sql .= " AND flaativo  = '{$params['flaativo']}'";
         }
-        
+
         $sql .= 'order by ' . $params['sidx'] . ' ' . $params['sord'];
         try {
             $page = (isset($params['page'])) ? $params['page'] : 1;
@@ -98,7 +98,7 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
             $paginator->setItemCountPerPage($limit);
             $paginator->setCurrentPageNumber($page);
             return $paginator;
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->code());
         }
 
@@ -106,12 +106,12 @@ class Pesquisa_Model_Mapper_Frase extends App_Model_Mapper_MapperAbstract
 
     public function getById($params)
     {
-        $sql =  "SELECT * FROM agepnet200.tb_frase where idfrase =  :idfrase ";
-        
+        $sql = "SELECT * FROM agepnet200.tb_frase where idfrase =  :idfrase ";
+
         return $this->_db->fetchRow($sql, array('idfrase' => (int)$params['idfrase']));
     }
-    
-    
+
+
     public function getByIdDetalhar($params)
     {
         $params = array_filter($params);

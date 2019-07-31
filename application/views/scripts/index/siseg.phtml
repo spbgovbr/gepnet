@@ -1,0 +1,328 @@
+<script type="text/javascript">
+    /*
+    var calendarMap = [];
+    var position = { x: 0, y: 0 };
+    arrow = {
+        left:  37,
+        up:    38,
+        right: 39,
+        down:  40
+    };
+     */
+
+    $(function () {
+        $('#search').focus();
+        //move.init();
+        //move.highlightCell();
+
+        $('#search').bind('keyup change', function (e) {
+            var
+                $this = $(this),
+                $filterDivs = $('.item-sis'),
+                regxp = null,
+                code = (e.keyCode ? e.keyCode : e.which);
+
+            if (code == 13) {
+                $('.item-sis:visible:first').trigger('click');
+            }
+
+            if ($this.val() == '') {
+                $filterDivs.slideDown(500);
+            } else {
+                regxp = new RegExp($this.val(), "i");
+                $filterDivs.each(function (i, val) {
+                    var $this = $(val);
+                    if ($this.text().search(regxp) == -1) {
+                        $this.hide(500);
+                    } else {
+                        $this.show();
+                    }
+                });
+            }
+        });
+
+        $('.item-sis').hover(function () {
+            $(this).addClass('item_hover');
+        }, function () {
+            $(this).removeClass('item_hover');
+        }).click(function (event) {
+            var href = $(this).find('a:first').attr('rel');
+            window.location = href;
+            // stop this link being followed
+            event.preventDefault();
+            // prevent events on parent elements being triggered
+            event.stopPropagation();
+        });
+    });
+
+    /*
+    move = (function(){
+
+        left = function () {
+            position.x--;
+            if (position.x < 0)
+                position.x = 0;
+        };
+
+        up = function () {
+            position.y--;
+            if (position.y < 0)
+                position.y = 0;
+        };
+
+        right = function () {
+            position.x++;
+            if (position.x >= calendarMap[0].length)
+                position.x = calendarMap[0].length - 1;
+        };
+
+        down = function () {
+            position.y++;
+            if (position.y >= calendarMap.length){
+                position.y = calendarMap.length - 1;
+            }
+            if(position.x >= calendarMap[position.y].length){
+                position.x = calendarMap[position.y].length -1;
+            }
+        };
+    
+        highlightCell = function (){
+            $('.item-sis').removeClass('selected');
+            if(calendarMap[position.y][position.x]){
+                calendarMap[position.y][position.x].addClass('selected');
+            }
+        };
+    
+        init = function(){
+            $('#container-sistemas .row').each(function (i,val) {
+                calendarMap.push([]);
+                $('.item-sis', this).each(function (j,v) {
+                    calendarMap[i].push($(this));
+                });
+            });
+        
+            $(window).keydown(function (e) {
+                if (e.keyCode === arrow.left) // left
+                    this.left();
+                else if (e.keyCode === arrow.up) // up
+                    this.up();
+                else if (e.keyCode === arrow.right) // right
+                    this.right();
+                else if (e.keyCode === arrow.down) // down
+                    this.down();
+                this.highlightCell();
+            });
+        };
+    
+        return {
+            init:  init,   
+            up:    up,   
+            down:  down,   
+            left:  left,   
+            right: right,
+            highlightCell: highlightCell     
+        };
+    })();
+     */
+</script>
+
+<style>
+    .selected {
+        background: #f7f7f7;
+    }
+
+    #container-sistemas {
+        background-color: #fff;
+    }
+
+    .item-sis {
+        background-color: #fff;
+        display: inline-table;
+        width: 300px;
+        padding: 8px;
+        margin: 8px;
+        border: 1px solid #ccc;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        border-radius: 6px;
+        height: 54px;
+    }
+
+    .item_hover {
+        /*border-color: rgb(231, 216, 168);*/
+        border-color: rgba(82, 168, 236, 0.8);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+        /* box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgb(231, 216, 168); */
+        outline: 0 none;
+        cursor: pointer;
+    }
+
+    .item-sis a {
+        display: block;
+    }
+
+    .desc-sis {
+        font: 10px Verdana;
+        text-transform: uppercase;
+        margin: 0 0 0 8px;
+    }
+
+    .sigla-sis {
+        font: bold 12px Verdana, Helvetica;
+        color: #000;
+        text-decoration: none;
+        margin: 10px 0 2px 8px;
+    }
+
+    .icone-sis {
+        width: 60px;
+        display: inline-table;
+        float: left;
+    }
+</style>
+
+<div data-role="page" id="page-id">
+    <div data-role="content">
+        <div data-role="fieldcontain">
+            <input type="search" name="password" id="search" value=""/>
+        </div>
+    </div>
+</div>
+
+
+<div id="container-sistemas">
+    <div class="item-sis">
+        <a class="icone-sis" id="5" rel="urlsistema.php?cd_sistema=5&amp;cd_grupo=5" href="#">
+            <img border="0" title="ALMAQ" src="http://suse10.dpf.gov.br/imagens/ico_almaq.gif">
+        </a>
+        <a class="sigla-sis" id="5" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=5&amp;cd_grupo=5" href="#">ALMAQ</a>
+        <div class="desc-sis">Curriculum dos Servidores</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="260" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=260&amp;cd_grupo=1"
+           href="#"><img border="0" title="CAD_AGENDA_VIG"
+                         src="http://suse10.dpf.gov.br/imagens/ico_cad_agenda_vig.gif"></a>
+        <a class="sigla-sis" id="260" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=260&amp;cd_grupo=1"
+           href="#">CAD_AGENDA_VIG</a>
+        <div class="desc-sis"> CADASTRO NACIONAL DE BIOMETRIA DE VIGILANTE</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="196" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=196&amp;cd_grupo="
+           href="#"><img border="0" title="E-GP" src="http://suse10.dpf.gov.br/imagens/ico_e-gp.gif"></a>
+        <a class="sigla-sis" id="196" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=196&amp;cd_grupo="
+           href="#">E-GP</a>
+        <div class="desc-sis"> GEST?O ELETRONICA DE PESSOAL</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="203" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=203&amp;cd_grupo="
+           href="#"><img border="0" title="E-LOG" src="http://suse10.dpf.gov.br/imagens/ico_e-log.gif"></a>
+        <div class="sigla-sis" id="203">E-LOG</div>
+        <div class="desc-sis"> GEST?O ELETRONICA DE ADMINISTRAC?O E LOGISTICA</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="200" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=200&amp;cd_grupo=1"
+           href="#"><img border="0" title="GEPNET" src="http://suse10.dpf.gov.br/imagens/ico_gepnet.gif"></a>
+        <a class="sigla-sis" id="200" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=200&amp;cd_grupo=1"
+           href="#">GEPNET</a>
+        <div class="desc-sis"> GESTOR DOS ESCRITORIOS DE PROJETOS DA PF</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="122" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=122&amp;cd_grupo=54"
+           href="#"><img border="0" title="MANTIS" src="http://suse10.dpf.gov.br/imagens/ico_mantis.gif"></a>
+        <a class="sigla-sis" id="122" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=122&amp;cd_grupo=54"
+           href="#">MANTIS</a>
+        <div class="desc-sis"> ATENDIMENTO AOS USUARIOS DE TI</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="194" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=194&amp;cd_grupo=1"
+           href="#"><img border="0" title="REF" src="http://suse10.dpf.gov.br/imagens/ico_ref.gif"></a>
+        <a class="sigla-sis" id="194" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=194&amp;cd_grupo=1"
+           href="#">REF</a>
+        <div class="desc-sis"> REGISTRO ELETRONICO DE FREQUENCIA</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="4" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=4&amp;cd_grupo=25" href="#"><img
+                    border="0" title="REMOC" src="http://suse10.dpf.gov.br/imagens/ico_remoc.gif"></a>
+        <a class="sigla-sis" id="4" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=4&amp;cd_grupo=25" href="#">REMOC</a>
+        <div class="desc-sis"> SISTEMA REMOC</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="230" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=230&amp;cd_grupo=1"
+           href="#"><img border="0" title="SGG" src="http://suse10.dpf.gov.br/imagens/ico_sgg.gif"></a>
+        <a class="sigla-sis" id="230" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=230&amp;cd_grupo=1"
+           href="#">SGG</a>
+        <div class="desc-sis"> SISTEMA DE GERENCIAMENTO DE GESTORES</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="150" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=150&amp;cd_grupo="
+           href="#"><img border="0" title="SIAR" src="http://suse10.dpf.gov.br/imagens/ico_siar.gif"></a>
+        <a class="sigla-sis" id="150" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=150&amp;cd_grupo="
+           href="#">SIAR</a>
+        <div class="desc-sis"> SISTEMA DE ARRECADACAO</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="59" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=59&amp;cd_grupo=1"
+           href="#"><img border="0" title="SINATEL" src="http://suse10.dpf.gov.br/imagens/ico_sinatel.gif"></a>
+        <a class="sigla-sis" id="59" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=59&amp;cd_grupo=1"
+           href="#">SINATEL</a>
+        <div class="desc-sis"> Sistema Nacional de Lista Telefonica</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="185" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=185&amp;cd_grupo="
+           href="#"><img border="0" title="SINDRE_WEB" src="http://suse10.dpf.gov.br/imagens/ico_sindre_web.gif"></a>
+        <a class="sigla-sis" id="185" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=185&amp;cd_grupo="
+           href="#">SINDRE_WEB</a>
+        <div class="desc-sis"> Sindre Estatistica</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="176" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=176&amp;cd_grupo=1"
+           href="#"><img border="0" title="SINPA_CON" src="http://suse10.dpf.gov.br/imagens/ico_sinpa_con.gif"></a>
+        <a class="sigla-sis" id="176" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=176&amp;cd_grupo=1"
+           href="#">SINPA_CON</a>
+        <div class="desc-sis"> Sistema Nacional de Passaporte - Consulta</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="224" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=224&amp;cd_grupo=1"
+           href="#"><img border="0" title="SINPI_DPF_TEST"
+                         src="http://suse10.dpf.gov.br/imagens/ico_sinpi_dpf_test.gif"></a>
+        <a class="sigla-sis" id="224"
+           rel="http://suse10.dpf.gov.br/http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=224&amp;cd_grupo=1"
+           href="#">SINPI_DPF_TEST</a>
+        <div class="desc-sis"> SISTEMA DE PROCURADOS E IMPEDIDOS - AMBIENTE DE DEMONSTRACAO DO SINPI.</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="231" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=231&amp;cd_grupo=1"
+           href="#"><img border="0" title="SINPI_STF_TQS" src="http://suse10.dpf.gov.br/imagens/ico_sinpi_stf_tqs.gif"></a>
+        <a class="sigla-sis" id="231" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=231&amp;cd_grupo=1"
+           href="#">SINPI_STF_TQS</a>
+        <div class="desc-sis"> SISTEMA NACIONAL DE PROCURADOS E IMPEDIDOS - AMBIENTE DE DESENVOLVIMENTO</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="148" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=148&amp;cd_grupo="
+           href="#"><img border="0" title="SIPROQUIM" src="http://suse10.dpf.gov.br/imagens/ico_siproquim.gif"></a>
+        <a class="sigla-sis" id="148" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=148&amp;cd_grupo="
+           href="#">SIPROQUIM</a>
+        <div class="desc-sis"> SISTEMA DE CONTROLE DOS PRODUTOS QUIMICOS</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="177" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=177&amp;cd_grupo=218"
+           href="#"><img border="0" title="SISEG" src="http://suse10.dpf.gov.br/imagens/ico_siseg.gif"></a>
+        <a class="sigla-sis" id="177" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=177&amp;cd_grupo=218"
+           href="#">SISEG</a>
+        <div class="desc-sis"> Sistema de Seguranca</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="189" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=189&amp;cd_grupo=1"
+           href="#"><img border="0" title="STI CON" src="http://suse10.dpf.gov.br/imagens/ico_sticon.gif"></a>
+        <a class="sigla-sis" id="189" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=189&amp;cd_grupo=1"
+           href="#">STI CON</a>
+        <div class="desc-sis"> SISTEMA TRAFEGO INTERNACIONAL - CONSULTA</div>
+    </div>
+    <div class="item-sis">
+        <a class="icone-sis" id="254" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=254&amp;cd_grupo="
+           href="#"><img border="0" title="TELACGTI" src="http://suse10.dpf.gov.br/imagens/ico_telacgti.gif"></a>
+        <a class="sigla-sis" id="254" rel="http://suse10.dpf.gov.br/urlsistema.php?cd_sistema=254&amp;cd_grupo="
+           href="#">TELACGTI</a>
+        <div class="desc-sis"> SISTEMAS CORPORATIVO</div>
+    </div>
+</div>

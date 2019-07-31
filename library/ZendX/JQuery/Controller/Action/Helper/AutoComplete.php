@@ -23,12 +23,12 @@
 require_once "Zend/Controller/Action/Helper/AutoComplete/Abstract.php";
 
 class ZendX_JQuery_Controller_Action_Helper_AutoComplete
-extends Zend_Controller_Action_Helper_AutoComplete_Abstract
+    extends Zend_Controller_Action_Helper_AutoComplete_Abstract
 {
     /**
      * Validate autocompletion data
      *
-     * @param  mixed $data
+     * @param mixed $data
      * @return boolean
      */
     public function validateData($data)
@@ -43,8 +43,8 @@ extends Zend_Controller_Action_Helper_AutoComplete_Abstract
     /**
      * Prepare autocompletion data
      *
-     * @param  mixed   $data
-     * @param  boolean $keepLayouts
+     * @param mixed $data
+     * @param boolean $keepLayouts
      * @return mixed
      */
     public function prepareAutoCompletion($data, $keepLayouts = false)
@@ -57,13 +57,13 @@ extends Zend_Controller_Action_Helper_AutoComplete_Abstract
             throw new Zend_Controller_Action_Exception('Invalid data passed for autocompletion');
         }
 
-        $data = (array) $data;
+        $data = (array)$data;
         $output = "";
-        foreach($data AS $k => $v) {
-            if(is_numeric($k)) {
-                $output .= $v."\n";
+        foreach ($data AS $k => $v) {
+            if (is_numeric($k)) {
+                $output .= $v . "\n";
             } else {
-                $output .= $k."|".$v."\n";
+                $output .= $k . "|" . $v . "\n";
             }
         }
 

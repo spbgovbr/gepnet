@@ -4,17 +4,16 @@
 //    ->appendFile($this->baseUrl('/js/app/acordocooperacao/instrumentocooperacao/add.js'), 'text/javascript')
 //;
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-;
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript');
 $frmAttr = $this->form->getAttribs();
 ?>
 <script>
-    $('.mask-cel').mask("(99) 9999-9999?9").focusout(function(){
+    $('.mask-cel').mask("(99) 9999-9999?9").focusout(function () {
         var phone, element;
         element = $(this);
         element.unmask();
         phone = element.val().replace(/\D/g, '');
-        if(phone.length > 10) {
+        if (phone.length > 10) {
             element.mask("(99) 99999-999?9");
         } else {
             element.mask("(99) 9999-9999?9");
@@ -29,7 +28,7 @@ $frmAttr = $this->form->getAttribs();
         language: 'pt-BR'
     });
 
-    $("body").delegate(".datemask-BR", "focusin", function() {
+    $("body").delegate(".datemask-BR", "focusin", function () {
         $(this).mask('99/99/9999');
     });
 </script>
@@ -150,10 +149,10 @@ $frmAttr = $this->form->getAttribs();
                         <?php echo $this->form->descontatoexterno; ?>
                     </div>
                     <!--<div class="span3">
-                        <?php /*echo $this->form->identidadeexterna; */?>
+                        <?php /*echo $this->form->identidadeexterna; */ ?>
                     </div>
                     <div class="span1">
-                        <?php /*echo $this->form->adicionar; */?>
+                        <?php /*echo $this->form->adicionar; */ ?>
                     </div>-->
                 </div>
                 <div class="row">
@@ -168,10 +167,10 @@ $frmAttr = $this->form->getAttribs();
                 </div>
                 <div class="row">
                     <div>
-                        <?php if($this->anexo){ ?>
+                        <?php if ($this->anexo) { ?>
                             <div class="row" style="margin-left: 1px;">
                                 <div class="span5">
-                                    <a target="_blank" class="btn" href="<?php echo $this->anexo;?>">VISUALIZAR PDF</a>
+                                    <a target="_blank" class="btn" href="<?php echo $this->anexo; ?>">VISUALIZAR PDF</a>
                                 </div>
                             </div>
                         <?php } ?>
@@ -205,20 +204,23 @@ $frmAttr = $this->form->getAttribs();
                                 <?php foreach ($this->entidades as $data) : ?>
                                     <tr class="success" data-row="<?php echo $data->identidadeexterna ?>">
                                         <td>
-                                            <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado' data-id="<?php echo $data->identidadeexterna ?>" >
+                                            <a class='btn actionfrm excluir excluirbutton' title='Excluir Interessado'
+                                               data-id="<?php echo $data->identidadeexterna ?>">
                                                 <i class='icon-trash'></i>
                                             </a>
                                         </td>
                                         <td>
                                             <?php echo $data->nomentidadeexterna; ?>
-                                            <input type="hidden" name="entidade_<?php echo $data->identidadeexterna ?>" value="<?php echo $data->identidadeexterna ?>" >
+                                            <input type="hidden" name="entidade_<?php echo $data->identidadeexterna ?>"
+                                                   value="<?php echo $data->identidadeexterna ?>">
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
                                 </tbody>
                             <?php else: ?>
                                 <tbody id="tabela" style="display: none;"></tbody>
-                                <div id="nenhumregistro" class="span4 alert alert-danger">Nenhuma entidade vinculada. </div>
+                                <div id="nenhumregistro" class="span4 alert alert-danger">Nenhuma entidade vinculada.
+                                </div>
                             <?php endif; ?>
                         </table>
                     </div>
@@ -226,6 +228,11 @@ $frmAttr = $this->form->getAttribs();
             </div>
         </div>
         <?php echo $this->form->idacordo; ?>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 200px;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
     </form>
 </div>
 

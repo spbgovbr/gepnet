@@ -50,15 +50,15 @@ class Zend_Tool_Framework_Loader_IncludePathLoader extends Zend_Tool_Framework_L
         $paths = Zend_Loader::explodeIncludePath();
 
         // used for checking similarly named files
-        $relativeItems   = array();
-        $files           = array();
+        $relativeItems = array();
+        $files = array();
         $isZendTraversed = false;
 
         foreach ($paths as $path) {
 
             // default patterns to use
             $filterDenyDirectoryPattern = '.*(/|\\\\).svn';
-            $filterAcceptFilePattern    = '.*(?:Manifest|Provider)\.php$';
+            $filterAcceptFilePattern = '.*(?:Manifest|Provider)\.php$';
 
             if (!file_exists($path) || $path[0] == '.') {
                 continue;
@@ -84,7 +84,7 @@ class Zend_Tool_Framework_Loader_IncludePathLoader extends Zend_Tool_Framework_L
                 $rdi,
                 $filterDenyDirectoryPattern,
                 $filterAcceptFilePattern
-                );
+            );
 
             // build the rii with the filter
             $iterator = new RecursiveIteratorIterator($filter);
@@ -92,12 +92,13 @@ class Zend_Tool_Framework_Loader_IncludePathLoader extends Zend_Tool_Framework_L
             // iterate over the accepted items
             foreach ($iterator as $item) {
                 $file = (string)$item;
-                if($this->_fileIsBlacklisted($file)) {
+                if ($this->_fileIsBlacklisted($file)) {
                     continue;
                 }
 
                 // ensure that the same named file from separate include_paths is not loaded
-                $relativeItem = preg_replace('#^' . preg_quote($realIncludePath . DIRECTORY_SEPARATOR, '#') . '#', '', $item->getRealPath());
+                $relativeItem = preg_replace('#^' . preg_quote($realIncludePath . DIRECTORY_SEPARATOR, '#') . '#', '',
+                    $item->getRealPath());
 
                 // no links allowed here for now
                 if ($item->isLink()) {
@@ -119,18 +120,18 @@ class Zend_Tool_Framework_Loader_IncludePathLoader extends Zend_Tool_Framework_L
 
     /**
      *
-     * @param  string $file
+     * @param string $file
      * @return bool
      */
     protected function _fileIsBlacklisted($file)
     {
         $blacklist = array(
-            "PHPUnit".DIRECTORY_SEPARATOR."Framework",
-            "Zend".DIRECTORY_SEPARATOR."OpenId".DIRECTORY_SEPARATOR."Provider"
+            "PHPUnit" . DIRECTORY_SEPARATOR . "Framework",
+            "Zend" . DIRECTORY_SEPARATOR . "OpenId" . DIRECTORY_SEPARATOR . "Provider"
         );
 
-        foreach($blacklist AS $blacklitedPattern) {
-            if(strpos($file, $blacklitedPattern) !== false) {
+        foreach ($blacklist AS $blacklitedPattern) {
+            if (strpos($file, $blacklitedPattern) !== false) {
                 return true;
             }
         }

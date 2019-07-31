@@ -1,0 +1,329 @@
+<script>
+    $('#divdatinatividade').hide();
+    $(function () {
+        $.pnotify.defaults.history = false;
+
+        $('.mask-date').datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR',
+            changeMonth: true,
+            changeYear: true
+        });
+
+        $('.mask-date').mask('99/99/9999');
+
+        $('#flaagrupadora').change(function (e) {
+            e.preventDefault();
+            var valor = $("#flaagrupadora option:selected").val();
+            if (valor == 1) {
+                $('#destitulogrupo').show();
+                $("#destitulogrupo").attr("data-rule-required", true);
+            } else {
+                $('#destitulogrupo').hide();
+                $("#destitulogrupo").removeAttr("data-rule-required");
+            }
+        });
+
+    });
+
+    function fillSelect($num) {
+        $idobjetivo = $("#idobjetivoinstitucional").val() ? $("#idobjetivoinstitucional").val() : -1;
+        $.ajax({
+            url: base_url + "/projeto/tap/acao/idobjetivo/" + $idobjetivo,
+            dataType: 'json',
+            type: 'GET',
+            async: true,
+            cache: true,
+            processData: false,
+            success: function (data) {
+                var options = $("#idacaoestrategica");
+                if (data) {
+                    options.empty();
+                    options.append($("<option />").val("").text("Selecione"));
+                    $.each(data, function () {
+                        options.append($("<option />").val(this.idacao).text(this.nomacao));
+                    });
+                    options.find('option[value=' + $num + ']').attr('selected', 'selected');
+                }
+            },
+            error: function () {
+                $.pnotify({
+                    text: 'Falha ao enviar a requisição',
+                    type: 'error',
+                    hide: false
+                });
+            }
+        });
+    }
+
+    $('#idobjetivoinstitucional').change(function () {
+        fillSelect();
+    });
+    fillSelect($('#acaoe').val());
+
+    if ($('#flaagrupadora').val() == 1) {
+        $('#destitulogrupo').show();
+    } else {
+        $('#destitulogrupo').hide();
+    }
+
+    $('#flaabrangencia').click(function () {
+        carregaUnidadeResponsavel('');
+    });
+
+    function carregaUnidadeResponsavel(idunid) {
+        var url = '';
+        if ($('#flaabrangencia').val() == 1) {
+            url = base_url + "/diagnostico/sugestaomelhoria/unidades-vinculadas/iddiagnostico/" + $('#iddiagnostico').val();
+        } else {
+            url = base_url + "/diagnostico/sugestaomelhoria/delegacias";
+        }
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            type: 'POST',
+            async: true,
+            cache: true,
+            processData: false,
+            success: function (data) {
+                var options = $("#idunidaderesponsavelimplantacao");
+                if (data) {
+                    options.empty();
+                    options.append('<option value="" ">Selecione</option>');
+                    $.each(data, function (index, element) {
+                        options.append('<option id="' + index + '" value="' + index + '" >' + element + '</option>');
+                    });
+                    $('#' + idunid).attr('selected', 'selected');
+                }
+            },
+            error: function () {
+                $.pnotify({
+                    text: 'Falha ao enviar a requisição',
+                    type: 'error',
+                    hide: false
+                });
+            }
+        });
+    }
+
+    carregaUnidadeResponsavel($('#unidresponsavelimplantacao').val());
+
+    function calculaIncidencia(idmelhoriaagp) {
+        var melhoriaAgrupadora = idmelhoriaagp == "" ? 0 : idmelhoriaagp;
+        if (melhoriaAgrupadora != undefined) {
+            $.ajax({
+                url: base_url + "/diagnostico/sugestaomelhoria/quantidadeagrupadora/desmelhoriaagrupadora/" + melhoriaAgrupadora,
+                dataType: 'json',
+                type: 'POST',
+                async: true,
+                cache: true,
+                processData: false,
+                success: function (data) {
+                    $('#numincidencia').val(data.quantidade);
+                },
+                error: function () {
+                    $.pnotify({
+                        text: 'Falha ao enviar a requisição',
+                        type: 'error',
+                        hide: false
+                    });
+                }
+            });
+        }
+    }
+
+    $('#desmelhoriaagrupadora').click(function () {
+        calculaIncidencia($(this).val());
+    });
+
+    calculaIncidencia($('#desmelhoriaagrupadora').val());
+
+    /** Calcula a pontuação da padronização da melhoria */
+    function calculaPontuacao() {
+        var pontuacao = (($('#idprazo').val() * $('#idimpacto').val() * $('#idesforco').val()) / 48);
+        $('#numpontuacao').val(parseFloat(pontuacao.toFixed(2)));
+    }
+
+    $('#idprazo').click(function () {
+        calculaPontuacao();
+    });
+    $('#idimpacto').click(function () {
+        calculaPontuacao();
+    });
+    $('#idesforco').click(function () {
+        calculaPontuacao();
+    });
+
+    $('#melagrup').hide();
+    //    $("#desmelhoriaagrupadora").removeAttr("data-rule-required");
+
+</script>
+
+<?php $frmAttrSugestaoMelhoria = $this->formSugestaoMelhoria->getAttribs(); ?>
+
+<div id="menuquest" class="portlet span10">
+    <ul class="nav nav-pills">
+        <li class="<?php echo $this->aba != 'padronizacao' ? 'active' : '' ?>" id="melhoria-item">
+            <a data-target="#dialog-editar" class="link" id="melhoria-menu-editar" href="<?php echo $this->url(array(
+                'module' => 'diagnostico',
+                'controller' => 'sugestaomelhoria',
+                'action' => 'editar',
+                'aba' => 'melhoria'
+            )) ?>">Melhoria</a>
+        </li>
+        <li class="<?php echo $this->aba == 'padronizacao' ? 'active' : '' ?>" id="padronizacao-item">
+            <a data-target="#dialog-editar" class="link" id="padronizacao-menu-editar"
+               href="<?php echo $this->url(array(
+                   'module' => 'diagnostico',
+                   'controller' => 'sugestaomelhoria',
+                   'action' => 'editar',
+                   'aba' => 'padronizacao'
+               )) ?>">Padronização de Melhoria</a>
+        </li>
+    </ul>
+</div>
+<div class="region-center">
+
+    <?php if ($this->aba == 'padronizacao'): ?>
+        <div id="padronizacao">
+            <form id="form-padronizacao"
+                  name="form-padronizacao"
+                  action="<?php echo $this->formSugestaoMelhoria->getAction(); ?>"
+                  method="POST"
+                  class="form-sug-editar"
+            >
+                <div class="row">
+                    <div class="span8">
+                        <?php echo $this->formPadronizacaoMelhoria->desrevisada; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->formPadronizacaoMelhoria->idprazo; ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formPadronizacaoMelhoria->idimpacto; ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formPadronizacaoMelhoria->idesforco; ?>
+                    </div>
+                    <div class="span1">
+                        <label>Pontuação</label>
+                        <input type="text" name="numpontuacao" id="numpontuacao" size="3"
+                               readonly="true" value="<?php echo $this->pontuacao; ?>"
+                               class="span1">
+                    </div>
+                    <?php if ($this->sugestaoMelhoria['idsituacao'] == 6): ?>
+                        <div class="span1">
+                            <?php echo $this->formPadronizacaoMelhoria->numincidencia; ?>
+                        </div>
+                    <?php endif; ?>
+                    <div class="span1">
+                        <?php echo $this->formPadronizacaoMelhoria->numvotacao; ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->formPadronizacaoMelhoria->flaagrupadora; ?>
+                    </div>
+                    <div class="span3" id="destitulogrupo">
+                        <?php echo $this->formPadronizacaoMelhoria->destitulogrupo; ?>
+                    </div>
+                    <?php if ($this->sugestaoMelhoria['idsituacao'] == 6): ?>
+                        <div class="span2" id="melagrup">
+                            <?php echo $this->formPadronizacaoMelhoria->desmelhoriaagrupadora; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->formPadronizacaoMelhoria->desinformacoescomplementares; ?>
+                    </div>
+                </div>
+                <?php echo $this->formPadronizacaoMelhoria->idmelhoria; ?>
+                <?php echo $this->formPadronizacaoMelhoria->idpadronizacaomelhoria; ?>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right; ">
+                        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                        obrigatório
+                    </div>
+                </div>
+            </form>
+        </div>
+    <?php else: ?>
+        <div id="melhoria">
+            <form id="form-melhoria"
+                  name="form-melhoria"
+                  action="<?php echo $this->formPadronizacaoMelhoria->getAction(); ?>"
+                  method="POST"
+                  class="form-sug-editar"
+            >
+                <div class="row">
+                    <?php echo $this->formSugestaoMelhoria->iddiagnostico ?>
+                    <div class="span1">
+                        <?php echo $this->formSugestaoMelhoria->idmelhoria ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->datmelhoria ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $this->formSugestaoMelhoria->unidadegestora ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->matriculaproponente ?>
+                    </div>
+                    <div class="span2" id="divdatinatividade">
+                        <?php echo $this->formSugestaoMelhoria->datinatividade ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span5">
+                        <?php echo $this->formSugestaoMelhoria->desmelhoria ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idmacroprocessotrabalho ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idmacroprocessomelhorar ?>
+                    </div>
+                    <div class="span3">
+                        <?php echo $this->formSugestaoMelhoria->idunidaderesponsavelproposta ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->flaabrangencia ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idunidaderesponsavelimplantacao ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idobjetivoinstitucional ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idacaoestrategica ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idareamelhoria ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->formSugestaoMelhoria->idsituacao ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-offset-9 col-sm-span1" style="float: right; ">
+                        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento
+                        obrigatório
+                    </div>
+                </div>
+                <?php echo $this->formSugestaoMelhoria->idunidadeprincipal ?>
+                <input type="hidden" id="acaoe" name="acaoe"
+                       value="<?php echo $this->sugestaoMelhoria['idacaoestrategica']; ?>">
+                <input type="hidden" id="unidresponsavelimplantacao" name="unidresponsavelimplantacao"
+                       value="<?php echo $this->sugestaoMelhoria['idunidaderesponsavelimplantacao']; ?>">
+            </form>
+        </div>
+    <?php endif; ?>
+</div>

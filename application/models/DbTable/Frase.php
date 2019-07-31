@@ -9,19 +9,19 @@
 class Default_Model_DbTable_Frase extends Zend_Db_Table_Abstract
 {
 
-    protected $_name    = 'tb_frase';
+    protected $_name = 'tb_frase';
     protected $_primary = array('idfrase');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns'       => 'idcadastrador',
-            'refColumns'    => 'idpessoa'
+            'columns' => 'idcadastrador',
+            'refColumns' => 'idpessoa'
         ),
-        'Frase'         => array(
+        'Frase' => array(
             'refTableClass' => 'tb_frase',
-            'columns'       => 'idfrasepai',
-            'refColumns'    => 'idfrase'
+            'columns' => 'idfrasepai',
+            'refColumns' => 'idfrase'
         )
     );
 

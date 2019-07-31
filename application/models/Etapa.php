@@ -8,10 +8,10 @@
 class Default_Model_Etapa extends App_Model_ModelAbstract
 {
 
-    public $idetapa       = null;
-    public $dsetapa       = null;
+    public $idetapa = null;
+    public $dsetapa = null;
     public $idcadastrador = null;
-    public $dtcadastro    = null;
+    public $dtcadastro = null;
 
 }
 

@@ -8,13 +8,13 @@
 class Default_Model_Questionario extends App_Model_ModelAbstract
 {
 
-    public $idquestionario  = null;
+    public $idquestionario = null;
     public $nomquestionario = null;
-    public $desobservacao   = null;
-    public $flaativo        = null;
-    public $idcadastrador   = null;
-    public $datcadastro     = null;
-    public $codescritorio   = null;
+    public $desobservacao = null;
+    public $flaativo = null;
+    public $idcadastrador = null;
+    public $datcadastro = null;
+    public $codescritorio = null;
 
 }
 

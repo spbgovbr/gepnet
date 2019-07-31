@@ -9,24 +9,24 @@
 class Default_Model_DbTable_Processo extends Zend_Db_Table_Abstract
 {
 
-    protected $_name    = 'tb_processo';
+    protected $_name = 'tb_processo';
     protected $_primary = array('idprocesso');
     protected $_dependentTables = array();
     protected $_referenceMap = array(
         'Pessoa' => array(
             'refTableClass' => 'tb_pessoa',
-            'columns'       => 'idgestor',
-            'refColumns'    => 'idpessoa'
+            'columns' => 'idgestor',
+            'refColumns' => 'idpessoa'
         ),
-        'Processo'      => array(
+        'Processo' => array(
             'refTableClass' => 'tb_processo',
-            'columns'       => 'idprocessopai',
-            'refColumns'    => 'idprocesso'
+            'columns' => 'idprocessopai',
+            'refColumns' => 'idprocesso'
         ),
-        'Setor'         => array(
+        'Setor' => array(
             'refTableClass' => 'tb_setor',
-            'columns'       => 'idsetor',
-            'refColumns'    => 'idsetor'
+            'columns' => 'idsetor',
+            'refColumns' => 'idsetor'
         )
     );
 

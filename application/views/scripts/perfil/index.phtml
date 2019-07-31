@@ -1,0 +1,22 @@
+<?php if (count($this->dados) > 0): ?>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th>Id</th>
+            <th>Perfil</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->dados as $d): ?>
+            <tr>
+                <td><a href="<?php echo $this->url(array('id' => $d->PERFIL_ID), 'perfil-editar'); ?>">editar</a></td>
+                <td><a href="<?php echo $this->url(array('id' => $d->PERFIL_ID), 'perfil-del'); ?>">excluir</a></td>
+                <td><?php echo $d->PERFIL_ID; ?></td>
+                <td><?php echo $d->PERFIL_NOME; ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

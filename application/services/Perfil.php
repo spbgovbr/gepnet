@@ -12,7 +12,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     protected $_mapper;
 
     /**
-     * @var array 
+     * @var array
      */
     public $errors = array();
 
@@ -46,14 +46,14 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     {
         throw new Exception('Não implementado');
         $form = $this->_getForm('Default_Form_Pessoa', array('submit'));
-        if ( $params ) {
+        if ($params) {
             $values = $this->_mapper->getById($params);
 
             $dateMin = date('d/m/Y', strtotime("first day of january " . $values['AN_DOCUMENTO']));
             $dateMax = date('d/m/Y', strtotime("last day of december " . $values['AN_DOCUMENTO']));
             $form->getElement('dt_documento')->addValidator('DateRange', false, array(
-                'min'    => $dateMin,
-                'max'    => $dateMax,
+                'min' => $dateMin,
+                'max' => $dateMax,
                 'locale' => 'pt_BR',
             ));
         }
@@ -65,8 +65,8 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     {
         throw new Exception('Não implementado');
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-            $model   = new Default_Model_Pessoa($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Default_Model_Pessoa($form->getValues());
             $retorno = $this->_mapper->insert($model);
             return $retorno;
         } else {
@@ -76,7 +76,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      * @return boolean | array
      */
@@ -84,8 +84,8 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     {
         throw new Exception('Não implementado');
         $form = $this->getForm();
-        if ( $form->isValid($dados) ) {
-            $model   = new Default_Model_Pessoa($form->getValues());
+        if ($form->isValid($dados)) {
+            $model = new Default_Model_Pessoa($form->getValues());
             $retorno = $this->_mapper->update($model);
             return $retorno;
         } else {
@@ -95,7 +95,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $dados
      */
     public function excluir($dados)
@@ -104,7 +104,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
         try {
             //$model = new Default_Model_Documento($dados);
             return $this->_mapper->excluir($dados);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors[] = $exc->getMessage();
             return false;
         }
@@ -120,7 +120,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
      * @param array $dados
      * @return Default_Model_Perfil
      */
-    public  function retornaPorId($params)
+    public function retornaPorId($params)
     {
         return $this->_mapper->retornaPorId($params);
     }
@@ -131,7 +131,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     }
 
     /**
-     * 
+     *
      * @param array $params
      * @param boolean $paginator
      * @return \Default_Service_JqGrid | array
@@ -140,7 +140,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     {
         throw new Exception('Não implementado');
         $dados = $this->_mapper->pesquisar($params, $paginator);
-        if ( $paginator ) {
+        if ($paginator) {
             $service = new App_Service_JqGrid();
             $service->setPaginator($dados);
             //$service->toJqgrid($paginator);
@@ -152,7 +152,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     public function buscar($params, $paginator)
     {
         throw new Exception('Não implementado');
-        if ( $params['tipo'] == 0 ) {
+        if ($params['tipo'] == 0) {
             return $this->buscarServidor($params, $paginator);
         } else {
             return $this->buscarColaborador($params, $paginator);
@@ -169,6 +169,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
     {
         return $this->_mapper->fetchPairs();
     }
+
     public function authfetchPairs($identiti)
     {
         return $this->_mapper->authfetchPairs($identiti);
@@ -182,7 +183,7 @@ class Default_Service_Perfil extends App_Service_ServiceAbstract
 
     public function retornaPorPessoa($params)
     {
-        //$params['idpessoa'] = 11; //GRSF
+
         return $this->_mapper->retornaPorPessoa($params);
     }
 

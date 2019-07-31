@@ -1,14 +1,14 @@
-<div class="region-center" >
+<div class="region-center">
     <div class="portlet portlet-cinza">
         <div class="title">Detalhe da Pergunta</div>
         <div class="content">
-            <div class="row-fluid">              
+            <div class="row-fluid">
                 <div class="portlet portlet-cinza span">
                     <div class="title">Ordem</div>
                     <div class="content"><?php echo $this->questionarioFrase['numordempergunta']; ?>&nbsp;</div>
                 </div>
             </div>
-            <div class="row-fluid">              
+            <div class="row-fluid">
                 <div class="portlet portlet-cinza span">
                     <div class="title">Obrigatório</div>
                     <div class="content"><?php echo $this->questionarioFrase['obrigatoriedade']; ?>&nbsp;</div>
@@ -17,7 +17,9 @@
             <div class="row-fluid">
                 <div class="portlet portlet-cinza span">
                     <div class="title">Pergunta</div>
-                    <div class="content"><?php echo '('.$this->questionarioFrase['nomescritorio'].') '.$this->questionarioFrase['desfrase']; ?>&nbsp;</div>
+                    <div class="content"><?php echo '(' . $this->questionarioFrase['nomescritorio'] . ') ' . $this->questionarioFrase['desfrase']; ?>
+                        &nbsp;
+                    </div>
                 </div>
             </div>
         </div>

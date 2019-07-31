@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["vi"] = {
         name: "vi",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n %","n %"],
+                pattern: ["-n %", "n %"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 2,
                 ",": ".",
                 ".": ",",
@@ -39,16 +39,16 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["Chủ Nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"],
-                    namesAbbr: ["CN","Hai","Ba","Tư","Năm","Sáu","Bảy"],
-                    namesShort: ["C","H","B","T","N","S","B"]
+                    names: ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"],
+                    namesAbbr: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+                    namesShort: ["C", "H", "B", "T", "N", "S", "B"]
                 },
                 months: {
-                    names: ["Tháng Giêng","Tháng Hai","Tháng Ba","Tháng Tư","Tháng Năm","Tháng Sáu","Tháng Bảy","Tháng Tám","Tháng Chín","Tháng Mười","Tháng Mười Một","Tháng Mười Hai",""],
-                    namesAbbr: ["Thg1","Thg2","Thg3","Thg4","Thg5","Thg6","Thg7","Thg8","Thg9","Thg10","Thg11","Thg12",""]
+                    names: ["Tháng Giêng", "Tháng Hai", "Tháng Ba", "Tháng Tư", "Tháng Năm", "Tháng Sáu", "Tháng Bảy", "Tháng Tám", "Tháng Chín", "Tháng Mười", "Tháng Mười Một", "Tháng Mười Hai", ""],
+                    namesAbbr: ["Thg1", "Thg2", "Thg3", "Thg4", "Thg5", "Thg6", "Thg7", "Thg8", "Thg9", "Thg10", "Thg11", "Thg12", ""]
                 },
-                AM: ["SA","sa","SA"],
-                PM: ["CH","ch","CH"],
+                AM: ["SA", "sa", "SA"],
+                PM: ["CH", "ch", "CH"],
                 patterns: {
                     d: "dd/MM/yyyy",
                     D: "dd MMMM yyyy",

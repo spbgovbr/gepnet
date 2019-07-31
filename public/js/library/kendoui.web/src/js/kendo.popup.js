@@ -14,11 +14,11 @@ kendo_module({
     id: "popup",
     name: "Pop-up",
     category: "framework",
-    depends: [ "core" ],
+    depends: ["core"],
     advanced: true
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         ui = kendo.ui,
         Widget = ui.Widget,
@@ -54,18 +54,18 @@ kendo_module({
         extend = $.extend,
         NS = ".kendoPopup",
         styles = ["font-family",
-                   "font-size",
-                   "font-stretch",
-                   "font-style",
-                   "font-weight",
-                   "line-height"];
+            "font-size",
+            "font-stretch",
+            "font-style",
+            "font-weight",
+            "line-height"];
 
     function contains(container, target) {
         return container === target || $.contains(container, target);
     }
 
     var Popup = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this, parentPopup;
 
             options = options || {};
@@ -92,30 +92,30 @@ kendo_module({
             that.element.hide()
                 .addClass("k-popup k-group k-reset")
                 .toggleClass("k-rtl", !!options.isRtl)
-                .css({ position : ABSOLUTE })
+                .css({position: ABSOLUTE})
                 .appendTo(options.appendTo)
-                .on("mouseenter" + NS, function() {
+                .on("mouseenter" + NS, function () {
                     that._hovered = true;
                 })
-                .on("mouseleave" + NS, function() {
+                .on("mouseleave" + NS, function () {
                     that._hovered = false;
                 });
 
             that.wrapper = $();
 
             if (options.animation === false) {
-                options.animation = { open: { effects: {} }, close: { hide: true, effects: {} } };
+                options.animation = {open: {effects: {}}, close: {hide: true, effects: {}}};
             }
 
             extend(options.animation.open, {
-                complete: function() {
-                    that.wrapper.css({ overflow: VISIBLE }); // Forcing refresh causes flickering in mobile.
+                complete: function () {
+                    that.wrapper.css({overflow: VISIBLE}); // Forcing refresh causes flickering in mobile.
                     that.trigger(ACTIVATE);
                 }
             });
 
             extend(options.animation.close, {
-                complete: function() {
+                complete: function () {
                     that.wrapper.hide();
 
                     var location = that.wrapper.data(LOCATION),
@@ -144,11 +144,11 @@ kendo_module({
                 }
             });
 
-            that._mousedownProxy = function(e) {
+            that._mousedownProxy = function (e) {
                 that._mousedown(e);
             };
 
-            that._resizeProxy = function(e) {
+            that._resizeProxy = function (e) {
                 that._resize(e);
             };
 
@@ -186,7 +186,7 @@ kendo_module({
             }
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this,
                 options = that.options,
                 element = that.element.off(NS),
@@ -214,9 +214,9 @@ kendo_module({
             kendo.destroy(that.element.children());
         },
 
-        open: function(x, y) {
+        open: function (x, y) {
             var that = this,
-                fixed = { isFixed: !isNaN(parseInt(y,10)), x: x, y: y },
+                fixed = {isFixed: !isNaN(parseInt(y, 10)), x: x, y: y},
                 element = that.element,
                 options = that.options,
                 direction = "down",
@@ -233,20 +233,20 @@ kendo_module({
                 }
 
                 DOCUMENT_ELEMENT.unbind(MOUSEDOWN, that._mousedownProxy)
-                                .bind(MOUSEDOWN, that._mousedownProxy);
+                    .bind(MOUSEDOWN, that._mousedownProxy);
 
                 // this binding hangs iOS in editor
                 if (!(support.mobileOS.ios || support.mobileOS.android)) {
                     WINDOW.unbind(RESIZE_SCROLL, that._resizeProxy)
-                          .bind(RESIZE_SCROLL, that._resizeProxy);
+                        .bind(RESIZE_SCROLL, that._resizeProxy);
                 }
 
                 that.wrapper = wrapper = kendo.wrap(element)
-                                        .css({
-                                            overflow: HIDDEN,
-                                            display: "block",
-                                            position: ABSOLUTE
-                                        });
+                    .css({
+                        overflow: HIDDEN,
+                        display: "block",
+                        position: ABSOLUTE
+                    });
 
                 if (support.mobileOS.android) {
                     wrapper.add(anchor).css(TRANSFORM, "translatez(0)"); // Android is VERY slow otherwise. Should be tested in other droids as well since it may cause blur.
@@ -277,22 +277,22 @@ kendo_module({
                 }
 
                 element.data(EFFECTS, animation.effects)
-                       .kendoStop(true)
-                       .kendoAnimate(animation);
+                    .kendoStop(true)
+                    .kendoAnimate(animation);
             }
         },
 
-        toggle: function() {
+        toggle: function () {
             var that = this;
 
             that[that.visible() ? CLOSE : OPEN]();
         },
 
-        visible: function() {
+        visible: function () {
             return this.element.is(":" + VISIBLE);
         },
 
-        close: function() {
+        close: function () {
             var that = this,
                 options = that.options, wrap,
                 animation, openEffects, closeEffects;
@@ -329,17 +329,17 @@ kendo_module({
                 that._closing = true;
 
                 that.element.kendoStop(true);
-                wrap.css({ overflow: HIDDEN }); // stop callback will remove hidden overflow
+                wrap.css({overflow: HIDDEN}); // stop callback will remove hidden overflow
                 that.element.kendoAnimate(animation);
             }
         },
 
-        _resize: function(e) {
+        _resize: function (e) {
             var that = this;
 
             if (e.type === "resize") {
                 clearTimeout(that._resizeTimeout);
-                that._resizeTimeout = setTimeout(function() {
+                that._resizeTimeout = setTimeout(function () {
                     that._position();
                     that._resizeTimeout = null;
                 }, 50);
@@ -350,7 +350,7 @@ kendo_module({
             }
         },
 
-        _mousedown: function(e) {
+        _mousedown: function (e) {
             var that = this,
                 container = that.element[0],
                 options = that.options,
@@ -361,7 +361,7 @@ kendo_module({
                 mobile = popup.parent().parent(".km-shim").length;
 
             popup = popup[0];
-            if (!mobile && popup && popup !== that.element[0]){
+            if (!mobile && popup && popup !== that.element[0]) {
                 return;
             }
 
@@ -370,7 +370,7 @@ kendo_module({
             }
         },
 
-        _fit: function(position, size, viewPortSize) {
+        _fit: function (position, size, viewPortSize) {
             var output = 0;
 
             if (position + size > viewPortSize) {
@@ -384,9 +384,9 @@ kendo_module({
             return output;
         },
 
-        _flip: function(offset, size, anchorSize, viewPortSize, origin, position, boxSize) {
+        _flip: function (offset, size, anchorSize, viewPortSize, origin, position, boxSize) {
             var output = 0;
-                boxSize = boxSize || size;
+            boxSize = boxSize || size;
 
             if (position !== origin && position !== CENTER && origin !== CENTER) {
                 if (offset + boxSize > viewPortSize) {
@@ -400,7 +400,7 @@ kendo_module({
             return output;
         },
 
-        _position: function(fixed) {
+        _position: function (fixed) {
             var that = this,
                 element = that.element.css(POSITION, ""),
                 wrapper = that.wrapper,
@@ -436,7 +436,7 @@ kendo_module({
             wrapper.css("zIndex", zIndex);
 
             if (fixed && fixed.isFixed) {
-                wrapper.css({ left: fixed.x, top: fixed.y });
+                wrapper.css({left: fixed.x, top: fixed.y});
             } else {
                 wrapper.css(that._align(origins, positions));
             }
@@ -453,8 +453,7 @@ kendo_module({
             if (viewport[0] === window) {
                 offset.top -= (window.pageYOffset || document.documentElement.scrollTop || 0);
                 offset.left -= (window.pageXOffset || document.documentElement.scrollLeft || 0);
-            }
-            else {
+            } else {
                 offset.top -= viewportOffset.top;
                 offset.left -= viewportOffset.left;
             }
@@ -490,7 +489,7 @@ kendo_module({
             return (location.left != flipPos.left || location.top != flipPos.top);
         },
 
-        _align: function(origin, position) {
+        _align: function (origin, position) {
             var that = this,
                 element = that.wrapper,
                 anchor = $(that.options.anchor),

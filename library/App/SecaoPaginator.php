@@ -5,10 +5,10 @@ class App_SecaoPaginator
     protected $ns;
     protected $params = array();
     protected $defaults = array(
-        'ordem'        => 0,
-        'page'         => 0,
+        'ordem' => 0,
+        'page' => 0,
         'itemsperpage' => 20,
-        'direcao'      => 'ASC'
+        'direcao' => 'ASC'
     );
     protected $sessionVar = array();
     private $page;
@@ -16,13 +16,13 @@ class App_SecaoPaginator
     private $direcao;
     private $itemsperpage;
 
-    public function __construct ($ns, $defaults)
+    public function __construct($ns, $defaults)
     {
         Zend_Wildfire_Plugin_FirePhp::send($this->defaults, 'defaults', Zend_Wildfire_Plugin_FirePhp::DUMP);
         $this->defaults = array_merge($this->defaults, $defaults);
         $this->ns = new Zend_Session_Namespace($ns);
         $this->params = Zend_Controller_Front::getInstance()->getRequest()->getParams();
-        $this->params = array_filter($this->params, array($this,'paginatorKey'));
+        $this->params = array_filter($this->params, array($this, 'paginatorKey'));
         $this->params = array_filter($this->params);
         $this->params = array_merge($this->defaults, $this->params);
         $this->sessionVar = $this->ns->getIterator();
@@ -30,17 +30,16 @@ class App_SecaoPaginator
         $this->inicializar();
         Zend_Wildfire_Plugin_FirePhp::send($this->sessionVar, 'session com params', Zend_Wildfire_Plugin_FirePhp::DUMP);
     }
-    
+
     public function paginatorKey($key)
     {
-        return (bool) array_key_exists($key, $this->defaults);
+        return (bool)array_key_exists($key, $this->defaults);
     }
 
-    public function inicializar ()
+    public function inicializar()
     {
         //validar
-        foreach($this->params as $key=>$value)
-        {
+        foreach ($this->params as $key => $value) {
             if (array_key_exists($key, $this->defaults)) {
                 $this->$key = $value;
             }
@@ -48,11 +47,10 @@ class App_SecaoPaginator
         }
         $this->popularSessao();
     }
-    
+
     public function popularSessao()
     {
-        foreach($this->params as $key=>$value)
-        {
+        foreach ($this->params as $key => $value) {
             if (array_key_exists($key, $this->defaults)) {
                 $this->ns->$key = $value;
             }
@@ -63,7 +61,7 @@ class App_SecaoPaginator
     /**
      * @return the $page
      */
-    public function getPage ()
+    public function getPage()
     {
         return $this->page;
     }
@@ -71,7 +69,7 @@ class App_SecaoPaginator
     /**
      * @return the $ordem
      */
-    public function getOrdem ()
+    public function getOrdem()
     {
         return $this->ordem;
     }
@@ -79,7 +77,7 @@ class App_SecaoPaginator
     /**
      * @return the $direcao
      */
-    public function getDirecao ()
+    public function getDirecao()
     {
         return $this->direcao;
     }
@@ -87,7 +85,7 @@ class App_SecaoPaginator
     /**
      * @return the $itemsperpage
      */
-    public function getItemsperpage ()
+    public function getItemsperpage()
     {
         return $this->itemsperpage;
     }
@@ -95,7 +93,7 @@ class App_SecaoPaginator
     /**
      * @param field_type $page
      */
-    public function setPage ($page)
+    public function setPage($page)
     {
         $this->page = $page;
         return $this;
@@ -104,7 +102,7 @@ class App_SecaoPaginator
     /**
      * @param field_type $ordem
      */
-    public function setOrdem ($ordem)
+    public function setOrdem($ordem)
     {
         $this->ordem = $ordem;
         return $this;
@@ -113,9 +111,9 @@ class App_SecaoPaginator
     /**
      * @param field_type $direcao
      */
-    public function setDirecao ($direcao)
+    public function setDirecao($direcao)
     {
-         if (!in_array(strtolower($direcao), array('ASC','DESC'))) {
+        if (!in_array(strtolower($direcao), array('ASC', 'DESC'))) {
             throw new Exception('[' . __CLASS__ . '] direcao invalida');
         }
         $this->direcao = $direcao;
@@ -125,24 +123,25 @@ class App_SecaoPaginator
     /**
      * @param field_type $itemsperpage
      */
-    public function setItemsperpage ($itemsperpage)
+    public function setItemsperpage($itemsperpage)
     {
-        if (!in_array($itemsperpage, array(15,30,60,120,240))) {
+        if (!in_array($itemsperpage, array(15, 30, 60, 120, 240))) {
             throw new Exception('[' . __CLASS__ . '] Itens por pagina fora dos limites[15 - 240]');
         }
         $this->itemsperpage = $itemsperpage;
         return $this;
     }
-    
-    public function __set ($name, $value)
+
+    public function __set($name, $value)
     {
         $metodo = 'set' . ucfirst($name);
-        if (  method_exists($this, $metodo)){
+        if (method_exists($this, $metodo)) {
             $metodo($value);
-        } 
-        
+        }
+
         $this->$name = $value;
         return $this;
     }
 }
+
 ?>

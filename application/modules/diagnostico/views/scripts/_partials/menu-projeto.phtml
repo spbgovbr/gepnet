@@ -1,0 +1,45 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/glyphicons/glyphicons.css'))
+    ->appendStylesheet($this->baseUrl('/css/menu-lateral.css'));
+
+$params = array('iddiagnostico' => $this->iddiagnostico);
+?>
+
+<ul class="liabc <?php echo $this->ativo ?>">
+    <!-- Iniciação -->
+    <?php if ($this->allowed('diagnostico', 'diagnostico', 'detalhar')): ?>
+        <li class="tep detalhar-diagnostico"><a
+                    href="<?php echo $this->baseUrl('/diagnostico/diagnostico/detalhar/iddiagnostico/' . $this->iddiagnostico); ?>"
+                    title="Detalhamento do Diagnóstico" data-placement="right"><i
+                        class="glyphicons-detalhar-diagnostico"></i> <span>Detalhamento do Diagnóstico</span></a></li>
+    <?php endif; ?>
+
+    <?php if ($this->allowed('diagnostico', 'pesquisaservidores', 'vincularquestionario')): ?>
+        <li class="tep servidores "><a
+                    href="<?php echo $this->baseUrl('/diagnostico/pesquisaservidores/vincularquestionario/iddiagnostico/' . $this->iddiagnostico . '/tpquestionario/1'); ?>"
+                    title="Pesquisa com Servidores" data-placement="right"><i class="glyphicons-servidores"></i> <span>Pesquisa com Servidores</span></a>
+        </li>
+    <?php endif; ?>
+    <?php if ($this->allowed('diagnostico', 'pesquisacidadaos', 'vincularquestionariocidadao')): ?>
+        <li class="tep cidadao"><a
+                    href="<?php echo $this->baseUrl('/diagnostico/pesquisacidadaos/vincularquestionariocidadao/iddiagnostico/' . $this->iddiagnostico . '/tpquestionario/2'); ?>"
+                    title="Pesquisa com Cidadãos" data-placement="right"><i class="glyphicons-cidadao"></i> <span>Pesquisa com Cidadãos</span></a>
+        </li>
+    <?php endif; ?>
+    <?php if ($this->allowed('diagnostico', 'sugestaomelhoria', 'listar')): ?>
+        <li class="tep sugestaomelhoria"><a
+                    href="<?php echo $this->baseUrl('/diagnostico/sugestaomelhoria/listar/iddiagnostico/' . $this->iddiagnostico); ?>"
+                    title="Listagem de sugestões de melhorias" data-placement="right"><i
+                        class="glyphicons-sugestaomelhoria"></i> <span>Listagem de sugestões de melhorias</span></a>
+        </li>
+    <?php endif; ?>
+
+</ul>
+
+<script type="text/javascript">
+    $(function () {
+        $("ul.liabc li a").tooltip({container: 'body'});
+        innerLayout.sizePane("west", 45);
+    });
+</script>

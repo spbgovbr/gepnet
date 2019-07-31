@@ -1,0 +1,62 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('/js/jquery-ui-1.8.12/css/custom-theme/jquery-ui-1.8.12.custom.css',
+        'screen, projection'))
+    ->appendStylesheet($this->baseUrl('/css/layout.css', 'screen, projection'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery-ui-1.10.2.custom/css/dpf/jquery-ui-1.10.2.custom.css',
+        'screen, projection'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/kendoui.web/js/kendo.web.min.js'))
+    ->appendFile($this->baseUrl('/js/library/kendoui.web/styles/kendo.common.min.css'))
+    ->appendFile($this->baseUrl('/js/library/kendoui.web/styles/kendo.bootstrap.min.css'));
+?>
+<?php if (count($this->dados) > 0): ?>
+    <table class="table table-bordered table-hover span8" align="left" style="vertical-align: top; ">
+        <colgroup>
+            <col style="width: 20px">
+            <col style="width: 20px">
+            <col style="width: 3px">
+        </colgroup>
+        <thead>
+        <th>M&oacute;dulo</th>
+        <th>Permiss&atilde;o</th>
+        <th>Situa&ccedil;&atilde;o</th>
+        </thead>
+        <tbody>
+        <?php foreach ($this->dados as $data) : ?>
+            <tr>
+                <td><?php echo $data['txrecurso']; ?></td>
+                <td><?php echo $data['ds_permissao']; ?></td>
+                <td style="text-align:center;"><i
+                            id="icon-<?php echo $data['idrecurso'] . "-" . $data['idpermissao']; ?>"
+                            class="<?php echo($data['ctpermissao'] > 0 ? "icon-remove" : "icon-ok"); ?>"/>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <div id="nenhumregistro" class="alert alert-danger">Nenhum registro encontrado</div>
+<?php endif; ?>
+
+
+
+

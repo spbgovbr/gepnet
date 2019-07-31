@@ -113,11 +113,11 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
         }
 
         if (isset($xmlDataIterator['type'])) {
-            $this->_profile->setAttribute('type', (string) $xmlDataIterator['type']);
+            $this->_profile->setAttribute('type', (string)$xmlDataIterator['type']);
         }
 
         if (isset($xmlDataIterator['version'])) {
-            $this->_profile->setAttribute('version', (string) $xmlDataIterator['version']);
+            $this->_profile->setAttribute('version', (string)$xmlDataIterator['version']);
         }
 
         // start un-serialization of the xml doc
@@ -185,8 +185,10 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
      * @param SimpleXMLIterator $xmlIterator
      * @param Zend_Tool_Project_Profile_Resource $resource
      */
-    protected function _unserializeRecurser(SimpleXMLIterator $xmlIterator, Zend_Tool_Project_Profile_Resource $resource = null)
-    {
+    protected function _unserializeRecurser(
+        SimpleXMLIterator $xmlIterator,
+        Zend_Tool_Project_Profile_Resource $resource = null
+    ) {
 
         foreach ($xmlIterator as $resourceName => $resourceData) {
 
@@ -197,7 +199,7 @@ class Zend_Tool_Project_Profile_FileParser_Xml implements Zend_Tool_Project_Prof
             if ($resourceAttributes = $resourceData->attributes()) {
                 $attributes = array();
                 foreach ($resourceAttributes as $attrName => $attrValue) {
-                    $attributes[$attrName] = (string) $attrValue;
+                    $attributes[$attrName] = (string)$attrValue;
                 }
                 $subResource->setAttributes($attributes);
             }

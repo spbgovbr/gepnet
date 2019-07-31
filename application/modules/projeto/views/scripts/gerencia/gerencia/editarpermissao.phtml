@@ -1,0 +1,109 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+
+$frmAttr = $this->form->getAttribs();
+//Zend_Debug::dump($this->dadosListaPermissao); exit;
+//Zend_Debug::dump($this->dadosParte); exit;
+//Zend_Debug::dump($this->dadosPermissao); exit;
+//Zend_Debug::dump($this); exit;
+$Cont = 0;
+?>
+<style>
+    #content-tabs ul a:hover {
+        background-color: #08c;
+    }
+
+    #content-tabs ul li.current, .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+        background-color: #08c;
+        border-style: none;
+        border-image: none;
+        background-image: none;
+        outline: none;
+        border: none;
+        outline-width: 0;
+        outline-color: transparent;
+        box-shadow: none;
+    }
+
+    div.content-tabs {
+        margin-left: 1px;
+        border-color: transparent;
+    }
+
+    li.li-tab, span.img-tab {
+        padding: 1px 1px;
+        font-size: 2px;
+    }
+</style>
+
+<div class="content">
+    <form id="<?php echo $frmAttr['id']; ?>"
+          name="<?php echo $frmAttr['id']; ?>"
+          action="<?php echo $this->form->getAction(); ?>"
+          method="<?php echo $frmAttr['method']; ?>">
+        <input type="hidden" name="idprojeto" id="idprojeto" value="<?php echo $this->idprojeto; ?>"/>
+        <input type="hidden" name="idparteinteressada" id="idparteinteressada"
+               value="<?php echo $this->idparteinteressada; ?>"/>
+        <div class="row">
+            <div class="portlet portlet-marron span5">
+                <h3>Nome</h3>
+                <div class="content">
+                    <?php echo $this->dadosParte['nomparteinteressada']; ?>
+                </div>
+            </div>
+            <div class="portlet portlet-marron span5">
+                <h3>Email</h3>
+                <div class="content">
+                    <?php echo $this->dadosParte['desemail']; ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <tbody>
+            <div class="portlet portlet-marron span10" style="height: 360px;">
+                <h3>Permissões do Sistema</h3>
+                <div id="tabs" class="content-tabs tabs span9">
+                    <?php if (count($this->dadosPermissao) > 0): ?>
+                        <ul class="tabs-menu">
+                            <?php foreach ($this->dadosPermissao as $dataPermissao) : ?>
+                                <li class="li-tab" id="<?php echo $dataPermissao['idrecurso']; ?>"
+                                    name="<?php echo strtolower($dataPermissao['txrecurso']); ?>">
+                                    <a class="lnk-permissao" id="<?php echo strtolower($dataPermissao['txrecurso']); ?>"
+                                       title="<?php echo $frmAttr['titles'][strtoupper($dataPermissao['txrecurso'])]; ?>"
+                                       href="#tabs-<?php echo strtolower($dataPermissao['txrecurso']); ?>"
+                                       href2="<?php echo $this->url(array(
+                                               'module' => 'projeto',
+                                               'controller' => 'gerencia',
+                                               'action' => 'listapermissao'
+                                           )) . "/idrecurso/" . $dataPermissao['idrecurso']; ?>">
+                                        <span class="glyphicons-<?php echo strtolower($dataPermissao['txrecurso']); ?> img-tab"></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php foreach ($this->dadosPermissao as $listaPermissao) : ?>
+                            <div id="tabs-<?php echo strtolower($listaPermissao['txrecurso']); ?>"
+                                 class="tabs-<?php echo strtolower($listaPermissao['txrecurso']); ?>"
+                                 idrecurso="<?php echo $listaPermissao['idrecurso']; ?>"
+                                 title="<?php echo strtolower($listaPermissao['ds_recurso']); ?>">
+                                <p><?php echo strtolower($listaPermissao['txrecurso']); ?></p>
+                            </div>
+                        <?php
+                        endforeach;
+                        ?>
+                    <?php else: ?>
+                        <div class="content">Nenhuma permissão encontrada.</div>
+                    <?php endif; ?>
+                </div>
+            </div>
+            </tbody>
+        </div>
+
+    </form>
+</div>
+
+
+

@@ -1,0 +1,42 @@
+<?php
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js?'), 'text/javascript');
+?>
+<div class="row">
+    <div class="portlet portlet-cinza span6">
+        <div class="title">% Conclu&iacute;do (Planejado x Realizado)</div>
+        <div class="content">
+            <div id="chartcontainer-planejado-realizado" style="max-width:580px;height: 160px;"></div>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span6">
+        <div class="title">Percentual do Atraso do Projeto (%)</div>
+        <div class="content">
+            <div id="chartcontainer-atraso" style="max-width:500px;height: 160px;"></div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="portlet portlet-cinza span4">
+        <div class="title">Atraso do Projeto (Dias)</div>
+        <div class="content">
+            <div id="chartcontainer-criteriofarol-atraso" style="max-width:330px;height: 190px;"></div>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <div class="title">Risco do Projeto</div>
+        <div class="content">
+            <div id="chartcontainer-criteriofarol-risco" style="max-width:330px;height: 190px;"></div>
+        </div>
+    </div>
+    <div class="portlet portlet-cinza span4">
+        <div class="title">% de Marcos Conclu&iacute;dos do Projeto</div>
+        <div class="content">
+            <div id="chartcontainer-criteriofarol-marco" style="max-width:330px;height: 190px;"></div>
+        </div>
+    </div>
+</div>

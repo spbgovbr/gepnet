@@ -94,8 +94,11 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *                             for the file
      * @return void
      */
-    public function setAuthSubPrivateKeyFile($file, $passphrase = null,
-                                             $useIncludePath = false) {
+    public function setAuthSubPrivateKeyFile(
+        $file,
+        $passphrase = null,
+        $useIncludePath = false
+    ) {
         $fp = @fopen($file, "r", $useIncludePath);
         if (!$fp) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
@@ -119,18 +122,19 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @param string $key The private key
      * @param string $passphrase The optional private key passphrase
-     * @throws Zend_Gdata_App_InvalidArgumentException
      * @return Zend_Gdata_HttpClient Provides a fluent interface
+     * @throws Zend_Gdata_App_InvalidArgumentException
      */
-    public function setAuthSubPrivateKey($key, $passphrase = null) {
+    public function setAuthSubPrivateKey($key, $passphrase = null)
+    {
         if ($key != null && !function_exists('openssl_pkey_get_private')) {
             require_once 'Zend/Gdata/App/InvalidArgumentException.php';
             throw new Zend_Gdata_App_InvalidArgumentException(
-                    'You cannot enable secure AuthSub if the openssl module ' .
-                    'is not enabled in your PHP installation.');
+                'You cannot enable secure AuthSub if the openssl module ' .
+                'is not enabled in your PHP installation.');
         }
         $this->_authSubPrivateKeyId = openssl_pkey_get_private(
-                $key, $passphrase);
+            $key, $passphrase);
         return $this;
     }
 
@@ -139,7 +143,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @return string The private key
      */
-    public function getAuthSubPrivateKeyId() {
+    public function getAuthSubPrivateKeyId()
+    {
         return $this->_authSubPrivateKeyId;
     }
 
@@ -148,7 +153,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @return string The token
      */
-    public function getAuthSubToken() {
+    public function getAuthSubToken()
+    {
         return $this->_authSubToken;
     }
 
@@ -158,7 +164,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      * @param string $token The token
      * @return Zend_Gdata_HttpClient Provides a fluent interface
      */
-    public function setAuthSubToken($token) {
+    public function setAuthSubToken($token)
+    {
         $this->_authSubToken = $token;
         return $this;
     }
@@ -168,7 +175,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *
      * @return string The token
      */
-    public function getClientLoginToken() {
+    public function getClientLoginToken()
+    {
         return $this->_clientLoginToken;
     }
 
@@ -178,7 +186,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      * @param string $token The token
      * @return Zend_Gdata_HttpClient Provides a fluent interface
      */
-    public function setClientLoginToken($token) {
+    public function setClientLoginToken($token)
+    {
         $this->_clientLoginToken = $token;
         return $this;
     }
@@ -200,11 +209,12 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      *                       sent with the request or null
      * @param string $body The body of the request or null
      * @param string $contentType The MIME content type of the body or null
-     * @throws Zend_Gdata_App_Exception if there was a signing failure
      * @return array The processed values in an associative array,
      *               using the same names as the params
+     * @throws Zend_Gdata_App_Exception if there was a signing failure
      */
-    public function filterHttpRequest($method, $url, $headers = array(), $body = null, $contentType = null) {
+    public function filterHttpRequest($method, $url, $headers = array(), $body = null, $contentType = null)
+    {
         if ($this->getAuthSubToken() != null) {
             // AuthSub authentication
             if ($this->getAuthSubPrivateKeyId() != null) {
@@ -216,20 +226,20 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
                 // compute signature
                 $pKeyId = $this->getAuthSubPrivateKeyId();
                 $signSuccess = openssl_sign($dataToSign, $signature, $pKeyId,
-                                            OPENSSL_ALGO_SHA1);
+                    OPENSSL_ALGO_SHA1);
                 if (!$signSuccess) {
                     require_once 'Zend/Gdata/App/Exception.php';
                     throw new Zend_Gdata_App_Exception(
-                            'openssl_signing failure - returned false');
+                        'openssl_signing failure - returned false');
                 }
                 // encode signature
                 $encodedSignature = base64_encode($signature);
 
                 // final header
                 $headers['authorization'] = 'AuthSub token="' . $this->getAuthSubToken() . '" ' .
-                                            'data="' . $dataToSign . '" ' .
-                                            'sig="' . $encodedSignature . '" ' .
-                                            'sigalg="rsa-sha1"';
+                    'data="' . $dataToSign . '" ' .
+                    'sig="' . $encodedSignature . '" ' .
+                    'sigalg="rsa-sha1"';
             } else {
                 // AuthSub without secure tokens
                 $headers['authorization'] = 'AuthSub token="' . $this->getAuthSubToken() . '"';
@@ -237,7 +247,13 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
         } elseif ($this->getClientLoginToken() != null) {
             $headers['authorization'] = 'GoogleLogin auth=' . $this->getClientLoginToken();
         }
-        return array('method' => $method, 'url' => $url, 'body' => $body, 'headers' => $headers, 'contentType' => $contentType);
+        return array(
+            'method' => $method,
+            'url' => $url,
+            'body' => $body,
+            'headers' => $headers,
+            'contentType' => $contentType
+        );
     }
 
     /**
@@ -247,7 +263,8 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      * @param Zend_Http_Response $response The response object to filter
      * @return Zend_Http_Response The filterd response object
      */
-    public function filterHttpResponse($response) {
+    public function filterHttpResponse($response)
+    {
         return $response;
     }
 
@@ -261,7 +278,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
         return $this->adapter;
     }
 
-   /**
+    /**
      * Load the connection adapter
      *
      * @param Zend_Http_Client_Adapter_Interface $adapter
@@ -272,7 +289,7 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
         if ($adapter == null) {
             $this->adapter = $adapter;
         } else {
-              parent::setAdapter($adapter);
+            parent::setAdapter($adapter);
         }
     }
 
@@ -310,12 +327,11 @@ class Zend_Gdata_HttpClient extends Zend_Http_Client
      */
     protected function _prepareBody()
     {
-        if($this->_streamingRequest) {
+        if ($this->_streamingRequest) {
             $this->setHeaders(self::CONTENT_LENGTH,
                 $this->raw_post_data->getTotalSize());
             return $this->raw_post_data;
-        }
-        else {
+        } else {
             return parent::_prepareBody();
         }
     }

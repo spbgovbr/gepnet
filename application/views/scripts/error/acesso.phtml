@@ -1,0 +1,9 @@
+<div class="region-center">
+    <?php if (!empty($this->messages)): ?>
+        <div class="alert alert-<?php echo $this->messages[0]['status'] ?>">
+            <?php echo($this->messages[0]['message']); ?>
+            <br/>
+            <a href="<?php echo $this->messages[0]['logoutUrl']; ?>">Voltar</a>
+        </div>
+    <?php endif; ?>
+</div>

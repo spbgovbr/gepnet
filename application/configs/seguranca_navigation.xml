@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+    <nav>
+        <seguranca>
+            <label>Segurança</label>
+            <module>cadastro</module>
+            <controller>recurso</controller>
+            <action>index</action>
+            <id>security</id>
+            <resource>cadastro:recurso</resource>
+            <privilege>index</privilege>
+            <visible>1</visible>
+            <pages>
+                <recursos>
+                    <label>Novos recursos</label>
+                    <module>cadastro</module>
+                    <controller>recurso</controller>
+                    <action>index</action>
+                    <resource>cadastro:recurso</resource>
+                    <privilege>index</privilege>
+                    <visible>0</visible>
+                </recursos>
+                <gerenciar>
+                    <label>Gerenciar recursos</label>
+                    <module>cadastro</module>
+                    <controller>recurso</controller>
+                    <action>gerenciar</action>
+                    <resource>cadastro:recurso</resource>
+                    <privilege>index</privilege>
+                    <visible>0</visible>
+                </gerenciar>
+                <perfilpessoa>
+                    <label>Perfil Pessoa</label>
+                    <module>cadastro</module>
+                    <controller>perfilpessoa</controller>
+                    <action>index</action>
+                    <resource>cadastro:recurso</resource>
+                    <privilege>index</privilege>
+                    <visible>0</visible>
+                    <pages>
+                        <associarperfil>
+                            <label>Associar Perfil</label>
+                            <module>cadastro</module>
+                            <controller>perfilpessoa</controller>
+                            <action>associarperfil</action>
+                            <resource>cadastro:perfilpessoa</resource>
+                            <privilege>index</privilege>
+                        </associarperfil>
+                        <gerenciar>
+                            <label>Gerenciar</label>
+                            <module>cadastro</module>
+                            <controller>perfilpessoa</controller>
+                            <action>index</action>
+                            <resource>cadastro:perfilpessoa</resource>
+                            <privilege>index</privilege>
+                        </gerenciar>
+                    </pages>
+                </perfilpessoa>
+
+                <permissao>
+                    <label>Permissões</label>
+                    <module>cadastro</module>
+                    <controller>permissao</controller>
+                    <action>index</action>
+                    <resource>cadastro:permissao</resource>
+                    <privilege>index</privilege>
+                    <visible>0</visible>
+                </permissao>
+
+
+                <pessoa>
+                    <label>Pessoa</label>
+                    <module>cadastro</module>
+                    <controller>pessoa</controller>
+                    <action>index</action>
+                    <resource>cadastro:pessoa</resource>
+                    <privilege>index</privilege>
+                    <visible>0</visible>
+                    <pages>
+                        <cadastrar>
+                            <label>Cadastrar</label>
+                            <module>cadastro</module>
+                            <controller>pessoa</controller>
+                            <action>add</action>
+                            <resource>cadastro:pessoa</resource>
+                            <privilege>add</privilege>
+                        </cadastrar>
+                        <!--<gerenciar>-->
+                        <!--<label>Gerenciar</label>-->
+                        <!--<module>cadastro</module>-->
+                        <!--<controller>pessoa</controller>-->
+                        <!--<action>index</action>-->
+                        <!--<resource>cadastro:pessoa</resource>-->
+                        <!--<privilege>index</privilege>-->
+                        <!--</gerenciar>-->
+                    </pages>
+                </pessoa>
+            </pages>
+        </seguranca>
+    </nav>
+</configdata>

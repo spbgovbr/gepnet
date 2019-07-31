@@ -1,0 +1,154 @@
+<?php
+$frmAttr = $this->form->getAttribs();
+?>
+<div class="region-center">
+    <div class="portlet portlet-cinza">
+        <div class="content">
+            <div class="row">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Entrega</div>
+                    <div class="content"><?php echo $this->atividade['grupo']->nomatividadecronograma; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span1">
+                    <div class="title">Marco ?</div>
+                    <div
+                            class="content"><?php echo($this->atividade['domtipoatividade'] == "4" ? "Sim" : "N&atilde;o"); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span4">
+                    <div class="title">Nome</div>
+                    <div class="content"><?php echo $this->atividade['nomatividadecronograma']; ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Percentual Concl.(%)</div>
+                    <div class="content"><?php echo $this->atividade['numpercentualconcluido']; ?></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Cancelada ?</div>
+                    <div
+                            class="content"><?php echo($this->atividade['flacancelada'] == "S" ? "Sim" : "N&atilde;o"); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Aquisi&ccedil;&atilde;o ?</div>
+                    <div
+                            class="content"><?php echo($this->atividade['flaaquisicao'] == "S" ? "Sim" : "N&atilde;o"); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span6">
+                    <div class="title">Respons&aacute;vel</div>
+                    <div class="content"><?php echo $this->atividade['nomparteinteressada']; ?></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="portlet portlet-azul span10">
+                    <div class="title">Predecessoras</div>
+                    <div class="content">
+                        <div class="row">
+                            <div id="container-predecessoras" class="portlet portlet-azul span9">
+                                <?php if (count($this->atividade['predecessoras']) > 0): ?>
+                                    <table id="table-predecessoras"
+                                           class="table table-condensed table-striped table-hover span9" border="0"
+                                           style="margin-left: 0px;">
+                                        <?php foreach ($this->atividade['predecessoras'] as $p):
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $p['datinicio']; ?> a <?php echo $p['datfim']; ?>
+                                                    - <?php echo $p['nomatividadecronograma']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </table>
+                                <?php else: ?>
+                                    <table id="table-predecessoras"
+                                           class="table table-condensed table-striped table-hover hidden"
+                                           style="margin-left: 0px;">
+                                        <caption>Predecessoras Selecionadas</caption>
+                                    </table>
+                                    <div id="alert-predecessora" class="alert alert-info  span9"
+                                         style="margin-left: 0px;">
+                                        Nenhuma predecessora selecionada.
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="portlet portlet-azul span9">
+                                <div class="title">Dias de Espera</div>
+                                <div class="content"><?php echo $this->atividade['numfolga']; ?></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="portlet portlet-azul span5" style="display:none;">
+                    <div class="title">Estimativa</div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="span1_5">
+                                <?php echo $this->atividade['datiniciobaseline']; ?>
+                            </div>
+                            <div class="span1_5">
+                                <?php echo $this->atividade['datfimbaseline']; ?>
+                            </div>
+                            <div class="span1">
+                                <?php echo $this->atividade['vlratividadebaseline']; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet portlet-cinza span10">
+                    <div class="title">Real</div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="portlet portlet-azul span2">
+                                <div class="title">In&iacute;cio</div>
+                                <?php echo $this->atividade['datinicio']; ?>
+                            </div>
+                            <div class="portlet portlet-azul span2">
+                                <div class="title">Dura&ccedil;ão</div>
+                                <?php echo $this->atividade['numdiasrealizados']; ?>
+                            </div>
+                            <div class="portlet portlet-azul span2">
+                                <div class="title">Fim</div>
+                                <?php echo $this->atividade['datfim']; ?>
+                            </div>
+                            <div class="portlet portlet-azul span2">
+                                <div class="title">Custo</div>
+                                <?php echo $this->atividade['vlratividade']; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="portlet portlet-cinza span3">
+                    <div class="title">Material de Inform&aacute;tica ?</div>
+                    <div
+                            class="content"><?php echo($this->atividade['flainformatica'] == "S" ? "Sim" : "N&atilde;o"); ?>
+                    </div>
+                </div>
+                <div class="portlet portlet-cinza span2">
+                    <div class="title">Aquisi&ccedil;&atilde;o ?</div>
+                    <div
+                            class="content"><?php echo($this->atividade['flaaquisicao'] == "S" ? "Sim" : "N&atilde;o"); ?></div>
+                </div>
+                <div class="portlet portlet-cinza span5">
+                    <div class="title">Elemento de Despesa</div>
+                    <div class="content"><?php echo $this->atividade['elementodespesa']['nomelementodespesa']; ?></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="portlet portlet-cinza span10">
+                    <div class="title">Observa&ccedil;&atilde;o</div>
+                    <?php echo $this->atividade['desobs']; ?>&nbsp;
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -29,7 +29,7 @@ class Projeto_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
         );
         try {
             return $this->getDbTable()->insert($data);
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             throw new Exception($exc->getMessage());
         }
     }
@@ -49,30 +49,31 @@ class Projeto_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
             "domreferencia" => $model->domreferencia,
             "domsemafaro" => $model->domsemafaro,
             "desdiariobordo" => $model->desdiariobordo,
-            "idalterador"=> $model->idalterador,
+            "idalterador" => $model->idalterador,
         );
         try {
-            return $this->getDbTable()->update($data, array("iddiariobordo = ?" => $model->iddiariobordo, "idprojeto = ?"=> $model->idprojeto));
-        } catch(Exception $exc) {
+            return $this->getDbTable()->update($data,
+                array("iddiariobordo = ?" => $model->iddiariobordo, "idprojeto = ?" => $model->idprojeto));
+        } catch (Exception $exc) {
             throw new Exception($exc->getMessage());
         }
     }
 
     public function delete($params)
     {
-       $where =  $this->quoteInto('iddiariobordo = ?', (int)$params['iddiariobordo']);        
-        
-       $result =  $this->getDbTable()->delete($where);
-       return $result;
+        $where = $this->quoteInto('iddiariobordo = ?', (int)$params['iddiariobordo']);
+
+        $result = $this->getDbTable()->delete($where);
+        return $result;
     }
-    
+
     public function getForm()
     {
         return $this->_getForm(Projeto_Form_DiarioBordo);
     }
-    
+
     public function getById($params)
-    {       
+    {
         $sql = "SELECT
                     to_char(db.datdiariobordo, 'DD/MM/YYYY') as datdiariobordo,
                     db.domreferencia,
@@ -90,11 +91,40 @@ class Projeto_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
                      agepnet200.tb_pessoa pes
                 WHERE db.iddiariobordo = :iddiariobordo
                  AND db.idcadastrador = pes.idpessoa";
-        
-        $resultado = $this->_db->fetchRow($sql, array('iddiariobordo'=> (int)$params['iddiariobordo']));
+
+        $resultado = $this->_db->fetchRow($sql, array('iddiariobordo' => (int)$params['iddiariobordo']));
         return $resultado;
     }
 
+    public function copiaDiarioByProjeto($params)
+    {
+
+        $sql = "insert into agepnet200.tb_diariobordo(iddiariobordo,
+        idprojeto, datdiariobordo, domreferencia, domsemafaro,
+        desdiariobordo, idcadastrador, datcadastro, idalterador)(SELECT
+	      (SELECT MAX(iddiariobordo) FROM agepnet200.tb_diariobordo) + ROW_NUMBER()
+                OVER (ORDER BY iddiariobordo) iddiariobordo,
+	      :idprojetoNovo, tb1.datdiariobordo, tb1.domreferencia, tb1.domsemafaro,
+	      tb1.desdiariobordo, tb1.idcadastrador, tb1.datcadastro, tb1.idalterador
+        FROM agepnet200.tb_diariobordo tb1
+        where tb1.idprojeto=:idprojeto and not exists(
+		   select 1 FROM agepnet200.tb_diariobordo tb2
+		   where tb2.idprojeto = :idprojetoNovo and
+		   tb2.datdiariobordo = tb1.datdiariobordo and tb2.domreferencia = tb1.domreferencia and
+		   tb2.domsemafaro = tb1.domsemafaro and tb2.desdiariobordo = tb1.desdiariobordo)
+        )";
+
+        if ($this->_db->query($sql, array(
+                'idprojeto' => $params['idprojeto'],
+                'idprojetoNovo' => $params['idprojetoNovo']
+            )
+        )) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
     public function retornaPorProjetoToGrid($params)
     {
@@ -112,30 +142,30 @@ class Projeto_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
                     db.idprojeto
                 FROM agepnet200.tb_diariobordo db,
                      agepnet200.tb_pessoa pes
-                WHERE db.idprojeto = " . (int) $params['idprojeto'] .
-                " AND db.idcadastrador = pes.idpessoa ";
-        if(isset($params['domreferencia']) && $params['domreferencia'] != "") {
+                WHERE db.idprojeto = " . (int)$params['idprojeto'] .
+            " AND db.idcadastrador = pes.idpessoa ";
+        if (isset($params['domreferencia']) && $params['domreferencia'] != "") {
             $sql .= " AND db.domreferencia = '{$params['domreferencia']}'";
         }
-        if(isset($params['domsemafaro']) && $params['domsemafaro'] != "") {
-            $sql .= " AND db.domsemafaro = '".(int) $params['domsemafaro']."'";
+        if (isset($params['domsemafaro']) && $params['domsemafaro'] != "") {
+            $sql .= " AND db.domsemafaro = '" . (int)$params['domsemafaro'] . "'";
         }
-        if(isset($params['datdiariobordo']) && $params['datdiariobordo'] != "") {
+        if (isset($params['datdiariobordo']) && $params['datdiariobordo'] != "") {
             $sql .= " AND db.datdiariobordo >= to_date('{$params['datdiariobordo']}','DD/MM/YYYY') ";
         }
-        if(isset($params['datdiariobordofim']) && $params['datdiariobordofim'] != "") {
+        if (isset($params['datdiariobordofim']) && $params['datdiariobordofim'] != "") {
             $sql .= " AND db.datdiariobordo <= to_date('{$params['datdiariobordofim']}','DD/MM/YYYY') ";
         }
 
         $sql .= ' order by ' . $params['sidx'] . ' ' . $params['sord'];
 
         try {
-        $page = (isset($params['page'])) ? $params['page'] : 1;
-        $limit = (isset($params['rows'])) ? $params['rows'] : 20;
-        $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
-        $paginator->setItemCountPerPage($limit);
-        $paginator->setCurrentPageNumber($page);
-        return $paginator;
+            $page = (isset($params['page'])) ? $params['page'] : 1;
+            $limit = (isset($params['rows'])) ? $params['rows'] : 20;
+            $paginator = new Zend_Paginator(new App_Paginator_Adapter_Sql_Pgsql($sql));
+            $paginator->setItemCountPerPage($limit);
+            $paginator->setCurrentPageNumber($page);
+            return $paginator;
         } catch (Exception $exc) {
             throw new Exception($exc->code());
         }

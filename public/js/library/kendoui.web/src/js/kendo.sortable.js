@@ -14,11 +14,11 @@ kendo_module({
     id: "sortable",
     name: "Sortable",
     category: "framework",
-    depends: [ "data" ],
+    depends: ["data"],
     advanced: true
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         proxy = $.proxy,
         DIR = "dir",
@@ -32,7 +32,7 @@ kendo_module({
         Widget = kendo.ui.Widget;
 
     var Sortable = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this, link;
 
             Widget.fn.init.call(that, element, options);
@@ -59,7 +59,7 @@ kendo_module({
             compare: null
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             Widget.fn.destroy.call(that);
@@ -69,7 +69,7 @@ kendo_module({
             that.dataSource.unbind("change", that._refreshHandler);
         },
 
-        refresh: function() {
+        refresh: function () {
             var that = this,
                 sort = that.dataSource.sort() || [],
                 idx,
@@ -83,11 +83,11 @@ kendo_module({
             element.removeAttr(ARIASORT);
 
             for (idx = 0, length = sort.length; idx < length; idx++) {
-               descriptor = sort[idx];
+                descriptor = sort[idx];
 
-               if (field == descriptor.field) {
-                   element.attr(kendo.attr(DIR), descriptor.dir);
-               }
+                if (field == descriptor.field) {
+                    element.attr(kendo.attr(DIR), descriptor.dir);
+                }
             }
 
             dir = element.attr(kendo.attr(DIR));
@@ -103,7 +103,7 @@ kendo_module({
             }
         },
 
-        _click: function(e) {
+        _click: function (e) {
             var that = this,
                 element = that.element,
                 field = element.attr(kendo.attr(FIELD)),
@@ -123,7 +123,7 @@ kendo_module({
             }
 
             if (options.mode === SINGLE) {
-                sort = [ { field: field, dir: dir, compare: compare } ];
+                sort = [{field: field, dir: dir, compare: compare}];
             } else if (options.mode === "multiple") {
                 for (idx = 0, length = sort.length; idx < length; idx++) {
                     if (sort[idx].field === field) {
@@ -131,7 +131,7 @@ kendo_module({
                         break;
                     }
                 }
-                sort.push({ field: field, dir: dir, compare: compare });
+                sort.push({field: field, dir: dir, compare: compare});
             }
 
             e.preventDefault();

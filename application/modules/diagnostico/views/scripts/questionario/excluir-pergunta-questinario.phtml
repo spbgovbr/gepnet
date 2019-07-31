@@ -1,0 +1,29 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+?>
+<!--action="--><?php //echo $this->baseUrl(); ?><!--/diagnostico/questionario/perguntaexcluir/format/json"-->
+<div class="region-center">
+    <div class="portlet">
+        <form id="form-excluir-pergunta"
+              name="form-excluir-pergunta"
+              method="post">
+            <div class="alert alert-block" style="font-size: 14px !important;">
+                <h4>Aten&ccedil;&atilde;o!</h4>
+                Deseja realmente excluir esta pergunta?
+                <br/>
+                <p>Depois de exclu&iacute;da, a a&ccedil;&atilde;o <strong> n&atilde;o </strong> poder&aacute; ser
+                    desfeita.</p>
+            </div>
+            <div class="row">
+                <div class="span5">
+                    <input type="hidden" name="idpergunta" id="idpergunta"
+                           value="<?php echo $this->pergunta['idpergunta']; ?>"/>
+                    <input type="hidden" name="idquestionario" id="idquestionario"
+                           value="<?php echo $this->pergunta['idquestionario']; ?>"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -30,14 +30,13 @@ p.menu {
 
 include("../mpdf.php");
 
-$mpdf=new mPDF(); 
+$mpdf = new mPDF();
 
 $mpdf->WriteHTML($html);
 
-$mpdf->Output(); 
+$mpdf->Output();
 
 exit;
-
 
 
 ?>

@@ -1,0 +1,52 @@
+<div class="region-center">
+    <?php
+    $this->headLink()
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'));
+
+    //    $this->headScript() 
+    //        ->appendFile($this->baseUrl('/js/app/diagnostico/questionario/clonar.js'), 'text/javascript');
+
+    $frmAttr = $this->form->getAttribs();
+    ?>
+    <div class="alert alert-block" style="font-size: 14px !important;">
+        <h4>Atenção!</h4>
+        Tem certeza que deseja clonar este questionário?<br/>
+        Ao concordar e clicar em "Clonar" uma cópia deste diagnóstico será gerado incluindo todos os dados.<br/>
+        <p>Depois de clonado, a ação <strong> não </strong> poderá ser desfeita.</p>
+    </div>
+    <div class="centro">
+        <form id="form-clonar"
+              name="form-clonar"
+              action="<?php echo $this->form->getAction(); ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+            <div class="row">
+                <div class="span3">
+                    <?php echo $this->form->nomquestionario; ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span3">
+                    <?php echo $this->form->tipo; ?>
+                </div>
+            </div>
+            <div class="row" style="display: none">
+                <div class="span3">
+                    <input type="hidden" name="tipo" value="<?php echo $this->tipo; ?>">
+                    <?php echo $this->form->observacao; ?>
+                    <?php echo $this->form->idquestionariodiagnostico; ?>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <div class="span5">
+                <?php //echo $this->form->submit; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 10px;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
+    </div>
+</div>   

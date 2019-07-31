@@ -53,7 +53,7 @@ class Twitter_Bootstrap_Form_Element_Submit extends Zend_Form_Element_Submit
         $classes[] = 'btn';
         //Zend_Debug::dump($classes);
         //Zend_Debug::dump($options);
-        if (isset($options['buttonType']) && in_array( $options['buttonType'], $this->buttons )) {
+        if (isset($options['buttonType']) && in_array($options['buttonType'], $this->buttons)) {
             $classes[] = 'btn-' . $options['buttonType'];
             unset($options['buttonType']);
         }
@@ -61,16 +61,16 @@ class Twitter_Bootstrap_Form_Element_Submit extends Zend_Form_Element_Submit
         if (isset($options['disabled'])) {
             $classes[] = 'disabled';
         }
-        
-        if(isset($options['attribs']['class'])){
+
+        if (isset($options['attribs']['class'])) {
             $attr = explode(' ', $options['attribs']['class']);
             $classes = array_merge($attr, $classes);
         }
-        
+
         //Zend_Debug::dump($classes);exit;
         $classes = array_unique($classes);
 
-        $options['class'] = trim( implode(' ', $classes) );
+        $options['class'] = trim(implode(' ', $classes));
 
         parent::__construct($spec, $options);
     }

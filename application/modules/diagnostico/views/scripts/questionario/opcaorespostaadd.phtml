@@ -1,0 +1,69 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/diagnostico/pergunta/opcoes-resposta.js'), 'text/javascript');
+
+$frmAttr = $this->form->getAttribs();
+
+?>
+<div class="region-center">
+    <div class="ui-dialog-content ui-widget-content">
+        <form id="<?php echo $frmAttr['id']; ?>"
+              name="<?php echo $frmAttr['id']; ?>"
+              method="<?php echo $frmAttr['method']; ?>">
+            <div class="row">
+                <div class="form-group">
+                    <div class="span8"
+                    <?php echo $this->form->posicaoat; ?>
+                    <?php echo $this->form->posicaocad; ?>
+                    <?php echo $this->form->idresposta; ?>
+                    <?php echo $this->form->id; ?>
+                    <?php echo $this->form->idpergunta; ?>
+                    <input type="hidden" name="tpregistro" id="tpregistro" value="<?php echo $this->tpregistro; ?>">
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="form-group">
+            <div class="span8">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2"
+                               href="#collapseOne">
+                                <i id="img" class="icon-plus"></i>
+                                <strong>Gerenciamento de Opçoes de Resposta</strong>
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <button class="btn btn-default" id="add"><i class="icon icon-plus"/></button>
+                                <button class="btn btn-default" id="edit" title="Alterar"><i class="icon icon-pencil"/>
+                                </button>
+                                <button class="btn btn-default" id="remov" title="Excluir"><i class="icon icon-trash"/>
+                                </button>
+                                <table id="list"></table>
+                                <div id="toolbar"></div>
+                                <div id="pager"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+</div>

@@ -43,7 +43,7 @@ class Zend_Service_Simpy_Note
      *
      * @var string
      */
-    const ACCESSTYPE_PUBLIC  = 'public';
+    const ACCESSTYPE_PUBLIC = 'public';
 
     /**
      * Access type assigned to the note
@@ -104,7 +104,7 @@ class Zend_Service_Simpy_Note
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMNode $node Individual <link> node from a parsed response from
+     * @param DOMNode $node Individual <link> node from a parsed response from
      *                       a GetLinks operation
      * @return void
      */
@@ -134,9 +134,9 @@ class Zend_Service_Simpy_Note
     /**
      * Returns the access type assigned to the note
      *
-     * @see    ACCESSTYPE_PRIVATE
-     * @see    ACCESSTYPE_PUBLIC
      * @return string
+     * @see    ACCESSTYPE_PUBLIC
+     * @see    ACCESSTYPE_PRIVATE
      */
     public function getAccessType()
     {

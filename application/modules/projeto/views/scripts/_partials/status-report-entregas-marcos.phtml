@@ -1,16 +1,19 @@
 <?php
-$this->headScript()
-//        ->appendFile($this->baseUrl('/js/app/library/chartjs/Lib/js/jquery-1.9.1.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript')
-        ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js'), 'text/javascript')
-;
+//
+//$this->headScript()
+//    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/knockout-2.2.1.js'), 'text/javascript')
+//    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/globalize.min.js'), 'text/javascript')
+//    ->appendFile($this->baseUrl('/js/library/chartjs/Lib/js/dx.chartjs.js'), 'text/javascript');
+////    ->appendFile($this->baseUrl('/js/app/projeto/statusreport/acompanhamento-chart.js?'), 'text/javascript');
+
+$dataAtual = Date('d/m/Y');
 ?>
-<div class="span"> 
+<div class="span">
+    <div class="row"><span class="relspan">Cronograma Atualizado em <?php echo $dataAtual; ?></span></div>
     <div class="row">
         <div class="portlet portlet-azul span12">
-            <h3>Entregas e Marcos do Projeto </h3>
+            <h3>9.Entregas e Marcos do Projeto </h3>
+
             <div class="content">
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
@@ -20,25 +23,31 @@ $this->headScript()
                     <th>Fim</th>
                     <th>%</th>
                     <th>Responsável</th>
+                    <th>Farol</th>
                     </thead>
                     <tbody>
-                        <?php if (empty($this->entregasMarcos[0]) == false): ?>
-                            <?php foreach ($this->entregasMarcos as $data): ?>
-                                <tr>
-                                    <td><?php echo $data->domtipoatividade == 4 ? "&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"icon-flag\"></i>&nbsp;&nbsp;" : "<i class=\"icon-tag\"></i>&nbsp;&nbsp;";  echo $data->nomatividadecronograma; ?></td>
-                                    <td><?php echo $data->datiniciobaseline ? $data->datiniciobaseline->format('d/m/Y') : "-"; ?> a <?php echo $data->datfimbaseline ? $data->datfimbaseline->format('d/m/Y') : "-"; ?></td>
-                                    <td><?php echo $data->datinicio ? $data->datinicio->format('d/m/Y') : "-"; ?></td>
-                                    <td><?php echo $data->datfim ? $data->datfim->format('d/m/Y') : "-"; ?></td>
-                                    <td><?php echo $data->numpercentualconcluido ? $data->numpercentualconcluido."%" : "-"; ?></td>
-                                    <td><?php echo $data->nomparteinteressada ? strtoupper($data->nomparteinteressada) : "-"; ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php else:?>
-                                <tr>
-                                    <td colspan="6">Nenhum registro encontrado.</td>
-                                </tr>
-                        <?php endif; ?>
-                    </tbody>	 	
+                    <?php if (count($this->entregasMarcos) > 0) : ?>
+                        <?php foreach ($this->entregasMarcos as $data): ?>
+                            <tr>
+                                <td><?php echo (isset($data['domtipoatividade']) && $data['domtipoatividade'] == 4) ? "&nbsp;&nbsp;&nbsp;&nbsp;<i class=\"icon-flag\"></i>&nbsp;&nbsp;" : "<i class=\"icon-tag\"></i>&nbsp;&nbsp;";
+                                    echo $data['nomatividadecronograma']; ?></td>
+                                <td><?php echo (isset($data['datiniciobaseline'])) ? $data['datiniciobaseline'] : "-"; ?>
+                                    a <?php echo (isset($data['datfimbaseline'])) ? $data['datfimbaseline'] : "-"; ?></td>
+                                <td><?php echo (isset($data['datinicio'])) ? $data['datinicio'] : "-"; ?></td>
+                                <td><?php echo (isset($data['datfim'])) ? $data['datfim'] : "-"; ?></td>
+                                <td><?php echo (isset($data['numpercentualconcluido'])) ? $data['numpercentualconcluido'] . "%" : "-"; ?></td>
+                                <td><?php echo (isset($data['nomparteinteressada'])) ? $data['nomparteinteressada'] : "-"; ?></td>
+                                <td><span
+                                            class="badge badge-<?php echo (isset($data['numpercentualconcluido']) && ((int)$data['numpercentualconcluido'] == 100)) ? "default" : $data['domcoratraso']; ?>"><?php echo $data['atraso'];; ?>
+                                        dias</span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6">Nenhum registro encontrado.</td>
+                        </tr>
+                    <?php endif; ?>
+                    </tbody>
                 </table>
             </div>
         </div>

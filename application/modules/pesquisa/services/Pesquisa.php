@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
+class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract
+{
 
     public $_mapper = null;
     protected $_form = null;
@@ -22,7 +23,7 @@ class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
 
     /**
      * Retorna relação de questionarios para montar grid de publicacao
-     * 
+     *
      * @param array $params - parametros do request
      * @return boolean|\App_Service_JqGrid
      */
@@ -48,8 +49,10 @@ class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
 
             //monta insert tb_pesquisa
             $idpesquisa = $this->inserirPesquisa($questionario);
-            $idquestionariopesquisa = $this->inserirQuestionarioPesquisa(array_merge($questionario, array('idpesquisa' => $idpesquisa)));
-            $this->insereEstruturaQuestionarioFrasePesquisa(array_merge($questionario, array('idpesquisa' => $idpesquisa, 'idquestionariopesquisa' => $idquestionariopesquisa)));
+            $idquestionariopesquisa = $this->inserirQuestionarioPesquisa(array_merge($questionario,
+                array('idpesquisa' => $idpesquisa)));
+            $this->insereEstruturaQuestionarioFrasePesquisa(array_merge($questionario,
+                array('idpesquisa' => $idpesquisa, 'idquestionariopesquisa' => $idquestionariopesquisa)));
 
             $this->_mapper->getDbTable()->getAdapter()->commit();
             return true;
@@ -109,7 +112,10 @@ class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
             //se resposta no tiver sido cadastrada insere
             if (isset($result['tr_idresposta']) && $result['tr_idresposta'] != '') {
                 $idrespostapesquisa = $this->inserirRespostaPesquisa($result);
-                $this->inserirRespostaFrasePesquisa(array('idfrasepesquisa' => $idfrasepesquisa, 'idrespostapesquisa' => $idrespostapesquisa));
+                $this->inserirRespostaFrasePesquisa(array(
+                    'idfrasepesquisa' => $idfrasepesquisa,
+                    'idrespostapesquisa' => $idrespostapesquisa
+                ));
             }
         }
     }
@@ -135,12 +141,13 @@ class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
     public function inserirQuestionarioFrasePesquisa($params, $idquestionariopesquisa, $idfrasepesquisa)
     {
         $questionarioFrasePesquisa = App_Service_ServiceAbstract::getService('Pesquisa_Service_QuestionariofrasePesquisa');
-        return $questionarioFrasePesquisa->inserirQuestionarioFrasePesquisa($params, $idquestionariopesquisa, $idfrasepesquisa);
+        return $questionarioFrasePesquisa->inserirQuestionarioFrasePesquisa($params, $idquestionariopesquisa,
+            $idfrasepesquisa);
     }
 
     public function inserirHistoricoPublicacao($params)
     {
-        $params = (array) $params;
+        $params = (array)$params;
         $historicoService = App_Service_ServiceAbstract::getService('Pesquisa_Service_HistoricoPublicacao');
         return $historicoService->inserirHistoricoPublicacao($params);
     }
@@ -206,16 +213,16 @@ class Pesquisa_Service_Pesquisa extends App_Service_ServiceAbstract {
             return false;
         }
     }
-    
+
     public function retornaEnunciadoPesquisa($params)
     {
-       try {
+        try {
             $result = $this->_mapper->retornaEnunciadoPesquisaById($params);
             return $result;
         } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
-        } 
+        }
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 class App_Generator_Adapter_Pgsql extends App_Generator_Adapter_Abstract
 {
     public function getReference($table, $schema = '')
@@ -15,7 +16,7 @@ class App_Generator_Adapter_Pgsql extends App_Generator_Adapter_Abstract
                 JOIN pg_attribute af ON (af.attrelid = ct.confrelid AND af.attnum = ct.confkey[1])
                 WHERE  cl.relname = '$table' AND n.nspname = '$schema'
                 ORDER BY a.attname";
-       $results = $this->_db->fetchAll($sql);
+        $results = $this->_db->fetchAll($sql);
         //Zend_Debug::dump($sql);
         //Zend_Debug::dump($results);exit;
         foreach ($results as $result) {
@@ -23,8 +24,8 @@ class App_Generator_Adapter_Pgsql extends App_Generator_Adapter_Abstract
             $className = $this->camelize($this->sanitizeTableName($result['reference_table']));
             $relations[$className] = array(
                 'refTableClass' => $result['reference_table'],
-                'columns'       => $result['column'],
-                'refColumns'    => $result['reference_column']
+                'columns' => $result['column'],
+                'refColumns' => $result['reference_column']
             );
         }
         return $relations;
@@ -34,8 +35,7 @@ class App_Generator_Adapter_Pgsql extends App_Generator_Adapter_Abstract
     {
         $metadata = $this->_db->describeTable($table);
         $primary = array();
-        foreach ($metadata as $col)
-        {
+        foreach ($metadata as $col) {
             if ($col['PRIMARY']) {
                 $primary[$col['PRIMARY_POSITION']] = $col['COLUMN_NAME'];
             }

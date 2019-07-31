@@ -10,7 +10,7 @@
 */
 
 
-﻿(function( window, undefined ) {
+﻿(function (window, undefined) {
     kendo.cultures["uz-Latn-UZ"] = {
         name: "uz-Latn-UZ",
         numberFormat: {
@@ -20,7 +20,7 @@
             ".": ",",
             groupSize: [3],
             percent: {
-                pattern: ["-n%","n%"],
+                pattern: ["-n%", "n%"],
                 decimals: 2,
                 ",": " ",
                 ".": ",",
@@ -28,7 +28,7 @@
                 symbol: "%"
             },
             currency: {
-                pattern: ["-n $","n $"],
+                pattern: ["-n $", "n $"],
                 decimals: 0,
                 ",": " ",
                 ".": ",",
@@ -39,13 +39,13 @@
         calendars: {
             standard: {
                 days: {
-                    names: ["yakshanba","dushanba","seshanba","chorshanba","payshanba","juma","shanba"],
-                    namesAbbr: ["yak.","dsh.","sesh.","chr.","psh.","jm.","sh."],
-                    namesShort: ["ya","d","s","ch","p","j","sh"]
+                    names: ["yakshanba", "dushanba", "seshanba", "chorshanba", "payshanba", "juma", "shanba"],
+                    namesAbbr: ["yak.", "dsh.", "sesh.", "chr.", "psh.", "jm.", "sh."],
+                    namesShort: ["ya", "d", "s", "ch", "p", "j", "sh"]
                 },
                 months: {
-                    names: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentyabr","oktyabr","noyabr","dekabr",""],
-                    namesAbbr: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentyabr","oktyabr","noyabr","dekabr",""]
+                    names: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr", ""],
+                    namesAbbr: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentyabr", "oktyabr", "noyabr", "dekabr", ""]
                 },
                 AM: [""],
                 PM: [""],

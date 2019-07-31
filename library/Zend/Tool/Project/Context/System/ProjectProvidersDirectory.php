@@ -49,7 +49,7 @@ require_once 'Zend/Tool/Project/Context/System/NotOverwritable.php';
 class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
     extends Zend_Tool_Project_Context_Filesystem_Directory
     implements Zend_Tool_Project_Context_System_Interface,
-               Zend_Tool_Project_Context_System_NotOverwritable
+    Zend_Tool_Project_Context_System_NotOverwritable
 {
 
     /**
@@ -75,7 +75,7 @@ class Zend_Tool_Project_Context_System_ProjectProvidersDirectory
 
             foreach (new DirectoryIterator($this->getPath()) as $item) {
                 if ($item->isFile() && (($suffixStart = strpos($item->getFilename(), 'Provider.php')) !== false)) {
-                    $className = substr($item->getFilename(), 0, $suffixStart+8);
+                    $className = substr($item->getFilename(), 0, $suffixStart + 8);
                     // $loadableFiles[$className] = $item->getPathname();
                     include_once $item->getPathname();
                     $providerRepository->addProvider(new $className());

@@ -15,10 +15,10 @@ kendo_module({
     name: "Upload",
     category: "web",
     description: "The Upload widget uses progressive enhancement to deliver the best possible uploading experience to users.",
-    depends: [ "core" ]
+    depends: ["core"]
 });
 
-(function($, undefined) {
+(function ($, undefined) {
     var kendo = window.kendo,
         Widget = kendo.ui.Widget,
         logToConsole = kendo.logToConsole,
@@ -34,7 +34,7 @@ kendo_module({
         REMOVE = "remove";
 
     var Upload = Widget.extend({
-        init: function(element, options) {
+        init: function (element, options) {
             var that = this;
 
             Widget.fn.init.call(that, element, options);
@@ -59,8 +59,8 @@ kendo_module({
 
             if (that.options.async.saveUrl) {
                 that._module = that._supportsFormData() ?
-                new formDataUploadModule(that) :
-                new iframeUploadModule(that);
+                    new formDataUploadModule(that) :
+                    new iframeUploadModule(that);
                 that._async = true;
 
                 var initialFiles = that.options.files;
@@ -77,8 +77,8 @@ kendo_module({
             }
 
             that.wrapper
-            .on("click", ".k-upload-action", $.proxy(that._onFileAction, that))
-            .on("click", ".k-upload-selected", $.proxy(that._onUploadSelected, that));
+                .on("click", ".k-upload-action", $.proxy(that._onFileAction, that))
+                .on("click", ".k-upload-selected", $.proxy(that._onUploadSelected, that));
         },
 
         events: [
@@ -118,7 +118,7 @@ kendo_module({
             }
         },
 
-        setOptions: function(options) {
+        setOptions: function (options) {
             var that = this,
                 activeInput = that.element;
 
@@ -130,22 +130,22 @@ kendo_module({
             that.toggle(that.options.enabled);
         },
 
-        enable: function(enable) {
+        enable: function (enable) {
             enable = typeof (enable) === "undefined" ? true : enable;
             this.toggle(enable);
         },
 
-        disable: function() {
+        disable: function () {
             this.toggle(false);
         },
 
-        toggle: function(enable) {
+        toggle: function (enable) {
             enable = typeof (enable) === "undefined" ? enable : !enable;
             this.wrapper.toggleClass("k-state-disabled", enable);
             this.element.prop("disabled", enable);
         },
 
-        destroy: function() {
+        destroy: function () {
             var that = this;
 
             $(document)
@@ -158,7 +158,7 @@ kendo_module({
             Widget.fn.destroy.call(that);
         },
 
-        _addInput: function(sourceInput) {
+        _addInput: function (sourceInput) {
             //check if source input is a DOM element. Required for some unit tests
             if (!sourceInput[0].nodeType) {
                 return;
@@ -179,7 +179,7 @@ kendo_module({
             that._activeInput(input);
         },
 
-        _activeInput: function(input) {
+        _activeInput: function (input) {
             var that = this,
                 wrapper = that.wrapper;
 
@@ -188,24 +188,24 @@ kendo_module({
             input
                 .attr("multiple", that._supportsMultiple() ? that.multiple : false)
                 .attr("autocomplete", "off")
-                .on("click" + NS, function(e) {
+                .on("click" + NS, function (e) {
                     if (wrapper.hasClass("k-state-disabled")) {
                         e.preventDefault();
                     }
                 })
-                .on("focus" + NS, function() {
+                .on("focus" + NS, function () {
                     $(this).parent().addClass("k-state-focused");
                 })
-                .on("blur" + NS, function() {
+                .on("blur" + NS, function () {
                     $(this).parent().removeClass("k-state-focused");
                 })
                 .on("change" + NS, $.proxy(that._onInputChange, that));
         },
 
-        _onInputChange: function(e) {
+        _onInputChange: function (e) {
             var upload = this,
                 input = $(e.target),
-                prevented = upload.trigger(SELECT, { files: inputFiles(input) });
+                prevented = upload.trigger(SELECT, {files: inputFiles(input)});
 
             if (prevented) {
                 upload._addInput(input);
@@ -223,22 +223,22 @@ kendo_module({
             stopEvent(e);
 
             if (droppedFiles.length > 0) {
-                var prevented = that.trigger(SELECT, { files: getAllFileInfo(droppedFiles) });
+                var prevented = that.trigger(SELECT, {files: getAllFileInfo(droppedFiles)});
                 if (!prevented) {
-                    that._module.onSelect({target : $(".k-dropzone", that.wrapper) }, droppedFiles);
+                    that._module.onSelect({target: $(".k-dropzone", that.wrapper)}, droppedFiles);
                 }
             }
         },
 
-        _renderInitialFiles: function(files) {
+        _renderInitialFiles: function (files) {
             var that = this;
             var idx = 0;
 
             for (idx = 0; idx < files.length; idx++) {
                 var currentFile = files[idx];
 
-                var fileEntry = that._enqueueFile(currentFile.name, { fileNames: [ currentFile ] });
-                fileEntry.addClass("k-file-success").data("files", [ files[idx] ]);
+                var fileEntry = that._enqueueFile(currentFile.name, {fileNames: [currentFile]});
+                fileEntry.addClass("k-file-success").data("files", [files[idx]]);
 
                 $(".k-progress", fileEntry).width('100%');
                 $(".k-upload-status", fileEntry).prepend("<span class='k-upload-pct'>100%</span>");
@@ -247,7 +247,7 @@ kendo_module({
             }
         },
 
-        _prepareTemplateData: function(name, data) {
+        _prepareTemplateData: function (name, data) {
             var filesData = data.fileNames,
                 templateData = {},
                 totalSize = 0,
@@ -264,14 +264,14 @@ kendo_module({
             return templateData;
         },
 
-        _prepareDefaultFileEntryTemplate: function(name, data) {
+        _prepareDefaultFileEntryTemplate: function (name, data) {
             var extension = "";
             var defaultTemplate = $("<li class='k-file'>" +
-                    "<span class='k-progress'></span>" +
-                    "<span class='k-icon'></span>" +
-                    "<span class='k-filename' title='" + name + "'>" + name + "</span>" +
-                    "<strong class='k-upload-status'></strong>" +
-                    "</li>");
+                "<span class='k-progress'></span>" +
+                "<span class='k-icon'></span>" +
+                "<span class='k-filename' title='" + name + "'>" + name + "</span>" +
+                "<strong class='k-upload-status'></strong>" +
+                "</li>");
 
             if (data.fileNames.length == 1 && !!data.fileNames[0].extension) {
                 extension = data.fileNames[0].extension.substring(1);
@@ -280,11 +280,11 @@ kendo_module({
             return defaultTemplate;
         },
 
-        _enqueueFile: function(name, data) {
+        _enqueueFile: function (name, data) {
             var that = this;
             var existingFileEntries;
             var fileEntry;
-            var fileList =  $(".k-upload-files", that.wrapper);
+            var fileList = $(".k-upload-files", that.wrapper);
             var options = that.options;
             var template = options.template;
             var templateData;
@@ -319,13 +319,13 @@ kendo_module({
             }
 
             if (!that.multiple && existingFileEntries.length > 0) {
-                that._module.onRemove({target : $(existingFileEntries, that.wrapper)});
+                that._module.onRemove({target: $(existingFileEntries, that.wrapper)});
             }
 
             return fileEntry;
         },
 
-        _removeFileEntry: function(fileEntry) {
+        _removeFileEntry: function (fileEntry) {
             var that = this;
             var fileList = fileEntry.closest(".k-upload-files");
             var allFiles;
@@ -346,8 +346,8 @@ kendo_module({
             }
         },
 
-        _fileAction: function(fileElement, actionKey) {
-            var classDictionary = { remove: "k-delete", cancel: "k-cancel", retry: "k-retry" };
+        _fileAction: function (fileElement, actionKey) {
+            var classDictionary = {remove: "k-delete", cancel: "k-cancel", retry: "k-retry"};
             var iconsClassDictionary = {remove: "k-i-close", cancel: "k-i-close", retry: "k-i-refresh"};
 
             if (!classDictionary.hasOwnProperty(actionKey)) {
@@ -363,24 +363,24 @@ kendo_module({
                 );
             } else {
                 fileElement.find(".k-upload-action")
-                           .addClass("k-button k-button-bare")
-                           .append("<span class='k-icon " + iconsClassDictionary[actionKey] + " " + classDictionary[actionKey] +
-                                   "' title='" + this.localization[actionKey] + "'></span>")
-                           .show();
+                    .addClass("k-button k-button-bare")
+                    .append("<span class='k-icon " + iconsClassDictionary[actionKey] + " " + classDictionary[actionKey] +
+                        "' title='" + this.localization[actionKey] + "'></span>")
+                    .show();
             }
         },
 
-        _fileState: function(fileEntry, stateKey) {
+        _fileState: function (fileEntry, stateKey) {
             var localization = this.localization,
                 states = {
                     uploading: {
-                        text : localization.statusUploading
+                        text: localization.statusUploading
                     },
                     uploaded: {
-                        text : localization.statusUploaded
+                        text: localization.statusUploaded
                     },
                     failed: {
-                        text : localization.statusFailed
+                        text: localization.statusFailed
                     }
                 },
                 currentState = states[stateKey];
@@ -393,57 +393,56 @@ kendo_module({
         _renderAction: function (actionClass, actionText, iconClass) {
             if (actionClass !== "") {
                 return $(
-                "<button type='button' class='k-button k-button-bare k-upload-action'>" +
-                    "<span class='k-icon "+ iconClass + " " + actionClass + "' title='" + actionText + "'></span>" +
-                "</button>"
+                    "<button type='button' class='k-button k-button-bare k-upload-action'>" +
+                    "<span class='k-icon " + iconClass + " " + actionClass + "' title='" + actionText + "'></span>" +
+                    "</button>"
                 );
-            }
-            else {
+            } else {
                 return $(
-                "<button type='button' class='k-button'>" +
+                    "<button type='button' class='k-button'>" +
                     actionText +
-                "</button>"
+                    "</button>"
                 );
             }
         },
 
-        _clearFileAction: function(fileElement) {
+        _clearFileAction: function (fileElement) {
             $(".k-upload-action", fileElement).empty().hide();
         },
 
-        _onFileAction: function(e) {
+        _onFileAction: function (e) {
             var that = this;
 
             if (!that.wrapper.hasClass("k-state-disabled")) {
                 var button = $(e.target).closest(".k-upload-action"),
                     icon = button.find(".k-icon"),
                     fileEntry = button.closest(".k-file"),
-                    eventArgs = { files: fileEntry.data("fileNames") };
+                    eventArgs = {files: fileEntry.data("fileNames")};
 
                 if (icon.hasClass("k-delete")) {
                     if (!that.trigger(REMOVE, eventArgs)) {
-                        that._module.onRemove({target : $(fileEntry, that.wrapper)}, eventArgs.data);
+                        that._module.onRemove({target: $(fileEntry, that.wrapper)}, eventArgs.data);
                     }
                 } else if (icon.hasClass("k-cancel")) {
                     that.trigger(CANCEL, eventArgs);
-                    that._module.onCancel({ target: $(fileEntry, that.wrapper) });
+                    that._module.onCancel({target: $(fileEntry, that.wrapper)});
                     this._checkAllComplete();
                     that._updateHeaderUploadStatus();
                 } else if (icon.hasClass("k-retry")) {
                     $(".k-warning", fileEntry).remove();
-                    that._module.onRetry({ target: $(fileEntry, that.wrapper) });
+                    that._module.onRetry({target: $(fileEntry, that.wrapper)});
                 }
             }
 
             return false;
         },
 
-        _onUploadSelected: function() {
+        _onUploadSelected: function () {
             this._module.onSaveSelected();
             return false;
         },
 
-        _onFileProgress: function(e, percentComplete) {
+        _onFileProgress: function (e, percentComplete) {
             var progressPct;
 
             if (!this.options.template) {
@@ -464,7 +463,7 @@ kendo_module({
             });
         },
 
-        _onUploadSuccess: function(e, response, xhr) {
+        _onUploadSuccess: function (e, response, xhr) {
             var fileEntry = getFileEntry(e);
 
             this._fileState(fileEntry, "uploaded");
@@ -487,7 +486,7 @@ kendo_module({
             this._checkAllComplete();
         },
 
-        _onUploadError: function(e, xhr) {
+        _onUploadError: function (e, xhr) {
             var fileEntry = getFileEntry(e);
             var uploadPercentage = $('.k-upload-pct', fileEntry);
 
@@ -515,22 +514,22 @@ kendo_module({
             this._checkAllComplete();
         },
 
-        _showUploadButton: function() {
+        _showUploadButton: function () {
             var uploadButton = $(".k-upload-selected", this.wrapper);
             if (uploadButton.length === 0) {
                 uploadButton =
                     this._renderAction("", this.localization.uploadSelectedFiles)
-                    .addClass("k-upload-selected");
+                        .addClass("k-upload-selected");
             }
 
             this.wrapper.append(uploadButton);
         },
 
-        _hideUploadButton: function() {
+        _hideUploadButton: function () {
             $(".k-upload-selected", this.wrapper).remove();
         },
 
-        _showHeaderUploadStatus: function() {
+        _showHeaderUploadStatus: function () {
             var localization = this.localization;
             var dropZone = $(".k-dropzone", this.wrapper);
             var headerUploadStatus = $('.k-upload-status-total', this.wrapper);
@@ -540,8 +539,8 @@ kendo_module({
             }
 
             headerUploadStatus = '<strong class="k-upload-status k-upload-status-total">' + localization.headerStatusUploading +
-            '<span class="k-icon k-loading">' + localization.statusUploading + '</span>' +
-            '</strong>';
+                '<span class="k-icon k-loading">' + localization.statusUploading + '</span>' +
+                '</strong>';
 
             if (dropZone.length > 0) {
                 dropZone.append(headerUploadStatus);
@@ -550,29 +549,29 @@ kendo_module({
             }
         },
 
-        _updateHeaderUploadStatus: function() {
+        _updateHeaderUploadStatus: function () {
             var currentlyUploading = $('.k-file', this.wrapper).not('.k-file-success, .k-file-error');
             if (currentlyUploading.length === 0) {
                 var headerUploadStatus = $('.k-upload-status-total', this.wrapper);
                 var headerUploadStatusIcon = $('.k-icon', headerUploadStatus)
-                                              .removeClass('k-loading')
-                                              .addClass('k-warning')
-                                              .text(this.localization.statusUploaded);
+                    .removeClass('k-loading')
+                    .addClass('k-warning')
+                    .text(this.localization.statusUploaded);
 
                 headerUploadStatus.text(this.localization.headerStatusUploaded)
-                                  .append(headerUploadStatusIcon);
+                    .append(headerUploadStatusIcon);
             }
         },
 
-        _hideHeaderUploadstatus: function() {
+        _hideHeaderUploadstatus: function () {
             $('.k-upload-status-total', this.wrapper).remove();
         },
 
-        _onParentFormSubmit: function() {
+        _onParentFormSubmit: function () {
             var upload = this,
                 element = upload.element;
 
-            if(typeof this._module.onAbort !== 'undefined'){
+            if (typeof this._module.onAbort !== 'undefined') {
                 this._module.onAbort();
             }
 
@@ -582,7 +581,7 @@ kendo_module({
                 // Prevent submitting an empty input
                 input.attr("disabled", "disabled");
 
-                window.setTimeout(function() {
+                window.setTimeout(function () {
                     // Restore the input so the Upload remains functional
                     // in case the user cancels the form submit
                     input.removeAttr("disabled");
@@ -590,22 +589,22 @@ kendo_module({
             }
         },
 
-        _onParentFormReset: function() {
+        _onParentFormReset: function () {
             $(".k-upload-files", this.wrapper).remove();
         },
 
-        _supportsFormData: function() {
-            return typeof(FormData) != "undefined";
+        _supportsFormData: function () {
+            return typeof (FormData) != "undefined";
         },
 
-        _supportsMultiple: function() {
+        _supportsMultiple: function () {
             var windows = this._userAgent().indexOf("Windows") > -1;
 
             return !kendo.support.browser.opera &&
-                   !(kendo.support.browser.safari && windows);
+                !(kendo.support.browser.safari && windows);
         },
 
-        _supportsDrop: function() {
+        _supportsDrop: function () {
             var userAgent = this._userAgent().toLowerCase(),
                 isChrome = /chrome/.test(userAgent),
                 isSafari = !isChrome && /safari/.test(userAgent),
@@ -614,11 +613,11 @@ kendo_module({
             return !isWindowsSafari && this._supportsFormData() && (this.options.async.saveUrl);
         },
 
-        _userAgent: function() {
+        _userAgent: function () {
             return navigator.userAgent;
         },
 
-        _setupDropZone: function() {
+        _setupDropZone: function () {
             var that = this;
 
             $(".k-upload-button", this.wrapper)
@@ -628,19 +627,25 @@ kendo_module({
             var dropZone = $(".k-dropzone", that.wrapper)
                 .append($("<em>" + that.localization.dropFilesHere + "</em>"))
                 .on("dragenter" + ns, stopEvent)
-                .on("dragover" + ns, function(e) { e.preventDefault(); })
+                .on("dragover" + ns, function (e) {
+                    e.preventDefault();
+                })
                 .on("drop" + ns, $.proxy(this._onDrop, this));
 
             bindDragEventWrappers(dropZone, ns,
-                function() { dropZone.addClass("k-dropzone-hovered"); },
-                function() { dropZone.removeClass("k-dropzone-hovered"); });
+                function () {
+                    dropZone.addClass("k-dropzone-hovered");
+                },
+                function () {
+                    dropZone.removeClass("k-dropzone-hovered");
+                });
 
             bindDragEventWrappers($(document), ns,
-                function() {
+                function () {
                     dropZone.addClass("k-dropzone-active");
                     dropZone.closest('.k-upload').removeClass('k-upload-empty');
                 },
-                function() {
+                function () {
                     dropZone.removeClass("k-dropzone-active");
                     if ($('li.k-file', dropZone.closest('.k-upload')).length === 0) {
                         dropZone.closest('.k-upload').addClass('k-upload-empty');
@@ -648,11 +653,11 @@ kendo_module({
                 });
         },
 
-        _supportsRemove: function() {
+        _supportsRemove: function () {
             return !!this.options.async.removeUrl;
         },
 
-        _submitRemove: function(fileNames, data, onSuccess, onError) {
+        _submitRemove: function (fileNames, data, onSuccess, onError) {
             var upload = this,
                 removeField = upload.options.async.removeField || "fileNames",
                 params = $.extend(data, getAntiForgeryTokens());
@@ -660,24 +665,24 @@ kendo_module({
             params[removeField] = fileNames;
 
             jQuery.ajax({
-                  type: this.options.async.removeVerb,
-                  dataType: "json",
-                  dataFilter: normalizeJSON,
-                  url: this.options.async.removeUrl,
-                  traditional: true,
-                  data: params,
-                  success: onSuccess,
-                  error: onError
+                type: this.options.async.removeVerb,
+                dataType: "json",
+                dataFilter: normalizeJSON,
+                url: this.options.async.removeUrl,
+                traditional: true,
+                data: params,
+                success: onSuccess,
+                error: onError
             });
         },
 
-        _wrapInput: function(input) {
+        _wrapInput: function (input) {
             var that = this;
             var options = that.options;
 
             input.wrap("<div class='k-widget k-upload k-header'><div class='k-button k-upload-button'></div></div>");
-            
-            if(!options.async.saveUrl) {
+
+            if (!options.async.saveUrl) {
                 input.closest(".k-upload").addClass("k-upload-sync");
             }
 
@@ -689,7 +694,7 @@ kendo_module({
             return input.closest(".k-upload");
         },
 
-        _checkAllComplete: function() {
+        _checkAllComplete: function () {
             if ($(".k-file.k-file-progress", this.wrapper).length === 0) {
                 this.trigger(COMPLETE);
             }
@@ -697,31 +702,31 @@ kendo_module({
     });
 
     // Synchronous upload module
-    var syncUploadModule = function(upload) {
+    var syncUploadModule = function (upload) {
         this.name = "syncUploadModule";
         this.element = upload.wrapper;
         this.upload = upload;
         this.element
             .closest("form")
-                .attr("enctype", "multipart/form-data")
-                .attr("encoding", "multipart/form-data");
+            .attr("enctype", "multipart/form-data")
+            .attr("encoding", "multipart/form-data");
     };
 
     syncUploadModule.prototype = {
-        onSelect: function(e) {
+        onSelect: function (e) {
             var upload = this.upload;
             var sourceInput = $(e.target);
 
             upload._addInput(sourceInput);
 
             var file = upload._enqueueFile(getFileName(sourceInput), {
-                "relatedInput" : sourceInput, "fileNames": inputFiles(sourceInput)
+                "relatedInput": sourceInput, "fileNames": inputFiles(sourceInput)
             });
 
             upload._fileAction(file, REMOVE);
         },
 
-        onRemove: function(e) {
+        onRemove: function (e) {
             var fileEntry = getFileEntry(e);
             fileEntry.data("relatedInput").remove();
 
@@ -730,7 +735,7 @@ kendo_module({
     };
 
     // Iframe upload module
-    var iframeUploadModule = function(upload) {
+    var iframeUploadModule = function (upload) {
         this.name = "iframeUploadModule";
         this.element = upload.wrapper;
         this.upload = upload;
@@ -740,7 +745,7 @@ kendo_module({
     Upload._frameId = 0;
 
     iframeUploadModule.prototype = {
-        onSelect: function(e) {
+        onSelect: function (e) {
             var upload = this.upload,
                 sourceInput = $(e.target);
 
@@ -757,7 +762,7 @@ kendo_module({
             }
         },
 
-        prepareUpload: function(sourceInput) {
+        prepareUpload: function (sourceInput) {
             var upload = this.upload;
             var activeInput = $(upload.element);
             var name = upload.options.async.saveField || sourceInput.attr("name");
@@ -774,16 +779,16 @@ kendo_module({
 
             var fileEntry = upload._enqueueFile(
                 getFileName(sourceInput),
-                { "frame": iframe, "relatedInput": activeInput, "fileNames": inputFiles(sourceInput) });
+                {"frame": iframe, "relatedInput": activeInput, "fileNames": inputFiles(sourceInput)});
 
             iframe
-                .data({ "form": form, "file": fileEntry });
+                .data({"form": form, "file": fileEntry});
 
             return fileEntry;
         },
 
-        performUpload: function(fileEntry) {
-            var e = { files: fileEntry.data("fileNames") },
+        performUpload: function (fileEntry) {
+            var e = {files: fileEntry.data("fileNames")},
                 iframe = fileEntry.data("frame"),
                 upload = this.upload;
 
@@ -796,11 +801,11 @@ kendo_module({
                 var form = iframe.data("form")
                     .appendTo(document.body);
 
-                e.data = $.extend({ }, e.data, getAntiForgeryTokens());
+                e.data = $.extend({}, e.data, getAntiForgeryTokens());
                 for (var key in e.data) {
                     var dataInput = form.find("input[name='" + key + "']");
                     if (dataInput.length === 0) {
-                        dataInput = $("<input>", { type: "hidden", name: key })
+                        dataInput = $("<input>", {type: "hidden", name: key})
                             .appendTo(form);
                     }
                     dataInput.val(e.data[key]);
@@ -821,10 +826,10 @@ kendo_module({
             }
         },
 
-        onSaveSelected: function() {
+        onSaveSelected: function () {
             var module = this;
 
-            $(".k-file", this.element).each(function() {
+            $(".k-file", this.element).each(function () {
                 var fileEntry = $(this),
                     started = isFileUploadStarted(fileEntry);
 
@@ -834,7 +839,7 @@ kendo_module({
             });
         },
 
-        onIframeLoad: function(e) {
+        onIframeLoad: function (e) {
             var iframe = $(e.target),
                 responseText;
 
@@ -847,29 +852,29 @@ kendo_module({
             this.processResponse(iframe, responseText);
         },
 
-        processResponse: function(iframe, responseText) {
+        processResponse: function (iframe, responseText) {
             var fileEntry = iframe.data("file"),
                 module = this,
                 fakeXHR = {
                     responseText: responseText
                 };
             tryParseJSON(responseText,
-                function(jsonResult) {
-                    $.extend(fakeXHR, { statusText: "OK", status: "200" });
-                    module.upload._onFileProgress({ target : $(fileEntry, module.upload.wrapper) }, 100);
-                    module.upload._onUploadSuccess({ target : $(fileEntry, module.upload.wrapper) }, jsonResult, fakeXHR);
+                function (jsonResult) {
+                    $.extend(fakeXHR, {statusText: "OK", status: "200"});
+                    module.upload._onFileProgress({target: $(fileEntry, module.upload.wrapper)}, 100);
+                    module.upload._onUploadSuccess({target: $(fileEntry, module.upload.wrapper)}, jsonResult, fakeXHR);
 
                     module.cleanupFrame(iframe);
                     module.unregisterFrame(iframe);
                 },
-                function() {
-                    $.extend(fakeXHR, { statusText: "error", status: "500" });
-                    module.upload._onUploadError({ target : $(fileEntry, module.upload.wrapper) }, fakeXHR);
+                function () {
+                    $.extend(fakeXHR, {statusText: "error", status: "500"});
+                    module.upload._onUploadError({target: $(fileEntry, module.upload.wrapper)}, fakeXHR);
                 }
             );
         },
 
-        onCancel: function(e) {
+        onCancel: function (e) {
             var iframe = $(e.target).data("frame");
 
             this.stopFrameSubmit(iframe);
@@ -878,12 +883,12 @@ kendo_module({
             this.upload._removeFileEntry(iframe.data("file"));
         },
 
-        onRetry: function(e) {
+        onRetry: function (e) {
             var fileEntry = getFileEntry(e);
             this.performUpload(fileEntry);
         },
 
-        onRemove: function(e, data) {
+        onRemove: function (e, data) {
             var fileEntry = getFileEntry(e);
 
             var iframe = fileEntry.data("frame");
@@ -896,11 +901,11 @@ kendo_module({
             }
         },
 
-        onAbort: function() {
+        onAbort: function () {
             var element = this.element,
                 module = this;
 
-            $.each(this.iframes, function() {
+            $.each(this.iframes, function () {
                 $("input", this.data("form")).appendTo(element);
                 module.stopFrameSubmit(this[0]);
                 this.data("form").remove();
@@ -910,7 +915,7 @@ kendo_module({
             this.iframes = [];
         },
 
-        createFrame: function(id) {
+        createFrame: function (id) {
             return $(
                 "<iframe" +
                 " name='" + id + "'" +
@@ -919,7 +924,7 @@ kendo_module({
             );
         },
 
-        createForm: function(action, target) {
+        createForm: function (action, target) {
             return $(
                 "<form enctype='multipart/form-data' method='POST'" +
                 " action='" + action + "'" +
@@ -927,25 +932,25 @@ kendo_module({
                 "/>");
         },
 
-        stopFrameSubmit: function(frame) {
-            if (typeof(frame.stop) != "undefined") {
+        stopFrameSubmit: function (frame) {
+            if (typeof (frame.stop) != "undefined") {
                 frame.stop();
             } else if (frame.document) {
                 frame.document.execCommand("Stop");
             }
         },
 
-        registerFrame: function(frame) {
+        registerFrame: function (frame) {
             this.iframes.push(frame);
         },
 
-        unregisterFrame: function(frame) {
-            this.iframes = $.grep(this.iframes, function(value) {
+        unregisterFrame: function (frame) {
+            this.iframes = $.grep(this.iframes, function (value) {
                 return value.attr("name") != frame.attr("name");
             });
         },
 
-        cleanupFrame: function(frame) {
+        cleanupFrame: function (frame) {
             var form = frame.data("form");
 
             frame.data("file").data("frame", null);
@@ -958,21 +963,21 @@ kendo_module({
     };
 
     // FormData upload module
-    var formDataUploadModule = function(upload) {
+    var formDataUploadModule = function (upload) {
         this.name = "formDataUploadModule";
         this.element = upload.wrapper;
         this.upload = upload;
     };
 
     formDataUploadModule.prototype = {
-        onSelect: function(e, rawFiles) {
+        onSelect: function (e, rawFiles) {
             var upload = this.upload,
                 module = this,
                 sourceElement = $(e.target),
                 files = rawFiles ? getAllFileInfo(rawFiles) : this.inputFiles(sourceElement),
                 fileEntries = this.prepareUpload(sourceElement, files);
 
-            $.each(fileEntries, function() {
+            $.each(fileEntries, function () {
                 if (upload.options.async.autoUpload) {
                     module.performUpload(this);
                 } else {
@@ -984,11 +989,11 @@ kendo_module({
             });
         },
 
-        prepareUpload: function(sourceElement, files) {
+        prepareUpload: function (sourceElement, files) {
             var fileEntries = this.enqueueFiles(files);
 
             if (sourceElement.is("input")) {
-                $.each(fileEntries, function() {
+                $.each(fileEntries, function () {
                     $(this).data("relatedInput", sourceElement);
                 });
                 sourceElement.data("relatedFileEntries", fileEntries);
@@ -998,7 +1003,7 @@ kendo_module({
             return fileEntries;
         },
 
-        enqueueFiles: function(files) {
+        enqueueFiles: function (files) {
             var upload = this.upload,
                 name,
                 i,
@@ -1008,10 +1013,12 @@ kendo_module({
                 fileEntries = [];
 
             if (upload.options.async.batch === true) {
-                name = $.map(files, function(file) { return file.name; })
-                       .join(", ");
+                name = $.map(files, function (file) {
+                    return file.name;
+                })
+                    .join(", ");
 
-                fileEntry = upload._enqueueFile(name, { fileNames: files });
+                fileEntry = upload._enqueueFile(name, {fileNames: files});
                 fileEntry.data("files", files);
 
                 fileEntries.push(fileEntry);
@@ -1020,8 +1027,8 @@ kendo_module({
                     currentFile = files[i];
                     name = currentFile.name;
 
-                    fileEntry = upload._enqueueFile(name, { fileNames: [ currentFile ] });
-                    fileEntry.data("files", [ currentFile ]);
+                    fileEntry = upload._enqueueFile(name, {fileNames: [currentFile]});
+                    fileEntry.data("files", [currentFile]);
 
                     fileEntries.push(fileEntry);
                 }
@@ -1030,11 +1037,11 @@ kendo_module({
             return fileEntries;
         },
 
-        inputFiles: function(sourceInput) {
+        inputFiles: function (sourceInput) {
             return inputFiles(sourceInput);
         },
 
-        performUpload: function(fileEntry) {
+        performUpload: function (fileEntry) {
             var upload = this.upload,
                 formData = this.createFormData(fileEntry.data("files")),
                 xhr = new XMLHttpRequest(),
@@ -1048,7 +1055,7 @@ kendo_module({
                 upload._hideUploadButton();
                 upload._showHeaderUploadStatus();
 
-                e.data = $.extend({ }, e.data, getAntiForgeryTokens());
+                e.data = $.extend({}, e.data, getAntiForgeryTokens());
                 for (var key in e.data) {
                     formData.append(key, e.data[key]);
                 }
@@ -1062,10 +1069,10 @@ kendo_module({
             }
         },
 
-        onSaveSelected: function() {
+        onSaveSelected: function () {
             var module = this;
 
-            $(".k-file", this.element).each(function() {
+            $(".k-file", this.element).each(function () {
                 var fileEntry = $(this),
                     started = isFileUploadStarted(fileEntry);
 
@@ -1075,18 +1082,18 @@ kendo_module({
             });
         },
 
-        onCancel: function(e) {
+        onCancel: function (e) {
             var fileEntry = getFileEntry(e);
             this.stopUploadRequest(fileEntry);
             this.removeFileEntry(fileEntry);
         },
 
-        onRetry: function(e) {
+        onRetry: function (e) {
             var fileEntry = getFileEntry(e);
             this.performUpload(fileEntry);
         },
 
-        onRemove: function(e, data) {
+        onRemove: function (e, data) {
             var fileEntry = getFileEntry(e);
 
             if (fileEntry.hasClass("k-file-success")) {
@@ -1096,20 +1103,20 @@ kendo_module({
             }
         },
 
-        postFormData: function(url, data, fileEntry, xhr) {
+        postFormData: function (url, data, fileEntry, xhr) {
             var module = this;
 
             fileEntry.data("request", xhr);
 
-            xhr.addEventListener("load", function(e) {
+            xhr.addEventListener("load", function (e) {
                 module.onRequestSuccess.call(module, e, fileEntry);
             }, false);
 
-            xhr.addEventListener(ERROR, function(e) {
+            xhr.addEventListener(ERROR, function (e) {
                 module.onRequestError.call(module, e, fileEntry);
             }, false);
 
-            xhr.upload.addEventListener("progress", function(e) {
+            xhr.upload.addEventListener("progress", function (e) {
                 module.onRequestProgress.call(module, e, fileEntry);
             }, false);
 
@@ -1118,7 +1125,7 @@ kendo_module({
             xhr.send(data);
         },
 
-        createFormData: function(files) {
+        createFormData: function (files) {
             var formData = new FormData(),
                 upload = this.upload,
                 i,
@@ -1134,19 +1141,19 @@ kendo_module({
             return formData;
         },
 
-        onRequestSuccess: function(e, fileEntry) {
+        onRequestSuccess: function (e, fileEntry) {
             var xhr = e.target,
                 module = this;
 
             function raiseError() {
-                module.upload._onUploadError({ target : $(fileEntry, module.upload.wrapper) }, xhr);
+                module.upload._onUploadError({target: $(fileEntry, module.upload.wrapper)}, xhr);
             }
 
             if (xhr.status >= 200 && xhr.status <= 299) {
                 tryParseJSON(xhr.responseText,
-                    function(jsonResult) {
-                        module.upload._onFileProgress({ target : $(fileEntry, module.upload.wrapper) }, 100);
-                        module.upload._onUploadSuccess({ target : $(fileEntry, module.upload.wrapper) }, jsonResult, xhr);
+                    function (jsonResult) {
+                        module.upload._onFileProgress({target: $(fileEntry, module.upload.wrapper)}, 100);
+                        module.upload._onUploadSuccess({target: $(fileEntry, module.upload.wrapper)}, jsonResult, xhr);
                         module.cleanupFileEntry(fileEntry);
                     },
                     raiseError
@@ -1156,17 +1163,17 @@ kendo_module({
             }
         },
 
-        onRequestError: function(e, fileEntry) {
+        onRequestError: function (e, fileEntry) {
             var xhr = e.target;
-            this.upload._onUploadError({ target : $(fileEntry, this.upload.wrapper) }, xhr);
+            this.upload._onUploadError({target: $(fileEntry, this.upload.wrapper)}, xhr);
         },
 
-        cleanupFileEntry: function(fileEntry) {
+        cleanupFileEntry: function (fileEntry) {
             var relatedInput = fileEntry.data("relatedInput"),
                 uploadComplete = true;
 
             if (relatedInput) {
-                $.each(relatedInput.data("relatedFileEntries") || [], function() {
+                $.each(relatedInput.data("relatedFileEntries") || [], function () {
                     // Exclude removed file entries and self
                     if (this.parent().length > 0 && this[0] != fileEntry[0]) {
                         uploadComplete = uploadComplete && this.hasClass("k-file-success");
@@ -1179,17 +1186,17 @@ kendo_module({
             }
         },
 
-        removeFileEntry: function(fileEntry) {
+        removeFileEntry: function (fileEntry) {
             this.cleanupFileEntry(fileEntry);
             this.upload._removeFileEntry(fileEntry);
         },
 
-        onRequestProgress: function(e, fileEntry) {
+        onRequestProgress: function (e, fileEntry) {
             var percentComplete = Math.round(e.loaded * 100 / e.total);
-            this.upload._onFileProgress({ target : $(fileEntry, this.upload.wrapper) }, percentComplete);
+            this.upload._onFileProgress({target: $(fileEntry, this.upload.wrapper)}, percentComplete);
         },
 
-        stopUploadRequest: function(fileEntry) {
+        stopUploadRequest: function (fileEntry) {
             fileEntry.data("request").abort();
         }
     };
@@ -1247,7 +1254,9 @@ kendo_module({
         }
 
         var files = fileEntry.data("fileNames");
-        var fileNames = $.map(files, function(file) { return file.name; });
+        var fileNames = $.map(files, function (file) {
+            return file.name;
+        });
 
         upload._submitRemove(fileNames, data,
             function onSuccess(data, textStatus, xhr) {
@@ -1298,19 +1307,20 @@ kendo_module({
     }
 
     function stopEvent(e) {
-        e.stopPropagation(); e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
     }
 
     function bindDragEventWrappers(element, namespace, onDragEnter, onDragLeave) {
         var hideInterval, lastDrag;
 
         element
-            .on("dragenter" + namespace, function() {
+            .on("dragenter" + namespace, function () {
                 onDragEnter();
                 lastDrag = new Date();
 
                 if (!hideInterval) {
-                    hideInterval = setInterval(function() {
+                    hideInterval = setInterval(function () {
                         var sinceLastDrag = new Date() - lastDrag;
                         if (sinceLastDrag > 100) {
                             onDragLeave();
@@ -1321,7 +1331,7 @@ kendo_module({
                     }, 100);
                 }
             })
-            .on("dragover" + namespace, function() {
+            .on("dragover" + namespace, function () {
                 lastDrag = new Date();
             });
     }
@@ -1335,19 +1345,20 @@ kendo_module({
     }
 
     function getAntiForgeryTokens() {
-        var tokens = { },
+        var tokens = {},
             csrf_token = $("meta[name=csrf-token]").attr("content"),
             csrf_param = $("meta[name=csrf-param]").attr("content");
 
-        $("input[name^='__RequestVerificationToken']").each(function() {
+        $("input[name^='__RequestVerificationToken']").each(function () {
             tokens[this.name] = this.value;
         });
 
         if (csrf_param !== undefined && csrf_token !== undefined) {
-          tokens[csrf_param] = csrf_token;
+            tokens[csrf_param] = csrf_token;
         }
 
         return tokens;
     }
+
     kendo.ui.plugin(Upload);
 })(window.kendo.jQuery);

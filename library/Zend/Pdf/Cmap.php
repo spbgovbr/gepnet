@@ -52,10 +52,10 @@
  */
 abstract class Zend_Pdf_Cmap
 {
-  /**** Class Constants ****/
+    /**** Class Constants ****/
 
 
-  /* Cmap Table Types */
+    /* Cmap Table Types */
 
     /**
      * Byte Encoding character map table type.
@@ -104,7 +104,7 @@ abstract class Zend_Pdf_Cmap
     const TYPE_UNKNOWN = 0xff;
 
 
-  /* Special Glyph Names */
+    /* Special Glyph Names */
 
     /**
      * Glyph representing missing characters.
@@ -112,11 +112,10 @@ abstract class Zend_Pdf_Cmap
     const MISSING_CHARACTER_GLYPH = 0x00;
 
 
+    /**** Public Interface ****/
 
-  /**** Public Interface ****/
 
-
-  /* Factory Methods */
+    /* Factory Methods */
 
     /**
      * Instantiates the appropriate concrete subclass based on the type of cmap
@@ -156,7 +155,7 @@ abstract class Zend_Pdf_Cmap
             case Zend_Pdf_Cmap::TYPE_HIGH_BYTE_MAPPING:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('High byte mapping cmap currently unsupported',
-                                             Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
+                    Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
 
             case Zend_Pdf_Cmap::TYPE_SEGMENT_TO_DELTA:
                 require_once 'Zend/Pdf/Cmap/SegmentToDelta.php';
@@ -169,27 +168,27 @@ abstract class Zend_Pdf_Cmap
             case Zend_Pdf_Cmap::TYPE_MIXED_COVERAGE:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Mixed coverage cmap currently unsupported',
-                                             Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
+                    Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
 
             case Zend_Pdf_Cmap::TYPE_TRIMMED_ARRAY:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Trimmed array cmap currently unsupported',
-                                             Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
+                    Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
 
             case Zend_Pdf_Cmap::TYPE_SEGMENTED_COVERAGE:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception('Segmented coverage cmap currently unsupported',
-                                             Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
+                    Zend_Pdf_Exception::CMAP_TYPE_UNSUPPORTED);
 
             default:
                 require_once 'Zend/Pdf/Exception.php';
                 throw new Zend_Pdf_Exception("Unknown cmap type: $cmapType",
-                                             Zend_Pdf_Exception::CMAP_UNKNOWN_TYPE);
+                    Zend_Pdf_Exception::CMAP_UNKNOWN_TYPE);
         }
     }
 
 
-  /* Abstract Methods */
+    /* Abstract Methods */
 
     /**
      * Object constructor
@@ -245,16 +244,16 @@ abstract class Zend_Pdf_Cmap
      * call, but this method do it in more effective way (prepare complete list instead of searching
      * glyph for each character code).
      *
-     * @internal
      * @return array Array representing <Unicode character code> => <glyph number> pairs.
+     * @internal
      */
     abstract public function getCoveredCharactersGlyphs();
 
 
-  /**** Internal Methods ****/
+    /**** Internal Methods ****/
 
 
-  /* Internal Utility Methods */
+    /* Internal Utility Methods */
 
     /**
      * Extracts a signed 2-byte integer from a string.
@@ -272,11 +271,11 @@ abstract class Zend_Pdf_Cmap
         if (($index < 0) | (($index + 1) > strlen($data))) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Index out of range: $index",
-                                         Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
+                Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
         $number = ord($data[$index]);
         if (($number & 0x80) == 0x80) {    // negative
-            $number = ~((((~ $number) & 0xff) << 8) | ((~ ord($data[++$index])) & 0xff));
+            $number = ~((((~$number) & 0xff) << 8) | ((~ord($data[++$index])) & 0xff));
         } else {
             $number = ($number << 8) | ord($data[++$index]);
         }
@@ -299,7 +298,7 @@ abstract class Zend_Pdf_Cmap
         if (($index < 0) | (($index + 1) > strlen($data))) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Index out of range: $index",
-                                         Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
+                Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
         $number = (ord($data[$index]) << 8) | ord($data[++$index]);
         return $number;
@@ -326,10 +325,10 @@ abstract class Zend_Pdf_Cmap
         if (($index < 0) | (($index + 3) > strlen($data))) {
             require_once 'Zend/Pdf/Exception.php';
             throw new Zend_Pdf_Exception("Index out of range: $index",
-                                         Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
+                Zend_Pdf_Exception::INDEX_OUT_OF_RANGE);
         }
         $number = (ord($data[$index]) << 24) | (ord($data[++$index]) << 16) |
-                  (ord($data[++$index]) << 8) | ord($data[++$index]);
+            (ord($data[++$index]) << 8) | ord($data[++$index]);
         return $number;
     }
 

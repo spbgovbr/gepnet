@@ -1,4 +1,5 @@
 <?php
+
 class App_Generator_Php_Form_Element_Textarea extends App_Generator_Php_Form_Element_Abstract
 {
     const format = "'%s' => array('%s', array(
@@ -8,7 +9,7 @@ class App_Generator_Php_Form_Element_Textarea extends App_Generator_Php_Form_Ele
         'validators'   => array(%s),
         'attribs'      => array(%s),
     )),\n";
-    
+
     /**
      * @var int
      */
@@ -18,19 +19,19 @@ class App_Generator_Php_Form_Element_Textarea extends App_Generator_Php_Form_Ele
      * @var int
      */
     public $cols = 80;
-    
-    public function __toString() 
+
+    public function __toString()
     {
-        if($this->prop->attribs != ''){
-           $this->prop->attribs .= ", " ;
+        if ($this->prop->attribs != '') {
+            $this->prop->attribs .= ", ";
         }
         return sprintf(self::format,
-                $this->prop->fieldName,
-                $this->prop->fieldType,
-                $this->prop->label,
-                $this->prop->required,
-                $this->prop->filters,
-                $this->prop->validators,
-                $this->prop->attribs . "'rows' => 24, 'cols' => 80");
+            $this->prop->fieldName,
+            $this->prop->fieldType,
+            $this->prop->label,
+            $this->prop->required,
+            $this->prop->filters,
+            $this->prop->validators,
+            $this->prop->attribs . "'rows' => 24, 'cols' => 80");
     }
 }

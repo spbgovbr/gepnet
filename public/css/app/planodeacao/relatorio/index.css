@@ -1,0 +1,21 @@
+/*SAPS 110567*/
+
+textarea {
+    height: 39px !important;
+
+}
+
+.ui-dialog .ui-dialog-buttonpane {
+    margin-top: -10px !important;
+}
+
+.row {
+    margin-top: 5px !important;
+}
+
+div.portlet-marron {
+    margin-left: 0 !important;
+    padding: 5px;
+    width: 99%;
+    margin-bottom: 40px;
+}

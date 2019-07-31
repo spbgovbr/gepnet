@@ -1,0 +1,52 @@
+<div id="content">
+    <div class="region-center">
+        <div align="center">
+            <?php if ((isset($this->relatorio) && count($this->relatorio) > 0) && (is_array($this->relatorio))) : ?>
+                <table class="table table-striped table-hover table-bordered" border="1">
+                    <tr>
+                        <td nowrap="true" colspan="13" style="font-weight: bold;font-size: 18px;">Relatório - Riscos
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Natureza</td>
+                        <td>Projeto</td>
+                        <td>Detecção</td>
+                        <td>Origem</td>
+                        <td>Etapa</td>
+                        <td>Tipo Risco</td>
+                        <td>Rating</td>
+                        <td>Tratamento</td>
+                        <td>Descrição</td>
+                        <td>Causa</td>
+                        <td>Consequência</td>
+                        <td>Contramedida</td>
+                        <td>Efetividade</td>
+                    </tr>
+                    <tbody>
+                    <?php foreach ($this->relatorio as $row): ?>
+                        <tr>
+                            <td style="font-size:14px;"><?php echo $row['nomnatureza'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['nomcodigo'] . '&nbsp;-&nbsp;' . $row['nomprojeto'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['datdeteccao'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['desorigemrisco'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['dsetapa'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['dstiporisco'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['domcorrisco'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['domtratamento'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['desrisco'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['descausa'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['desconsequencia'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['descontramedida'] ?></td>
+                            <td style="font-size:14px;"><?php echo $row['flacontramedidaefetiva'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <tr>
+                    <td colspan="6">Nenhum registro encontrado.</td>
+                </tr>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

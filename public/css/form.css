@@ -1,27 +1,30 @@
 /*ERROS*/
 ul.errors {
-    padding:0;
-    margin:2px 0 0 !important;
+    padding: 0;
+    margin: 2px 0 0 !important;
 
 }
 
 ul.errors li, label.error {
-    font:10px Arial,sans-serif;
-    color:#EC4A24 !important;
-    list-style-type:none;
+    font: 10px Arial, sans-serif;
+    color: #EC4A24 !important;
+    list-style-type: none;
 
 }
 
 dt {
-    margin:10px 0 0;
+    margin: 10px 0 0;
 }
+
 dd {
-    margin:0;
+    margin: 0;
 }
 
 .description {
-    font-size: 10px; color: #555; font-style: italic;
-    
+    font-size: 10px;
+    color: #555;
+    font-style: italic;
+
 }
 
 .frm-actions {
@@ -31,27 +34,26 @@ dd {
     padding: 8px 16px;
 }
 
-label.required, 
-.campos-obrigatorios
-{
-background-image:url(../img/required.gif);
-background-position:top left;
-background-repeat:no-repeat;
-padding-left:10px;
+label.required,
+.campos-obrigatorios {
+    background-image: url(../img/required.gif);
+    background-position: top left;
+    background-repeat: no-repeat;
+    padding-left: 10px;
 }
 
 .campos-obrigatorios {
-    padding-left:5px;
+    padding-left: 5px;
     width: 1px;
 }
 
-.textarea_obs{ 
-  width: 200px; 
-  min-width:200px; 
- 
-  height: 82px;
-  min-height:82px;  
-  max-height:200px;
+.textarea_obs {
+    width: 200px;
+    min-width: 200px;
+
+    height: 82px;
+    min-height: 82px;
+    max-height: 200px;
 }
 
 .actions-pesquisar {

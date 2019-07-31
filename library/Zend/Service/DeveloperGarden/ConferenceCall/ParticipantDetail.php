@@ -71,10 +71,10 @@ class Zend_Service_DeveloperGarden_ConferenceCall_ParticipantDetail
     public function __construct($firstName, $lastName, $number, $email, $isInitiator = false)
     {
         $this->setFirstName($firstName)
-             ->setLastName($lastName)
-             ->setNumber($number)
-             ->setEmail($email)
-             ->setFlags((int) $isInitiator);
+            ->setLastName($lastName)
+            ->setNumber($number)
+            ->setEmail($email)
+            ->setFlags((int)$isInitiator);
     }
 
     /**

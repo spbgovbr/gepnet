@@ -7,20 +7,20 @@
 // Variables and mixins copied from bootstrap 2.0.2
 
 // Variables
-@grayLight:             #999;
-@grayLighter:           #eee;
-@white:                 #fff;
-@linkColor:             #08c;
-@btnPrimaryBackground:  @linkColor;
-@orange:                #f89406;
+@grayLight: #999;
+@grayLighter: #eee;
+@white: #fff;
+@linkColor: #08c;
+@btnPrimaryBackground: @linkColor;
+@orange: #f89406;
 
 // Mixins
 
 // Border Radius
 .border-radius(@radius: 5px) {
   -webkit-border-radius: @radius;
-     -moz-border-radius: @radius;
-          border-radius: @radius;
+  -moz-border-radius: @radius;
+  border-radius: @radius;
 }
 
 // Button backgrounds
@@ -45,7 +45,7 @@
 .gradientBar(@primaryColor, @secondaryColor) {
   #gradient > .vertical(@primaryColor, @secondaryColor);
   border-color: @secondaryColor @secondaryColor darken(@secondaryColor, 15%);
-  border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) fadein(rgba(0,0,0,.1), 15%);
+  border-color: rgba(0, 0, 0, .1) rgba(0, 0, 0, .1) fadein(rgba(0, 0, 0, .1), 15%);
 }
 
 // Gradients
@@ -59,7 +59,7 @@
     background-image: -o-linear-gradient(top, @startColor, @endColor); // Opera 11.10
     background-image: linear-gradient(top, @startColor, @endColor); // The standard
     background-repeat: repeat-x;
-    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@startColor,@endColor)); // IE9 and down
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)", @startColor, @endColor)); // IE9 and down
   }
 }
 

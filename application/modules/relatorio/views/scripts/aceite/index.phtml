@@ -1,0 +1,155 @@
+<?php
+$this->headLink()
+    ->appendStylesheet($this->baseUrl('/css/form.css'))
+    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
+    ->appendStylesheet($this->baseUrl('js/library/select2-3.4.0/select2.css'));
+
+$this->headScript()
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+        'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.maskedinput.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/relatorio/aceite/relatorio-aceite.js'), 'text/javascript');
+
+$frmAttr = $this->formPesquisar->getAttribs();
+$relatorio = $this->relatorio;
+
+?>
+<div class="region-east" style="overflow-y: scroll;">
+    <div class="row">
+        <div class="portlet portlet-marron span4">
+            <div class="title">Aceite - Filtrar</div>
+            <div class="content">
+
+                <form id="<?php echo $frmAttr['id']; ?>"
+                      name="<?php echo $frmAttr['id']; ?>"
+                      action="<?php echo $this->formPesquisar->getAction(); ?>"
+                      method="<?php echo $frmAttr['method']; ?>">
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->idescritorio ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->idprojeto ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->identrega ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->idnatureza ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->flagaceito ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span">
+                            <?php echo $this->formPesquisar->dataceitacao ?>
+                        </div>
+                        <div class="span">
+                            <div class="control-group">
+                                <label for="labeldate" class="control-label optional">&nbsp;</label>
+                                <span id="labeldate">a</span>
+                            </div>
+                        </div>
+                        <div class="span">
+                            <label for="labeldate" class="control-label optional">&nbsp;</label>
+                            <?php echo $this->formPesquisar->dataceitacaofim ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <?php echo $this->formPesquisar->noatividade ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="span3">
+                            <div class="btn-group">
+                                <?php echo $this->formPesquisar->btnpesquisar ?>
+                                <?php echo $this->formPesquisar->reset ?>
+                                <?php echo $this->formPesquisar->close ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="region-center">
+    <h4 class="pagination-centered">Relat&oacute;rio de Aceite</h4>
+
+    <div class="form-actions form-actions-mini">
+        <div class="btn-group">
+            <a id="btn-t" href="#" class="toggle-region btn btn-primary" data-region="east">Filtrar</a><?php
+            if ((isset($this->relatorio) && count($this->relatorio) > 0) && (is_array($this->relatorio))) { ?>
+                <a class="btn" target="_blank"
+                   href="<?php echo $this->url(array(
+                           'module' => 'relatorio',
+                           'controller' => 'aceite',
+                           'action' => 'imprimir-pdf'
+                       )) . $this->paramsLink; ?>">Imprimir
+                    Relatório</a>
+            <?php } ?>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="portlet portlet-azul">
+            <div class="title">Relatório</div>
+            <div class="content relatorioIndex" style="overflow-x: auto; overflow-y: auto; height: 380px;">
+                <?php if ((!isset($this->relatorio))) : ?>
+                    <div class="alert alert-info text-center">Selecione os filtros para gera&ccedil;&atilde;o do relat&oacute;rio</div>
+                    <?php //endif;?>
+                <?php elseif ((isset($this->relatorio) && count($this->relatorio) > 0) && (is_array($this->relatorio))) : ?>
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead style="background-color: #c7c7c7;">
+                        <tr>
+                            <th>Projeto</th>
+                            <th>Entrega&nbsp;Associada</th>
+                            <th>Critério&nbsp;de&nbsp;Aceitação</th>
+                            <th>Responsável</th>
+                            <th>Produto&nbsp;ou&nbsp;Serviço&nbsp;Entregue</th>
+                            <th>Parecer Final</th>
+                            <th>Aceite</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->relatorio as $row): ?>
+                            <tr>
+                                <td style="width: 20%;"><?php echo $row['nomcodigo'] . '&nbsp;-&nbsp;' . $row['nomprojeto'] ?></td>
+                                <td style="width: 15%;"><?php echo $row['nomatividadecronograma'] ?></td>
+                                <td style="width: 34%;"><?php echo $row['descriterioaceitacao'] ?></td>
+                                <td style="width: 10%;"><?php echo $row['nomresponsavel'] ?></td>
+                                <td style="width: 39%;"><?php echo $row['desprodutoservico'] ?></td>
+                                <td style="width: 39%;"><?php echo $row['desparecerfinal'] ?></td>
+                                <td style="width: 2%"><?php echo $row['desflaaceite'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php else: ?>
+                    <div class="alert text-center">Nenhum resultado encontrado.</div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

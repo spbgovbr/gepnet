@@ -1,6 +1,7 @@
 <?php
 
-class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract {
+class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
+{
 
     protected $auth = null;
 
@@ -20,7 +21,7 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $data = array(
             "idquestionario" => $this->maxVal('idquestionario'),
             "nomquestionario" => $model->nomquestionario,
-            "desobservacao" => $model->desobservacao ?: NULL,
+            "desobservacao" => $model->desobservacao ?: null,
             "tipoquestionario" => $model->tipoquestionario,
             "idcadastrador" => $model->idcadastrador,
             "datcadastro" => new Zend_Db_Expr('now()'),
@@ -42,11 +43,12 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $data = array(
             "idquestionario" => $model->idquestionario,
             "nomquestionario" => $model->nomquestionario,
-            "desobservacao" => $model->desobservacao ?: NULL,
+            "desobservacao" => $model->desobservacao ?: null,
             "tipoquestionario" => $model->tipoquestionario,
             "disponivel" => $model->disponivel,
         );
-        return $this->getDbTable()->update($data, array("idquestionario = ?" => $model->idquestionario, "idescritorio = ?" => $idescritorio));
+        return $this->getDbTable()->update($data,
+            array("idquestionario = ?" => $model->idquestionario, "idescritorio = ?" => $idescritorio));
     }
 
     public function updateDisponibilidade(Pesquisa_Model_Questionario $model)
@@ -55,7 +57,8 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $data = array(
             "disponivel" => $model->disponivel,
         );
-        return $this->getDbTable()->update($data, array("idquestionario = ?" => $model->idquestionario, "idescritorio = ?" => $idescritorio));
+        return $this->getDbTable()->update($data,
+            array("idquestionario = ?" => $model->idquestionario, "idescritorio = ?" => $idescritorio));
     }
 
     public function getForm()
@@ -67,7 +70,7 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
     {
         $sql = "SELECT * FROM agepnet200.tb_questionario where idquestionario =  :idquestionario ";
 
-        return $this->_db->fetchRow($sql, array('idquestionario' => (int) $params['idquestionario']));
+        return $this->_db->fetchRow($sql, array('idquestionario' => (int)$params['idquestionario']));
     }
 
     public function getByIdAndEscritorio($params)
@@ -75,7 +78,7 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $idescritorio = $this->auth->retornaUsuarioLogado()->perfilAtivo->idescritorio;
         $sql = "SELECT * FROM agepnet200.tb_questionario where idquestionario =  :idquestionario AND idescritorio = $idescritorio";
 
-        return $this->_db->fetchRow($sql, array('idquestionario' => (int) $params['idquestionario']));
+        return $this->_db->fetchRow($sql, array('idquestionario' => (int)$params['idquestionario']));
     }
 
     public function getByIdDetalhar($params)
@@ -86,8 +89,8 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $sql = "SELECT
                     nomquestionario, 
                     CASE 
-                        WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA." THEN 'Publicado com senha'
-                        WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA." THEN 'Publicado sem senha'
+                        WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA . " THEN 'Publicado com senha'
+                        WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA . " THEN 'Publicado sem senha'
                      END as tipoquestionario, 
                      desobservacao,
                      idquestionario                     
@@ -107,19 +110,19 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $sql = "SELECT 
                     nomquestionario,
                     CASE 
-                       WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA." THEN 'Publicado com senha'
-                       WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA." THEN 'Publicado sem senha'
+                       WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA . " THEN 'Publicado com senha'
+                       WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA . " THEN 'Publicado sem senha'
                      END as tipoquestionario,   
                     idquestionario,
                     CASE 
-                       WHEN disponivel = ".Pesquisa_Model_Questionario::DISPONILVEL." THEN 'Disponível'
-                       WHEN disponivel = ".Pesquisa_Model_Questionario::INDISPONILVEL." THEN 'Indisponível'
+                       WHEN disponivel = " . Pesquisa_Model_Questionario::DISPONILVEL . " THEN 'Disponível'
+                       WHEN disponivel = " . Pesquisa_Model_Questionario::INDISPONILVEL . " THEN 'Indisponível'
                      END as disponivel  
                 FROM agepnet200.tb_questionario 
-                WHERE $idescritorio = " . (int) $idescritorio;
+                WHERE $idescritorio = " . (int)$idescritorio;
 
         if (isset($params['nomquestionario']) && $params['nomquestionario'] != "") {
-            $sql .= $this->_db->quoteInto('  AND nomquestionario ilike ? ', "%".$params['nomquestionario']."%");
+            $sql .= $this->_db->quoteInto('  AND nomquestionario ilike ? ', "%" . $params['nomquestionario'] . "%");
         }
         if (isset($params['tipoquestionario']) && $params['tipoquestionario'] != "") {
             $sql .= $this->_db->quoteInto('  AND tipoquestionario  = ? ', $params['tipoquestionario']);
@@ -145,17 +148,17 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
         $sql = "SELECT 
                     nomquestionario,
                     CASE 
-                        WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA." THEN 'Publicado com senha'
-                        WHEN tipoquestionario = ".Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA." THEN 'Publicado sem senha'
+                        WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_COM_SENHA . " THEN 'Publicado com senha'
+                        WHEN tipoquestionario = " . Pesquisa_Model_Questionario::PUBLICADO_SEM_SENHA . " THEN 'Publicado sem senha'
                     END as tipoquestionario,
                     idquestionario
                 FROM agepnet200.tb_questionario 
-                WHERE disponivel = ".Pesquisa_Model_Questionario::DISPONILVEL;
+                WHERE disponivel = " . Pesquisa_Model_Questionario::DISPONILVEL;
 
-        if(isset($params['nomquestionario']) && $params['nomquestionario'] != "") {
-            $sql .= $this->_db->quoteInto('  AND nomquestionario ilike ? ', "%".$params['nomquestionario']."%");
+        if (isset($params['nomquestionario']) && $params['nomquestionario'] != "") {
+            $sql .= $this->_db->quoteInto('  AND nomquestionario ilike ? ', "%" . $params['nomquestionario'] . "%");
         }
-        if(isset($params['tipoquestionario']) && $params['tipoquestionario'] != "") {
+        if (isset($params['tipoquestionario']) && $params['tipoquestionario'] != "") {
             $sql .= $this->_db->quoteInto('  AND tipoquestionario  = ? ', $params['tipoquestionario']);
         }
 
@@ -174,18 +177,18 @@ class Pesquisa_Model_Mapper_Questionario extends App_Model_Mapper_MapperAbstract
 
     public function getQuestionarioPublicar($params)
     {
-       try {
-        $params = array_filter($params);
-        $sql = "SELECT 
+        try {
+            $params = array_filter($params);
+            $sql = "SELECT 
                     * 
                 FROM agepnet200.tb_questionario 
-                WHERE disponivel = ".Pesquisa_Model_Questionario::DISPONILVEL." 
+                WHERE disponivel = " . Pesquisa_Model_Questionario::DISPONILVEL . " 
                 AND idquestionario = :idquestionario";
-        
-        return $this->_db->fetchRow($sql, array('idquestionario' =>$params['id']));
-       } catch (Exception $exc) {
-           throw new Exception($exc->getCode());
-       }
+
+            return $this->_db->fetchRow($sql, array('idquestionario' => $params['id']));
+        } catch (Exception $exc) {
+            throw new Exception($exc->getCode());
+        }
     }
 
 }

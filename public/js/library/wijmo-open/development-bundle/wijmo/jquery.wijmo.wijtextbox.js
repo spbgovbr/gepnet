@@ -19,58 +19,59 @@
 *
 */
 (function ($) {
-	"use strict";
-	$.widget("wijmo.wijtextbox", {
-		options: {
-		},
-		_create: function () {
-			var self = this, e = self.element,
-				allowedNodes = { 'input': true, 'textarea': true },
-				allowedInputTypes = { 'text': true, 'password': true, 
-					'email': true, 'url': true },
-				nodeName = e.get(0).nodeName.toLowerCase();
+    "use strict";
+    $.widget("wijmo.wijtextbox", {
+        options: {},
+        _create: function () {
+            var self = this, e = self.element,
+                allowedNodes = {'input': true, 'textarea': true},
+                allowedInputTypes = {
+                    'text': true, 'password': true,
+                    'email': true, 'url': true
+                },
+                nodeName = e.get(0).nodeName.toLowerCase();
 
-			if (!allowedNodes.hasOwnProperty(nodeName)) {
-				return;
-			}
-			if ((nodeName === 'input') &&
-				!allowedInputTypes.hasOwnProperty(self.element.attr("type")
-				.toLowerCase())) {
-				return;
-			}
+            if (!allowedNodes.hasOwnProperty(nodeName)) {
+                return;
+            }
+            if ((nodeName === 'input') &&
+                !allowedInputTypes.hasOwnProperty(self.element.attr("type")
+                    .toLowerCase())) {
+                return;
+            }
 
-			e.addClass("wijmo-wijtextbox ui-widget ui-state-default ui-corner-all");
-			self.element.bind("mouseover." + self.widgetName, function () {
-				e.addClass("ui-state-hover");
-			}).bind("mouseout." + self.widgetName, function () {
-				e.removeClass("ui-state-hover");
-			}).bind("mousedown." + self.widgetName, function () {
-				e.addClass("ui-state-active");
-			}).bind("mouseup." + self.widgetName, function () {
-				e.removeClass("ui-state-active");
-			}).bind("focus." + self.widgetName, function () {
-				e.addClass("ui-state-focus");
-			}).bind("blur." + self.widgetName, function () {
-				e.removeClass("ui-state-focus");
-			});
-			
-			//for case 20899
-			if (e.is(":disabled")) {
-				self._setOption("disabled", true);
-				e.addClass("ui-state-disabled");
-			} else {
-				self._setOption("disabled", false);
-				e.removeClass("ui-state-disabled");
-			}
-		},
-		destroy: function () {
-			/// Remove the functionality completely. 
-			/// This will return the element back to its pre-init state.
-			var self = this;
-			self.element.removeClass("ui-widget ui-state-default ui-corner-all " +
-			"ui-state-hover ui-state-active wijmo-wijtextbox")
-			.unbind("." + self.widgetName);
-			$.Widget.prototype.destroy.apply(self);
-		}
-	});
-} (jQuery));
+            e.addClass("wijmo-wijtextbox ui-widget ui-state-default ui-corner-all");
+            self.element.bind("mouseover." + self.widgetName, function () {
+                e.addClass("ui-state-hover");
+            }).bind("mouseout." + self.widgetName, function () {
+                e.removeClass("ui-state-hover");
+            }).bind("mousedown." + self.widgetName, function () {
+                e.addClass("ui-state-active");
+            }).bind("mouseup." + self.widgetName, function () {
+                e.removeClass("ui-state-active");
+            }).bind("focus." + self.widgetName, function () {
+                e.addClass("ui-state-focus");
+            }).bind("blur." + self.widgetName, function () {
+                e.removeClass("ui-state-focus");
+            });
+
+            //for case 20899
+            if (e.is(":disabled")) {
+                self._setOption("disabled", true);
+                e.addClass("ui-state-disabled");
+            } else {
+                self._setOption("disabled", false);
+                e.removeClass("ui-state-disabled");
+            }
+        },
+        destroy: function () {
+            /// Remove the functionality completely.
+            /// This will return the element back to its pre-init state.
+            var self = this;
+            self.element.removeClass("ui-widget ui-state-default ui-corner-all " +
+                "ui-state-hover ui-state-active wijmo-wijtextbox")
+                .unbind("." + self.widgetName);
+            $.Widget.prototype.destroy.apply(self);
+        }
+    });
+}(jQuery));

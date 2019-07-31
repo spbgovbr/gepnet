@@ -89,7 +89,7 @@ class Zend_Service_Simpy_Watchlist
     /**
      * Constructor to initialize the object with data
      *
-     * @param  DOMNode $node Individual <watchlist> node from a parsed
+     * @param DOMNode $node Individual <watchlist> node from a parsed
      *                       response from a GetWatchlists or GetWatchlist
      *                       operation
      * @return void

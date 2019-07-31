@@ -1,6 +1,6 @@
 <?php
 
-class Processo_Service_InjectionContainer extends  App_Service_InjectionContainerAbstract
+class Processo_Service_InjectionContainer extends App_Service_InjectionContainerAbstract
 {
     /**
      * Configuração
@@ -40,13 +40,13 @@ class Processo_Service_InjectionContainer extends  App_Service_InjectionContaine
      */
     public function getProcessoServiceProjetoprocesso()
     {
-    	$service = new Processo_Service_Projetoprocesso(
-    			new Processo_Model_Mapper_Projetoprocesso()
-    	);
-    
-    	return $service;
+        $service = new Processo_Service_Projetoprocesso(
+            new Processo_Model_Mapper_Projetoprocesso()
+        );
+
+        return $service;
     }
-    
+
     /**
      * Retorna PAcao servico
      *
@@ -54,11 +54,11 @@ class Processo_Service_InjectionContainer extends  App_Service_InjectionContaine
      */
     public function getProcessoServicePacao()
     {
-    	$service = new Processo_Service_Pacao(
-    			new Processo_Model_Mapper_Pacao()
-    	);
-    
-    	return $service;
+        $service = new Processo_Service_Pacao(
+            new Processo_Model_Mapper_Pacao()
+        );
+
+        return $service;
     }
 }
 

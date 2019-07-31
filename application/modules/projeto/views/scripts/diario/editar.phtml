@@ -1,13 +1,13 @@
 <script>
-    
-    $(function(){
+
+    $(function () {
         $.pnotify.defaults.history = false;
-    
+
         $('.mask-date').datepicker({
-                format: 'dd/mm/yyyy',
-                language: 'pt-BR',
-                changeMonth: true,
-                changeYear: true
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR',
+            changeMonth: true,
+            changeYear: true
         });
     });
 </script>
@@ -17,35 +17,40 @@
 <div class="region-center">
     <div class="portlet portlet-marron">
         <div class="content">
-                <form id="<?php echo $frmAttr['id']; ?>"
-                        name="<?php echo $frmAttr['id']; ?>"
-                        action="<?php echo $this->form->getAction(); ?>"
-                        method="<?php echo $frmAttr['method']; ?>">    
-                    <div class="row">                                                                       
-                        <?php echo $this->form->idprojeto ?>
-                        <?php echo $this->form->iddiariobordo ?>
-                        <div class="span3">
-                            <?php echo $this->form->domreferencia ?>
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->datdiariobordo ?>                
-                        </div>
-                        <div class="span2">
-                            <?php echo $this->form->domsemafaro ?>
-                        </div>
-                        <div class="span3">
-                            <label for="no-usuario">Usuário</label>
-                            <div id="no-usuario" style=" padding: 5px; border-radius: 5px;" class="input-selecionado">
-                                <?php echo $this->nompessoa ?>
-                            </div>
-                        </div>               
+            <form id="<?php echo $frmAttr['id']; ?>"
+                  name="<?php echo $frmAttr['id']; ?>"
+                  action="<?php echo $this->form->getAction(); ?>"
+                  method="<?php echo $frmAttr['method']; ?>">
+                <div class="row">
+                    <?php echo $this->form->idprojeto ?>
+                    <?php echo $this->form->iddiariobordo ?>
+                    <div class="span3">
+                        <?php echo $this->form->domreferencia ?>
                     </div>
-                    <div class="row">
-                        <div class="span5">
-                            <?php echo $this->form->desdiariobordo ?>
+                    <div class="span2">
+                        <?php echo $this->form->datdiariobordo ?>
+                    </div>
+                    <div class="span2">
+                        <?php echo $this->form->domsemafaro ?>
+                    </div>
+                    <div class="span3">
+                        <label for="no-usuario">Usuário</label>
+                        <div id="no-usuario" style=" padding: 5px; border-radius: 5px;" class="input-selecionado">
+                            <?php echo $this->nompessoa ?>
                         </div>
-                    </div>                    
-                </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span5">
+                        <?php echo $this->form->desdiariobordo ?>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-offset-9 col-sm-span1" style="float: right; padding-top: 90px;">
+        (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
     </div>
 </div>

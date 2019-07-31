@@ -24,7 +24,7 @@ class Projeto_Service_Contramedida extends App_Service_ServiceAbstract
         $this->_form = new Projeto_Form_Contramedida();
         return $this->_form;
     }
-    
+
     public function getFormPesquisar()
     {
         $this->_form = new Projeto_Form_ContramedidaPesquisar();
@@ -37,7 +37,7 @@ class Projeto_Service_Contramedida extends App_Service_ServiceAbstract
     }
 
     public function retornaContramedidaByRisco($params = null)
-    {   
+    {
         $dados = $this->_mapper->retornaPorRiscoToGrid($params);
         $service = new App_Service_JqGrid();
         $service->setPaginator($dados);
@@ -47,20 +47,25 @@ class Projeto_Service_Contramedida extends App_Service_ServiceAbstract
     public function getByIdDetalhar($params)
     {
         $contramedida = $this->_mapper->getByIdDetalhar($params);
-        return $contramedida;        
+        return $contramedida;
     }
-    
+
     public function getById($params)
     {
         $contramedida = $this->_mapper->getById($params);
-        return $contramedida;        
+        return $contramedida;
     }
-    
+
+    public function copiaContramedidaByRisco($params)
+    {
+        return $this->_mapper->copiaContramedidaByRisco($params);
+    }
+
     public function insert($dados)
     {
         $form = $this->getFormContramedida();
 
-        if ( $form->isValid($dados) ) {
+        if ($form->isValid($dados)) {
             $model = new Projeto_Model_Contramedida();
             $model->setFromArray($form->getValidValues($dados));
             $model->idcadastrador = $this->auth->idpessoa;
@@ -80,7 +85,7 @@ class Projeto_Service_Contramedida extends App_Service_ServiceAbstract
     public function update($params)
     {
         $form = $this->getFormContramedida();
-        if ( $form->isValid($params) ) {
+        if ($form->isValid($params)) {
             $model = new Projeto_Model_Contramedida($form->getValidValues($params));
             try {
                 $retorno = $this->_mapper->update($model);
@@ -96,14 +101,14 @@ class Projeto_Service_Contramedida extends App_Service_ServiceAbstract
     }
 
     public function excluir($params)
-    {        
+    {
         try {
             return $this->_mapper->delete($params);
-        } catch ( Zend_Db_Statement_Exception $exc ) {
-            if ( $exc->getCode() == 23503 ) {
+        } catch (Zend_Db_Statement_Exception $exc) {
+            if ($exc->getCode() == 23503) {
                 $this->errors = App_Service_ServiceAbstract::ERRO_VIOLACAO_FK_CODE_23503;
             }
-        } catch ( Exception $exc ) {
+        } catch (Exception $exc) {
             $this->errors = App_Service_ServiceAbstract::ERRO_GENERICO;
             return false;
         }

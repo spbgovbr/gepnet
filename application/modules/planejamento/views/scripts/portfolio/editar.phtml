@@ -1,6 +1,6 @@
 <?php
 $this->headLink()
-        ->appendStylesheet($this->baseUrl('/css/form.css'));
+    ->appendStylesheet($this->baseUrl('/css/form.css'));
 
 $frmAttr = $this->form->getAttribs();
 ?>
@@ -9,48 +9,53 @@ $frmAttr = $this->form->getAttribs();
           name="form-portfolio-editar"
           action="<?php echo $this->form->getAction(); ?>"
           method="<?php echo $frmAttr['method']; ?>">
-            <div class="row">
-                <div class="span5">
-                    <?php echo $this->form->noportfolio; ?>
-                </div>
-                <div class="span3">
-                    <?php echo $this->form->idportfoliopai; ?>
-                </div>
-                <div class="span3">
-                    <?php echo $this->form->ativo; ?>
-                </div>
+        <div class="row">
+            <div class="span5">
+                <?php echo $this->form->noportfolio; ?>
             </div>
-            <div class="row">
-                <div class="span5">
-                    <?php echo $this->form->idprograma; ?>
-                </div>
-                <div class="row container-pessoa">
-                    <div class="span3">
-                        <div class="control-group">
-                            <?php echo $this->form->nomresponsavel->renderLabel(); ?>
-                            <div class="input-prepend ">
-                                <?php echo $this->form->pessoabutton; ?>
-                                <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
-                                <?php echo $this->form->idresponsavel; ?>
-                            </div>
+            <div class="span3">
+                <?php echo $this->form->idportfoliopai; ?>
+            </div>
+            <div class="span3">
+                <?php echo $this->form->ativo; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span5">
+                <?php echo $this->form->idprograma; ?>
+            </div>
+            <div class="row container-pessoa">
+                <div class="span3">
+                    <div class="control-group">
+                        <?php echo $this->form->nomresponsavel->renderLabel(); ?>
+                        <div class="input-prepend ">
+                            <?php echo $this->form->pessoabutton; ?>
+                            <?php echo $this->form->nomresponsavel->renderViewHelper(); ?>
+                            <?php echo $this->form->idresponsavel; ?>
                         </div>
                     </div>
-                    <div class="span3">
-                        <?php echo $this->form->tipo; ?>
-                    </div>
                 </div>
-            </div>
-            <div class="row grid-append" style="display: none;">
-            </div>
-            <div class="row">
                 <div class="span3">
-                    <?php echo $this->form->idescritorio; ?>
+                    <?php echo $this->form->tipo; ?>
                 </div>
-                <div id="dados-escritorio">
-                    <div class="span3 email" style="margin-top: 0px;"> </div>
-                    <div class="span3 telefone" style="margin-top: 0px;"> </div>
-                </div>
-                <?php echo $this->form->idportfolio; ?>
             </div>
+        </div>
+        <div class="row grid-append" style="display: none;">
+        </div>
+        <div class="row">
+            <div class="span3">
+                <?php echo $this->form->idescritorio; ?>
+            </div>
+            <div id="dados-escritorio">
+                <div class="span3 email" style="margin-top: 0px;"></div>
+                <div class="span3 telefone" style="margin-top: 0px;"></div>
+            </div>
+            <?php echo $this->form->idportfolio; ?>
+        </div>
+        <div class="row">
+            <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
+                (<?php echo "<img src=\"" . $this->baseUrl('/img/required.gif') . "\" />"; ?>)Preenchimento obrigatório
+            </div>
+        </div>
     </form>
 </div>

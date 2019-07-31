@@ -18,14 +18,14 @@ class Default_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
     public function insert(Default_Model_Diariobordo $model)
     {
         $data = array(
-            "iddiariobordo"  => $model->iddiariobordo,
-            "idprojeto"      => $model->idprojeto,
+            "iddiariobordo" => $model->iddiariobordo,
+            "idprojeto" => $model->idprojeto,
             "datdiariobordo" => $model->datdiariobordo,
-            "domreferencia"  => $model->domreferencia,
-            "domsemafaro"    => $model->domsemafaro,
+            "domreferencia" => $model->domreferencia,
+            "domsemafaro" => $model->domsemafaro,
             "desdiariobordo" => $model->desdiariobordo,
-            "idcadastrador"  => $model->idcadastrador,
-            "datcadastro"    => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
         $this->getDbTable()->insert($data);
     }
@@ -39,16 +39,15 @@ class Default_Model_Mapper_Diariobordo extends App_Model_Mapper_MapperAbstract
     public function update(Default_Model_Diariobordo $model)
     {
         $data = array(
-            "iddiariobordo"  => $model->iddiariobordo,
-            "idprojeto"      => $model->idprojeto,
+            "iddiariobordo" => $model->iddiariobordo,
+            "idprojeto" => $model->idprojeto,
             "datdiariobordo" => $model->datdiariobordo,
-            "domreferencia"  => $model->domreferencia,
-            "domsemafaro"    => $model->domsemafaro,
+            "domreferencia" => $model->domreferencia,
+            "domsemafaro" => $model->domsemafaro,
             "desdiariobordo" => $model->desdiariobordo,
-            "idcadastrador"  => $model->idcadastrador,
-            "datcadastro"    => $model->datcadastro,
+            "idcadastrador" => $model->idcadastrador,
+            "datcadastro" => $model->datcadastro,
         );
-        // $this->getDbTable()->update($data, array("id = ?" => $id));
     }
 
     public function getForm()
