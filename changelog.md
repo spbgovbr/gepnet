@@ -7,7 +7,7 @@
 #### Correções
 
 > * RDM#3670 - Correção da funcionalidade de Gráfico de Gantt;
-
+             - Correção da funcionalidade de Cadastro de documentos;
 
 # 3.1.19
 
