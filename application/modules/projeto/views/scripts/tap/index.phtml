@@ -42,17 +42,7 @@ $frmAttr = $this->formAssinatura->getAttribs();
 
     <!-- Imprime o termo de abertura e o plano de gerenciamento do projeto href="<?php //echo $this->url(
     //array('module' => 'projeto', 'controller' => 'tap', 'action' => 'autenticarassinatura','idprojeto' => $this->projeto->idprojeto)); ?>"-->
-    <div class="btn-toolbar" align="" style="width: 350px; float: right;">
-        <a data-target="#dialog-assinar" class="btn actionfrm autenticarassinatura" title="Assinar Documentos"
-           target="_blank" href="<?php echo $this->url(
-            array(
-                'module' => 'projeto',
-                'controller' => 'tap',
-                'action' => 'autenticarassinatura',
-                'idprojeto' => $this->projeto->idprojeto
-            )); ?>">
-            <i class="icon-pencil"></i>
-        </a>
+    <div class="btn-toolbar" align="" style="width: 350px; float: right;">       
         <?php if ($this->projeto->domstatusprojeto == 8): ?>
             <a class="btn actionfrm  <?php echo $this->projeto->domstatusprojeto == 8 ? 'restaurarprojeto' : 'excluirprojeto'; ?>"
                title="<?php echo $this->projeto->domstatusprojeto == 8 ? 'Recuperar' : 'Excluir' ?> Projeto"
@@ -374,56 +364,8 @@ $frmAttr = $this->formAssinatura->getAttribs();
                 </div>
             </div>
         </fieldset>
-    </div>
-    <!-- Assinaturas -->
-    <div id="pi" class="informacoes" style="display: none">
-        <?php echo $this->partial('_partials/tap-menu-report.phtml', array('dados' => 'assinadocumento')); ?>
-        <fieldset>
-            <legend>Assinaturas</legend>
-            <div class="row">
-                <table class="table table-bordered table-hover table-striped span10">
-                    <colgroup>
-                        <col style="width: 100px">
-                        <col style="width: 100px">
-                        <col style="width: 50px">
-                        <col style="width: 100px">
-                    </colgroup>
-                    <thead>
-                    <th>Nome</th>
-                    <th>Função no Projeto</th>
-                    <th>Data/Hora assintaura</th>
-                    <th>Documento Assinado</th>
-                    </thead>
-                    <tbody>
-                    <?php if (count($this->assinaturas) > 0): ?>
-                        <?php foreach ($this->assinaturas as $assinatura) : ?>
-                            <tr>
-                                <td>
-                                    <span id="nomparteinteressada"><?php echo $assinatura['nomparteinteressada']; ?></span>
-                                </td>
-                                <td>
-                                    <span id="nomfuncao"><?php echo $assinatura['nomfuncao']; ?></span>
-                                </td>
-                                <td>
-                                    <span id="assinado"><?php echo $assinatura['assinado']; ?></span>
-                                </td>
-                                <td>
-                                    <span id="tipo"><?php echo $assinatura['tipo']; ?></span>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr id="nenhumregistro">
-                            <td colspan="4"><span id="regEmpty">Nenhum registro encontrado</td>
-                        </tr>
-                    <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
-        </fieldset>
-    </div>
+    </div>   
 </div>
-<div id="dialog-assinar" style="display: none"></div>
 <div id="dialog-excluirprojeto" style="display: none"></div>
 <div id="dialog-restaurarprojeto" style="display: none"></div>
 

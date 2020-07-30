@@ -236,7 +236,6 @@ $(function () {
                 detalhar: base_url + '/projeto/termoaceite/detalhar',
                 imprimir: base_url + '/projeto/termoaceite/imprimir',
                 imprimirbook: base_url + '/projeto/termoaceite/imprimir-word',
-                assinar: base_url + '/projeto/termoaceite/autenticarassinatura',
             };
         params = '/idaceite/' + r[6] + '/identrega/' + r[7] + '/idprojeto/' + r[8];
         paramsAssinar = '/idaceite/' + r[6] + '/idprojeto/' + r[8];
@@ -245,8 +244,7 @@ $(function () {
             '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
             '<a data-target="#dialog-excluir" class="btn actionfrm excluir" title="Excluir" data-id="' + cellvalue + '" href="' + url.excluir + params + '"><i class="icon-trash"></i></a>' +
             '<a data-target="#" class="btn actionfrm imprimir" title="Imprimir" target="_blank" data-id="' + cellvalue + '" href="' + url.imprimir + params + '"><i class="icon-print"></i></a>' +
-            '<a data-target="#" class="btn actionfrm imprimir" title="Exportar" target="_blank" data-id="' + cellvalue + '" href="' + url.imprimirbook + params + '"><i class="icon-book"></i></a>' +
-            '<a data-target="#dialog-assinar" class="btn actionfrm autenticarassinatura" title="Assinar Aceite" target="_blank" data-id="' + cellvalue + '" href="' + url.assinar + paramsAssinar + '"><i class="icon-pencil"></i></a>'
+            '<a data-target="#" class="btn actionfrm imprimir" title="Exportar" target="_blank" data-id="' + cellvalue + '" href="' + url.imprimirbook + params + '"><i class="icon-book"></i></a>'
             ;
     }
 

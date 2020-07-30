@@ -22,8 +22,7 @@ $(document).ready(function () {
     });
 
     var
-        $form = $("form#form-gerencia"),
-        $dialogAssinar = $('#dialog-assinar'),
+        $form = $("form#form-gerencia"),        
         url_cadastrar = base_url + "/projeto/tap/add/format/json";
 
     $form.on('submit', function (e) {
@@ -118,14 +117,7 @@ $(document).ready(function () {
                 form: $("form#form-restaurarprojeto"),
                 url: base_url + '/projeto/gerencia/restaurarprojeto/format/json',
                 dialog: $('#dialog-restaurarprojeto'),
-            },
-            assinadocumento: {
-                form: $("form#from-assinaDoc"),
-                url: base_url + '/projeto/tap/autenticarassinatura/format/json',
-            },
-            retornaassinaturas: {
-                url: base_url + '/projeto/tap/retornaassinaturas/format/json',
-            },
+            },                    
         };
 
     /*xxxxxx EXCLUIR PROJETO xxxxxx*/
@@ -147,8 +139,6 @@ $(document).ready(function () {
     };
 
     actions.excluirprojeto.form.ajaxForm(options);
-
-    actions.assinadocumento.form.ajaxForm(options);
 
     actions.excluirprojeto.dialog.dialog({
         autoOpen: false,
@@ -332,77 +322,7 @@ $(document).ready(function () {
         });
     });
 
-    $dialogAssinar = $('#dialog-assinar').dialog({
-        autoOpen: false,
-        title: 'Assinar Documento',
-        width: '440px',
-        modal: true,
-        buttons: {
-            'Salvar': function () {
-                //console.log($("form#form-assinaDoc").valid());
-                if ($("form#form-assinaDoc").valid()) {
-                    var form = $('form#form-assinaDoc');
-                    var $paramsForm = form.serialize();
-                    $.ajax({
-                        url: base_url + '/projeto/tap/autenticarassinatura/format/json',
-                        dataType: 'json',
-                        type: 'POST',
-                        async: true,
-                        cache: true,
-                        data: $paramsForm,
-                        //processData:false,
-                        success: function (data) {
-                            if (data.success) {
-                                $("#pi").load(location.href + " #pi>*", "");
-                                $('#dialog-assinar').dialog('close');
-                                $.pnotify(data.msg);
-                            } else {
-                                $("#message").text(data.msg.text);
-                                $("#message").show();
-                            }
-
-                        },
-                        error: function () {
-                            $('#dialog-assinaDoc').dialog('close');
-                        }
-                    });
-                }
-            },
-            'Fechar': function () {
-                $(this).dialog('close');
-            }
-        }
-    }).css("maxHeight", window.innerHeight - 150);
-
-    $(document.body).on('click', "a.autenticarassinatura", function (event) {
-        event.preventDefault();
-        var
-            $this = $(this),
-            $dialog = $($this.data('target'));
-        $.ajax({
-            url: $this.attr('href'),
-            dataType: 'html',
-            type: 'GET',
-            async: true,
-            cache: true,
-            //data: $formEditar.serialize(),
-            processData: false,
-            success: function (data) {
-                $dialog.html(data).dialog('open');
-                $("#message").hide();
-                $('.mask-cpf').mask("999.999.999-99");
-            },
-            error: function () {
-                $.pnotify({
-                    text: 'Falha ao enviar a requisição',
-                    type: 'error',
-                    hide: false
-                });
-            }
-        });
-    });
-
-
+    
 });
 
 function visualizar($div) {

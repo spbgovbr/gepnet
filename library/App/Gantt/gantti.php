@@ -2,7 +2,7 @@
 
 require('calendar.php');
 
-class Gantti
+class App_Gantt_Gantti
 {
 
     var $cal = null;

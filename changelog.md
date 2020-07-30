@@ -1,3 +1,14 @@
+# 3.1.20
+
+#### Data
+
+> * Gerado em 30/07/2020
+
+#### Correções
+
+> * RDM#3670 - Correção da funcionalidade de Gráfico de Gantt;
+
+
 # 3.1.19
 
 #### Data
