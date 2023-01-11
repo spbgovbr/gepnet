@@ -4,6 +4,8 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
 {
 
     protected $_form;
+    /** @var $_file $_FILE
+    private $_file;
 
     /**
      *
@@ -23,7 +25,11 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
 
     public function getForm()
     {
-        return $this->_getForm('Acordocooperacao_Form_Acordo');
+        $form =  $this->_getForm('Acordocooperacao_Form_Acordo');
+        $acordoPai = $this->_mapper->fetchPairs();
+        $selOpcaoAcordoPai = array('' => 'Selecione');
+        $form->getElement('idacordopai')->setMultiOptions($selOpcaoAcordoPai + $acordoPai);
+        return $form;
     }
 
     public function getFormEditar()
@@ -38,6 +44,13 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
     {
 //        $form = $this->_getForm('Acordocooperacao_Form_Acordo');
         $formAcordo = $this->_getForm('Acordocooperacao_Form_Acordopesquisar');
+
+
+        $mapperTbSetor = new Default_Model_Mapper_Setor();
+        $setores = $mapperTbSetor->fetchPairs();
+        $selOpcaoSetor = array('' => 'Selecione');
+        $formAcordo->getElement('idsetor')->setMultiOptions($selOpcaoSetor + $setores);
+
         $formAcordo->getElement('nomacordo')
             ->setAttribs(array('class' => 'span4', 'data-rule-required' => false))
             ->setRequired(false)
@@ -66,58 +79,77 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
 
         $form = $this->getForm();
 
+
         $descaminho = $form->getElement('descaminho');
         $descaminho->setValueDisabled(true);
+        $this->_file = $dados["file"];
 
-        if ($descaminho->receive() != false) {
+//        if ($descaminho->receive() != false) {
             $filename = $this->renomearArquivo($descaminho);
-        }
+//        }
 
         if ($form->isValidPartial($dados)) {
+
             $model = new Acordocooperacao_Model_Acordo($form->getValues());
 
             $auth = Zend_Auth::getInstance();
             if ($auth->hasIdentity()) {
                 $model->idcadastrador = $auth->getIdentity()->idpessoa;
             }
-
             $model->descaminho = isset($filename) ? $filename : "";
 
             //Salva o acordo
-            $retorno = $this->_mapper->insert($model);
-            if ($retorno) {
+            /**@var $modelo Acordocooperacao_Model_Acordo */
+            $modelo = $this->_mapper->insert($model);
+
+            if (is_object($modelo)) {
+                $this->uploadArquivo($model->descaminho);
+
                 if (empty($entidades) == false) {
+                    $modelo->entidades = $entidades;
                     //salva as entidades para o acordo
-                    $serviceAcordoEntidade = App_Service_ServiceAbstract::getService('Acordocooperacao_Service_Acordoentidadeexterna');
-                    $serviceAcordoEntidade->inserir($retorno, $entidades);
+                    $this->_mapper->insertAcordoEntidadeExterna($modelo);
                 }
             }
-            return $retorno;
+            return $modelo;
         } else {
             $this->errors = $form->getMessages();
         }
         return false;
     }
 
+    private function uploadArquivo($nomeArquivo){
+        if(isset($this->_file)) {
+            $config = Zend_Registry::get('config');
+            $uploadDir = $config->resources->cachemanager->default->backend->options->upload_dir."acordo".DIRECTORY_SEPARATOR;
+            $file = $this->_file["descaminho"];
+            move_uploaded_file($file["tmp_name"], $uploadDir.$nomeArquivo);
+        }
+    }
+
     private function renomearArquivo(Zend_Form_Element_File $file)
     {
-        $extension = pathinfo($file->getFileName('descaminho'), PATHINFO_EXTENSION);
-        $uniqueToken = md5(uniqid(mt_rand(), true));
-        $format = 'ins_%s.%s';
-        //$newFileName    = $id . '.' . $extn;
-        $newFileName = sprintf($format, $uniqueToken, $extension);
-//        Zend_Debug::dump($newFileName); exit;
-        $uploadfilepath = $file->getDestination() . DIRECTORY_SEPARATOR . $newFileName;
-        //Zend_Debug::dump($uploadfilepath);
-        //exit;
+       if(isset($this->_file)) {
 
-        $filterRename = new Zend_Filter_File_Rename(array(
-            'target' => $uploadfilepath,
-            'overwrite' => true
-        ));
-        $filterRename->filter($file->getFileName('descaminho'));
+           $extension = pathinfo($file->getFileName('descaminho'), PATHINFO_EXTENSION);
 
-        return $newFileName;
+           $uniqueToken = md5(uniqid(mt_rand(), true));
+           $format = 'ins_%s.%s';
+
+           $newFileName = sprintf($format, $uniqueToken, $extension);
+
+           $uploadfilepath = $file->getDestination()   . DIRECTORY_SEPARATOR .  'acordo' . DIRECTORY_SEPARATOR . $newFileName;
+
+           $filterRename = new Zend_Filter_File_Rename(array(
+               'target' => $uploadfilepath,
+               'overwrite' => true
+           ));
+           $filterRename->filter($file->getFileName('descaminho'));
+
+           return $newFileName;
+       }else{
+           return "";
+       }
     }
 
     /**
@@ -145,9 +177,9 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
             $descaminho = $form->getElement('descaminho');
             $descaminho->setValueDisabled(true);
 
-            if ($descaminho->receive() != false) {
-                $filename = $this->renomearArquivo($descaminho);
-            }
+            $this->_file = $dados["file"];
+
+            $filename = $this->renomearArquivo($descaminho);
 
             $model = new Acordocooperacao_Model_Acordo($form->getValues());
 
@@ -155,6 +187,7 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
 
             $retorno = $this->_mapper->update($model);
             if ($retorno) {
+                $this->uploadArquivo($model->descaminho);
                 if (empty($entidades) == false) {
                     //salva as entidades para o acordo
                     $serviceAcordoEntidade = App_Service_ServiceAbstract::getService('Acordocooperacao_Service_Acordoentidadeexterna');
@@ -168,10 +201,6 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
             $this->errors = $form->getMessages();
         }
         return false;
-        /*} catch(Exception $e) {
-            $this->errors = $form->getMessages();
-//            throw($e);
-        }*/
     }
 
 
@@ -268,7 +297,7 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
         if (isset($acordos["rows"])) {
             foreach ($acordos["rows"] as &$a) {
 //                var_dump($a);
-                $path = $uploadDir . 'acordo' . DIRECTORY_SEPARATOR . $a['cell'][11];
+                $path = $uploadDir  . 'acordo/'  . $a['cell'][11];
 
 //                var_dump($path);
 //                var_dump(is_file($path));
@@ -299,7 +328,8 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
         $config = Zend_Registry::get('config');
         $arquivosDir = $config->resources->cachemanager->default->backend->options->upload_dir;
         $filename = $params['descaminho'];
-        $path = $arquivosDir . 'acordo/' . $filename;
+        $path = $arquivosDir  . 'acordo/' . $filename;
+
         if (file_exists($path)) {
             $view = new Zend_View_Helper_Url();
             if ($retornaRouteDownload) {
@@ -318,7 +348,7 @@ class Acordocooperacao_Service_Acordo extends App_Service_ServiceAbstract
                     'module' => 'acordocooperacao',
                     'controller' => 'instrumentocooperacao',
                     'action' => 'download',
-                    'file' => base64_encode($filename)
+                    'file' => $filename
                 ),
                 'download'
             );

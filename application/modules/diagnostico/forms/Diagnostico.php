@@ -18,6 +18,7 @@ class Diagnostico_Form_Diagnostico extends App_Form_FormAbstract
                 "id" => "form-gerencia",
                 "elements" => array(
                     'iddiagnostico' => array('hidden', array()),
+                    'iddiagnosticoanterior' => array('hidden', array()),
                     'idcadastrador' => array('hidden', array()),
                     'idchefedaunidade' => array('hidden', array()),
 
@@ -225,6 +226,18 @@ class Diagnostico_Form_Diagnostico extends App_Form_FormAbstract
                             ),
                         )
                     ),
+                    'cancelar' => array(
+                        'button',
+                        array(
+                            'ignore' => true,
+                            'label' => 'Cancelar',
+                            'escape' => false,
+                            'attribs' => array(
+                                'id' => 'cancelButton',
+                                'type' => 'button',
+                            ),
+                        )
+                    ),
                     'pessoabutton' => array(
                         'button',
                         array(
@@ -248,6 +261,11 @@ class Diagnostico_Form_Diagnostico extends App_Form_FormAbstract
             ->removeDecorator('Wrapper');
 
         $this->getElement('enviar')
+            ->removeDecorator('label')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Wrapper');
+
+        $this->getElement('cancelar')
             ->removeDecorator('label')
             ->removeDecorator('HtmlTag')
             ->removeDecorator('Wrapper');

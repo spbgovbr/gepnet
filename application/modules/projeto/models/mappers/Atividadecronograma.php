@@ -51,6 +51,7 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 "vlratividade" => $model->vlratividade,
                 "numfolga" => (int)$model->numfolga,
                 "idelementodespesa" => $model->idelementodespesa,
+                "datatividadeconcluida" => ($model->numpercentualconcluido==100) ? date('Y-m-d') : null,
             );
             $data = array_filter($data);
             if (!isset($data['numpercentualconcluido'])) {
@@ -546,7 +547,9 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 "vlratividade" => (!empty($model->vlratividade)) ? (int)$model->vlratividade : 0,
                 "numfolga" => (!empty($model->numfolga)) ? (int)$model->numfolga : 0,
                 "idelementodespesa" => (!empty($model->idelementodespesa)) ? $model->idelementodespesa : null,
+                "datatividadeconcluida" => ($model->numpercentualconcluido==100) ? date('Y-m-d') : null,
             );
+
             $data = array_filter($data);
 
             if (isset($numFolga) && $numFolga == 0) {
@@ -558,14 +561,9 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 }
             }
 
-            $data['datatividadeconcluida'] = $this->retornaDataAtividadeconcluida($data);
             if (!isset($data['numpercentualconcluido'])) {
                 $data['numpercentualconcluido'] = 0;
-                $data['datatividadeconcluida'] = null;
-            } else if (100 == $data['numpercentualconcluido'] && empty($data['datatividadeconcluida'])) {
-                $data['datatividadeconcluida'] = date('d/m/Y');
             }
-
             if (!isset($data['idelementodespesa'])) {
                 $data['idelementodespesa'] = null;
             }
@@ -2715,7 +2713,7 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
 
     }
 
-
+    //RDM#26364 - INVERSÃO DE RESPONSAVEL PELA ENTREGA E PELO ACEITE
     public function retornaEntregaPorId($params, $array = false, $collection = false)
     {
 
@@ -2746,7 +2744,10 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 cron.descriterioaceitacao,
                 cron.idelementodespesa,
                 cron.idcadastrador,
-                p1.nomparteinteressada as nomparteinteressada,
+                (SELECT re.nomparteinteressada
+                   FROM agepnet200.tb_parteinteressada re
+                  WHERE re.idparteinteressada = cron.idresponsavel
+                    AND re.idprojeto = cron.idprojeto) as nomparteinteressada,
                 cron.idparteinteressada,
                 to_char(cron.datiniciobaseline, 'DD/MM/YYYY') as datiniciobaseline,
                 to_char(cron.datfimbaseline, 'DD/MM/YYYY') as datfimbaseline,
@@ -2759,14 +2760,10 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                 cron.datinicio as inicio,
                 cron.datfim as fim,
                 cron.idresponsavel,
-                (SELECT p1.nomparteinteressada FROM agepnet200.tb_atividadecronograma cron
-                INNER JOIN agepnet200.tb_projeto tbp on tbp.idprojeto = cron.idprojeto
-                      and tbp.idtipoiniciativa = 1 LEFT OUTER JOIN
-                    agepnet200.tb_parteinteressada p1 ON cron.idresponsavel = p1.idparteinteressada
-                WHERE
-                    p1.idparteinteressada = cron.idresponsavel
-                    and cron.idprojeto = :idprojeto
-                    and idatividadecronograma = :idatividadecronograma) as nomparteinteressadaentrega,
+                (SELECT ra.nomparteinteressada
+                   FROM agepnet200.tb_parteinteressada ra
+                  WHERE ra.idparteinteressada = cron.idparteinteressada
+                    and ra.idprojeto = cron.idprojeto) as nomparteinteressadaentrega,
                 (SELECT
                     atc.nomatividadecronograma
                     FROM agepnet200.tb_atividadecronograma atc
@@ -2777,10 +2774,6 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                         and idatividadecronograma = cron.idgrupo) as grupo
             FROM
                 agepnet200.tb_atividadecronograma cron
-            INNER JOIN agepnet200.tb_projeto tbp on tbp.idprojeto = cron.idprojeto
-                  and tbp.idtipoiniciativa = 1 /* PROJETO */
-            LEFT OUTER JOIN
-                agepnet200.tb_parteinteressada p1 ON cron.idparteinteressada = p1.idparteinteressada
             WHERE
                 cron.idprojeto = :idprojeto
                 and cron.idatividadecronograma = :idatividadecronograma
@@ -2850,6 +2843,25 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
         $resultado = $this->_db->fetchRow($sql, array(
             'idprojeto' => (int)$params['idprojeto'],
             'idatividadecronograma' => (int)$params['idatividadecronograma']
+        ));
+
+        return $resultado;
+    }
+
+    public function fetchPairsProximoMarco($params)
+    {
+        $sql = "SELECT
+                    cron.idatividadecronograma, 
+                    cron.nomatividadecronograma || ' - ' || to_char(cron.datinicio, 'DD/MM/YYYY')
+                FROM
+                    agepnet200.tb_atividadecronograma cron
+                WHERE cron.idprojeto = :idprojeto  
+                  AND cron.numpercentualconcluido NOT IN(100)
+                  AND cron.domtipoatividade IN(4)    
+                ORDER BY cron.numseq, cron.datfim LIMIT 1";
+
+        $resultado = $this->_db->fetchPairs($sql, array(
+            'idprojeto' => (int) $params['idprojeto'],
         ));
 
         return $resultado;
@@ -5446,19 +5458,6 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
         return $resultado;
     }
 
-    public function retornaDataAtividadeconcluida($params)
-    {
-        $sql = 'SELECT datatividadeconcluida 
-                  FROM agepnet200.tb_atividadecronograma 
-                 WHERE idprojeto = :idprojeto 
-                   AND idatividadecronograma = :idatividadecronograma';
-
-        $resultado = $this->_db->fetchOne($sql, array(
-            'idprojeto' => (int)$params['idprojeto'],
-            'idatividadecronograma' => (int)$params['idatividadecronograma'],
-        ));
-        return $resultado;
-    }
 
     public function retornaQtdeDiasUteisEntreDatas($params)
     {
@@ -5587,7 +5586,7 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                             TO_CHAR(cron.datinicio, 'DD/MM/YYYY') AS datinicio,
                             TO_CHAR(cron.datfim, 'DD/MM/YYYY') AS datfim,
                             tbp.numcriteriofarol,
-                            ra.nomparteinteressada,
+                            re.nomparteinteressada,
                             NULL::VARCHAR AS responsavelaceitacao,
                             CASE
                                 WHEN cron.datfimbaseline IS NULL OR cron.datiniciobaseline IS NULL OR cron.domtipoatividade = 4 THEN '0'
@@ -5719,7 +5718,7 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                              END AS atraso,
                             cron.datfimbaseline < cron.datfim AS atividadeatrasada,
                             NULL::VARCHAR AS predecessoras,
-                            ra.idparteinteressada,
+                            re.idparteinteressada,
                             cron.idatividadecronograma AS pai,
                             ARRAY[ROW_NUMBER() OVER (ORDER BY COALESCE(cron.datfim, TO_DATE(CURRENT_TIMESTAMP::VARCHAR,'YYYY-MM-DD')), COALESCE(cron.datinicio, TO_DATE(CURRENT_TIMESTAMP::VARCHAR,'YYYY-MM-DD')), cron.idatividadecronograma)] AS ordenacao,
                             1 AS nivel
@@ -5727,9 +5726,9 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                             JOIN agepnet200.tb_projeto tbp
                               ON tbp.idprojeto = cron.idprojeto
                              AND tbp.idtipoiniciativa = 1
-                           LEFT JOIN agepnet200.tb_parteinteressada ra
-                              ON ra.idparteinteressada = cron.idparteinteressada
-                              AND ra.idprojeto = cron.idprojeto                              
+                           LEFT JOIN agepnet200.tb_parteinteressada re
+                              ON re.idparteinteressada = cron.idparteinteressada
+                              AND re.idprojeto = cron.idprojeto
                            WHERE cron.idprojeto = :idprojeto
                              AND cron.domtipoatividade = 1
 
@@ -5761,8 +5760,8 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                             TO_CHAR(cron.datinicio, 'DD/MM/YYYY') AS datinicio,
                             TO_CHAR(cron.datfim, 'DD/MM/YYYY') AS datfim,
                             ati.numcriteriofarol,
-                            ra.nomparteinteressada,
-                            re.nomparteinteressada as responsavelaceitacao,
+                            re.nomparteinteressada,
+                            ra.nomparteinteressada as responsavelaceitacao,
                             CASE
                                 WHEN cron.datfimbaseline IS NULL OR cron.datiniciobaseline IS NULL OR cron.domtipoatividade = 4 THEN '0'
                                 ELSE (SELECT COUNT(*) AS diasuteis
@@ -5913,19 +5912,19 @@ class Projeto_Model_Mapper_Atividadecronograma extends App_Model_Mapper_MapperAb
                                 ELSE
                                     NULL
                              END AS predecessoras,
-                            ra.idparteinteressada,
+                            re.idparteinteressada,
                             ati.pai,
                             ati.ordenacao || (ROW_NUMBER() OVER (ORDER BY COALESCE(cron.datfim, TO_DATE(CURRENT_TIMESTAMP::VARCHAR,'YYYY-MM-DD')), COALESCE(cron.datinicio, TO_DATE(CURRENT_TIMESTAMP::VARCHAR,'YYYY-MM-DD')), cron.domtipoatividade, cron.idatividadecronograma)) AS ordenacao,
                             ati.nivel + 1 AS nivel
                         FROM agepnet200.tb_atividadecronograma cron
                         JOIN atividade ati
                           ON ati.idatividadecronograma = cron.idgrupo
-                        LEFT JOIN agepnet200.tb_parteinteressada re
-                          ON re.idparteinteressada = cron.idresponsavel
-                          and re.idprojeto = cron.idprojeto
                         LEFT JOIN agepnet200.tb_parteinteressada ra
-                          ON ra.idparteinteressada = cron.idparteinteressada
+                          ON ra.idparteinteressada = cron.idresponsavel
                           and ra.idprojeto = cron.idprojeto
+                        LEFT JOIN agepnet200.tb_parteinteressada re
+                          ON re.idparteinteressada = cron.idparteinteressada
+                          and re.idprojeto = cron.idprojeto
                         WHERE cron.idprojeto = :idprojeto
                        )";
         return $sql;

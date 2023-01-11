@@ -8,6 +8,16 @@ $countGrupo = 0;
 $countEntrega = 0;
 $countAtividade = 0;
 
+if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+    $folderClose = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-folder-close.png'));
+    $folderOpen  = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-folder-open.png'));
+    $inconTag    = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-tag.png'));
+}else{
+    $folderClose = $this->baseUrl('/img/icon-folder-close.png');
+    $folderOpen  = $this->baseUrl('/img/icon-folder-open.png');
+    $inconTag    = $this->baseUrl('/img/icon-tag.png');
+
+}
 ?>
 <div>
     <div align="left" class="span4" style="margin-top: 60px">
@@ -43,7 +53,7 @@ $countAtividade = 0;
 
         <tr style="border-bottom: thick solid #ccc; background: #b3b3b3">
             <td style="font-weight: bold; text-align: left">
-                <?php echo '<img src="', $this->baseUrl('/img/icon-folder-close.png'), '" style="float:left;" />&nbsp;&nbsp;'; ?>
+                <?php echo '<img src="', $folderClose, '" style="float:left;" />&nbsp;&nbsp;'; ?>
                 <?php echo $this->linhaResumoNomProjeto; ?>
             </td>
 
@@ -59,9 +69,9 @@ $countAtividade = 0;
                 class="badge badge-<?php echo (int)($this->linhaResumoPercentual == 100) ? "" : (!empty($this->linhaCorFarol)) ? $this->linhaCorFarol : ""; ?>">
                 <?php echo isset($this->linhaResumoFarol) ? $this->linhaResumoFarol : ""; ?> dias
             </td>
-            */?>
+
         </tr>
-        ?>
+
         <?php foreach ($this->cronograma as $item):
             $item['descricaoconclusao'] = "";
             $numDiasReais = 0;
@@ -105,7 +115,7 @@ $countAtividade = 0;
                 case 1: ?>
                     <tr style="border-bottom: thick solid #ccc;">
                         <td class="titulo-grupo" style="font-weight: bold; font-size: 10px;">
-                            <?php echo "<img src=\"" . $this->baseUrl('/img/icon-folder-open.png') . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            <?php echo "<img src=\"" . $folderOpen . "\" style=\"float:left;\" />&nbsp;&nbsp;";
                             echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
                         </td>
                         <td></td>
@@ -138,7 +148,7 @@ $countAtividade = 0;
                     <tr>
                         <td style="padding-left: 15px;">
                             <?php
-                            echo "<img src=\"" . $this->baseUrl('/img/icon-tag.png') . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            echo "<img src=\"" . $inconTag . "\" style=\"float:left;\" />&nbsp;&nbsp;";
                             echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?></td>
                         <td></td>
                         <td style="text-align: left">
@@ -189,14 +199,26 @@ $countAtividade = 0;
                         }
                     }
 
-                    $imagem = $item['domtipoatividade'] == 3 ? '/img/icon-list-alt.png' : '/img/icon-flag.png';
+                    if($item['domtipoatividade'] == 3){
+                        if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+                            $imagem = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-list-alt.png'));
+                        }else{
+                            $imagem = $this->baseUrl('/img/icon-list-alt.png');
+                        }
+                    }else{
+                        if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+                            $imagem = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-flag.png'));
+                        }else{
+                            $imagem = $this->baseUrl('/img/icon-flag.png');
+                        }
+                    }
                     ?>
                     <tr>
                         <td style=" padding-left: 30px; <?php echo $verificaCancelada ?>">
-                            <?php echo "<img src=\"" . $this->baseUrl($imagem) . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            <?php echo "<img src=\"" . $imagem . "\" style=\"float:left;\" />&nbsp;&nbsp;";
                             echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
                         </td>
-                        <td style="<?php echo $verificaCancelada ?>/*; font-size: 9px;">
+                        <td style="<?php echo $verificaCancelada ?>; font-size: 9px;">
                             <?php
                             if (count($item['predecessoras']) > 0):
                                 $result = null;
@@ -259,11 +281,23 @@ $countAtividade = 0;
                         }
                     }
 
-                    $imagem = $item['domtipoatividade'] == 3 ? '/img/icon-list-alt.png' : '/img/icon-flag.png';
+                    if($item['domtipoatividade'] == 3){
+                        if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+                            $imagem = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-list-alt.png'));
+                        }else{
+                            $imagem = $this->baseUrl('/img/icon-list-alt.png');
+                        }
+                    }else{
+                        if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+                            $imagem = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-flag.png'));
+                        }else{
+                            $imagem = $this->baseUrl('/img/icon-flag.png');
+                        }
+                    }
                     ?>
                     <tr>
                         <td style=" padding-left: 30px; <?php echo $verificaCancelada ?>">
-                            <?php echo "<img src=\"" . $this->baseUrl($imagem) . "\" style=\"float:left;\" />&nbsp;&nbsp;";
+                            <?php echo "<img src=\"" . $imagem . "\" style=\"float:left;\" />&nbsp;&nbsp;";
                             echo $item['numseq'] . ' - ' . $item['nomatividadecronograma'] ?>
                         </td>
                         <td style="<?php echo $verificaCancelada ?>/*; font-size: 9px;">

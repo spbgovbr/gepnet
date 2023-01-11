@@ -1,5 +1,6 @@
 <?php
 
+use Default_Service_Log as Log;
 class Projeto_Model_Mapper_Assinadocumento extends App_Model_Mapper_MapperAbstract
 {
     /**
@@ -28,7 +29,7 @@ class Projeto_Model_Mapper_Assinadocumento extends App_Model_Mapper_MapperAbstra
             //var_dump($retorno);die;
             return $retorno;
         } catch (Exception $exc) {
-            $this->_log->err($exc);
+            Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc->getTrace()));
             throw $exc;
         }
     }
@@ -279,5 +280,20 @@ class Projeto_Model_Mapper_Assinadocumento extends App_Model_Mapper_MapperAbstra
         return ($retorno <= 0) ? false : true;
     }
 
+    public function validarAutenticacao($params)
+    {
+        $sql = "SELECT idpessoa
+                FROM agepnet200.tb_pessoa
+                WHERE numcpf = :cpf
+                and token = :token";
+
+        $result = $this->_db->fetchRow($sql, array(
+            'cpf' => $params['cpf'],
+            'token' => $params['token']
+        ));
+
+        if(count($result) > 0) return true;
+        return false;
+    }
 
 }

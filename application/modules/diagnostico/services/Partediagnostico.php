@@ -68,7 +68,6 @@ class Diagnostico_Service_Partediagnostico extends App_Service_ServiceAbstract
      */
     private function popularModel($dados, $qualificacao)
     {
-
         $model = new Diagnostico_Model_Partediagnostico();
 
         if (isset($dados['iddiagnostico']) && (!empty($dados['iddiagnostico']))) {
@@ -157,9 +156,25 @@ class Diagnostico_Service_Partediagnostico extends App_Service_ServiceAbstract
         return $this->errors;
     }
 
+    /**
+     * Função que remove as partes de um diagnostico
+     * @param $dados
+     * @return array
+     * @throws Exception
+     */
     public function deletePartes($dados)
     {
         return $this->_mapper->deletePartes($dados);
+    }
+
+    /**
+     * Função que retorna todas as partes do diagnóstico.
+     * @param $params
+     * @return array
+     */
+    public function retornarParteByDiagnostico($params)
+    {
+        return $this->_mapper->retornarParteByDiagnostico($params);
     }
 
 }

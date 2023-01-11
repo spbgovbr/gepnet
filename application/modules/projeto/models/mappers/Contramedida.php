@@ -46,6 +46,7 @@ class Projeto_Model_Mapper_Contramedida extends App_Model_Mapper_MapperAbstract
             "domstatuscontramedida" => !empty($model->domstatuscontramedida) ? $model->domstatuscontramedida : null,
             "desresponsavel" => $model->desresponsavel,
             "flacontramedidaefetiva" => $model->flacontramedidaefetiva == "" ? null : $model->flacontramedidaefetiva,
+            "idtipocontramedida" => $model->idtipocontramedida,
         );
         $ret = $this->getDbTable()->update($data, array("idcontramedida = ?" => $model->idcontramedida));
         return $ret;
@@ -121,9 +122,11 @@ class Projeto_Model_Mapper_Contramedida extends App_Model_Mapper_MapperAbstract
                     ttc.notipocontramedida,
                     tc.desresponsavel, 
                     tc.idcontramedida, 
-                    tc.idrisco 
+                    tc.idrisco,
+                    tr.idprojeto
                 FROM agepnet200.tb_contramedida tc
                 INNER JOIN agepnet200.tb_tipocontramedida ttc on ttc.idtipocontramedida = tc.idtipocontramedida
+                INNER JOIN agepnet200.tb_risco tr on tr.idrisco = tc.idrisco
                 WHERE tc.idcontramedida = :idcontramedida";
         $resultado = $this->_db->fetchRow($sql, array('idcontramedida' => (int)$params['idcontramedida']));
         return $resultado;

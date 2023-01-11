@@ -67,9 +67,10 @@ $(function () {
                 return;
             }
             $.pnotify(data.msg);
-            if (data.success) {
+            if (data.msg.type == 'success') {
                 $("#resetbutton").trigger('click');
                 grid.trigger("reloadGrid");
+                $dialogCadastrar.dialog('close');
             }
         }
     };
@@ -90,8 +91,11 @@ $(function () {
             actions.cadastrar.dialog.empty();
         },
         buttons: {
-            'Salvar': function () {
-                $("form#form-acordo").trigger('submit');
+            'Salvar': function (event) {
+                event.preventDefault();
+                if ($("form#form-acordo").valid()) {
+                    $("form#form-acordo").trigger('submit');
+                }
             },
             'Fechar': function () {
                 $(this).dialog('close');
@@ -139,6 +143,7 @@ $(function () {
             if (data.success) {
                 $("#resetbutton").trigger('click');
                 grid.trigger("reloadGrid");
+                $dialogEditar.dialog('close');
             }
         }
     };
@@ -160,7 +165,10 @@ $(function () {
         },
         buttons: {
             'Salvar': function () {
-                $("form#form-acordo-editar").trigger('submit');
+                event.preventDefault();
+                if ($("form#form-acordo-editar").valid()) {
+                    $("form#form-acordo-editar").trigger('submit');
+                }
             },
             'Fechar': function () {
                 $(this).dialog('close');
@@ -219,6 +227,30 @@ $(function () {
         });
     });
 
+    $(document.body).on('click', "#resetRespInterno", function (event){
+        $('#idresponsavelinterno').val("");
+        $('#nomresponsavelinterno').val("");
+        $('#nomresponsavelinterno').attr("");
+
+    });
+    $(document.body).on('click', "#resetFiscal", function (event){
+        $('#idfiscal').val("");
+        $('#nomfiscal').val("");
+        $('#nomfiscal').attr("");
+
+    });
+    $(document.body).on('click', "#resetFiscal2", function (event){
+        $('#idfiscal2').val("");
+        $('#nomfiscal2').val("");
+        $('#nomfiscal2').attr("");
+
+    });
+    $(document.body).on('click', "#resetFiscal3", function (event){
+        $('#idfiscal3').val("");
+        $('#nomfiscal3').val("");
+        $('#nomfiscal3').attr("");
+
+    });
 
     function formatadorLink(cellvalue, options, rowObject) {
         var r = rowObject,
@@ -235,7 +267,7 @@ $(function () {
             ;
     }
 
-    colNames = ['Cod.', 'Setor', 'Num. SIAPRO', 'Nome', 'Responsável Interno', 'Fiscal', 'Início', 'Fim', 'Situação', 'PDF', 'Operações'];
+    colNames = ['Cod.', 'Setor', 'Num. SEI', 'Nome', 'Responsável Interno', 'Fiscal', 'Início', 'Fim', 'Situação', 'PDF', 'Operações'];
     colModel = [
         {
             name: 'idacordo',
@@ -408,7 +440,7 @@ $(function () {
             .removeClass('hide')
             .find("table tbody")
             .find("tr");
-        console.log($linha.length);
+        //console.log($linha.length);
         if ($linha.length <= 1) {
             $("#nenhumregistro").show();
             $("#tabela").hide();

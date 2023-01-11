@@ -54,9 +54,9 @@ class AdoDBDataWrapper extends DBDataWrapper
     }
 
     /*! escape field name to prevent sql reserved words conflict
-        @param data 
+        @param data
             unescaped data
-        @return 
+        @return
             escaped data
     */
     public function escape_name($data)

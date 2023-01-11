@@ -13,7 +13,7 @@ $MyData->addPoints(array(3, 12, 15, 8, 5, -5), "Probe 2");
 $MyData->addPoints(array(2, 7, 5, 18, 19, 22), "Probe 3");
 $MyData->setSerieTicks("Probe 2", 4);
 $MyData->setAxisName(0, "Temperatures");
-$MyData->setAxisUnit(0, "°C");
+$MyData->setAxisUnit(0, "ï¿½C");
 $MyData->addPoints(array("Jan", "Feb", "Mar", "Apr", "May", "Jun"), "Labels");
 $MyData->setSerieDescription("Labels", "Months");
 $MyData->setAbscissa("Labels");

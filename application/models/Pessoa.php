@@ -15,7 +15,7 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
     public $numfone = null;
     public $numcelular = null;
     public $desemail = null;
-    public $domcargo = null;
+    //public $domcargo = null;
     public $idcadastrador = null;
     public $versaosistema = null;
     public $id_servidor = null;
@@ -51,6 +51,16 @@ class Default_Model_Pessoa extends App_Model_ModelAbstract
     public function setToken($token)
     {
         $this->token = md5($token);
+    }
+
+    public function getIdcadastrador()
+	{
+        return $this->idcadastrador;
+    }
+
+    public function setIdcadastrador($idcadastrador)
+    {
+        $this->idcadastrador = $idcadastrador;
     }
 
     /**

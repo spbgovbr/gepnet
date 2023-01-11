@@ -20,7 +20,7 @@ class TreeGridDataItem extends GridDataItem
 
     /*! return id of parent record
 
-        @return 
+        @return
             id of parent record
     */
     function get_parent_id()
@@ -30,7 +30,7 @@ class TreeGridDataItem extends GridDataItem
 
     /*! assign image to treegrid's item
         longer description
-        @param img 
+        @param img
             relative path to the image
     */
     function set_image($img)
@@ -40,7 +40,7 @@ class TreeGridDataItem extends GridDataItem
 
     /*! return count of child items
         -1 if there is no info about childs
-        @return 
+        @return
             count of child items
     */
     function has_kids()
@@ -70,16 +70,16 @@ class TreeGridConnector extends GridConnector
     protected $rootId = "0";
 
     /*! constructor
-        
+
         Here initilization of all Masters occurs, execution timer initialized
-        @param res 
+        @param res
             db connection resource
         @param type
             string , which hold type of database ( MySQL or Postgre ), optional, instead of short DB name, full name of DataWrapper-based class can be provided
         @param item_type
             name of class, which will be used for item rendering, optional, DataItem will be used by default
         @param data_type
-            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default.
      *	@param render_type
      *		name of class which will provides data rendering
     */
@@ -133,9 +133,9 @@ class TreeGridDataProcessor extends GridDataProcessor
 
     /*! convert incoming data name to valid db name
         converts c0..cN to valid field names
-        @param data 
+        @param data
             data name from incoming request
-        @return 
+        @return
             related db_name
     */
     function name_data($data)

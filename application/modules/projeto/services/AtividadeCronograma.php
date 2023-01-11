@@ -1326,7 +1326,12 @@ class Projeto_Service_AtividadeCronograma extends App_Service_ServiceAbstract
         return $this->_mapper->retornaEntregasEMarcosPorProjetoRelatorio($params);
     }
 
+     public function fetchPairsProximoMarco($params)
+    {
+        return $this->_mapper->fetchPairsProximoMarco($params);
+    }
 
+    
     public function retornaEntregasEMarcosPorProjeto($params, $parteinteressada = false)
     {
         try {
@@ -2850,24 +2855,30 @@ class Projeto_Service_AtividadeCronograma extends App_Service_ServiceAbstract
         $this->atualizaNumseq($params);
         $servicoGerencia = new Projeto_Service_Gerencia();
         $arrayCronograma['cronograma'] = $this->_mapper->retornaCronogramaByArray($params);
-
+//        Zend_Debug::dump($arrayCronograma['cronograma']);die;
         /**@var Projeto_Model_Gerencia $projeto */
         $projeto = $servicoGerencia->retornaProjetoArrayPorId($params, false);
+
+        $projetoAtualizado = $servicoGerencia->retornaProjetoAtualizado($params,false);
 
         $arrayProjeto = $projeto->toArray();
 
         $datas = $this->_mapper->retornaDataPorProjeto($params);
 
-        $arrayProjeto['nomprojeto'] = $projeto->nomprojeto;
-        $arrayProjeto['nomprojeto'] = $projeto->nomprojeto;
-        $arrayProjeto['datiniciobaseline'] = $datas['datiniciobaseline'];
-        $arrayProjeto['datfimbaseline'] = $datas['datfimbaseline'];
-        $arrayProjeto['datinicioReal'] = $datas['datinicio'];
-        $arrayProjeto['datfimReal'] = $datas['datfim'];
-        $arrayProjeto['vlratividadet'] = (!empty($projeto['vlratividadet']) && $projeto['vlratividadet'] > 0) ? mb_substr($projeto['vlratividadet'],
-                0, -2) . '.' . mb_substr($projeto['vlratividadet'], -2) : number_format(0, 2);
-        $arrayProjeto['numdiasbaseline'] = $datas['numdiasbaseline'];
-        $arrayProjeto['numdiasrealizados'] = $datas['totaldiasrealizados'];
+        $arrayProjeto['nomprojeto']                  =   $projeto->nomprojeto;
+        $arrayProjeto['nomprojeto']                  =   $projeto->nomprojeto;
+        $arrayProjeto['datiniciobaseline']           =   $datas['datiniciobaseline'];
+        $arrayProjeto['datfimbaseline']              =   $datas['datfimbaseline'];
+        $arrayProjeto['datinicioReal']               =   $datas['datinicio'];
+        $arrayProjeto['datfimReal']                  =   $datas['datfim'];
+        $arrayProjeto['vlratividadet']               =   (!empty($projeto['vlratividadet']) &&  $projeto['vlratividadet'] > 0)  ? mb_substr($projeto['vlratividadet'],
+            0, -2) . '.' . mb_substr($projeto['vlratividadet'], -2) : number_format(0, 2);
+        $arrayProjeto['numdiasbaseline']             =   $datas['numdiasbaseline'];
+        $arrayProjeto['numdiasrealizados']           =   $datas['totaldiasrealizados'];
+        $arrayProjeto['numpercentualprevisto']       =   $projetoAtualizado['numpercentualprevisto'];
+        $arrayProjeto['numpercentualconcluido']      =   $projetoAtualizado['numpercentualconcluido'];
+        $arrayProjeto['numpercentualconcluidomarco'] =   $projeto->numpercentualconcluidomarco;
+        
         $arrayCronograma['projeto'] = $arrayProjeto;
 
         return $arrayCronograma;

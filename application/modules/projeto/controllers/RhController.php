@@ -36,7 +36,7 @@ class Projeto_RhController extends Zend_Controller_Action
 
     public function gridRhAction()
     {
-        $service = App_Service_ServiceAbstract::getService('Projeto_Service_ParteInteressada');
+        $service = new Projeto_Service_ParteInteressada();
         $paginator = $service->retornaPartesGrid($this->_request->getParams());
         $this->_helper->json->sendJson($paginator->toJqgrid());
     }

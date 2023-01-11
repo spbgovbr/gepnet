@@ -110,6 +110,8 @@ class App_Acl extends Zend_Acl
             //->allow(null, 'pesquisa:responder') // Libera o acesso externo para responder pesquisas no GEPNET
             //->allow(null, 'cadastro:permissao', 'retorna-por-perfil')
 
+            ->allow(null, 'cadastro:pessoa', 'add')
+
         ;
         if (null == $this->_perfil) {
             return;

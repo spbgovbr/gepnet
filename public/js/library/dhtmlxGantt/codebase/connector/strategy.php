@@ -96,7 +96,7 @@ class RenderStrategy
 
     /*! render from DB resultset
         @param res
-            DB resultset 
+            DB resultset
         process commands, output requested data as XML
     */
     public function render_set($res, $name, $dload, $sep, $config, $mix)
@@ -128,7 +128,7 @@ class JSONRenderStrategy extends RenderStrategy
 
     /*! render from DB resultset
         @param res
-            DB resultset 
+            DB resultset
         process commands, output requested data as json
     */
     public function render_set($res, $name, $dload, $sep, $config, $mix)
@@ -201,7 +201,7 @@ class TreeRenderStrategy extends RenderStrategy
     }
 
     /*! store info about ID changes during insert operation
-        @param dataAction 
+        @param dataAction
             data action object during insert operation
     */
     public function parent_id_correction_a($dataAction)
@@ -210,7 +210,7 @@ class TreeRenderStrategy extends RenderStrategy
     }
 
     /*! update ID if it was affected by previous operation
-        @param dataAction 
+        @param dataAction
             data action object, before any processing operation
     */
     public function parent_id_correction_b($dataAction)
@@ -239,9 +239,9 @@ class JSONTreeRenderStrategy extends TreeRenderStrategy
             $data = $this->complex_mix($mix, $data);
             $data = new $name($data, $config, $index);
             $conn->event->trigger("beforeRender", $data);
-            //there is no info about child elements, 
+            //there is no info about child elements,
             //if we are using dyn. loading - assume that it has,
-            //in normal mode just exec sub-render routine			
+            //in normal mode just exec sub-render routine
             if ($data->has_kids() === -1 && $dload) {
                 $data->set_kids(true);
             }

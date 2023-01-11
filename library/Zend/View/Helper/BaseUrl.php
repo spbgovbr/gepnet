@@ -84,10 +84,10 @@ class Zend_View_Helper_BaseUrl extends Zend_View_Helper_Abstract
             /** @see Zend_Controller_Front */
             require_once 'Zend/Controller/Front.php';
             $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-
+            
             // Remove scriptname, eg. index.php from baseUrl
             $baseUrl = $this->_removeScriptName($baseUrl);
-
+            
             $this->setBaseUrl($baseUrl);
         }
 

@@ -25,11 +25,10 @@ class Default_Model_Mapper_Unidade extends App_Model_Mapper_MapperAbstract
      */
     public function fetchPairs()
     {
-        $sql = "SELECT 
-                    id_unidade, sigla
-                FROM vw_comum_unidade
-                WHERE ativo = true
-                ORDER BY sigla";
+        $sql = "SELECT idsetor, nomsetor 
+        FROM agepnet200.tb_setor 
+        WHERE flaativo = 'S' 
+        ORDER BY nomsetor";
         return $this->_db->fetchPairs($sql);
     }
 

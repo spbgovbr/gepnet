@@ -291,6 +291,9 @@ class Projeto_StatusReportController extends Zend_Controller_Action
         $projeto = $serviceGerencia->retornaProjetoPorId(
             array('idprojeto' => $this->_request->getParam('idprojeto'))
         );
+
+//        $projeto = $serviceStatusReport->retornaProjetoAtualizado(array('idprojeto' => $this->_request->getParam('idprojeto')), false);
+
         $listaAcompanhamentos = $serviceStatusReport->retornaAcompanhamentosPorProjeto(
             array('idprojeto' => $this->_request->getParam('idprojeto')), false
         );

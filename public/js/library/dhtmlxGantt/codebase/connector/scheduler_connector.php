@@ -45,12 +45,12 @@ class SchedulerConnector extends Connector
 {
 
     protected $extra_output = "";//!< extra info which need to be sent to client side
-    protected $options = array();//!< hash of OptionsConnector 
+    protected $options = array();//!< hash of OptionsConnector
 
 
     /*! assign options collection to the column
-        
-        @param name 
+
+        @param name
             name of the column
         @param options
             array or connector object
@@ -69,16 +69,16 @@ class SchedulerConnector extends Connector
 
 
     /*! constructor
-        
+
         Here initilization of all Masters occurs, execution timer initialized
-        @param res 
+        @param res
             db connection resource
         @param type
             string , which hold type of database ( MySQL or Postgre ), optional, instead of short DB name, full name of DataWrapper-based class can be provided
         @param item_type
             name of class, which will be used for item rendering, optional, DataItem will be used by default
         @param data_type
-            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default.
      * @param render_type
             name of class which will be used for rendering.
     */
@@ -174,16 +174,16 @@ class JSONSchedulerConnector extends SchedulerConnector
     protected $live_update_data_type = "JSONDataUpdate";
 
     /*! constructor
-        
+
         Here initilization of all Masters occurs, execution timer initialized
-        @param res 
+        @param res
             db connection resource
         @param type
             string , which hold type of database ( MySQL or Postgre ), optional, instead of short DB name, full name of DataWrapper-based class can be provided
         @param item_type
             name of class, which will be used for item rendering, optional, DataItem will be used by default
         @param data_type
-            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default. 
+            name of class which will be used for dataprocessor calls handling, optional, DataProcessor class will be used by default.
     */
     public function __construct($res, $type = false, $item_type = false, $data_type = false, $render_type = false)
     {
@@ -216,8 +216,8 @@ class JSONSchedulerConnector extends SchedulerConnector
     }
 
     /*! assign options collection to the column
-        
-        @param name 
+
+        @param name
             name of the column
         @param options
             array or connector object
@@ -236,8 +236,8 @@ class JSONSchedulerConnector extends SchedulerConnector
 
 
     /*! generates xml description for options collections
-        
-        @param list 
+
+        @param list
             comma separated list of column names, for which options need to be generated
     */
     protected function fill_collections($list = "")
@@ -261,7 +261,7 @@ class JSONSchedulerConnector extends SchedulerConnector
 
     /*! output fetched data as XML
         @param res
-            DB resultset 
+            DB resultset
     */
     protected function output_as_xml($res)
     {

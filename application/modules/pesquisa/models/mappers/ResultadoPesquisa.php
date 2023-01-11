@@ -126,8 +126,8 @@ class Pesquisa_Model_Mapper_ResultadoPesquisa extends App_Model_Mapper_MapperAbs
                                                 AND trtp.desresposta IS NOT NULL)
                                             )                                    
                                     AND trtp.idresultado = :idresultado
-                    LEFT JOIN agepnet200.tb_pessoa tpes ON tpes.numcpf = :cpf 
-                    LEFT JOIN public.vw_comum_pessoa vwcp on vwcp.cpf_cnpj = :cpf
+                    LEFT JOIN agepnet200.tb_pessoa tpes ON tpes.numcpf IN(:cpf)
+                    LEFT JOIN public.vw_comum_pessoa vwcp on vwcp.cpf_cnpj IN(:cpf)
                 WHERE tp.idpesquisa = :idpesquisa
                 ORDER BY tqfp.numordempergunta, tqfp.idfrasepesquisa, trp.numordem ';
 

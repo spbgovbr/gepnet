@@ -634,7 +634,7 @@
         },
 
         /* Pop-up the date picker for a given input field.
-           If false returned from beforeShow event handler do not show. 
+           If false returned from beforeShow event handler do not show.
            @param  input  element - the input field attached to the date picker or
                           event - if triggered by focus */
         _showDatepicker: function (input) {
@@ -750,7 +750,7 @@
                 // this breaks the change event in IE
                 inst.input.is(':visible') && !inst.input.is(':disabled') && inst.input[0] != document.activeElement)
                 inst.input.focus();
-            // deffered render of the years select (to avoid flashes on Firefox) 
+            // deffered render of the years select (to avoid flashes on Firefox)
             if (inst.yearshtml) {
                 var origyearshtml = inst.yearshtml;
                 setTimeout(function () {
@@ -988,7 +988,7 @@
 
         /* Parse a string value into a date object.
            See formatDate below for the possible formats.
-    
+
            @param  format    string - the expected format of the date
            @param  value     string - the date in the above format
            @param  settings  Object - attributes include:
@@ -1171,7 +1171,7 @@
            ! - Windows ticks (100ns since 01/01/0001)
            '...' - literal text
            '' - single quote
-    
+
            @param  format    string - the desired format of the date
            @param  date      Date - the date value to format
            @param  settings  Object - attributes include:

@@ -80,7 +80,7 @@
                         // increment count
                         that.count += 1;
                         that._updateCount();
-                        // workaround, because there's no way to reference 
+                        // workaround, because there's no way to reference
                         // the new element, see http://dev.jqueryui.com/ticket/4303
                         that.selectedList.children('.ui-draggable').each(function () {
                             $(this).removeClass('ui-draggable');

@@ -82,20 +82,25 @@ $this->headScript()
                         <?php echo $this->diagnostico->dtencerramento->toString('d/m/Y'); ?>
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="portlet portlet-verde span3">
                     <h3>Chefe da Unidade Diagnosticada</h3>
+
                     <div class="content">
                         <?php echo $this->diagnostico->chefedaunidade; ?>
                     </div>
                 </div>
                 <div class="portlet portlet-verde span3">
                     <h3>Ponto Focal da Unidade Diagnosticada</h3>
+
                     <div class="content">
                         <?php echo $this->diagnostico->pontofocal; ?>
                     </div>
                 </div>
                 <div class="portlet portlet-verde span3">
                     <h3>Equipe do Diagnóstico</h3>
+
                     <div class="content">
                         <?php echo $this->diagnostico->pessoasequipe; ?>
                     </div>

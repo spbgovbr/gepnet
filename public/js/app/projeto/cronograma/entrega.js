@@ -4,7 +4,7 @@ CRONOGRAMA.entrega = (function ($) {
 
     vSalvar = true;
     vExcluir = true;
-    o.msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+    o.msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
     o.msgerroacesso = 'Acesso negado para essa ação';
     o.formEntrega = "form#ac-entrega";
     o.formEntregaExcluir = "form#ac-entrega-excluir";

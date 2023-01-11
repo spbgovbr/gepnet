@@ -1,7 +1,4 @@
 <?php
-$offset = 60 * 15;
-@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
-@header("Cache-Control: max-age=$offset, must-revalidate");
 
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))

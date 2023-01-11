@@ -4,7 +4,7 @@ $(function () {
         colModel = null,
         colNames = null,
         idprojetoorigem = $("#idprojetoorigem").val(),
-        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).',
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).',
         actions = {
             pesquisar: {
                 form: $("form#form-pesquisar"),

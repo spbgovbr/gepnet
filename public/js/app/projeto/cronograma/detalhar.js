@@ -27,7 +27,7 @@ var CRONOGRAMA = (function ($, Handlebars) {
     cron.tplAtividade = null;
     cron.tplMarco = null;
     cron.nav = [];
-    cron.msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+    cron.msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
 
     cron.retornaProjeto = function () {
         var idprojeto = $(".idprojeto").attr('id');

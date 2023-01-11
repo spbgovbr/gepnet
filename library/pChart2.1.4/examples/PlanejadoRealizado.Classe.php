@@ -343,7 +343,7 @@ $EndRValue = 255;
 $EndGValue = 255;
 $EndBValue = 255;
 $AlphaGValue = 50;
-$TxtTitle = "% Concluído ( Planejado x Realizado)";
+$TxtTitle = "% Concluï¿½do ( Planejado x Realizado)";
 $PosXTitle = 120;
 $PosYTitle = 5;
 

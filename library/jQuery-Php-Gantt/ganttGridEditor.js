@@ -308,7 +308,7 @@ GridEditor.prototype.bindRowInputEvents = function (task, taskRow) {
      for (var i=0;i<descs.length;i++)
      descs[i].rowElement.hide();
      }
-  
+
      });*/
 
     //bind row selection

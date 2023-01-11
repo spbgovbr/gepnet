@@ -44,7 +44,7 @@ CRONOGRAMA.atividade = (function ($, Handlebars, Intervalo) {
         var o = {};
         vSalvar = true;
         vAtualizar = false;
-        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
         msgerroacesso = 'Acesso negado para essa ação';
         o.$dialogAtividade = null;
         o.$dialogAtividadeExcluir = null;
@@ -993,9 +993,6 @@ CRONOGRAMA.atividade = (function ($, Handlebars, Intervalo) {
             valorDominio = parseInt($('select#domtipoatividade option:selected').val()),
                 valorDominio2 = parseInt($('#domtipoatividade').val()),
                 MARCO = parseInt(4);
-
-            console.log(valorDominio);
-            console.log(valorDominio2);
 
             if ((valorDominio == MARCO) || (valorDominio2 == MARCO)) {
                 valorDominio = 4;

@@ -9,7 +9,7 @@ $(function () {
         colModel = null,
         colNames = null,
         msgerroacesso = 'Acesso negado para essa ação.',
-        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
     colNames = ['Data Ata', 'Assunto', 'Local', 'Usuário', 'Opera&ccedil;&otilde;es'];//, 'Participantes', 'Pontos Discutidos', 'Decis&otilde;es', 'Opera&ccedil;&otilde;es'];
     colModel = [{
         name: 'datata',

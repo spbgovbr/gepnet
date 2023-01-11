@@ -731,19 +731,19 @@
 
         _contactContainers: function (event) {
 
-            // get innermost container that intersects with item 
+            // get innermost container that intersects with item
             var innermostContainer = null, innermostIndex = null;
 
 
             for (var i = this.containers.length - 1; i >= 0; i--) {
 
-                // never consider a container that's located within the item itself 
+                // never consider a container that's located within the item itself
                 if ($.ui.contains(this.currentItem[0], this.containers[i].element[0]))
                     continue;
 
                 if (this._intersectsWith(this.containers[i].containerCache)) {
 
-                    // if we've already found a container and it's more "inner" than this, then continue 
+                    // if we've already found a container and it's more "inner" than this, then continue
                     if (innermostContainer && $.ui.contains(this.containers[i].element[0], innermostContainer.element[0]))
                         continue;
 
@@ -751,7 +751,7 @@
                     innermostIndex = i;
 
                 } else {
-                    // container doesn't intersect. trigger "out" event if necessary 
+                    // container doesn't intersect. trigger "out" event if necessary
                     if (this.containers[i].containerCache.over) {
                         this.containers[i]._trigger("out", event, this._uiHash(this));
                         this.containers[i].containerCache.over = 0;
@@ -760,7 +760,7 @@
 
             }
 
-            // if no intersecting containers found, return 
+            // if no intersecting containers found, return
             if (!innermostContainer) return;
 
             // move the item into the container if it's not there already

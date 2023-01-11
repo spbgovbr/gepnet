@@ -30,9 +30,8 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
             $model->dataprovacao = null;
             $model->flaaprovado = 2;
         }
-        if ($model->idmarco == '1') {
-            $model->datcadastro = date('Y-m-d');
-        }
+        $model->datcadastro = date('Y-m-d');
+
 
         $data = array(
             "idstatusreport" => $model->idstatusreport,
@@ -44,7 +43,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
             "desatividadeandamento" => $model->desatividadeandamento,
             "desmotivoatraso" => $model->desmotivoatraso,
             "desirregularidade" => $model->desirregularidade,
-            "idmarco" => (int)$model->idmarco,
+            "idmarco" => (isset($model->idmarco) && !empty($model->idmarco)) ? (int)$model->idmarco : null,
             "datfimprojetotendencia" => $model->datfimprojetotendencia->toString('Y-m-d'),
             "idcadastrador" => $model->idcadastrador,
             "datcadastro" => date('Y-m-d'),
@@ -65,7 +64,13 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
         );
 
         $arrayFilter = array_filter($data);
+
+        if(!isset($model->idmarco) && empty($model->idmarco)) { $arrayFilter['idmarco'] = null;}
+
+        if($model->diaatraso == "0"){$arrayFilter['diaatraso'] = 0;}
+
         try {
+
             $retorno = $this->getDbTable()->insert($arrayFilter);
             return $model;
         } catch (Exception $exc) {
@@ -318,14 +323,15 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
         return $resultado;
     }
 
-    public function retornaMarcoConcluidoProjetoByStatusReport($params){
+    public function retornaMarcoConcluidoProjetoByStatusReport($params)
+    {
         $sql = "SELECT ROUND(COALESCE(str.numpercentualconcluidomarco,0),0)	AS numpercentualconcluidomarco
                   FROM agepnet200.tb_statusreport str
                  WHERE str.idprojeto = :idprojeto AND str.idstatusreport = :idstatusreport";
 
-        $resultado = $this->_db->fetchRow($sql,array(
-                'idprojeto'      => $params['idprojeto'],
-                'idstatusreport' => $params['idstatusreport'],
+        $resultado = $this->_db->fetchRow($sql, array(
+            'idprojeto' => $params['idprojeto'],
+            'idstatusreport' => $params['idstatusreport'],
         ));
         return $resultado;
     }
@@ -356,9 +362,7 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
                     sr.numpercentualconcluidomarco,
                     sr.diaatraso,
                     sr.domcoratraso,
-                    sr.numpercentualconcluidomarco,
-                    sr.diaatraso,
-                    sr.domcoratraso,
+                    sr.numpercentualconcluidomarco,                    
                     sr.numcriteriofarol,
                     sr.datfimprojeto
                 FROM 
@@ -674,4 +678,93 @@ class Projeto_Model_Mapper_Statusreport extends App_Model_Mapper_MapperAbstract
         $resultado = $this->_db->fetchRow($sql);
         return $resultado['pgpassinado'] ?: 'N';
     }
+
+    public function retornaProjetoAtualizado($params, $model=false)
+    {
+        $sql = "SELECT p.nomcodigo,
+                       p.nomsigla,
+                       p.nomprojeto,
+                       p.idsetor,
+                       s.nomsetor,
+                       p.idgerenteprojeto,
+                       gp.nompessoa as nomgerenteprojeto,
+                       p.idgerenteadjunto,
+                       gp.nompessoa as nomgerenteadjunto,
+                       p.desprojeto,
+                       p.desobjetivo,
+                       TO_CHAR(p.datinicio,'DD/MM/YYYY') as datinicio,
+                       TO_CHAR(p.datfim,'DD/MM/YYYY') as datfim,
+                       p.numperiodicidadeatualizacao,
+                       p.numcriteriofarol,
+                       p.idcadastrador,
+                       TO_CHAR(p.datcadastro,'DD/MM/YYYY') as datcadastro,
+                       p.domtipoprojeto,
+                       p.flapublicado,
+                       CASE WHEN p.flapublicado='S' THEN 'SIM' ELSE 'NÃO' AS dsflapublicado,
+                       p.flaaprovado,
+                       CASE WHEN p.flaaprovado='S' THEN 'SIM' ELSE 'NÃO' AS dsflaaprovado,
+                       p.desresultadosobtidos,
+                       p.despontosfortes,
+                       p.despontosfracos,
+                       p.dessugestoes,
+                       p.idescritorio,
+                       p.flaaltagestao,
+                       CASE WHEN p.flaaltagestao='S' THEN 'SIM' ELSE 'NÃO' AS dsflaaltagestao,
+                       p.idobjetivo,
+                       p.idacao,
+                       p.flacopa,
+                       CASE WHEN p.flacopa='S' THEN 'SIM' ELSE 'NÃO' AS dsflacopa,
+                       p.idnatureza,
+                       p.vlrorcamentodisponivel,
+                       p.desjustificativa,
+                       p.iddemandante,
+                       dm.nompessoa as nomdemandante,
+                       p.idpatrocinador,
+                       pt.nompessoa as nompatrocinador,
+                       TO_CHAR(p.datinicioplano,'DD/MM/YYYY') as datinicioplano,
+                       TO_CHAR(p.datfimplano,'DD/MM/YYYY') as datfimplano,
+                       p.desescopo,
+                       p.desnaoescopo,
+                       p.despremissa,
+                       p.desrestricao,
+                       p.numseqprojeto,
+                       p.numanoprojeto,
+                       p.desconsideracaofinal,
+                       p.datenviouemailatualizacao,
+                       p.idprograma,
+                       p.nomproponente,
+                       p.domstatusprojeto,
+                       p.ano,
+                       p.idportfolio,
+                       p.idtipoiniciativa,
+                       p.numpercentualconcluido,
+                       p.numpercentualprevisto,
+                       p.numprocessosei,
+                       p.atraso,
+                       p.numpercentualconcluidomarco,
+                       p.domcoratraso,
+                       p.qtdeatividadeiniciada,
+                       p.numpercentualiniciado,
+                       p.qtdeatividadenaoiniciada,
+                       p.numpercentualnaoiniciado,
+                       p.qtdeatividadeconcluida,
+                       p.numpercentualatividadeconcluido
+                  FROM agepnet200.tb_projeto p
+                  JOIN agepnet200.tb_pessoa gp ON gp.idpessoa = p.idgerenteprojeto
+                  JOIN agepnet200.tb_pessoa ga ON ga.idpessoa = p.idgerenteadjunto
+                  JOIN agepnet200.tb_pessoa dm ON dm.idpessoa = p.iddemandante
+                  JOIN agepnet200.tb_pessoa pt ON pt.idpessoa = p.idpatrocinador
+                  JOIN agepnet200.tb_setor s   ON s.idsetor = p.idsetor
+                 WHERE idprojeto =:idprojeto";
+
+        $resultado = $this->_db->fetchRow($sql, array('idprojeto' => $params['idprojeto']));
+
+        if($model) {
+            return Projeto_Model_Projeto($resultado);
+        }
+        return $resultado;
+    }
+
+
+
 }

@@ -98,7 +98,12 @@ $(document).ready(function () {
                 data: param,
                 success: function (data) {
                     if (data.msg.type == 'success') {
-                        $.pnotify(data.msg.text);
+                        $.pnotify({
+                            text: data.msg.text,
+                            type: 'success',
+                            hide: false
+                        });
+
                         setTimeout(function () {
                             window.location.href =
                                 window.location.href = base_url + "/diagnostico/diagnostico/detalhar/iddiagnostico/" + data.msg.iddiagnostico;
@@ -106,7 +111,11 @@ $(document).ready(function () {
 
 
                     } else {
-                        $.pnotify(data.msg.text);
+                        $.pnotify({
+                            text: data.msg.text,
+                            type: 'warnig',
+                            hide: false
+                        });
                     }
                 },
                 error: function () {
@@ -123,6 +132,10 @@ $(document).ready(function () {
             return false;
         }
 
+    });
+
+    $("body").on("click", "#cancelButton", function () {
+        window.location.href = base_url + "/diagnostico/diagnostico/clonar";
     });
 
     $(".pessoa-button").on('click', function (event) {
@@ -164,6 +177,30 @@ $(document).ready(function () {
 
     var valor = $("#idunidadeprincipal").val();
     $("#idunidadeprincipal option[value=" + valor + "]").attr("selected", "selected");
+
+    $('#idunidadeprincipal').change(function () {
+        var numeroGerado = $("#numeroGerado").val();
+
+        if ($(this).val().length > 0) {
+            //$('#msgUnidade').empty();
+
+            $('#msnchk').empty();
+            $("#grid-unidade").load(base_url + "/diagnostico/diagnostico/unidades-filhas/id/" + $(this).val());
+
+            var novoNome = $('#numeroGerado').val() + " - " + $('select#idunidadeprincipal > option:selected').text();
+            $('#dsdiagnostico').removeAttr('readonly');
+            $('#dsdiagnostico').val("");
+            $('#dsdiagnostico').val(novoNome);
+            $('#dsdiagnostico').attr('readonly', true);
+
+        } else {
+            $('#dsdiagnostico').removeAttr('readonly');
+            $('#dsdiagnostico').val("");
+            $('#dsdiagnostico').attr('readonly', true);
+            //$('#msgUnidade').empty();
+        }
+    });
+
 });
 
     

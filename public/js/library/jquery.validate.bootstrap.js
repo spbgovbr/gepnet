@@ -103,7 +103,7 @@ function enviar_ajax(url, form, callback) {
         error: function () {
             $.pnotify({
                 //text: 'Falha ao enviar a requisição 4444',
-                text: 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).',
+                text: 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).',
                 type: 'error',
                 hide: false
             });

@@ -33,9 +33,9 @@
     # only 'uncompress' function is featured lower as JavaScript
     # if you want to unit test "roundtrip", just transcribe the reference
     # 'compress' function from Python into JavaScript
-    
+
     def compress(data):
-    
+
         keys =   '0123456789abcdef'
         values = 'klmnopqrstuvwxyz'
         mapping = dict(zip(keys, values))
@@ -48,7 +48,7 @@
             except:
                 keystring = key.join(["'","'"])
                 #print('Keystring is %s' % keystring)
-    
+
             try:
                 if value < 0:
                     valuestring = hex(value)[3:]
@@ -62,41 +62,41 @@
                     valuestring = compress(value)
                 else:
                     raise Exception("Don't know what to do with value type %s" % type(value))
-    
+
             vals.append(keystring+valuestring)
-        
+
         return '{' + ''.join(vals) + '}'
-    
+
     def uncompress(data):
-    
+
         decoded = '0123456789abcdef'
         encoded = 'klmnopqrstuvwxyz'
         mapping = dict(zip(encoded, decoded))
-    
+
         sign = +1
         stringmode = False
         stringparts = []
-    
+
         output = {}
-    
+
         activeobject = output
         parentchain = []
-    
+
         keyparts = ''
         valueparts = ''
-    
+
         key = None
-    
+
         ending = set(encoded)
-    
+
         i = 1
         l = len(data) - 1 # stripping starting, ending {}
         while i != l: # stripping {}
             # -, {, }, ' are special.
-    
+
             ch = data[i]
             i += 1
-    
+
             if ch == "'":
                 if stringmode:
                     # end of string mode
@@ -109,7 +109,7 @@
             elif stringmode == True:
                 #print("Adding %s to stringpart" % ch)
                 stringparts.append(ch)
-    
+
             elif ch == '{':
                 # start of object
                 parentchain.append( [activeobject, key] )
@@ -123,7 +123,7 @@
                 key = None
                 activeobject = parent
                 #DEBUG = False
-    
+
             elif ch == '-':
                 sign = -1
             else:
@@ -149,11 +149,11 @@
                         valueparts = ''
                     else:
                         valueparts += ch
-    
+
                 #debug(activeobject)
-    
+
         return output
-    
+
     */
 
     /**

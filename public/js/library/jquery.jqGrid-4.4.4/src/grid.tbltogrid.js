@@ -93,7 +93,7 @@ function tableToGrid(selector, options) {
                 id = rowIds[a];
                 if (id && id.replace) {
                     // We have to do this since the value of a checkbox
-                    // or radio button can be anything 
+                    // or radio button can be anything
                     id = encodeURIComponent(id).replace(/[.\-%]/g, "_");
                 }
             }

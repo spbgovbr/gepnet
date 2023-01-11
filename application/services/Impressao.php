@@ -72,8 +72,8 @@ class Default_Service_Impressao extends App_Service_ServiceAbstract
         }
 //      $this->mpdf->SetHTMLHeader($this->header);
 //      $this->mpdf->SetHTMLFooter($this->footer);
-        $project = Zend_Registry::get('config')->project;
-        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">' . $project->sigla . ' - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+
+        $this->mpdf->SetHTMLFooter('<div align="center" style="font-size: 12px;">PF - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
             . 'Página {PAGENO} de {nbpg}</div>');
 
         if ($orientation == "L") {
@@ -106,9 +106,8 @@ class Default_Service_Impressao extends App_Service_ServiceAbstract
     function insertFooter($mFooter = "html", $vFooter = "")
     {
         if ($mFooter == "html") {
-            $project = Zend_Registry::get('config')->project;
             $this->mpdf->SetHTMLFooter(($vFooter == ""
-                ? '<div align="center" style="font-size: 12px;">' . $project->sigla . ' - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                ? '<div align="center" style="font-size: 12px;">PF - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
                 . 'Página {PAGENO} de {nbpg}</div>'
                 : $vFooter));
         } else {
@@ -121,9 +120,8 @@ class Default_Service_Impressao extends App_Service_ServiceAbstract
     function insertHeader($mHeader = "html", $vHeader = "")
     {
         if ($mHeader == "html") {
-            $project = projectZend_Registry::get('config')->project;
             $this->mpdf->SetHTMLHeader(($vHeader == ""
-                ? '<div align="center" style="font-size: 12px;">' . $project->sigla .' - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+                ? '<div align="center" style="font-size: 12px;">PF - {DATE d/m/Y H:i} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
                 . 'Página {PAGENO} de {nbpg}</div>'
                 : $vHeader));
         } else {

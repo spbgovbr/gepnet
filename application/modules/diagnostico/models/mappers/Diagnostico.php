@@ -23,8 +23,8 @@ class Diagnostico_Model_Mapper_Diagnostico extends App_Model_Mapper_MapperAbstra
                 "iddiagnostico" => $model->iddiagnostico,
                 "dsdiagnostico" => $model->dsdiagnostico,
                 "idunidadeprincipal" => $model->idunidadeprincipal,
-                "dtinicio" => new Zend_Db_Expr("to_date('" . $model->dtinicio->toString('d-m-Y') . "','DD/MM/YYYY')"),
-                "dtencerramento" => new Zend_Db_Expr("to_date('" . $model->dtencerramento->toString('d-m-Y') . "','DD/MM/YYYY')"),
+                "dtinicio" => (isset($model->dtinicio) && (!empty($model->dtinicio))) ? new Zend_Db_Expr("to_date('" . $model->dtinicio->toString('Y-m-d') . "','YYYY-MM-DD')") : null,
+                "dtencerramento" => (isset($model->dtencerramento) && (!empty($model->dtencerramento))) ? new Zend_Db_Expr("to_date('" . $model->dtencerramento->toString('Y-m-d') . "','YYYY-MM-DD')") : null,
                 "idcadastrador" => $model->idcadastrador,
                 "dtcadastro" => new Zend_Db_Expr("now()"),
                 "ano" => $model->ano,
@@ -76,11 +76,11 @@ class Diagnostico_Model_Mapper_Diagnostico extends App_Model_Mapper_MapperAbstra
         return $dataInvertida;
     }
 
-    public function getForm()
-    {
-        return $this->_getForm(Diagnostico_Form_Diagnostico);
-    }
-
+    /**
+     * Retornar o diagnostico por id
+     * @param $params
+     * @return Diagnostico_Model_Diagnostico
+     */
     public function getById($params)
     {
         $sql = "SELECT d.iddiagnostico,d.dtinicio,d.dtencerramento, d.dsdiagnostico, d.idunidadeprincipal,
@@ -166,20 +166,20 @@ class Diagnostico_Model_Mapper_Diagnostico extends App_Model_Mapper_MapperAbstra
         $params = array_filter($params);
         $sql = "SELECT  dsdiagnostico, 
                         (SELECT sigla 
-                           FROM vw_comum_unidade 
-                          WHERE id_unidade = idunidadeprincipal) AS sigla, 
+                        FROM   vw_comum_unidade 
+                        WHERE  id_unidade = idunidadeprincipal) AS sigla, 
                         To_char(dtinicio, 'DD/MM/YYYY')           dtinicio, 
                         To_char(dtencerramento, 'DD/MM/YYYY')     dtencerramento, 
                         d.iddiagnostico, 
                         (SELECT unidade_responsavel 
-                           FROM vw_comum_unidade 
-                          WHERE id_unidade = idunidadeprincipal) AS idunidadeprincipal,
+                        FROM   vw_comum_unidade 
+                        WHERE  id_unidade = idunidadeprincipal) AS idunidadeprincipal,
                         d.ativo
-                   FROM agepnet200.tb_diagnostico d 
-                   LEFT JOIN vw_comum_unidade vw 
-                     ON vw.id_unidade = unidade_responsavel 
-                  WHERE 1 = 1 
-                    AND d.ativo <> false  ";
+                FROM   agepnet200.tb_diagnostico d 
+                        INNER JOIN vw_comum_unidade vw 
+                                ON vw.id_unidade = unidade_responsavel 
+                WHERE 1 = 1 
+                AND d.ativo <> false  ";
 
         $params = array_filter($params);
         if (isset($params['dsdiagnostico']) && (!empty($params['dsdiagnostico']))) {
@@ -345,6 +345,11 @@ class Diagnostico_Model_Mapper_Diagnostico extends App_Model_Mapper_MapperAbstra
         return $this->_db->fetchPairs($sql);
     }
 
+    /**
+     * Retorna a sigla da unidade
+     * @param $idUnidade
+     * @return mixed
+     */
     public function getNomeUnidade($idUnidade)
     {
         $sql = "SELECT sigla
@@ -353,11 +358,36 @@ class Diagnostico_Model_Mapper_Diagnostico extends App_Model_Mapper_MapperAbstra
         return $this->_db->fetchRow($sql);
     }
 
+    /**
+     * Retorna a proxima sequencia da chave
+     * @return mixed
+     */
     public function getSequenceDiagnostico()
     {
         $sql = "SELECT nextval('agepnet200.sq_diagnostico')";
         return $this->_db->fetchRow($sql);
     }
 
+    /**
+     * Retorna os dados do diagnostico.
+     * @param $params
+     * @return mixed
+     */
+    public function getDadosDiagnostico($params)
+    {
+        $sql = "SELECT
+                      (
+                        SELECT sigla
+                        FROM   vw_comum_unidade
+                        WHERE  id_unidade = idunidadeprincipal
+                      ) AS siglaUnidadePrincipal,
+                      idunidadeprincipal,
+                      dsdiagnostico
+            FROM agepnet200.tb_diagnostico
+            WHERE iddiagnostico = :iddiagnostico";
+        return $this->_db->fetchRow($sql, array(
+            'iddiagnostico' => $params['iddiagnostico']
+        ));
+    }
 
 }

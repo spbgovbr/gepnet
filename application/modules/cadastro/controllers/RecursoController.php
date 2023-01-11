@@ -21,6 +21,7 @@ class Cadastro_RecursoController extends Zend_Controller_Action
     {
         $service = new Default_Service_Recurso();
         $this->view->dados = $service->retornaNaoCadastrados();
+        //$this->view->form  = $service->getFormPerfil();
     }
 
     public function gerenciarAction()

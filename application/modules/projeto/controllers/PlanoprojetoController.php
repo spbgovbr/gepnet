@@ -51,16 +51,16 @@ class Projeto_PlanoprojetoController extends Zend_Controller_Action
         $this->view->comunica = $retornaComunica;
         $this->view->risco = $matrizRisco;
         $arrayCronograma = $serviceCron->retornaCronogramaByArray($this->_request->getParams());
-        $projeto['pdf'] = true;
         $projeto = $arrayCronograma['projeto'];
         $arrayCronograma = $arrayCronograma['cronograma'];
-        $linhaResumo = $projeto;
+        $linhaResumo = $arrayCronograma['projeto'];
         $numSeiFormatado = (string)new App_Mask_NumeroSei($projeto['numprocessosei']);
         $descricaProjeto = mb_substr($linhaResumo['nomcodigo'] . ' - ' . $linhaResumo['nomprojeto'], 0, 50, 'UTF-8') . '...';
         $custo = (!empty($projeto['vlratividadet']) && $projeto['vlratividadet'] > 0) ? mb_substr($projeto['vlratividadet'],
                 0, -2) . '.' . mb_substr($projeto['vlratividadet'], -2) : number_format(0, 2);
         $diasreal = $projeto['numdiasrealizados'];
         $descriaoPrazoProjeto = $projeto['descricaoPrazo'];
+        $projeto['pdf'] = true;
 
         $diasFarol = $projeto['prazoEmDias'];
         $eap = $serviceEap->montaEAP($this->_request->getParams());
@@ -90,9 +90,10 @@ class Projeto_PlanoprojetoController extends Zend_Controller_Action
         //$dicionario_eap = $this->view->render('/_partials/plano-eap-dicionario.phtml');
         $cronograma = $this->view->render('/_partials/cron-imprimir-pdf.phtml');
         $planos_aprovacao = $this->view->render('/_partials/plano-aprovacao.phtml');
-        $this->_helper->layout->disableLayout();
+        $this->_helper->layout->disableLayout();    
 
         $this->mpdf = new App_Service_MPDF('UTF-8', 'A4-L', '', '', 15, 15, 15, 25, 10, 15, '');
+//        $this->mpdf->showImageErrors = TRUE;
         $this->mpdf->AddPage('L', '', '', '', '', 15, 15, 15, 20, 15, 15);
         $this->mpdf->setFooter('{DATE j/m/Y} - Pág. {PAGENO}/{nb}');
 

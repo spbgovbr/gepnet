@@ -47,15 +47,12 @@ class Projeto_Service_Assinadocumento extends App_Service_ServiceAbstract
      */
     public function autenticar($pessoa)
     {
-        $serviceLogin = new Default_Service_login();
-        $result = false;
-        $dadosLDAP = array(
-            'cpf' => $pessoa['numcpf'],
-            'password' => $pessoa['token']
+        $params = array(
+            'cpf' => preg_replace('#[^0-9]#', '', $pessoa['numcpf']),
+            'token' => md5($pessoa['token'])
         );
 
-        $result = $serviceLogin->autenticarUsuarioLDAP($dadosLDAP);
-
+        $result = $this->_mapper->validarAutenticacao($params);
         return $result;
 
     }

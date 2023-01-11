@@ -96,7 +96,7 @@ class Default_Service_Acao extends App_Service_ServiceAbstract
             }
 
             $programa2 = $this->getByName(array('nomprograma' => $form->getValue('nomprograma')));
-            //Zend_Debug::dump($escritorio2); exit;	
+            //Zend_Debug::dump($escritorio2); exit;
             //sendo igual não permite update
             if (count($programa2) > 0) {
                 $this->errors[] = "Um registro com o nome {$form->getValue('nomprograma')} já existe no banco de dados.";

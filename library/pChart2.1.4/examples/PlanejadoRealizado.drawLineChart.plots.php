@@ -61,7 +61,7 @@ $myPicture->drawRectangle(1, 1, 468, 194, array("R" => 0, "G" => 0, "B" => 0));
 /* Write the chart title */
 $myPicture->setFontProperties(array("FontName" => "../fonts/Forgotte.ttf", "FontSize" => 14));
 $TextSettings = array("Align" => TEXT_ALIGN_TOPMIDDLE, "R" => 0, "G" => 0, "B" => 0);
-$myPicture->drawText(120, 5, "% Concluído ( Planejado x Realizado)", $TextSettings);
+$myPicture->drawText(120, 5, "% Concluï¿½do ( Planejado x Realizado)", $TextSettings);
 
 $myPicture->setShadow(false);
 

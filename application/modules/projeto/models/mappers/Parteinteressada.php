@@ -807,9 +807,7 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
                   JOIN agepnet200.tb_parteinteressadafuncao pif
                     ON pif.idparteinteressadafuncao = piff.idparteinteressadafuncao
                   JOIN agepnet200.tb_parteinteressada_funcoes pifv
-                    ON pifv.idparteinteressada = pin.idparteinteressada
-                  JOIN agepnet200.tb_pessoa pes 
-                    ON pin.idpessoainterna = pes.idpessoa 
+                    ON pifv.idparteinteressada = pin.idparteinteressada                  
                  WHERE pin.idparteinteressada = :idparteinteressada 
                    AND pin.status = TRUE
                  GROUP BY pin.nomparteinteressada, 
@@ -944,34 +942,46 @@ class Projeto_Model_Mapper_Parteinteressada extends App_Model_Mapper_MapperAbstr
     public function retornaPartes($params, $model = false)
     {
 
-        $sql = "SELECT pi.idprojeto,
-                       pi.idpessoainterna,
-                       pi.nomparteinteressada,
-                       pi.idcadastrador,
-                       to_char(pi.datcadastro, 'DD/MM/YYYY') AS datcadastro,
-                       pi.desemail,
-                       pi.destelefone,
-                       pi.domnivelinfluencia,
-                       (SELECT ARRAY_TO_STRING(ARRAY_AGG(pf.nomfuncao),', ','') AS nomfuncao
-                          FROM agepnet200.tb_parteinteressada_funcoes f 
-                        INNER JOIN agepnet200.tb_parteinteressadafuncao pf
-                                ON pf.idparteinteressadafuncao = f.idparteinteressadafuncao
-                         WHERE f.idparteinteressada = pi.idparteinteressada
-                       ) AS nomfuncao,
-                       pi.observacao,
-                       pi.idparteinteressada
-                  FROM agepnet200.tb_parteinteressada pi                
-                 WHERE pi.idprojeto = :idprojeto::INTEGER 
-                   AND pi.status = TRUE ";
-
+        $sql = "SELECT pin.idprojeto, 
+                       pin.idpessoainterna, 
+                       pin.nomparteinteressada, 
+                       pin.idcadastrador, 
+                       to_char(pin.datcadastro, 'DD/MM/YYYY') AS datcadastro, 
+                       pin.desemail, 
+                       pin.destelefone, 
+                       pin.domnivelinfluencia,
+                       ARRAY_TO_STRING(ARRAY_AGG(DISTINCT pif.nomfuncao), ', ', '') AS nomfuncao,	
+                       pin.observacao,
+                       pin.idparteinteressada
+                  FROM agepnet200.tb_parteinteressada pin  
+                  JOIN agepnet200.tb_projeto p 
+                    ON p.idprojeto = pin.idprojeto
+                  JOIN agepnet200.tb_parteinteressada_funcoes piff
+                    ON piff.idparteinteressada = pin.idparteinteressada
+                  JOIN agepnet200.tb_parteinteressadafuncao pif
+                    ON pif.idparteinteressadafuncao = piff.idparteinteressadafuncao
+                  LEFT JOIN agepnet200.tb_pessoa pes 
+                    ON pin.idpessoainterna = pes.idpessoa 
+                 WHERE pin.idprojeto = :idprojeto::INTEGER 
+                   AND pin.status = TRUE ";               
+        
         if (isset($params['nomparteinteressadapesquisar']) && (!empty($params['nomparteinteressadapesquisar']))) {
-            $sql .= "AND UPPER(pi.nomparteinteressada) ILIKE '%{$params['nomparteinteressadapesquisar']}%' ";
+            $sql .= "AND UPPER(pin.nomparteinteressada) ILIKE '%{$params['nomparteinteressadapesquisar']}%' ";
         }
 
         if (isset($params['idparteinteressada']) && (!empty($params['idparteinteressada']))) {
-            $sql .= "AND pi.idparteinteressada IN({$params['idparteinteressada']}) ";
+            $sql .= "AND pin.idparteinteressada IN({$params['idparteinteressada']}) ";
         }
-        $sql .= "ORDER BY pi.nomparteinteressada";
+        $sql .= "GROUP BY pin.idprojeto, 
+                       pin.idpessoainterna, 
+                       pin.nomparteinteressada, 
+                       pin.idcadastrador,
+                       pin.desemail, 
+                       pin.destelefone, 
+                       pin.domnivelinfluencia,
+                       pin.observacao,
+                       pin.idparteinteressada
+              ORDER BY pin.nomparteinteressada";
 
         $resultado = $this->_db->fetchAll($sql, array('idprojeto' => $params['idprojeto']));
 

@@ -15,8 +15,8 @@ class Default_Form_PessoaEditar extends App_Form_FormAbstract
         $lotacao = $serviceUnidade->fetchPairs();
         $lotacao = array_filter($lotacao);
         $lotacao = array("" => "Selecione") + array_filter($lotacao);
-        $cargo = $serviceCargo->fetchPairs();
-        $cargo = array("" => "Selecione") + array_filter($cargo) + array("OUTROS" => "OUTROS");
+        //$cargo = $serviceCargo->fetchPairs();
+        //$cargo = array("" => "Selecione") + array_filter($cargo) + array("OUTROS" => "OUTROS");
 
         $this
             ->setOptions(array(
@@ -135,7 +135,7 @@ class Default_Form_PessoaEditar extends App_Form_FormAbstract
                             ),
                         )
                     ),
-                    'domcargo' => array(
+                    /*'domcargo' => array(
                         'select',
                         array(
                             'label' => 'Cargo',
@@ -148,13 +148,13 @@ class Default_Form_PessoaEditar extends App_Form_FormAbstract
                                 'data-rule-required' => true,
                             ),
                         )
-                    ),
+                    ),*/
                     'id_unidade' => array(
                         'select',
                         array(
                             'label' => 'Lotação',
                             'multiOptions' => $lotacao,
-                            'required' => true,
+                            'required' => false,
                             'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty', array('StringLength', false, array(0, 100))),
                             'attribs' => array(

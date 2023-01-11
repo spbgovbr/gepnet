@@ -64,8 +64,8 @@
             prevLinkText: 'Prev',
             target: rangeInput,
             doneButtonText: 'Done',
-            earliestDate: Date.parse('-15years'), //earliest date allowed 
-            latestDate: Date.parse('+15years'), //latest date allowed 
+            earliestDate: Date.parse('-15years'), //earliest date allowed
+            latestDate: Date.parse('+15years'), //latest date allowed
             constrainDates: false,
             rangeSplitter: '-', //string to use between dates in single input
             dateFormat: 'm/d/yy', // date formatting. Available formats: http://docs.jquery.com/UI/Datepicker/%24.datepicker.formatDate

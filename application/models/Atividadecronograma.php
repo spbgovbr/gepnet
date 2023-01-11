@@ -36,6 +36,7 @@ class Default_Model_Atividadecronograma extends App_Model_ModelAbstract
     public $flainformatica = null;
     public $idelementodespesa = null;
     public $idpredecessora2 = null;
+    public $datatividadeconcluida = null;
 
 }
 

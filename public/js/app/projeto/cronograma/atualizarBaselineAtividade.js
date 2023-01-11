@@ -17,7 +17,7 @@ $(function () {
                 dialog: $('#dialog-copiar')
             }
         };
-    msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+    msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
     actions.detalhar.dialog.dialog({
         autoOpen: false,
         title: 'Cronograma - Detalhar',

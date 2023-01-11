@@ -158,6 +158,10 @@ $(function () {
                         formInclusaoAtivo = true;
                     });
                     if (formInclusaoAtivo) {
+                        if(parseInt($('#domstatusprojeto option:selected').val()) > 2){
+                            $("label.error").remove();
+                            $('#idmarco').remove();
+                        }
                         if ($('form#form-status-report-incluir').valid()) {
                             $('#dialog-incluir').parent().find("button").each(function () {
                                 $(this).attr('disabled', true);
@@ -169,11 +173,14 @@ $(function () {
                         ignoraatividadedesatualizada($('#dialog-incluir'));
                     }
                 } else {
+                    if(parseInt($('#domstatusprojeto option:selected').val()) > 2){
+                        $("label.error").remove();
+                        $('#idmarco').remove();
+                    }
                     if ($('form#form-status-report-incluir').valid()) {
                         $('#dialog-incluir').parent().find("button").each(function () {
                             $(this).attr('disabled', true);
                         });
-
                         $('form#form-status-report-incluir').submit();
                     }
                 }
@@ -194,20 +201,7 @@ $(function () {
             cache: true,
             processData: false,
             success: function (data) {
-                //$('#dialog-incluir').parent().find("button").each(function () {
                 window.location.href = base_url + "/projeto/cronograma/index/idprojeto/" + $("#ip").val();
-                //$(this).attr('disabled', false);
-//                    if(atividadedesatualizada){
-//                        if(($(this).text()=="Continuar")) {
-//                            $(this).text("Salvar");
-//                        }
-//                    }
-                //});
-//                $dialog.html(data).dialog('open');
-//                $('.datepicker').datepicker({
-//                    format: 'dd/mm/yyyy',
-//                    language: 'pt-BR'
-//                });
             },
             error: function () {
                 $.pnotify({
@@ -240,7 +234,6 @@ $(function () {
                     $('#idstatusreport').append(o);
                     cont++;
                 });
-                //$("#idstatusreport").refreshIndex();
             },
             error: function () {
                 $.pnotify({
@@ -273,37 +266,25 @@ $(function () {
                     if (data.msg.idstatus == $("#idUltimoStatus").val()) {
                         atualizarCabecalhoProjeto();
                     } else if (data.msg.idstatus == $("#idStatusSelecionado").val()) {
+                        var risco = parseInt(data.msg.acompanhamento.domcorrisco);
+                        charRisco(risco);
                         populaAcompanhamento(data.msg.acompanhamento);
                     }
                 } else if ($("#idStatusSelecionado").val() == $("#idUltimoStatus").val()) {
                     if (data.msg.idstatus == $("#idStatusSelecionado").val()) {
+                        var risco = parseInt(data.msg.acompanhamento.domcorrisco);
+                        charRisco(risco);
                         atualizarCabecalhoProjeto();
                         gerachartprazo();
                         populaAcompanhamento(data.msg.acompanhamento);
                     }
                 }
-
-                //}else{
-                //if(data.msg.idstatus == $("#idUltimoStatus").val()) {
-                //    var url = base_url + "/projeto/statusreport/visualizarimpressao/idprojeto/"+data.msg.acompanhamento.idprojeto+"/idstatusreport/"+data.msg.acompanhamento.idstatusreport;
-                //    $("#idprojeto").val(data.msg.acompanhamento.idprojeto);
-                //    $("#idst").val(data.msg.acompanhamento.idstatusreport);
-                //    $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
-                //    $("#domcorrisco").val(data.msg.acompanhamento.domcorrisco);
-                //    $("#cf").val(data.msg.acompanhamento.numcriteriofarol);
-                //    $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
-                //    $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
-                //    $("#dtacompanhamento").text(data.msg.acompanhamento.datacompanhamento);
-                //    $("#visualizarimpressao").prop("href", url);
-                //    atualizarCabecalhoProjeto();
-                //    //gerachartacompanhamento();
-                //    //gerachartatraso();
-                //    gerachartprazo();
-                //    //gerachartPercentualConcluidoMarco();
-                //    populaAcompanhamento(data.msg.acompanhamento);
-                //    //atualizaOpcoesAcompanhamento(data.msg.acompanhamento.idprojeto);
-                //}
-                atualizaOpcoesAcompanhamento(data.msg.acompanhamento.idprojeto);
+                if($("#idStatusSelecionado").val().length == 0 && data.msg.idstatus ==$("#idUltimoStatus").val()){
+                    charRisco(data.msg.acompanhamento.domcorrisco);
+                    populaAcompanhamento(data.msg.acompanhamento);
+                }
+                gerachartPercentualConcluidoMarco();
+                atualizaOpcoesAcompanhamento(data.msg.idprojeto);
                 grid.trigger("reloadGrid");
             }
         },
@@ -375,14 +356,6 @@ $(function () {
             success: function (data) {
                 if (data != null) {
                     cron.projeto = data;
-                    //charRisco(cron.projeto.ultimoStatusReport.domcorrisco);
-                    //chartprazo(cron.projeto.prazoEmDias);
-                    //charMarco(cron.projeto.prazoEmDias,cron.projeto.numcriteriofarol);
-                    //$("#idst").val(cron.projeto.ultimoStatusReport.idstatusreport);
-                    //$("#risco").val(cron.projeto.ultimoStatusReport.domcorrisco);
-                    //$("#cf").val(cron.projeto.numcriteriofarol);
-                    //$("#dm").val(cron.projeto.prazoEmDias);
-                    //$("#uPrazo").val(cron.projeto.prazoEmDias);
                     atualizarCabecalhoRisco();
                     atualizarCabecalhoAtraso();
                     atualizarDataStatusReports();
@@ -474,8 +447,6 @@ $(function () {
             }
             $.pnotify(data.msg);
             if (data.success) {
-                //$("#resetbutton").trigger('click');
-                //console.log(data.msg.acompanhamento.idprojeto);
                 if ($("#idStatusSelecionado").val().length > 0) {
                     if ($("#idStatusSelecionado").val() != $("#idUltimoStatus").val()) {
                         if (data.msg.idstatus == $("#idUltimoStatus").val()) {
@@ -484,7 +455,6 @@ $(function () {
                     } else {
                         if ($("#idStatusSelecionado").val() == $("#idUltimoStatus").val()) {
                             var url = base_url + "/projeto/statusreport/visualizarimpressao/idprojeto/" + data.msg.acompanhamento.idprojeto + "/idstatusreport/" + data.msg.acompanhamento.idstatusreport;
-                            //$("#idprojeto").val(data.msg.acompanhamento.idprojeto);
                             $("#idst").val(data.msg.acompanhamento.idstatusreport);
                             $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
                             $("#domcorrisco").val(data.msg.acompanhamento.domcorrisco);
@@ -503,25 +473,7 @@ $(function () {
                         }
                     }
                 } else {
-                    if (data.msg.idstatus == $("#idUltimoStatus").val()) {
-                        var url = base_url + "/projeto/statusreport/visualizarimpressao/idprojeto/" + data.msg.acompanhamento.idprojeto + "/idstatusreport/" + data.msg.acompanhamento.idstatusreport;
-                        //$("#idprojeto").val(data.msg.acompanhamento.idprojeto);
-                        $("#idst").val(data.msg.acompanhamento.idstatusreport);
-                        $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
-                        $("#domcorrisco").val(data.msg.acompanhamento.domcorrisco);
-                        $("#cf").val(data.msg.acompanhamento.numcriteriofarol);
-                        $("#idUltimoStatus").val(data.msg.acompanhamento.idstatusreport);
-                        $("#dtacompanhamento").text(data.msg.acompanhamento.datacompanhamento);
-                        $("#visualizarimpressao").prop("href", url);
-                        $("#idStatusSelecionado").val(data.msg.acompanhamento.idstatusreport);
-                        atualizarCabecalhoProjeto();
-                        gerachartacompanhamento();
-                        gerachartatraso();
-                        gerachartprazo();
-                        charRisco(data.msg.acompanhamento.domcorrisco);
-                        gerachartPercentualConcluidoMarco();
-                        populaAcompanhamento(data.msg.acompanhamento);
-                    }
+                    window.location.href = window.location.href;
                 }
                 atualizaOpcoesAcompanhamento(data.msg.acompanhamento.idprojeto);
                 grid.trigger("reloadGrid");
@@ -604,7 +556,6 @@ $(function () {
     });
 
     //##### DETALHAR #######
-    //actions.detalhar.form.ajaxForm(options);
 
     actions.detalhar.dialog.dialog({
         autoOpen: false,
@@ -636,45 +587,11 @@ $(function () {
                 excluir: base_url + '/projeto/relatorio/excluir'
             };
         params = '/idprojeto/' + $("#ip").val() + '/idstatusreport/' + r[8];
-//        console.log(r);
-        //return  '<a data-target="#dialog-deta" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
+
         return '<a data-target="#dialog-editar" class="btn actionfrm editar" title="Editar" data-id="' + cellvalue + '" href="' + url.editar + params + '"><i class="icon-edit"></i></a>' +
             '<a data-target="#dialog-detalhar" class="btn actionfrm detalhar" title="Detalhar" data-id="' + cellvalue + '" href="' + url.detalhar + params + '"><i class="icon-tasks"></i></a>' +
             '<a data-target="_blank" target="_blank" class="btn actionfrm imprimir" title="Imprimir" data-id="' + cellvalue + '" href="' + url.imprimir + params + '"><i class="icon-print"></i></a>' +
             '<a data-target="#dialog-excluir" class="btn actionfrm excluir" title="Excluir" data-id="' + cellvalue + '" href="' + url.excluir + params + '"><i class="icon-trash"></i></a>'
-    }
-
-    function formatadorImgPrazo(cellvalue, options, rowObject) {
-//      var path = base_url + '/img/ico_verde.gif';
-//      return '<img src="' + path + '" />';
-        var retorno = '-';
-
-        if (rowObject[11] >= rowObject[15]) {
-            var retorno = '<span class="badge badge-important" title=' + rowObject[11] + '>P</span>';
-        } else if (rowObject[11] > 0) {
-            var retorno = '<span class="badge badge-warning" title=' + rowObject[11] + '>P</span>';
-        } else {
-            var retorno = '<span class="badge badge-success" title=' + rowObject[11] + '>P</span>';
-        }
-
-        if (rowObject[11] === "-")
-            return rowObject[11];
-
-        return retorno;
-    }
-
-    function formatadorImgRisco(cellvalue, options, rowObject) {
-        var retorno = '-';
-
-        if (rowObject[12] === '1') {
-            var retorno = '<span class="badge badge-success">R</span>';
-        } else if (rowObject[12] === '2') {
-            var retorno = '<span class="badge badge-warning">R</span>';
-        } else if (rowObject[12] === '3') {
-            var retorno = '<span class="badge badge-important">R</span>';
-        }
-
-        return retorno;
     }
 
     colNames = ['Data Acompanhamento', 'Previsto', 'Concluído', 'Tendência Encerramento', 'Cronograma PDF', 'Usuário', 'Atraso', 'Risco', 'Operações', 'numIdIstatusReport'];
@@ -726,7 +643,6 @@ $(function () {
             align: 'center',
             search: false,
             sortable: false,
-            //formatter: formatadorImgPrazo
         }, {
             name: 'Risco',
             index: 'risco',
@@ -734,7 +650,6 @@ $(function () {
             align: 'center',
             sortable: false,
             search: false,
-            //formatter: formatadorImgRisco
         }, {
             name: 'idstatusreport',
             index: 'idstatusreport',
@@ -752,7 +667,7 @@ $(function () {
         }];
 
     grid = jQuery("#list2").jqGrid({
-        //caption: "Documentos",
+        caption: "Listagem de Acompanhamentos",
         url: base_url + "/projeto/relatorio/relatoriojson/idprojeto/" + $("#ip").val(),
         datatype: "json",
         mtype: 'post',
@@ -784,14 +699,12 @@ $(function () {
 
         for (var i = 0; i < arrayIDs.length; i++) {     //entra nas linhas
             var rowData = $("#list2").jqGrid('getRowData', arrayIDs[i]);
-            if (rowData.numIdIstatusReport == idstatusreport) {//valida o status report e modifica a cor da linha
-                //console.log(rowData.numIdIstatusReport);
+            if (rowData.numIdIstatusReport == idstatusreport) {//valida o status report e modifica a cor da linha               
                 obj.jqGrid('setRowData', arrayIDs[i], false, {background: '#ffef8f', color: '#333'});
             }
         }
     }
-
-    //grid.jqGrid('filterToolbar');
+    
     grid.jqGrid('navGrid', '#pager2', {
         search: false,
         edit: false,

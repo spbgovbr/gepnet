@@ -56,7 +56,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                     'numsiapro' => array(
                         'text',
                         array(
-                            'label' => 'Núm. SIAPRO',
+                            'label' => 'Num. SEI',
                             'required' => true,
                             'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array('NotEmpty', array('StringLength', false, array(0, 25))),
@@ -76,7 +76,23 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                             'attribs' => array(
                                 'readonly' => true,
                                 'data-rule-required' => true,
+                                'id' => 'idresponsavelinterno',
                             ),
+                        )
+                    ),
+                    'pessoabuttonRespInerno' => array(
+                        'button',
+                        array(
+                            'label' => '',
+                            'ignore' => true,
+                            'icon' => 'remove',
+                            'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_RIGHT,
+                            'escape' => true,
+                            'attribs' => array(
+                                'type' => 'button',
+                                'id' => 'resetRespInterno',
+                                'title' => 'Limpar campo',
+                            )
                         )
                     ),
                     'nomresponsavelinterno' => array(
@@ -90,6 +106,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                                 'readonly' => true,
                                 'class' => 'span2',
                                 'data-rule-required' => true,
+                                'id' => 'nomresponsavelinterno',
                             ),
                         )
                     ),
@@ -338,7 +355,24 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                             'attribs' => array(
                                 'readonly' => true,
                                 'data-rule-required' => true,
+                                'id' => 'idfiscal',
                             ),
+                        )
+                    ),
+                    'pessoabuttonFiscal' => array(
+                        'button',
+                        array(
+                            'label' => '',
+                            'ignore' => true,
+                            'icon' => 'remove', //icon-remove
+                            'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
+                            //'label' => 'Limpar',
+                            'escape' => true,
+                            'attribs' => array(
+                                'type' => 'button',
+                                'id' => 'resetFiscal',
+                                'title' => 'Limpar campo',
+                            )
                         )
                     ),
                     'nomfiscal' => array(
@@ -352,7 +386,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                                 'readonly' => true,
                                 'class' => 'span2',
                                 'data-rule-required' => true,
-                                //'data-rule-notequal' => "#nomfiscal1",
+                                'id' => 'nomfiscal',
                             ),
                         )
                     ),
@@ -365,7 +399,24 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                             'attribs' => array(
                                 'readonly' => true,
                                 'data-rule-required' => false,
+                                'id' => 'idfiscal2',
                             ),
+                        )
+                    ),
+                    'pessoabuttonFiscal2' => array(
+                        'button',
+                        array(
+                            'label' => '',
+                            'ignore' => true,
+                            'icon' => 'remove', //icon-remove
+                            'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
+                            //'label' => 'Limpar',
+                            'escape' => true,
+                            'attribs' => array(
+                                'type' => 'button',
+                                'id' => 'resetFiscal2',
+                                'title' => 'Limpar campo',
+                            )
                         )
                     ),
                     'nomfiscal2' => array(
@@ -379,6 +430,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                                 'readonly' => true,
                                 'class' => 'span2',
                                 'data-rule-required' => false,
+                                'id' => 'nomfiscal2',
                             ),
                         )
                     ),
@@ -391,7 +443,24 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                             'attribs' => array(
                                 'readonly' => true,
                                 'data-rule-required' => false,
+                                'id' => 'idfiscal3',
                             ),
+                        )
+                    ),
+                    'pessoabuttonFiscal3' => array(
+                        'button',
+                        array(
+                            'label' => '',
+                            'ignore' => true,
+                            'icon' => 'remove', //icon-remove
+                            'iconPosition' => Twitter_Bootstrap_Form_Element_Button::ICON_POSITION_LEFT,
+                            //'label' => 'Limpar',
+                            'escape' => true,
+                            'attribs' => array(
+                                'type' => 'button',
+                                'id' => 'resetFiscal3',
+                                'title' => 'Limpar campo',
+                            )
                         )
                     ),
                     'nomfiscal3' => array(
@@ -405,6 +474,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
                                 'readonly' => true,
                                 'class' => 'span2',
                                 'data-rule-required' => false,
+                                'id' => 'nomfiscal3',
                             ),
                         )
                     ),
@@ -537,7 +607,7 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
             ),
         ));*/
         $config = Zend_Registry::get('config');
-        $uploadDir = $config->resources->cachemanager->default->backend->options->upload_dir;
+        $uploadDir = $config->resources->cachemanager->default->backend->options->arcordo_dir;
         $this->addElement('file', 'descaminho', array(
             'label' => 'Arquivo',
             'required' => false,
@@ -578,7 +648,22 @@ class Acordocooperacao_Form_Acordoeditar extends App_Form_FormAbstract
             //->removeDecorator('label')
             ->removeDecorator('HtmlTag')
             ->removeDecorator('Wrapper');
-
+        $this->getElement('pessoabuttonRespInerno')
+            ->removeDecorator('label')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Wrapper');
+        $this->getElement('pessoabuttonFiscal')
+            ->removeDecorator('label')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Wrapper');
+        $this->getElement('pessoabuttonFiscal2')
+            ->removeDecorator('label')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Wrapper');
+        $this->getElement('pessoabuttonFiscal3')
+            ->removeDecorator('label')
+            ->removeDecorator('HtmlTag')
+            ->removeDecorator('Wrapper');
         $this->getElement('submit')
             ->removeDecorator('label')
             ->removeDecorator('HtmlTag')

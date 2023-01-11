@@ -36,17 +36,41 @@ class Zend_Filter_Word_SeparatorToCamelCase extends Zend_Filter_Word_Separator_A
     public function filter($value)
     {
         // a unicode safe way of converting characters to \x00\x00 notation
-        $pregQuotedSeparator = preg_quote($this->_separator, '#');
-
-        if (self::isUnicodeSupportEnabled()) {
-            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')(\p{L}{1})#e', '#(^\p{Ll}{1})#e'));
-            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
-        } else {
-            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')([A-Za-z]{1})#e', '#(^[A-Za-z]{1})#e'));
-            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
+         $pregQuotedSeparator = preg_quote($this->_separator, '#');
+ 
+        $patterns = array(
+            '#(' . $pregQuotedSeparator . ')([A-Za-z]{1})#',
+            '#(^[A-Za-z]{1})#',
+        );
+        $replacements = array(
+            function ($matches) {
+                return strtoupper($matches[2]);
+            },
+            function ($matches) {
+                return strtoupper($matches[1]);
+            },
+        );
+ 
+        $filtered = $value;
+        foreach ($patterns as $index => $pattern) {
+            $filtered = preg_replace_callback($pattern, $replacements[$index], $filtered);
         }
-
-        return parent::filter($value);
+        return $filtered;
     }
+//    public function filter($value)
+//    {
+//        // a unicode safe way of converting characters to \x00\x00 notation
+//        $pregQuotedSeparator = preg_quote($this->_separator, '#');
+//
+//        if (self::isUnicodeSupportEnabled()) {
+//            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')(\p{L}{1})#e', '#(^\p{Ll}{1})#e'));
+//            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
+//        } else {
+//            parent::setMatchPattern(array('#(' . $pregQuotedSeparator . ')([A-Za-z]{1})#e', '#(^[A-Za-z]{1})#e'));
+//            parent::setReplacement(array("strtoupper('\\2')", "strtoupper('\\1')"));
+//        }
+//
+//        return parent::filter($value);
+//    }
 
 }

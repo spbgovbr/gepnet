@@ -15,7 +15,7 @@ $myData->addPoints(array(-4, VOID, VOID, 12, 8, 3), "Probe 1");
 $myData->addPoints(array(3, 12, 15, 8, 5, -5), "Probe 2");
 $myData->setAxisName(0, "Temperatures");
 $myData->setAxisXY(0, AXIS_X);
-$myData->setAxisUnit(0, "°C");
+$myData->setAxisUnit(0, "ï¿½C");
 $myData->setAxisPosition(0, AXIS_POSITION_BOTTOM);
 
 /* Create the Y axis and the binded series */

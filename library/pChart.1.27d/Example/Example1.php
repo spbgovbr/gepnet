@@ -16,7 +16,7 @@ $DataSet->SetSerieName("January", "Serie1");
 $DataSet->SetSerieName("February", "Serie2");
 $DataSet->SetSerieName("March", "Serie3");
 $DataSet->SetYAxisName("Average age");
-$DataSet->SetYAxisUnit("µs");
+$DataSet->SetYAxisUnit("ï¿½s");
 
 // Initialise the graph   
 $Test = new pChart(700, 230);

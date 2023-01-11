@@ -33,7 +33,6 @@ class Projeto_Model_Atividadecronograma extends Projeto_Model_Atividadecronogram
     public $datcadastro = null;
     public $idmarcoanterior = null;
     public $numdias = null;
-    public $datatividadeconcluida = null;
     public $vlratividadebaseline = '0';
     public $vlratividade = '0';
     public $numfolga = '0';
@@ -193,15 +192,6 @@ class Projeto_Model_Atividadecronograma extends Projeto_Model_Atividadecronogram
     public function setResponsavelAceitacao(Projeto_Model_Parteinteressada $responsavelAceitacao)
     {
         $this->responsavelAceitacao = $responsavelAceitacao;
-        return $this;
-    }
-
-    public function setDatatividadeconcluida($data)
-    {
-        $this->datatividadeconcluida = null;
-        if (null != $data)
-            $this->datatividadeconcluida = @DateTime::createFromFormat('d/m/Y', $data);
-
         return $this;
     }
 

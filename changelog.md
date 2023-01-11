@@ -1,19 +1,191 @@
-# 3.1.20
+# 3.4.3
 
 #### Data
 
-> * Gerado em 30/07/2020
+> * Gerado em 12/11/2021
+
+#### Melhorias
+
+> * Não há.
 
 #### Correções
 
-> * RDM#3670 - Correção da funcionalidade de Gráfico de Gantt;
-             - Correção da funcionalidade de Cadastro de documentos;
+> * RDM#26364 - Correção de Responsáveis pela Entrega x Aceite - Produção
 
-# 3.1.19
+
+# 3.4.1
 
 #### Data
 
-> * Gerado em 31/07/2019
+> * Gerado em 14/06/2021
+
+#### Melhorias
+
+> * Não há.
+
+#### Correções
+
+> * RDM#19280 - Correção da rotina de criação de relatório.
+
+# 3.4.0
+
+#### Data
+
+> * Gerado em 08/10/2020
+
+#### Melhorias
+
+> * RDM#10180 - Adicionada a opção de limpar botão de usuários.
+
+#### Correções
+
+> * RDM#10180 - Erro na inserção de acordo de cooperação.
+
+
+# 3.3.27
+
+#### Data
+
+> * Gerado em 10/09/2020
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#9513 - Erro na impressão do cronograma
+
+# 3.3.26
+
+#### Data
+
+> * Gerado em 02/09/2020
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#6536 - Problema em questão na geração de relatórios.
+> * RDM#8636 - Erro no plano de projeto após exclusão de usuário.
+
+
+# 3.3.5
+
+#### Data
+
+> * Gerado em 05/06/2020
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#51373 - Validação de CPF iniciados com zeros.
+
+
+# 3.3.4
+
+#### Data
+
+> * Gerado em 27/05/2020
+
+#### Melhorias
+
+> * RDM#27111 - Login via Keycloak.
+
+#### Correções
+
+> * Não se aplica.
+
+
+# 3.2.0
+
+#### Data
+
+> * Gerado em 27/12/2019
+
+#### Melhorias
+
+> * RDM#42515 - Melhoria no filtro da Tela Mestra.
+
+#### Correções
+
+> * Não se aplica.
+
+
+# 3.1.29
+
+#### Data
+
+> * Gerado em 18/12/2019
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#42550 - Inconsistência no relatório do Dicionário da EAP.
+
+
+# 3.1.28
+
+#### Data
+
+> * Gerado em 14/11/2019
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#40887 - Validação de assinatura de documentos.
+
+
+# 3.1.26
+
+#### Data
+
+> * Gerado em 10/10/2019
+
+#### Melhorias
+
+> * Não se aplica.
+
+#### Correções
+
+> * RDM#39251 - Sistema nao está permitindo assinatura em produção
+
+
+# 3.1.25
+
+#### Data
+
+> * Gerado em 24/09/2019
+
+#### Melhorias
+
+> * RDM#28158 - Alteração no Cadastro de Diagnóstico.
+
+#### Correções
+
+> * Não há.
+
+
+# 3.1.24
+
+#### Data
+
+> * Gerado em 30/08/2019
+
+#### Melhorias
+
+> * RDM#29603 - Regra de mudança de status do projeto para CANCELADO.
 
 #### Correções
 
@@ -21,6 +193,8 @@
 > * RDM#35006 - Relatório do projetos com informações divergentes entre RESUMO DO PROJETO e o restante do relatório;
 > * RDM#35682 - Travamento do sistema quando da geração de novo relatório;
 > * RDM#36056 - Erro na geração do relatório.
+> * RDM#36861 - Erro na alteração do nome do usuário cadastrado.
+
 
 
 # 3.1.17
@@ -31,8 +205,7 @@
 
 #### Correções
 
-> * RDM#34130 - Clonagem de projeto.
-
+> * RDM#34130 - Clonagem de projet
 
 # 3.1.15
 

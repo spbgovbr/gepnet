@@ -39,7 +39,17 @@ $frmAttr = $this->form->getAttribs();
     <div class="row">
         <!-- Imprime ou exporta o termo de ENCERRAMENTO do projeto -->
         <div class="span8">
-            <div class="row btn-toolbar" style="float: right;">                
+            <div class="row btn-toolbar" style="float: right;">
+                <a data-target="#dialog-assinar" class="btn actionfrm autenticarassinatura"
+                   title="Assinar Termo de Encerramento" href="<?php echo $this->url(
+                    array(
+                        'module' => 'projeto',
+                        'controller' => 'termoencerramento',
+                        'action' => 'autenticarassinatura',
+                        'idprojeto' => $this->gerencia->idprojeto
+                    )); ?>">
+                    <i class="icon-pencil"></i>
+                </a>
                 <a class="btn btn-imprimir-word" title="Exportar TERMO DE ENCERRAMENTO DE PROJETO (TEP)" target="_blank"
                    href="<?php echo $this->url(
                        array(
@@ -106,3 +116,4 @@ $frmAttr = $this->form->getAttribs();
         </div>
     </form>
 </div>
+<div id="dialog-assinar" style="display: none"></div>

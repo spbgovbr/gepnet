@@ -46,7 +46,7 @@
                 }
                 // last two not as param, but as object (sorry)
                 //if (restoreAfterError !== undefined) { o.restoreAfterError = restoreAfterError; }
-                //if (mtype !== undefined) { o.mtype = mtype || "POST"; }			
+                //if (mtype !== undefined) { o.mtype = mtype || "POST"; }
             }
             o = $.extend(true, {
                 keys: false,

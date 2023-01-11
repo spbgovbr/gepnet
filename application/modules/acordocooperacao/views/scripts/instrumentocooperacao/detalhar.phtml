@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="portlet portlet-azul span2">
-        <h3>Num. SIAPRO</h3>
+        <h3>Num. SEI</h3>
         <div class="content">
             <?= $this->acordo->numsiapro; ?>
         </div>
@@ -120,10 +120,11 @@
         </div>
     </div>
     <div>
-        <?php if ($this->anexo) { ?>
+        <?php if (!empty($this->nomeArquivo)) { ?>
             <div class="row" style="margin-left: 1px;">
                 <div class="span5">
-                    <a target="_blank" class="btn" href="<?php echo $this->anexo; ?>">VISUALIZAR PDF</a>
+<!--                    <a target="_blank" class="btn" href="--><?php //echo $this->anexo; ?><!--">VISUALIZAR PDF</a>-->
+                    <a target="_blank" class="btn" href="<?php echo $this->baseUrl('/acordocooperacao/instrumentocooperacao/download/file/' . $this->nomeArquivo); ?>">VISUALIZAR PDF</a>
                 </div>
             </div>
         <?php } ?>

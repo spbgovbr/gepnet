@@ -164,7 +164,7 @@ class Default_Form_Documento extends App_Form_FormAbstract
 
             ),
             //'MultiFile' => 3,
-            'destination' => APPLICATION_PATH . DIRECTORY_SEPARATOR . "data" . DIRECTORY_SEPARATOR . "arquivos",
+            'destination' => APPLICATION_PATH . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . "arquivos",
             'description' => 'São aceitas as extensões: doc,docx,pdf. Tamanho Máximo: 1MB   ',
             'attribs' => array(
                 'class' => 'span4',

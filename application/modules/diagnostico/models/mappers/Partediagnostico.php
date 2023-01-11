@@ -97,4 +97,23 @@ class Diagnostico_Model_Mapper_Partediagnostico extends App_Model_Mapper_MapperA
         }
     }
 
+    /**
+     * Dao que retorna um array de todos as partes de um diagnostico.
+     * @param $params
+     * @return array
+     */
+    public function retornarParteByDiagnostico($params)
+    {
+
+        $sql = "select idpartediagnostico, iddiagnostico, idpessoa, tppermissao, qualificacao::INTEGER
+                from agepnet200.tb_partediagnostico
+                where 1=1 ";
+
+        if (!empty($params['iddiagnostico'])) {
+            $sql .= "AND iddiagnostico IN({$params['iddiagnostico']}) ";
+        }
+        $resultado = $this->_db->fetchAll($sql);
+
+        return $resultado;
+    }
 }

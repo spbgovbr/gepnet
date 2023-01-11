@@ -239,7 +239,7 @@ class Diagnostico_DiagnosticoController extends Zend_Controller_Action
             $dados = $this->_request->getPost();
             unset($dados['iddiagnostico']);
             $dados['dsdiagnostico'] = $dados['dsdiagnostico'] . ' (Diagnóstico Clonado)';
-            $diagnostico = $service->inserir($dados);
+            $diagnostico = $service->clonarDiagnostico($dados);
             if ($diagnostico) {
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_CLONADO_COM_SUCESSO;
@@ -265,19 +265,31 @@ class Diagnostico_DiagnosticoController extends Zend_Controller_Action
                 $this->_helper->_redirector->gotoSimpleAndExit('in', 'log', 'default');
             }
         } else {
-            $diagnostico = $service->getById(array(
-                'iddiagnostico' => $this->_getParam('iddiagnostico')
-            ));
-            $form->populate($diagnostico->formPopulate());
+            $dadosDiagnosticoAnterior = $service->getDadosDiagnostico($this->_getAllParams());
+            $dsdiagnosticoNovo = $service->getSequence($dadosDiagnosticoAnterior['idunidadeprincipal']);
+            $strDiagnostico = explode('.', $dsdiagnosticoNovo);
+            $ano = $strDiagnostico[0];
+            $sequence = explode(' - ', $strDiagnostico[1]);
+            $numeroGerado = $ano . "." . $sequence[0];
+            $idDiagnostico = $this->_getParam('iddiagnostico');
+
+            $params = array(
+                'iddiagnosticoanterior' => $idDiagnostico,
+                'dsdiagnostico' => $dsdiagnosticoNovo,
+                'idunidadeprincipal' => $dadosDiagnosticoAnterior['idunidadeprincipal']
+            );
+
+            $equipe = $service->fetchPairsPorDiagnostico($this->_getParam('iddiagnostico'));
+            $idpessoacheckbox = $service->getCheckbox($this->_getParam('iddiagnostico'));
+
+            $form->populate($params);
+
+            $this->view->idpessoacheckbox = $idpessoacheckbox;
+            $this->view->equipe = $equipe;
+            $this->view->form = $form;
+            $this->view->numeroGerado = $numeroGerado;
+            $this->view->dsdiagnosticoanterior = $dadosDiagnosticoAnterior['dsdiagnostico'];
         }
-
-        $equipe = $service->fetchPairsPorDiagnostico($diagnostico['iddiagnostico']);
-        $this->view->equipe = $equipe;
-
-        $idpessoacheckbox = $service->getCheckbox($diagnostico['iddiagnostico']);
-        $this->view->idpessoacheckbox = $idpessoacheckbox;
-
-        $this->view->form = $form;
     }
 
 }

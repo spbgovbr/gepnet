@@ -26,7 +26,8 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $this->view->acordo = $service->getByIdDetalhar($this->_request->getParams());
 //        Zend_Debug::dump($this->view->acordo); exit;
         if ($this->view->acordo->descaminho) {
-            $this->view->anexo = $service->retornaAnexo($this->view->acordo);
+            $this->view->nomeArquivo = $this->view->acordo->descaminho;
+//            $this->view->anexo = $service->retornaAnexo($this->view->acordo);
         }
     }
 
@@ -38,24 +39,16 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
 
         if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
-            if ($form->isValid($dados)) {
-                $instrumento = $service->inserir($dados);
-                if ($instrumento) {
+            $dados['file'] = $_FILES;
+            $instrumento = $service->inserir($dados);
+
+            if ($instrumento) {
                     $success = true;
                     $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
-                } else {
-                    $msg = $service->getErrors();
-                }
             } else {
-
-                $msg = $form->getErrorMessages();
-                //App_Service_ServiceAbstract::REGISTROS_OBRIGATORIOS;
+                    $msg = $service->getErrors();
             }
-        }
 
-
-        $this->view->form = $form;
-        if ($this->_request->isPost()) {
             if ($this->_request->isXmlHttpRequest()) {
 
                 $this->view->success = $success;
@@ -74,6 +67,8 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
                 $this->_helper->_flashMessenger->addMessage(array('status' => 'error', 'message' => $msg));
                 $this->_helper->_redirector->gotoSimpleAndExit('index', 'instrumentocooperacao', 'acordocooperacao');
             }
+        }else {
+            $this->view->form = $form;
         }
     }
 
@@ -85,6 +80,7 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         $success = false;
         if ($this->_request->isPost()) {
             $dados = $this->_request->getPost();
+            $dados['file'] = $_FILES;
             $instrumento = $service->update($dados);
             if ($instrumento) {
                 $success = true;
@@ -96,10 +92,9 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
         } else {
             $instrumento = $service->getById($this->_request->getParams());
             $entidades = $serviceEntidadeExterna->retornaEntidadesExternas($this->_request->getParams());
-//            Zend_Debug::dump($entidades); exit;
-//            Zend_Debug::dump($instrumento); exit;
+
             if ($instrumento['descaminho']) {
-                $this->view->anexo = $service->retornaAnexo($instrumento);
+                $this->view->nomeArquivo = $instrumento["descaminho"];
             }
             $form->populate($instrumento);
             $this->view->situacaoatual = $instrumento['flasituacaoatual'];
@@ -142,16 +137,16 @@ class Acordocooperacao_InstrumentocooperacaoController extends Zend_Controller_A
     {
         $dados = $this->_request->getParams();
 //        print "<PRE>";
-//        $project = strstr($dados['file'],'-',true);
-//        var_dump($dados['file']);
+        $project = strstr($dados['file'],'-',true);
+       // var_dump($dados['file']);die;
 //        var_dump($project);
 
 //        $dados['file'] = str_replace(":!","/",$dados['file']);
-        $dados['file'] = base64_decode($dados['file']);
+//        $dados['file'] = base64_decode($dados['file']);
 
 //        Zend_Debug::dump($dados['file']); exit;
 
-        $service = App_Service_ServiceAbstract::getService('Acordocooperacao_Service_Acordo');
+        $service = new Acordocooperacao_Service_Acordo();
         $file = $service->getDownloadConfig($dados);
 
 //        var_dump($dados);

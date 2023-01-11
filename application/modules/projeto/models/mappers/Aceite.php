@@ -86,6 +86,8 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
         return $this->_getForm(Projeto_Form_Aceite);
     }
 
+
+    //RDM#26364 - INVERSÃO DE RESPONSAVEL PELA ENTREGA E PELO ACEITE
     public function getById($params)
     {
         $idaceite = $params['idaceite'];
@@ -120,9 +122,9 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
                     (SELECT p1.nomparteinteressada FROM agepnet200.tb_atividadecronograma cron
                     INNER JOIN agepnet200.tb_projeto tbp on tbp.idprojeto = cron.idprojeto
                           and tbp.idtipoiniciativa = 1 LEFT OUTER JOIN
-                        agepnet200.tb_parteinteressada p1 ON cron.idresponsavel = p1.idparteinteressada
+                        agepnet200.tb_parteinteressada p1 ON cron.idparteinteressada = p1.idparteinteressada
                     WHERE
-                        p1.idparteinteressada = cron.idresponsavel
+                        p1.idparteinteressada = cron.idparteinteressada
                         and cron.idprojeto = aac.idprojeto
                         and idatividadecronograma = aac.identrega
                         ) as nomparteinteressadaentrega FROM agepnet200.tb_aceiteatividadecronograma aac
@@ -131,7 +133,7 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
                                 and ac.idatividadecronograma = aac.identrega and ac.domtipoatividade = 2
                      LEFT JOIN agepnet200.tb_atividadecronograma acm on ac.idprojeto = aac.idprojeto
                                 and ac.idatividadecronograma = aac.identrega and ac.domtipoatividade = 4
-                     LEFT  JOIN agepnet200.tb_parteinteressada pi on pi.idparteinteressada=ac.idparteinteressada
+                     LEFT  JOIN agepnet200.tb_parteinteressada pi on pi.idparteinteressada=ac.idresponsavel
                 WHERE aac.idaceite = :idaceite and aac.idprojeto = :idprojeto ";
 
         $resultado = $this->_db->fetchRow($sql, array(
@@ -142,6 +144,7 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
         return new Projeto_Model_Aceite($resultado);
     }
 
+    //RDM#26364 - INVERSÃO DE RESPONSAVEL PELA ENTREGA E PELO ACEITE
     public function retornaPorProjeto($params, $paginator = false)
     {
         $idprojeto = $params['idprojeto'];
@@ -193,7 +196,7 @@ class Projeto_Model_Mapper_Aceite extends App_Model_Mapper_MapperAbstract
                     ON acm.idatividadecronograma = aac.idmarco 
                    AND acm.idprojeto = aac.idprojeto 
                   LEFT JOIN  agepnet200.tb_parteinteressada pi 
-                    ON pi.idparteinteressada = ac.idparteinteressada 
+                    ON pi.idparteinteressada = ac.idresponsavel
                  WHERE aac.idprojeto = {$idprojeto}";
 
         if ((@trim($params['idaceite']) != "") && (@trim($params['identrega']) != "")) {

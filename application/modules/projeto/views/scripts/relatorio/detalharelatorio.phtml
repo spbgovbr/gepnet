@@ -1,7 +1,4 @@
 <?php
-$offset = 60 * 15;
-@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
-@header("Cache-Control: max-age=$offset, must-revalidate");
 
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
@@ -24,7 +21,7 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/relatorio/relatorio-individual.js?' . time()), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/projeto/relatorio/relatorio-individual.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 

@@ -36,7 +36,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     protected function _initCache()
     {
         $this->bootstrap('db');
-
         // First, set up the Cache
         $frontendOptions = array(
             'automatic_serialization' => true

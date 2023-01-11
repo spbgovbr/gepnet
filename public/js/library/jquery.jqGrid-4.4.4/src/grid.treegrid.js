@@ -580,7 +580,7 @@
                 }
             });
         },
-        // experimental 
+        // experimental
         setTreeRow: function (rowid, data) {
             var success = false;
             this.each(function () {

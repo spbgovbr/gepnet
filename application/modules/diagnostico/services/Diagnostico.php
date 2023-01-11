@@ -46,31 +46,40 @@ class Diagnostico_Service_Diagnostico extends App_Service_ServiceAbstract
 
     }
 
-
+    /**
+     * Função que retornar a próxima sequencia do diagnostico.
+     * @param null $params
+     * @return null|string
+     */
     public function getSequence($params = null)
     {
         date_default_timezone_set('America/Sao_Paulo');
-        if (!empty($params) || isset($params)) {
+        if (isset($params) && (!empty($params))) {
             $unidadeSelecionada = $this->_mapper->getNomeUnidade($params);
-        } else {
-            $unidadeSelecionada["sigla"] = '';
+            $anoAtual = date('Y');
+            $sequence = (string)$this->_mapper->getSequenceDiagnostico()["nextval"];
+            $codigo = $anoAtual . '.' . str_pad($sequence, 2, "0", STR_PAD_LEFT) . ' - ' . $unidadeSelecionada["sigla"];
+            return $codigo;
         }
-        $anoAtual = date('Y');
-        $sequence = (string)$this->_mapper->getSequenceDiagnostico()["nextval"];
-        $codigo = $anoAtual . '.' . str_pad($sequence, 2, "0", STR_PAD_LEFT) . ' - ' . $unidadeSelecionada["sigla"];
-        return $codigo;
+        return null;
     }
 
-
     /**
-     * @return Diagnostico_Form_Diagnostico
+     * Formulário de clonagem do diagnostico
+     * @param null $idDiagnostico
+     * @return Diagnostico_Form_DiagnosticoClonar | null
      */
+
     public function getFormClonar($idDiagnostico = null)
     {
-        $this->_form = new Diagnostico_Form_Diagnostico();
-        $fetchPairPessoa = $this->fetchPairs($idDiagnostico);
-        $this->_form->getElement('pessoas')->addMultiOptions($fetchPairPessoa);
-        return $this->_form;
+        if (!empty($idDiagnostico)) {
+            $this->_form = new Diagnostico_Form_Diagnostico();
+            $fetchPairPessoa = $this->fetchPairs($idDiagnostico);
+            $this->_form->getElement('pessoas')->addMultiOptions($fetchPairPessoa);
+
+            return $this->_form;
+        }
+        return null;
 
     }
 
@@ -108,9 +117,24 @@ class Diagnostico_Service_Diagnostico extends App_Service_ServiceAbstract
         }
     }
 
+    /**
+     * Função que retorna model do diagnostico
+     * @param $dados
+     * @return Diagnostico_Model_Diagnostico
+     */
     public function getById($dados)
     {
         return $this->_mapper->getById($dados);
+    }
+
+    /**
+     * Função que retornar informações do diagnostico
+     * @param $params
+     * @return mixed
+     */
+    public function getDadosDiagnostico($params)
+    {
+        return $this->_mapper->getDadosDiagnostico($params);
     }
 
     public function excluir($id)
@@ -198,6 +222,49 @@ class Diagnostico_Service_Diagnostico extends App_Service_ServiceAbstract
             /** Inserir unidades vinculadas a unidade principal */
             $resultado = $serviceUnidadeVinculada->inserir($dados);
             return $modelDiagnostico;
+        } catch (Exception $exc) {
+            Default_Service_Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc));
+            throw $exc;
+        }
+    }
+
+    /**
+     * Função que clona o diagnostico selecionado
+     * @param $dados
+     * @return Diagnostico_Model_Diagnostico
+     * @throws Exception
+     */
+    public function clonarDiagnostico($dados)
+    {
+        $serviceParteDiagnostico = new Diagnostico_Service_Partediagnostico();
+        $serviceUnidadeVinculada = new Diagnostico_Service_UnidadeVinculada();
+        try {
+
+            /** @var Diagnostico_Model_Diagnostico $diagnosticoAnterior */
+            $diagnosticoAnterior = $this->getById(array('iddiagnostico' => $dados['iddiagnosticoanterior']));
+            $dados['idchefedaunidade'] = $diagnosticoAnterior->idchefedaunidade;
+            $dados['idpontofocal'] = $diagnosticoAnterior->idpontofocal;
+            $modelDiagnostico = new Diagnostico_Model_Diagnostico($diagnosticoAnterior->formPopulate());
+            $strAno = explode('.', $dados['dsdiagnostico']);
+            $strSequence = explode(' - ', $strAno[1]);
+
+            $modelDiagnostico->iddiagnostico = null;
+            $modelDiagnostico['ano'] = $strAno[0];
+            $modelDiagnostico['sq_diagnostico'] = $strSequence[0];
+            $modelDiagnostico->idcadastrador = $this->auth->idpessoa;
+            $modelDiagnostico->idunidadeprincipal = $dados['idunidadeprincipal'];
+            $modelDiagnostico->dsdiagnostico = $dados['dsdiagnostico'];
+
+            /** @var Diagnostico_Model_Diagnostico $modelRetornado */
+            $modelRetornado = $this->_mapper->insert($modelDiagnostico);
+            $dados['iddiagnostico'] = $modelRetornado->iddiagnostico;
+
+            /** Insere os dados na tabela de partes do diagnóstico. */
+            $retorno = $serviceParteDiagnostico->inserir($dados);
+            /** Inserir unidades vinculadas a unidade principal */
+            $resultado = $serviceUnidadeVinculada->inserir($dados);
+            return $modelDiagnostico;
+
         } catch (Exception $exc) {
             Default_Service_Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc));
             throw $exc;

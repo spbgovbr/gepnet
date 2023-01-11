@@ -2012,7 +2012,7 @@
                             //if(s>0) {
                             //	var result = query.select();
                             //	query = $.jgrid.from( result);
-                            //	if (ts.p.ignoreCase) { query = query.ignoreCase(); }
+                            //	if (ts.p.ignoreCase) { query = query.ignoreCase(); } 
                             //}
                             try {
                                 ror = group.rules.length && group.groupOp.toString().toUpperCase() === "OR";
@@ -5749,7 +5749,7 @@
  * Dual licensed under the MIT and GPL licenses:
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
- *
+ * 
  * $Version: 07/06/2008 +r13
  */
 (function ($) {
@@ -5908,7 +5908,7 @@
  * Copyright (c) 2007 Brice Burgess <bhb@iceburg.net>, http://www.iceburg.net
  * Licensed under the MIT License:
  * http://www.opensource.org/licenses/mit-license.php
- *
+ * 
  * $Version: 2007.08.19 +r2
  */
 
@@ -6002,7 +6002,7 @@
 
 	License:     http://creativecommons.org/licenses/LGPL/2.1/
 	Author:      Stefan Goessner/2006
-	Web:         http://goessner.net/
+	Web:         http://goessner.net/ 
 
 	Modifications made:
 
@@ -6011,7 +6011,7 @@
 	             added handling of empty arrays, empty strings, and int/floats values.
 	Author:      Michael Schøler/2008-01-29
 	Web:         http://michael.hinnerup.net/blog/2008/01/26/converting-json-to-xml-and-xml-to-json/
-
+	
 	Description: json2xml added support to convert functions as CDATA
 	             so it will be easy to write characters that cause some problems when convert
 	Author:      Tony Tomov
@@ -6230,7 +6230,7 @@ var xmlJsonClass = {
 			if (objRegExp.test(os) || FuncTest.test(os) || os==="false" || os==="true") {
 				// int or float
 				json += (name && ":")  + "\"" +os + "\"";
-			}
+			} 
 			else {
 			*/
             json += (name && ":") + "\"" + o.replace(/\\/g, '\\\\').replace(/\"/g, '\\"') + "\"";
@@ -6307,14 +6307,14 @@ var xmlJsonClass = {
  * formatter for values but most of the values if for jqGrid
  * Some of this was inspired and based on how YUI does the table datagrid but in jQuery fashion
  * we are trying to keep it as light as possible
- * Joshua Burnett josh@9ci.com
+ * Joshua Burnett josh@9ci.com	
  * http://www.greenbill.com
  *
  * Changes from Tony Tomov tony@trirand.com
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
- *
+ * 
 **/
 /*jshint eqeqeq:false */
 /*global jQuery */
@@ -6832,7 +6832,7 @@ var xmlJsonClass = {
     /*
  * jqGrid common function
  * Tony Tomov tony@trirand.com
- * http://trirand.com/blog/
+ * http://trirand.com/blog/ 
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
@@ -7638,23 +7638,23 @@ var xmlJsonClass = {
  * Dual licensed under the MIT and GPL licenses
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
- *
+ * 
  * The work is inspired from this Stefan Pirvu
  * http://www.codeproject.com/KB/scripting/json-filtering.aspx
  *
  * The filter uses JSON entities to hold filter rules and groups. Here is an example of a filter:
 
 { "groupOp": "AND",
-      "groups" : [
+      "groups" : [ 
         { "groupOp": "OR",
             "rules": [
-                { "field": "name", "op": "eq", "data": "England" },
+                { "field": "name", "op": "eq", "data": "England" }, 
                 { "field": "id", "op": "le", "data": "5"}
              ]
-        }
+        } 
       ],
       "rules": [
-        { "field": "name", "op": "eq", "data": "Romania" },
+        { "field": "name", "op": "eq", "data": "Romania" }, 
         { "field": "id", "op": "le", "data": "1"}
       ]
 }
@@ -7784,7 +7784,7 @@ var xmlJsonClass = {
 		*/
 
             this.onchange = function () {
-                // clear any error
+                // clear any error 
                 this.p.error = false;
                 this.p.errmsg = "";
                 return $.isFunction(this.p.onChange) ? this.p.onChange.call(this, this.p) : false;
@@ -10991,7 +10991,7 @@ var xmlJsonClass = {
                 }
                 // last two not as param, but as object (sorry)
                 //if (restoreAfterError !== undefined) { o.restoreAfterError = restoreAfterError; }
-                //if (mtype !== undefined) { o.mtype = mtype || "POST"; }
+                //if (mtype !== undefined) { o.mtype = mtype || "POST"; }			
             }
             o = $.extend(true, {
                 keys: false,
@@ -11692,7 +11692,7 @@ var xmlJsonClass = {
 **
  * jqGrid extension for cellediting Grid Data
  * Tony Tomov tony@trirand.com
- * http://trirand.com/blog/
+ * http://trirand.com/blog/ 
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
@@ -13192,7 +13192,7 @@ var xmlJsonClass = {
                 }
             });
         },
-        // experimental
+        // experimental 
         setTreeRow: function (rowid, data) {
             var success = false;
             this.each(function () {
@@ -13786,7 +13786,7 @@ var xmlJsonClass = {
                 var grp = $t.p.groupingView;
                 $t.p.grouping = true;
 
-                //Set default, in case visibilityOnNextGrouping is undefined
+                //Set default, in case visibilityOnNextGrouping is undefined 
                 if (grp.visibiltyOnNextGrouping === undefined) {
                     grp.visibiltyOnNextGrouping = [];
                 }
@@ -13891,7 +13891,7 @@ var xmlJsonClass = {
     /*
  * jqGrid extension for constructing Grid Data from external file
  * Tony Tomov tony@trirand.com
- * http://trirand.com/blog/
+ * http://trirand.com/blog/ 
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
@@ -14116,12 +14116,12 @@ var xmlJsonClass = {
 (function ($) {
     /*
 **
- * jqGrid addons using jQuery UI
+ * jqGrid addons using jQuery UI 
  * Author: Mark Williams
  * Dual licensed under the MIT and GPL licenses:
  * http://www.opensource.org/licenses/mit-license.php
  * http://www.gnu.org/licenses/gpl-2.0.html
- * depends on jQuery UI
+ * depends on jQuery UI 
 **/
     "use strict";
     if ($.jgrid.msie && $.jgrid.msiever() === 8) {
@@ -14272,7 +14272,7 @@ var xmlJsonClass = {
                 "msel": "multiselect",
                 /* "msel_opts" : {}, */
 
-                /* dlog is either the name of a ui widget class that
+                /* dlog is either the name of a ui widget class that 
                behaves in a dialog-like way, or a function, that
                supports creating a dialog (when passed dlog_opts)
                or destroying a dialog (when passed the string
@@ -14282,7 +14282,7 @@ var xmlJsonClass = {
                 "dialog_opts": {
                     "minWidth": 470
                 },
-                /* dlog_opts is either an option object to be passed
+                /* dlog_opts is either an option object to be passed 
                to "dlog", or (more likely) a function that creates
                the options object.
                The default produces a suitable options object for
@@ -14694,7 +14694,7 @@ var xmlJsonClass = {
 })(jQuery);
 /*
  Transform a table to a jqGrid.
- Peter Romianowski <peter.romianowski@optivo.de>
+ Peter Romianowski <peter.romianowski@optivo.de> 
  If the first column of the table contains checkboxes or
  radiobuttons then the jqGrid is made selectable.
 */
@@ -14787,7 +14787,7 @@ function tableToGrid(selector, options) {
                 id = rowIds[a];
                 if (id && id.replace) {
                     // We have to do this since the value of a checkbox
-                    // or radio button can be anything
+                    // or radio button can be anything 
                     id = encodeURIComponent(id).replace(/[.\-%]/g, "_");
                 }
             }

@@ -40,6 +40,7 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
         $form = $service->getFormContramedida();
         $request = $this->getRequest();
         $success = false;
+        $risco = $serviceRisco->getById($request->getParams());
 
         if ($request->isPost()) {
             $contramedida = $service->insert($request->getPost());
@@ -49,7 +50,7 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
                 $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
                 $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
                 $dados['tpacao'] = 'N'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
-                $dados['idprojeto'] = $request->getPost()['idprojeto'];
+                $dados['idprojeto'] = $risco['idprojeto'];
                 $serviceLinhaTempo->inserir($dados);
                 $msg = App_Service_ServiceAbstract::REGISTRO_CADASTRADO_COM_SUCESSO;
             } else {
@@ -68,8 +69,7 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
                 );
             }
         }
-
-        $this->view->risco = $serviceRisco->getById($request->getParams());
+        $this->view->risco = $risco;
         $form->populate(array('idrisco' => $request->getParam('idrisco')));
         $this->view->formContramedida = $form;
     }
@@ -81,10 +81,18 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
         $form = $service->getFormContramedida();
         $request = $this->getRequest();
         $success = false;
+        $risco = $serviceRisco->getById($request->getParams());
 
         if ($request->isPost()) {
             $contramedida = $service->update($request->getPost());
             if ($contramedida) {
+                /** Cadastra na linha do tempo (auditoria). */
+                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
+                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
+                $dados['tpacao'] = 'A'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
+                $dados['idprojeto'] = $risco['idprojeto'];
+                $serviceLinhaTempo->inserir($dados);
+
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_ALTERADO_COM_SUCESSO;
             } else {
@@ -105,7 +113,7 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
         }
         $contramediaResult = $service->getById($this->getRequest()->getParams())->toArray();
         $form->populate($contramediaResult);
-        $this->view->risco = $serviceRisco->getById($request->getParams());
+        $this->view->risco = $risco;
         $this->view->formContramedida = $form;
     }
 
@@ -114,10 +122,18 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
         $service = App_Service_ServiceAbstract::getService('Projeto_Service_Contramedida');
         $request = $this->getRequest();
         $success = false;
+        $contramedidaDetalhar = $service->getByIdDetalhar($request->getParams());
 
         if ($request->isPost()) {
             $contramedida = $service->excluir($request->getParams());
             if ($contramedida) {
+                /** Cadastra na linha do tempo (auditoria). */
+                $serviceLinhaTempo = new Projeto_Service_LinhaTempo();
+                $dados["idrecurso"] = $serviceLinhaTempo->getRecurso($this->_request->getControllerName())["idrecurso"]; // Identifica o registro dos controles  de modulos.
+                $dados['tpacao'] = 'E'; // Tipo de ação executada na funcionalidade: N - Novo, A - Alteração ou E - Exclusão.
+                $dados['idprojeto'] = $contramedidaDetalhar['idprojeto'];
+                $serviceLinhaTempo->inserir($dados);
+
                 $success = true; ###### AUTENTICATION SUCCESS
                 $msg = App_Service_ServiceAbstract::REGISTRO_EXCLUIDO_COM_SUCESSO;
             } else {
@@ -135,8 +151,8 @@ class  Projeto_ContramedidaController extends Zend_Controller_Action
                 );
             }
         }
-        $contramedidaResult = $service->getByIdDetalhar($request->getParams());
-        $this->view->contramedida = $contramedidaResult;
+
+        $this->view->contramedida = $contramedidaDetalhar;
     }
 
     public function detalharAction()

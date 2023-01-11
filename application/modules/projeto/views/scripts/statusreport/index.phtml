@@ -1,9 +1,5 @@
 <?php
 
-$offset = 60 * 15;
-@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
-@header("Cache-Control: max-age=$offset, must-revalidate");
-
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'))
@@ -23,13 +19,13 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/pnotify-1.2.0/jquery.pnotify.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/app/versaoSistema/jQuery-QuickSearch.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/projeto/statusreport/index.js?' . time()), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/app/versaoSistema/versao.js?' . time()), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/projeto/statusreport/index.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/versaoSistema/versao.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 ?>

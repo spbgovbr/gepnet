@@ -1157,7 +1157,7 @@ Date.parseExact = function (s, fx) {
  * @website: http://www.datejs.com/
  */
 
-/* 
+/*
  * TimeSpan(milliseconds);
  * TimeSpan(days, hours, minutes, seconds);
  * TimeSpan(days, hours, minutes, seconds, milliseconds);
@@ -1326,7 +1326,7 @@ Date.prototype.getTimeOfDay = function () {
     return new TimeSpan(0, this.getHours(), this.getMinutes(), this.getSeconds(), this.getMilliseconds());
 };
 
-/* 
+/*
  * TimePeriod(startDate, endDate);
  * TimePeriod(years, months, days, hours, minutes, seconds, milliseconds);
  */

@@ -820,7 +820,7 @@
         }
 
         // force my and at to have valid horizontal and veritcal positions
-        // if a value is missing or invalid, it will be converted to center
+        // if a value is missing or invalid, it will be converted to center 
         $.each(["my", "at"], function () {
             var pos = (options[this] || "").split(" ");
             if (pos.length === 1) {
@@ -4091,19 +4091,19 @@
 
         _contactContainers: function (event) {
 
-            // get innermost container that intersects with item
+            // get innermost container that intersects with item 
             var innermostContainer = null, innermostIndex = null;
 
 
             for (var i = this.containers.length - 1; i >= 0; i--) {
 
-                // never consider a container that's located within the item itself
+                // never consider a container that's located within the item itself 
                 if ($.ui.contains(this.currentItem[0], this.containers[i].element[0]))
                     continue;
 
                 if (this._intersectsWith(this.containers[i].containerCache)) {
 
-                    // if we've already found a container and it's more "inner" than this, then continue
+                    // if we've already found a container and it's more "inner" than this, then continue 
                     if (innermostContainer && $.ui.contains(this.containers[i].element[0], innermostContainer.element[0]))
                         continue;
 
@@ -4111,7 +4111,7 @@
                     innermostIndex = i;
 
                 } else {
-                    // container doesn't intersect. trigger "out" event if necessary
+                    // container doesn't intersect. trigger "out" event if necessary 
                     if (this.containers[i].containerCache.over) {
                         this.containers[i]._trigger("out", event, this._uiHash(this));
                         this.containers[i].containerCache.over = 0;
@@ -4120,7 +4120,7 @@
 
             }
 
-            // if no intersecting containers found, return
+            // if no intersecting containers found, return 
             if (!innermostContainer) return;
 
             // move the item into the container if it's not there already
@@ -4129,7 +4129,7 @@
                 this.containers[innermostIndex].containerCache.over = 1;
             } else if (this.currentContainer != this.containers[innermostIndex]) {
 
-                //When entering a new container, we will find the item with the least distance and append our item near it
+                //When entering a new container, we will find the item with the least distance and append our item near it 
                 var dist = 10000;
                 var itemWithLeastDistance = null;
                 var base = this.positionAbs[this.containers[innermostIndex].floating ? 'left' : 'top'];
@@ -4142,7 +4142,7 @@
                     }
                 }
 
-                if (!itemWithLeastDistance && !this.options.dropOnEmpty) //Check if dropOnEmpty is enabled
+                if (!itemWithLeastDistance && !this.options.dropOnEmpty) //Check if dropOnEmpty is enabled 
                     return;
 
                 this.currentContainer = this.containers[innermostIndex];
@@ -4150,7 +4150,7 @@
                 this._trigger("change", event, this._uiHash());
                 this.containers[innermostIndex]._trigger("change", event, this._uiHash(this));
 
-                //Update the placeholder
+                //Update the placeholder 
                 this.options.placeholder.update(this.currentContainer, this.placeholder);
 
                 this.containers[innermostIndex]._trigger("over", event, this._uiHash(this));
@@ -5581,7 +5581,7 @@
 
 /*
  * jQuery UI Menu (not officially released)
- *
+ * 
  * This widget isn't yet finished and the API is subject to change. We plan to finish
  * it for the next release. You're welcome to give it a try anyway and give us feedback,
  * as long as you're okay with migrating your code later on. We can help with that, too.
@@ -9127,7 +9127,7 @@
         },
 
         /* Pop-up the date picker for a given input field.
-       If false returned from beforeShow event handler do not show.
+       If false returned from beforeShow event handler do not show. 
 	   @param  input  element - the input field attached to the date picker or
 	                  event - if triggered by focus */
         _showDatepicker: function (input) {
@@ -9242,7 +9242,7 @@
                 // this breaks the change event in IE
                 inst.input.is(':visible') && !inst.input.is(':disabled') && inst.input[0] != document.activeElement)
                 inst.input.focus();
-            // deffered render of the years select (to avoid flashes on Firefox)
+            // deffered render of the years select (to avoid flashes on Firefox) 
             if (inst.yearshtml) {
                 var origyearshtml = inst.yearshtml;
                 setTimeout(function () {

@@ -31,6 +31,10 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
      */
     public function insert(Default_Model_Pessoa $model)
     {
+        $model->setToken($_POST['token']);
+        $serviceLogin = new Default_Service_Login();
+        $usuario = $serviceLogin->retornaUsuarioLogado();
+        $model->setIdcadastrador($usuario->idpessoa);
         try {
             $model->idpessoa = $this->maxVal('idpessoa');
             $data = array(
@@ -284,9 +288,9 @@ class Default_Model_Mapper_Pessoa extends App_Model_Mapper_MapperAbstract
     {
         $sql = "SELECT
                     idpessoa, nompessoa, numcpf, desobs, numfone, numcelular, desemail,
-                    domcargo, idcadastrador, to_char(datcadastro,'DD/MM/YYYY') as datcadastro,lotacao,
+                    domcargo, idcadastrador, to_char(datcadastro,'DD/MM/YYYY') as datcadastro,
                     id_servidor, nummatricula, desfuncao, flaagenda,
-                    versaosistema, primeiroacesso
+                    versaosistema
                 FROM agepnet200.tb_pessoa pes
                 WHERE
                      pes.desemail = :desemail";

@@ -18,7 +18,7 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
     ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/app/projeto/tap/parteinteressada.js?' . time()), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/app/projeto/tap/parteinteressada.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 $frmAttrExterno = $this->formExterno->getAttribs();

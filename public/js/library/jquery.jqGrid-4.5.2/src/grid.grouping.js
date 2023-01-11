@@ -396,7 +396,7 @@
                 var grp = $t.p.groupingView;
                 $t.p.grouping = true;
 
-                //Set default, in case visibilityOnNextGrouping is undefined
+                //Set default, in case visibilityOnNextGrouping is undefined 
                 if (grp.visibiltyOnNextGrouping === undefined) {
                     grp.visibiltyOnNextGrouping = [];
                 }

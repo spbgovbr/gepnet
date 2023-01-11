@@ -82,7 +82,7 @@ jQuery.fn.print = function () {
     objDoc.write(jStyleDiv.html());
     objDoc.write("</head>");
 
-    // Typically, would just write out the html.	
+    // Typically, would just write out the html.
     // objDoc.write( this.html() );
 
     // We need to do specific manipulation for kcp quintiles.
@@ -104,7 +104,7 @@ jQuery.fn.print = function () {
     objDoc.write("</html>");
     objDoc.close();
 
-    // 
+    //
     // When the iframe is completely loaded, print it.
     // This seemed worked in IE 9, but caused problems in FF.
     //

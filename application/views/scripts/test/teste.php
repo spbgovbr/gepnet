@@ -66,13 +66,13 @@
 
         <div class="row">
             <div class="portlet portlet-cinza span6">
-                <div class="title">% Concluído ( Planejado x Realizado)</div>
+                <div class="title">% Concluï¿½do ( Planejado x Realizado)</div>
                 <div class="content">
                     <div id="chartcontainer-planejado-realizado" style="max-width:580px;height: 160px;"></div>
                 </div>
             </div>
             <div class="portlet portlet-cinza span6">
-                <div class="title">Evolução Atraso</div>
+                <div class="title">Evoluï¿½ï¿½o Atraso</div>
                 <div class="content">
                     <div id="chartcontainer-atraso" style="max-width:500px;height: 160px;"></div>
                 </div>

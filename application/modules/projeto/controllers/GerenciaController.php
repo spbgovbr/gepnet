@@ -181,7 +181,7 @@ class Projeto_GerenciaController extends Zend_Controller_Action
 
     public function editarAction()
     {
-        $service = App_Service_ServiceAbstract::getService('Projeto_Service_Gerencia');
+        $service = new Projeto_Service_Gerencia();
         $form = $service->getFormEditar();
         $success = false;
         if ($this->_request->isPost()) {
@@ -465,26 +465,46 @@ class Projeto_GerenciaController extends Zend_Controller_Action
             $auth = Zend_Auth::getInstance();
             $perfil = $auth->getIdentity()->perfilAtivo->nomeperfilACL;
 
-            if ($perfil != "admin_gepnet") {
-                $form->getElement('idescritorio')->setAttribs(
-                    array(
-                        'readonly' => 'readonly',
-                        'pointer-events' => 'none',
-                        'tabindex' => '-1',
-                        'use_hidden_element' => true,
-                        'disabled' => 'disabled',
-                    )
-                );
+            switch ($perfil){
+                case "admin_gepnet":
+                    $form->populate(
+                        array(
+                            'idprojeto' => $projeto->idprojeto,
+                            'nomprojeto' => $projeto->nomprojeto,
+                            'nomcodigo' => $projeto->nomcodigo,
+                            'ano' => $projeto->ano,
+                            'idescritorio' => $projeto->idescritorio,
+                        )
+                    );
+                    break;
+                default :
+                    $dadosEscritorio = array(
+                        $perfil = $auth->getIdentity()->perfilAtivo->idescritorio => $perfil = $auth->getIdentity()->perfilAtivo->nomescritorio
+                    );
+                    $form->getElement('idescritorio')
+                        ->setMultiOptions($dadosEscritorio)
+                        ->setAttribs(
+                            array(
+                                'readonly' => 'readonly',
+                                'pointer-events' => 'none',
+                                'tabindex' => '-1',
+                                'use_hidden_element' => true,
+                                'disabled' => 'disabled',
+                            )
+                    );
+
+                    $form->populate(
+                        array(
+                            'idprojeto' => $projeto->idprojeto,
+                            'nomprojeto' => $projeto->nomprojeto,
+                            'nomcodigo' => $projeto->nomcodigo,
+                            'ano' => $projeto->ano,
+                            'idescritorio' => $auth->getIdentity()->perfilAtivo->idescritorio,
+                        )
+                    );
             }
-            $form->populate(
-                array(
-                    'idprojeto' => $projeto->idprojeto,
-                    'nomprojeto' => $projeto->nomprojeto,
-                    'nomcodigo' => $projeto->nomcodigo,
-                    'ano' => $projeto->ano,
-                    'idescritorio' => $projeto->idescritorio,
-                )
-            );
+
+
             $this->view->form = $form;
         }
     }

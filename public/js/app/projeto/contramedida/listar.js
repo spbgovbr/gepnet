@@ -9,7 +9,7 @@ $(function () {
         gridEnd = null,
         colModel = null,
         colNames = null,
-        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
     colNames = ['Título Risco', 'Título Contramedida', 'Prazo', 'Tendência/Real', 'Status Contramedida', 'Contramedida Efetiva?', 'Tipo Contramedida', 'Responsável', 'Opera&ccedil;&otilde;es'];
     colModel = [{
         name: 'norisco',

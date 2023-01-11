@@ -8,14 +8,19 @@ $offset = 60 * 15;
  */
 
 $posServer = strpos($_SERVER['SERVER_NAME'], "localhost");
+
 if ($posServer === false) {
-    $icontag = $this->baseUrl('/img/icon-tag.png');
-    $iconflag = $this->baseUrl('/img/icon-flag.png');
+    if(trim($_SERVER['SERVER_NAME']) == "projetoshom--") {
+        $icontag  = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-tag.png'));
+        $iconflag = str_replace('//','',$_SERVER['DOCUMENT_ROOT']."/".$this->baseUrl('/img/icon-flag.png'));
+    }else{
+        $icontag = $this->baseUrl('img/icon-tag.png');
+        $iconflag = $this->baseUrl('img/icon-flag.png');
+    }
 } else {
     $icontag = 'img/icon-tag.png';
     $iconflag = 'img/icon-flag.png';
 }
-
 
 ?>
 <div class="btn-group" style="display: none;">
@@ -40,27 +45,6 @@ if ($posServer === false) {
                         style="display: inline-block; width: auto; max-width: 373px;"/>
             </div>
         </div>
-        <!-- <div align="center" style="margin-top: 20px;">
-            <table class="table table-bordered table-hover table-striped span10"
-                   style="border-style: none;border-color: transparent;border: 0px solid transparent;background: #fff;"
-                   border="0">
-                <tr style="border: 0;">
-                    <td style="text-align: center;border: 0;font-size: 14px;font-weight: bold;">Prazo</td>
-                    <td style="text-align: center;border: 0;font-size: 14px;font-weight: bold;">Risco</td>
-                    <td style="text-align: center;border: 0;font-size: 14px;font-weight: bold;">Marco</td>
-                </tr>
-                <tr style="border: 0;">
-                    <td style="border: 0;"><img src="data:image/png;base64,<?php //$this->graficoGaugePrazo; ?>"
-                            style="display: inline-block;"/></td>
-                    <td style="border: 0;"><img
-                            src="data:image/png;base64,<?php //$this->graficoGaugeRisco; ?>"
-                            style="display: inline-block;"/></td>
-                    <td style="border: 0;"><img
-                            src="data:image/png;base64,<?php //$this->graficoGaugeMarco; ?>"
-                            style="display: inline-block;"/></td>
-                </tr>
-            </table>
-        </div> -->
         <?php if ($this->acompanhamento): ?>
         <div class="span10" style="display: inline;margin-left: 15px;page-break-before: always;margin-top: 60px;">
             <div style="float: left;margin-left: 6px; width: 350px;">

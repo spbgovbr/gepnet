@@ -634,6 +634,10 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
     {
         return $this->_mapper->retornaUltimoIdProjeto();
     }
+    public function retornaProjetoParaStatusReport($params)
+    {
+        return $this->_mapper->retornaProjetoParaStatusReport($params);
+    }
 
     public function retornaProjetoPorId($params)
     {
@@ -1147,11 +1151,19 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
         return $objResposta;
     }
 
+    public function retornaProjetoAtualizado($params,$model){
+        return $this->_mapper->retornaProjetoAtualizado($params,$model);
+    }
+
+
     public function generateStatusReport($params)
     {
         $projeto = $this->retornaProjetoPorId($params);
 
         $resultado = $projeto->retornarDiasEstimadosEReais();
+
+        /** @var Projeto_Model_Projeto $arrayProjeto */
+        $arrayProjeto = $this->_mapper->retornaProjetoAtualizado($params,false);
 
         $this->_mapperAtividadeCronograma = new Projeto_Model_Mapper_Atividadecronograma();
         $r = $this->_mapperAtividadeCronograma->retornaMetaDadosPorProjeto($params);
@@ -1182,7 +1194,7 @@ class Projeto_Service_Gerencia extends App_Service_ServiceAbstract
         }
 
         $r['estimativas'] = $resultado;
-        $r['estimativas']->numpercentualprevisto = $projeto->numpercentualprevisto;
+        $r['estimativas']->numpercentualprevisto = $arrayProjeto['numpercentualprevisto'];
         $r['estimativas']->numpercentualconcluido = $projeto->numpercentualconcluido;
         $r['estimativas']->diaatraso = $projeto->atraso;
         $r['estimativas']->domcoratraso = $projeto->domcoratraso;

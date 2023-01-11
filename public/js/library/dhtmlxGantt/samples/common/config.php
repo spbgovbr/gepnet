@@ -10,7 +10,7 @@ $res->busyTimeout(1000);
 /*$connection = null;
 
 function conexao(){
-    $con_string = "host=10.2.96.71 port=5432 dbname=EGPE_MIGRACAO user=agepnetusr password=agepnetusr";
+    $con_string = "host=10.10.10.10 port=1010 dbname=xxxx user=xxxxa password=xxxx";
     print_r(pg_connect($con_string));
     $connection = pg_connect($con_string);
 }

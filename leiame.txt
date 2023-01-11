@@ -1,0 +1,250 @@
+/*********************************** CABEÇALHO **************************************
+"Copyright ©2022 Polícia Federal. Estes arquivos são parte do programa GEPnet.
+GEPnet é um software livre. Você pode redistribuí-lo e/ou modificá-lo dentro dos termos
+da Licença Pública Geral GNU ("GPL GNU"), versão 2.0 ou superior, como publicada pela
+Fundação do Software Livre (FSF - Free Software Foundation). Este programa é distribuído
+na esperança de que possa ser útil, mas sem qualquer garantia implícita de adequaçãoo a
+qualquer uso ou aplicação em particular ou outra garantia qualquer. Este software é fruto
+do esforço da Polícia Federal do Brasil na busca da melhoria do serviço público.
+Gepnet, seu logo, fontes e demais documentos estão registrados no INPI - Instituto
+Nacional de Propriedade Industrial do Brasil, sob o número INPI BR 51 2014 000773-1.
+© 2010-2022 Polícia Federal."
+*************************************************************************************/
+
+------------------------
+
+Configuração ambiente servidor Apache para Gepnet2
+Configuração do servidor Apache
+<VirtualHost *:80>
+      ServerAdmin userName
+      ServerName localhost
+      DocumentRoot /var/www/gepnet2/public
+   <Directory /var/www/gepnet2/public>
+            Options Indexes FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            allow from all
+   </Directory>
+ 
+           ErrorLog ${APACHE_LOG_DIR}/error.log
+ 
+       # Possible values include: debug, info, notice, warn, error, crit,
+       # alert, emerg.
+       # LogLevel warn
+ 
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+ 
+</VirtualHost>
+
+---------------------------------------------------------------------
+
+Lista de erros mais comuns na primeira instalação
+
+Erro:
+Fatal error: Uncaught exception 'Zend_Cache_Exception' with message 'cache_dir is not 
+writable' in 
+/var/www/gepnet2/library/Zend/Cache.php:209 Stack trace: #0 
+/var/www/gepnet2/library/Zend/Cache/Backend/File.php(157): Zend_Cache::throwException
+('cache_dir is no...') 
+#1 /var/www/gepnet2/library/Zend/Cache/Backend/File.php(121): Zend_Cache_Backend_File-
+>setCacheDir('/var/www/gepnet...') #2 /var/www/gepnet2/public/index.php(31): Zend_Cache_
+Backend_File-
+>__construct(Array) #3 {main} thrown in/var/www/gepnet2/library/Zend/Cache.php on line
+ 209
+Solução: Alterar permissão de escrita da pasta de cache 
+(../var/www/gepnet2/application/data/cache) para possibilitar gravação de dados pelo 
+sistema. 
+Por exemplo: chmod 777 /var/www/gepnet2/application/data/cache
+------------------------
+Erro:
+Fatal error: Uncaught exception 'Zend_Log_Exception' with message 
+'"/var/www/gepnet2/application/../logs/application.log" cannot be opened with mode "a"' in 
+/var/www/gepnet2/library/Zend/Log/Writer/Stream.php:81 Stack trace: #0 
+/var/www/gepnet2/library/Zend/Log/Writer/Stream.php(107): Zend_Log_Writer_Stream-
+>__construct('/var/www/gepnet...', NULL) #1 [internal function]: Zend_Log_Writer_Stream::
+factory(Array) #2 
+/var/www/gepnet2/library/Zend/Log.php(276): call_user_func(Array, Array) #3 
+/var/www/gepnet2/library/Zend/Log.php(169): Zend_Log->_constructFromConfig('writer', Array, 
+'Zend_Log_Writer') #4 /var/www/gepnet2/library/Zend/Log.php(494): Zend_Log-
+>_constructWriterFromConfig(Array) #5 /var/www/gepnet2/library/Zend/Log.php(152): Zend_Log-
+>addWriter(Array) #6 /var/www/gepnet2/library/Zend/Application/Resource/Log.php(78): 
+Zend_Log::factory(Array) #7 /var/www/gepnet2/library/Zend/Application/Resource/Log.php(54): 
+Zend_Application_Resource_Log->getLog() #8 
+/var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstra 
+in /var/www/gepnet2/library/Zend/Log/Writer/Stream.php on line 81
+Solução: Alterar permissão de escrita da pasta de log (../var/www/gepnet2/logs) para 
+possibilitar gravação de dados pelo sistema. 
+Por exemplo: chmod 777 /var/www/gepnet2/logs
+------------------------
+Erro:
+An error occurred
+Application error
+Exception information:
+Message: The given destination is not writeable
+Stack trace:
+#0 /var/www/gepnet2/library/Zend/Form/Element/File.php(505): Zend_File_Transfe
+r_Adapter_Abstract->setDestination('/var/www/gepnet...', 'arquivo1')
+#1 /var/www/gepnet2/library/Zend/Form/Element.php(375): Zend_Form_Element_File
+->setDestination('/var/www/gepnet...')
+#2 /var/www/gepnet2/library/Zend/Form/Element.php(253): Zend_Form_Element->set
+Options(Array)
+#3 /var/www/gepnet2/library/Zend/Form.php(1112): Zend_Form_Element->__construc
+t('arquivo1', Array)
+#4 /var/www/gepnet2/library/Twitter/Bootstrap/Form.php(104): Zend_Form->create
+Element('file', 'arquivo1', Array)
+#5 /var/www/gepnet2/library/Zend/Form.php(1040): Twitter_Bootstrap_Form->creat
+eElement('file', 'arquivo1', Array)
+#6 /var/www/gepnet2/application/modules/projeto/forms/Rud.php(68): Zend_Form->
+addElement('file', 'arquivo1', Array)
+#7 /var/www/gepnet2/library/Zend/Form.php(240): Projeto_Form_Rud->init()
+#8 /var/www/gepnet2/library/Twitter/Bootstrap/Form.php(43): Zend_Form->__const
+ruct(NULL)
+#9 /var/www/gepnet2/library/Twitter/Bootstrap/Form/Vertical.php(41): Twitter_B
+ootstrap_Form->__construct(NULL)
+#10 /var/www/gepnet2/library/App/Form/FormAbstract.php(16): Twitter_Bootstrap_
+Form_Vertical->__construct(NULL)
+#11 /var/www/gepnet2/library/App/Service/ServiceAbstract.php(316): App_Form_Fo
+rmAbstract->__construct()
+#12 /var/www/gepnet2/application/modules/projeto/services/Rud.php(62): App_Ser
+vice_ServiceAbstract::_getForm('Projeto_Form_Ru...')
+#13 /var/www/gepnet2/application/modules/projeto/controllers/RudController.php
+(19): Projeto_Service_Rud->getForm()
+#14 /var/www/gepnet2/library/Zend/Controller/Action.php(516): Projeto_RudContr
+oller->indexAction()
+#15 /var/www/gepnet2/library/Zend/Controller/Dispatcher/Standard.php(295): Zen
+d_Controller_Action->dispatch('indexAction')
+#16 /var/www/gepnet2/library/Zend/Controller/Front.php(954): Zend_Controller_D
+ispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend
+_Controller_Response_Http))
+#17 /var/www/gepnet2/library/Zend/Application/Bootstrap/Bootstrap.php(97): Zen
+d_Controller_Front->dispatch()
+#18 /var/www/gepnet2/library/Zend/Application.php(366): Zend_Application_Boots
+trap_Bootstrap->run()
+#19 /var/www/gepnet2/public/index.php(43): Zend_Application->run()
+#20 {main}        
+Request Parameters:
+array (
+  'module' => 'projeto',
+  'controller' => 'rud',
+  'action' => 'index',
+  'idprojeto' => '1',
+)        
+
+Solução: Alterar permissão de escrita da pasta de arquivos (../var/www/gepnet2/arquivos) e 
+(../var/www/gepnet2/upload)para possibilitar gravação de dados pelo sistema. 
+Por exemplo: chmod 777 /var/www/gepnet2/arquivos
+Por exemplo: chmod 777 /var/www/gepnet2/upload
+
+----------------------------------------------------------------------------------------------
+Orientações para customização dos logotipos e cabeçalhos dos documentos gerados em pdf
+
+Logotipo da tela de apresentação do sistema
+
+1.	Gerar logotipo da organização no formato .gif, tamanho 70 X 78 (pixels);
+2.	Nomear o arquivo como “logo_semtexto_NOVO.gif” (sem aspas);
+3.	Substituir o arquivo ../gepnet2/public/img/logo_semtexto_NOVO.gif pelo arquivo 
+gerado no item 1.
+
+Cabeçalho da tela de abertura
+1.	Editar o arquivo ../gepnet2/application/layouts/scripts/default.phtml e inserir os 
+dados de sua organização/órgão.
+
+Cabeçalho da tela de login
+1.	Editar o arquivo ../gepnet2/application/layouts/scripts/login.phtml e inserir os dados 
+de sua organização/órgão.
+
+Logotipo dos relatórios gerados em pdf
+1.	Gerar logotipo da organização no formato .png, tamanho 70 X 78 (pixels);
+2.	Nomear o arquivo como “brasão_fundobranco.png” (sem aspas);
+3.	Substituir o arquivo ../gepnet2/public/img/brasão_fundobranco.png pelo arquivo 
+gerado no item 1.
+
+Cabeçalho dos documentos gerados em pdf
+1.	Editar o arquivo 
+../gepnet2/application/modules/projeto/views/scripts/_partials/relatório-
+cabecalho.phtml e inserir os dados de sua organização/órgão.
+
+
+----------------------------------------------------------------------------------------------
+Orientações para configurar permissões de leitura das pastas do aplicativo
+
+Passo 1 : Alterar permissão de escrita da pasta de cache 
+(../var/www/gepnet2/application/data/cache) para possibilitar gravação de dados pelo 
+sistema. 
+Comando no terminal linux: chmod 777 /var/www/gepnet2/application/data/cache
+Passo 2: Alterar permissão de escrita da pasta de log (../var/www/gepnet2/logs) para 
+possibilitar gravação de dados pelo sistema. 
+Comando no terminal linux: chmod 777 /var/www/gepnet2/logs
+Passo 3: Alterar permissão de escrita das pastas de arquivos (../var/www/gepnet2/arquivos) e 
+(../var/www/gepnet2/upload) para possibilitar gravação de dados pelo sistema (módulo RUD 
+do gepnet). 
+Comando no terminal linux: chmod 777 /var/www/gepnet2/arquivos
+Comando no terminal linux: chmod 777 /var/www/gepnet2/upload
+
+------------------------
+
+Atualização em Dezembro de 2022
+
+CORREÇÃO:
+Atualizar driver pdo zendframework1:
+
+Fatal error: Uncaught exception 'Zend_Cache_Exception' with message 'linha249-cache.php' in /var/www/gepnet2/library/Zend/Cache.php:249 Stack trace: #0 /var/www/gepnet2/library/Zend/Cache/Backend/File.php(154): Zend_Cache::throwException('cache_dir must ...') #1 /var/www/gepnet2/library/Zend/Cache/Backend/File.php(121): Zend_Cache_Backend_File->setCacheDir('/var/www/gepnet...') #2 /var/www/gepnet2/library/Zend/Cache.php(189): Zend_Cache_Backend_File->__construct(Array) #3 /var/www/gepnet2/library/Zend/Cache.php(130): Zend_Cache::_makeBackend('File', Array, false, false) #4 /var/www/gepnet2/application/Bootstrap.php(53): Zend_Cache::factory('Core', 'File', Array, Array) #5 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(670): Bootstrap->_initCache() #6 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(623): Zend_Application_Bootstrap_BootstrapAbstract->_executeResource('cache') #7 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(587): Zend_Applicati in /var/www/gepnet2/library/Zend/Cache.php on line 249
+
+Como resolver:
+..\library\zend\db\adapter\pdo\pqsql.php , linha 159, ajustar para: pg_get_expr(d.adbin, d.adrelid) AS default_value,
+
+-----------------------------------------------------------------
+
+ERRO:
+Fatal error: Uncaught exception 'Zend_Cache_Exception' with message 'linha249-cache.php' in /var/www/gepnet2/library/Zend/Cache.php:249 Stack trace: #0 /var/www/gepnet2/library/Zend/Cache/Backend/File.php(154): Zend_Cache::throwException('cache_dir must ...') #1 /var/www/gepnet2/library/Zend/Cache/Backend/File.php(121): Zend_Cache_Backend_File->setCacheDir('/var/www/gepnet...') #2 /var/www/gepnet2/library/Zend/Cache.php(189): Zend_Cache_Backend_File->__construct(Array) #3 /var/www/gepnet2/library/Zend/Cache.php(130): Zend_Cache::_makeBackend('File', Array, false, false) #4 /var/www/gepnet2/application/Bootstrap.php(53): Zend_Cache::factory('Core', 'File', Array, Array) #5 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(670): Bootstrap->_initCache() #6 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(623): Zend_Application_Bootstrap_BootstrapAbstract->_executeResource('cache') #7 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstract.php(587): Zend_Applicati in /var/www/gepnet2/library/Zend/Cache.php on line 249
+Como resolver:
+Solução: Confirmar se existe a pasta de cache (../var/www/gepnet2/application/data/cache) para possibilitar gravação de dados pelo sistema.
+	Caso não exista a pasta cache no caminho indicado, CRIAR pasta cache e atribuir permisssão de escrita para todos (por exemplo: chmod -R 777 /var/www/gepnet2/application/data/cache)
+
+-----------------------------------------------------------------
+
+ERRO:
+Fatal error: Uncaught exception 'PDOException' with message 'SQLSTATE[08006] [7] FATAL: password authentication failed for user "postgres" FATAL: password authentication failed for user "postgres"' in /var/www/gepnet2/library/Zend/Db/Adapter/Pdo/Abstract.php:129 Stack trace: #0 /var/www/gepnet2/library/Zend/Db/Adapter/Pdo/Abstract.php(129): PDO->__construct('pgsql:host=loca...', 'postgres', 'PASSWORD', Array) #1 /var/www/gepnet2/library/Zend/Db/Adapter/Pdo/Pgsql.php(87): Zend_Db_Adapter_Pdo_Abstract->_connect() #2 /var/www/gepnet2/library/Zend/Db/Adapter/Abstract.php(463): Zend_Db_Adapter_Pdo_Pgsql->_connect() #3 /var/www/gepnet2/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query('select\n ...', Array) #4 /var/www/gepnet2/library/Zend/Db/Adapter/Abstract.php(740): Zend_Db_Adapter_Pdo_Abstract->query('select\n ...', Array) #5 /var/www/gepnet2/library/App/Acl.php(79): Zend_Db_Adapter_Abstract->fetchAll('select\n ...') #6 /var/www/gepnet2/library/App/Acl.php(29): App_Acl in /var/www/gepnet2/library/Zend/Db/Adapter/Pdo/Abstract.php on line 144
+
+Como resolver: Confirmar se os dados de conexão ao banco de dados estão informados corretamente no arquivo ..\application\configs\application.ini
+	Localizar as linhas abaixo no arquivo application.ini e ajustar:
+;Conexao com o banco postgres
+resources.db.adapter = "pdo_pgsql"
+resources.db.params.host = "localhost" --informar aqui o endereço do seu banco de dados postgresql. se o banco de dados for local, utilizar "localhost".
+resources.db.params.port = "5432" --informar aqui a porta de conexão do seu banco de dados postgresql. a porta padrão é "5432".
+resources.db.params.username = "nome-do-usuario" --informar aqui o nome do usuário para conexão ao seu banco de dados postgresql.
+resources.db.params.password = "password" --informar aqui a password para conexão ao seu banco de dados postgresql.
+resources.db.params.dbname = "agepnet200" -- informar aqui o nome do banco de dados do gepnet2 em seu servidor postgresql. se o banco de dados tiver sido criado com outro nome, você deve criar um novo banco de dados e utilizar obrigatoriamente o nome "agepnet200". se você insistir em utilizar outro nome de banco de dados, o sistema não vai funcionar.
+resources.db.params.charset = "utf8"
+
+------------------------------------------------------------------------
+
+ERRO:
+Fatal error: Uncaught exception 'Zend_Log_Exception' with message '"/var/www/gepnet2/application/../logs/application.log" cannot be opened with mode "a"' in /var/www/gepnet2/library/Zend/Log/Writer/Stream.php:81 Stack trace: #0 /var/www/gepnet2/library/Zend/Log/Writer/Stream.php(107): Zend_Log_Writer_Stream->__construct('/var/www/gepnet...', NULL) #1 [internal function]: Zend_Log_Writer_Stream::factory(Array) #2 /var/www/gepnet2/library/Zend/Log.php(276): call_user_func(Array, Array) #3 /var/www/gepnet2/library/Zend/Log.php(169): Zend_Log->_constructFromConfig('writer', Array, 'Zend_Log_Writer') #4 /var/www/gepnet2/library/Zend/Log.php(494): Zend_Log->_constructWriterFromConfig(Array) #5 /var/www/gepnet2/library/Zend/Log.php(152): Zend_Log->addWriter(Array) #6 /var/www/gepnet2/library/Zend/Application/Resource/Log.php(78): Zend_Log::factory(Array) #7 /var/www/gepnet2/library/Zend/Application/Resource/Log.php(54): Zend_Application_Resource_Log->getLog() #8 /var/www/gepnet2/library/Zend/Application/Bootstrap/BootstrapAbstra in /var/www/gepnet2/library/Zend/Log/Writer/Stream.php on line 81
+
+Como resolver:
+Alterar permissão de escrita da pasta de log (../var/www/gepnet2/logs) para possibilitar gravação de dados pelo sistema.
+
+Por exemplo: chmod -R 777 /var/www/gepnet2/logs
+-------------------------------------------------------------------------------
+
+ERRO:
+Notice: Undefined variable: navigation in /var/www/gepnet2/application/Bootstrap.php on line 219
+Notice: Undefined variable: acl in /var/www/gepnet2/application/Bootstrap.php on line 220
+Notice: Undefined variable: role in /var/www/gepnet2/application/Bootstrap.php on line 220
+Notice: Undefined variable: navigation in /var/www/gepnet2/application/Bootstrap.php on line 221
+
+Como resolver:
+Comentar as linhas 199 a 206 do arquivo ..\application\Bootstrap.php
+ //    $this->bootstrap('db');
+    //    $this->bootstrap('layout');
+    //    $this->bootstrap('view');
+    //    $this->bootstrap('FrontController');
+    //    $layout     = $this->getResource('layout');
+    //    $view       = $layout->getView();
+    //    $config     = new Zend_Config_Xml(APPLICATION_PATH .
+    //        '/configs/navigation.xml', 'nav');
+--------------------------------------------------------------------------------------
+
+
+

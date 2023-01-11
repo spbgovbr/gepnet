@@ -185,7 +185,7 @@ class indic
                                 else {
                                     if ($lang == 'te') {
                                         // TELUGU double-part vowels [0C48 -> 0C46 0C56]
-                                        $vstr = str_replace('0C48', '0C46 0C56', $vstr);    // 2-part Vowel
+                                        $vstr = str_replace('0C48', '0C46 0C56', $vstr);    // 2-part Vowel 
                                         $prebasedvowels = "(0C46)";
                                         $abvvowels = "(0C3E|0C3F|0C40|0C46|0C47|0C4A|0C4B|0C4C|0C55)";
                                         // No nukta

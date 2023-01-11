@@ -37,7 +37,7 @@ class GridConfiguration
     }
 
     /*! brief convert list of parameters to an array
-        @param param 
+        @param param
             list of values or array of values
         @return array of parameters
     */

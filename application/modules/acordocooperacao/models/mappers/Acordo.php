@@ -53,6 +53,7 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
             "idfiscal2" => $model->idfiscal2,
             "idfiscal3" => $model->idfiscal3,
             "descargofiscal" => $model->descargofiscal,
+            "descaminho" => $model->descaminho,
         );
 
 //        Zend_Debug::dump($model->datassinatura);
@@ -77,13 +78,26 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
             $data['descaminho'] = $model->descaminho;
         }
 
+        $data = array_filter($data);
+
+//        Zend_Debug::dump($this->getDbTable()->insert($data));die;
+
         try {
-            $this->getDbTable()->insert($data);
+           $id =  $this->getDbTable()->insert($data);
+            $model->idacordo = $id;
             return $model;
         } catch (Exception $e) {
             throw $e;
         }
     }
+
+    public function insertAcordoEntidadeExterna(Acordocooperacao_Model_Acordo $model){
+       foreach($model->getEntidades() as $idEntidadeExterna){
+            $sql = "INSERT INTO agepnet200.tb_acordoentidadeexterna(idacordo,identidadeexterna) values (:idacordo,:identidadeexterna)";
+            $resultado = $this->_db->fetchRow($sql, array('idacordo' => $model->idacordo, 'identidadeexterna' => $idEntidadeExterna));
+       }
+    }
+
 
     /**
      * Set the property
@@ -140,6 +154,7 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
         if ($model->descaminho) {
             $data['descaminho'] = $model->descaminho;
         }
+//        $data = array_filter($data);
 //         $this->getDbTable()->update($data, array("id = ?" => $model->idacordo));
         try {
             $pks = array("idacordo" => $model->idacordo);
@@ -284,14 +299,16 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
                   ac.destelefoneresponsavelinterno,
                   ac.destelefonefiscal,
                   ac.descargofiscal,
-                  ac.datassinatura,
-                  ac.datatualizacao,
+                  to_char(ac.datassinatura, 'DD/MM/YYYY') as datassinatura,
+                  to_char(ac.datatualizacao, 'DD/MM/YYYY') as datatualizacao,
                   ac.datcadastro,
-                  ac.datpublicacao,
+                  to_char(ac.datpublicacao, 'DD/MM/YYYY') as datpublicacao,
                   ac.numprazovigencia,
                   ac.desobjeto,
                   ac.despalavrachave,
-                  ac.descontatoexterno
+                  ac.descontatoexterno,
+                  ac.desobservacao,
+                  st.idsetor
                 FROM agepnet200.tb_acordo ac
                   LEFT OUTER JOIN agepnet200.tb_acordo ac2 ON ac2.idacordopai = ac.idacordo
                   LEFT OUTER JOIN agepnet200.tb_setor st ON ac.idsetor = st.idsetor
@@ -350,7 +367,8 @@ class Acordocooperacao_Model_Mapper_Acordo extends App_Model_Mapper_MapperAbstra
                   ac.numprazovigencia,
                   ac.desobjeto,
                   ac.despalavrachave,
-                  ac.descontatoexterno
+                  ac.descontatoexterno,
+                  ac.desobservacao
                 FROM agepnet200.tb_acordo ac
                   LEFT OUTER JOIN agepnet200.tb_acordo ac2 ON ac2.idacordopai = ac.idacordo
                   LEFT OUTER JOIN agepnet200.tb_setor st ON ac.idsetor = st.idsetor

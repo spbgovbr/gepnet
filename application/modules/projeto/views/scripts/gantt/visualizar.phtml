@@ -1,12 +1,9 @@
 <?php
-$offset = 60 * 15;
-@header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
-@header("Cache-Control: max-age=$offset, must-revalidate");
 
 $this->headLink()
     ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
     ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'))
-    ->prependStylesheet($this->baseUrl('/css/app/projeto/gantt/gantti.css?' . time()))
+    ->prependStylesheet($this->baseUrl('/css/app/projeto/gantt/gantti.css'))
     ->appendStylesheet($this->baseUrl('/css/form.css'))
     ->appendStylesheet($this->baseUrl('/css/portlet.css'));
 
@@ -20,10 +17,10 @@ $this->headScript()
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
     ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/app/projeto/gantt/visualizar.js?' . time()), 'text/javascript');
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'), 'text/javascript')
+    ->appendFile($this->baseUrl('/js/app/projeto/gantt/visualizar.js'), 'text/javascript');
 
 $frmAttr = $this->form->getAttribs();
 

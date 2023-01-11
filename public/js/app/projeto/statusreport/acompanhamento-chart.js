@@ -63,10 +63,13 @@ function populaAcompanhamento(acompanhamento) {
     $("#numpercentualprevisto").text(acompanhamento.numpercentualprevisto);
     $("#numpercentualconcluido").text(acompanhamento.numpercentualconcluido);
     $("#datfimprojetotendencia").text(acompanhamento.datfimprojetotendencia);
-    if (acompanhamento.nomatividadecronograma.length > 0) {
-        $("#nomatividadecronograma").text(acompanhamento.nomatividadecronograma);
-        $("#datfimbaseline").text(acompanhamento.datfimbaseline);
-        $("#datfimMarco").text(acompanhamento.datfimMarco);
+
+    if (acompanhamento.nomatividadecronograma != null) {
+        if (acompanhamento.nomatividadecronograma.length > 0) {
+            $("#nomatividadecronograma").text(acompanhamento.nomatividadecronograma);
+            $("#datfimbaseline").text(acompanhamento.datfimbaseline);
+            $("#datfimMarco").text(acompanhamento.datfimMarco);
+        }
     }
 
     $("#desatividadeconcluida").empty();
@@ -78,10 +81,13 @@ function populaAcompanhamento(acompanhamento) {
     $("#desirregularidade").text(acompanhamento.desirregularidade);
     $("#desrisco").text(acompanhamento.desrisco);
     $("#link").empty();
-    if (acompanhamento.descaminho.length > 0) {
-        $("#link").append("<a href='" + acompanhamento.descaminho + "' title='Cronograma' target='_blank'><i class='icon-download-alt'></i></a>");
-    } else {
-        $("#link").text("Não existe cronograma disponível para esta data.");
+
+    if (acompanhamento.descaminho != null) {
+        if (acompanhamento.descaminho.length > 0) {
+            $("#link").append("<a href='" + acompanhamento.descaminho + "' title='Cronograma' target='_blank'><i class='icon-download-alt'></i></a>");
+        } else {
+            $("#link").text("Não existe cronograma disponível para esta data.");
+        }
     }
 }
 

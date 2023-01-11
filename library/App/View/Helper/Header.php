@@ -49,13 +49,13 @@ class App_View_Helper_Header extends Zend_View_Helper_Abstract
     {
         $baseUrl = explode('/', Zend_Controller_Front::getInstance()->getBaseUrl());
         $arrayLabel = array(
-            'projetosdesenv.dpf.gov.br-gepnet-prehom' => '<span class="label label-important">Pr&eacute; Homologaç&atilde;o</span>',
+            'projetosdesenv---gepnet-prehom' => '<span class="label label-important">Pr&eacute; Homologaç&atilde;o</span>',
             /** Ambiente pré-homologação */
-            'projetoshom.dpf.gov.br-gepnet' => '<span class="label label-success">Homologaç&atilde;o</span>',
+            'projetoshom---gepnet' => '<span class="label label-success">Homologaç&atilde;o</span>',
             /** Ambiente homologação */
-            'projetostreino.dpf.gov.br-gepnet' => '<span class="label label-info">Treinamento</span>',
+            'projetostreino---gepnet' => '<span class="label label-info">Treinamento</span>',
             /** Ambiente de treinamento */
-            'projetosdesenv.dpf.gov.br-gepnet' => '<span class="label label-warning">Desenvolvimento</span>',
+            'projetosdesenv---gepnet' => '<span class="label label-warning">Desenvolvimento</span>',
             /** Ambiente desenvolvimento */
             'localhost-gepnet' => '<span class="label label-inverse">Local</span>',
             /** Ambiente local */

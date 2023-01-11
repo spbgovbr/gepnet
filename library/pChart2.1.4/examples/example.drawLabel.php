@@ -11,7 +11,7 @@ $MyData = new pData();
 $MyData->addPoints(array(4, 12, 15, 8, 5, -5), "Probe 1");
 $MyData->addPoints(array(7, 2, 4, 14, 8, 3), "Probe 2");
 $MyData->setAxisName(0, "Temperatures");
-$MyData->setAxisUnit(0, "°C");
+$MyData->setAxisUnit(0, "ï¿½C");
 $MyData->addPoints(array("Jan", "Feb", "Mar", "Apr", "May", "Jun"), "Labels");
 $MyData->setSerieDescription("Labels", "Months");
 $MyData->setAbscissa("Labels");

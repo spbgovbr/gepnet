@@ -44,9 +44,9 @@ class KeyGridDataProcessor extends DataProcessor
 
     /*! convert incoming data name to valid db name
         converts c0..cN to valid field names
-        @param data 
+        @param data
             data name from incoming request
-        @return 
+        @return
             related db_name
     */
     function name_data($data)

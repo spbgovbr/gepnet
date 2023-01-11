@@ -17,7 +17,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 require_once 'Zend/Application.php';
 
 require_once 'App/Application.php';
-
 $configCache = null;
 //We will cache only in production environment
 if (APPLICATION_ENV == 'development') {

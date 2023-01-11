@@ -43,6 +43,8 @@ class Acordocooperacao_Model_Acordo extends App_Model_ModelAbstract
     public $instrumentoprincipal = null;
     public $responsavelinterno = null;
     public $nomfiscal = null;
+    public $entidades = array();
+
 
     public function formPopulate()
     {
@@ -74,6 +76,7 @@ class Acordocooperacao_Model_Acordo extends App_Model_ModelAbstract
             'idfiscal2' => $this->idfiscal2,
             'idfiscal3' => $this->idfiscal3,
             'descargofiscal' => $this->descargofiscal,
+            'entidades' => $this->getEntidades(),
         );
     }
 
@@ -117,5 +120,10 @@ class Acordocooperacao_Model_Acordo extends App_Model_ModelAbstract
         }
         return $this;
     }
+
+    public function getEntidades(){
+        return $this->entidades;
+    }
+
 }
 

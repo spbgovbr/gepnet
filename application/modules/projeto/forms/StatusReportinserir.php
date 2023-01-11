@@ -138,9 +138,10 @@ class Projeto_Form_Statusreportinserir extends App_Form_FormAbstract
                             'required' => false,
                             'multiOptions' => array(),
                             'filters' => array('StringTrim', 'StripTags'),
-                            //'validators' => array('NotEmpty'),
+                            'validators' => array('NotEmpty'),
                             'attribs' => array(
                                 'data-rule-required' => false,
+                                'id' => 'idmarco'
                             ),
                         )
                     ),

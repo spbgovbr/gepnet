@@ -34,9 +34,9 @@ class EventMaster
     }
 
     /*! Attach custom code to event.
-    
+
         Only on event handler can be attached in the same time. If new event handler attached - old will be detached.
-        
+
         @param name
             name of event, case non-sensitive
         @param method
@@ -101,7 +101,7 @@ class EventMaster
         @param data
             value which will be provided as argument for event function,
             you can provide multiple data arguments, method accepts variable number of parameters
-        @return 
+        @return
             true if event handler was not assigned , result of event hangler otherwise
     */
     public function trigger($name, $data)
@@ -131,7 +131,7 @@ class EventMaster
     }
 }
 
-/*! Class which handles access rules.	
+/*! Class which handles access rules.
 **/
 
 class AccessMaster
@@ -139,7 +139,7 @@ class AccessMaster
     private $rules, $local;
 
     /*! constructor
-    
+
         Set next access right to "allowed" by default : read, insert, update, delete
         Basically - all common data operations allowed by default
     */
@@ -150,7 +150,7 @@ class AccessMaster
     }
 
     /*! change access rule to "allow"
-        @param name 
+        @param name
             name of access right
     */
     public function allow($name)
@@ -159,8 +159,8 @@ class AccessMaster
     }
 
     /*! change access rule to "deny"
-        
-        @param name 
+
+        @param name
             name of access right
     */
     public function deny($name)
@@ -176,10 +176,10 @@ class AccessMaster
     }
 
     /*! check access rule
-        
-        @param name 
+
+        @param name
             name of access right
-        @return 
+        @return
             true if access rule allowed, false otherwise
     */
     public function check($name)
@@ -198,7 +198,7 @@ class AccessMaster
 }
 
 /*! Controls error and debug logging.
-	Class designed to be used as static object. 
+	Class designed to be used as static object.
 **/
 
 class LogMaster
@@ -208,12 +208,12 @@ class LogMaster
     private static $session = "";//!< all messages generated for current request
 
     /*! convert array to string representation ( it is a bit more readable than var_dump )
-    
-        @param data 
+
+        @param data
             data object
         @param pref
             prefix string, used for formating, optional
-        @return 
+        @return
             string with array description
     */
     private static function log_details($data, $pref = "")
@@ -229,8 +229,8 @@ class LogMaster
     }
 
     /*! put record in log
-        
-        @param str 
+
+        @param str
             string with log info, optional
         @param data
             data object, which will be added to log, optional
@@ -245,7 +245,7 @@ class LogMaster
     }
 
     /*! get logs for current request
-        @return 
+        @return
             string, which contains all log messages generated for current request
     */
     public static function get_session_log()
@@ -254,7 +254,7 @@ class LogMaster
     }
 
     /*! error handler, put normal php errors in log file
-        
+
         @param errn
             error number
         @param errstr
@@ -272,9 +272,9 @@ class LogMaster
     }
 
     /*! exception handler, used as default reaction on any error - show execution log and stop processing
-        
+
         @param exception
-            instance of Exception	
+            instance of Exception
     */
     public static function exception_log($exception)
     {
@@ -289,9 +289,9 @@ class LogMaster
 
     /*! enable logging
 
-        @param name 
+        @param name
             path to the log file, if boolean false provided as value - logging will be disabled
-        @param output 
+        @param output
             flag of client side output, if enabled - session log will be sent to client side in case of an error.
     */
     public static function enable_log($name, $output = false)

@@ -150,7 +150,7 @@
             */
 
             this.onchange = function () {
-                // clear any error
+                // clear any error 
                 this.p.error = false;
                 this.p.errmsg = "";
                 return $.isFunction(this.p.onChange) ? this.p.onChange.call(this, this.p) : false;

@@ -419,8 +419,16 @@ class Projeto_Model_Gerencia extends App_Model_ModelAbstract
     }
 
     public function setDatcadastro($data)
-    {
-        $this->datcadastro = new Zend_Date($data, 'dd/MM/yyyy');
+    {   
+        if($data != null && Zend_Date::isDate($data)){
+            if(strlen($data) == 10){
+                $this->datcadastro = new Zend_Date($data, 'dd/MM/yyyy');            
+            }
+        }else{
+            $datcadastro = new Zend_Date();
+            $this->datcadastro = $datcadastro->get('dd/MM/yyyy');
+        }
+        
     }
 
     public function setDatinicioplano($data)
@@ -498,8 +506,8 @@ class Projeto_Model_Gerencia extends App_Model_ModelAbstract
         $datas = $this->retornaDatasCronograma();
 
         if (null != $datas && (count($datas) > 0)) {
-            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'd/m/Y');
-            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'd/m/Y');
+            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'dd/MM/yyyy');
+            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'dd/MM/yyyy');
 
             if (
                 (Zend_Date::isDate($dataPlanejada)) && (Zend_Date::isDate($dataRealizada))
@@ -549,9 +557,10 @@ class Projeto_Model_Gerencia extends App_Model_ModelAbstract
         $numPrazoEmDias = 0;
         $datas = $this->retornaDatasCronograma();
 
-        if (count($datas) > 0) {
-            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'd/m/Y');
-            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'd/m/Y');
+        
+        if (null != $datas && (count($datas) > 0)) {            
+            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'dd/MM/yyyy');
+            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'dd/MM/yyyy');
 
             if (
                 (Zend_Date::isDate($dataPlanejada)) && (Zend_Date::isDate($dataRealizada))
@@ -569,6 +578,7 @@ class Projeto_Model_Gerencia extends App_Model_ModelAbstract
                 }
             }
         }
+        
         return $numPrazoEmDias;
     }
 
@@ -579,9 +589,10 @@ class Projeto_Model_Gerencia extends App_Model_ModelAbstract
         $datas = $this->retornaDatasCronograma();
 
         if (null != $datas && (count($datas) > 0)) {
+            
             $sinal = $this->retornaDescricaoPrazo();
-            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'd/m/Y');
-            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'd/m/Y');
+            $dataPlanejada = new Zend_Date($datas[0]['datfimbaseline'], 'dd/MM/yyyy');
+            $dataRealizada = new Zend_Date($datas[0]['datfim'], 'dd/MM/yyyy');
 
 
             if (

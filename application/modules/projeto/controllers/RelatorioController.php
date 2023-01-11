@@ -18,6 +18,7 @@ class Projeto_RelatorioController extends Zend_Controller_Action
             ->addActionContext('excluir', 'json')
             ->addActionContext('atualizaacompanhamento', 'json')
             ->addActionContext('atualizarcabecalhojson', 'json')
+            ->addActionContext('proximomarcojson', 'json')
             ->initContext();
         $servicePerfilPessoa = new Default_Service_Perfilpessoa();
         $dadosEntrada = array(
@@ -143,13 +144,13 @@ class Projeto_RelatorioController extends Zend_Controller_Action
 
         ####################################ATVIDADES#########################################
         $arrayDatas = $serviceStatusReport->retornaPeriodoAcompanhamento($this->_request->getParams());
-        $desatividadeconcluida = $serviceStatusReport->getAtividadesConcluidas($arrayDatas);
-        $desatividadeandamento = $serviceStatusReport->getAtividadesEmAndamento($arrayDatas);
+//        $desatividadeconcluida = $serviceStatusReport->getAtividadesConcluidas($arrayDatas);
+//        $desatividadeandamento = $serviceStatusReport->getAtividadesEmAndamento($arrayDatas);
 
-        $statusReport->desatividadeconcluida = $desatividadeconcluida;
-        $statusReport->desatividadeandamento = $desatividadeandamento;
-        $acompanhamento->desatividadeconcluida = $desatividadeconcluida;
-        $acompanhamento->desatividadeandamento = $desatividadeandamento;
+        $statusReport->desatividadeconcluida = $acompanhamento->desatividadeconcluida;
+        $statusReport->desatividadeandamento = $acompanhamento->desatividadeandamento;
+//        $acompanhamento->desatividadeconcluida = $desatividadeconcluida;
+//        $acompanhamento->desatividadeandamento = $desatividadeandamento;
         $datasPeriodo = array(
             'datainiperiodo' => $serviceAtividadeCronograma->preparaDataComBarra($arrayDatas['dtInicio']),
             'datafinperiodo' => $serviceAtividadeCronograma->preparaDataComBarra($arrayDatas['dtFim'])
@@ -169,7 +170,13 @@ class Projeto_RelatorioController extends Zend_Controller_Action
         $this->view->idprojeto = $this->_request->getParam('idprojeto');
         $this->view->periodo = $datasPeriodo;
     }
-
+    
+    /**
+     * RDM#6536 - Correção de geração de acompanhamento
+     * Esta função foi recolocada aqui pois estava apresentado erro no sistema.
+     * Essa regra não pode ser removida daqui.
+     */
+    
     public function relatoriojsonAction()
     {
         $service = new Projeto_Service_StatusReport();
@@ -197,7 +204,17 @@ class Projeto_RelatorioController extends Zend_Controller_Action
             $this->_helper->json->sendJson($projeto);
         }
     }
+    
+    public function proximomarcojsonAction()
+    {
+        $serviceAtividadeCronograma = new Projeto_Service_AtividadeCronograma();
+        $proximoMarco = $serviceAtividadeCronograma->fetchPairsProximoMarco(
+            array('idprojeto' => $this->_request->getParam('idprojeto'))
+        );
+        $this->_helper->json->sendJson($proximoMarco);
+    }
 
+    
     public function addAction()
     {
         $serviceStatusReport = new Projeto_Service_StatusReport();
@@ -304,7 +321,7 @@ class Projeto_RelatorioController extends Zend_Controller_Action
                 $params['desrisco'] = $desrisco ? $desrisco : "Não há riscos identificados.";
 
                 $serviceStatusReport = new Projeto_Service_StatusReport();
-                $statusReport = $serviceStatusReport->getById(array('idstatusreport' => $this->_request->getParam('idstatusreport')));
+                $modelStatusReport = $serviceStatusReport->getById(array('idstatusreport' => $this->_request->getParam('idstatusreport')));
 
                 $config = Zend_Registry::get('config');
                 $dir = $config->resources->cachemanager->default->backend->options->arquivos_dir;
@@ -314,7 +331,7 @@ class Projeto_RelatorioController extends Zend_Controller_Action
                         while (($file = readdir($dh)) !== false) {
 
                             if (mb_substr($file, -4) == ".pdf") {
-                                if ('pdf_' . $projeto["idprojeto"] . "_" . $statusReport["idstatusreport"] . ".pdf" == $file) {
+                                if ('pdf_' . $projeto["idprojeto"] . "_" . $modelStatusReport["idstatusreport"] . ".pdf" == $file) {
                                     //$string =  ereg_replace("[^a-zA-Z.]", "", $file); 
                                     // echo "filename: $file : filetype: " . filetype($dir . $file) . "\n";
                                     $this->view->descaminho = $file;
@@ -572,7 +589,7 @@ class Projeto_RelatorioController extends Zend_Controller_Action
         //        $form = $serviceStatusReport->getForm();
 
         $arrayDatas = $serviceStatusReport->retornaPeriodoAcompanhamento($this->_request->getParams());
-        //Zend_Debug::dump($arrayDatas);die;
+
         $datasPeriodo = array(
             'datainiperiodo' => $serviceAtividadeCronograma->preparaDataComBarra($arrayDatas['dtInicio']),
             'datafinperiodo' => $serviceAtividadeCronograma->preparaDataComBarra($arrayDatas['dtFim'])

@@ -5,7 +5,7 @@ class Acordocooperacao_Form_Acordopesquisar extends App_Form_FormAbstract
 
     public function init()
     {
-        $mapperTbSetor = new Default_Model_Mapper_Setor();
+//        $mapperTbSetor = new Default_Model_Mapper_Setor();
         $serviceAcordo = App_Service_ServiceAbstract::getService('Acordocooperacao_Service_Acordo');
         $this
             ->setOptions(array(
@@ -32,7 +32,7 @@ class Acordocooperacao_Form_Acordopesquisar extends App_Form_FormAbstract
                         array(
                             'label' => 'Setor Interno',
                             'required' => true,
-                            'multiOptions' => $mapperTbSetor->fetchPairs(),
+                            'multiOptions' => array(),
                             'filters' => array('StringTrim', 'StripTags'),
                             'validators' => array(),
                             'attribs' => array(

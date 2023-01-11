@@ -851,11 +851,12 @@ class Zend_Controller_Front
         /**
          * Instantiate default request object (HTTP version) if none provided
          */
+//        Zend_Debug::dump($_SERVER);
         if (null !== $request) {
             $this->setRequest($request);
         } elseif ((null === $request) && (null === ($request = $this->getRequest()))) {
-            require_once 'Zend/Controller/Request/Http.php';
-            $request = new Zend_Controller_Request_Http();
+            require_once 'Zend/Controller/Request/Http.php';            
+            $request = new Zend_Controller_Request_Http();            
             $this->setRequest($request);
         }
 

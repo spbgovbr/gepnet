@@ -28,7 +28,7 @@ for ($i = 0; $i <= 360; $i = $i + 10) {
 $myData->setSerieOnAxis("Probe 3", 1);
 $myData->setAxisName(1, "Degree");
 $myData->setAxisXY(1, AXIS_Y);
-$myData->setAxisUnit(1, "°");
+$myData->setAxisUnit(1, "ï¿½");
 $myData->setAxisPosition(1, AXIS_POSITION_RIGHT);
 
 /* Create the 1st scatter chart binding */

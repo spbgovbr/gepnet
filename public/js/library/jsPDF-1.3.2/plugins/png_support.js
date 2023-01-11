@@ -365,7 +365,7 @@
             colors, pal, smask;
 
         /*	if(this.isString(imageData)) {
-    
+
             }*/
 
         if (this.isArrayBuffer(imageData))

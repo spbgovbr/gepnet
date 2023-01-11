@@ -124,19 +124,9 @@ class Default_Model_Mapper_Escritorio extends App_Model_Mapper_MapperAbstract
 
     public function fetchPairs()
     {
-        $login = App_Service_ServiceAbstract::getService('Default_Service_Login');
-        $auth = $login->retornaUsuarioLogado();
-        $nomeperfilACL = $auth->perfilAtivo->nomeperfilACL;
-        if ($nomeperfilACL == 'admin_gepnet') {
             $sql = "  SELECT idescritorio, nomescritorio 
                       FROM agepnet200.tb_escritorio 
                       WHERE flaativo = 'S' ORDER BY nomescritorio ASC";
-        } else {
-            $sql = "SELECT idescritorio, nomescritorio 
-                    FROM agepnet200.tb_escritorio 
-                    WHERE idescritorio NOT IN({$auth->escritorioAtivo}) 
-                    AND flaativo = 'S' ORDER BY nomescritorio ASC";
-        }
 
         return $this->_db->fetchPairs($sql);
     }

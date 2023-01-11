@@ -35,6 +35,7 @@ $frmAttr = $this->form->getAttribs();
     <form id="<?php echo $frmAttr['id']; ?>"
           name="<?php echo $frmAttr['id']; ?>"
           action="<?php echo $this->form->getAction(); ?>"
+          ENCTYPE="multipart/form-data"
           method="<?php echo $frmAttr['method']; ?>">
 
         <div class="row">
@@ -70,9 +71,13 @@ $frmAttr = $this->form->getAttribs();
                     <?php echo $this->form->nomresponsavelinterno->renderLabel(); ?>
                     <div class="input-prepend ">
                         <?php echo $this->form->pessoabutton; ?>
-                        <?php echo $this->form->idresponsavelinterno; ?>
                         <?php echo $this->form->nomresponsavelinterno->renderViewHelper(); ?>
+                        <?php echo $this->form->idresponsavelinterno; ?>
+                        <div style="margin-bottom: 0px !important; float:right;">
+                            <?php echo $this->form->pessoabuttonRespInerno; ?>
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div class="span3">
@@ -82,6 +87,9 @@ $frmAttr = $this->form->getAttribs();
                         <?php echo $this->form->pessoabutton; ?>
                         <?php echo $this->form->idfiscal; ?>
                         <?php echo $this->form->nomfiscal->renderViewHelper(); ?>
+                        <div style="margin-bottom: 0px !important; float:right;">
+                            <?php echo $this->form->pessoabuttonFiscal; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +100,9 @@ $frmAttr = $this->form->getAttribs();
                         <?php echo $this->form->pessoabutton; ?>
                         <?php echo $this->form->idfiscal2; ?>
                         <?php echo $this->form->nomfiscal2->renderViewHelper(); ?>
+                        <div style="margin-bottom: 0px !important; float:right;">
+                            <?php echo $this->form->pessoabuttonFiscal2; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,6 +113,9 @@ $frmAttr = $this->form->getAttribs();
                         <?php echo $this->form->pessoabutton; ?>
                         <?php echo $this->form->idfiscal3; ?>
                         <?php echo $this->form->nomfiscal3->renderViewHelper(); ?>
+                        <div style="margin-bottom: 0px !important; float:right;">
+                            <?php echo $this->form->pessoabuttonFiscal3; ?>
+                        </div>
                     </div>
                 </div>
             </div>

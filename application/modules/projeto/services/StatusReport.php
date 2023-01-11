@@ -69,9 +69,9 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
 
                 $desandamentoprojeto = $desandamentoprojeto ? $desandamentoprojeto : "Não existem considerações sobre o andamento do projeto.";
             }
-            $array = $serviceAtividadeCronograma->fetchPairsMarcosPorProjeto($params);
-            $arr = array('' => 'Selecione');
-            $array = $arr + $array;
+            //$array = $serviceAtividadeCronograma->fetchPairsMarcosPorProjeto($params);
+            //$arr = array('' => 'Selecione');
+            //$array = $arr + $array;
 
             $params['desandamentoprojeto'] = $desandamentoprojeto;
             $params['desatividadeconcluida'] = $desatividadeconcluida;
@@ -79,7 +79,7 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $params['datcadastro'] = date('Y-m-d');
             $params['idprojeto'] = $params['idprojeto'];
 
-            $form->getElement('idmarco')->setMultiOptions($array);
+            //$form->getElement('idmarco')->setMultiOptions($array);
             $form->populate($params);
         }
         return $form;
@@ -101,22 +101,27 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $serviceAtividadeCronograma = new Projeto_Service_AtividadeCronograma();
             /** @var Projeto_Model_Statusreport $acompanhamentoAtual */
             $acompanhamentoAtual = $this->getById($params);
-            $array = $serviceAtividadeCronograma->fetchPairsMarcosPorProjeto($params);
-            $arr = array('' => 'Selecione');
-            $array = $arr + $array;
-            $dadosDataAtv = $this->retornaPeriodoAcompanhamento($params);
-            $desatividadeconcluida = $this->getAtividadesConcluidas($dadosDataAtv);
-            $desatividadeandamento = $this->getAtividadesEmAndamento($dadosDataAtv);
+//            $array = $serviceAtividadeCronograma->fetchPairsMarcosPorProjeto($params);
+//            $arr = array('' => 'Selecione');
+//            $array = $arr + $array;
+//            $dadosDataAtv = $this->retornaPeriodoAcompanhamento($params);
+//            $desatividadeconcluida = $this->getAtividadesConcluidas($dadosDataAtv);
+//            $desatividadeandamento = $this->getAtividadesEmAndamento($dadosDataAtv);
 
             $params = $acompanhamentoAtual->formPopulate();
 
-            $params['desatividadeconcluida'] = $desatividadeconcluida;
-            $params['desatividadeandamento'] = $desatividadeandamento;
+//            $params['desatividadeconcluida'] = $desatividadeconcluida;
+//            $params['desatividadeandamento'] = $desatividadeandamento;
 
-            $form->getElement('idmarco')->setMultiOptions($array);
+            //Zend_Debug::dump($params);die;
+
+//            $form->getElement('idmarco')->setMultiOptions($array);
             $form->populate($params);
+            $form->populate(array(
+                'desatividadeconcluida' => $acompanhamentoAtual->desatividadeconcluida,
+                'desatividadeandamento' => $acompanhamentoAtual->desatividadeandamento,
+            ));
         }
-
         return $form;
     }
 
@@ -328,6 +333,8 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         $serviceCronograma = new Projeto_Service_AtividadeCronograma();
         $serviceSituacaoProjeto = new Projeto_Service_SituacaoProjeto();
         $serviceGerencia = new Projeto_Service_Gerencia();
+
+        $usuario = Zend_Auth::getInstance()->getIdentity();
         $dados['desatividadeconcluida'] = (trim($dados['desatividadeconcluida']) ? mb_substr($dados['desatividadeconcluida'],
             0, 4000) : $dados['desatividadeconcluida']);
         $dados['desatividadeandamento'] = (trim($dados['desatividadeandamento']) ? mb_substr($dados['desatividadeandamento'],
@@ -343,13 +350,12 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         if (!empty($dados['numprocessosei'])) {
             $dados['numprocessosei'] = preg_replace('/[^0-9]/i', '', $dados['numprocessosei']);
         }
-        $form = $this->getForm($dados);
         $arquivo = isset($dados['descaminho']) == false;
         if (empty($dados['descaminho'])) {
             $dados['descaminho'] = null;
         }
 
-        if ($dados['idmarco'] == '1' && $dados['flaaprovado'] == '1') {
+        if ($dados['flaaprovado'] == '1') {
             $dados['idmarco'] = null;
             $dados['datfimprojeto'] = $dados['datfimprojetotendencia'];
             $dados['dataprovacao'] = date('Y-m-d');
@@ -357,14 +363,24 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $dados['datcadastro'] = null;
         }
 
-        if ($form->isValidPartial($dados)) {
-            $objStatusRerport = new Projeto_Model_Statusreport($form->getValues());
-            $objProjeto = $serviceGerencia->retornaProjetoPorId(array('idprojeto' => $dados['idprojeto']));
-            $objStatusRerport->setDatfimprojeto($objProjeto->datfim->toString('d/m/Y'));
-            $objStatusRerport->setAtrasoProjeto($dados['diaatraso']);
-            $objStatusRerport->setDomCorAtraso($dados['domcoratraso']);
-            $objStatusRerport->setPercentualConcluidoMarco($objProjeto->percentualConcluidoMarco);
-            $objStatusRerport->setNumeroCriterioFarol($objProjeto->numcriteriofarol);
+        try {
+            $atraso                      = 0;
+            $domcoratraso                = "success";
+            $objStatusRerport            = new Projeto_Model_Statusreport($dados);
+            $objProjeto                  = $serviceCronograma->retornaCronogramaByArray(array('idprojeto' => $dados['idprojeto'], 'idpessoa'=>$usuario->idpessoa));
+                //$serviceGerencia->retornaProjetoParaStatusReport(array('idprojeto' => $dados['idprojeto']));
+            $atraso                      = (isset($objProjeto['atraso']) && (!empty($objProjeto['atraso']))) ? $objProjeto['atraso'] : $dados["diaatraso"];
+            $domcoratraso                = (isset($objProjeto['domcoratraso']) && (!empty($objProjeto['domcoratraso']))) ? $objProjeto['domcoratraso'] : $dados["domcoratraso"];
+            $numpercentualprevisto       = (isset($objProjeto['numpercentualprevisto']) && (!empty($objProjeto['numpercentualprevisto']))) ? $objProjeto['numpercentualprevisto'] : $dados["numpercentualprevisto"];
+            $numpercentualconcluido      = (isset($objProjeto['numpercentualconcluido']) && (!empty($objProjeto['numpercentualconcluido']))) ? $objProjeto['numpercentualconcluido'] : $dados["numpercentualconcluido"];
+            $numpercentualconcluidomarco = (isset($objProjeto['numpercentualconcluidomarco']) && (!empty($objProjeto['numpercentualconcluidomarco']))) ? $objProjeto['numpercentualconcluidomarco'] : $dados["numpercentualconcluidomarco"];
+            $objStatusRerport->setDatfimprojeto($objProjeto['datfim']);
+            $objStatusRerport->setAtrasoProjeto($atraso);
+            $objStatusRerport->setDomCorAtraso($domcoratraso);
+            $objStatusRerport->setPercentualConcluidoMarco($numpercentualconcluidomarco);
+            $objStatusRerport->setNumeroCriterioFarol($objProjeto['numcriteriofarol']);
+            $objStatusRerport->numpercentualprevisto  = $numpercentualprevisto;
+            $objStatusRerport->numpercentualconcluido = $numpercentualconcluido;
 
             /** @var Projeto_Model_Statusreport $model */
             $model = $this->_mapper->insert($objStatusRerport);
@@ -386,13 +402,13 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
                 }
 
                 $serviceGerencia->updateTapAssinado($dados);
-
                 return $model;
             } else {
                 return false;
             }
-        } else {
-            $this->errors = $form->getMessages();
+        } catch (Exception $exc) {
+            Default_Service_Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc));
+            throw $exc;
             return false;
         }
     }
@@ -452,14 +468,14 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             'desatividadeandamento' => $acompanhamento->desatividadeandamento,
             'desmotivoatraso' => $acompanhamento->desmotivoatraso,
             'desirregularidade' => $acompanhamento->desirregularidade,
-            'idmarco' => $acompanhamento->idmarco,
+            'idmarco' => (isset($acompanhamento->idmarco) && !empty($acompanhamento->idmarco)) ? $acompanhamento->idmarco : "",
             'datfimbaseline' => $marco['datfimbaseline'],
             'datfimMarco' => $marco['datfim'],
             'nomatividadecronograma' => $marco['nomatividadecronograma'],
             'datmarcotendencia' => $acompanhamento->datmarcotendencia != null ? $acompanhamento->datmarcotendencia->toString('d/m/Y') : "",
-            'datfimprojetotendencia' => $acompanhamento->datfimprojetotendencia != null ? $acompanhamento->datfimprojetotendencia->toString('d/m/Y') : "",
+            'datfimprojetotendencia' => (isset($acompanhamento->datfimprojetotendencia) && !empty($acompanhamento->datfimprojetotendencia)) ? $acompanhamento->datfimprojetotendencia->toString('d/m/Y') : "",
             'idcadastrador' => $acompanhamento->idcadastrador,
-            'datcadastro' => $acompanhamento->datcadastro != null ? $acompanhamento->datcadastro->toString('d/m/Y') : "",
+            'datcadastro' => (isset($acompanhamento->datcadastro)&& is_object($acompanhamento->datcadastro) && (!empty($acompanhamento->datcadastro))) ? $acompanhamento->datcadastro->toString('d/m/Y') : "",
             'domstatusprojeto' => $acompanhamento->domstatusprojeto,
             'flaaprovado' => $acompanhamento->flaaprovado,
             'domcorrisco' => $acompanhamento->domcorrisco,
@@ -473,7 +489,7 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             'diaatraso' => $acompanhamento->diaatraso,
             'numpercentualconcluidomarco' => $acompanhamento->numpercentualconcluidomarco,
             'domcoratraso' => $acompanhamento->domcoratraso,
-            'datfimprojeto' => $acompanhamento->datfimprojeto != null ? $acompanhamento->datfimprojeto->toString('d/m/Y') : "",
+            'datfimprojeto' => (isset($acompanhamento->datfimprojeto) && !empty($acompanhamento->datfimprojeto) && is_object($acompanhamento->datfimprojeto)) ? $acompanhamento->datfimprojeto->toString('d/m/Y') : "",
             'numcriteriofarol' => $acompanhamento->numcriteriofarol,
         );
     }
@@ -520,6 +536,8 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
 
     public function update($dados)
     {
+        $serviceGerencia = new Projeto_Service_Gerencia();
+
         $dados['desatividadeconcluida'] = (trim($dados['desatividadeconcluida']) ? mb_substr($dados['desatividadeconcluida'],
             0, 4000) : $dados['desatividadeconcluida']);
         $dados['desatividadeandamento'] = (trim($dados['desatividadeandamento']) ? mb_substr($dados['desatividadeandamento'],
@@ -531,8 +549,9 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         $dados['desirregularidade'] = (trim($dados['desirregularidade']) ? mb_substr($dados['desirregularidade'], 0,
             4000) : $dados['desirregularidade']);
         $dados['desrisco'] = (trim($dados['desrisco']) ? mb_substr($dados['desrisco'], 0, 4000) : $dados['desrisco']);
-        $form = $this->getFormEditar($dados);
+
         $arquivo = isset($dados['descaminho']) == false;
+
         if (isset($dados['descaminho'])) {
             $dados['descaminho'] = null;
         }
@@ -541,13 +560,14 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $dados['idmarco'] = null;
         }
 
-        if ($form->isValidPartial($dados)) {
-            $updateModel = new Projeto_Model_Statusreport($form->getValues());
-            if ($arquivo) {
-                $this->renomearArquivo($form->getElement('descaminho'), $dados);
-            }
+        if ($arquivo) {
+            $this->renomearArquivo($dados['descaminho'], $dados);
+        }
+
+        try {
+            $updateModel = new Projeto_Model_Statusreport($dados);
             $model = $this->_mapper->update($updateModel);
-            $serviceGerencia = new Projeto_Service_Gerencia();
+           
             if (!empty($dados['numprocessosei'])) {
                 $dados['numprocessosei'] = preg_replace('/[^0-9]/i', '', $dados['numprocessosei']);
                 $params['idprojeto'] = $dados['idprojeto'];
@@ -557,11 +577,12 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $data['idprojeto'] = $dados['idprojeto'];
             $data['idstatusreport'] = $dados['idstatusreport'];
 
-            //$model = $this->_mapper->retornaAcompanhamentoPorId($data);
+            $model = $this->_mapper->retornaAcompanhamentoPorId($data);
             $model->descaminho = $this->retornaAnexo($data, true);
             return $model;
-        } else {
-            $this->errors = $form->getMessages();
+        } catch (Exception $exc) {
+            Default_Service_Log::info(array("LINE: " . __LINE__, "FILE: " . __FILE__, $exc));
+            throw $exc;
             return false;
         }
     }
@@ -779,6 +800,17 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         return $this->_mapper->retornarTodosAcompanhamento($params);
     }
 
+
+    /**
+     * Função que retorna informação mais atualizada do projeto para relatório
+     * @param $params
+     * @param $model
+     * @return mixed
+     */
+    public function retornaProjetoAtualizado($params, $model)
+    {
+        return $this->_mapper->retornaProjetoAtualizado($params, $model);
+    }
     /**
      *
      * @param array $params
@@ -790,26 +822,27 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
         $dados = $this->_mapper->retornaAcompanhamentosPorProjeto($params, $paginator, $array);
         $serviceGerencia = new Projeto_Service_Gerencia();
         $projeto = $serviceGerencia->getById($params);
+        $contador = (int) count($dados);
 
         if ($paginator) {
             $response = array();
             $response['page'] = $dados->getPages()->current;
             $response['total'] = $dados->getPages()->pageCount;
             $response['records'] = $dados->getPages()->totalItemCount;
+
             foreach ($dados as $d) {
                 $array = array();
                 $previsto = "-";
                 $concluido = "-";
-                $prazo = "-";
+                $prazo = 0;
                 $risco = "-";
                 $numEmDias = 0;
                 $datfimprojetotendencia = new Zend_Date($d['datfimprojetotendencia'], 'dd/MM/YYYY');
                 $dataFimProjeto = $projeto->datfim;
                 $numcriteriofarol = $projeto->numcriteriofarol;
 
-                if (isset($d['diaatraso']) && (!empty($d['diaatraso']))) {
-                    $prazo = "<span class='badge badge-" . $d['domcoratraso'] . "' title='" . $d['diaatraso'] . " dias'>" . $d['diaatraso'] . " dias</span>";
-                } else {
+                if($contador==0){
+
                     if ((Zend_Date::isDate($dataFimProjeto)) && (Zend_Date::isDate($datfimprojetotendencia))) {
                         $dtArray['datainicio'] = $datfimprojetotendencia->toString('d/m/Y');
                         $dtArray['datafim'] = $dataFimProjeto->toString('d/m/Y');
@@ -822,6 +855,10 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
                         }
                     }
                     $prazo = $this->getSemaforoPrazo($numEmDias, $numcriteriofarol);
+
+                }elseif($contador > 0){
+                    if(empty($d['diaatraso'])){$d['diaatraso']= 0;$d['domcoratraso'] = "success";}
+                    $prazo = "<span class='badge badge-" . $d['domcoratraso'] . "' title='" . $d['diaatraso'] . " dias'>" . $d['diaatraso'] . " dias</span>";
                 }
 
                 $array = array();
@@ -841,8 +878,10 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
                     $d['idstatusreport'],
                     $d['numIdIstatusReport']
                 );
+//                $response["rows"]["contador"] = $contador;
                 $response["rows"][] = $array;
             }
+
             return $response;
         }
         return $dados;
@@ -1121,7 +1160,6 @@ class Projeto_Service_StatusReport extends App_Service_ServiceAbstract
             $percentual = $service->getPercentualConcluidoMarcoByRelatorio($params);
             $r->prazo = $percentual;
         }
-
         return $r;
     }
 

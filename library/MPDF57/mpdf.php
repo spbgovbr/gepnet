@@ -57,7 +57,7 @@ if (!defined('_MPDF_TTFONTDATAPATH')) {
 }
 
 $errorlevel = error_reporting();
-$errorlevel = error_reporting($errorlevel & ~E_NOTICE);
+$errorlevel = error_reporting($errorlevel & ~E_NOTICE & ~E_DEPRECATED);
 
 //error_reporting(E_ALL);
 

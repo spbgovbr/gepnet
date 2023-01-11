@@ -4362,7 +4362,7 @@
 
                 text: function (elem) {
                     var attr = elem.getAttribute("type"), type = elem.type;
-                    // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc) 
+                    // IE6 and 7 will map elem.type to 'text' for new HTML5 types (search, etc)
                     // use getAttribute instead to test this case
                     return elem.nodeName.toLowerCase() === "input" && "text" === type && (attr === type || attr === null);
                 },
@@ -5119,7 +5119,7 @@
 
         Sizzle.isXML = function (elem) {
             // documentElement is verified for cases where it doesn't yet exist
-            // (such as loading iframes in IE - #4833) 
+            // (such as loading iframes in IE - #4833)
             var documentElement = (elem ? elem.ownerDocument || elem : 0).documentElement;
 
             return documentElement ? documentElement.nodeName !== "HTML" : false;

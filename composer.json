@@ -1,0 +1,6 @@
+{
+  "name": "dpf/gepnet",
+  "require": {
+    "pviojo/oauth2-keycloak": "^2.0"
+  }
+}

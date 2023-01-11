@@ -2,6 +2,7 @@
 $offset = 60 * 15;
 @header("Expires: " . gmdate("D, d M Y H:i:s", time() + $offset) . " GMT");
 @header("Cache-Control: max-age=$offset, must-revalidate");
+$dtCadastroFinal = new Zend_Date($params['data_cadastro_final'], 'dd/MM/yyyy');
 ?>
 <div class="accordion" id="accordion2">
     <div class="accordion-heading title">
@@ -42,8 +43,7 @@ $offset = 60 * 15;
                         <th>Gerente:</th>
                         <td><?php echo $this->projeto['gerenteprojeto']['nompessoa'] ?></td>
                         <th>Tend&ecirc;ncia:</th>
-                        <td><?php echo $this->projeto['datinicio'] . ' a ' . @mb_substr($this->projeto['ultimoStatusReport']['datfimprojetotendencia']->toString('d/m/Y'),
-                                    0, 10) . ' - ' . $this->projeto['tendenciaEmDias'] . ' dias' ?></td>
+                        <td><?php echo $this->projeto['datinicio'] . ' a ' . $dtCadastroFinal->toString('d/m/Y') . ' - ' . $this->projeto['tendenciaEmDias'] . ' dias' ?></td>
                         <th>% concluído realizado:</th>
                         <td><?php echo $this->projeto['numpercentualconcluido'] ?>%</td>
                         <th>Status:</th>

@@ -3,12 +3,12 @@
 (function ($) {
     /*
     **
-     * jqGrid addons using jQuery UI
+     * jqGrid addons using jQuery UI 
      * Author: Mark Williams
      * Dual licensed under the MIT and GPL licenses:
      * http://www.opensource.org/licenses/mit-license.php
      * http://www.gnu.org/licenses/gpl-2.0.html
-     * depends on jQuery UI
+     * depends on jQuery UI 
     **/
     "use strict";
     if ($.jgrid.msie && $.jgrid.msiever() === 8) {
@@ -159,7 +159,7 @@
                 "msel": "multiselect",
                 /* "msel_opts" : {}, */
 
-                /* dlog is either the name of a ui widget class that
+                /* dlog is either the name of a ui widget class that 
                    behaves in a dialog-like way, or a function, that
                    supports creating a dialog (when passed dlog_opts)
                    or destroying a dialog (when passed the string
@@ -169,7 +169,7 @@
                 "dialog_opts": {
                     "minWidth": 470
                 },
-                /* dlog_opts is either an option object to be passed
+                /* dlog_opts is either an option object to be passed 
                    to "dlog", or (more likely) a function that creates
                    the options object.
                    The default produces a suitable options object for

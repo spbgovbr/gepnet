@@ -5,30 +5,31 @@ $offset = 60 * 15;
 @header("Cache-Control: max-age=$offset, must-revalidate");
 
 $this->headLink()
-    ->appendStylesheet($this->baseUrl('/css/form.css'))
-    ->appendStylesheet($this->baseUrl('/css/portlet.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
-    ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
+        ->appendStylesheet($this->baseUrl('/css/form.css'))
+        ->appendStylesheet($this->baseUrl('/css/portlet.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/select2-3.4.0/select2.css'))
+        ->appendStylesheet($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/css/ui.jqgrid.css'));
 
 $this->headScript()
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
-        'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
-    ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'))
-    ->appendFile($this->baseUrl('/js/app/diagnostico/diagnostico/clonar-add.js'), 'text/javascript');
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/dist/jquery.validate.min.js'),
+                'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-validation-1.11.0/localization/messages_pt_BR.js'),
+                'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery-ui-1.8.24.custom/development-bundle/ui/i18n/jquery.ui.datepicker-pt-BR.js'),
+                'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.validate.bootstrap.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/select2-3.4.0/select2_locale_pt-BR.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.form.min.js'), 'text/javascript')
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/i18n/grid.locale-pt-br.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/src/jquery.fmatter.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.jqGrid-4.4.4/js/jquery.jqGrid.min.js'))
+        ->appendFile($this->baseUrl('/js/library/jquery.formatCurrency.js'))
+        ->appendFile($this->baseUrl('/js/app/diagnostico/diagnostico/clonar-add.js'), 'text/javascript');
 $frmAttr = $this->form->getAttribs();
 ?>
 <div class="region-center">
-    <div class="portlet portlet-marron">
+    <div class="portlet portlet-marron" style="width: 60%">
         <h3>DIAGNÓSTICO - Clonar</h3>
         <div class="content">
 
@@ -41,7 +42,16 @@ $frmAttr = $this->form->getAttribs();
                 <input type="hidden" name="pessparte" id="pessparte" value="">
                 <input type="hidden" name="idpessoacheckbox" id="idpessoacheckbox"
                        value="<?php echo $this->idpessoacheckbox; ?>">
+                <input type="hidden" name="numeroGerado" id="numeroGerado" value="<?php echo $this->numeroGerado; ?>"/>
                 <div class="row">
+                    <div class="span3">
+                        <div class="control-group">
+                            <label for="dsdiagnosticoanterior" class="control-lable required">Diagn&oacute;stico de
+                                Origem</label>
+                            <input type="text" name="dsdiagnosticoanterior" id="dsdiagnosticoanterior"
+                                   class="span3" disabled value="<?php echo $this->dsdiagnosticoanterior ?>">
+                        </div>
+                    </div>
                     <div class="span3">
                         <?php echo $this->form->dsdiagnostico; ?>
                     </div>
@@ -118,15 +128,16 @@ $frmAttr = $this->form->getAttribs();
                 <div style="color: red; display: none; font-size: 10px;" id="msnchk"></div>
                 <div class="row">
                     <div class="span3">
+                        <?php echo $this->form->iddiagnosticoanterior; ?>
                         <?php echo $this->form->iddiagnostico; ?>
                         <?php echo $this->form->submit; ?>
-                        <?php echo $this->form->reset; ?>
+                        <?php echo $this->form->cancelar; ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-offset-9 col-sm-span1" style="float: right;">
                         (<?php echo "<img src=\"" .
-                            $this->baseUrl('/img/required.gif') . "\" />";
+                                $this->baseUrl('/img/required.gif') . "\" />";
                         ?>)Preenchimento obrigatório
                     </div>
                 </div>

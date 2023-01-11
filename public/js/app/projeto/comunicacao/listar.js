@@ -7,7 +7,7 @@ $(function () {
         gridEnd = null,
         colModel = null,
         colNames = null,
-        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (cige@dpf.gov.br).';
+        msgerror = 'Falha ao enviar a requisição. Atualize o navegador pressionando \"Ctrl + F5\". \nSe o problema persistir, informe o gestor do sistema (--).';
     colNames = ['Data Cadastro', 'Responsável', 'Origem', 'Informado', 'Informa&ccedil;&atilde;o', 'Frequência', 'Trasmissão',
         'Armazenamento', 'Opera&ccedil;&otilde;es'];
     colModel = [{
